@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root version="3.0" release="26" logo="logo.png">
+	<!-- Attributes -->
+	<description>
+		<text>GURPS 4E Core v2</text>
+		<author>Ronnke/Saithan</author>
+		<website>http://www.fantasygrounds.com</website>
+	</description>
+	<importinfo>
+		<acceptfrom ruleset="GURPS_4E_Core" />
+	</importinfo>
+
+	<!-- Layers -->
+	<importruleset source="CoreRPG" />
+	
+	<!-- Strings -->
+	<includefile source="strings/strings_GURPS4e.xml" />
+
+	<!-- Graphics -->
+	<includefile source="graphics/graphics_GURPS4e.xml" />
+
+	<!-- Campaign Records -->
+	<includefile source="campaign/template_char.xml" />
+	
+	<includefile source="campaign/record_char.xml" />
+	<includefile source="campaign/record_char_main.xml" />
+	<includefile source="campaign/record_char_traits.xml" />
+	<includefile source="campaign/record_char_abilities.xml" />
+	<includefile source="campaign/record_char_combat.xml" />
+	<includefile source="campaign/record_char_inventory.xml" />
+	<includefile source="campaign/record_char_notes.xml" />
+
+	<includefile source="campaign/record_char_skills.xml" />
+	<includefile source="campaign/record_char_spells.xml" />
+	<includefile source="campaign/record_char_powers.xml" />
+	<includefile source="campaign/record_char_other.xml" />
+
+	<includefile source="campaign/record_char_meleecombat.xml" />
+	<includefile source="campaign/record_char_rangedcombat.xml" />
+	
+	<includefile source="campaign/record_charnotes.xml" />
+</root>
