@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="charsheet_rangedcombat">
+		<sheetdata>
+
+			<!-- RANGED COMBAT -->
+			<frame_char name="rangedcombatframe">
+				<bounds>15,0,-28,-13</bounds>
+			</frame_char>
+			<label_frametop>
+				<anchored to="rangedcombatframe" />
+				<static textres="char_label_rangedcombat" />
+			</label_frametop>
+			
+		</sheetdata>
+	</windowclass>
+</root>

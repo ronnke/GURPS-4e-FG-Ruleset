@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<template name="button_import">
+		<buttoncontrol>
+			<anchored width="20" height="20" />
+			<icon normal="button_import" pressed="button_import_down" />
+			<tooltip textres="charselect_tooltip_import" />
+			<script>
+				function onButtonPress()
+					if User.isHost() or User.isLocal() then
+						CampaignDataManager.importChar();
+					else
+						window.setMode(true);
+					end
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+
+	<template name="button_modifier">
+		<buttoncontrol>
+			<anchored width="20" height="20" />
+			<icon normal="button_action_modifier" pressed="button_action_modifier_down" />
+		</buttoncontrol>
+	</template>
+
+	<template name="frame_char">
+		<genericcontrol>
+			<frame name="groupbox" />
+		</genericcontrol>
+	</template>
+	<template name="frame_chardetail">
+		<genericcontrol>
+			<frame name="ct_subgroupbox" />
+		</genericcontrol>
+	</template>
+
+	<!-- List Item Sub-sections -->	
+	<template name="frame_detailsub">
+		<genericcontrol>
+			<anchored>
+				<left offset="63" />
+				<top offset="-8" />
+				<right offset="-4" />
+				<bottom offset="8" />
+			</anchored>
+			<frame name="ct_subgroupbox" />
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="icon_detailsection">
+		<genericcontrol>
+			<anchored width="20" height="20">
+				<left offset="43" />
+				<top parent="bottomanchor" anchor="bottom" relation="current" offset="10" />
+			</anchored>
+		</genericcontrol>
+	</template>
+	
+	
+	<template name="string_labeled">
+		<stringfield>
+			<font>sheettext</font>
+			<lineoffset default="on">1</lineoffset>
+			<script>
+				labelwidget = nil;
+			
+				function onInit()
+					if labelres then
+						labelwidget = addTextWidget("sheetlabelinline", string.upper(Interface.getString(labelres[1])));
+					else
+						labelwidget = addTextWidget("sheetlabelinline", string.upper(label[1]));
+					end
+					if labelwidget then
+						local w,h = labelwidget.getSize();
+						labelwidget.setPosition("bottomleft", w/2, h/2-4);
+					end
+				end
+			</script>
+		</stringfield>
+	</template>
+
+	<template name="button_charactivate">
+		<buttoncontrol>
+			<icon normal="button_speak" pressed="button_speak_down" />
+			<script>
+				function onButtonPress()
+					if User.isHost() then
+						GmIdentityManager.addIdentity(window.name.getValue());
+					else
+						local nodeWin = window.getDatabaseNode();
+						if nodeWin then
+							local identityname = nodeWin.getName();
+
+							User.setCurrentIdentity(identityname);
+
+							if CampaignRegistry and CampaignRegistry.colortables and CampaignRegistry.colortables[identityname] then
+								local colortable = CampaignRegistry.colortables[identityname];
+								User.setCurrentIdentityColors(colortable.color or "000000", colortable.blacktext or false);
+							end
+						end
+					end
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="portrait_charlocal">
+		<portraitselectioncontrol>
+			<base>portraittoken_base</base>
+			<mask>portraittoken_mask</mask>
+			<script>
+				function onInit()
+					local sPortrait = User.getLocalIdentityPortrait(window.getDatabaseNode());
+					if sPortrait then
+						setFile(sPortrait);
+					end
+				end
+				
+				function onDrop(x, y, draginfo)
+					if draginfo.isType("portraitselection") then
+						CampaignDataManager.setCharPortrait(window.getDatabaseNode(), draginfo.getStringData());
+						return true;
+					end
+				end
+				
+				function onClickDown(button, x, y)
+					return true;
+				end
+				
+				function onClickRelease(button, x, y)
+					local nodeChar = window.getDatabaseNode();
+					if nodeChar then
+						local wnd = Interface.openWindow("portraitselection", "");
+						if wnd then
+							wnd.SetLocalNode(nodeChar);
+						end
+					end
+				end
+			</script>
+		</portraitselectioncontrol>
+	</template>
+	<template name="portrait_char">
+		<genericcontrol>
+			<tooltip textres="char_tooltip_portrait" />
+			<script>
+				function onInit()
+					local nodeChar = window.getDatabaseNode();
+					if nodeChar then
+						local nodeCharName = nodeChar.getName();
+						if nodeCharName then
+							setIcon("portrait_" .. nodeCharName .. "_charlist", true);
+						end
+					end
+				end
+				
+				function onDrop(x, y, draginfo)
+					if draginfo.isType("portraitselection") then
+						CampaignDataManager.setCharPortrait(window.getDatabaseNode(), draginfo.getStringData());
+						return true;
+					end
+				end
+				
+				function onClickDown(button, x, y)
+					return true;
+				end
+				
+				function onClickRelease(button, x, y)
+					local nodeChar = window.getDatabaseNode();
+					if nodeChar then
+						local wnd = Interface.openWindow("portraitselection", "");
+						if wnd then
+							wnd.SetLocalNode(nodeChar);
+						end
+					end
+				end
+			</script>
+		</genericcontrol>
+	</template>
+
+	<template name="list_charadperk">
+		<list_text>
+			<datasource>.charadslist</datasource>
+			<class>char_trait</class>
+			<sortby><control>name</control></sortby>
+			<newfocus>name</newfocus>
+		</list_text>
+	</template>
+
+	<template name="list_chardisadquirk">
+		<list_text>
+			<datasource>.chardisadslist</datasource>
+			<class>char_trait</class>
+			<sortby><control>name</control></sortby>
+			<newfocus>name</newfocus>
+		</list_text>
+	</template>
+
+	<template name="list_charskill">
+		<list_text>
+			<datasource>.charskilllist</datasource>
+			<class>char_skill</class>
+			<sortby><control>name</control></sortby>
+			<newfocus>name</newfocus>
+		</list_text>
+	</template>
+
+	<template name="list_charspell">
+		<list_text>
+			<datasource>.charspelllist</datasource>
+			<class>char_spell</class>
+			<sortby><control>name</control></sortby>
+			<newfocus>name</newfocus>
+		</list_text>
+	</template>
+
+	<template name="list_charpower">
+		<list_text>
+			<datasource>.charpowerlist</datasource>
+			<class>char_power</class>
+			<sortby><control>name</control></sortby>
+			<newfocus>name</newfocus>
+		</list_text>
+	</template>
+
+	<template name="list_charother">
+		<list_text>
+			<datasource>.charotherlist</datasource>
+			<class>char_other</class>
+			<sortby><control>name</control></sortby>
+			<newfocus>name</newfocus>
+		</list_text>
+	</template>
+
+	<template name="list_charnote">
+		<list_text>
+			<datasource>.charnotelist</datasource>
+			<class>char_note</class>
+			<sortby><control>name</control></sortby>
+			<newfocus>name</newfocus>
+		</list_text>
+	</template>
+
+	<template name="list_charmeleecombat">
+		<list_text>
+			<datasource>.charmeleecombatlist</datasource>
+			<class>char_meleecombat</class>
+			<sortby><control>name</control></sortby>
+			<newfocus>name</newfocus>
+		</list_text>
+	</template>
+
+	<template name="list_charrangedcombat">
+		<list_text>
+			<datasource>.charrangedcombatlist</datasource>
+			<class>char_rangedcombat</class>
+			<sortby><control>name</control></sortby>
+			<newfocus>name</newfocus>
+		</list_text>
+	</template>
+
+	<template name="list_charweaponmodifier">
+		<list_text>
+			<datasource>.charweaponmodifierlist</datasource>
+			<class>char_weaponmodifier</class>
+			<sortby><control>name</control></sortby>
+			<newfocus>name</newfocus>
+		</list_text>
+	</template>
+
+	<template name="list_charmeleemode">
+		<list_text>
+			<datasource>.charmeleemodelist</datasource>
+			<class>char_meleemode</class>
+			<sortby><control>name</control></sortby>
+			<newfocus>name</newfocus>
+		</list_text>
+	</template>
+
+	<template name="list_charrangedmode">
+		<list_text>
+			<datasource>.charrangedmodelist</datasource>
+			<class>char_rangemode</class>
+			<sortby><control>name</control></sortby>
+			<newfocus>name</newfocus>
+		</list_text>
+	</template>
+
+	<template name="tabs_charabilities">
+		<buttongroup_tabs name="tabs">
+			<anchored width="18" height="92">
+				<top offset="50" />
+				<right offset="-31" />
+			</anchored>
+		</buttongroup_tabs>
+	</template>
+
+	<template name="tabs_charcombat">
+		<buttongroup_tabs name="tabs">
+			<anchored width="18" height="92">
+				<top offset="150" />
+				<right offset="-31" />
+			</anchored>
+		</buttongroup_tabs>
+	</template>
+
+	<template name="string_charfield">
+		<basicstring>
+			<nodrag />
+			<center />
+		</basicstring>
+	</template>
+
+	<template name="number_charskillfield_static">
+		<simplenumber>
+			<frame name="fieldlight" offset="7,5,7,5" />
+			<readonly />
+			<hideonvalue>0</hideonvalue>
+			<nodrag />
+		</simplenumber>
+	</template>
+	
+	<template name="number_charskilltotal">
+		<number_linked>
+			<frame name="fieldlight" offset="7,5,7,5" />
+			<rollable />
+			<hideonvalue>0</hideonvalue>
+			<script>
+				function action(draginfo)
+					local nodeWin = window.getDatabaseNode();
+					if nodeWin then
+						local rActor = ActorManager.getActor("pc", nodeWin.getChild("..."));
+						local sLabel = DB.getValue(nodeWin, "label", "");
+						local sStat = DB.getValue(nodeWin, "statname", "");
+						ActionSkill.performRoll(draginfo, rActor, sLabel, getValue(), sStat);
+					end
+	
+					return true;
+				end
+				
+				function onDragStart(button, x, y, draginfo)
+					return action(draginfo);
+				end
+
+				function onDoubleClick(x,y)	
+					return action();
+				end
+			</script>
+		</number_linked>
+	</template>
+
+	<template name="string_charadname">
+		<string_textlistitem>
+			<nodrag />
+		</string_textlistitem>
+	</template>
+	<template name="string_charadpts">
+		<string_textlistitem>
+			<nodrag />
+		</string_textlistitem>
+	</template>
+
+	<template name="number_charstatfield">
+		<basicnumber>
+			<font>sheetnumberlarge</font>
+			<nodrag />
+		</basicnumber>
+	</template>
+
+	<template name="number_charrollstatfield">
+		<basicnumber>
+			<font>sheetnumberlarge</font>
+			<rollable />
+		</basicnumber>
+	</template>
+	
+	<template name="number_charpointfield">
+		<basicnumber>
+			<hideonvalue>0</hideonvalue>
+			<nodrag />
+		</basicnumber>
+	</template>
+
+	<template name="number_charlevelfield">
+		<basicnumber>
+			<hideonvalue>0</hideonvalue>
+			<rollable />
+		</basicnumber>
+	</template>
+
+	<template name="number_chardefensefield">
+		<basicnumber>
+			<hideonvalue>0</hideonvalue>
+			<rollable />
+		</basicnumber>
+	</template>
+
+	<template name="string_chardamagefield">
+		<basicstring>
+			<rollable />
+			<center />
+		</basicstring>
+	</template>
+
+	<template name="number_charmodfield">
+		<basicnumber>
+			<hideonvalue>0</hideonvalue>
+			<displaysign />
+			<nodrag />
+		</basicnumber>
+	</template>
+
+
+	<template name="number_charinv">
+		<basicnumber>
+			<nodrag />
+			<hideonvalue>0</hideonvalue>
+			<min>0</min>
+		</basicnumber>
+	</template>
+	<template name="string_charinvname">
+		<string_textlistitem>
+			<script file="campaign/scripts/char_invname.lua" />
+		</string_textlistitem>
+	</template>
+	<template name="string_charinvloc">
+		<string_textlistitem>
+			<nodelete />
+			<script file="campaign/scripts/char_invloc.lua" />
+		</string_textlistitem>
+	</template>
+	<template name="list_charinv">
+		<windowlist>
+			<datasource>.inventorylist</datasource>
+			<class>char_invitem</class>
+			<allowdelete />
+			<script file="campaign/scripts/char_invlist.lua" />
+		</windowlist>
+	</template>
+
+	<template name="button_toggledetail">
+		<buttoncontrol>
+			<anchored width="20" height="20" />
+			<state icon="details" />
+			<state icon="details_down" />
+			<script>
+				function onValueChanged()
+					if window.toggleDetail then
+						window.toggleDetail();
+					end
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+
+	<template name="button_toggleweaponmodes">
+		<buttoncontrol>
+			<anchored width="20" height="20" />
+			<state icon="weapon_modes" />
+			<state icon="weapon_modes_down" />
+			<script>
+				function onValueChanged()
+					if window.toggleWeaponModes then
+						window.toggleWeaponModes();
+					end
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+
+	<template name="button_toggleweaponmodifiers">
+		<buttoncontrol>
+			<anchored width="20" height="20" />
+			<state icon="weapon_modifiers" />
+			<state icon="weapon_modifiers_down" />
+			<script>
+				function onValueChanged()
+					if window.toggleWeaponModifiers then
+						window.toggleWeaponModifiers();
+					end
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+
+	<template name="label_columntop">
+		<stringcontrol>
+			<font>sheetlabelmini</font>
+			<center />
+		</stringcontrol>
+	</template>
+
+	<template name="number_attribute">
+		<basicnumber>
+			<anchored>
+				<position>belowleft</position>
+				<offset>0,7</offset>
+				<size>
+					<width>35</width>
+					<height>25</height>
+				</size>
+			</anchored>
+			<font>sheetnumberlarge</font>
+			<nodrag />
+		</basicnumber>
+	</template>
+
+	<template name="number_rollableattribute">
+		<basicnumber>
+			<anchored>
+				<position>belowleft</position>
+				<offset>0,7</offset>
+				<size>
+					<width>35</width>
+					<height>25</height>
+				</size>
+			</anchored>
+			<font>sheetnumberlarge</font>
+			<rollable />
+		</basicnumber>
+	</template>
+	
+	<template name="number_attributecost">
+	  <numberfield>
+	    <anchored>
+	      <position>rightlow</position>
+	      <offset>5,0</offset>
+	      <size>
+	        <width>25</width>
+	        <height>25</height>
+	      </size>
+	    </anchored>
+		<font>sheetlabelmini</font>
+	    <center />
+	  </numberfield>
+	</template>
+	
+	<template name="label_attribute">
+		<stringcontrol>
+			<anchored>
+				<position>lefthigh</position>
+				<offset>0,0</offset>
+				<size>
+					<width>35</width>
+					<height>25</height>
+				</size>
+			</anchored>
+			<font>sheetlabel</font>
+		</stringcontrol>
+	</template>
+	
+	<template name="list_language">
+		<list_text>
+			<datasource>.languagelist</datasource>
+			<class>char_language</class>
+			<sortby><control>name</control></sortby>
+			<newfocus>name</newfocus>
+			<allowcreate />
+			<allowdelete />
+			<script>
+				function onDrop(x, y, draginfo)
+					if draginfo.getType() == "string" then
+						local w = addEntry(true);
+						w.name.setValue(draginfo.getStringData());
+						return true;
+					end
+				end
+			</script>
+		</list_text>
+	</template>
+</root>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="charsheet_combat">
+		<sheetdata>
+		
+			<!-- CURRENT STATS -->
+			<frame_char name="currentattributesframe">
+				<bounds>15,0,210,100</bounds>
+			</frame_char>
+			<label_frametop>
+				<anchored to="currentattributesframe" />
+				<static textres="char_label_currentattributes" />
+			</label_frametop>
+
+			<number_charstatfield name="current_hps" source="stats.current_hps">
+			  <anchored to="currentattributesframe" position="insidetopleft" offset="25,45" width="40" height="30" />
+			</number_charstatfield>
+			<label_fieldtop name="currenthps_label">
+				<anchored to="current_hps" />
+				<static textres="char_label_hps" />
+			</label_fieldtop>
+
+			<number_charstatfield name="current_fps" source="stats.current_fps">
+			  <anchored to="current_hps" position='right' offset="20,0" width="40" />
+			</number_charstatfield>
+			<label_fieldtop name="currentfps_label">
+				<anchored to="current_fps" />
+				<static textres="char_label_fps" />
+			</label_fieldtop>
+
+			<number_charstatfield name="current_move" source="stats.current_move">
+			  <anchored to="current_fps" position='right' offset="20,0" width="40" />
+			</number_charstatfield>
+			<label_fieldtop name="currentmove_label">
+				<anchored to="current_move" />
+				<static textres="char_label_move" />
+			</label_fieldtop>
+
+			
+			<!-- DEFENSES -->
+			<frame_char name="defensesframe">
+				<bounds>225,0,-29,100</bounds>
+			</frame_char>
+			<label_frametop>
+				<anchored to="defensesframe" />
+				<static textres="char_label_defenses" />
+			</label_frametop>
+
+			<number_charrollstatfield name="dodge" source="stats.dodge">
+				<anchored to="defensesframe" position="insidetopleft" offset="25,45" width="40" height="30" />
+				<script>
+					function action(draginfo)
+						local rActor = ActorManager.getActor("pc", window.getDatabaseNode());
+						local sDesc = "[DEFENSE] Dodge";
+			
+						local rRoll = { sType = "dice", sDesc = sDesc, aDice = { "d6","d6","d6" }, nMod = 0 };
+						ActionsManager.performAction(draginfo, rActor, rRoll);
+					end
+					
+					function onDoubleClick(x, y)
+						action();
+						return true;
+					end
+
+					function onDragStart(button, x, y, draginfo)
+						action(draginfo);
+						return true;
+					end
+				</script>
+			</number_charrollstatfield>
+			<label_fieldtop name="dodge_label">
+				<anchored to="dodge" />
+				<static textres="char_label_dodge" />
+			</label_fieldtop>
+
+			<number_charrollstatfield name="parry" source="stats.parry">
+				<anchored to="dodge" position="right" offset="20,0" width="40" />
+				<script>
+					function action(draginfo)
+						local rActor = ActorManager.getActor("pc", window.getDatabaseNode());
+						local sDesc = "[DEFENSE] Parry";
+			
+						local rRoll = { sType = "dice", sDesc = sDesc, aDice = { "d6","d6","d6" }, nMod = 0 };
+						ActionsManager.performAction(draginfo, rActor, rRoll);
+					end
+					
+					function onDoubleClick(x, y)
+						action();
+						return true;
+					end
+
+					function onDragStart(button, x, y, draginfo)
+						action(draginfo);
+						return true;
+					end
+				</script>
+			</number_charrollstatfield>
+			<label_fieldtop name="parry_label">
+				<anchored to="parry" />
+				<static textres="char_label_parry" />
+			</label_fieldtop>
+
+			<number_charrollstatfield name="block" source="stats.block">
+				<anchored to="parry" position="right" offset="20,0" width="40" />
+				<script>
+					function action(draginfo)
+						local rActor = ActorManager.getActor("pc", window.getDatabaseNode());
+						local sDesc = "[DEFENSE] Block";
+			
+						local rRoll = { sType = "dice", sDesc = sDesc, aDice = { "d6","d6","d6" }, nMod = 0 };
+						ActionsManager.performAction(draginfo, rActor, rRoll);
+					end
+					
+					function onDoubleClick(x, y)
+						action();
+						return true;
+					end
+
+					function onDragStart(button, x, y, draginfo)
+						action(draginfo);
+						return true;
+					end
+				</script>
+			</number_charrollstatfield>
+			<label_fieldtop name="block_label">
+				<anchored to="block" />
+				<static textres="char_label_block" />
+			</label_fieldtop>
+
+			<number_charstatfield name="dr" source="stats.dr">
+			  <anchored to="block" position="right" offset="20,0" width="40" />
+			</number_charstatfield>
+			<label_fieldtop name="dr_label">
+				<anchored to="dr" />
+				<static textres="char_label_dr" />
+			</label_fieldtop>
+
+
+			<subwindow name="meleecombat">
+				<bounds>0,100,-1,-1</bounds>
+				<class>charsheet_meleecombat</class>
+			</subwindow>
+
+			<subwindow name="rangedcombat">
+				<bounds>0,100,-1,-1</bounds>
+				<class>charsheet_rangedcombat</class>
+			</subwindow>
+
+			<tabs_charcombat>
+				<tab>
+					<icon>tab_meleecombat</icon>
+					<subwindow>meleecombat</subwindow>
+				</tab>
+				<tab>
+					<icon>tab_rangedcombat</icon>
+					<subwindow>rangedcombat</subwindow>
+				</tab>
+				<activate>1</activate>
+			</tabs_charcombat>
+		</sheetdata>
+	</windowclass>
+
+</root>

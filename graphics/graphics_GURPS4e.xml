@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<!-- Buttons -->
+	<icon name="details" file="graphics/icons/details.png" />
+	<icon name="details_down" file="graphics/icons/details_down.png" />
+
+	<icon name="weapon_modes" file="graphics/icons/weapon_modes.png" />
+	<icon name="weapon_modes_down" file="graphics/icons/weapon_modes_down.png" />
+
+	<icon name="modifiers" file="graphics/icons/modifiers.png" />
+	<icon name="modifiers_down" file="graphics/icons/modifiers_down.png" />
+
+
+	<!-- Tab controls -->
+	<icon name="tab_traits" file="graphics/tabs/tab_traits.png" />
+	
+	<icon name="tab_meleecombat" file="graphics/tabs/tab_melee.png" />
+	<icon name="tab_rangedcombat" file="graphics/tabs/tab_ranged.png" />
+	
+	<!-- Fonts -->
+	<font name="sheetnumberlarge">
+		<fgffile name="graphics/fonts/sheetnumber.fgf" />
+		<color value="#000000" />
+	</font>
+	
+</root>

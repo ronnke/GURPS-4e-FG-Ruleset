@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="charsheet_inventory">
+		<sheetdata>
+			<frame_char name="inventoryframe">
+				<bounds>15,0,-29,-219</bounds>
+			</frame_char>
+			
+			<label name="count_label">
+				<anchored to="inventoryframe" position="insidetopleft" offset="20,10" width="20" />
+				<center />
+				<static>#</static>
+			</label>
+			<genericcontrol name="rightanchor">
+				<anchored to="inventoryframe" width="0" height="0">
+					<top offset="10" />
+					<right offset="-20" />
+				</anchored>
+				<invisible />
+			</genericcontrol>
+			<genericcontrol name="idelete_header">
+				<anchored to="rightanchor" width="20" height="20">
+					<top />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<disabled />
+			</genericcontrol>
+			<genericcontrol name="shortcut_header">
+				<anchored to="rightanchor" width="20" height="20">
+					<top />
+					<right anchor="left" relation="relative" offset="-2" />
+				</anchored>
+				<disabled />
+			</genericcontrol>
+			<genericcontrol name="carried_header">
+				<anchored to="rightanchor" width="12" height="10">
+					<top offset="5" />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<icon>char_encumbrance</icon>
+				<tooltip textres="char_tooltip_itemcarried" />
+			</genericcontrol>
+			<label name="weight_label">
+				<anchored to="rightanchor" width="30">
+					<top />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<center />
+				<static textres="char_label_itemweight" />
+				<tooltip textres="char_tooltip_itemweight" />
+			</label>
+			<label name="location_label">
+				<anchored to="rightanchor" width="80">
+					<top />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<center />
+				<static textres="char_label_itemlocation" />
+			</label>
+			<label name="name_label">
+				<anchored to="rightanchor">
+					<top />
+					<left parent="inventoryframe" offset="55" />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<static textres="char_label_itemname" />
+				<center />
+			</label>
+
+			<list_charinv name="inventorylist">
+				<anchored to="inventoryframe">
+					<top offset="40" />
+					<left offset="15" />
+					<right offset="-20" />
+					<bottom offset="-15" />
+				</anchored>
+			</list_charinv>
+			<scrollbar>
+				<anchored to="inventorylist" />
+				<target>inventorylist</target>
+			</scrollbar>
+
+			<button_iedit name="inventorylist_iedit">
+				<anchored to="inventorylist" position="aboveright" offset="5,10" />
+				<target>inventorylist</target>
+			</button_iedit>
+			<button_iadd name="inventorylist_iadd">
+				<anchored to="inventorylist_iedit" position="lefthigh" offset="5,0" />
+				<target>inventorylist</target>
+			</button_iadd>
+			
+			<frame_char name="encumbranceframe">
+				<bounds>15,-219,240,-14</bounds>
+			</frame_char>
+			<simplenumber name="encumbranceload" source="encumbrance.load">
+				<anchored to="encumbranceframe" position="insidetopleft" offset="160,30" width="55" height="20" />
+				<frame name="fieldlight" offset="7,5,7,5" />
+				<readonly />
+			</simplenumber>
+			<label name="encumbrance_label">
+				<anchored to="encumbranceframe" position="insidetopleft" offset="15,30" />
+				<static textres="char_label_totalweight" />
+			</label>
+
+			<frame_char name="coinframe">
+				<bounds>255,-219,-29,-14</bounds>
+			</frame_char>
+			<label_frametop name="coin_label">
+				<anchored to="coinframe" />
+				<static textres="char_label_money" />
+			</label_frametop>
+			<number_dropadd name="coinamount1" source="coins.slot1.amount">
+				<anchored to="coinframe" position="insidetopleft" offset="20,30" width="40" height="20" />
+			</number_dropadd>
+			<stringu name="coinname1" source="coins.slot1.name">
+				<anchored to="coinframe" position="insidetopleft" offset="70,30" width="60" height="20" />
+			</stringu>
+			<number_dropadd name="coinamount2" source="coins.slot2.amount">
+				<anchored to="coinamount1" position="below" offset="0,6" height="20" />
+			</number_dropadd>
+			<stringu name="coinname2" source="coins.slot2.name">
+				<anchored to="coinname1" position="below" offset="0,6" height="20" />
+			</stringu>
+			<number_dropadd name="coinamount3" source="coins.slot3.amount">
+				<anchored to="coinamount2" position="below" offset="0,6" height="20" />
+			</number_dropadd>
+			<stringu name="coinname3" source="coins.slot3.name">
+				<anchored to="coinname2" position="below" offset="0,6" height="20" />
+			</stringu>
+			<number_dropadd name="coinamount4" source="coins.slot4.amount">
+				<anchored to="coinamount3" position="below" offset="0,6" height="20" />
+			</number_dropadd>
+			<stringu name="coinname4" source="coins.slot4.name">
+				<anchored to="coinname3" position="below" offset="0,6" height="20" />
+			</stringu>
+			<number_dropadd name="coinamount5" source="coins.slot5.amount">
+				<anchored to="coinamount4" position="below" offset="0,6" height="20" />
+			</number_dropadd>
+			<stringu name="coinname5" source="coins.slot5.name">
+				<anchored to="coinname4" position="below" offset="0,6" height="20" />
+			</stringu>
+			<number_dropadd name="coinamount6" source="coins.slot6.amount">
+				<anchored to="coinamount5" position="below" offset="0,6" height="20" />
+			</number_dropadd>
+			<stringu name="coinname6" source="coins.slot6.name">
+				<anchored to="coinname5" position="below" offset="0,6" height="20" />
+			</stringu>
+			<basicstring name="coinother">
+				<anchored>
+					<left parent="coinname1" anchor="right" offset="10" />
+					<right parent="coinframe" offset="-15" />
+					<top parent="coinamount1" />
+					<bottom parent="coinamount6" />
+				</anchored>
+				<multilinespacing>20</multilinespacing>
+			</basicstring>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="char_invitem">
+		<margins control="0,0,0,2" />
+		<script>
+			function onInit()
+				onIDChanged();
+				getDatabaseNode().onDelete = onDelete;
+			end
+
+			function onIDChanged()
+				local bID = ItemManager.getIDState(getDatabaseNode());
+				name.setVisible(bID);
+				nonid_name.setVisible(not bID);
+			end
+
+			function onDelete(node)
+				ItemManager.onCharRemoveEvent(node);
+			end
+		</script>
+		<sheetdata>
+			<hn name="isidentified">
+				<script>
+					function onValueChanged()
+						window.onIDChanged();
+					end
+				</script>
+			</hn>
+
+			<number_charinv name="count">
+				<bounds>5,2,20,20</bounds>
+				<tabtarget next="name" />
+				<default>1</default>
+			</number_charinv>
+
+			<genericcontrol name="rightanchor">
+				<anchored width="0" height="0">
+					<top />
+					<right />
+				</anchored>
+				<invisible />
+			</genericcontrol>
+			<button_idelete name="idelete">
+				<anchored width="20" height="20">
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</button_idelete>
+			<linkcontrol name="shortcut">
+				<anchored width="20" height="20">
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-2" />
+				</anchored>
+				<class>item</class>
+				<readonly />
+			</linkcontrol>
+			<button_checkbox name="carried">
+				<anchored width="12" height="12">
+					<top offset="6" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<default>1</default>
+			</button_checkbox>
+			<number_charinv name="weight">
+				<anchored width="30" height="20">
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<delaykeyupdate />
+				<tabtarget prev="location" />
+			</number_charinv>
+			<string_charinvloc name="location">
+				<anchored width="80" height="20">
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget next="weight" prev="nonid_name" />
+			</string_charinvloc>
+
+			<string_charinvname name="name">
+				<anchored position="insidetopleft" offset="35,2" height="20">
+					<right parent="rightanchor" anchor="left" relation="current" offset="-5" />
+				</anchored>
+				<tabtarget next="nonid_name" prev="count" />
+			</string_charinvname>
+			<string_charinvname name="nonid_name">
+				<anchored position="insidetopleft" offset="35,2" height="20">
+					<right parent="rightanchor" anchor="left" relation="current" offset="-5" />
+				</anchored>
+				<empty textres="item_unidentified" />
+				<invisible />
+				<tabtarget next="location" prev="name" />
+			</string_charinvname>
+		</sheetdata>
+	</windowclass>
+</root>

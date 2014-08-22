@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="charsheet_other">
+		<sheetdata>
+		
+			<frame_char name="otherframe">
+				<bounds>15,0,-28,-13</bounds>
+			</frame_char>
+			<label_frametop>
+				<anchored to="otherframe" />
+				<static textres="char_label_other" />
+			</label_frametop>
+			
+			<genericcontrol name="rightanchor">
+				<anchored to="otherframe" width="0" height="0">
+					<top offset="35" />
+					<right />
+				</anchored>
+				<invisible />
+			</genericcontrol>
+			<genericcontrol name="idelete_header">
+				<anchored to="rightanchor" width="20" height="20">
+					<top />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<disabled />
+			</genericcontrol>
+			
+			<label_columntop name="points_label">
+				<anchored to="rightanchor" width="25">
+					<top />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_points" />
+			</label_columntop>
+			<label_columntop name="level_label">
+				<anchored to="rightanchor" width="20">
+					<top />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_level" />
+			</label_columntop>
+			<genericcontrol name="shortcut_header">
+				<anchored to="rightanchor" width="20" height="20">
+					<top />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<disabled />
+			</genericcontrol>
+			<label_columntop name="name_label">
+				<anchored to="rightanchor">
+					<top />
+					<left parent="otherframe" offset="15" />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<static textres="char_label_name" />
+			</label_columntop>
+			
+			<list_charother name="otherlist">
+				<anchored to="otherframe">
+					<left offset="15" />
+					<top offset="50" />
+					<right offset="-25" />
+					<bottom offset="-20" />
+				</anchored>
+			</list_charother>
+			<scrollbar_list>
+				<anchored to="otherlist" />
+				<target>otherlist</target>
+			</scrollbar_list>
+
+			<button_iedit name="otherlist_iedit">
+				<anchored to="otherlist" position="aboveright" offset="5,20" />
+				<target>otherlist</target>
+			</button_iedit>
+			<button_iadd name="otherlist_iadd">
+				<anchored to="otherlist_iedit" position="lefthigh" offset="5,0" />
+				<target>otherlist</target>
+			</button_iadd>
+
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="char_other">
+		<margins control="0,0,0,2" />
+		<script>
+			function onInit()
+				setModifiersVisible();
+			end
+			
+			function setModifiersVisible()
+				local v = false;
+				if activatemodifiers.getValue() == 1 then
+					v = true;
+				end
+				
+				modifiersicon.setVisible(v);
+				modifiers_label.setVisible(v);
+				modifierslist.setVisible(v);
+				modifierslist_iedit.setVisible(v);
+				modifierslist_iadd.setVisible(v);
+				frame_modifiers.setVisible(v);
+
+				if modifierslist_iedit.getValue() == 0 then
+					modifierslist_iadd.setVisible(false);
+				end
+			end
+		</script>
+		<sheetdata>
+		
+			<button_roll>
+				<anchored>
+					<top offset="2" />
+					<left offset="5" />
+				</anchored>
+				<script>
+					function action(draginfo)
+						local rActor = ActorManager.getActor("pc", window.windowlist.window.getDatabaseNode());
+						local sDesc = "[OTHER] " .. window.name.getValue();
+
+						local rRoll = { sType = "dice", sDesc = sDesc, aDice = { "d6","d6","d6" }, nMod = 0 };
+						ActionsManager.performAction(draginfo, rActor, rRoll);
+					end
+
+					function onButtonPress(x, y)
+						action();
+						return true;
+					end
+
+					function onDragStart(button, x, y, draginfo)
+						action(draginfo);
+						return true;
+					end
+				</script>
+			</button_roll>
+		
+			<genericcontrol name="rightanchor">
+				<anchored height="0" width="0">
+					<top />
+					<right />
+				</anchored>
+			</genericcontrol>
+			<genericcontrol name="bottomanchor">
+				<anchored height="0" width="0">
+					<top offset="20" />
+					<right />
+				</anchored>
+				<invisible />
+			</genericcontrol>
+			<button_idelete name="idelete">
+				<anchored to="rightanchor" >
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</button_idelete>
+			
+			<number_charpointfield name="points">
+				<anchored to="rightanchor" width="25" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget prev="level" />
+			</number_charpointfield>
+			<number_charlevelfield name="level">
+				<anchored to="rightanchor" width="20" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget next="points" prev="name" />
+				<script>
+					function action(draginfo)
+						local rActor = ActorManager.getActor("pc", window.windowlist.window.getDatabaseNode());
+						local sDesc = "[OTHER] " .. window.name.getValue();
+
+						local rRoll = { sType = "dice", sDesc = sDesc, aDice = { "d6","d6","d6" }, nMod = 0 };
+						ActionsManager.performAction(draginfo, rActor, rRoll);
+					end
+
+					function onDoubleClick(x, y)
+						action();
+						return true;
+					end
+
+					function onDragStart(button, x, y, draginfo)
+						action(draginfo);
+						return true;
+					end
+				</script>
+			</number_charlevelfield>
+			<buttoncontrol name="activatemodifiers">
+				<anchored to="rightanchor" width="20" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<state icon="modifiers" tooltipres="char_tooltip_skillmodifiers" />
+				<state icon="modifiers_down" />
+				<script>
+					function onValueChanged()
+						window.setModifiersVisible();
+					end
+				</script>
+			</buttoncontrol>
+			<linkcontrol name="shortcut">
+				<anchored to="rightanchor" width="20" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<class>charnote</class>
+				<readonly />
+			</linkcontrol>
+			<string_textlistitem name="name">
+				<anchored height="20">
+					<top offset="2" />
+					<left offset="30" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<nodrag />
+				<tabtarget next="level" />
+			</string_textlistitem>
+
+
+			<!-- OTHER MODIFIERS SECTION --> 			
+			<icon_detailsection name="modifiersicon">
+				<icon>modifiers_down</icon>
+			</icon_detailsection>
+
+			<label_columntop name="modifiers_label">
+				<anchored to="modifiersicon">
+					<top />
+					<left anchor="right" offset="10" />
+					<right parent="bottomanchor" anchor="left" offset="-10" />
+				</anchored>
+				<static textres="char_label_modifier" />
+			</label_columntop>
+
+			<list_charweaponmodifier name="modifierslist">
+				<anchored to="modifiers_label">
+					<top anchor="bottom" relation="relative" />
+					<left parent="modifiersicon" anchor="right" offset="10" />
+					<right parent="bottomanchor" anchor="left" offset="-10" />
+				</anchored>
+				<class>char_modifier</class>
+				<noscroll />
+			</list_charweaponmodifier>
+ 
+  			<button_iedit name="modifierslist_iedit">
+				<anchored to="modifierslist" position="belowright" offset="5,2" />
+				<target>modifierslist</target>
+			</button_iedit>
+			<button_iadd name="modifierslist_iadd">
+				<anchored to="modifierslist_iedit" position="lefthigh" offset="5,0" />
+				<target>modifierslist</target>
+				<invisible />
+			</button_iadd>
+
+			<frame_detailsub name="frame_modifiers">
+				<anchored to="bottomanchor">
+					<top anchor="bottom" relation="relative" offset="5" />
+					<right parent="modifierslist" anchor="right" offset="10" />
+					<left parent="modifierslist" anchor="left" offset="-10" />
+					<bottom parent="modifierslist_iedit" />
+				</anchored>
+			</frame_detailsub>
+			
+		</sheetdata>
+	</windowclass>
+</root>

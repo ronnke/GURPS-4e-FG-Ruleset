@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="charsheet_notes">
+		<sheetdata>
+
+			<!-- NOTES -->			
+			<frame_char name="notesframe">
+				<bounds>15,0,320,190</bounds>
+			</frame_char>
+			<label_frametop>
+				<anchored to="notesframe" />
+				<static textres="char_label_notes" />
+			</label_frametop>
+			
+			<genericcontrol name="rightanchor">
+				<anchored to="notesframe" width="0" height="0">
+					<top offset="35" />
+					<right />
+				</anchored>
+				<invisible />
+			</genericcontrol>
+			<genericcontrol name="idelete_header">
+				<anchored to="rightanchor" width="20" height="20">
+					<top />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<disabled />
+			</genericcontrol>
+			
+			<list_charnote name="noteslist">
+				<anchored to="notesframe">
+					<left offset="15" />
+					<top offset="40" />
+					<right offset="-15" />
+					<bottom offset="-20" />
+				</anchored>
+			</list_charnote>
+			<scrollbar_list>
+				<anchored to="noteslist" />
+				<target>noteslist</target>
+			</scrollbar_list>
+
+			<button_iedit name="noteslist_iedit">
+				<anchored to="noteslist" position="aboveright" offset="5,10" />
+				<target>noteslist</target>
+			</button_iedit>
+			<button_iadd name="noteslist_iadd">
+				<anchored to="noteslist_iedit" position="lefthigh" offset="5,0" />
+				<target>noteslist</target>
+			</button_iadd>
+
+			<!-- POINT SUMMARY -->			
+			<frame_char name="summaryframe">
+				<bounds>335,0,-29,190</bounds>
+			</frame_char>
+			<label_frametop>
+				<anchored to="summaryframe" />
+				<static textres="char_label_summary" />
+			</label_frametop>
+
+			<frame_char name="descriptionframe">
+				<bounds>15,190,-29,-14</bounds>
+			</frame_char>
+			<label_frametop>
+				<anchored to="descriptionframe" />
+				<static textres="char_label_description" />
+			</label_frametop>
+			<stringu name="description">
+				<anchored to="descriptionframe">
+					<top offset="30" />
+					<left offset="15" />
+					<right offset="-20" />
+					<bottom offset="-15" />
+				</anchored>
+				<multilinespacing>20</multilinespacing>
+			</stringu>
+			<scrollbar_list>
+				<anchored to="description" />
+				<target>description</target>
+			</scrollbar_list>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="char_note">
+		<margins control="0,0,0,2" />
+		<sheetdata>
+		
+			<genericcontrol name="rightanchor">
+				<anchored height="0" width="0">
+					<top />
+					<right />
+				</anchored>
+			</genericcontrol>
+			<button_idelete name="idelete">
+				<anchored>
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</button_idelete>
+			
+			<linkcontrol name="shortcut">
+				<anchored to="rightanchor" width="20" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<class>charnote</class>
+				<readonly />
+			</linkcontrol>
+			<string_textlistitem name="name">
+				<anchored height="20">
+					<top offset="2" />
+					<left offset="5" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<tabtarget next="level" />
+			</string_textlistitem>
+			
+		</sheetdata>
+	</windowclass>
+</root>

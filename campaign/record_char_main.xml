@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- Please see the license.html file included with this distribution for 
+	attribution and copyright information. -->
+
+<root>
+	<windowclass name="charsheet_main">
+		<sheetdata>
+
+			<frame_char name="detailframe">
+				<bounds>15,0,-29,80</bounds>
+			</frame_char>
+			<string_labeled name="race">
+				<anchored to="detailframe" position="insidetopleft" offset="15,10"
+					width="150" height="20" />
+				<labelres>char_label_race</labelres>
+			</string_labeled>
+			<string_labeled name="age">
+				<anchored to="race" position="right" offset="5,0" width="70" />
+				<labelres>char_label_age</labelres>
+			</string_labeled>
+			<string_labeled name="height">
+				<anchored to="age" position="right" offset="5,0" width="70" />
+				<labelres>char_label_height</labelres>
+			</string_labeled>
+			<string_labeled name="weight">
+				<anchored to="height" position="right" offset="5,0" width="70" />
+				<labelres>char_label_weight</labelres>
+			</string_labeled>
+			<string_labeled name="size_modifier">
+				<anchored to="weight" position="right" offset="5,0" width="70" />
+				<labelres>char_label_sizemodifier</labelres>
+			</string_labeled>
+			<string_labeled name="appearance">
+				<anchored to="detailframe" position="insidetopleft" offset="15,40"
+					width="450" height="20" />
+				<labelres>char_label_appearance</labelres>
+			</string_labeled>
+
+			<frame_char name="attributesframe">
+				<bounds>15,80,240,160</bounds>
+			</frame_char>
+			<number_attribute name="strength" source="stats.strength">
+				<anchored>
+					<to>attributesframe</to>
+					<position>insidetopleft</position>
+					<offset>50,20</offset>
+				</anchored>
+				<tabtarget>
+					<next>strength_points</next>
+					<prev>appearance</prev>
+				</tabtarget>
+				<script>
+					function action(draginfo)
+						local rActor = ActorManager.getActor("pc", window.getDatabaseNode());
+						local sDesc = "[ATTRIBUTE] ST";
+	
+						local rRoll = { sType = "dice", sDesc = sDesc, aDice = { "d6","d6","d6"	}, nMod = 0 };
+						ActionsManager.performAction(draginfo, rActor, rRoll);
+					end
+
+					function
+						onDoubleClick(x, y)
+						action();
+						return true;
+					end
+
+					function
+						onDragStart(button, x, y, draginfo)
+						action(draginfo);
+						return true;
+					end
+				</script>
+				<rollable />
+			</number_attribute>
+
+			<number_rollableattribute name="dexterity"
+				source="stats.dexterity">
+				<anchored to="strength" />
+				<tabtarget>
+					<next>dexterity_points</next>
+					<prev>strength_points</prev>
+				</tabtarget>
+				<script>
+					function action(draginfo)
+						local rActor = ActorManager.getActor("pc", window.getDatabaseNode());
+						local sDesc = "[ATTRIBUTE] DX";
+	
+						local rRoll = { sType = "dice", sDesc = sDesc, aDice = { "d6","d6","d6"	}, nMod = 0 };
+						ActionsManager.performAction(draginfo, rActor, rRoll);
+					end
+
+					function
+						onDoubleClick(x, y)
+						action();
+						return true;
+					end
+
+					function
+						onDragStart(button, x, y, draginfo)
+						action(draginfo);
+						return true;
+					end
+				</script>
+			</number_rollableattribute>
+
+			<number_rollableattribute name="intelligence"
+				source="stats.intelligence">
+				<anchored to="dexterity" />
+				<tabtarget>
+					<next>intelligence_points</next>
+					<prev>dexterity_points</prev>
+				</tabtarget>
+				<script>
+					function action(draginfo)
+						local rActor = ActorManager.getActor("pc", window.getDatabaseNode());
+						local sDesc = "[ATTRIBUTE] IQ";
+	
+						local rRoll = { sType = "dice", sDesc = sDesc, aDice = { "d6","d6","d6"	}, nMod = 0 };
+						ActionsManager.performAction(draginfo, rActor, rRoll);
+					end
+
+					function
+						onDoubleClick(x, y)
+						action();
+						return true;
+					end
+
+					function
+						onDragStart(button, x, y, draginfo)
+						action(draginfo);
+						return true;
+					end
+				</script>
+			</number_rollableattribute>
+
+			<number_rollableattribute name="health"
+				source="stats.health">
+				<anchored to="intelligence" />
+				<tabtarget>
+					<next>health_points</next>
+					<prev>intelligence_points</prev>
+				</tabtarget>
+				<script>
+					function action(draginfo)
+						local rActor = ActorManager.getActor("pc", window.getDatabaseNode());
+						local sDesc = "[ATTRIBUTE] HT";
+	
+						local rRoll = { sType = "dice", sDesc = sDesc, aDice = { "d6","d6","d6"	}, nMod = 0 };
+						ActionsManager.performAction(draginfo, rActor, rRoll);
+					end
+
+					function
+						onDoubleClick(x, y)
+						action();
+						return true;
+					end
+
+					function
+						onDragStart(button, x, y, draginfo)
+						action(draginfo);
+						return true;
+					end
+				</script>
+			</number_rollableattribute>
+
+			<label_attribute>
+				<anchored to="strength" />
+				<static>ST</static>
+			</label_attribute>
+			<label_attribute>
+				<anchored to="dexterity" />
+				<static>DX</static>
+			</label_attribute>
+			<label_attribute>
+				<anchored to="intelligence" />
+				<static>IQ</static>
+			</label_attribute>
+			<label_attribute>
+				<anchored to="health" />
+				<static>HT</static>
+			</label_attribute>
+
+			<number_attribute name="hps" source="stats.hps">
+				<anchored>
+					<to>attributesframe</to>
+					<position>insidetopleft</position>
+					<offset>160,20</offset>
+				</anchored>
+				<tabtarget>
+					<next>hps_points</next>
+					<prev>health_points</prev>
+				</tabtarget>
+			</number_attribute>
+			<number_rollableattribute name="will"
+				source="stats.will">
+				<anchored to="hps" />
+				<tabtarget>
+					<next>will_points</next>
+					<prev>hps_points</prev>
+				</tabtarget>
+				<script>
+					function action(draginfo)
+						local rActor = ActorManager.getActor("pc", window.getDatabaseNode());
+						local sDesc = "[ATTRIBUTE] WILL";
+	
+						local rRoll = { sType = "dice", sDesc = sDesc, aDice = { "d6","d6","d6"	}, nMod = 0 };
+						ActionsManager.performAction(draginfo, rActor, rRoll);
+					end
+
+					function
+						onDoubleClick(x, y)
+						action();
+						return true;
+					end
+
+					function
+						onDragStart(button, x, y, draginfo)
+						action(draginfo);
+						return true;
+					end
+				</script>
+			</number_rollableattribute>
+			<number_rollableattribute name="perception"
+				source="stats.perception">
+				<anchored to="will" />
+				<tabtarget>
+					<next>perception_points</next>
+					<prev>will_points</prev>
+				</tabtarget>
+				<script>
+					function action(draginfo)
+						local rActor = ActorManager.getActor("pc", window.getDatabaseNode());
+						local sDesc = "[ATTRIBUTE] PER";
+	
+						local rRoll = { sType = "dice", sDesc = sDesc, aDice = { "d6","d6","d6"	}, nMod = 0 };
+						ActionsManager.performAction(draginfo, rActor, rRoll);
+					end
+
+					function
+						onDoubleClick(x, y)
+						action();
+						return true;
+					end
+
+					function
+						onDragStart(button, x, y, draginfo)
+						action(draginfo);
+						return true;
+					end
+				</script>
+			</number_rollableattribute>
+			<number_attribute name="fps" source="stats.fps">
+				<anchored to="perception" />
+				<tabtarget>
+					<next>fps_points</next>
+					<prev>perception_points</prev>
+				</tabtarget>
+			</number_attribute>
+
+
+			<label_attribute>
+				<anchored to="hps" />
+				<static>HP</static>
+			</label_attribute>
+			<label_attribute>
+				<anchored to="will" />
+				<static>WILL</static>
+			</label_attribute>
+			<label_attribute>
+				<anchored to="perception" />
+				<static>PER</static>
+			</label_attribute>
+			<label_attribute>
+				<anchored to="fps" />
+				<static>FP</static>
+			</label_attribute>
+
+			<number_attributecost name="strength_points"
+				source="stats.strength_points">
+				<anchored to="strength" />
+				<tabtarget>
+					<next>dexterity</next>
+					<prev>strength</prev>
+				</tabtarget>
+			</number_attributecost>
+
+			<number_attributecost name="dexterity_points" source="stats.dexterity_points">
+				<anchored to="dexterity" />
+				<tabtarget>
+					<next>intelligence</next>
+					<prev>dexterity</prev>
+				</tabtarget>
+			</number_attributecost>
+
+			<number_attributecost name="intelligence_points" source="stats.intelligence_points">
+				<anchored to="intelligence" />
+				<tabtarget>
+					<next>health</next>
+					<prev>intelligence</prev>
+				</tabtarget>
+			</number_attributecost>
+
+			<number_attributecost name="health_points" source="stats.health_points">
+				<anchored to="health" />
+				<tabtarget>
+					<next>hps</next>
+					<prev>health</prev>
+				</tabtarget>
+			</number_attributecost>
+
+			<number_attributecost name="hps_points" source="stats.hps_points">
+				<anchored to="hps" />
+				<tabtarget>
+					<next>will</next>
+					<prev>hps</prev>
+				</tabtarget>
+			</number_attributecost>
+
+			<number_attributecost name="will_points" source="stats.will_points">
+				<anchored to="will" />
+				<tabtarget>
+					<next>perception</next>
+					<prev>will</prev>
+				</tabtarget>
+			</number_attributecost>
+
+			<number_attributecost name="perception_points" source="stats.perception_points">
+				<anchored to="perception" />
+				<tabtarget>
+					<next>fps</next>
+					<prev>perception</prev>
+				</tabtarget>
+			</number_attributecost>
+
+			<number_attributecost name="fps_points" source="stats.fps_points">
+				<anchored to="fps" />
+				<tabtarget>
+					<next>current_hps</next>
+					<prev>fps</prev>
+				</tabtarget>
+			</number_attributecost>
+
+
+			<!-- <frame_char name="secondarystatsframe"> <bounds>255,80,240,150</bounds> 
+				</frame_char> <string_labeled name="race"> <anchored to="secondarystatsframe" 
+				position="insidetopleft" offset="15,10" width="60" height="20" /> <labelres>char_label_basiclift</labelres> 
+				</string_labeled> <frame_char name="reactionframe"> <bounds>15,226,240,160</bounds> 
+				</frame_char> -->
+		</sheetdata>
+	</windowclass>
+</root>

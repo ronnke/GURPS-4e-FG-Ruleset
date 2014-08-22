@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="charsheet_abilities">
+		<sheetdata>
+		
+		
+			<subwindow name="skills">
+				<bounds>0,0,-1,-1</bounds>
+				<class>charsheet_skills</class>
+			</subwindow>
+
+			<subwindow name="spells">
+				<bounds>0,0,-1,-1</bounds>
+				<class>charsheet_spells</class>
+			</subwindow>
+
+			<subwindow name="powers">
+				<bounds>0,0,-1,-1</bounds>
+				<class>charsheet_powers</class>
+			</subwindow>
+
+			<subwindow name="other">
+				<bounds>0,0,-1,-1</bounds>
+				<class>charsheet_other</class>
+			</subwindow>
+
+			<tabs_charabilities>
+				<tab>
+					<icon>tab_skills</icon>
+					<subwindow>skills</subwindow>
+				</tab>
+				<tab>
+					<icon>tab_spells</icon>
+					<subwindow>spells</subwindow>
+				</tab>
+				<tab>
+					<icon>tab_powers</icon>
+					<subwindow>powers</subwindow>
+				</tab>
+				<tab>
+					<icon>tab_other</icon>
+					<subwindow>other</subwindow>
+				</tab>
+				<activate>1</activate>
+			</tabs_charabilities>
+		
+		</sheetdata>
+	</windowclass>
+
+</root>

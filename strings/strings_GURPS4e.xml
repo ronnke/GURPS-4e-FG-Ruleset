@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<!-- Common -->
+	
+	<!-- Options -->
+
+	<!-- Combat Tracker -->
+	
+	<!-- Skill Challenge Tracker -->
+	
+	<!-- Party Sheet -->
+
+	<!-- Character - Mini -->
+	
+	<!-- Character - Main -->
+	<string name="char_label_charactername">Character Name</string>
+	<string name="char_label_sizemodifier">SM</string>
+	<string name="char_label_name">Name</string>
+	<string name="char_label_level">Lvl</string>
+	<string name="char_label_type">Type</string>
+	<string name="char_label_relativelevel">Rel Lvl</string>
+	<string name="char_label_points">Pts</string>
+	<string name="char_label_class">Class</string>
+	<string name="char_label_college">College</string>
+	<string name="char_label_costmaintain">Cost / Maintain</string>
+	<string name="char_label_time">Time</string>
+	<string name="char_label_duration">Duration</string>
+	<string name="char_label_resist">Resist</string>
+	<string name="char_label_page">Page</string>
+
+	<!-- Character - Traits -->
+	<string name="char_label_adsperks">ADVANTAGES / PERKS</string>
+	<string name="char_label_disadsquirks">DISADVANTAGES / QUIRKS</string>
+
+	<!-- Character - Combat -->
+	<string name="char_label_currentattributes">CURRENT ATTRIBUTES</string>
+	<string name="char_label_defenses">DEFENSES</string>
+	<string name="char_label_meleecombat">MELEE COMBAT</string>
+	<string name="char_label_rangedcombat">RANGED COMBAT</string>
+
+	<string name="char_label_hps">HP</string>
+	<string name="char_label_fps">FP</string>
+	<string name="char_label_move">Move</string>
+	<string name="char_label_dodge">Dodge</string>
+	<string name="char_label_parry">Parry</string>
+	<string name="char_label_block">Block</string>
+	<string name="char_label_dr">DR</string>
+
+	<string name="char_label_weapon">Weapon</string>
+	<string name="char_label_st">ST</string>
+	<string name="char_label_weight">Weight</string>
+	<string name="char_label_cost">Cost</string>
+	<string name="char_label_tl">TL</string>
+	<string name="char_label_lc">LC</string>
+	<string name="char_label_acc">Acc</string>
+	<string name="char_label_range">Range</string>
+	<string name="char_label_rof">RoF</string>
+	<string name="char_label_shots">Shots</string>
+	<string name="char_label_bulk">Bulk</string>
+	<string name="char_label_reach">Reach</string>
+	<string name="char_label_damage">Damage</string>
+	<string name="char_label_mod">Mod</string>
+	<string name="char_label_mode">Mode</string>
+	<string name="char_label_modifier">Modifier</string>
+
+	<string name="char_tooltip_weaponmodes">Modes</string>
+	<string name="char_tooltip_weaponmodifiers">Modifiers</string>
+
+
+	<!-- Character - Abilities -->
+	<string name="char_label_skills">SKILLS</string>
+	<string name="char_label_spells">SPELLS</string>
+	<string name="char_label_powers">POWERS</string>
+	<string name="char_label_other">OTHER ABILITIES</string>
+	
+
+	<!-- Character - Inventory -->
+	
+	<!-- Character - Notes -->
+	<string name="char_label_notes">Notes</string>
+	<string name="char_label_summary">Points Summary</string>
+	<string name="char_label_description">Description</string>
+	
+	<!-- NPCs -->
+	
+	<!-- Encounters -->
+	
+	<!-- Items -->
+
+	<!-- Parcels -->
+
+	<!-- Quests -->
+
+	<!-- Powers -->
+	
+	<!-- Modifiers -->
+	
+	<!-- Effects -->
+	
+	<!-- Skills -->
+
+	<!-- Local Mode -->
+	
+	<!-- Reference -->
+</root>

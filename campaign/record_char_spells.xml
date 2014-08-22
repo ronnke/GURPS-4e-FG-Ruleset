@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="charsheet_spells">
+		<sheetdata>
+		
+			<frame_char name="spellsframe">
+				<bounds>15,0,-28,-13</bounds>
+			</frame_char>
+			<label_frametop>
+				<anchored to="spellsframe" />
+				<static textres="char_label_spells" />
+			</label_frametop>
+			
+			<genericcontrol name="rightanchor">
+				<anchored to="spellsframe" width="0" height="0">
+					<top offset="35" />
+					<right />
+				</anchored>
+				<invisible />
+			</genericcontrol>
+			<genericcontrol name="idelete_header">
+				<anchored to="rightanchor" width="20" height="20">
+					<top />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<disabled />
+			</genericcontrol>
+			
+			<label_columntop name="points_label">
+				<anchored to="rightanchor" width="20">
+					<top />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_points" />
+			</label_columntop>
+			<label_columntop name="type_label">
+				<anchored to="rightanchor" width="35">
+					<top />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_type" />
+			</label_columntop>
+			<label_columntop name="class_label">
+				<anchored to="rightanchor" width="50">
+					<top />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_class" />
+			</label_columntop>
+			<label_columntop name="level_label">
+				<anchored to="rightanchor" width="20">
+					<top />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_level" />
+			</label_columntop>
+			<genericcontrol name="modifier_shortcut_header">
+				<anchored to="rightanchor" width="20" height="20">
+					<top />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<disabled />
+			</genericcontrol>
+			<genericcontrol name="detail_shortcut_header">
+				<anchored to="rightanchor" width="20" height="20">
+					<top />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<disabled />
+			</genericcontrol>
+			<label_columntop name="name_label">
+				<anchored to="rightanchor">
+					<top />
+					<left parent="spellsframe" offset="15" />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<static textres="char_label_name" />
+			</label_columntop>
+			
+			<list_charspell name="spellslist">
+				<anchored to="spellsframe">
+					<left offset="15" />
+					<top offset="50" />
+					<right offset="-25" />
+					<bottom offset="-20" />
+				</anchored>
+			</list_charspell>
+			<scrollbar_list>
+				<anchored to="spellslist" />
+				<target>spellslist</target>
+			</scrollbar_list>
+
+			<button_iedit name="spellslist_iedit">
+				<anchored to="spellslist" position="aboveright" offset="5,20" />
+				<target>spellslist</target>
+			</button_iedit>
+			<button_iadd name="spellslist_iadd">
+				<anchored to="spellslist_iedit" position="lefthigh" offset="5,0" />
+				<target>spellslist</target>
+			</button_iadd>
+
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="char_spell">
+		<margins control="0,0,0,2" />
+		<script>
+			function onInit()
+				toggleDetail();
+				setModifiersVisible();
+			end
+			
+			function toggleDetail()
+				local bShow = (activatedetail.getValue() == 1);
+				
+				spelldetail.setVisible(bShow);
+				time_label.setVisible(bShow);
+				time.setVisible(bShow);
+				duration_label.setVisible(bShow);
+				duration.setVisible(bShow);
+				costmaintain_label.setVisible(bShow);
+				costmaintain.setVisible(bShow);
+				resist_label.setVisible(bShow);
+				resist.setVisible(bShow);
+				college_label.setVisible(bShow);
+				college.setVisible(bShow);
+				page_label.setVisible(bShow);
+				page.setVisible(bShow);
+			end
+			
+			function setModifiersVisible()
+				local v = false;
+				if activatemodifiers.getValue() == 1 then
+					v = true;
+				end
+				
+				modifiersicon.setVisible(v);
+				modifiers_label.setVisible(v);
+				modifierslist.setVisible(v);
+				modifierslist_iedit.setVisible(v);
+				modifierslist_iadd.setVisible(v);
+				frame_modifiers.setVisible(v);
+
+				if modifierslist_iedit.getValue() == 0 then
+					modifierslist_iadd.setVisible(false);
+				end
+			end
+		</script>
+		<sheetdata>
+		
+			<button_roll>
+				<anchored>
+					<top offset="2" />
+					<left offset="5" />
+				</anchored>
+				<script>
+					function action(draginfo)
+						local rActor = ActorManager.getActor("pc", window.windowlist.window.getDatabaseNode());
+						local sDesc = "[SPELL] " .. window.name.getValue();
+		
+						local rRoll = { sType = "dice", sDesc = sDesc, aDice = { "d6","d6","d6" }, nMod = 0 };
+						ActionsManager.performAction(draginfo, rActor, rRoll);
+					end
+					
+					function onButtonPress(x, y)
+						action();
+						return true;
+					end
+
+					function onDragStart(button, x, y, draginfo)
+						return action(draginfo);
+					end
+				</script>
+			</button_roll>
+		
+			<genericcontrol name="rightanchor">
+				<anchored height="0" width="0">
+					<top />
+					<right />
+				</anchored>
+				<invisible />
+			</genericcontrol>
+			<genericcontrol name="bottomanchor">
+				<anchored height="0" width="0">
+					<top offset="20" />
+					<right />
+				</anchored>
+				<invisible />
+			</genericcontrol>
+			<button_idelete name="idelete">
+				<anchored to="rightanchor">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</button_idelete>
+			
+			<number_charpointfield name="points">
+				<anchored to="rightanchor" width="20" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget prev="type" next="time" />
+			</number_charpointfield>
+			<string_charfield name="type">
+				<anchored to="rightanchor" width="35" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget prev="class" next="points" />
+			</string_charfield>
+			<string_charfield name="class">
+				<anchored to="rightanchor" width="50" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget prev="level" next="type" />
+			</string_charfield>
+			<number_charlevelfield name="level">
+				<anchored to="rightanchor" width="20" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget prev="name" next="class" />
+				<script>
+					function action(draginfo)
+						local rActor = ActorManager.getActor("pc", window.windowlist.window.getDatabaseNode());
+						local sDesc = "[SPELL] " .. window.name.getValue();
+		
+						local rRoll = { sType = "dice", sDesc = sDesc, aDice = { "d6","d6","d6" }, nMod = 0 };
+						ActionsManager.performAction(draginfo, rActor, rRoll);
+					end
+					
+					function onDoubleClick(x, y)
+						action();
+						return true;
+					end
+
+					function onDragStart(button, x, y, draginfo)
+						action(draginfo);
+						return true;
+					end
+				</script>
+			</number_charlevelfield>
+			<buttoncontrol name="activatemodifiers">
+				<anchored to="rightanchor" width="20" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<state icon="modifiers" tooltipres="char_tooltip_skillmodifiers" />
+				<state icon="modifiers_down" />
+				<script>
+					function onValueChanged()
+						window.setModifiersVisible();
+					end
+				</script>
+			</buttoncontrol>
+			<button_toggledetail name="activatedetail">
+				<anchored to="rightanchor">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</button_toggledetail>
+			<linkcontrol name="shortcut">
+				<anchored to="rightanchor" width="20" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<class>charnote</class>
+				<readonly />
+			</linkcontrol>
+			<string_textlistitem name="name">
+				<anchored height="20">
+					<top offset="2" />
+					<left offset="30" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<nodrag />
+				<tabtarget next="level" />
+			</string_textlistitem>
+
+			<!-- DETAIL SECTION --> 			
+			<string_charfield name="page">
+				<anchored to="bottomanchor" width="40" height="20">
+					<top offset="25" />
+					<right anchor="left" relation="relative" offset="-15" />
+				</anchored>
+				<tabtarget prev="college" />
+			</string_charfield>
+			<label_fieldtop name="page_label">
+				<anchored to="page" />
+				<static textres="char_label_page" />
+			</label_fieldtop>
+
+			<string_charfield name="college">
+				<anchored to="bottomanchor" width="90" height="20">
+					<top offset="25" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget prev="resist" next="page" />
+			</string_charfield>
+			<label_fieldtop name="college_label">
+				<anchored to="college" />
+				<static textres="char_label_college" />
+			</label_fieldtop>
+
+			<string_charfield name="resist">
+				<anchored to="bottomanchor" width="60" height="20">
+					<top offset="25" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget prev="costmaintain" next="college" />
+			</string_charfield>
+			<label_fieldtop name="resist_label">
+				<anchored to="resist" />
+				<static textres="char_label_resist" />
+			</label_fieldtop>
+
+			<string_charfield name="costmaintain">
+				<anchored to="bottomanchor" width="80" height="20">
+					<top offset="25" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget prev="duration" next="resist" />
+			</string_charfield>
+			<label_fieldtop name="costmaintain_label">
+				<anchored to="costmaintain" />
+				<static textres="char_label_costmaintain" />
+			</label_fieldtop>
+
+			<string_charfield name="duration">
+				<anchored to="bottomanchor" width="50" height="20">
+					<top offset="25" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget prev="time" next="costmaintain" />
+			</string_charfield>
+			<label_fieldtop name="duration_label">
+				<anchored to="duration" />
+				<static textres="char_label_duration" />
+			</label_fieldtop>
+
+			<string_charfield name="time">
+				<anchored to="bottomanchor" width="40" height="20">
+					<top offset="25" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget prev="points" next="duration" />
+			</string_charfield>
+			<label_fieldtop name="time_label">
+				<anchored to="time" />
+				<static textres="char_label_time" />
+			</label_fieldtop>
+
+			<frame_chardetail name="spelldetail">
+				<anchored>
+					<top parent ="bottomanchor" anchor="bottom" relation="relative" offset="5"/>
+					<bottom parent ="bottomanchor" anchor="bottom" relation="relative" offset="60"/>
+					<left />
+					<right />
+				</anchored>
+			</frame_chardetail>
+
+
+			<!-- SPELL MODIFIERS SECTION --> 			
+			<icon_detailsection name="modifiersicon">
+				<icon>modifiers_down</icon>
+			</icon_detailsection>
+
+			<label_columntop name="modifiers_label">
+				<anchored to="modifiersicon">
+					<top />
+					<left anchor="right" offset="10" />
+					<right parent="bottomanchor" anchor="left" offset="-10" />
+				</anchored>
+				<static textres="char_label_modifier" />
+			</label_columntop>
+
+			<list_charweaponmodifier name="modifierslist">
+				<anchored to="modifiers_label">
+					<top anchor="bottom" relation="relative" />
+					<left parent="modifiersicon" anchor="right" offset="10" />
+					<right parent="bottomanchor" anchor="left" offset="-10" />
+				</anchored>
+				<class>char_modifier</class>
+				<noscroll />
+			</list_charweaponmodifier>
+ 
+  			<button_iedit name="modifierslist_iedit">
+				<anchored to="modifierslist" position="belowright" offset="5,2" />
+				<target>modifierslist</target>
+			</button_iedit>
+			<button_iadd name="modifierslist_iadd">
+				<anchored to="modifierslist_iedit" position="lefthigh" offset="5,0" />
+				<target>modifierslist</target>
+				<invisible />
+			</button_iadd>
+
+			<frame_detailsub name="frame_modifiers">
+				<anchored to="bottomanchor">
+					<top anchor="bottom" relation="relative" offset="5" />
+					<right parent="modifierslist" anchor="right" offset="10" />
+					<left parent="modifierslist" anchor="left" offset="-10" />
+					<bottom parent="modifierslist_iedit" />
+				</anchored>
+			</frame_detailsub>
+
+		</sheetdata>
+	</windowclass>
+</root>
