@@ -45,7 +45,7 @@
 	<template name="frame_detailsub">
 		<genericcontrol>
 			<anchored>
-				<left offset="63" />
+				<left offset="33" />
 				<top offset="-8" />
 				<right offset="-4" />
 				<bottom offset="8" />
@@ -57,7 +57,7 @@
 	<template name="icon_detailsection">
 		<genericcontrol>
 			<anchored width="20" height="20">
-				<left offset="43" />
+				<left offset="13" />
 				<top parent="bottomanchor" anchor="bottom" relation="current" offset="10" />
 			</anchored>
 		</genericcontrol>
@@ -314,6 +314,13 @@
 			<nodrag />
 			<center />
 		</basicstring>
+	</template>
+
+	<template name="number_charfield">
+		<basicnumber>
+			<nodrag />
+			<center />
+		</basicnumber>
 	</template>
 
 	<template name="number_charskillfield_static">

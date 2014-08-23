@@ -61,6 +61,7 @@
 	<string name="char_label_acc">Acc</string>
 	<string name="char_label_range">Range</string>
 	<string name="char_label_rof">RoF</string>
+	<string name="char_label_rcl">Rcl</string>
 	<string name="char_label_shots">Shots</string>
 	<string name="char_label_bulk">Bulk</string>
 	<string name="char_label_reach">Reach</string>
