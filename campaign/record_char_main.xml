@@ -32,136 +32,47 @@
 				<labelres>char_label_sizemodifier</labelres>
 			</string_labeled>
 			<string_labeled name="appearance">
-				<anchored to="detailframe" position="insidetopleft" offset="15,40"
-					width="450" height="20" />
+				<anchored to="detailframe" position="insidetopleft" offset="15,40" width="450" height="20" />
 				<labelres>char_label_appearance</labelres>
 			</string_labeled>
 
 			<frame_char name="attributesframe">
 				<bounds>15,80,240,160</bounds>
 			</frame_char>
-			<number_attribute name="strength" source="stats.strength">
-				<anchored>
-					<to>attributesframe</to>
-					<position>insidetopleft</position>
-					<offset>50,20</offset>
-				</anchored>
+			<number_rollableattribute name="strength" source="stats.strength">
+				<stat>ST</stat>
+				<anchored to="attributesframe" position="insidetopleft" offset="50,20" />
 				<tabtarget>
 					<next>strength_points</next>
 					<prev>appearance</prev>
 				</tabtarget>
-				<script>
-					function action(draginfo)
-						local rActor = ActorManager.getActor("pc", window.getDatabaseNode());
-						local sDesc = "[ATTRIBUTE] ST";
-	
-						local rRoll = { sType = "dice", sDesc = sDesc, aDice = { "d6","d6","d6"	}, nMod = 0 };
-						ActionsManager.performAction(draginfo, rActor, rRoll);
-					end
+			</number_rollableattribute>
 
-					function
-						onDoubleClick(x, y)
-						action();
-						return true;
-					end
-
-					function
-						onDragStart(button, x, y, draginfo)
-						action(draginfo);
-						return true;
-					end
-				</script>
-				<rollable />
-			</number_attribute>
-
-			<number_rollableattribute name="dexterity"
-				source="stats.dexterity">
+			<number_rollableattribute name="dexterity" source="stats.dexterity">
+				<stat>DX</stat>
 				<anchored to="strength" />
 				<tabtarget>
 					<next>dexterity_points</next>
 					<prev>strength_points</prev>
 				</tabtarget>
-				<script>
-					function action(draginfo)
-						local rActor = ActorManager.getActor("pc", window.getDatabaseNode());
-						local sDesc = "[ATTRIBUTE] DX";
-	
-						local rRoll = { sType = "dice", sDesc = sDesc, aDice = { "d6","d6","d6"	}, nMod = 0 };
-						ActionsManager.performAction(draginfo, rActor, rRoll);
-					end
-
-					function
-						onDoubleClick(x, y)
-						action();
-						return true;
-					end
-
-					function
-						onDragStart(button, x, y, draginfo)
-						action(draginfo);
-						return true;
-					end
-				</script>
 			</number_rollableattribute>
 
-			<number_rollableattribute name="intelligence"
-				source="stats.intelligence">
+			<number_rollableattribute name="intelligence" source="stats.intelligence">
+				<stat>IQ</stat>
 				<anchored to="dexterity" />
 				<tabtarget>
 					<next>intelligence_points</next>
 					<prev>dexterity_points</prev>
 				</tabtarget>
-				<script>
-					function action(draginfo)
-						local rActor = ActorManager.getActor("pc", window.getDatabaseNode());
-						local sDesc = "[ATTRIBUTE] IQ";
-	
-						local rRoll = { sType = "dice", sDesc = sDesc, aDice = { "d6","d6","d6"	}, nMod = 0 };
-						ActionsManager.performAction(draginfo, rActor, rRoll);
-					end
-
-					function
-						onDoubleClick(x, y)
-						action();
-						return true;
-					end
-
-					function
-						onDragStart(button, x, y, draginfo)
-						action(draginfo);
-						return true;
-					end
-				</script>
 			</number_rollableattribute>
 
-			<number_rollableattribute name="health"
-				source="stats.health">
+			<number_rollableattribute name="health"	source="stats.health">
+				<stat>HT</stat>
 				<anchored to="intelligence" />
 				<tabtarget>
 					<next>health_points</next>
 					<prev>intelligence_points</prev>
 				</tabtarget>
-				<script>
-					function action(draginfo)
-						local rActor = ActorManager.getActor("pc", window.getDatabaseNode());
-						local sDesc = "[ATTRIBUTE] HT";
-	
-						local rRoll = { sType = "dice", sDesc = sDesc, aDice = { "d6","d6","d6"	}, nMod = 0 };
-						ActionsManager.performAction(draginfo, rActor, rRoll);
-					end
-
-					function
-						onDoubleClick(x, y)
-						action();
-						return true;
-					end
-
-					function
-						onDragStart(button, x, y, draginfo)
-						action(draginfo);
-						return true;
-					end
-				</script>
 			</number_rollableattribute>
 
 			<label_attribute>
@@ -181,6 +92,7 @@
 				<static>HT</static>
 			</label_attribute>
 
+
 			<number_attribute name="hps" source="stats.hps">
 				<anchored>
 					<to>attributesframe</to>
@@ -192,64 +104,25 @@
 					<prev>health_points</prev>
 				</tabtarget>
 			</number_attribute>
-			<number_rollableattribute name="will"
-				source="stats.will">
+
+			<number_rollableattribute name="will" source="stats.will">
+				<stat>WILL</stat>
 				<anchored to="hps" />
 				<tabtarget>
 					<next>will_points</next>
 					<prev>hps_points</prev>
 				</tabtarget>
-				<script>
-					function action(draginfo)
-						local rActor = ActorManager.getActor("pc", window.getDatabaseNode());
-						local sDesc = "[ATTRIBUTE] WILL";
-	
-						local rRoll = { sType = "dice", sDesc = sDesc, aDice = { "d6","d6","d6"	}, nMod = 0 };
-						ActionsManager.performAction(draginfo, rActor, rRoll);
-					end
-
-					function
-						onDoubleClick(x, y)
-						action();
-						return true;
-					end
-
-					function
-						onDragStart(button, x, y, draginfo)
-						action(draginfo);
-						return true;
-					end
-				</script>
 			</number_rollableattribute>
-			<number_rollableattribute name="perception"
-				source="stats.perception">
+
+			<number_rollableattribute name="perception" source="stats.perception">
+				<stat>PER</stat>
 				<anchored to="will" />
 				<tabtarget>
 					<next>perception_points</next>
 					<prev>will_points</prev>
 				</tabtarget>
-				<script>
-					function action(draginfo)
-						local rActor = ActorManager.getActor("pc", window.getDatabaseNode());
-						local sDesc = "[ATTRIBUTE] PER";
-	
-						local rRoll = { sType = "dice", sDesc = sDesc, aDice = { "d6","d6","d6"	}, nMod = 0 };
-						ActionsManager.performAction(draginfo, rActor, rRoll);
-					end
-
-					function
-						onDoubleClick(x, y)
-						action();
-						return true;
-					end
-
-					function
-						onDragStart(button, x, y, draginfo)
-						action(draginfo);
-						return true;
-					end
-				</script>
 			</number_rollableattribute>
+
 			<number_attribute name="fps" source="stats.fps">
 				<anchored to="perception" />
 				<tabtarget>
@@ -257,7 +130,6 @@
 					<prev>perception_points</prev>
 				</tabtarget>
 			</number_attribute>
-
 
 			<label_attribute>
 				<anchored to="hps" />
@@ -276,8 +148,8 @@
 				<static>FP</static>
 			</label_attribute>
 
-			<number_attributecost name="strength_points"
-				source="stats.strength_points">
+
+			<number_attributecost name="strength_points" source="stats.strength_points">
 				<anchored to="strength" />
 				<tabtarget>
 					<next>dexterity</next>

@@ -136,6 +136,7 @@
 				
 				modes_rcl_label.setVisible(v);
 				modes_shots_label.setVisible(v);
+				modes_rof_label.setVisible(v);
 				modes_range_label.setVisible(v);
 				modes_acc_label.setVisible(v);
 				modes_damage_label.setVisible(v);

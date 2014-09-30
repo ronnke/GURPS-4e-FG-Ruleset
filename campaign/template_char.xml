@@ -519,44 +519,44 @@
 
 	<template name="number_rollableattribute">
 		<basicnumber>
-			<anchored>
-				<position>belowleft</position>
-				<offset>0,7</offset>
-				<size>
-					<width>35</width>
-					<height>25</height>
-				</size>
-			</anchored>
+			<anchored position="belowleft" offset="0,7" width="35" height="25" />
 			<font>sheetnumberlarge</font>
 			<rollable />
+			<script>
+				function action(draginfo)
+					local node = window.getDatabaseNode();
+					local rActor = ActorManager.getActor("pc", node);
+					local sDesc = "[ATTRIBUTE] " .. stat[1];
+
+					local rRoll = { sType = "dice", sDesc = sDesc, aDice = { "d6","d6","d6"	}, nMod = 0 };
+					ActionsManager.performAction(draginfo, rActor, rRoll);
+				end
+
+				function onDoubleClick(x, y)
+					action();
+					return true;
+				end
+
+				function onDragStart(button, x, y, draginfo)
+					action(draginfo);
+					return true;
+				end
+			</script>
 		</basicnumber>
 	</template>
 	
 	<template name="number_attributecost">
 	  <numberfield>
-	    <anchored>
-	      <position>rightlow</position>
-	      <offset>5,0</offset>
-	      <size>
-	        <width>25</width>
-	        <height>25</height>
-	      </size>
-	    </anchored>
+		<anchored position="rightlow" offset="5,0" width="25" height="25" />
 		<font>sheetlabelmini</font>
 	    <center />
+	    <nodrag />
 	  </numberfield>
 	</template>
 	
 	<template name="label_attribute">
 		<stringcontrol>
-			<anchored>
-				<position>lefthigh</position>
-				<offset>0,0</offset>
-				<size>
-					<width>35</width>
-					<height>25</height>
-				</size>
-			</anchored>
+		<anchored position="lefthigh" offset="0,0" width="35" height="25" />
 			<font>sheetlabel</font>
 		</stringcontrol>
 	</template>
