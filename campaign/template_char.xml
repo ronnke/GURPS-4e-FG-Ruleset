@@ -33,11 +33,13 @@
 	<template name="frame_char">
 		<genericcontrol>
 			<frame name="groupbox" />
+			<disabled />
 		</genericcontrol>
 	</template>
 	<template name="frame_chardetail">
 		<genericcontrol>
 			<frame name="ct_subgroupbox" />
+			<disabled />
 		</genericcontrol>
 	</template>
 
@@ -309,20 +311,6 @@
 		</buttongroup_tabs>
 	</template>
 
-	<template name="string_charfield">
-		<basicstring>
-			<nodrag />
-			<center />
-		</basicstring>
-	</template>
-
-	<template name="number_charfield">
-		<basicnumber>
-			<nodrag />
-			<center />
-		</basicnumber>
-	</template>
-
 	<template name="number_charskillfield_static">
 		<simplenumber>
 			<frame name="fieldlight" offset="7,5,7,5" />
@@ -366,6 +354,21 @@
 			<nodrag />
 		</string_textlistitem>
 	</template>
+	
+	<template name="string_charfield">
+		<basicstring>
+			<nodrag />
+			<center />
+		</basicstring>
+	</template>
+
+	<template name="number_charfield">
+		<basicnumber>
+			<nodrag />
+			<center />
+		</basicnumber>
+	</template>
+
 	<template name="string_charadpts">
 		<string_textlistitem>
 			<nodrag />
