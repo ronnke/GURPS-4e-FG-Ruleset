@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<framedef name="attributelabel">
+		<bitmap file="graphics/frames/attributelabel.png" />
+		<offset>7,7,7,7</offset>
+	</framedef>
+</root>
+	

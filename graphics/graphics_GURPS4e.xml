@@ -16,6 +16,9 @@
 	<icon name="modifiers" file="graphics/icons/modifiers.png" />
 	<icon name="modifiers_down" file="graphics/icons/modifiers_down.png" />
 
+	<!-- Graphics -->
+	<includefile source="graphics/graphics_frames.xml" />
+
 
 	<!-- Tab controls -->
 	<icon name="tab_traits" file="graphics/tabs/tab_traits.png" />

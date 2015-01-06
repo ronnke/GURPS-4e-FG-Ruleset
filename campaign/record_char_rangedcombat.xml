@@ -501,58 +501,22 @@
 					end
 				</script>
 			</number_charmodfield>
-			<string_chardamagefield name="damage">
+			<string_charfield name="damage">
+				<rollable_damage />
 				<anchored to="rightanchor" width="60" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
-				<script>
-					function action(draginfo)
-						local rActor = ActorManager.getActor("pc", window.windowlist.window.getDatabaseNode());
-						local sDesc = "[DAMAGE] " .. window.name.getValue();
-
-						local rRoll = { sType = "dice", sDesc = sDesc, aDice = { "d6","d6","d6" }, nMod = 0 };
-						ActionsManager.performAction(draginfo, rActor, rRoll);
-					end
-
-					function onDoubleClick(x, y)
-						action();
-						return true;
-					end
-
-					function onDragStart(button, x, y, draginfo)
-						action(draginfo);
-						return true;
-					end
-				</script>
 				<tabtarget next="reach" prev="name" />
-			</string_chardamagefield>
-			<number_charlevelfield name="level">
+			</string_charfield>
+			<number_charfield name="level">
+				<rollable_ranged />
 				<anchored to="rightanchor" width="20" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
-				<script>
-					function action(draginfo)
-						local rActor = ActorManager.getActor("pc", window.windowlist.window.getDatabaseNode());
-						local sDesc = "[RANGED] " .. window.name.getValue();
-
-						local rRoll = { sType = "dice", sDesc = sDesc, aDice = { "d6","d6","d6" }, nMod = 0 };
-						ActionsManager.performAction(draginfo, rActor, rRoll);
-					end
-
-					function onDoubleClick(x, y)
-						action();
-						return true;
-					end
-
-					function onDragStart(button, x, y, draginfo)
-						action(draginfo);
-						return true;
-					end
-				</script>
 				<tabtarget next="damage" prev="name" />
-			</number_charlevelfield>
+			</number_charfield>
 			<string_textlistitem name="name">
 				<anchored height="20">
 					<top offset="2" />

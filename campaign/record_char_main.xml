@@ -7,12 +7,13 @@
 	<windowclass name="charsheet_main">
 		<sheetdata>
 
+<!-- Character Details -->
+
 			<frame_char name="detailframe">
 				<bounds>15,0,-29,80</bounds>
 			</frame_char>
 			<string_labeled name="race">
-				<anchored to="detailframe" position="insidetopleft" offset="15,10"
-					width="150" height="20" />
+				<anchored to="detailframe" position="insidetopleft" offset="15,10" width="150" height="20" />
 				<labelres>char_label_race</labelres>
 			</string_labeled>
 			<string_labeled name="age">
@@ -36,92 +37,156 @@
 				<labelres>char_label_appearance</labelres>
 			</string_labeled>
 
+
+<!-- Attributes -->
+
 			<frame_char name="attributesframe">
-				<bounds>15,80,240,160</bounds>
+				<bounds>15,80,200,200</bounds>
 			</frame_char>
-			<number_rollableattribute name="strength" source="stats.strength">
+			<number_attribute name="strength" source="stats.strength">
+				<rollable_attribute />
 				<stat>ST</stat>
-				<anchored to="attributesframe" position="insidetopleft" offset="50,20" />
+				<anchored to="attributesframe" position="insidetopleft" offset="25,20" />
 				<tabtarget>
 					<next>strength_points</next>
 					<prev>appearance</prev>
 				</tabtarget>
-			</number_rollableattribute>
+			</number_attribute>
+			<label_attribute>
+				<anchored to="strength" />
+				<static>ST</static>
+			</label_attribute>
+			<number_charpointfield name="strength_points" source="stats.strength_points">
+				<anchored to="strength" position="right" offset="10" width="20" />
+				<tabtarget>
+					<next>dexterity</next>
+					<prev>strength</prev>
+				</tabtarget>
+			</number_charpointfield>
 
-			<number_rollableattribute name="dexterity" source="stats.dexterity">
+			<number_attribute name="dexterity" source="stats.dexterity">
+				<rollable_attribute />
 				<stat>DX</stat>
 				<anchored to="strength" />
 				<tabtarget>
 					<next>dexterity_points</next>
 					<prev>strength_points</prev>
 				</tabtarget>
-			</number_rollableattribute>
+			</number_attribute>
+			<label_attribute>
+				<anchored to="dexterity" />
+				<static>DX</static>
+			</label_attribute>
+			<number_charpointfield name="dexterity_points" source="stats.dexterity_points">
+				<anchored to="dexterity" position="right" offset="10" width="20" />
+				<tabtarget>
+					<next>intelligence</next>
+					<prev>dexterity</prev>
+				</tabtarget>
+			</number_charpointfield>
 
-			<number_rollableattribute name="intelligence" source="stats.intelligence">
+			<number_attribute name="intelligence" source="stats.intelligence">
+				<rollable_attribute />
 				<stat>IQ</stat>
 				<anchored to="dexterity" />
 				<tabtarget>
 					<next>intelligence_points</next>
 					<prev>dexterity_points</prev>
 				</tabtarget>
-			</number_rollableattribute>
+			</number_attribute>
+			<label_attribute>
+				<anchored to="intelligence" />
+				<static>IQ</static>
+			</label_attribute>
+			<number_charpointfield name="intelligence_points" source="stats.intelligence_points">
+				<anchored to="intelligence" position="right" offset="10" width="20" />
+				<tabtarget>
+					<next>health</next>
+					<prev>intelligence</prev>
+				</tabtarget>
+			</number_charpointfield>
 
-			<number_rollableattribute name="health"	source="stats.health">
+			<number_attribute name="health"	source="stats.health">
+				<rollable_attribute />
 				<stat>HT</stat>
 				<anchored to="intelligence" />
 				<tabtarget>
 					<next>health_points</next>
 					<prev>intelligence_points</prev>
 				</tabtarget>
-			</number_rollableattribute>
-
-			<label_attribute>
-				<anchored to="strength" />
-				<static>ST</static>
-			</label_attribute>
-			<label_attribute>
-				<anchored to="dexterity" />
-				<static>DX</static>
-			</label_attribute>
-			<label_attribute>
-				<anchored to="intelligence" />
-				<static>IQ</static>
-			</label_attribute>
+			</number_attribute>
 			<label_attribute>
 				<anchored to="health" />
 				<static>HT</static>
 			</label_attribute>
-
+			<number_charpointfield name="health_points" source="stats.health_points">
+				<anchored to="health" position="right" offset="10" width="20" />
+				<tabtarget>
+					<next>hps</next>
+					<prev>health</prev>
+				</tabtarget>
+			</number_charpointfield>
 
 			<number_attribute name="hps" source="stats.hps">
-				<anchored>
-					<to>attributesframe</to>
-					<position>insidetopleft</position>
-					<offset>160,20</offset>
-				</anchored>
+				<anchored to="attributesframe" position="insidetopleft" offset="110,20" />
 				<tabtarget>
 					<next>hps_points</next>
 					<prev>health_points</prev>
 				</tabtarget>
 			</number_attribute>
+			<label_attribute>
+				<anchored to="hps" />
+				<static>HP</static>
+			</label_attribute>
+			<number_charpointfield name="hps_points" source="stats.hps_points">
+				<anchored to="hps" position="right" offset="10" width="20" />
+				<tabtarget>
+					<next>will</next>
+					<prev>hps</prev>
+				</tabtarget>
+			</number_charpointfield>
 
-			<number_rollableattribute name="will" source="stats.will">
+			<number_attribute name="will" source="stats.will">
+				<rollable_attribute />
 				<stat>WILL</stat>
 				<anchored to="hps" />
 				<tabtarget>
 					<next>will_points</next>
 					<prev>hps_points</prev>
 				</tabtarget>
-			</number_rollableattribute>
+			</number_attribute>
+			<label_attribute>
+				<anchored to="will" />
+				<static>WILL</static>
+			</label_attribute>
+			<number_charpointfield name="will_points" source="stats.will_points">
+				<anchored to="will" position="right" offset="10" width="20" />
+				<tabtarget>
+					<next>perception</next>
+					<prev>will</prev>
+				</tabtarget>
+			</number_charpointfield>
 
-			<number_rollableattribute name="perception" source="stats.perception">
+			<number_attribute name="perception" source="stats.perception">
+				<rollable_attribute />
 				<stat>PER</stat>
 				<anchored to="will" />
 				<tabtarget>
 					<next>perception_points</next>
 					<prev>will_points</prev>
 				</tabtarget>
-			</number_rollableattribute>
+			</number_attribute>
+			<label_attribute>
+				<anchored to="perception" />
+				<static>PER</static>
+			</label_attribute>
+			<number_charpointfield name="perception_points" source="stats.perception_points">
+				<anchored to="perception" position="right" offset="10" width="20" />
+				<tabtarget>
+					<next>fps</next>
+					<prev>perception</prev>
+				</tabtarget>
+			</number_charpointfield>
 
 			<number_attribute name="fps" source="stats.fps">
 				<anchored to="perception" />
@@ -130,88 +195,17 @@
 					<prev>perception_points</prev>
 				</tabtarget>
 			</number_attribute>
-
-			<label_attribute>
-				<anchored to="hps" />
-				<static>HP</static>
-			</label_attribute>
-			<label_attribute>
-				<anchored to="will" />
-				<static>WILL</static>
-			</label_attribute>
-			<label_attribute>
-				<anchored to="perception" />
-				<static>PER</static>
-			</label_attribute>
 			<label_attribute>
 				<anchored to="fps" />
 				<static>FP</static>
 			</label_attribute>
-
-
-			<number_attributecost name="strength_points" source="stats.strength_points">
-				<anchored to="strength" />
-				<tabtarget>
-					<next>dexterity</next>
-					<prev>strength</prev>
-				</tabtarget>
-			</number_attributecost>
-
-			<number_attributecost name="dexterity_points" source="stats.dexterity_points">
-				<anchored to="dexterity" />
-				<tabtarget>
-					<next>intelligence</next>
-					<prev>dexterity</prev>
-				</tabtarget>
-			</number_attributecost>
-
-			<number_attributecost name="intelligence_points" source="stats.intelligence_points">
-				<anchored to="intelligence" />
-				<tabtarget>
-					<next>health</next>
-					<prev>intelligence</prev>
-				</tabtarget>
-			</number_attributecost>
-
-			<number_attributecost name="health_points" source="stats.health_points">
-				<anchored to="health" />
-				<tabtarget>
-					<next>hps</next>
-					<prev>health</prev>
-				</tabtarget>
-			</number_attributecost>
-
-			<number_attributecost name="hps_points" source="stats.hps_points">
-				<anchored to="hps" />
-				<tabtarget>
-					<next>will</next>
-					<prev>hps</prev>
-				</tabtarget>
-			</number_attributecost>
-
-			<number_attributecost name="will_points" source="stats.will_points">
-				<anchored to="will" />
-				<tabtarget>
-					<next>perception</next>
-					<prev>will</prev>
-				</tabtarget>
-			</number_attributecost>
-
-			<number_attributecost name="perception_points" source="stats.perception_points">
-				<anchored to="perception" />
-				<tabtarget>
-					<next>fps</next>
-					<prev>perception</prev>
-				</tabtarget>
-			</number_attributecost>
-
-			<number_attributecost name="fps_points" source="stats.fps_points">
-				<anchored to="fps" />
+			<number_charpointfield name="fps_points" source="stats.fps_points">
+				<anchored to="fps" position="right" offset="10" width="20" />
 				<tabtarget>
 					<next>current_hps</next>
 					<prev>fps</prev>
 				</tabtarget>
-			</number_attributecost>
+			</number_charpointfield>
 
 
 			<!-- <frame_char name="secondarystatsframe"> <bounds>255,80,240,150</bounds> 

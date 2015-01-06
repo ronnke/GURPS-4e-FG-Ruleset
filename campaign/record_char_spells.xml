@@ -154,30 +154,13 @@
 		</script>
 		<sheetdata>
 		
-			<button_roll>
+			<button_charroll>
+				<rollable_button_spell />
 				<anchored>
 					<top offset="2" />
 					<left offset="5" />
 				</anchored>
-				<script>
-					function action(draginfo)
-						local rActor = ActorManager.getActor("pc", window.windowlist.window.getDatabaseNode());
-						local sDesc = "[SPELL] " .. window.name.getValue();
-		
-						local rRoll = { sType = "dice", sDesc = sDesc, aDice = { "d6","d6","d6" }, nMod = 0 };
-						ActionsManager.performAction(draginfo, rActor, rRoll);
-					end
-					
-					function onButtonPress(x, y)
-						action();
-						return true;
-					end
-
-					function onDragStart(button, x, y, draginfo)
-						return action(draginfo);
-					end
-				</script>
-			</button_roll>
+			</button_charroll>
 		
 			<genericcontrol name="rightanchor">
 				<anchored height="0" width="0">
@@ -222,30 +205,12 @@
 				<tabtarget prev="level" next="type" />
 			</string_charfield>
 			<number_charlevelfield name="level">
+				<rollable_spell />
 				<anchored to="rightanchor" width="20" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
 				<tabtarget prev="name" next="class" />
-				<script>
-					function action(draginfo)
-						local rActor = ActorManager.getActor("pc", window.windowlist.window.getDatabaseNode());
-						local sDesc = "[SPELL] " .. window.name.getValue();
-		
-						local rRoll = { sType = "dice", sDesc = sDesc, aDice = { "d6","d6","d6" }, nMod = 0 };
-						ActionsManager.performAction(draginfo, rActor, rRoll);
-					end
-					
-					function onDoubleClick(x, y)
-						action();
-						return true;
-					end
-
-					function onDragStart(button, x, y, draginfo)
-						action(draginfo);
-						return true;
-					end
-				</script>
 			</number_charlevelfield>
 			<buttoncontrol name="activatemodifiers">
 				<anchored to="rightanchor" width="20" height="20">

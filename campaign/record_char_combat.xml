@@ -10,145 +10,120 @@
 		<sheetdata>
 		
 			<!-- CURRENT STATS -->
+			
 			<frame_char name="currentattributesframe">
-				<bounds>15,0,210,100</bounds>
+				<bounds>15,0,210,90</bounds>
 			</frame_char>
 			<label_frametop>
 				<anchored to="currentattributesframe" />
 				<static textres="char_label_currentattributes" />
 			</label_frametop>
 
-			<number_charstatfield name="current_hps" source="stats.current_hps">
-			  <anchored to="currentattributesframe" position="insidetopleft" offset="25,45" width="40" height="30" />
-			</number_charstatfield>
-			<label_fieldtop name="currenthps_label">
+			<number_attribute name="current_hps" source="stats.current_hps">
+				<anchored to="currentattributesframe" position="insidetopleft" offset="25,40" />
+				<tabtarget>
+					<next>current_fps</next>
+					<prev>dr</prev>
+				</tabtarget>
+			</number_attribute>
+			<label_attribute>
 				<anchored to="current_hps" />
 				<static textres="char_label_hps" />
-			</label_fieldtop>
+			</label_attribute>
 
-			<number_charstatfield name="current_fps" source="stats.current_fps">
-			  <anchored to="current_hps" position='right' offset="20,0" width="40" />
-			</number_charstatfield>
-			<label_fieldtop name="currentfps_label">
+			<number_attribute name="current_fps" source="stats.current_fps">
+				<anchored to="current_hps" position="right" offset="20,0" />
+				<tabtarget>
+					<next>current_move</next>
+					<prev>current_hps</prev>
+				</tabtarget>
+			</number_attribute>
+			<label_attribute>
 				<anchored to="current_fps" />
 				<static textres="char_label_fps" />
-			</label_fieldtop>
+			</label_attribute>
 
-			<number_charstatfield name="current_move" source="stats.current_move">
-			  <anchored to="current_fps" position='right' offset="20,0" width="40" />
-			</number_charstatfield>
-			<label_fieldtop name="currentmove_label">
+			<number_attribute name="current_move" source="stats.current_move">
+				<anchored to="current_fps" position="right" offset="20,0" />
+				<tabtarget>
+					<next>dodge</next>
+					<prev>current_fps</prev>
+				</tabtarget>
+			</number_attribute>
+			<label_attribute>
 				<anchored to="current_move" />
 				<static textres="char_label_move" />
-			</label_fieldtop>
+			</label_attribute>
 
 			
 			<!-- DEFENSES -->
 			<frame_char name="defensesframe">
-				<bounds>225,0,-29,100</bounds>
+				<bounds>225,0,-29,90</bounds>
 			</frame_char>
 			<label_frametop>
 				<anchored to="defensesframe" />
 				<static textres="char_label_defenses" />
 			</label_frametop>
 
-			<number_charrollstatfield name="dodge" source="stats.dodge">
-				<anchored to="defensesframe" position="insidetopleft" offset="25,45" width="40" height="30" />
-				<script>
-					function action(draginfo)
-						local rActor = ActorManager.getActor("pc", window.getDatabaseNode());
-						local sDesc = "[DEFENSE] Dodge";
-			
-						local rRoll = { sType = "dice", sDesc = sDesc, aDice = { "d6","d6","d6" }, nMod = 0 };
-						ActionsManager.performAction(draginfo, rActor, rRoll);
-					end
-					
-					function onDoubleClick(x, y)
-						action();
-						return true;
-					end
-
-					function onDragStart(button, x, y, draginfo)
-						action(draginfo);
-						return true;
-					end
-				</script>
-			</number_charrollstatfield>
-			<label_fieldtop name="dodge_label">
+			<number_attribute name="dodge" source="stats.dodge">
+				<rollable_dodge />
+				<anchored to="defensesframe" position="insidetopleft" offset="25,40" />
+				<tabtarget>
+					<next>parry</next>
+					<prev>move</prev>
+				</tabtarget>
+			</number_attribute>
+			<label_attribute>
 				<anchored to="dodge" />
 				<static textres="char_label_dodge" />
-			</label_fieldtop>
+			</label_attribute>
 
-			<number_charrollstatfield name="parry" source="stats.parry">
-				<anchored to="dodge" position="right" offset="20,0" width="40" />
-				<script>
-					function action(draginfo)
-						local rActor = ActorManager.getActor("pc", window.getDatabaseNode());
-						local sDesc = "[DEFENSE] Parry";
-			
-						local rRoll = { sType = "dice", sDesc = sDesc, aDice = { "d6","d6","d6" }, nMod = 0 };
-						ActionsManager.performAction(draginfo, rActor, rRoll);
-					end
-					
-					function onDoubleClick(x, y)
-						action();
-						return true;
-					end
-
-					function onDragStart(button, x, y, draginfo)
-						action(draginfo);
-						return true;
-					end
-				</script>
-			</number_charrollstatfield>
-			<label_fieldtop name="parry_label">
+			<number_attribute name="parry" source="stats.parry">
+				<rollable_parry />
+				<anchored to="dodge" position="right" offset="20,0" />
+				<tabtarget>
+					<next>block</next>
+					<prev>dodge</prev>
+				</tabtarget>
+			</number_attribute>
+			<label_attribute>
 				<anchored to="parry" />
 				<static textres="char_label_parry" />
-			</label_fieldtop>
+			</label_attribute>
 
-			<number_charrollstatfield name="block" source="stats.block">
-				<anchored to="parry" position="right" offset="20,0" width="40" />
-				<script>
-					function action(draginfo)
-						local rActor = ActorManager.getActor("pc", window.getDatabaseNode());
-						local sDesc = "[DEFENSE] Block";
-			
-						local rRoll = { sType = "dice", sDesc = sDesc, aDice = { "d6","d6","d6" }, nMod = 0 };
-						ActionsManager.performAction(draginfo, rActor, rRoll);
-					end
-					
-					function onDoubleClick(x, y)
-						action();
-						return true;
-					end
-
-					function onDragStart(button, x, y, draginfo)
-						action(draginfo);
-						return true;
-					end
-				</script>
-			</number_charrollstatfield>
-			<label_fieldtop name="block_label">
+			<number_attribute name="block" source="stats.block">
+				<rollable_block />
+				<anchored to="parry" position="right" offset="20,0" />
+				<tabtarget>
+					<next>dr</next>
+					<prev>parry</prev>
+				</tabtarget>
+			</number_attribute>
+			<label_attribute>
 				<anchored to="block" />
 				<static textres="char_label_block" />
-			</label_fieldtop>
+			</label_attribute>
 
-			<number_charstatfield name="dr" source="stats.dr">
-			  <anchored to="block" position="right" offset="20,0" width="40" />
-			</number_charstatfield>
-			<label_fieldtop name="dr_label">
+			<number_attribute name="dr" source="stats.dr">
+				<anchored to="block" position="right" offset="20,0" />
+				<tabtarget>
+					<next>current_hps</next>
+					<prev>block</prev>
+				</tabtarget>
+			</number_attribute>
+			<label_attribute>
 				<anchored to="dr" />
 				<static textres="char_label_dr" />
-			</label_fieldtop>
+			</label_attribute>
 
 
 			<subwindow name="meleecombat">
-				<bounds>0,100,-1,-1</bounds>
+				<bounds>0,90,-1,-1</bounds>
 				<class>charsheet_meleecombat</class>
 			</subwindow>
 
 			<subwindow name="rangedcombat">
-				<bounds>0,100,-1,-1</bounds>
+				<bounds>0,90,-1,-1</bounds>
 				<class>charsheet_rangedcombat</class>
 			</subwindow>
 
