@@ -113,7 +113,7 @@
 	
 	<template name="number_charfield">
 		<basicnumber>
-			<script file="campaign/scripts/char_rollable.lua" />
+			<script file="campaign/scripts/campaign_rollable.lua" />
 			<center />
 			<nodrop />
 		</basicnumber>
@@ -121,7 +121,7 @@
 
 	<template name="string_charfield">
 		<basicstring>
-			<script file="campaign/scripts/char_rollable.lua" />
+			<script file="campaign/scripts/campaign_rollable.lua" />
 			<center />
 			<nodrop />
 		</basicstring>
@@ -161,7 +161,7 @@
 
 	<template name="button_charroll">
 		<button_roll>
-			<script file="campaign/scripts/char_rollable.lua" />
+			<script file="campaign/scripts/campaign_rollable.lua" />
 		</button_roll>
 	</template>
 	

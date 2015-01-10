@@ -45,4 +45,13 @@
 	<includefile source="campaign/record_char_rangedcombat.xml" />
 	
 	<includefile source="campaign/record_charnotes.xml" />
+
+	<!-- High-level scripts -->
+	<script name="GameSystem" file="scripts/manager_gamesystem.lua" />
+
+	<script name="ActionsManager2" file="scripts/manager_actions2.lua" />
+	<script name="ActionGeneral" file="scripts/manager_action_ability.lua" />
+	<script name="ActionMelee" file="scripts/manager_action_melee.lua" />
+	<script name="ActionRanged" file="scripts/manager_action_ranged.lua" />
+	<script name="ActionDefense" file="scripts/manager_action_defense.lua" />
 </root>

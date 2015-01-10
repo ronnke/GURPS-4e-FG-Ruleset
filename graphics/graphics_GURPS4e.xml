@@ -16,6 +16,14 @@
 	<icon name="modifiers" file="graphics/icons/modifiers.png" />
 	<icon name="modifiers_down" file="graphics/icons/modifiers_down.png" />
 
+	<!-- Icons -->
+	<icon name="action_roll" file="graphics/icons/action_roll.png" />
+	<icon name="action_effect" file="graphics/icons/action_effect.png" />
+	<icon name="action_melee" file="graphics/icons/action_melee.png" />
+	<icon name="action_ranged" file="graphics/icons/action_ranged.png" />
+	<icon name="action_defense" file="graphics/icons/action_defense.png" />
+	<icon name="action_damage" file="graphics/icons/action_damage.png" />
+
 	<!-- Graphics -->
 	<includefile source="graphics/graphics_frames.xml" />
 
