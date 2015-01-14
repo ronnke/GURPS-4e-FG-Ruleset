@@ -27,7 +27,8 @@ function isRollable()
      rollable_block or
      rollable_parry or
      rollable_dodge or
-     rollable_damage then
+     rollable_damage or 
+     rollable_reaction then
 
     return true;
   end
@@ -46,7 +47,8 @@ function isRollableButton()
      rollable_button_block or
      rollable_button_parry or
      rollable_button_dodge or
-     rollable_button_damage then
+     rollable_button_damage or
+     rollable_button_reaction then
 
     return true;
   end
@@ -119,6 +121,9 @@ function action(draginfo)
       sType = "damage";
       sDesc = "[DAMAGE] " .. window.name.getValue();
       aDice, nMod = StringManager.convertStringToDice(getValue());
+    elseif rollable_reaction or rollable_button_reaction then
+      sType = "reaction";
+      sDesc = "[REACTION]";
     end  
   
     local rRoll = { sType = sType, sDesc = sDesc, aDice = aDice, nMod = nMod, sTargetDesc = sTargetDesc, nTarget = nTarget };

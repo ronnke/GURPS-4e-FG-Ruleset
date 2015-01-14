@@ -149,6 +149,13 @@
 		</number_charfield>
 	</template>
 
+	<template name="string_attribute">
+		<string_charfield>
+			<anchored width="40" height="30" />
+			<font>sheetnumberlarge</font>
+		</string_charfield>
+	</template>
+
 	<template name="number_charlevelfield">
 		<number_charfield>
 			<hideonvalue>0</hideonvalue>

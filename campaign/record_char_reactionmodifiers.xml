@@ -20,6 +20,13 @@
 				<static textres="char_label_reactionmodifiers" />
 			</label_frametop>
 
+			<button_charroll>
+				<rollable_button_reaction />
+				<anchored to="reactionmodifiersframe">
+					<top offset="10" />
+					<left offset="50" />
+				</anchored>
+			</button_charroll>
 
 			<genericcontrol name="reactionmodifiers_rightanchor">
 				<anchored to="reactionmodifiersframe" width="0" height="0">

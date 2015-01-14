@@ -56,4 +56,5 @@
 	<script name="ActionMelee" file="scripts/manager_action_melee.lua" />
 	<script name="ActionRanged" file="scripts/manager_action_ranged.lua" />
 	<script name="ActionDefense" file="scripts/manager_action_defense.lua" />
+	<script name="ActionReaction" file="scripts/manager_action_reaction.lua" />
 </root>
