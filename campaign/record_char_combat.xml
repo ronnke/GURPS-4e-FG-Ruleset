@@ -32,7 +32,7 @@
 			</label_attribute>
 
 			<number_attribute name="current_fps" source="stats.current_fps">
-				<anchored to="current_hps" position="right" offset="20,0" />
+				<anchored to="currentattributesframe" position="insidetopleft" offset="85,40" />
 				<tabtarget>
 					<next>current_move</next>
 					<prev>current_hps</prev>
@@ -44,7 +44,7 @@
 			</label_attribute>
 
 			<number_attribute name="current_move" source="stats.current_move">
-				<anchored to="current_fps" position="right" offset="20,0" />
+				<anchored to="currentattributesframe" position="insidetopleft" offset="145,40" />
 				<tabtarget>
 					<next>dodge</next>
 					<prev>current_fps</prev>
@@ -80,7 +80,7 @@
 
 			<number_attribute name="parry" source="stats.parry">
 				<rollable_parry />
-				<anchored to="dodge" position="right" offset="20,0" />
+				<anchored to="defensesframe" position="insidetopleft" offset="85,40" />
 				<tabtarget>
 					<next>block</next>
 					<prev>dodge</prev>
@@ -93,7 +93,7 @@
 
 			<number_attribute name="block" source="stats.block">
 				<rollable_block />
-				<anchored to="parry" position="right" offset="20,0" />
+				<anchored to="defensesframe" position="insidetopleft" offset="145,40" />
 				<tabtarget>
 					<next>dr</next>
 					<prev>parry</prev>
@@ -105,7 +105,7 @@
 			</label_attribute>
 
 			<number_attribute name="dr" source="stats.dr">
-				<anchored to="block" position="right" offset="20,0" />
+				<anchored to="defensesframe" position="insidetopleft" offset="205,40" />
 				<tabtarget>
 					<next>current_hps</next>
 					<prev>block</prev>

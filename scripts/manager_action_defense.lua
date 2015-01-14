@@ -4,18 +4,18 @@
 --
 
 function onInit()
-	ActionsManager.registerResultHandler("dodge", onRoll);
-  ActionsManager.registerResultHandler("parry", onRoll);
-  ActionsManager.registerResultHandler("block", onRoll);
+	ActionsManager.registerResultHandler("dodge", onDefense);
+  ActionsManager.registerResultHandler("parry", onDefense);
+  ActionsManager.registerResultHandler("block", onDefense);
 end
 
-function onRoll(rSource, rTarget, rRoll)
+function onDefense(rSource, rTarget, rRoll)
 	local rMessage = ActionsManager2.createActionMessage(rSource, rRoll);
 	
 	local nTotal = ActionsManager2.total(rRoll);
   local aAddIcons = {};
 
-  local nTarget = tonumber(rRoll.nTarget) + rRoll.nMod;
+  local nTarget = tonumber(string.match(rRoll.nTarget, "%d+")) + rRoll.nMod;
 
   local sSummary = rRoll.sTargetDesc .. " (" .. nTarget ..")";
   if rRoll.nMod > 0 then

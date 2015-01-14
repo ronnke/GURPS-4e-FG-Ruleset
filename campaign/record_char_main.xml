@@ -73,7 +73,7 @@
 			<number_attribute name="dexterity" source="stats.dexterity">
 				<rollable_attribute />
 				<stat>DX</stat>
-				<anchored to="strength" />
+				<anchored to="strength" position="belowleft" offset="0,15" />
 				<tabtarget>
 					<next>dexterity_points</next>
 					<prev>strength_points</prev>
@@ -94,7 +94,7 @@
 			<number_attribute name="intelligence" source="stats.intelligence">
 				<rollable_attribute />
 				<stat>IQ</stat>
-				<anchored to="dexterity" />
+				<anchored to="dexterity" position="belowleft" offset="0,15" />
 				<tabtarget>
 					<next>intelligence_points</next>
 					<prev>dexterity_points</prev>
@@ -115,7 +115,7 @@
 			<number_attribute name="health"	source="stats.health">
 				<rollable_attribute />
 				<stat>HT</stat>
-				<anchored to="intelligence" />
+				<anchored to="intelligence" position="belowleft" offset="0,15" />
 				<tabtarget>
 					<next>health_points</next>
 					<prev>intelligence_points</prev>
@@ -155,7 +155,7 @@
 			<number_attribute name="will" source="stats.will">
 				<rollable_attribute />
 				<stat>WILL</stat>
-				<anchored to="hps" />
+				<anchored to="hps" position="belowleft" offset="0,15" />
 				<tabtarget>
 					<next>will_points</next>
 					<prev>hps_points</prev>
@@ -176,7 +176,7 @@
 			<number_attribute name="perception" source="stats.perception">
 				<rollable_attribute />
 				<stat>PER</stat>
-				<anchored to="will" />
+				<anchored to="will" position="belowleft" offset="0,15" />
 				<tabtarget>
 					<next>perception_points</next>
 					<prev>will_points</prev>
@@ -195,7 +195,7 @@
 			</number_charpointfield>
 
 			<number_attribute name="fps" source="stats.fps">
-				<anchored to="perception" />
+				<anchored to="perception" position="belowleft" offset="0,15" />
 				<tabtarget>
 					<next>fps_points</next>
 					<prev>perception_points</prev>
@@ -227,10 +227,7 @@
 
 			<number_attribute name="current_hps" source="stats.current_hps">
 				<anchored to="currentattributesframe" position="insidetopleft" offset="20,40" />
-				<tabtarget>
-					<next>hps_points</next>
-					<prev>hps</prev>
-				</tabtarget>
+				<tabtarget prev="fps_points" next="current_fps" />
 			</number_attribute>
 			<label_attribute>
 				<anchored to="current_hps" />
@@ -238,11 +235,8 @@
 			</label_attribute>
 
 			<number_attribute name="current_fps" source="stats.current_fps">
-				<anchored to="current_hps" position="right" offset="10" />
-				<tabtarget>
-					<next>current_hps</next>
-					<prev>current_hps</prev>
-				</tabtarget>
+				<anchored to="currentattributesframe" position="insidetopleft" offset="70,40" />
+				<tabtarget prev="current_hps" next="current_move" />
 			</number_attribute>
 			<label_attribute>
 				<anchored to="current_fps" />
@@ -250,11 +244,8 @@
 			</label_attribute>
 
 			<number_attribute name="current_move" source="stats.current_move">
-				<anchored to="current_fps" position="right" offset="10" />
-				<tabtarget>
-					<next>current_hps</next>
-					<prev>current_hps</prev>
-				</tabtarget>
+				<anchored to="currentattributesframe" position="insidetopleft" offset="120,40" />
+				<tabtarget prev="current_fps" next="languagesframe" />
 			</number_attribute>
 			<label_attribute>
 				<anchored to="current_move" />

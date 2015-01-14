@@ -96,12 +96,6 @@
 	</template>
 
 	
-	<template name="label_frametopsmall">
-		<label_frametop>
-			<font>sheetlabelmini</font>
-		</label_frametop>
-	</template>
-
 	<template name="label_columntop">
 		<stringcontrol>
 			<font>sheetlabelmini</font>
@@ -150,7 +144,7 @@
 
 	<template name="number_attribute">
 		<number_charfield>
-			<anchored position="belowleft" offset="0,15" width="40" height="30" />
+			<anchored width="40" height="30" />
 			<font>sheetnumberlarge</font>
 		</number_charfield>
 	</template>
