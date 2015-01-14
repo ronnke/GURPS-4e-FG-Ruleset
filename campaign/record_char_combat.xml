@@ -28,7 +28,7 @@
 			</number_attribute>
 			<label_attribute>
 				<anchored to="current_hps" />
-				<static textres="char_label_hps" />
+				<static>cHP</static>
 			</label_attribute>
 
 			<number_attribute name="current_fps" source="stats.current_fps">
@@ -40,7 +40,7 @@
 			</number_attribute>
 			<label_attribute>
 				<anchored to="current_fps" />
-				<static textres="char_label_fps" />
+				<static>cFP</static>
 			</label_attribute>
 
 			<number_attribute name="current_move" source="stats.current_move">
@@ -52,7 +52,7 @@
 			</number_attribute>
 			<label_attribute>
 				<anchored to="current_move" />
-				<static textres="char_label_move" />
+				<static>Move</static>
 			</label_attribute>
 
 			

@@ -16,37 +16,49 @@
 	
 	<!-- Party Sheet -->
 
-	<!-- Character - Mini -->
-	
+	<!-- Character - General -->
+	<string name="char_label_points">Pts</string>
+
+
 	<!-- Character - Main -->
+	<string name="char_label_basicattributes">BASIC ATTRIBUTES</string>
+
 	<string name="char_label_charactername">Character Name</string>
 	<string name="char_label_sizemodifier">SM</string>
 	<string name="char_label_name">Name</string>
-	<string name="char_label_level">Lvl</string>
-	<string name="char_label_type">Type</string>
-	<string name="char_label_relativelevel">Rel Lvl</string>
-	<string name="char_label_points">Pts</string>
-	<string name="char_label_class">Class</string>
-	<string name="char_label_college">College</string>
-	<string name="char_label_costmaintain">Cost / Maintain</string>
-	<string name="char_label_time">Time</string>
-	<string name="char_label_duration">Duration</string>
-	<string name="char_label_resist">Resist</string>
-	<string name="char_label_page">Page</string>
+	
+	<string name="char_label_secondarycharacteristics">SECONDARY CHARACTERISTICS</string>
+	<string name="char_label_basiclift">Basic Lift</string>
+	<string name="char_label_thrust">Thrust</string>
+	<string name="char_label_swing">Swing</string>
+	<string name="char_label_basicspeed">Basic Speed</string>
+	<string name="char_label_basicmove">Basic Move</string>
 
+	<string name="char_label_encumbrance">ENCUMBRANCE</string>
+	<string name="char_label_encumbrancenone">None</string>
+	<string name="char_label_encumbrancelight">Light</string>
+	<string name="char_label_encumbrancemedium">Med</string>
+	<string name="char_label_encumbranceheavy">Hvy</string>
+	<string name="char_label_encumbrancexheavy">X-Hvy</string>
+
+	<string name="char_label_currentattributes">CURRENT ATTRIBUTES</string>
+
+	<string name="char_label_languages">LANGUAGES</string>
+	<string name="char_label_spoken">Spoken</string>
+	<string name="char_label_written">Written</string>
+
+	<string name="char_label_culturalfamiliarities">CULTURAL FAMILIARITIES</string>
+	<string name="char_label_reactionmodifiers">REACTION MODIFIERS</string>
+	
 	<!-- Character - Traits -->
 	<string name="char_label_adsperks">ADVANTAGES / PERKS</string>
 	<string name="char_label_disadsquirks">DISADVANTAGES / QUIRKS</string>
 
 	<!-- Character - Combat -->
-	<string name="char_label_currentattributes">CURRENT ATTRIBUTES</string>
 	<string name="char_label_defenses">DEFENSES</string>
 	<string name="char_label_meleecombat">MELEE COMBAT</string>
 	<string name="char_label_rangedcombat">RANGED COMBAT</string>
 
-	<string name="char_label_hps">HP</string>
-	<string name="char_label_fps">FP</string>
-	<string name="char_label_move">Move</string>
 	<string name="char_label_dodge">Dodge</string>
 	<string name="char_label_parry">Parry</string>
 	<string name="char_label_block">Block</string>
@@ -80,6 +92,18 @@
 	<string name="char_label_powers">POWERS</string>
 	<string name="char_label_other">OTHER ABILITIES</string>
 	
+	<string name="char_label_level">Lvl</string>
+	<string name="char_label_type">Type</string>
+	<string name="char_label_relativelevel">Rel Lvl</string>
+
+	<string name="char_label_class">Class</string>
+	<string name="char_label_college">College</string>
+	<string name="char_label_costmaintain">Cost / Maintain</string>
+	<string name="char_label_time">Time</string>
+	<string name="char_label_duration">Duration</string>
+	<string name="char_label_resist">Resist</string>
+	<string name="char_label_page">Page</string>
+
 
 	<!-- Character - Inventory -->
 	

@@ -40,13 +40,19 @@
 
 <!-- Attributes -->
 
-			<frame_char name="attributesframe">
-				<bounds>15,80,200,200</bounds>
+			<frame_char name="basicattributesframe">
+				<bounds>15,80,180,225</bounds>
 			</frame_char>
+			
+			<label_frametop>
+				<anchored to="basicattributesframe" />
+				<static textres="char_label_basicattributes" />
+			</label_frametop>
+			
 			<number_attribute name="strength" source="stats.strength">
 				<rollable_attribute />
 				<stat>ST</stat>
-				<anchored to="attributesframe" position="insidetopleft" offset="25,20" />
+				<anchored to="basicattributesframe" position="insidetopleft" offset="20,40" />
 				<tabtarget>
 					<next>strength_points</next>
 					<prev>appearance</prev>
@@ -57,7 +63,7 @@
 				<static>ST</static>
 			</label_attribute>
 			<number_charpointfield name="strength_points" source="stats.strength_points">
-				<anchored to="strength" position="right" offset="10" width="20" />
+				<anchored to="strength" position="right" offset="5" width="20" />
 				<tabtarget>
 					<next>dexterity</next>
 					<prev>strength</prev>
@@ -78,7 +84,7 @@
 				<static>DX</static>
 			</label_attribute>
 			<number_charpointfield name="dexterity_points" source="stats.dexterity_points">
-				<anchored to="dexterity" position="right" offset="10" width="20" />
+				<anchored to="dexterity" position="right" offset="5" width="20" />
 				<tabtarget>
 					<next>intelligence</next>
 					<prev>dexterity</prev>
@@ -99,7 +105,7 @@
 				<static>IQ</static>
 			</label_attribute>
 			<number_charpointfield name="intelligence_points" source="stats.intelligence_points">
-				<anchored to="intelligence" position="right" offset="10" width="20" />
+				<anchored to="intelligence" position="right" offset="5" width="20" />
 				<tabtarget>
 					<next>health</next>
 					<prev>intelligence</prev>
@@ -120,7 +126,7 @@
 				<static>HT</static>
 			</label_attribute>
 			<number_charpointfield name="health_points" source="stats.health_points">
-				<anchored to="health" position="right" offset="10" width="20" />
+				<anchored to="health" position="right" offset="5" width="20" />
 				<tabtarget>
 					<next>hps</next>
 					<prev>health</prev>
@@ -128,7 +134,7 @@
 			</number_charpointfield>
 
 			<number_attribute name="hps" source="stats.hps">
-				<anchored to="attributesframe" position="insidetopleft" offset="110,20" />
+				<anchored to="basicattributesframe" position="insidetopleft" offset="100,40" />
 				<tabtarget>
 					<next>hps_points</next>
 					<prev>health_points</prev>
@@ -139,7 +145,7 @@
 				<static>HP</static>
 			</label_attribute>
 			<number_charpointfield name="hps_points" source="stats.hps_points">
-				<anchored to="hps" position="right" offset="10" width="20" />
+				<anchored to="hps" position="right" offset="5" width="20" />
 				<tabtarget>
 					<next>will</next>
 					<prev>hps</prev>
@@ -160,7 +166,7 @@
 				<static>WILL</static>
 			</label_attribute>
 			<number_charpointfield name="will_points" source="stats.will_points">
-				<anchored to="will" position="right" offset="10" width="20" />
+				<anchored to="will" position="right" offset="5" width="20" />
 				<tabtarget>
 					<next>perception</next>
 					<prev>will</prev>
@@ -181,7 +187,7 @@
 				<static>PER</static>
 			</label_attribute>
 			<number_charpointfield name="perception_points" source="stats.perception_points">
-				<anchored to="perception" position="right" offset="10" width="20" />
+				<anchored to="perception" position="right" offset="5" width="20" />
 				<tabtarget>
 					<next>fps</next>
 					<prev>perception</prev>
@@ -200,7 +206,7 @@
 				<static>FP</static>
 			</label_attribute>
 			<number_charpointfield name="fps_points" source="stats.fps_points">
-				<anchored to="fps" position="right" offset="10" width="20" />
+				<anchored to="fps" position="right" offset="5" width="20" />
 				<tabtarget>
 					<next>current_hps</next>
 					<prev>fps</prev>
@@ -208,11 +214,286 @@
 			</number_charpointfield>
 
 
-			<!-- <frame_char name="secondarystatsframe"> <bounds>255,80,240,150</bounds> 
-				</frame_char> <string_labeled name="race"> <anchored to="secondarystatsframe" 
-				position="insidetopleft" offset="15,10" width="60" height="20" /> <labelres>char_label_basiclift</labelres> 
-				</string_labeled> <frame_char name="reactionframe"> <bounds>15,226,240,160</bounds> 
-				</frame_char> -->
+<!-- Current Attributes -->
+
+			<frame_char name="currentattributesframe">
+				<bounds>15,305,180,90</bounds>
+			</frame_char>
+			
+			<label_frametop>
+				<anchored to="currentattributesframe" />
+				<static textres="char_label_currentattributes" />
+			</label_frametop>
+
+			<number_attribute name="current_hps" source="stats.current_hps">
+				<anchored to="currentattributesframe" position="insidetopleft" offset="20,40" />
+				<tabtarget>
+					<next>hps_points</next>
+					<prev>hps</prev>
+				</tabtarget>
+			</number_attribute>
+			<label_attribute>
+				<anchored to="current_hps" />
+				<static>cHP</static>
+			</label_attribute>
+
+			<number_attribute name="current_fps" source="stats.current_fps">
+				<anchored to="current_hps" position="right" offset="10" />
+				<tabtarget>
+					<next>current_hps</next>
+					<prev>current_hps</prev>
+				</tabtarget>
+			</number_attribute>
+			<label_attribute>
+				<anchored to="current_fps" />
+				<static>cFP</static>
+			</label_attribute>
+
+			<number_attribute name="current_move" source="stats.current_move">
+				<anchored to="current_fps" position="right" offset="10" />
+				<tabtarget>
+					<next>current_hps</next>
+					<prev>current_hps</prev>
+				</tabtarget>
+			</number_attribute>
+			<label_attribute>
+				<anchored to="current_move" />
+				<static>Move</static>
+			</label_attribute>
+
+
+<!-- Languages -->
+
+			<frame_char name="languagesframe">
+				<bounds>15,395,290,-14</bounds>
+			</frame_char>
+			
+			<label_frametop>
+				<anchored to="languagesframe" />
+				<static textres="char_label_languages" />
+			</label_frametop>
+
+			
+			<genericcontrol name="languages_rightanchor">
+				<anchored to="languagesframe" width="0" height="0">
+					<top offset="35" />
+					<right offset="10"/>
+				</anchored>
+				<invisible />
+			</genericcontrol>
+			<genericcontrol name="languages_idelete_header">
+				<anchored to="languages_rightanchor" width="20" height="20">
+					<top />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<disabled />
+			</genericcontrol>
+
+			<label_columntop name="languages_points_label">
+				<anchored to="languages_rightanchor" width="20">
+					<top />
+					<right anchor="left" relation="relative" offset="0" />
+				</anchored>
+				<static textres="char_label_points" />
+			</label_columntop>
+			<label_columntop name="languages_written_label">
+				<anchored to="languages_rightanchor" width="60">
+					<top />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<static textres="char_label_written" />
+			</label_columntop>
+			<label_columntop name="languages_spoken_label">
+				<anchored to="languages_rightanchor" width="60">
+					<top />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_spoken" />
+			</label_columntop>
+			
+			<list_charlanguage name="languageslist">
+				<anchored to="languagesframe">
+					<left offset="10" />
+					<top offset="50" />
+					<right offset="-10" />
+					<bottom offset="-15" />
+				</anchored>
+			</list_charlanguage>
+			<scrollbar_list>
+				<anchored to="languageslist" />
+				<target>languageslist</target>
+			</scrollbar_list>
+
+			<button_iedit name="languageslist_iedit">
+				<anchored to="languageslist" position="aboveright" offset="5,20" />
+				<target>languageslist</target>
+			</button_iedit>
+			<button_iadd name="languageslist_iadd">
+				<anchored to="languageslist_iedit" position="lefthigh" offset="5,0" />
+				<target>languageslist</target>
+			</button_iadd>
+
+			
+<!-- Cultural Familiarity-->
+
+			<frame_char name="culturalfamiliarityframe">
+				<bounds>305,395,190,-14</bounds>
+			</frame_char>
+			
+			<label_frametop>
+				<anchored to="culturalfamiliarityframe" offset="0,30" />
+				<static textres="char_label_culturalfamiliarities" />
+			</label_frametop>
+
+			<stringcontrol>
+				<anchored to="culturalfamiliarityframe" position="insidetopleft" offset="15,10" width="70" height="20" />
+				<static>Tech Level:</static>
+			</stringcontrol>
+			<stringu_charfield name="tech_level" source="general.tl_score">
+				<anchored to="culturalfamiliarityframe" position="insidetopleft" offset="80,10" width="25" height="20" />
+				<center />
+			</stringu_charfield>
+			<number_charpointfield name="tl_points"  source="general.tl_points">
+				<anchored to="tech_level" position="right" offset="5" width="20" />
+			</number_charpointfield>
+
+
+			<list_charculturalfamiliarity name="culturalfamiliaritieslist">
+				<anchored to="culturalfamiliarityframe">
+					<left offset="10" />
+					<top offset="50" />
+					<right offset="-10" />
+					<bottom offset="-15" />
+				</anchored>
+			</list_charculturalfamiliarity>
+			<scrollbar_list>
+				<anchored to="culturalfamiliaritieslist" />
+				<target>culturalfamiliaritieslist</target>
+			</scrollbar_list>
+
+			<button_iedit name="culturalfamiliaritieslist_iedit">
+				<anchored to="culturalfamiliaritieslist" position="aboveright" offset="5,20" />
+				<target>culturalfamiliaritieslist</target>
+			</button_iedit>
+			<button_iadd name="culturalfamiliaritieslist_iadd">
+				<anchored to="culturalfamiliaritieslist_iedit" position="lefthigh" offset="5,0" />
+				<target>culturalfamiliaritieslist</target>
+			</button_iadd>
+
+
+<!-- Tabs-->
+
+			<subwindow name="secondarycharacteristics">
+				<bounds>195,80,300,315</bounds>
+				<class>charsheet_secondarycharacteristics</class>
+			</subwindow>
+
+			<subwindow name="reactionmodifiers">
+				<bounds>195,80,300,315</bounds>
+				<class>charsheet_reactionmodifiers</class>
+			</subwindow>
+
+
+			<tabs_charmain>
+				<tab>
+					<icon>tab_secondarycharacteristics</icon>
+					<subwindow>secondarycharacteristics</subwindow>
+				</tab>
+				<tab>
+					<icon>tab_reactionmodifiers</icon>
+					<subwindow>reactionmodifiers</subwindow>
+				</tab>
+				<activate>1</activate>
+			</tabs_charmain>
+
+
 		</sheetdata>
 	</windowclass>
+	
+
+	<windowclass name="char_language">
+		<margins control="0,0,0,2" />
+		<sheetdata>
+			<genericcontrol name="rightanchor">
+				<anchored height="0" width="0">
+					<top />
+					<right />
+				</anchored>
+			</genericcontrol>
+			<button_idelete name="idelete">
+				<anchored>
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</button_idelete>
+
+			<number_charpointfield name="points">
+				<anchored width="20" height="20">
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<tabtarget prev="written" next="name" />
+			</number_charpointfield>
+			<stringu_charfield name="written">
+				<anchored width="60" height="20">
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<tabtarget prev="spoken" next="points" />
+				<center />
+			</stringu_charfield>
+			<stringu_charfield name="spoken">
+				<anchored width="60" height="20">
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget prev="name" next="written" />
+				<center />
+			</stringu_charfield>
+			<string_textlistitem name="name">
+				<anchored height="20">
+					<top offset="2" />
+					<left offset="5" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget prev="points" next="spoken" />
+			</string_textlistitem>
+		</sheetdata>
+	</windowclass>
+
+
+	<windowclass name="char_culturalfamiliarity">
+		<margins control="0,0,0,2" />
+		<sheetdata>
+			<genericcontrol name="rightanchor">
+				<anchored height="0" width="0">
+					<top />
+					<right />
+				</anchored>
+			</genericcontrol>
+			<button_idelete name="idelete">
+				<anchored>
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</button_idelete>
+
+			<number_charpointfield name="points">
+				<anchored width="20" height="20">
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<tabtarget prev="written" next="name" />
+			</number_charpointfield>
+			<string_textlistitem name="name">
+				<anchored height="20">
+					<top offset="2" />
+					<left offset="5" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<tabtarget next="spoken" />
+			</string_textlistitem>
+		</sheetdata>
+	</windowclass>
+	
 </root>

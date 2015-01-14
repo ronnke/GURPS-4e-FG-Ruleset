@@ -68,6 +68,15 @@
 	</template>
 
 
+	<template name="tabs_charmain">
+		<buttongroup_tabs name="tabs">
+			<anchored width="18" height="92">
+				<top offset="130" />
+				<right offset="-31" />
+			</anchored>
+		</buttongroup_tabs>
+	</template>
+
 	<template name="tabs_charabilities">
 		<buttongroup_tabs name="tabs">
 			<anchored width="18" height="92">
@@ -87,6 +96,12 @@
 	</template>
 
 	
+	<template name="label_frametopsmall">
+		<label_frametop>
+			<font>sheetlabelmini</font>
+		</label_frametop>
+	</template>
+
 	<template name="label_columntop">
 		<stringcontrol>
 			<font>sheetlabelmini</font>
@@ -125,6 +140,12 @@
 			<center />
 			<nodrop />
 		</basicstring>
+	</template>
+
+	<template name="stringu_charfield">
+		<stringu>
+			<nodrop />
+		</stringu>
 	</template>
 
 	<template name="number_attribute">
@@ -217,6 +238,42 @@
 		</buttoncontrol>
 	</template>
 
+
+	<template name="list_charencumbrance">
+		<list_text>
+			<datasource>.charencumbrancelist</datasource>
+			<class>char_encumbrance</class>
+			<sortby><control>name</control></sortby>
+			<newfocus>name</newfocus>
+		</list_text>
+	</template>
+
+	<template name="list_charlanguage">
+		<list_text>
+			<datasource>.charlanguagelist</datasource>
+			<class>char_language</class>
+			<sortby><control>name</control></sortby>
+			<newfocus>name</newfocus>
+		</list_text>
+	</template>
+
+	<template name="list_charculturalfamiliarity">
+		<list_text>
+			<datasource>.charculturalfamiliaritylist</datasource>
+			<class>char_culturalfamiliarity</class>
+			<sortby><control>name</control></sortby>
+			<newfocus>name</newfocus>
+		</list_text>
+	</template>
+
+	<template name="list_charreactionmodifier">
+		<list_text>
+			<datasource>.charreactionmodifierlist</datasource>
+			<class>char_reactionmodifier</class>
+			<sortby><control>name</control></sortby>
+			<newfocus>name</newfocus>
+		</list_text>
+	</template>
 
 	<template name="list_charadperk">
 		<list_text>

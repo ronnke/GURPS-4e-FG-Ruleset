@@ -30,6 +30,8 @@
 	
 	<includefile source="campaign/record_char.xml" />
 	<includefile source="campaign/record_char_main.xml" />
+	<includefile source="campaign/record_char_secondarycharacteristics.xml" />
+	<includefile source="campaign/record_char_reactionmodifiers.xml" />
 	<includefile source="campaign/record_char_traits.xml" />
 	<includefile source="campaign/record_char_abilities.xml" />
 	<includefile source="campaign/record_char_combat.xml" />
