@@ -41,9 +41,6 @@ function onDefense(rSource, rTarget, rRoll)
   
   rMessage.text = rMessage.text .. "\n" .. sSummary .. ":" .. sResult;
 	
-  table.insert(aAddIcons, "Test Task" .. nTotal);
-  table.insert(aAddIcons, "Test Task2" .. nTotal);
-	
 	if #aAddIcons > 0 then
 		rMessage.icon = { rMessage.icon };
 		for _,v in ipairs(aAddIcons) do
