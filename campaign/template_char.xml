@@ -113,6 +113,14 @@
 
 	<template name="number_charmodfield">
 		<basicnumber>
+			<script>
+				function onInit()
+				  setHoverCursor("hand");
+				  
+				  local w = addBitmapWidget("field_modifier");
+				  w.setPosition("bottomleft", -1, -4);
+				end
+			</script>
 			<hideonvalue>0</hideonvalue>
 			<displaysign />
 			<center />

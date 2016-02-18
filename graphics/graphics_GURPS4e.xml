@@ -24,6 +24,8 @@
 	<icon name="action_defense" file="graphics/icons/action_defense.png" />
 	<icon name="action_damage" file="graphics/icons/action_damage.png" />
 
+	<icon name="field_modifier" file="graphics/icons/field_modifier.png" />
+
 	<!-- Graphics -->
 	<includefile source="graphics/graphics_frames.xml" />
 

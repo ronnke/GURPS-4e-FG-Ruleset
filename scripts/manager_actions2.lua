@@ -32,8 +32,14 @@ function createActionMessage(rSource, rRoll)
   rMessage.dice = rRoll.aDice;
   rMessage.diemodifier = 0;
   
-  if bAddMod then
-    rMessage.diemodifier = rRoll.nMod;
+  if rRoll.sType == "damage" and rRoll.sFunc then 
+    if rRoll.sFunc:find("[+-]") then
+      rMessage.diemodifier = (rRoll.nNum or 0);
+    end
+  else
+    if bAddMod then
+      rMessage.diemodifier = rRoll.nMod;
+    end
   end
   
   -- Check to see if this roll should be secret (GM or dice tower tag)
@@ -64,6 +70,14 @@ function total(rRoll)
 
   if GameSystem.actions[rRoll.sType] then
     bAddMod = GameSystem.actions[rRoll.sType].bAddMod;
+  end
+  
+  if (rRoll.sFunc == "+") then
+    nTotal = nTotal + (rRoll.nNum or 0);
+  elseif (rRoll.sFunc == "-") then
+    nTotal = nTotal - (rRoll.nNum or 0);
+  elseif (rRoll.sFunc == "x") then
+    nTotal = nTotal * (rRoll.nNum or 1);
   end
   
   if bAddMod then

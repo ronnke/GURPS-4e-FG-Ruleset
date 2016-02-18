@@ -9,7 +9,6 @@ end
 
 function onReaction(rSource, rTarget, rRoll)
 	local rMessage = ActionsManager2.createActionMessage(rSource, rRoll);
-	
 	local nTotal = ActionsManager2.total(rRoll);
   local aAddIcons = {};
 
@@ -32,7 +31,7 @@ function onReaction(rSource, rTarget, rRoll)
       sResult = "[ Excellent! ]";
   end
   
-  rMessage.text = rMessage.text .. "\n" .. sResult;
+  rMessage.text = string.format("%s\n%s", rMessage.text, sResult);
 	
 	if #aAddIcons > 0 then
 		rMessage.icon = { rMessage.icon };

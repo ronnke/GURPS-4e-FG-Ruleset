@@ -52,9 +52,11 @@
 	<script name="GameSystem" file="scripts/manager_gamesystem.lua" />
 
 	<script name="ActionsManager2" file="scripts/manager_actions2.lua" />
+	<script name="StringManager2" file="scripts/manager_string2.lua" />
 	<script name="ActionGeneral" file="scripts/manager_action_ability.lua" />
 	<script name="ActionMelee" file="scripts/manager_action_melee.lua" />
 	<script name="ActionRanged" file="scripts/manager_action_ranged.lua" />
 	<script name="ActionDefense" file="scripts/manager_action_defense.lua" />
+	<script name="ActionDamage" file="scripts/manager_action_damage.lua" />
 	<script name="ActionReaction" file="scripts/manager_action_reaction.lua" />
 </root>

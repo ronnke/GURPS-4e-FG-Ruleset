@@ -9,35 +9,30 @@ end
 
 function onRanged(rSource, rTarget, rRoll)
   local rMessage = ActionsManager2.createActionMessage(rSource, rRoll);
-  
   local nTotal = ActionsManager2.total(rRoll);
   local aAddIcons = {};
 
-  local nTarget = rRoll.nTarget + rRoll.nMod;
+  local nTarget = tonumber((string.match(rRoll.nTarget, "%d+") or "0"));
 
-  local sSummary = rRoll.sTargetDesc .. " (" .. nTarget ..")";
-  if rRoll.nMod > 0 then
-    sSummary = rRoll.sTargetDesc .. " " .. rRoll.nTarget ..  "+" .. math.abs(rRoll.nMod) .. "=(" .. nTarget .. ")";
-  elseif rRoll.nMod < 0 then
-    sSummary = rRoll.sTargetDesc .. " " .. rRoll.nTarget ..  "-" .. math.abs(rRoll.nMod) .. "=(" .. nTarget .. ")";
-  end
+  local nRoF = tonumber(string.match(rRoll.nRoF, "%d+")); 
+  nRoF = ((nRoF == nil or nRoF < 1) and 1 or nRoF);
+
+  local nRcl = tonumber(string.match(rRoll.nRcl, "%d+"));
+  nRcl = ((nRcl == nil or nRcl < 1) and 1 or nRcl);
+   
+  local nHits = 1 + math.floor((nTarget + rRoll.nMod - nTotal) / nRcl);
+  nHits = (nHits > nRoF and nRoF or nHits);
   
-  local sResult = "";
-  if nTotal <= nTarget then
-    if ((nTarget - nTotal) >= 10 and nTotal <= 6) or nTotal <= 4 then
-      sResult = "[ Critical Hit! ] by " .. math.abs(nTarget - nTotal);
-    else
-      sResult = "[ Hit! ] by " .. math.abs(nTarget - nTotal);
-    end
-  else
-    if ((nTotal - nTarget) >= 10 and nTarget <= 15) or nTotal == 18 then
-      sResult = "[ Critical Miss! ] by " .. math.abs(nTarget - nTotal);
-    else
-      sResult = "[ Miss! ] by " .. math.abs(nTarget - nTotal);
-    end
-  end
-  
-  rMessage.text = rMessage.text .. "\n" .. sSummary .. ":" .. sResult;
+  rMessage.text = string.format("%s\n%s%s%s %s(%d):%s%s",
+      (rMessage.text or ""), 
+      (rRoll.sWeapon or ""), 
+      ((rRoll.sWeapon and rRoll.sWeapon ~= '' and rRoll.sTargetDesc and rRoll.sTargetDesc ~= '') and "\n" or ""), 
+      (rRoll.sTargetDesc or ""), 
+      (rRoll.nMod ~= 0 and string.format("(%d%s%d)=", nTarget, (rRoll.nMod > 0 and "+" or ""), rRoll.nMod) or ""),
+      nTarget + rRoll.nMod, 
+      GameSystem.rollResult(nTotal, nTarget + rRoll.nMod),
+      (nHits > 0 and string.format(" [Maximum %d hit%s]", nHits, (nHits > 1 and "s" or "")) or "")
+  );
   
   if #aAddIcons > 0 then
     rMessage.icon = { rMessage.icon };

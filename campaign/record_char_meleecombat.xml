@@ -399,7 +399,7 @@
 			</button_idelete>
 			
 			<string_chardefensefield name="parry">
-				<rollable_parry />
+				<rollable_weaponparry />
 				<anchored to="rightanchor" width="30" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
