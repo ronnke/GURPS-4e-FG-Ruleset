@@ -23,38 +23,37 @@
 			<string_labeled name="basiclift">
 				<anchored to="secondarycharacteristicsframe" position="insidetopleft" offset="15,30" width="60" height="20" />
 				<labelres>char_label_basiclift</labelres>
+				<tabtarget prev="basicmove_points" next="thrust" />
 			</string_labeled>
 			<string_labeled name="thrust">
 				<anchored to="basiclift" position="right" offset="10,0" width="50" />
 				<labelres>char_label_thrust</labelres>
+				<tabtarget prev="basiclift" next="swing" />
 			</string_labeled>
 			<string_labeled name="swing">
 				<anchored to="thrust" position="right" offset="10,0" width="45" />
 				<labelres>char_label_swing</labelres>
+				<tabtarget prev="thrust" next="basicspeed" />
 			</string_labeled>
 
 			<string_labeled name="basicspeed">
 				<anchored to="secondarycharacteristicsframe" position="insidetopleft" offset="15,55" width="65" height="20" />
 				<labelres>char_label_basicspeed</labelres>
+				<tabtarget prev="swing" next="basicspeed_points" />
 			</string_labeled>
 			<number_charpointfield name="basicspeed_points" source="stats.basicspeed_points">
 				<anchored to="basicspeed" position="right" offset="5" width="20" />
-				<tabtarget>
-					<next>basicmove</next>
-					<prev>basicspeed</prev>
-				</tabtarget>
+				<tabtarget prev="basicspeed" next="basicmove" />
 			</number_charpointfield>
 
 			<string_labeled name="basicmove">
 				<anchored to="basicspeed" position="right" offset="60,0" width="60" />
 				<labelres>char_label_basicmove</labelres>
+				<tabtarget prev="basicspeed_points" next="basicmove_points" />
 			</string_labeled>
 			<number_charpointfield name="basicmove_points" source="stats.basicmove_points">
 				<anchored to="basicmove" position="right" offset="5" width="20" />
-				<tabtarget>
-					<next>basicspeed</next>
-					<prev>basicmove</prev>
-				</tabtarget>
+				<tabtarget prev="basicmove" next="basiclift" />
 			</number_charpointfield>
 
 
@@ -103,6 +102,7 @@
 			<stringu_charfield name="enc_xhvy" source="encumbrance.enc4_weight">
 				<anchored to="secondarycharacteristicsframe" position="insidetopright" offset="25,125" width="35" height="20" />
 				<center />
+				<tabtarget prev="enc_hvy" next="enc_move_none" />
 			</stringu_charfield>
 			<stringu_charfield name="enc_hvy" source="encumbrance.enc3_weight">
 				<anchored to="enc_xhvy" width="35" height="20">
@@ -110,6 +110,7 @@
 					<right anchor="left" relation="relative" offset="-5" />
 				</anchored>
 				<center />
+				<tabtarget prev="enc_medium" next="enc_xhvy" />
 			</stringu_charfield>
 			<stringu_charfield name="enc_medium" source="encumbrance.enc2_weight">
 				<anchored to="enc_xhvy" width="35" height="20">
@@ -117,6 +118,7 @@
 					<right anchor="left" relation="relative" offset="-5" />
 				</anchored>
 				<center />
+				<tabtarget prev="enc_light" next="enc_hvy" />
 			</stringu_charfield>
 			<stringu_charfield name="enc_light" source="encumbrance.enc1_weight">
 				<anchored to="enc_xhvy" width="35" height="20">
@@ -124,6 +126,7 @@
 					<right anchor="left" relation="relative" offset="-5" />
 				</anchored>
 				<center />
+				<tabtarget prev="enc_none" next="enc_medium" />
 			</stringu_charfield>
 			<stringu_charfield name="enc_none" source="encumbrance.enc0_weight">
 				<anchored to="enc_xhvy" width="35" height="20">
@@ -131,6 +134,7 @@
 					<right anchor="left" relation="relative" offset="-5" />
 				</anchored>
 				<center />
+				<tabtarget prev="enc_dodge_xhvy" next="enc_light" />
 			</stringu_charfield>
 			<stringcontrol>
 				<anchored to="enc_xhvy" width="60" height="20">
@@ -145,6 +149,7 @@
 			<stringu_charfield name="enc_move_xhvy" source="encumbrance.enc4_move" >
 				<anchored to="secondarycharacteristicsframe" position="insidetopright" offset="25,145" width="35" height="20" />
 				<center />
+				<tabtarget prev="enc_move_hvy" next="enc_dodge_none" />
 			</stringu_charfield>
 			<stringu_charfield name="enc_move_hvy" source="encumbrance.enc3_move">
 				<anchored to="enc_move_xhvy" width="35" height="20">
@@ -152,6 +157,7 @@
 					<right anchor="left" relation="relative" offset="-5" />
 				</anchored>
 				<center />
+				<tabtarget prev="enc_move_medium" next="enc_move_xhvy" />
 			</stringu_charfield>
 			<stringu_charfield name="enc_move_medium" source="encumbrance.enc2_move">
 				<anchored to="enc_move_xhvy" width="35" height="20">
@@ -159,6 +165,7 @@
 					<right anchor="left" relation="relative" offset="-5" />
 				</anchored>
 				<center />
+				<tabtarget prev="enc_move_light" next="enc_move_hvy" />
 			</stringu_charfield>
 			<stringu_charfield name="enc_move_light" source="encumbrance.enc1_move">
 				<anchored to="enc_move_xhvy" width="35" height="20">
@@ -166,6 +173,7 @@
 					<right anchor="left" relation="relative" offset="-5" />
 				</anchored>
 				<center />
+				<tabtarget prev="enc_move_none" next="enc_move_medium" />
 			</stringu_charfield>
 			<stringu_charfield name="enc_move_none" source="encumbrance.enc0_move">
 				<anchored to="enc_move_xhvy" width="35" height="20">
@@ -173,6 +181,7 @@
 					<right anchor="left" relation="relative" offset="-5" />
 				</anchored>
 				<center />
+				<tabtarget prev="enc_xhvy" next="enc_move_light" />
 			</stringu_charfield>
 			<stringcontrol>
 				<anchored to="enc_move_xhvy" width="60" height="20">
@@ -188,6 +197,7 @@
 				<rollable_dodge />
 				<anchored to="secondarycharacteristicsframe" position="insidetopright" offset="30,165" width="25" height="20" />
 				<center />
+				<tabtarget prev="enc_dodge_hvy" next="enc_none" />
 			</number_charfield>
 			<number_charfield name="enc_dodge_hvy" source="encumbrance.enc3_dodge">
 				<rollable_dodge />
@@ -196,6 +206,7 @@
 					<right anchor="left" relation="relative" offset="-15" />
 				</anchored>
 				<center />
+				<tabtarget prev="enc_dodge_medium" next="enc_dodge_xhvy" />
 			</number_charfield>
 			<number_charfield name="enc_dodge_medium" source="encumbrance.enc2_dodge">
 				<rollable_dodge />
@@ -204,6 +215,7 @@
 					<right anchor="left" relation="relative" offset="-15" />
 				</anchored>
 				<center />
+				<tabtarget prev="enc_dodge_light" next="enc_dodge_hvy" />
 			</number_charfield>
 			<number_charfield name="enc_dodge_light" source="encumbrance.enc1_dodge">
 				<rollable_dodge />
@@ -212,6 +224,7 @@
 					<right anchor="left" relation="relative" offset="-15" />
 				</anchored>
 				<center />
+				<tabtarget prev="enc_dodge_none" next="enc_dodge_medium" />
 			</number_charfield>
 			<number_charfield name="enc_dodge_none" source="encumbrance.enc0_dodge">
 				<rollable_dodge />
@@ -220,6 +233,7 @@
 					<right anchor="left" relation="relative" offset="-15" />
 				</anchored>
 				<center />
+				<tabtarget prev="enc_move_xhvy" next="enc_dodge_light" />
 			</number_charfield>
 			<stringcontrol>
 				<anchored to="enc_dodge_xhvy" width="60" height="20">

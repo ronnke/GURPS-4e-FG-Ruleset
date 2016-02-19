@@ -471,7 +471,7 @@
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
-				<tabtarget next="shots" prev="acc" />
+				<tabtarget next="rof" prev="acc" />
 			</string_charfield>
 			<number_charmodfield name="acc">
 				<anchored to="rightanchor" width="20" height="20">
@@ -507,7 +507,7 @@
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
-				<tabtarget next="reach" prev="name" />
+				<tabtarget next="acc" prev="level" />
 			</string_charfield>
 			<number_charfield name="level">
 				<rollable_ranged />

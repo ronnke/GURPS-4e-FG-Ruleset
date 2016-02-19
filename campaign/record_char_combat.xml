@@ -23,7 +23,6 @@
 				<anchored to="currentattributesframe" position="insidetopleft" offset="25,40" />
 				<tabtarget>
 					<next>current_fps</next>
-					<prev>dr</prev>
 				</tabtarget>
 			</number_attribute>
 			<label_attribute>
@@ -107,7 +106,6 @@
 			<number_attribute name="dr" source="stats.dr">
 				<anchored to="defensesframe" position="insidetopleft" offset="205,40" />
 				<tabtarget>
-					<next>current_hps</next>
 					<prev>block</prev>
 				</tabtarget>
 			</number_attribute>
