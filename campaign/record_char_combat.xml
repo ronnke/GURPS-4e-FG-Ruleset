@@ -103,12 +103,12 @@
 				<static textres="char_label_block" />
 			</label_attribute>
 
-			<number_attribute name="dr" source="stats.dr">
+			<string_attribute name="dr" source="stats.dr">
 				<anchored to="defensesframe" position="insidetopleft" offset="205,40" />
 				<tabtarget>
 					<prev>block</prev>
 				</tabtarget>
-			</number_attribute>
+			</string_attribute>
 			<label_attribute>
 				<anchored to="dr" />
 				<static textres="char_label_dr" />
@@ -125,6 +125,11 @@
 				<class>charsheet_rangedcombat</class>
 			</subwindow>
 
+			<subwindow name="protection">
+				<bounds>0,90,-1,-1</bounds>
+				<class>charsheet_protection</class>
+			</subwindow>
+
 			<tabs_charcombat>
 				<tab>
 					<icon>tab_meleecombat</icon>
@@ -133,6 +138,10 @@
 				<tab>
 					<icon>tab_rangedcombat</icon>
 					<subwindow>rangedcombat</subwindow>
+				</tab>
+				<tab>
+					<icon>tab_protection</icon>
+					<subwindow>protection</subwindow>
 				</tab>
 				<activate>1</activate>
 			</tabs_charcombat>

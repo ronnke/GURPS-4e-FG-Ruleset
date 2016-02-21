@@ -63,7 +63,7 @@
 				<static>ST</static>
 			</label_attribute>
 			<number_charpointfield name="strength_points" source="stats.strength_points">
-				<anchored to="strength" position="right" offset="5" width="20" />
+				<anchored to="strength" position="right" offset="7,-5" width="20" />
 				<tabtarget>
 					<next>dexterity</next>
 					<prev>strength</prev>
@@ -84,7 +84,7 @@
 				<static>DX</static>
 			</label_attribute>
 			<number_charpointfield name="dexterity_points" source="stats.dexterity_points">
-				<anchored to="dexterity" position="right" offset="5" width="20" />
+				<anchored to="dexterity" position="right" offset="7,-5" width="20" />
 				<tabtarget>
 					<next>intelligence</next>
 					<prev>dexterity</prev>
@@ -105,7 +105,7 @@
 				<static>IQ</static>
 			</label_attribute>
 			<number_charpointfield name="intelligence_points" source="stats.intelligence_points">
-				<anchored to="intelligence" position="right" offset="5" width="20" />
+				<anchored to="intelligence" position="right" offset="7,-5" width="20" />
 				<tabtarget>
 					<next>health</next>
 					<prev>intelligence</prev>
@@ -126,7 +126,7 @@
 				<static>HT</static>
 			</label_attribute>
 			<number_charpointfield name="health_points" source="stats.health_points">
-				<anchored to="health" position="right" offset="5" width="20" />
+				<anchored to="health" position="right" offset="7,-5" width="20" />
 				<tabtarget>
 					<next>hps</next>
 					<prev>health</prev>
@@ -145,7 +145,7 @@
 				<static>HP</static>
 			</label_attribute>
 			<number_charpointfield name="hps_points" source="stats.hps_points">
-				<anchored to="hps" position="right" offset="5" width="20" />
+				<anchored to="hps" position="right" offset="7,-5" width="20" />
 				<tabtarget>
 					<next>will</next>
 					<prev>hps</prev>
@@ -166,7 +166,7 @@
 				<static>WILL</static>
 			</label_attribute>
 			<number_charpointfield name="will_points" source="stats.will_points">
-				<anchored to="will" position="right" offset="5" width="20" />
+				<anchored to="will" position="right" offset="7,-5" width="20" />
 				<tabtarget>
 					<next>perception</next>
 					<prev>will</prev>
@@ -187,7 +187,7 @@
 				<static>PER</static>
 			</label_attribute>
 			<number_charpointfield name="perception_points" source="stats.perception_points">
-				<anchored to="perception" position="right" offset="5" width="20" />
+				<anchored to="perception" position="right" offset="7,-5" width="20" />
 				<tabtarget>
 					<next>fps</next>
 					<prev>perception</prev>
@@ -206,7 +206,7 @@
 				<static>FP</static>
 			</label_attribute>
 			<number_charpointfield name="fps_points" source="stats.fps_points">
-				<anchored to="fps" position="right" offset="5" width="20" />
+				<anchored to="fps" position="right" offset="7,-5" width="20" />
 				<tabtarget>
 					<next>current_hps</next>
 					<prev>fps</prev>

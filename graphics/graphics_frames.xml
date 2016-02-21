@@ -10,5 +10,16 @@
 		<bitmap file="graphics/frames/attributelabel.png" />
 		<offset>7,7,7,7</offset>
 	</framedef>
-</root>
+
+	<framedef name="textline">
+		<bitmap file="graphics/frames/textline.png"/>
+		<offset>0,1,0,0</offset>
+		<middle rect="0,0,100,20"/>
+	</framedef>
+
+	<framedef name="textlinesmall">
+		<bitmap file="graphics/frames/textline.png"/>
+		<middle rect="0,2,100,14"/>
+	</framedef>
 	
+</root>

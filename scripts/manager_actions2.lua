@@ -28,7 +28,7 @@ function createActionMessage(rSource, rRoll)
   -- Build the basic message to deliver
   local rMessage = ChatManager.createBaseMessage(rSource, rRoll.sUser);
   rMessage.type = rRoll.sType;
-  rMessage.text = rMessage.text .. rRoll.sDesc; 
+  rMessage.text = rRoll.sDesc; 
   rMessage.dice = rRoll.aDice;
   rMessage.diemodifier = 0;
   

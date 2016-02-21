@@ -81,42 +81,42 @@ function action(draginfo)
     
     if rollable_attribute or rollable_button_attribute then
       sType = "ability";
-      sDesc = "[ATTRIBUTE]";
+      sDesc = "[ATTRIBUTE%s]";
       sTargetDesc = stat[1];
       nTarget = getValue();
       rRoll = { sType = sType, sDesc = sDesc, aDice = aDice, nMod = nMod, sTargetDesc = sTargetDesc, nTarget = nTarget };
     elseif rollable_skill or rollable_button_skill then 
       rActor = ActorManager.getActor("pc", node.getChild("..."));
       sType = "ability";
-      sDesc = "[SKILL]";
+      sDesc = "[SKILL%s]";
       sTargetDesc = DB.getValue(node, "name", "");
       nTarget = DB.getValue(node, "level", "");
       rRoll = { sType = sType, sDesc = sDesc, aDice = aDice, nMod = nMod, sTargetDesc = sTargetDesc, nTarget = nTarget };
     elseif rollable_spell or rollable_button_spell then
       rActor = ActorManager.getActor("pc", node.getChild("..."));
       sType = "ability";
-      sDesc = "[SPELL]";
+      sDesc = "[SPELL%s]";
       sTargetDesc = DB.getValue(node, "name", "");
       nTarget = DB.getValue(node, "level", "");
       rRoll = { sType = sType, sDesc = sDesc, aDice = aDice, nMod = nMod, sTargetDesc = sTargetDesc, nTarget = nTarget };
     elseif rollable_power or rollable_button_power then
       rActor = ActorManager.getActor("pc", node.getChild("..."));
       sType = "ability";
-      sDesc = "[POWER]";
+      sDesc = "[POWER%s]";
       sTargetDesc = DB.getValue(node, "name", "");
       nTarget = DB.getValue(node, "level", "");
       rRoll = { sType = sType, sDesc = sDesc, aDice = aDice, nMod = nMod, sTargetDesc = sTargetDesc, nTarget = nTarget };
     elseif rollable_other or rollable_button_other then
       rActor = ActorManager.getActor("pc", node.getChild("..."));
       sType = "ability";
-      sDesc = "[OTHER]";
+      sDesc = "[OTHER%s]";
       sTargetDesc = DB.getValue(node, "name", "");
       nTarget = DB.getValue(node, "level", "");
       rRoll = { sType = sType, sDesc = sDesc, aDice = aDice, nMod = nMod, sTargetDesc = sTargetDesc, nTarget = nTarget };
     elseif rollable_melee or rollable_button_melee then
       rActor = ActorManager.getActor("pc", node.getChild("...").getChild("..."));
       sType = "melee";
-      sDesc = "[MELEE]";
+      sDesc = "[MELEE%s]";
       sWeapon = DB.getValue(node.getChild("..."), "name", "");
       sTargetDesc =  DB.getValue(node, "name", "");
       nTarget = getValue();
@@ -124,7 +124,7 @@ function action(draginfo)
     elseif rollable_ranged or rollable_button_ranged then
       rActor = ActorManager.getActor("pc", node.getChild("...").getChild("..."));
       sType = "ranged";
-      sDesc = "[RANGED]";
+      sDesc = "[RANGED%s]";
       sWeapon = DB.getValue(node.getChild("..."), "name", "");
       nRoF = DB.getValue(node, "rof", "");
       nRcl = DB.getValue(node, "rcl", "");
@@ -133,19 +133,19 @@ function action(draginfo)
       rRoll = { sType = sType, sDesc = sDesc, sWeapon = sWeapon, nRoF = nRoF, nRcl = nRcl, aDice = aDice, nMod = nMod, sTargetDesc = sTargetDesc, nTarget = nTarget };
     elseif rollable_dodge or rollable_button_dodge then
       sType = "dodge";
-      sDesc = "[DODGE]";
+      sDesc = "[DODGE%s]";
       sTargetDesc = "Dodge";
       nTarget = getValue();
       rRoll = { sType = sType, sDesc = sDesc, aDice = aDice, nMod = nMod, sTargetDesc = sTargetDesc, nTarget = nTarget };
     elseif rollable_parry or rollable_button_parry then
       sType = "parry";
-      sDesc = "[PARRY]";
+      sDesc = "[PARRY%s]";
       sTargetDesc = "Parry";
       nTarget = getValue();
       rRoll = { sType = sType, sDesc = sDesc, aDice = aDice, nMod = nMod, sTargetDesc = sTargetDesc, nTarget = nTarget };
     elseif rollable_block or rollable_button_block then
       sType = "block";
-      sDesc = "[BLOCK]";
+      sDesc = "[BLOCK%s]";
       sTargetDesc = "Block";
       sWeapon = DB.getValue(node.getChild("..."), "name", "");
       nTarget = getValue();
@@ -153,7 +153,7 @@ function action(draginfo)
     elseif rollable_weaponparry or rollable_button_weaponparry then
       rActor = ActorManager.getActor("pc", node.getChild("...").getChild("..."));
       sType = "parry";
-      sDesc = "[PARRY]";
+      sDesc = "[PARRY%s]";
       sWeapon = DB.getValue(node.getChild("..."), "name", "");
       sTargetDesc = DB.getValue(node, "name", "");
       nTarget = getValue();
@@ -161,7 +161,7 @@ function action(draginfo)
     elseif rollable_damage or rollable_button_damage then
       rActor = ActorManager.getActor("pc", node.getChild("...").getChild("..."));
       sType = "damage";
-      sDesc = "[DAMAGE]";
+      sDesc = "[DAMAGE%s]";
       sWeapon = DB.getValue(node.getChild("..."), "name", "");
       sMode = DB.getValue(node, "name", "");
       sDamage = getValue();
@@ -169,7 +169,7 @@ function action(draginfo)
       rRoll = { sType = sType, sDesc = sDesc, sWeapon = sWeapon, sMode = sMode, sDamage = sDamage, sFunc = sFunc, nNum = nNum, aDice = aDice, nMod = nMod };
     elseif rollable_reaction or rollable_button_reaction then
       sType = "reaction";
-      sDesc = "[REACTION]";
+      sDesc = "[REACTION%s]";
       rRoll = { sType = sType, sDesc = sDesc, aDice = aDice, nMod = nMod };
     end  
   

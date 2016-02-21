@@ -31,7 +31,7 @@ function onReaction(rSource, rTarget, rRoll)
       sResult = "[ Excellent! ]";
   end
   
-  rMessage.text = string.format("%s\n%s", rMessage.text, sResult);
+  rMessage.text = string.format("%s\n%s", string.format(rMessage.text,(rTarget and string.format(" > %s",rTarget.sName) or "")), sResult);
 	
 	if #aAddIcons > 0 then
 		rMessage.icon = { rMessage.icon };

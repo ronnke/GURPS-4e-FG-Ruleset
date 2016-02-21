@@ -13,7 +13,7 @@ function onDamage(rSource, rTarget, rRoll)
   local aAddIcons = {};
 
   rMessage.text = string.format("%s\n%s%s%s %s",
-      (rMessage.text or ""), 
+      (string.format(rMessage.text,(rTarget and string.format(" > %s",rTarget.sName) or ""))),
       (rRoll.sWeapon or ""), 
       ((rRoll.sWeapon and rRoll.sWeapon ~= '' and rRoll.sMode and rRoll.sMode ~= '') and "\n" or ""), 
       (rRoll.sMode or ""), 

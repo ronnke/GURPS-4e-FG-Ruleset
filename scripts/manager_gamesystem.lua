@@ -9,20 +9,25 @@ actions = {
   ["table"] = { },
   ["effect"] = { sIcon = "action_effect", sTargeting = "all" },
   ["ability"] = { sIcon = "action_roll", bUseModStack = true, bAddMod = false },
-  ["melee"] = { sIcon = "action_melee", bUseModStack = true, bAddMod = false, sTargeting = "each" },
-  ["ranged"] = { sIcon = "action_ranged", bUseModStack = true, bAddMod = false, sTargeting = "each" },
+  ["melee"] = { sIcon = "action_melee", bUseModStack = true, bAddMod = false },
+  ["ranged"] = { sIcon = "action_ranged", bUseModStack = true, bAddMod = false },
   ["dodge"] = { sIcon = "action_defense", bUseModStack = true, bAddMod = false },
   ["parry"] = { sIcon = "action_defense", bUseModStack = true, bAddMod = false },
   ["block"] = { sIcon = "action_defense", bUseModStack = true, bAddMod = false },
-  ["damage"] = { sIcon = "action_damage", bUseModStack = true, bAddMod = true, sTargeting = "each",  },
+  ["damage"] = { sIcon = "action_damage", bUseModStack = true, bAddMod = true  },
   ["reaction"] = { sIcon = "action_roll", bUseModStack = true, bAddMod = true },
 };
 
 targetactions = {
+  "effect",
+  "ability",
   "melee",
   "ranged",
   "damage",
-  "effect",
+  "dodge",
+  "parry",
+  "block",
+  "reaction",
 };
 
 currencies = { "$" };

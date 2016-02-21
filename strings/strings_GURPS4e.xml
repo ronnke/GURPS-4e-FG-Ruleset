@@ -58,6 +58,7 @@
 	<string name="char_label_defenses">DEFENSES</string>
 	<string name="char_label_meleecombat">MELEE COMBAT</string>
 	<string name="char_label_rangedcombat">RANGED COMBAT</string>
+	<string name="char_label_protection">PROTECTION</string>
 
 	<string name="char_label_dodge">Dodge</string>
 	<string name="char_label_parry">Parry</string>
@@ -81,6 +82,8 @@
 	<string name="char_label_mod">Mod</string>
 	<string name="char_label_mode">Mode</string>
 	<string name="char_label_modifier">Modifier</string>
+	<string name="char_label_armor">Armor</string>
+	<string name="char_label_location">Location</string>
 
 	<string name="char_tooltip_weaponmodes">Modes</string>
 	<string name="char_tooltip_weaponmodifiers">Modifiers</string>
@@ -110,7 +113,18 @@
 	<!-- Character - Notes -->
 	<string name="char_label_notes">Notes</string>
 	<string name="char_label_summary">Points Summary</string>
+	<string name="char_pointtotal_attributes">Attributes</string>
+	<string name="char_pointtotal_ads">Advantages</string>
+	<string name="char_pointtotal_disads">Disadvantages</string>
+	<string name="char_pointtotal_quirks">Quirks</string>
+	<string name="char_pointtotal_skills">Skills</string>
+	<string name="char_pointtotal_spells">Spells</string>
+	<string name="char_pointtotal_powers">Powers</string>
+	<string name="char_pointtotal_other">Other</string>
+	<string name="char_pointtotal_total">Total</string>
+	<string name="char_pointtotal_unspent">Unspent</string>
 	<string name="char_label_description">Description</string>
+
 	
 	<!-- NPCs -->
 	

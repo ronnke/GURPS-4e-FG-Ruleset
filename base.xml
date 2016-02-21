@@ -45,8 +45,14 @@
 
 	<includefile source="campaign/record_char_meleecombat.xml" />
 	<includefile source="campaign/record_char_rangedcombat.xml" />
+	<includefile source="campaign/record_char_protection.xml" />
 	
 	<includefile source="campaign/record_charnotes.xml" />
+
+	<!-- Combat tracker -->
+	<includefile source="ct/template_ct.xml" />
+	<includefile source="ct/ct_host.xml" />
+	<includefile source="ct/ct_client.xml" />
 
 	<!-- High-level scripts -->
 	<script name="GameSystem" file="scripts/manager_gamesystem.lua" />

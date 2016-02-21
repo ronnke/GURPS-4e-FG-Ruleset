@@ -96,6 +96,13 @@
 	</template>
 
 	
+	<template name="label_attribute">
+		<label_fieldtop>
+			<anchored offset="-2,-6" />
+			<frame name="attributelabel" />
+		</label_fieldtop>
+	</template>
+
 	<template name="label_columntop">
 		<stringcontrol>
 			<font>sheetlabelmini</font>
@@ -103,11 +110,11 @@
 		</stringcontrol>
 	</template>
 
-	<template name="label_attribute">
-		<label_fieldtop>
-			<anchored offset="-2,-6" />
-			<frame name="attributelabel" />
-		</label_fieldtop>
+	<template name="label_pointsummary">
+		<stringcontrol>
+			<font>sheetlabelsmall</font>
+			<left />
+		</stringcontrol>
 	</template>
 
 
@@ -150,6 +157,13 @@
 		</stringu>
 	</template>
 
+	<template name="numberu_charfield">
+		<numberfield>
+			<frame mergerule="replace" name="textline" hidereadonly="true" offset="0,-1,0,0" />
+			<nodrop />
+		</numberfield>
+	</template>
+
 	<template name="number_attribute">
 		<number_charfield>
 			<anchored width="40" height="30" />
@@ -182,6 +196,17 @@
 
 	<template name="number_charpointfield">
 		<numberfield>
+			<frame name="textline" />
+			<center />
+			<nodrag />
+			<nodrop />
+		</numberfield>
+	</template>
+
+	<template name="number_charpointtotals">
+		<numberfield>
+			<frame name="textline" />
+			<font>sheetnumbersmall</font>
 			<center />
 			<nodrag />
 			<nodrop />
@@ -387,6 +412,15 @@
 		<list_text>
 			<datasource>.charrangedmodelist</datasource>
 			<class>char_rangemode</class>
+			<sortby><control>name</control></sortby>
+			<newfocus>name</newfocus>
+		</list_text>
+	</template>
+
+	<template name="list_chararmor">
+		<list_text>
+			<datasource>.chararmorlist</datasource>
+			<class>char_armor</class>
 			<sortby><control>name</control></sortby>
 			<newfocus>name</newfocus>
 		</list_text>

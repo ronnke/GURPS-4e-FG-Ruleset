@@ -24,7 +24,7 @@ function onRanged(rSource, rTarget, rRoll)
   nHits = (nHits > nRoF and nRoF or nHits);
   
   rMessage.text = string.format("%s\n%s%s%s %s(%d):%s%s",
-      (rMessage.text or ""), 
+      (string.format(rMessage.text,(rTarget and string.format(" > %s",rTarget.sName) or ""))),
       (rRoll.sWeapon or ""), 
       ((rRoll.sWeapon and rRoll.sWeapon ~= '' and rRoll.sTargetDesc and rRoll.sTargetDesc ~= '') and "\n" or ""), 
       (rRoll.sTargetDesc or ""), 

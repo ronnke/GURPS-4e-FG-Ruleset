@@ -24,6 +24,7 @@
 	<icon name="action_defense" file="graphics/icons/action_defense.png" />
 	<icon name="action_damage" file="graphics/icons/action_damage.png" />
 
+	<icon name="field_rollable" file="graphics/icons/field_rollable.png" />
 	<icon name="field_modifier" file="graphics/icons/field_modifier.png" />
 
 	<!-- Graphics -->
@@ -31,18 +32,23 @@
 
 
 	<!-- Tab controls -->
+	<icon name="tab_main" file="graphics/tabs/tab_main.png" />
 	<icon name="tab_reactionmodifiers" file="graphics/tabs/tab_reactionmodifiers.png" />
 	<icon name="tab_secondarycharacteristics" file="graphics/tabs/tab_secondarycharacteristics.png" />
-	
 	<icon name="tab_traits" file="graphics/tabs/tab_traits.png" />
-	
+	<icon name="tab_abilities" file="graphics/tabs/tab_abilities.png" />
+	<icon name="tab_skills" file="graphics/tabs/tab_skills.png" />
+	<icon name="tab_spells" file="graphics/tabs/tab_spells.png" />
+	<icon name="tab_powers" file="graphics/tabs/tab_powers.png" />
+	<icon name="tab_other" file="graphics/tabs/tab_other.png" />
+	<icon name="tab_combat" file="graphics/tabs/tab_combat.png" />
 	<icon name="tab_meleecombat" file="graphics/tabs/tab_melee.png" />
 	<icon name="tab_rangedcombat" file="graphics/tabs/tab_ranged.png" />
+	<icon name="tab_protection" file="graphics/tabs/tab_protection.png" />
+	<icon name="tab_inventory" file="graphics/tabs/tab_inventory.png" />
+	<icon name="tab_notes" file="graphics/tabs/tab_notes.png" />
 	
 	<!-- Fonts -->
-	<font name="sheetnumberlarge">
-		<fgffile name="graphics/fonts/sheetnumber.fgf" />
-		<color value="#000000" />
-	</font>
+	<includefile source="graphics/graphics_fonts.xml" />
 	
 </root>
