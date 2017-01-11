@@ -438,7 +438,7 @@
 
 	<template name="list_npcabilities">
 		<list_text>
-			<datasource>.abilitieslist</datasource>
+			<datasource>.abilities.abilitieslist</datasource>
 			<sortby><control>name</control></sortby>
 			<newfocus>name</newfocus>
 			<allowcreate />

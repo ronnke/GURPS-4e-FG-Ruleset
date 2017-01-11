@@ -20,10 +20,10 @@ function updatePointsTotalForNode(nodePC)
   temp = temp + DB.getValue(nodePC,"attributes.dexterity_points",0);
   temp = temp + DB.getValue(nodePC,"attributes.intelligence_points",0);
   temp = temp + DB.getValue(nodePC,"attributes.health_points",0);
-  temp = temp + DB.getValue(nodePC,"attributes.hps_points",0);
+  temp = temp + DB.getValue(nodePC,"attributes.hitpoints_points",0);
   temp = temp + DB.getValue(nodePC,"attributes.will_points",0);
   temp = temp + DB.getValue(nodePC,"attributes.perception_points",0);
-  temp = temp + DB.getValue(nodePC,"attributes.fps_points",0);
+  temp = temp + DB.getValue(nodePC,"attributes.fatiguepoints_points",0);
   temp = temp + DB.getValue(nodePC,"attributes.basicspeed_points",0);
   temp = temp + DB.getValue(nodePC,"attributes.basicmove_points",0);
   temp = temp + DB.getValue(nodePC,"traits.tl_points",0);

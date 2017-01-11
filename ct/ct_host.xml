@@ -262,6 +262,11 @@
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
 				<tabtarget prev="name" />
+				<script>
+					function handleDrop(draginfo)
+						setValue(getValue() - draginfo.getNumberData());
+					end
+				</script>
 			</number_ct_crosslink>
 
 			<number_ct_crosslink name="hps">
@@ -271,7 +276,11 @@
 				</anchored>
 				<tabtarget prev="name" />
 				<script>
-					function onValueChanged()
+					function handleDrop(draginfo)
+						setValue(getValue() - draginfo.getNumberData());
+					end
+
+					function update()
 						window.onHealthChanged();
 					end
 				</script>
@@ -403,7 +412,7 @@
 				<static textres="ct_label_perception" />
 			</label_ct_ability>
 			
-			<number_ct_ability name="hitpoints" source="attributes.hps">
+			<number_ct_ability name="hitpoints" source="attributes.hitpoints">
 				<anchored to="perception" position="righthigh" offset="10,0" />
 				<description textres="ct_label_hitpoints" />
 				<hideonvalue value="0" />
@@ -419,7 +428,7 @@
 				<static textres="ct_label_hitpoints" />
 			</label_ct_ability>
 
-			<number_ct_ability name="fatiguepoints" source="attributes.fps">
+			<number_ct_ability name="fatiguepoints" source="attributes.fatiguepoints">
 				<anchored to="hitpoints" position="righthigh" offset="10,0" />
 				<description textres="ct_label_fatiguepoints" />
 				<hideonvalue value="0" />
@@ -429,7 +438,7 @@
 				<anchored to="fatiguepoints" />
 				<static textres="ct_label_fatiguepoints" />
 			</label_ct_ability>
-			
+
 			<frame_ctsub name="frame_stats">
 				<anchored>
 					<top parent="statsicon" />

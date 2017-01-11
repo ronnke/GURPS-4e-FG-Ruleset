@@ -146,20 +146,20 @@ function linkPCFields()
     dexterity.setLink(nodeChar.createChild("attributes.dexterity", "number"), true);
     intelligence.setLink(nodeChar.createChild("attributes.intelligence", "number"), true);
     health.setLink(nodeChar.createChild("attributes.health", "number"), true);
-    hitpoints.setLink(nodeChar.createChild("attributes.hps", "number"), true);
+    hitpoints.setLink(nodeChar.createChild("attributes.hitpoints", "number"), true);
     will.setLink(nodeChar.createChild("attributes.will", "number"), true);
     perception.setLink(nodeChar.createChild("attributes.perception", "number"), true);
-    fatiguepoints.setLink(nodeChar.createChild("attributes.fps", "number"), true);
+    fatiguepoints.setLink(nodeChar.createChild("attributes.fatiguepoints", "number"), true);
 
-    move.setLink(nodeChar.createChild("attributes.current_move", "number"), true);
 
     dodge.setLink(nodeChar.createChild("combat.dodge", "number"), true);
     parry.setLink(nodeChar.createChild("combat.parry", "number"), true);
     block.setLink(nodeChar.createChild("combat.block", "number"), true);
     dr.setLink(nodeChar.createChild("combat.dr", "string"), true);
 
-    hps.setLink(nodeChar.createChild("attributes.current_hps", "number"));
-    fps.setLink(nodeChar.createChild("attributes.current_fps", "number"));
+    hps.setLink(nodeChar.createChild("attributes.hps", "number"));
+    fps.setLink(nodeChar.createChild("attributes.fps", "number"));
+    move.setLink(nodeChar.createChild("attributes.move", "number"), true);
   end
 end
 
