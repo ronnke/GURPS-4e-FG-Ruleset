@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+
+	<windowclass name="char_modifier">
+		<margins control="0,0,0,2" />
+		<script>
+			function actionDrag(draginfo)
+				if not name.isEmpty() then
+					draginfo.setType("number");
+					draginfo.setDescription(name.getValue());
+					draginfo.setStringData(name.getValue());
+					draginfo.setNumberData(modifier.getValue());
+				end
+				return true;
+			end
+			
+			function action()
+				ModifierStack.addSlot(name.getValue(), modifier.getValue());
+				return true;
+			end
+
+			function onDrop(x, y, draginfo)
+				return windowlist.onDrop(x, y, draginfo);
+			end
+		</script>
+		<sheetdata>
+			<genericcontrol name="rightanchor">
+				<anchored height="0" width="0">
+					<top />
+					<right />
+				</anchored>
+			</genericcontrol>
+			<button_idelete name="idelete">
+				<anchored>
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<invisible merge="delete" />
+			</button_idelete>
+
+			<button_modifier>
+				<anchored>
+					<top offset="2" />
+					<left offset="5" />
+				</anchored>
+				<script>
+					function onDragStart(button, x, y, draginfo)
+						return window.actionDrag(draginfo);
+					end
+
+					function onButtonPress(x, y)
+						return window.action();
+					end
+				</script>
+			</button_modifier>
+
+			<number_charmodfield name="modifier">
+				<anchored to="rightanchor" width="30" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<script>
+					function onDragStart(button, x, y, draginfo)
+						return actionDrag(draginfo, window.name.getValue());
+					end
+
+					function onDoubleClick(x, y)
+						return action(window.name.getValue());
+					end
+				</script>
+				<tabtarget prev="name" />
+			</number_charmodfield>
+			<string_textlistitem name="name">
+				<anchored height="20">
+					<top offset="2" />
+					<left offset="30" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<nodrag />
+				<tabtarget next="modifier" />
+			</string_textlistitem>
+			
+		</sheetdata>
+	</windowclass>
+	
+</root>

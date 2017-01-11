@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+
+	<template name="anchor_ctbox_client_header">
+		<genericcontrol name="headeranchor">
+			<anchored to="contentanchor" height="20">
+				<top anchor="bottom" relation="relative" offset="0" />
+				<left />
+				<right />
+			</anchored>
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="frame_ctbox_client_header">
+		<frame_ct name="client_header">
+			<anchored to="contentanchor" height="35">
+				<top offset="-9" />
+				<left offset="-5" />
+				<right offset="10" />
+			</anchored>
+		</frame_ct>
+	</template>
+	<template name="list_ctbox_client">
+		<windowlist name="list">
+			<anchored to="contentanchor">
+				<top anchor="bottom" relation="relative" offset="5" />
+				<left offset="-30" />
+				<right offset="10" />
+				<bottom parent="" offset="-55" />
+			</anchored>
+			<datasource>.list</datasource>
+			<class>client_ct_entry</class>
+			<script file="ct/scripts/clientct.lua" />
+		</windowlist>
+	</template>
+	
+	<template name="anchor_ctbox_host_header">
+		<genericcontrol name="headeranchor">
+			<anchored to="contentanchor" height="20">
+				<top anchor="bottom" relation="relative" offset="0" />
+				<left />
+				<right />
+			</anchored>
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="frame_ctbox_host_header_visibility">
+		<frame_ct name="header_vis">
+			<anchored to="headeranchor" height="35" width="40">
+				<top offset="-9" />
+				<left offset="-7" />
+			</anchored>
+		</frame_ct>
+	</template>
+	<template name="frame_ctbox_host_header_toggles">
+		<frame_ct name="header_toggles">
+			<anchored to="headeranchor" height="35">
+				<top offset="-9" />
+				<left offset="25" />
+				<right offset="10" />
+			</anchored>
+		</frame_ct>
+	</template>
+	<template name="list_ctbox_host">
+		<windowlist name="list">
+			<anchored to="contentanchor">
+				<top anchor="bottom" relation="relative" offset="5" />
+				<left offset="-30" />
+				<right offset="10" />
+				<bottom parent="" offset="-55" />
+			</anchored>
+			<datasource>.list</datasource>
+			<class>ct_entry</class>
+			<empty font="list-empty" textres="ct_emptylist" />
+			<script file="ct/scripts/ct.lua" />
+		</windowlist>
+	</template>
+
+	<template name="label_ct">
+		<label>
+			<color>000000</color>
+		</label>
+	</template>
+	
+	<template name="frame_ct">
+		<genericcontrol>
+			<frame name="ct_groupbox" />
+		</genericcontrol>
+	</template>
+	<template name="frame_ctsub">
+		<genericcontrol>
+			<anchored>
+				<left offset="83" />
+				<top offset="-8" />
+				<right offset="-4" />
+				<bottom offset="8" />
+			</anchored>
+			<frame name="ct_subgroupbox" />
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="icon_ctsection">
+		<genericcontrol>
+			<anchored width="20" height="20">
+				<left offset="63" />
+				<top parent="name" anchor="bottom" relation="current" offset="10" />
+			</anchored>
+		</genericcontrol>
+	</template>
+
+	<template name="string_ct">
+		<stringu>
+			<script file="common/scripts/string_crosslink.lua" />
+		</stringu>
+	</template>
+	<template name="string_ctname">
+		<string_ct />
+	</template>
+	<template name="string_ct_effect">
+		<stringu>
+			<stateframe>
+				<drophilight name="fieldfocus" offset="7,5,7,5" />
+			</stateframe>
+			<droptypes>
+				<type>combattrackerentry</type>
+			</droptypes>
+			<script file="ct/scripts/ct_effectlabel.lua" />
+		</stringu>
+	</template>
+
+	<template name="label_ct_ability">
+		<label_fieldtop>
+			<anchored offset="-2,-6" height="15"/>
+			<frame name="attributelabel" />
+		</label_fieldtop>
+	</template>
+	<template name="number_ct_ability">
+		<number_ct>
+			<anchored width="40" height="25" />
+			<default>0</default>
+			<script file="campaign/scripts/campaign_rollable.lua" />
+		</number_ct>
+	</template>
+
+	<template name="string_ct_ability">
+		<basicstring>
+			<anchored width="40" height="25" />
+			<frame mergerule="replace" name="fielddark" offset="7,5,7,5" />
+			<script file="common/scripts/string_crosslink.lua" />
+			<script file="campaign/scripts/campaign_rollable.lua" />
+			<center />
+		</basicstring>
+	</template>
+
+	<template name="number_ct_static">
+		<simplenumber>
+			<frame name="fieldlight" offset="7,5,7,5" />
+			<readonly />
+			<nodrag />
+		</simplenumber>
+	</template>
+	<template name="number_ct_crosslink">
+		<basicnumber>
+			<gmeditonly />
+			<script file="common/scripts/number_crosslink.lua" />
+		</basicnumber>
+	</template>
+	<template name="number_ct">
+		<basicnumber>
+			<anchored width="25" height="20" />
+			<gmeditonly />
+			<script file="common/scripts/number_crosslink.lua" />
+		</basicnumber>
+	</template>
+	
+	<template name="checkbox_ct_crosslink">
+		<button_checkbox>
+			<anchored width="10" height="20" />
+			<gmeditonly />
+			<script file="common/scripts/button_crosslink.lua" />
+		</button_checkbox>
+	</template>
+	
+	<template name="button_ct_friendfoe">
+		<genericcontrol>
+			<anchored width="20" height="20" />
+			<cursor hover="hand" />
+			<script>
+				function onDragStart(button, x, y, draginfo)
+					draginfo.setType("combattrackerff");
+					draginfo.setIcon(icon[1]);
+					draginfo.setStringData(value[1]);
+
+					return true;
+				end
+			</script>
+		</genericcontrol>
+	</template>
+	<template name="button_ct_faction_friend">
+		<button_ct_friendfoe>
+			<anchored>
+				<bottom offset="-23" />
+				<left anchor="center" offset="-35" />
+			</anchored>
+			<icon>ct_faction_friend</icon>
+			<value>friend</value>
+			<tooltip textres="ct_tooltip_factionfriend" />
+		</button_ct_friendfoe>
+	</template>
+	<template name="button_ct_faction_neutral">
+		<button_ct_friendfoe>
+			<anchored>
+				<bottom offset="-23" />
+				<left anchor="center" offset="-10" />
+			</anchored>
+			<icon>ct_faction_neutral</icon>
+			<value>neutral</value>
+			<tooltip textres="ct_tooltip_factionneutral" />
+		</button_ct_friendfoe>
+	</template>
+	<template name="button_ct_faction_foe">
+		<button_ct_friendfoe>
+			<anchored>
+				<bottom offset="-23" />
+				<left anchor="center" offset="15" />
+			</anchored>
+			<icon>ct_faction_foe</icon>
+			<value>foe</value>
+			<tooltip textres="ct_tooltip_factionfoe" />
+		</button_ct_friendfoe>
+	</template>
+	
+	<template name="button_ct_setactive">
+		<genericcontrol>
+			<anchored width="33" height="40">
+				<bottom offset="-13" />
+				<left parent="contentanchor" />
+			</anchored>
+			<activeicon>ct_active</activeicon>
+			<cursor hover="hand" />
+			<script>
+				function onInit()
+					widget = addBitmapWidget(activeicon[1]);
+				end
+				
+				function onDragStart(button, x, y, draginfo)
+					draginfo.setType("combattrackeractivation");
+					draginfo.setIcon(activeicon[1]);
+					widget.setVisible(false);
+					
+					return true;
+				end
+				
+				function onDragEnd(draginfo)
+					widget.setVisible(true);
+				end
+			</script>
+		</genericcontrol>
+	</template>
+	<template name="button_ct_nextactor">
+		<buttoncontrol>
+			<anchored width="33" height="26">
+				<bottom offset="-19" />
+				<left parent="contentanchor" offset="35" />
+			</anchored>
+			<icon normal="button_ctnextactor" pressed="button_ctnextactor_down" />
+			<tooltip textres="ct_tooltip_nextactor" />
+			<script>
+				function onButtonPress()
+					CombatManager.nextActor();
+				end
+				
+				function onDragStart(button, x, y, draginfo)
+					draginfo.setType("combattrackernextactor");
+					draginfo.setIcon("button_ctnextactor");
+					
+					return true;
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="button_ct_endturn">
+		<buttoncontrol>
+			<anchored width="33" height="26">
+				<bottom offset="-19" />
+				<left parent="contentanchor" offset="2" />
+			</anchored>
+			<icon normal="button_ctnextactor" pressed="button_ctnextactor_down" />
+			<tooltip textres="ct_tooltip_endturn" />
+			<script>
+				function onButtonPress()
+					CombatManager.notifyEndTurn();
+				end
+				
+				function onDragStart(button, x, y, draginfo)
+					draginfo.setType("combattrackernextactor");
+					draginfo.setIcon("button_ctnextactor");
+					
+					return true;
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="button_ct_menu">
+		<buttoncontrol>
+			<bounds>26,11,40,20</bounds>
+			<icon normal="button_menu" pressed="button_menu_down" />
+			<tooltip textres="ct_tooltip_menu" />
+			<script file="ct/scripts/ct_menu.lua" />
+		</buttoncontrol>
+	</template>
+	<template name="label_ct_client_rounds">
+		<label_ct>
+			<anchored height="20">
+				<bottom offset="-22" />
+				<right parent="contentanchor" offset="-45" />
+			</anchored>
+			<static textres="ct_label_round" />
+		</label_ct>
+	</template>
+	<template name="number_ct_client_rounds">
+		<simplenumber name="round">
+			<anchored width="40" height="25">
+				<bottom offset="-20" />
+				<right parent="contentanchor" />
+			</anchored>
+			<frame name="ct_groupbox" offset="3,3,3,3" />
+			<gmeditonly />
+		</simplenumber>
+	</template>
+	<template name="label_ct_host_rounds">
+		<label_ct>
+			<anchored height="20">
+				<bottom offset="-22" />
+				<right parent="contentanchor" offset="-80" />
+			</anchored>
+			<static textres="ct_label_round" />
+		</label_ct>
+	</template>
+	<template name="number_ct_host_rounds">
+		<simplenumber name="round">
+			<anchored width="40" height="25">
+				<bottom offset="-20" />
+				<right parent="contentanchor" offset="-35" />
+			</anchored>
+			<frame name="ct_groupbox" offset="3,3,3,3" />
+			<gmeditonly />
+		</simplenumber>
+	</template>
+	<template name="button_ct_nextround">
+		<buttoncontrol>
+			<anchored width="33" height="26">
+				<bottom offset="-19" />
+				<right parent="contentanchor" />
+			</anchored>
+			<icon normal="button_ctnextround" pressed="button_ctnextround_down" />
+			<tooltip textres="ct_tooltip_nextround" />
+			<script>
+				function onInit()
+					registerMenuItem(Interface.getString("ct_menu_round5"), "num5", 4);
+					registerMenuItem(Interface.getString("ct_menu_round10"), "num10", 5);
+					registerMenuItem(Interface.getString("ct_menu_round15"), "num15", 6);
+					registerMenuItem(Interface.getString("ct_menu_round20"), "num20", 7);
+				end
+				
+				function onMenuSelection(selection)
+					if selection == 4 then
+						CombatManager.nextRound(5);
+					elseif selection == 5 then
+						CombatManager.nextRound(10);
+					elseif selection == 6 then
+						CombatManager.nextRound(15);
+					elseif selection == 7 then
+						CombatManager.nextRound(20);
+					end
+				end
+				
+				function onButtonPress()
+					CombatManager.nextRound(1);
+				end
+				
+				function onDragStart(button, x, y, draginfo)
+					draginfo.setType("combattrackernextround");
+					draginfo.setIcon("button_ctnextround");
+					
+					return true;
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+
+	<template name="button_ctentry_active">
+		<buttonfield>
+			<state icon="ct_passive" />
+			<state icon="ct_active" />
+			<script file="ct/scripts/ct_active.lua" />
+		</buttonfield>
+	</template>
+	<template name="button_ctentry_client_active">
+		<buttonfield>
+			<state icon="ct_passive" />
+			<state icon="ct_active" />
+			<readonly />
+			<script>
+				function onValueChanged()
+					local bActive = (getValue() == 1);
+					
+					window.onActiveChanged(bActive);
+	
+					if bActive and OptionsManager.isOption("CMAT", "on") then
+						local sClass,sRecord = window.link.getValue();
+						if sClass == "charsheet" then
+							local bOwned = DB.isOwner(sRecord);
+							if bOwned then
+								CombatManager.centerOnToken(window.getDatabaseNode());
+							end
+						end
+					end
+				end
+			</script>
+		</buttonfield>
+	</template>
+	<template name="token_ctentry">
+		<tokenfield>
+			<empty>token_empty</empty>
+			<script file="ct/scripts/ct_token.lua" />
+		</tokenfield>
+	</template>
+	<template name="token_ctentry_client">
+		<tokenfield>
+			<empty>token_empty</empty>
+			<readonly />
+			<nodrag />
+		</tokenfield>
+	</template>
+	<template name="button_ctentry_tokenvis">
+		<buttonfield>
+			<anchored width="20" height="20" />
+			<state icon="visibilityoff" tooltipres="ct_tooltip_shownpcon" />
+			<state icon="visibilityon" tooltipres="ct_tooltip_shownpcoff" />
+			<invisible/>
+			<script>
+				function onValueChanged()
+					window.onVisibilityChanged();
+				end
+			</script>
+		</buttonfield>
+	</template>
+	<template name="link_ctentry">
+		<linkfield>
+			<anchored width="20" height="20" />
+			<class>npc</class>
+			<selfonempty />
+			<readonly />
+			<script>
+				function onValueChanged()
+					window.onLinkChanged();
+				end
+			</script>
+		</linkfield>
+	</template>
+	<template name="button_ctentry_friendfoe">
+		<button_iconcycler>
+			<anchored width="20" height="20" />
+			<parameters>
+				<icons>ct_faction_friend|ct_faction_neutral|ct_faction_foe</icons>
+				<values>friend|neutral|foe</values>
+				<tooltipsres>ct_tooltip_factionfriend|ct_tooltip_factionneutral|ct_tooltip_factionfoe</tooltipsres>
+				<defaulttooltipres>ct_tooltip_factionempty</defaulttooltipres>
+				<defaulticon>ct_faction_empty</defaulticon>
+			</parameters>
+			<gmeditonly />
+			<script>
+				function onValueChanged()
+					window.onFactionChanged();
+				end
+			</script>
+		</button_iconcycler>
+	</template>
+	
+	<template name="string_ct_summary">
+		<stringcontrol>
+			<anchored>
+				<top parent="name" anchor="bottom" relation="relative" offset="4" />
+				<left offset="68" />
+				<right offset="-10" />
+			</anchored>
+			<multilinespacing>16</multilinespacing>
+			<font>sheettext</font>
+			<static />
+			<nodrag />
+			<invisible />
+		</stringcontrol>
+	</template>
+	<template name="string_ctentry_targets">
+		<string_ct_summary>
+			<script file="ct/scripts/ct_target_summary.lua" />
+		</string_ct_summary>
+	</template>
+	<template name="string_ctentry_effects">
+		<string_ct_summary>
+			<script file="ct/scripts/ct_effect_summary.lua" />
+		</string_ct_summary>
+	</template>
+	<template name="string_ctentry_effect_targets">
+		<string_ctentry_targets>
+			<anchored merge="delete" />
+			<color>7F000000</color>
+			<script>
+				function onClickDown(button, x, y)
+					return true;
+				end
+				
+				function onClickRelease(button, x, y)
+					if isVisible() then
+						DB.deleteChildren(window.getDatabaseNode(), "targets");
+					end
+				end
+
+				function onDragStart(button, x, y, draginfo)
+					if window.onDragStart then
+						return window.onDragStart(button, x, y, draginfo);
+					end
+				end
+
+				function onDrop(x, y, draginfo)
+					if window.onDrop then
+						return window.onDrop(x, y, draginfo);
+					end
+				end
+			</script>
+		</string_ctentry_targets>
+	</template>
+	
+	<template name="list_ctmeleecombat">
+		<list_text>
+			<datasource>.combat.meleecombatlist</datasource>
+			<sortby><control>name</control></sortby>
+			<newfocus>name</newfocus>
+			<allowcreate />
+			<allowdelete />
+			<noscroll />
+		</list_text>
+	</template>
+
+	<template name="list_ctrangedcombat">
+		<list_text>
+			<datasource>.combat.rangedcombatlist</datasource>
+			<sortby><control>name</control></sortby>
+			<newfocus>name</newfocus>
+			<allowcreate />
+			<allowdelete />
+			<noscroll />
+		</list_text>
+	</template>
+	
+</root>

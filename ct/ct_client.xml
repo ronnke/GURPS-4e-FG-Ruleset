@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="combattracker_client">
+		<frame>ctbox</frame>
+		<placement>
+			<size width="500" height="500" />
+		</placement>
+		<sizelimits>
+			<minimum width="350" height="350" />
+			<dynamic />
+		</sizelimits>
+		<softclose />
+		<nodelete />
+		<script>
+			function onInit()
+				OptionsManager.registerCallback("SHPC", updateHealthDisplay);
+				OptionsManager.registerCallback("SHNPC", updateHealthDisplay);
+				updateHealthDisplay();
+				OptionsManager.registerCallback("CTSI", updateShowOrder);
+				updateShowOrder();
+			end
+			
+			function onClose()
+				OptionsManager.unregisterCallback("SHPC", updateHealthDisplay);
+				OptionsManager.unregisterCallback("SHNPC", updateHealthDisplay);
+				OptionsManager.unregisterCallback("CTSI", updateShowOrder);
+			end
+			
+			function updateHealthDisplay()
+				local sOptSHPC = OptionsManager.getOption("SHPC");
+				local sOptSHNPC = OptionsManager.getOption("SHNPC");
+				local bShowDetail = (sOptSHPC == "detailed") or (sOptSHNPC == "detailed");
+				
+				label_hps.setVisible(bShowDetail);
+				label_fps.setVisible(bShowDetail);
+
+				label_status.setVisible(not bShowDetail);
+
+				for _,w in pairs(list.getWindows()) do
+					w.updateHealthDisplay();
+				end
+			end
+			
+			function updateShowOrder()
+				local bShowSpeed = not OptionsManager.isOption("CTSI", "off");
+				label_speed.setVisible(bShowSpeed);
+			end
+		</script>
+		<sheetdata>
+			<windowtitlebar name="title">
+				<resource>ct_window_title</resource>
+			</windowtitlebar>
+			<anchor_title_ctbox name="contentanchor" />
+
+			<anchor_ctbox_client_header />
+			<frame_ctbox_client_header />
+			<label_ct name="label_name">
+				<anchored to="headeranchor" position="insidetopleft" offset="33,0">
+					<right offset="-180" />
+				</anchored>
+				<static textres="ct_label_name" />
+				<center />
+			</label_ct>
+			<label_ct name="label_speed">
+				<anchored to="headeranchor" position="insidetopright" offset="130,0" width="40" />
+				<static textres="ct_label_speed" />
+				<center />
+			</label_ct>
+
+			<label_ct name="label_hps">
+				<anchored to="headeranchor" position="insidetopright" offset="80,0" width="40" />
+				<static textres="ct_label_hps" />
+				<center />
+			</label_ct>
+
+			<label_ct name="label_fps">
+				<anchored to="headeranchor" position="insidetopright" offset="30,0" width="40" />
+				<static textres="ct_label_fps" />
+				<center />
+			</label_ct>
+			<label_ct name="label_status">
+				<anchored to="headeranchor" position="insidetopright" offset="30,0" width="90" />
+				<static textres="ct_label_status" />
+				<center />
+			</label_ct>
+
+			<list_ctbox_client />
+			<scrollbar_list />
+			
+			<button_ct_endturn />
+			
+			<label_ct_client_rounds />
+			<number_ct_client_rounds />
+
+			<resize_ctbox />
+			<helper_ct />
+			<close_ctbox />
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="client_ct_entry">
+		<margins control="0,0,0,2" />
+		<frame>ctentrybox</frame>
+		<script file="ct/scripts/clientct_entry.lua" />
+		<sheetdata>
+			<hs name="tokenrefid" />
+			<hs name="tokenrefnode" />
+			<hn name="tokenvis" />
+			<hlink name="link" />
+
+			<genericcontrol name="active_spacer_top">
+				<anchored width="0" height="5">
+					<top />
+					<left />
+				</anchored>
+				<invisible />
+			</genericcontrol>
+			
+			<button_ctentry_client_active name="active">
+				<anchored width="33" height="40">
+					<top parent="active_spacer_top" anchor="bottom" />
+					<left />
+				</anchored>
+			</button_ctentry_client_active>
+			<token_ctentry_client name="token">
+				<anchored width="25" height="25">
+					<top parent="active_spacer_top" anchor="bottom" offset="7" />
+					<left offset="33" />
+				</anchored>
+			</token_ctentry_client>
+
+			<genericcontrol name="rightanchor">
+				<anchored width="0" height="0">
+					<top parent="active_spacer_top" anchor="bottom" offset="10" />
+					<right />
+				</anchored>
+				<invisible />
+			</genericcontrol>
+			<button_ctentry_friendfoe name="friendfoe">
+				<anchored to="rightanchor">
+					<top />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+			</button_ctentry_friendfoe>
+
+			<genericcontrol name="healthbase">
+				<anchored to="rightanchor" width="90" height="20">
+					<top />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<disabled />
+			</genericcontrol>
+			<simplestring name="status">
+				<anchored to="healthbase" position="over" />
+				<frame name="fieldlight" offset="7,5,7,5" />
+				<center />
+				<static />
+				<invisible />
+			</simplestring>
+			<number_ct_static name="fps">
+				<anchored to="healthbase" width="40" height="20">
+					<top />
+					<right />
+				</anchored>
+			</number_ct_static>
+			<number_ct_static name="hps">
+				<anchored to="fps" width="40" height="20">
+					<top />
+					<right anchor="left" offset="-10" />
+				</anchored>
+				<script>
+					function onValueChanged()
+						window.onHealthChanged();
+					end
+				</script>
+			</number_ct_static>
+			<number_ct_static name="speed">
+				<anchored to="rightanchor" width="40" height="20">
+					<top />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<script>
+					function onValueChanged()
+						window.windowlist.applySort();
+					end
+				</script>
+			</number_ct_static>
+
+
+
+			<stringu name="name">
+				<anchored height="20">
+					<top parent="active_spacer_top" anchor="bottom" offset="10" />
+					<left parent="token" anchor="right" offset="5" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<readonly />
+			</stringu>
+
+			<!-- Quick labels -->
+			<string_ctentry_targets name="target_summary" />
+			<string_ctentry_effects name="effect_summary" />
+
+			<genericcontrol name="spacer">
+				<anchored width="0" height="7">
+					<top parent="name" anchor="bottom" relation="relative" />
+					<left />
+				</anchored>
+			</genericcontrol>
+
+			<genericcontrol name="active_spacer_bottom">
+				<anchored width="0" height="5">
+					<top parent="name" anchor="bottom" relation="relative" />
+					<left />
+				</anchored>
+				<invisible />
+			</genericcontrol>
+		</sheetdata>
+	</windowclass>
+</root>

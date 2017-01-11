@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="modifierstack">
+		<sizelimits>
+			<minimum width="100" height="57" />
+		</sizelimits>
+		<noclose />
+		<script>
+			function onInit()
+				ModifierStack.registerControl(self);
+			end
+			
+			function onClose()
+				ModifierStack.registerControl(nil);
+			end
+		</script>
+		<sheetdata>
+			<genericcontrol name="base">
+				<bounds>5,5,100,52</bounds>
+				<icon>modcollector</icon>
+				<counters>
+					<icon>modcollector_counter</icon>
+					<offset>
+						<x>9</x>
+						<y>47</y>
+					</offset>
+					<spacing>9</spacing>
+					<hoversize>4</hoversize>
+				</counters>
+				<acceptdrop>
+					<type>dice</type>
+					<type>number</type>
+				</acceptdrop>
+				<script file="desktop/scripts/modifierstack_base.lua" />
+			</genericcontrol>
+			<numbercontrol name="modifier">
+				<bounds>35,12,42,22</bounds>
+				<stateframe>
+					<keyedit name="modstackfocus" />
+					<hover name="modstackfocus" />
+					<drophilight name="modstackfocus" />
+				</stateframe>
+				<font>modcollector</font>
+				<displaysign />
+				<droptypes>
+					<type>number</type>
+					<type>dice</type>
+				</droptypes>
+				<script file="desktop/scripts/modifierstack_modifier.lua" />
+			</numbercontrol>
+			<stringcontrol name="label">
+				<bounds>29,34,54,12</bounds>
+				<font>modcollectorlabel</font>
+				<static textres="modstack_label_modifier" />
+				<center />
+				<script>
+					function onDrop(x, y, draginfo)
+						return window.base.onDrop(x, y, draginfo);
+					end
+				</script>
+			</stringcontrol>
+			<buttoncontrol name="targeting">
+				<anchored position="insidetopleft" offset="2,2" width="15" height="15" />
+				<state icon="drag_targeting" color="77FFFFFF" frame="mini_name" frameoffset="2,2,2,2" tooltipres="modstack_tooltip_targeting_off" />
+				<state icon="drag_targeting" color="FFFFFFFF" frame="mini_name" frameoffset="2,2,2,2" tooltipres="modstack_tooltip_targeting_on" />
+				<default>1</default>
+			</buttoncontrol>
+		</sheetdata>
+	</windowclass>
+</root>
+

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+
+	<panel name="chat" modes="host">
+		<class>chat</class>
+		<bounds>15,90,390,-130</bounds>
+		<dynamic />
+		<locked />
+	</panel>
+
+	<panel name="chat" modes="client">
+		<class>chat</class>
+		<bounds>15,90,390,-130</bounds>
+		<dynamic />
+		<locked />
+	</panel>
+
+	<panel name="modifierstack" modes="host,client">
+		<class>modifierstack</class>
+		<bounds>15,-100,64,57</bounds>
+		<dynamic />
+		<locked />
+	</panel>
+
+	<panel name="dicetower" modes="host,client">
+		<class>dicetower</class>
+		<bounds>120,-120,90,90</bounds>
+		<dynamic />
+		<locked />
+	</panel>
+	
+</root>

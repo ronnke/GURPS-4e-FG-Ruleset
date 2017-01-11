@@ -1,0 +1,1315 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	
+	<windowclass name="npc_main">
+		<script file="campaign/scripts/npc_main.lua" />
+		<sheetdata>
+			<anchor_column name="contentanchor"/>
+
+<!-- Attributes -->
+		
+			<number_attribute name="strength" source="attributes.strength">
+				<rollable_attribute />
+				<stat>ST</stat>
+				<anchored to="contentanchor" position="insidetopleft" offset="7,15"  relation="relative"/>
+				<tabtarget prev="reaction_modifiers" next="dexterity" />
+			</number_attribute>
+			<label_attribute>
+				<anchored to="strength" />
+				<static>ST</static>
+			</label_attribute>
+
+			<number_attribute name="dexterity" source="attributes.dexterity">
+				<rollable_attribute />
+				<stat>DX</stat>
+				<anchored to="strength" position="belowleft" offset="0,15" />
+				<tabtarget prev="strength" next="intelligence" />
+			</number_attribute>
+			<label_attribute>
+				<anchored to="dexterity" />
+				<static>DX</static>
+			</label_attribute>
+
+			<number_attribute name="intelligence" source="attributes.intelligence">
+				<rollable_attribute />
+				<stat>IQ</stat>
+				<anchored to="dexterity" position="belowleft" offset="0,15" />
+				<tabtarget prev="dexterity" next="health" />
+			</number_attribute>
+			<label_attribute>
+				<anchored to="intelligence" />
+				<static>IQ</static>
+			</label_attribute>
+
+			<number_attribute name="health"	source="attributes.health">
+				<rollable_attribute />
+				<stat>HT</stat>
+				<anchored to="intelligence" position="belowleft" offset="0,15" />
+				<tabtarget prev="intelligence" next="hps" />
+			</number_attribute>
+			<label_attribute>
+				<anchored to="health" />
+				<static>HT</static>
+			</label_attribute>
+
+			<number_attribute name="hps" source="attributes.hps">
+				<anchored to="contentanchor" position="insidetopleft" offset="60,15" />
+				<tabtarget prev="health" next="will" />
+			</number_attribute>
+			<label_attribute>
+				<anchored to="hps" />
+				<static>HP</static>
+			</label_attribute>
+
+			<number_attribute name="will" source="attributes.will">
+				<rollable_attribute />
+				<stat>WILL</stat>
+				<anchored to="hps" position="belowleft" offset="0,15" />
+				<tabtarget prev="hps" next="perception" />
+			</number_attribute>
+			<label_attribute>
+				<anchored to="will" />
+				<static>WILL</static>
+			</label_attribute>
+
+			<number_attribute name="perception" source="attributes.perception">
+				<rollable_attribute />
+				<stat>PER</stat>
+				<anchored to="will" position="belowleft" offset="0,15" />
+				<tabtarget prev="will" next="fps" />
+			</number_attribute>
+			<label_attribute>
+				<anchored to="perception" />
+				<static>PER</static>
+			</label_attribute>
+
+			<number_attribute name="fps" source="attributes.fps">
+				<anchored to="perception" position="belowleft" offset="0,15" />
+				<tabtarget prev="perception" next="basicspeed" />
+			</number_attribute>
+			<label_attribute>
+				<anchored to="fps" />
+				<static>FP</static>
+			</label_attribute>
+
+
+			<string_labeled name="basicspeed" source="attributes.basicspeed">
+				<anchored to="contentanchor" position="insidetopleft" offset="120,10" width="60" height="20" />
+				<labelres>npc_label_basicspeed</labelres>
+				<tabtarget prev="fps" next="move" />
+			</string_labeled>
+
+			<string_labeled name="move" source="attributes.move">
+				<anchored to="basicspeed" position="right" offset="10,0" width="55" />
+				<labelres>npc_label_move</labelres>
+				<tabtarget prev="basicspeed" next="sizemodifier" />
+			</string_labeled>
+			
+			<string_labeled name="sizemodifier" source="traits.sizemodifier">
+				<anchored to="move" position="right" offset="10,0" width="20" />
+				<labelres>npc_label_sizemodifier</labelres>
+				<tabtarget prev="move" next="swing" />
+			</string_labeled>
+
+			<string_labeled name="reach" source="traits.reach">
+				<anchored to="sizemodifier" position="right" offset="10,0" width="40" />
+				<labelres>npc_label_reach</labelres>
+				<tabtarget prev="move" next="swing" />
+			</string_labeled>
+
+			<string_labeled name="swing" source="attributes.swing">
+				<anchored to="reach" position="right" offset="10,0" width="45" />
+				<labelres>npc_label_swing</labelres>
+				<tabtarget prev="sizemodifier" next="thrust" />
+			</string_labeled>
+
+			<string_labeled name="thrust" source="attributes.thrust">
+				<anchored to="swing" position="right" offset="10,0" width="50" />
+				<labelres>npc_label_thrust</labelres>
+				<tabtarget prev="swing" next="reaction_modifiers" />
+			</string_labeled>
+
+			<string_labeled name="reaction_modifiers" source="traits.reaction_modifiers">
+				<anchored height="20">
+					<top parent="basicspeed" anchor="below" offset="10"/>
+					<left parent="basicspeed" anchor="left" />
+					<right offset="-5" />
+				</anchored>
+				<labelres>npc_label_reaction</labelres>
+				<tabtarget prev="thrust" next="strength" />
+			</string_labeled>
+
+			<label_charsheet name="label_traits">
+				<anchored height="20">
+					<top parent="reaction_modifiers" anchor="below" offset="5"/>
+					<left parent="reaction_modifiers" anchor="left" />
+					<right offset="-5" />
+				</anchored>
+				<static textres="npc_label_traits" />
+				<center />
+				<color>#808080</color>
+			</label_charsheet>
+			<basicstring name="traits" source="traits.description">
+				<anchored height="45" relation="relative">
+					<top parent="label_traits" anchor="below" offset="3"/>
+					<left parent="label_traits" anchor="left" />
+					<right offset="-5" />
+				</anchored>
+				<multilinespacing>15</multilinespacing>
+			</basicstring>
+
+			<number_attribute name="dodge" source="combat.dodge">
+				<rollable_dodge />
+				<anchored to="contentanchor" position="insidetopleft" offset="120,150" />
+				<tabtarget prev="perception" next="basicspeed" />
+			</number_attribute>
+			<label_attribute>
+				<anchored to="dodge" />
+				<static textres="char_label_dodge" />
+			</label_attribute>
+
+			<number_attribute name="parry" source="combat.parry">
+				<rollable_parry />
+				<anchored to="contentanchor" position="insidetopleft" offset="175,150" />
+				<tabtarget prev="perception" next="basicspeed" />
+			</number_attribute>
+			<label_attribute>
+				<anchored to="parry" />
+				<static textres="char_label_parry" />
+			</label_attribute>
+
+			<number_attribute name="block" source="combat.block">
+				<rollable_block />
+				<anchored to="contentanchor" position="insidetopleft" offset="230,150" />
+				<tabtarget prev="perception" next="basicspeed" />
+			</number_attribute>
+			<label_attribute>
+				<anchored to="block" />
+				<static textres="char_label_block" />
+			</label_attribute>
+
+			<string_attribute name="dr" source="combat.dr">
+				<anchored to="contentanchor" position="insidetopleft" offset="290,150" />
+				<tabtarget prev="perception" next="basicspeed" />
+			</string_attribute>
+			<label_attribute>
+				<anchored to="dr" />
+				<static textres="char_label_dr" />
+			</label_attribute>
+
+			<anchor_column name="columnanchor">
+				<anchored to="health" position="below" relation="relative" offset="20" />
+			</anchor_column>
+
+			<header_column name="header_meleecombat">
+				<static textres="npc_label_melee" />
+				<color>#808080</color>
+			</header_column>
+			<button_iedit name="meleecombat_iedit">
+				<anchored to="header_meleecombat" position="righthigh" offset="-20,0" />
+				<target>meleecombat</target>
+			</button_iedit>
+			<button_iadd name="meleecombat_iadd">
+				<anchored to="meleecombat_iedit" position="lefthigh" offset="5,0" />
+				<target>meleecombat</target>
+			</button_iadd>
+			<list_npcmeleecombat name="meleecombat">
+				<anchored>
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
+					<left offset="0" />
+					<right offset="-5" />
+				</anchored>
+				<class>npc_meleecombat</class>
+			</list_npcmeleecombat>
+
+
+			<header_column name="header_rangedcombat">
+				<anchored>
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="5" />
+				</anchored>
+				<static textres="npc_label_ranged" />
+				<color>#808080</color>
+			</header_column>
+			<button_iedit name="rangedcombat_iedit">
+				<anchored to="header_rangedcombat" position="righthigh" offset="-20,0" />
+				<target>rangedcombat</target>
+			</button_iedit>
+			<button_iadd name="rangedcombat_iadd">
+				<anchored to="rangedcombat_iedit" position="lefthigh" offset="5,0" />
+				<target>rangedcombat</target>
+			</button_iadd>
+			<list_npcrangedcombat name="rangedcombat">
+				<anchored>
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
+					<left offset="0" />
+					<right offset="-5" />
+				</anchored>
+				<class>npc_rangedcombat</class>
+			</list_npcrangedcombat>
+
+
+			<header_column name="header_abilities">
+				<anchored>
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="5" />
+				</anchored>
+				<static textres="npc_label_abilities" />
+				<color>#808080</color>
+			</header_column>
+			<button_iedit name="abilities_iedit">
+				<anchored to="header_abilities" position="righthigh" offset="-20,0" />
+				<target>abilities</target>
+			</button_iedit>
+			<button_iadd name="abilities_iadd">
+				<anchored to="abilities_iedit" position="lefthigh" offset="5,0" />
+				<target>abilities</target>
+			</button_iadd>
+			<list_npcabilities name="abilities">
+				<anchored>
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
+					<left offset="0" />
+					<right offset="-5" />
+				</anchored>
+				<class>npc_abilities</class>
+			</list_npcabilities>
+
+		</sheetdata>
+	</windowclass>
+
+
+
+	<windowclass name="npc_meleecombat">
+		<margins control="0,0,0,2" />
+		<script>
+			function onInit()
+				setModesVisible();
+				setModifiersVisible();
+			end
+
+			function update(bReadOnly)
+				local vModes,vModifiers = false;
+				if activatemodes.getValue() == 1 then
+					vModes = true and not bReadOnly;
+				end
+				if activatemodifiers.getValue() == 1 then
+					vModifiers = true and not bReadOnly;
+				end
+				
+				if bReadOnly then
+					if modeslist_iedit then
+						modeslist_iedit.setValue(0);
+						modeslist_iedit.setVisible(false);
+					end
+					if modifierslist_iedit then
+						modifierslist_iedit.setValue(0);
+						modifierslist_iedit.setVisible(false);
+					end
+				else
+					if modeslist_iedit then
+						modeslist_iedit.setVisible(vModes);
+					end
+					if modifierslist_iedit then
+						modifierslist_iedit.setVisible(vModifiers);
+					end
+				end
+				for _,w in ipairs(modeslist.getWindows()) do
+					w.name.setReadOnly(bReadOnly);
+					w.level.setReadOnly(bReadOnly);
+					w.damage.setReadOnly(bReadOnly);
+					w.reach.setReadOnly(bReadOnly);
+					w.parry.setReadOnly(bReadOnly);
+				end
+				for _,w in ipairs(modifierslist.getWindows()) do
+					w.name.setReadOnly(bReadOnly);
+					w.modifier.setReadOnly(bReadOnly);
+				end
+			end
+
+			function setModesVisible()
+				local v = false;
+				if activatemodes.getValue() == 1 then
+					v = true;
+				end
+
+				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode().getParent().getParent().getParent());
+			
+				modesicon.setVisible(v);
+				
+				modes_parry_label.setVisible(v);
+				modes_reach_label.setVisible(v);
+				modes_damage_label.setVisible(v);
+				modes_level_label.setVisible(v);
+				modes_label.setVisible(v);
+				modeslist.setVisible(v);
+				modeslist_iedit.setVisible(v and not bReadOnly)
+				modeslist_iadd.setVisible(v and not bReadOnly)
+				frame_modes.setVisible(v);
+
+				if modeslist_iedit.getValue() == 0 then
+					modeslist_iadd.setVisible(false);
+				end
+			end
+			
+			function setModifiersVisible()
+				local v = false;
+				if activatemodifiers.getValue() == 1 then
+					v = true;
+				end
+				
+				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode().getParent().getParent().getParent());
+
+				modifiersicon.setVisible(v);
+				modifiers_label.setVisible(v);
+				modifierslist.setVisible(v);
+				modifierslist_iedit.setVisible(v and not bReadOnly)
+				modifierslist_iadd.setVisible(v and not bReadOnly)
+				frame_modifiers.setVisible(v);
+
+				if modifierslist_iedit.getValue() == 0 then
+					modifierslist_iadd.setVisible(false);
+				end
+			end
+		</script>
+		<sheetdata>
+		
+			<genericcontrol name="rightanchor">
+				<anchored height="0" width="0">
+					<top />
+					<right />
+				</anchored>
+			</genericcontrol>
+			<genericcontrol name="bottomanchor">
+				<anchored height="0" width="0">
+					<top offset="20" />
+					<right />
+				</anchored>
+				<invisible />
+			</genericcontrol>
+			<button_idelete name="idelete">
+				<anchored>
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<invisible merge="delete" />
+			</button_idelete>
+
+			<string_charfield name="weight">
+				<anchored to="rightanchor" width="40" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget prev="st" next="cost" />
+			</string_charfield>
+			<label name="label_weight">
+				<anchored to="rightanchor" width="40" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="ct_label_weight" />
+			</label>
+			<string_charfield name="st">
+				<anchored to="rightanchor" width="30" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget prev="name" next="weight" />
+			</string_charfield>
+			<label name="label_st">
+				<anchored to="rightanchor" width="15" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="ct_label_st" />
+			</label>
+			<buttoncontrol name="activatemodifiers">
+				<anchored to="rightanchor" width="20" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<state icon="modifiers" tooltipres="char_tooltip_weaponmodifiers" />
+				<state icon="modifiers_down" />
+				<script>
+					function onValueChanged()
+						window.setModifiersVisible();
+					end
+				</script>
+			</buttoncontrol>
+			<buttoncontrol name="activatemodes">
+				<anchored to="rightanchor" width="20" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<state icon="weapon_modes" tooltipres="char_tooltip_modes" />
+				<state icon="weapon_modes_down" />
+				<script>
+					function onValueChanged()
+						window.setModesVisible();
+					end
+				</script>
+			</buttoncontrol>
+			
+			<string_textlistitem name="name">
+				<anchored height="20">
+					<top offset="2" />
+					<left offset="20" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<tabtarget next="st" />
+				<nodrag />
+			</string_textlistitem>
+			
+			<!-- WEAPON MODES SECTION --> 			
+			<icon_detailsection name="modesicon">
+				<icon>weapon_modes_down</icon>
+			</icon_detailsection>
+
+			<label_columntop name="modes_parry_label">
+				<anchored to="modesicon" width="30">
+					<top />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-20" />
+				</anchored>
+				<static textres="char_label_parry" />
+			</label_columntop>
+			<label_columntop name="modes_reach_label">
+				<anchored to="modesicon" width="40">
+					<top />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_reach" />
+			</label_columntop>
+			<label_columntop name="modes_damage_label">
+				<anchored to="modesicon" width="70">
+					<top />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_damage" />
+			</label_columntop>
+			<label_columntop name="modes_level_label">
+				<anchored to="modesicon" width="20">
+					<top />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_level" />
+			</label_columntop>
+			<label_columntop name="modes_label">
+				<anchored to="modesicon">
+					<top />
+					<left anchor="right" offset="5" />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_mode" />
+			</label_columntop>
+
+			<list_charmeleemode name="modeslist">
+				<anchored to="modes_label">
+					<top anchor="bottom" relation="relative" />
+					<left parent="modesicon" anchor="right" offset="10" />
+					<right parent="bottomanchor" anchor="left" offset="-10" />
+				</anchored>
+				<class>char_meleemode</class>
+				<noscroll />
+			</list_charmeleemode>
+ 
+  			<button_iedit name="modeslist_iedit">
+				<anchored to="modeslist" position="belowright" offset="5,2" />
+				<target>modeslist</target>
+			</button_iedit>
+			<button_iadd name="modeslist_iadd">
+				<anchored to="modeslist_iedit" position="lefthigh" offset="5,0" />
+				<target>modeslist</target>
+				<invisible />
+			</button_iadd>
+ 
+			<frame_detailsub name="frame_modes">
+				<anchored to="bottomanchor">
+					<top anchor="bottom" relation="relative" offset="5" />
+					<right parent="modeslist" anchor="right" offset="10" />
+					<left parent="modeslist" anchor="left" offset="-10" />
+					<bottom parent="modeslist_iedit" />
+				</anchored>
+			</frame_detailsub>
+		
+
+			<!-- WEAPON MODIFIERS SECTION --> 			
+			<icon_detailsection name="modifiersicon">
+				<icon>modifiers_down</icon>
+			</icon_detailsection>
+
+			<label_columntop name="modifiers_label">
+				<anchored to="modifiersicon">
+					<top />
+					<left anchor="right" offset="10" />
+					<right parent="bottomanchor" anchor="left" offset="-10" />
+				</anchored>
+				<static textres="char_label_modifier" />
+			</label_columntop>
+
+			<list_charmodifier name="modifierslist">
+				<anchored to="modifiers_label">
+					<top anchor="bottom" relation="relative" />
+					<left parent="modifiersicon" anchor="right" offset="10" />
+					<right parent="bottomanchor" anchor="left" offset="-10" />
+				</anchored>
+				<class>char_modifier</class>
+				<noscroll />
+			</list_charmodifier>
+ 
+  			<button_iedit name="modifierslist_iedit">
+				<anchored to="modifierslist" position="belowright" offset="5,2" />
+				<target>modifierslist</target>
+			</button_iedit>
+			<button_iadd name="modifierslist_iadd">
+				<anchored to="modifierslist_iedit" position="lefthigh" offset="5,0" />
+				<target>modifierslist</target>
+				<invisible />
+			</button_iadd>
+
+			<frame_detailsub name="frame_modifiers">
+				<anchored to="bottomanchor">
+					<top anchor="bottom" relation="relative" offset="5" />
+					<right parent="modifierslist" anchor="right" offset="10" />
+					<left parent="modifierslist" anchor="left" offset="-10" />
+					<bottom parent="modifierslist_iedit" />
+				</anchored>
+			</frame_detailsub>
+			
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="npc_meleemode">
+		<margins control="0,0,0,2" />
+		<sheetdata>
+		
+			<genericcontrol name="rightanchor">
+				<anchored height="0" width="0">
+					<top />
+					<right />
+				</anchored>
+				<invisible />
+			</genericcontrol>
+			<button_idelete name="idelete">
+				<anchored>
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<invisible merge="delete" />
+			</button_idelete>
+			
+			<string_chardefensefield name="parry">
+				<rollable_weaponparry />
+				<anchored to="rightanchor" width="30" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget prev="reach" />
+			</string_chardefensefield>
+			<string_charfield name="reach">
+				<anchored to="rightanchor" width="40" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget next="parry" prev="damage" />
+			</string_charfield>
+			<string_charfield name="damage">
+				<rollable_damage />
+				<anchored to="rightanchor" width="70" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget next="reach" prev="name" />
+			</string_charfield>
+			<number_charfield name="level">
+				<rollable_melee />
+				<anchored to="rightanchor" width="20" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget next="damage" prev="name" />
+			</number_charfield>
+			<string_textlistitem name="name">
+				<anchored height="20">
+					<top offset="2" />
+					<left offset="5" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<nodrag />
+				<tabtarget next="level" />
+			</string_textlistitem>
+			
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="npc_rangedcombat">
+		<margins control="0,0,0,2" />
+		<script>
+			function onInit()
+				setModesVisible();
+				setModifiersVisible();
+			end
+			
+			function update(bReadOnly)
+				local vModes,vModifiers = false;
+				if activatemodes.getValue() == 1 then
+					vModes = true and not bReadOnly;
+				end
+				if activatemodifiers.getValue() == 1 then
+					vModifiers = true and not bReadOnly;
+				end
+
+				if bReadOnly then
+					if modeslist_iedit then
+						modeslist_iedit.setValue(0);
+						modeslist_iedit.setVisible(false);
+					end
+					if modifierslist_iedit then
+						modifierslist_iedit.setValue(0);
+						modifierslist_iedit.setVisible(false);
+					end
+				else
+					if modeslist_iedit then
+						modeslist_iedit.setVisible(vModes);
+					end
+					if modifierslist_iedit then
+						modifierslist_iedit.setVisible(vModifiers);
+					end
+				end
+				for _,w in ipairs(modeslist.getWindows()) do
+					w.name.setReadOnly(bReadOnly);
+					w.level.setReadOnly(bReadOnly);
+					w.damage.setReadOnly(bReadOnly);
+					w.acc.setReadOnly(bReadOnly);
+					w.range.setReadOnly(bReadOnly);
+					w.rof.setReadOnly(bReadOnly);
+					w.shots.setReadOnly(bReadOnly);
+					w.rcl.setReadOnly(bReadOnly);
+				end
+				for _,w in ipairs(modifierslist.getWindows()) do
+					w.name.setReadOnly(bReadOnly);
+					w.modifier.setReadOnly(bReadOnly);
+				end
+			end
+
+			function setModesVisible()
+				local v = false;
+				if activatemodes.getValue() == 1 then
+					v = true;
+				end
+			
+				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode().getParent().getParent().getParent());
+			
+				modesicon.setVisible(v);
+				
+				modes_rcl_label.setVisible(v);
+				modes_shots_label.setVisible(v);
+				modes_rof_label.setVisible(v);
+				modes_range_label.setVisible(v);
+				modes_acc_label.setVisible(v);
+				modes_damage_label.setVisible(v);
+				modes_level_label.setVisible(v);
+				modes_label.setVisible(v);
+				modeslist.setVisible(v);
+				modeslist_iedit.setVisible(v and not bReadOnly)
+				modeslist_iadd.setVisible(v and not bReadOnly)
+				frame_modes.setVisible(v);
+
+				if modeslist_iedit.getValue() == 0 then
+					modeslist_iadd.setVisible(false);
+				end
+			end
+			
+			function setModifiersVisible()
+				local v = false;
+				if activatemodifiers.getValue() == 1 then
+					v = true;
+				end
+				
+				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode().getParent().getParent().getParent());
+
+				modifiersicon.setVisible(v);
+				modifiers_label.setVisible(v);
+				modifierslist.setVisible(v);
+				modifierslist_iedit.setVisible(v and not bReadOnly)
+				modifierslist_iadd.setVisible(v and not bReadOnly)
+				frame_modifiers.setVisible(v);
+
+				if modifierslist_iedit.getValue() == 0 then
+					modifierslist_iadd.setVisible(false);
+				end
+			end
+		</script>
+		<sheetdata>
+		
+			<genericcontrol name="rightanchor">
+				<anchored height="0" width="0">
+					<top />
+					<right />
+				</anchored>
+			</genericcontrol>
+			<genericcontrol name="bottomanchor">
+				<anchored height="0" width="0">
+					<top offset="20" />
+					<right />
+				</anchored>
+				<invisible />
+			</genericcontrol>
+			<button_idelete name="idelete">
+				<anchored>
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<invisible merge="delete" />
+			</button_idelete>
+
+			<number_charmodfield name="bulk">
+				<anchored to="rightanchor" width="20" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget prev="st"/>
+				<script>
+					function onDragStart(button, x, y, draginfo)
+						return actionDrag(draginfo, "Bulk");
+					end
+
+					function onDoubleClick(x, y)
+						return action("Bulk");
+					end
+				</script>
+			</number_charmodfield>
+			<label name="label_bulk">
+				<anchored to="rightanchor" width="30" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="npc_label_bulk" />
+			</label>
+			<string_charfield name="st">
+				<anchored to="rightanchor" width="30" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget prev="name" next="bulk" />
+			</string_charfield>
+			<label name="label_st">
+				<anchored to="rightanchor" width="15" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="npc_label_st" />
+			</label>
+			<buttoncontrol name="activatemodifiers">
+				<anchored to="rightanchor" width="20" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<state icon="modifiers" tooltipres="char_tooltip_weaponmodifiers" />
+				<state icon="modifiers_down" />
+				<script>
+					function onValueChanged()
+						window.setModifiersVisible();
+					end
+				</script>
+			</buttoncontrol>
+			<buttoncontrol name="activatemodes">
+				<anchored to="rightanchor" width="20" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<state icon="weapon_modes" tooltipres="char_tooltip_modes" />
+				<state icon="weapon_modes_down" />
+				<script>
+					function onValueChanged()
+						window.setModesVisible();
+					end
+				</script>
+			</buttoncontrol>
+			
+			<string_textlistitem name="name">
+				<anchored height="20">
+					<top offset="2" />
+					<left offset="20" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<tabtarget next="st" />
+				<nodrag />
+			</string_textlistitem>
+			
+			<!-- WEAPON MODES SECTION --> 			
+			<icon_detailsection name="modesicon">
+				<icon>weapon_modes_down</icon>
+			</icon_detailsection>
+
+			<label_columntop name="modes_rcl_label">
+				<anchored to="modesicon" width="20">
+					<top />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-20" />
+				</anchored>
+				<static textres="char_label_rcl" />
+			</label_columntop>
+			<label_columntop name="modes_shots_label">
+				<anchored to="modesicon" width="40">
+					<top />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_shots" />
+			</label_columntop>
+			<label_columntop name="modes_rof_label">
+				<anchored to="modesicon" width="20">
+					<top />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_rof" />
+			</label_columntop>
+			<label_columntop name="modes_range_label">
+				<anchored to="modesicon" width="60">
+					<top />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_range" />
+			</label_columntop>
+			<label_columntop name="modes_acc_label">
+				<anchored to="modesicon" width="20">
+					<top />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_acc" />
+			</label_columntop>
+			<label_columntop name="modes_damage_label">
+				<anchored to="modesicon" width="60">
+					<top />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_damage" />
+			</label_columntop>
+			<label_columntop name="modes_level_label">
+				<anchored to="modesicon" width="20">
+					<top />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_level" />
+			</label_columntop>
+			<label_columntop name="modes_label">
+				<anchored to="modesicon">
+					<top />
+					<left anchor="right" offset="5" />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_mode" />
+			</label_columntop>
+
+			<list_charrangedmode name="modeslist">
+				<anchored to="modes_label">
+					<top anchor="bottom" relation="relative" />
+					<left parent="modesicon" anchor="right" offset="10" />
+					<right parent="bottomanchor" anchor="left" offset="-10" />
+				</anchored>
+				<class>char_rangedmode</class>
+				<noscroll />
+			</list_charrangedmode>
+ 
+  			<button_iedit name="modeslist_iedit">
+				<anchored to="modeslist" position="belowright" offset="5,2" />
+				<target>modeslist</target>
+			</button_iedit>
+			<button_iadd name="modeslist_iadd">
+				<anchored to="modeslist_iedit" position="lefthigh" offset="5,0" />
+				<target>modeslist</target>
+				<invisible />
+			</button_iadd>
+ 
+			<frame_detailsub name="frame_modes">
+				<anchored to="bottomanchor">
+					<top anchor="bottom" relation="relative" offset="5" />
+					<right parent="modeslist" anchor="right" offset="10" />
+					<left parent="modeslist" anchor="left" offset="-10" />
+					<bottom parent="modeslist_iedit" />
+				</anchored>
+			</frame_detailsub>
+		
+
+			<!-- WEAPON MODIFIERS SECTION --> 			
+			<icon_detailsection name="modifiersicon">
+				<icon>modifiers_down</icon>
+			</icon_detailsection>
+
+			<label_columntop name="modifiers_label">
+				<anchored to="modifiersicon">
+					<top />
+					<left anchor="right" offset="10" />
+					<right parent="bottomanchor" anchor="left" offset="-10" />
+				</anchored>
+				<static textres="char_label_modifier" />
+			</label_columntop>
+
+			<list_charmodifier name="modifierslist">
+				<anchored to="modifiers_label">
+					<top anchor="bottom" relation="relative" />
+					<left parent="modifiersicon" anchor="right" offset="10" />
+					<right parent="bottomanchor" anchor="left" offset="-10" />
+				</anchored>
+				<class>char_modifier</class>
+				<noscroll />
+			</list_charmodifier>
+ 
+  			<button_iedit name="modifierslist_iedit">
+				<anchored to="modifierslist" position="belowright" offset="5,2" />
+				<target>modifierslist</target>
+			</button_iedit>
+			<button_iadd name="modifierslist_iadd">
+				<anchored to="modifierslist_iedit" position="lefthigh" offset="5,0" />
+				<target>modifierslist</target>
+				<invisible />
+			</button_iadd>
+
+			<frame_detailsub name="frame_modifiers">
+				<anchored to="bottomanchor">
+					<top anchor="bottom" relation="relative" offset="5" />
+					<right parent="modifierslist" anchor="right" offset="10" />
+					<left parent="modifierslist" anchor="left" offset="-10" />
+					<bottom parent="modifierslist_iedit" />
+				</anchored>
+			</frame_detailsub>
+			
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="npc_rangedmode">
+		<margins control="0,0,0,2" />
+		<sheetdata>
+		
+			<genericcontrol name="rightanchor">
+				<anchored height="0" width="0">
+					<top />
+					<right />
+				</anchored>
+				<invisible />
+			</genericcontrol>
+			<button_idelete name="idelete">
+				<anchored>
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<invisible merge="delete" />
+			</button_idelete>
+			
+			<number_charfield name="rcl">
+				<anchored to="rightanchor" width="20" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget prev="shots" />
+			</number_charfield>
+			<string_charfield name="shots">
+				<anchored to="rightanchor" width="40" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget next="rcl" prev="rof" />
+			</string_charfield>
+			<string_charfield name="rof">
+				<anchored to="rightanchor" width="20" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget next="shots" prev="range" />
+			</string_charfield>
+			<string_charfield name="range">
+				<anchored to="rightanchor" width="60" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget next="rof" prev="acc" />
+			</string_charfield>
+			<number_charmodfield name="acc">
+				<anchored to="rightanchor" width="20" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget next="range" prev="damage" />
+				<script>
+					function onDragStart(button, x, y, draginfo)
+						return actionDrag(draginfo, "Acc");
+					end
+
+					function onDoubleClick(x, y)
+						return action("Acc");
+					end
+				</script>
+			</number_charmodfield>
+			<string_charfield name="damage">
+				<rollable_damage />
+				<anchored to="rightanchor" width="60" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget next="acc" prev="level" />
+			</string_charfield>
+			<number_charfield name="level">
+				<rollable_ranged />
+				<anchored to="rightanchor" width="20" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget next="damage" prev="name" />
+			</number_charfield>
+			<string_textlistitem name="name">
+				<anchored height="20">
+					<top offset="2" />
+					<left offset="5" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<nodrag />
+				<tabtarget next="level" />
+			</string_textlistitem>
+			
+		</sheetdata>
+	</windowclass>
+
+
+	<windowclass name="npc_abilities">
+		<margins control="0,0,0,2" />
+		<script>
+			function onInit()
+				setModifiersVisible();
+			end
+			
+			function update(bReadOnly)
+				local vModifiers = false;
+				if activatemodifiers.getValue() == 1 then
+					vModifiers = true and not bReadOnly;
+				end
+
+				if bReadOnly then
+					if modifierslist_iedit then
+						modifierslist_iedit.setValue(0);
+						modifierslist_iedit.setVisible(false);
+					end
+				else
+					if modifierslist_iedit then
+						modifierslist_iedit.setVisible(vModifiers);
+					end
+				end
+				for _,w in ipairs(modifierslist.getWindows()) do
+					w.name.setReadOnly(bReadOnly);
+					w.modifier.setReadOnly(bReadOnly);
+				end
+			end
+
+			function setModifiersVisible()
+				local v = false;
+				if activatemodifiers.getValue() == 1 then
+					v = true;
+				end
+
+				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode().getParent().getParent().getParent());
+				
+				modifiersicon.setVisible(v);
+				modifiers_label.setVisible(v);
+				modifierslist.setVisible(v);
+				modifierslist_iedit.setVisible(v);
+				modifierslist_iadd.setVisible(v);
+				modifierslist_iedit.setVisible(v and not bReadOnly)
+				modifierslist_iadd.setVisible(v and not bReadOnly)
+				frame_modifiers.setVisible(v);
+
+				if modifierslist_iedit.getValue() == 0 then
+					modifierslist_iadd.setVisible(false);
+				end
+			end
+		</script>
+		<sheetdata>
+		
+			<genericcontrol name="rightanchor">
+				<anchored height="0" width="0">
+					<top />
+					<right />
+				</anchored>
+			</genericcontrol>
+			<genericcontrol name="bottomanchor">
+				<anchored height="0" width="0">
+					<top offset="20" />
+					<right />
+				</anchored>
+				<invisible />
+			</genericcontrol>
+			<button_idelete name="idelete">
+				<anchored to="rightanchor" >
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</button_idelete>
+			
+			<number_charlevelfield name="level">
+				<rollable_ability />
+				<anchored to="rightanchor" width="20" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget next="points" prev="name" />
+			</number_charlevelfield>
+			<buttoncontrol name="activatemodifiers">
+				<anchored to="rightanchor" width="20" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<state icon="modifiers" tooltipres="char_tooltip_skillmodifiers" />
+				<state icon="modifiers_down" />
+				<script>
+					function onValueChanged()
+						window.setModifiersVisible();
+					end
+				</script>
+			</buttoncontrol>
+			<string_textlistitem name="name">
+				<anchored height="20">
+					<top offset="2" />
+					<left offset="45" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<nodrag />
+				<tabtarget next="level" />
+			</string_textlistitem>
+			<button_charroll>
+				<rollable_button_ability />
+				<anchored>
+					<top offset="2" />
+					<left offset="20" />
+				</anchored>
+			</button_charroll>
+
+
+			<!-- OTHER MODIFIERS SECTION --> 			
+			<icon_detailsection name="modifiersicon">
+				<icon>modifiers_down</icon>
+			</icon_detailsection>
+
+			<label_columntop name="modifiers_label">
+				<anchored to="modifiersicon">
+					<top />
+					<left anchor="right" offset="10" />
+					<right parent="bottomanchor" anchor="left" offset="-10" />
+				</anchored>
+				<static textres="char_label_modifier" />
+			</label_columntop>
+
+			<list_charmodifier name="modifierslist">
+				<anchored to="modifiers_label">
+					<top anchor="bottom" relation="relative" />
+					<left parent="modifiersicon" anchor="right" offset="10" />
+					<right parent="bottomanchor" anchor="left" offset="-10" />
+				</anchored>
+				<class>npc_modifier</class>
+				<noscroll />
+			</list_charmodifier>
+ 
+  			<button_iedit name="modifierslist_iedit">
+				<anchored to="modifierslist" position="belowright" offset="5,2" />
+				<target>modifierslist</target>
+			</button_iedit>
+			<button_iadd name="modifierslist_iadd">
+				<anchored to="modifierslist_iedit" position="lefthigh" offset="5,0" />
+				<target>modifierslist</target>
+				<invisible />
+			</button_iadd>
+
+			<frame_detailsub name="frame_modifiers">
+				<anchored to="bottomanchor">
+					<top anchor="bottom" relation="relative" offset="5" />
+					<right parent="modifierslist" anchor="right" offset="10" />
+					<left parent="modifierslist" anchor="left" offset="-10" />
+					<bottom parent="modifierslist_iedit" />
+				</anchored>
+			</frame_detailsub>
+			
+		</sheetdata>
+	</windowclass>
+
+
+	<windowclass name="npc_modifier">
+		<margins control="0,0,0,2" />
+		<script>
+			function actionDrag(draginfo)
+				if not name.isEmpty() then
+					draginfo.setType("number");
+					draginfo.setDescription(name.getValue());
+					draginfo.setStringData(name.getValue());
+					draginfo.setNumberData(modifier.getValue());
+				end
+				return true;
+			end
+			
+			function action()
+				ModifierStack.addSlot(name.getValue(), modifier.getValue());
+				return true;
+			end
+
+			function onDrop(x, y, draginfo)
+				return windowlist.onDrop(x, y, draginfo);
+			end
+		</script>
+		<sheetdata>
+			<genericcontrol name="rightanchor">
+				<anchored height="0" width="0">
+					<top />
+					<right />
+				</anchored>
+			</genericcontrol>
+			<button_idelete name="idelete">
+				<anchored>
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<invisible merge="delete" />
+			</button_idelete>
+
+			<button_modifier>
+				<anchored>
+					<top offset="2" />
+					<left offset="5" />
+				</anchored>
+				<script>
+					function onDragStart(button, x, y, draginfo)
+						return window.actionDrag(draginfo);
+					end
+
+					function onButtonPress(x, y)
+						return window.action();
+					end
+				</script>
+			</button_modifier>
+
+			<number_charmodfield name="modifier">
+				<anchored to="rightanchor" width="30" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<script>
+					function onDragStart(button, x, y, draginfo)
+						return actionDrag(draginfo, window.name.getValue());
+					end
+
+					function onDoubleClick(x, y)
+						return action(window.name.getValue());
+					end
+				</script>
+				<tabtarget prev="name" />
+			</number_charmodfield>
+			<string_textlistitem name="name">
+				<anchored height="20">
+					<top offset="2" />
+					<left offset="30" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<nodrag />
+				<tabtarget next="modifier" />
+			</string_textlistitem>
+			
+		</sheetdata>
+	</windowclass>
+	
+</root>
