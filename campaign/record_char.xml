@@ -24,6 +24,29 @@
 		
 		<sheetdata>
 		
+			<genericcontrol>
+				<bounds>15,21,45,45</bounds>
+				<icon>charlist_base</icon>
+				<disabled />
+			</genericcontrol>
+			<portrait_charlocal name="localportrait">
+				<bounds>15,21,45,45</bounds>
+				<invisible />
+			</portrait_charlocal>
+			<portrait_char name="portrait">
+				<bounds>15,21,45,45</bounds>
+			</portrait_char>
+
+			<frame_char name="overviewframe">
+				<bounds>60,20,-80,45</bounds>
+			</frame_char>
+			<string_labeled name="name">
+				<anchored to="overviewframe" position="insidetopleft" offset="15,10" height="20">
+					<right offset="-15" />
+				</anchored>
+				<labelres>char_label_charactername</labelres>
+			</string_labeled>
+			
 			<button_charactivate name="speak">
 				<bounds>-41,30,23,22</bounds>
 			</button_charactivate>
@@ -32,60 +55,26 @@
 				<bounds>-86,23,40,40</bounds>
 				<empty>token_empty</empty>
 				<tooltip textres="char_tooltip_token" />
-				<script>
-					function onDoubleClick(x, y)
-						CombatManager.openMap(window.getDatabaseNode());
-					end
-				</script>
 			</tokenfield>
 		
-			<genericcontrol>
-				<bounds>-137,21,45,45</bounds>
-				<icon>charlist_base</icon>
-				<disabled />
-			</genericcontrol>
-			<portrait_charlocal name="localportrait">
-				<bounds>-137,21,45,45</bounds>
-				<invisible />
-			</portrait_charlocal>
-			<portrait_char name="portrait">
-				<bounds>-137,21,45,45</bounds>
-			</portrait_char>
-			
-			<frame_char name="overviewframe">
-				<bounds>15,20,-140,45</bounds>
-			</frame_char>
-			<string_labeled name="name">
-				<anchored to="overviewframe" position="insidetopleft" offset="15,10" height="20">
-					<right offset="-15" />
-				</anchored>
-				<labelres>char_label_charactername</labelres>
-			</string_labeled>
-
-			<subwindow name="main">
-				<bounds>0,65,-1,-1</bounds>
+			<sub_charsheet name="main">
 				<class>charsheet_main</class>
-			</subwindow>
-			<subwindow name="traits">
-				<bounds>0,65,-1,-1</bounds>
+			</sub_charsheet>
+			<sub_charsheet name="traits">
 				<class>charsheet_traits</class>
-			</subwindow>
-			<subwindow name="abilities">
-				<bounds>0,65,-1,-1</bounds>
+			</sub_charsheet>
+			<sub_charsheet name="abilities">
 				<class>charsheet_abilities</class>
-			</subwindow>
-			<subwindow name="combat">
-				<bounds>0,65,-1,-1</bounds>
+			</sub_charsheet>
+			<sub_charsheet name="combat">
 				<class>charsheet_combat</class>
-			</subwindow>
-			<subwindow name="inventory">
-				<bounds>0,65,-1,-1</bounds>
+			</sub_charsheet>
+			<sub_charsheet name="inventory">
 				<class>charsheet_inventory</class>
-			</subwindow>
-			<subwindow name="notes">
-				<bounds>0,65,-1,-1</bounds>
+			</sub_charsheet>
+			<sub_charsheet name="notes">
 				<class>charsheet_notes</class>
-			</subwindow>
+			</sub_charsheet>
 
 			<tabs_charsheet>
 				<tab>

@@ -6,12 +6,19 @@
 -->
 
 <root>
+	<template name="sub_charsheet">
+		<subwindow>
+			<bounds>0,65,-1,-1</bounds>
+		</subwindow>
+	</template>
+
 	<template name="frame_chardetail">
 		<genericcontrol>
 			<frame name="ct_subgroupbox" />
 			<disabled />
 		</genericcontrol>
 	</template>
+
 
 	<!-- List Item Sub-sections -->	
 	<template name="frame_detailsub">
@@ -35,39 +42,6 @@
 		</genericcontrol>
 	</template>
 	
-	
-
-	
-	<template name="number_charskilltotal">
-		<number_linked>
-			<frame name="fieldlight" offset="7,5,7,5" />
-			<rollable />
-			<hideonvalue>0</hideonvalue>
-			<script>
-				function action(draginfo)
-					local nodeWin = window.getDatabaseNode();
-					if nodeWin then
-						local rActor = ActorManager.getActor("pc", nodeWin.getChild("..."));
-						local sLabel = DB.getValue(nodeWin, "label", "");
-						local sStat = DB.getValue(nodeWin, "statname", "");
-						ActionSkill.performRoll(draginfo, rActor, sLabel, getValue(), sStat);
-					end
-	
-					return true;
-				end
-				
-				function onDragStart(button, x, y, draginfo)
-					return action(draginfo);
-				end
-
-				function onDoubleClick(x,y)	
-					return action();
-				end
-			</script>
-		</number_linked>
-	</template>
-
-
 	<template name="tabs_charmain">
 		<buttongroup_tabs name="tabs">
 			<anchored width="18" height="92">
@@ -98,7 +72,7 @@
 	
 	<template name="label_attribute">
 		<label_fieldtop>
-			<anchored offset="-2,-6" />
+			<anchored offset="-2,-6" height="15"/>
 			<frame name="attributelabel" />
 		</label_fieldtop>
 	</template>
@@ -110,7 +84,7 @@
 		</stringcontrol>
 	</template>
 
-	<template name="label_pointsummary">
+	<template name="label_charsheet">
 		<stringcontrol>
 			<font>sheetlabelsmall</font>
 			<left />
@@ -126,6 +100,23 @@
 				  
 				  local w = addBitmapWidget("field_modifier");
 				  w.setPosition("bottomleft", -1, -4);
+				end
+
+				function actionDrag(draginfo, description)
+					if description then 
+						draginfo.setType("number");
+						draginfo.setDescription(description);
+						draginfo.setStringData(description);
+						draginfo.setNumberData(getValue());
+					end
+					return true;
+				end
+				
+				function action(description)
+					if description then 
+						ModifierStack.addSlot(description, getValue());
+					end
+					return true;
 				end
 			</script>
 			<hideonvalue>0</hideonvalue>
@@ -145,6 +136,7 @@
 
 	<template name="string_charfield">
 		<basicstring>
+			<frame mergerule="replace" name="fielddark" offset="7,5,7,5" />
 			<script file="campaign/scripts/campaign_rollable.lua" />
 			<center />
 			<nodrop />
@@ -157,12 +149,12 @@
 		</stringu>
 	</template>
 
-	<template name="numberu_charfield">
-		<numberfield>
-			<frame mergerule="replace" name="textline" hidereadonly="true" offset="0,-1,0,0" />
-			<nodrop />
-		</numberfield>
-	</template>
+<!-- 	<template name="numberu_charfield"> -->
+<!-- 		<numberfield> -->
+<!-- 			<frame mergerule="replace" name="textline" hidereadonly="true" offset="0,-1,0,0" /> -->
+<!-- 			<nodrop /> -->
+<!-- 		</numberfield> -->
+<!-- 	</template> -->
 
 	<template name="number_attribute">
 		<number_charfield>
@@ -194,26 +186,31 @@
 		</string_charfield>
 	</template>
 
-	<template name="number_charpointfield">
-		<numberfield>
-			<frame name="textline" />
+	<template name="number_charpoint">
+		<number_charfield>
+			<font>sheetnumbersmall</font>
 			<center />
+			<noreset />
 			<nodrag />
 			<nodrop />
-		</numberfield>
+		</number_charfield>
+	</template>
+
+	<template name="number_charpointfield">
+		<number_charfield>
+			<frame merge="replace" name="textline" />
+			<color>#808080</color>
+			<script file="campaign/scripts/char_points.lua" />
+		</number_charfield>
 	</template>
 
 	<template name="number_charpointtotals">
-		<numberfield>
-			<frame name="textline" />
-			<font>sheetnumbersmall</font>
-			<center />
-			<nodrag />
-			<nodrop />
-		</numberfield>
+		<number_charpoint>
+			<frame merge="replace" name="textline" />
+			<readonly />
+		</number_charpoint>
 	</template>
 	
-
 	<template name="button_charroll">
 		<button_roll>
 			<script file="campaign/scripts/campaign_rollable.lua" />
@@ -225,6 +222,24 @@
 			<anchored width="20" height="20" />
 			<icon normal="button_action_modifier" pressed="button_action_modifier_down" />
 		</buttoncontrol>
+		<script>
+			function actionDrag(draginfo, desc, value)
+				if (desc and value) then 
+					draginfo.setType("number");
+					draginfo.setDescription(desc);
+					draginfo.setStringData(desc);
+					draginfo.setNumberData(value);
+				end
+				return true;
+			end
+			
+			function action(desc, value)
+				if (desc and value) then 
+					ModifierStack.addSlot(desc, value);
+				end
+				return true;
+			end
+		</script>
 	</template>
 
 	<template name="button_toggledetail">
@@ -275,7 +290,7 @@
 
 	<template name="list_charencumbrance">
 		<list_text>
-			<datasource>.charencumbrancelist</datasource>
+			<datasource>.encumbrance.encumbrancelist</datasource>
 			<class>char_encumbrance</class>
 			<sortby><control>name</control></sortby>
 			<newfocus>name</newfocus>
@@ -284,7 +299,7 @@
 
 	<template name="list_charlanguage">
 		<list_text>
-			<datasource>.charlanguagelist</datasource>
+			<datasource>.traits.languagelist</datasource>
 			<class>char_language</class>
 			<sortby><control>name</control></sortby>
 			<newfocus>name</newfocus>
@@ -293,7 +308,7 @@
 
 	<template name="list_charculturalfamiliarity">
 		<list_text>
-			<datasource>.charculturalfamiliaritylist</datasource>
+			<datasource>.traits.culturalfamiliaritylist</datasource>
 			<class>char_culturalfamiliarity</class>
 			<sortby><control>name</control></sortby>
 			<newfocus>name</newfocus>
@@ -302,7 +317,7 @@
 
 	<template name="list_charreactionmodifier">
 		<list_text>
-			<datasource>.charreactionmodifierlist</datasource>
+			<datasource>.traits.reactionmodifierlist</datasource>
 			<class>char_reactionmodifier</class>
 			<sortby><control>name</control></sortby>
 			<newfocus>name</newfocus>
@@ -311,7 +326,7 @@
 
 	<template name="list_charadperk">
 		<list_text>
-			<datasource>.charadslist</datasource>
+			<datasource>.traits.adslist</datasource>
 			<class>char_trait</class>
 			<sortby><control>name</control></sortby>
 			<newfocus>name</newfocus>
@@ -320,7 +335,7 @@
 
 	<template name="list_chardisadquirk">
 		<list_text>
-			<datasource>.chardisadslist</datasource>
+			<datasource>.traits.disadslist</datasource>
 			<class>char_trait</class>
 			<sortby><control>name</control></sortby>
 			<newfocus>name</newfocus>
@@ -329,7 +344,7 @@
 
 	<template name="list_charskill">
 		<list_text>
-			<datasource>.charskilllist</datasource>
+			<datasource>.abilities.skilllist</datasource>
 			<class>char_skill</class>
 			<sortby><control>name</control></sortby>
 			<newfocus>name</newfocus>
@@ -338,7 +353,7 @@
 
 	<template name="list_charspell">
 		<list_text>
-			<datasource>.charspelllist</datasource>
+			<datasource>.abilities.spelllist</datasource>
 			<class>char_spell</class>
 			<sortby><control>name</control></sortby>
 			<newfocus>name</newfocus>
@@ -347,7 +362,7 @@
 
 	<template name="list_charpower">
 		<list_text>
-			<datasource>.charpowerlist</datasource>
+			<datasource>.abilities.powerlist</datasource>
 			<class>char_power</class>
 			<sortby><control>name</control></sortby>
 			<newfocus>name</newfocus>
@@ -356,7 +371,7 @@
 
 	<template name="list_charother">
 		<list_text>
-			<datasource>.charotherlist</datasource>
+			<datasource>.abilities.otherlist</datasource>
 			<class>char_other</class>
 			<sortby><control>name</control></sortby>
 			<newfocus>name</newfocus>
@@ -365,8 +380,17 @@
 
 	<template name="list_charnote">
 		<list_text>
-			<datasource>.charnotelist</datasource>
+			<datasource>.notelist</datasource>
 			<class>char_note</class>
+			<sortby><control>name</control></sortby>
+			<newfocus>name</newfocus>
+		</list_text>
+	</template>
+
+	<template name="list_charprotection">
+		<list_text>
+			<datasource>.combat.protectionlist</datasource>
+			<class>char_protection</class>
 			<sortby><control>name</control></sortby>
 			<newfocus>name</newfocus>
 		</list_text>
@@ -374,7 +398,7 @@
 
 	<template name="list_charmeleecombat">
 		<list_text>
-			<datasource>.charmeleecombatlist</datasource>
+			<datasource>.combat.meleecombatlist</datasource>
 			<class>char_meleecombat</class>
 			<sortby><control>name</control></sortby>
 			<newfocus>name</newfocus>
@@ -383,17 +407,50 @@
 
 	<template name="list_charrangedcombat">
 		<list_text>
-			<datasource>.charrangedcombatlist</datasource>
+			<datasource>.combat.rangedcombatlist</datasource>
 			<class>char_rangedcombat</class>
 			<sortby><control>name</control></sortby>
 			<newfocus>name</newfocus>
 		</list_text>
 	</template>
 
-	<template name="list_charweaponmodifier">
+	<template name="list_npcmeleecombat">
 		<list_text>
-			<datasource>.charweaponmodifierlist</datasource>
-			<class>char_weaponmodifier</class>
+			<datasource>.combat.meleecombatlist</datasource>
+			<sortby><control>name</control></sortby>
+			<newfocus>name</newfocus>
+			<allowcreate />
+			<allowdelete />
+			<noscroll />
+		</list_text>
+	</template>
+
+	<template name="list_npcrangedcombat">
+		<list_text>
+			<datasource>.combat.rangedcombatlist</datasource>
+			<sortby><control>name</control></sortby>
+			<newfocus>name</newfocus>
+			<allowcreate />
+			<allowdelete />
+			<noscroll />
+		</list_text>
+	</template>
+
+	<template name="list_npcabilities">
+		<list_text>
+			<datasource>.abilitieslist</datasource>
+			<sortby><control>name</control></sortby>
+			<newfocus>name</newfocus>
+			<allowcreate />
+			<allowdelete />
+			<noscroll />
+		</list_text>
+	</template>
+
+	<template name="list_charmodifier">
+		<list_text>
+			<datasource>.modifierlist</datasource>
+			<class>char_modifier</class>
 			<sortby><control>name</control></sortby>
 			<newfocus>name</newfocus>
 		</list_text>
@@ -401,7 +458,7 @@
 
 	<template name="list_charmeleemode">
 		<list_text>
-			<datasource>.charmeleemodelist</datasource>
+			<datasource>.meleemodelist</datasource>
 			<class>char_meleemode</class>
 			<sortby><control>name</control></sortby>
 			<newfocus>name</newfocus>
@@ -410,19 +467,11 @@
 
 	<template name="list_charrangedmode">
 		<list_text>
-			<datasource>.charrangedmodelist</datasource>
+			<datasource>.rangedmodelist</datasource>
 			<class>char_rangemode</class>
 			<sortby><control>name</control></sortby>
 			<newfocus>name</newfocus>
 		</list_text>
 	</template>
 
-	<template name="list_chararmor">
-		<list_text>
-			<datasource>.chararmorlist</datasource>
-			<class>char_armor</class>
-			<sortby><control>name</control></sortby>
-			<newfocus>name</newfocus>
-		</list_text>
-	</template>
 </root>

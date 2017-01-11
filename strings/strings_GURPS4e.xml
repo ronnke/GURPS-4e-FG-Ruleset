@@ -11,20 +11,45 @@
 	<!-- Options -->
 
 	<!-- Combat Tracker -->
+	<string name="ct_label_speed">Speed</string>
+	<string name="ct_label_hps">HP</string>
+	<string name="ct_label_fps">FP</string>
+	<string name="ct_label_status">Status</string>
+
+	<string name="ct_label_strength">ST</string>
+	<string name="ct_label_dexterity">DX</string>
+	<string name="ct_label_intelligence">IQ</string>
+	<string name="ct_label_health">HT</string>
+	<string name="ct_label_hitpoints">HP</string>
+	<string name="ct_label_will">WILL</string>
+	<string name="ct_label_perception">PER</string>
+	<string name="ct_label_fatiguepoints">FP</string>
 	
-	<!-- Skill Challenge Tracker -->
-	
+	<string name="ct_label_sizemodifier">SM</string>
+	<string name="ct_label_reach">Reach</string>
+	<string name="ct_label_move">Move</string>
+	<string name="ct_label_dodge">Dodge</string>
+	<string name="ct_label_parry">Parry</string>
+	<string name="ct_label_block">Block</string>
+	<string name="ct_label_dr">DR</string>
+
+	<string name="ct_label_st">ST</string>
+	<string name="ct_label_weight">Weight</string>
+	<string name="ct_label_bulk">Bulk</string>
+
+	<string name="ct_tooltip_stats">Stats</string>
+	<string name="ct_tooltip_combat">Combat</string>
+
 	<!-- Party Sheet -->
 
 	<!-- Character - General -->
 	<string name="char_label_points">Pts</string>
 
-
-	<!-- Character - Main -->
 	<string name="char_label_basicattributes">BASIC ATTRIBUTES</string>
 
 	<string name="char_label_charactername">Character Name</string>
 	<string name="char_label_sizemodifier">SM</string>
+	<string name="char_label_reach">Reach</string>
 	<string name="char_label_name">Name</string>
 	
 	<string name="char_label_secondarycharacteristics">SECONDARY CHARACTERISTICS</string>
@@ -50,11 +75,9 @@
 	<string name="char_label_culturalfamiliarities">CULTURAL FAMILIARITIES</string>
 	<string name="char_label_reactionmodifiers">REACTION MODIFIERS</string>
 	
-	<!-- Character - Traits -->
 	<string name="char_label_adsperks">ADVANTAGES / PERKS</string>
 	<string name="char_label_disadsquirks">DISADVANTAGES / QUIRKS</string>
 
-	<!-- Character - Combat -->
 	<string name="char_label_defenses">DEFENSES</string>
 	<string name="char_label_meleecombat">MELEE COMBAT</string>
 	<string name="char_label_rangedcombat">RANGED COMBAT</string>
@@ -63,6 +86,7 @@
 	<string name="char_label_dodge">Dodge</string>
 	<string name="char_label_parry">Parry</string>
 	<string name="char_label_block">Block</string>
+	<string name="char_label_db">DB</string>
 	<string name="char_label_dr">DR</string>
 
 	<string name="char_label_weapon">Weapon</string>
@@ -82,14 +106,12 @@
 	<string name="char_label_mod">Mod</string>
 	<string name="char_label_mode">Mode</string>
 	<string name="char_label_modifier">Modifier</string>
-	<string name="char_label_armor">Armor</string>
+	<string name="char_label_armorshield">Armor/Shield</string>
 	<string name="char_label_location">Location</string>
 
-	<string name="char_tooltip_weaponmodes">Modes</string>
-	<string name="char_tooltip_weaponmodifiers">Modifiers</string>
+	<string name="char_tooltip_modes">Modes</string>
+	<string name="char_tooltip_modifiers">Modifiers</string>
 
-
-	<!-- Character - Abilities -->
 	<string name="char_label_skills">SKILLS</string>
 	<string name="char_label_spells">SPELLS</string>
 	<string name="char_label_powers">POWERS</string>
@@ -107,10 +129,6 @@
 	<string name="char_label_resist">Resist</string>
 	<string name="char_label_page">Page</string>
 
-
-	<!-- Character - Inventory -->
-	
-	<!-- Character - Notes -->
 	<string name="char_label_notes">Notes</string>
 	<string name="char_label_summary">Points Summary</string>
 	<string name="char_pointtotal_attributes">Attributes</string>
@@ -127,6 +145,22 @@
 
 	
 	<!-- NPCs -->
+	<string name="npc_label_basicspeed">Basic Speed</string>
+	<string name="npc_label_move">Move</string>
+	<string name="npc_label_sizemodifier">SM</string>
+	<string name="npc_label_reach">Reach</string>
+	<string name="npc_label_move">Move</string>
+	<string name="npc_label_swing">Swing</string>
+	<string name="npc_label_thrust">Thrust</string>
+	<string name="npc_label_reaction">Reaction +/-</string>
+	<string name="npc_label_traits">TRAITS</string>
+	<string name="npc_label_melee">MELEE COMBAT</string>
+	<string name="npc_label_ranged">RANGED COMBAT</string>
+	<string name="npc_label_abilities">ABILITIES</string>
+
+	<string name="npc_label_st">ST</string>
+	<string name="npc_label_weight">Weight</string>
+	<string name="npc_label_bulk">Bulk</string>
 	
 	<!-- Encounters -->
 	

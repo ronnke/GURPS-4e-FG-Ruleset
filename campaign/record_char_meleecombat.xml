@@ -24,6 +24,7 @@
 				</anchored>
 				<invisible />
 			</genericcontrol>
+
 			<genericcontrol name="idelete_header">
 				<anchored to="rightanchor" width="20" height="20">
 					<top />
@@ -180,10 +181,11 @@
 				</anchored>
 				<invisible />
 			</genericcontrol>
+			
 			<button_idelete name="idelete">
-				<anchored>
+				<anchored to="rightanchor" width="20" height="20">
 					<top offset="2" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+					<right anchor="left" relation="relative" offset="-5" />
 				</anchored>
 				<invisible merge="delete" />
 			</button_idelete>
@@ -347,7 +349,7 @@
 				<static textres="char_label_modifier" />
 			</label_columntop>
 
-			<list_charweaponmodifier name="modifierslist">
+			<list_charmodifier name="modifierslist">
 				<anchored to="modifiers_label">
 					<top anchor="bottom" relation="relative" />
 					<left parent="modifiersicon" anchor="right" offset="10" />
@@ -355,7 +357,7 @@
 				</anchored>
 				<class>char_modifier</class>
 				<noscroll />
-			</list_charweaponmodifier>
+			</list_charmodifier>
  
   			<button_iedit name="modifierslist_iedit">
 				<anchored to="modifierslist" position="belowright" offset="5,2" />
@@ -442,94 +444,5 @@
 		</sheetdata>
 	</windowclass>
 
-	<windowclass name="char_modifier">
-		<margins control="0,0,0,2" />
-		<script>
-			function actionDrag(draginfo)
-				if not name.isEmpty() then
-					draginfo.setType("number");
-					draginfo.setDescription(name.getValue());
-					draginfo.setStringData(name.getValue());
-					draginfo.setNumberData(modifier.getValue());
-				end
-				return true;
-			end
-			
-			function action()
-				ModifierStack.addSlot(name.getValue(), modifier.getValue());
-				return true;
-			end
-
-			function onDrop(x, y, draginfo)
-				return windowlist.onDrop(x, y, draginfo);
-			end
-		</script>
-		<sheetdata>
-			<genericcontrol name="rightanchor">
-				<anchored height="0" width="0">
-					<top />
-					<right />
-				</anchored>
-			</genericcontrol>
-			<button_idelete name="idelete">
-				<anchored>
-					<top offset="2" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
-				</anchored>
-				<invisible merge="delete" />
-			</button_idelete>
-
-			<button_modifier>
-				<anchored>
-					<top offset="2" />
-					<left offset="5" />
-				</anchored>
-				<script>
-					function onDragStart(button, x, y, draginfo)
-						return window.actionDrag(draginfo);
-					end
-
-					function onButtonPress(x, y)
-						return window.action();
-					end
-				</script>
-			</button_modifier>
-
-			<number_charmodfield name="modifier">
-				<anchored to="rightanchor" width="30" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<tabtarget prev="name" />
-				<script>
-					function onDragStart(button, x, y, draginfo)
-						return window.actionDrag(draginfo);
-					end
-
-					function onDoubleClick(x, y)
-						return window.action();
-					end
-
-					function onGainFocus()
-						window.setFrame("rowshade");
-					end
-
-					function onLoseFocus()
-						window.setFrame(nil);
-					end
-				</script>
-			</number_charmodfield>
-			<string_textlistitem name="name">
-				<anchored height="20">
-					<top offset="2" />
-					<left offset="30" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<nodrag />
-				<tabtarget next="modifier" />
-			</string_textlistitem>
-			
-		</sheetdata>
-	</windowclass>
 
 </root>

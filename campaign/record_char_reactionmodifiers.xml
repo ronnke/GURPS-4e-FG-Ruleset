@@ -12,7 +12,7 @@
 <!-- Reaction Modifiers-->
 
 			<frame_char name="reactionmodifiersframe">
-				<bounds>0,0,300,315</bounds>
+				<bounds>0,0,-28,315</bounds>
 			</frame_char>
 			
 			<label_frametop>
@@ -28,9 +28,18 @@
 				</anchored>
 			</button_charroll>
 
+			<basicstring name="reactionmodifiers" source="traits.reactionmodifiers">
+				<anchored to="reactionmodifiersframe" height="45">
+					<top offset="35" />
+					<left offset="20" />
+					<right offset="-30"/>
+				</anchored>
+				<multilinespacing>15</multilinespacing>
+			</basicstring>
+
 			<genericcontrol name="reactionmodifiers_rightanchor">
 				<anchored to="reactionmodifiersframe" width="0" height="0">
-					<top offset="35" />
+					<top offset="90" />
 					<right offset="10"/>
 				</anchored>
 				<invisible />
@@ -40,7 +49,7 @@
 			<list_charreactionmodifier name="reactionmodifierslist">
 				<anchored to="reactionmodifiersframe">
 					<left offset="10" />
-					<top offset="40" />
+					<top offset="95" />
 					<right offset="-20" />
 					<bottom offset="-15" />
 				</anchored>
@@ -51,7 +60,7 @@
 			</scrollbar_list>
 
 			<button_iedit name="reactionmodifierslist_iedit">
-				<anchored to="reactionmodifierslist" position="aboveright" offset="-5,10" />
+				<anchored to="reactionmodifierslist" position="aboveright" offset="-5,65" />
 				<target>reactionmodifierslist</target>
 			</button_iedit>
 			<button_iadd name="reactionmodifierslist_iadd">
@@ -125,19 +134,11 @@
 				<tabtarget prev="name" />
 				<script>
 					function onDragStart(button, x, y, draginfo)
-						return window.actionDrag(draginfo);
+						return actionDrag(draginfo, window.name.getValue());
 					end
 
 					function onDoubleClick(x, y)
-						return window.action();
-					end
-
-					function onGainFocus()
-						window.setFrame("rowshade");
-					end
-
-					function onLoseFocus()
-						window.setFrame(nil);
+						return action(window.name.getValue());
 					end
 				</script>
 			</number_charmodfield>

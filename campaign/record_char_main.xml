@@ -10,29 +10,33 @@
 <!-- Character Details -->
 
 			<frame_char name="detailframe">
-				<bounds>15,0,-29,80</bounds>
+				<bounds>15,0,480,80</bounds>
 			</frame_char>
-			<string_labeled name="race">
+			<string_labeled name="race" source="traits.race">
 				<anchored to="detailframe" position="insidetopleft" offset="15,10" width="150" height="20" />
 				<labelres>char_label_race</labelres>
 			</string_labeled>
-			<string_labeled name="age">
-				<anchored to="race" position="right" offset="5,0" width="70" />
+			<string_labeled name="age" source="traits.age">
+				<anchored to="race" position="right" offset="5,0" width="50" />
 				<labelres>char_label_age</labelres>
 			</string_labeled>
-			<string_labeled name="height">
+			<string_labeled name="height" source="traits.height">
 				<anchored to="age" position="right" offset="5,0" width="70" />
 				<labelres>char_label_height</labelres>
 			</string_labeled>
-			<string_labeled name="weight">
+			<string_labeled name="weight" source="traits.weight">
 				<anchored to="height" position="right" offset="5,0" width="70" />
 				<labelres>char_label_weight</labelres>
 			</string_labeled>
-			<string_labeled name="size_modifier">
-				<anchored to="weight" position="right" offset="5,0" width="70" />
+			<string_labeled name="sizemodifier" source="traits.sizemodifier">
+				<anchored to="weight" position="right" offset="5,0" width="40" />
 				<labelres>char_label_sizemodifier</labelres>
 			</string_labeled>
-			<string_labeled name="appearance">
+			<string_labeled name="sizereach" source="traits.reach">
+				<anchored to="sizemodifier" position="right" offset="5,0" width="40" />
+				<labelres>char_label_reach</labelres>
+			</string_labeled>
+			<string_labeled name="appearance" source="traits.appearance">
 				<anchored to="detailframe" position="insidetopleft" offset="15,40" width="450" height="20" />
 				<labelres>char_label_appearance</labelres>
 			</string_labeled>
@@ -49,7 +53,7 @@
 				<static textres="char_label_basicattributes" />
 			</label_frametop>
 			
-			<number_attribute name="strength" source="stats.strength">
+			<number_attribute name="strength" source="attributes.strength">
 				<rollable_attribute />
 				<stat>ST</stat>
 				<anchored to="basicattributesframe" position="insidetopleft" offset="20,40" />
@@ -62,7 +66,7 @@
 				<anchored to="strength" />
 				<static>ST</static>
 			</label_attribute>
-			<number_charpointfield name="strength_points" source="stats.strength_points">
+			<number_charpointfield name="strength_points" source="attributes.strength_points">
 				<anchored to="strength" position="right" offset="7,-5" width="20" />
 				<tabtarget>
 					<next>dexterity</next>
@@ -70,7 +74,7 @@
 				</tabtarget>
 			</number_charpointfield>
 
-			<number_attribute name="dexterity" source="stats.dexterity">
+			<number_attribute name="dexterity" source="attributes.dexterity">
 				<rollable_attribute />
 				<stat>DX</stat>
 				<anchored to="strength" position="belowleft" offset="0,15" />
@@ -83,7 +87,7 @@
 				<anchored to="dexterity" />
 				<static>DX</static>
 			</label_attribute>
-			<number_charpointfield name="dexterity_points" source="stats.dexterity_points">
+			<number_charpointfield name="dexterity_points" source="attributes.dexterity_points">
 				<anchored to="dexterity" position="right" offset="7,-5" width="20" />
 				<tabtarget>
 					<next>intelligence</next>
@@ -91,7 +95,7 @@
 				</tabtarget>
 			</number_charpointfield>
 
-			<number_attribute name="intelligence" source="stats.intelligence">
+			<number_attribute name="intelligence" source="attributes.intelligence">
 				<rollable_attribute />
 				<stat>IQ</stat>
 				<anchored to="dexterity" position="belowleft" offset="0,15" />
@@ -104,7 +108,7 @@
 				<anchored to="intelligence" />
 				<static>IQ</static>
 			</label_attribute>
-			<number_charpointfield name="intelligence_points" source="stats.intelligence_points">
+			<number_charpointfield name="intelligence_points" source="attributes.intelligence_points">
 				<anchored to="intelligence" position="right" offset="7,-5" width="20" />
 				<tabtarget>
 					<next>health</next>
@@ -112,7 +116,7 @@
 				</tabtarget>
 			</number_charpointfield>
 
-			<number_attribute name="health"	source="stats.health">
+			<number_attribute name="health"	source="attributes.health">
 				<rollable_attribute />
 				<stat>HT</stat>
 				<anchored to="intelligence" position="belowleft" offset="0,15" />
@@ -125,7 +129,7 @@
 				<anchored to="health" />
 				<static>HT</static>
 			</label_attribute>
-			<number_charpointfield name="health_points" source="stats.health_points">
+			<number_charpointfield name="health_points" source="attributes.health_points">
 				<anchored to="health" position="right" offset="7,-5" width="20" />
 				<tabtarget>
 					<next>hps</next>
@@ -133,7 +137,7 @@
 				</tabtarget>
 			</number_charpointfield>
 
-			<number_attribute name="hps" source="stats.hps">
+			<number_attribute name="hps" source="attributes.hps">
 				<anchored to="basicattributesframe" position="insidetopleft" offset="100,40" />
 				<tabtarget>
 					<next>hps_points</next>
@@ -144,7 +148,7 @@
 				<anchored to="hps" />
 				<static>HP</static>
 			</label_attribute>
-			<number_charpointfield name="hps_points" source="stats.hps_points">
+			<number_charpointfield name="hps_points" source="attributes.hps_points">
 				<anchored to="hps" position="right" offset="7,-5" width="20" />
 				<tabtarget>
 					<next>will</next>
@@ -152,7 +156,7 @@
 				</tabtarget>
 			</number_charpointfield>
 
-			<number_attribute name="will" source="stats.will">
+			<number_attribute name="will" source="attributes.will">
 				<rollable_attribute />
 				<stat>WILL</stat>
 				<anchored to="hps" position="belowleft" offset="0,15" />
@@ -165,7 +169,7 @@
 				<anchored to="will" />
 				<static>WILL</static>
 			</label_attribute>
-			<number_charpointfield name="will_points" source="stats.will_points">
+			<number_charpointfield name="will_points" source="attributes.will_points">
 				<anchored to="will" position="right" offset="7,-5" width="20" />
 				<tabtarget>
 					<next>perception</next>
@@ -173,7 +177,7 @@
 				</tabtarget>
 			</number_charpointfield>
 
-			<number_attribute name="perception" source="stats.perception">
+			<number_attribute name="perception" source="attributes.perception">
 				<rollable_attribute />
 				<stat>PER</stat>
 				<anchored to="will" position="belowleft" offset="0,15" />
@@ -186,7 +190,7 @@
 				<anchored to="perception" />
 				<static>PER</static>
 			</label_attribute>
-			<number_charpointfield name="perception_points" source="stats.perception_points">
+			<number_charpointfield name="perception_points" source="attributes.perception_points">
 				<anchored to="perception" position="right" offset="7,-5" width="20" />
 				<tabtarget>
 					<next>fps</next>
@@ -194,7 +198,7 @@
 				</tabtarget>
 			</number_charpointfield>
 
-			<number_attribute name="fps" source="stats.fps">
+			<number_attribute name="fps" source="attributes.fps">
 				<anchored to="perception" position="belowleft" offset="0,15" />
 				<tabtarget>
 					<next>fps_points</next>
@@ -205,7 +209,7 @@
 				<anchored to="fps" />
 				<static>FP</static>
 			</label_attribute>
-			<number_charpointfield name="fps_points" source="stats.fps_points">
+			<number_charpointfield name="fps_points" source="attributes.fps_points">
 				<anchored to="fps" position="right" offset="7,-5" width="20" />
 				<tabtarget>
 					<next>current_hps</next>
@@ -225,7 +229,7 @@
 				<static textres="char_label_currentattributes" />
 			</label_frametop>
 
-			<number_attribute name="current_hps" source="stats.current_hps">
+			<number_attribute name="current_hps" source="attributes.current_hps">
 				<anchored to="currentattributesframe" position="insidetopleft" offset="20,40" />
 				<tabtarget prev="fps_points" next="current_fps" />
 			</number_attribute>
@@ -234,7 +238,7 @@
 				<static>cHP</static>
 			</label_attribute>
 
-			<number_attribute name="current_fps" source="stats.current_fps">
+			<number_attribute name="current_fps" source="attributes.current_fps">
 				<anchored to="currentattributesframe" position="insidetopleft" offset="70,40" />
 				<tabtarget prev="current_hps" next="current_move" />
 			</number_attribute>
@@ -243,10 +247,10 @@
 				<static>cFP</static>
 			</label_attribute>
 
-			<number_attribute name="current_move" source="stats.current_move">
+			<string_attribute name="current_move" source="attributes.current_move">
 				<anchored to="currentattributesframe" position="insidetopleft" offset="120,40" />
 				<tabtarget prev="current_fps" next="languagesframe" />
-			</number_attribute>
+			</string_attribute>
 			<label_attribute>
 				<anchored to="current_move" />
 				<static>Move</static>
@@ -256,7 +260,12 @@
 <!-- Languages -->
 
 			<frame_char name="languagesframe">
-				<bounds>15,395,290,-14</bounds>
+				<anchored>
+					<top offset="395"/>
+					<bottom offset="-15"/>
+					<left offset="15"/>
+					<right anchor="center" offset="40"/>
+				</anchored>
 			</frame_char>
 			
 			<label_frametop>
@@ -272,6 +281,7 @@
 				</anchored>
 				<invisible />
 			</genericcontrol>
+			
 			<genericcontrol name="languages_idelete_header">
 				<anchored to="languages_rightanchor" width="20" height="20">
 					<top />
@@ -328,7 +338,12 @@
 <!-- Cultural Familiarity-->
 
 			<frame_char name="culturalfamiliarityframe">
-				<bounds>305,395,190,-14</bounds>
+				<anchored>
+					<top offset="395"/>
+					<bottom offset="-15"/>
+					<left anchor="center" offset="40"/>
+					<right offset="-29"/>
+				</anchored>
 			</frame_char>
 			
 			<label_frametop>
@@ -340,11 +355,11 @@
 				<anchored to="culturalfamiliarityframe" position="insidetopleft" offset="15,10" width="70" height="20" />
 				<static>Tech Level:</static>
 			</stringcontrol>
-			<stringu_charfield name="tech_level" source="general.tl_score">
+			<stringu_charfield name="tech_level" source="traits.tl">
 				<anchored to="culturalfamiliarityframe" position="insidetopleft" offset="80,10" width="25" height="20" />
 				<center />
 			</stringu_charfield>
-			<number_charpointfield name="tl_points"  source="general.tl_points">
+			<number_charpointfield name="tl_points"  source="traits.tl_points">
 				<anchored to="tech_level" position="right" offset="5" width="20" />
 			</number_charpointfield>
 
@@ -375,12 +390,12 @@
 <!-- Tabs-->
 
 			<subwindow name="secondarycharacteristics">
-				<bounds>195,80,300,315</bounds>
+				<bounds>195,80,-1,315</bounds>
 				<class>charsheet_secondarycharacteristics</class>
 			</subwindow>
 
 			<subwindow name="reactionmodifiers">
-				<bounds>195,80,300,315</bounds>
+				<bounds>195,80,-1,315</bounds>
 				<class>charsheet_reactionmodifiers</class>
 			</subwindow>
 

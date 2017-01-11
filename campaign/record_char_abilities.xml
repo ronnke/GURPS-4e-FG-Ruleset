@@ -11,22 +11,22 @@
 		
 		
 			<subwindow name="skills">
-				<bounds>0,0,-1,-1</bounds>
+				<bounds>0,0,-1,-2</bounds>
 				<class>charsheet_skills</class>
 			</subwindow>
 
 			<subwindow name="spells">
-				<bounds>0,0,-1,-1</bounds>
+				<bounds>0,0,-1,-2</bounds>
 				<class>charsheet_spells</class>
 			</subwindow>
 
 			<subwindow name="powers">
-				<bounds>0,0,-1,-1</bounds>
+				<bounds>0,0,-1,-2</bounds>
 				<class>charsheet_powers</class>
 			</subwindow>
 
 			<subwindow name="other">
-				<bounds>0,0,-1,-1</bounds>
+				<bounds>0,0,-1,-2</bounds>
 				<class>charsheet_other</class>
 			</subwindow>
 

@@ -6,6 +6,7 @@
 -->
 
 <root>
+
 	<framedef name="attributelabel">
 		<bitmap file="graphics/frames/attributelabel.png" />
 		<offset>7,7,7,7</offset>
@@ -21,5 +22,5 @@
 		<bitmap file="graphics/frames/textline.png"/>
 		<middle rect="0,2,100,14"/>
 	</framedef>
-	
+
 </root>

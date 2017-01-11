@@ -11,22 +11,15 @@
 
 			<!-- NOTES -->			
 			<frame_char name="notesframe">
-				<bounds>15,0,320,240</bounds>
+				<bounds>15,0,-190,240</bounds>
 			</frame_char>
 			<label_frametop>
 				<anchored to="notesframe" />
 				<static textres="char_label_notes" />
 			</label_frametop>
 			
-			<genericcontrol name="rightanchor">
-				<anchored to="notesframe" width="0" height="0">
-					<top offset="35" />
-					<right />
-				</anchored>
-				<invisible />
-			</genericcontrol>
 			<genericcontrol name="idelete_header">
-				<anchored to="rightanchor" width="20" height="20">
+				<anchored to="notesframe" width="20" height="20">
 					<top />
 					<right anchor="left" relation="relative" offset="-5" />
 				</anchored>
@@ -57,7 +50,7 @@
 
 			<!-- POINT SUMMARY -->			
 			<frame_char name="summaryframe">
-				<bounds>335,0,-29,240</bounds>
+				<bounds>-190,0,-29,240</bounds>
 			</frame_char>
 			<label_frametop>
 				<anchored to="summaryframe" />
@@ -74,105 +67,95 @@
 
 
 
-      <number_charpointtotals name="total_stats_points" source="points_cost_totals.total_stats_points">
+      <number_charpointtotals name="total_attributes_points" source="pointtotals.attributes">
         <anchored to="summaryframe" position="insidetopleft" offset="112,30" width="30" height="20" />
-        <tabtarget prev="notesframe" next="total_ads_points" />
       </number_charpointtotals>
 
-      <label_pointsummary>
-        <anchored to="total_stats_points" position="insidetopleft" offset="-97,4" />
+      <label_charsheet>
+        <anchored to="total_attributes_points" position="insidetopleft" offset="-97,4" />
 		<static textres="char_pointtotal_attributes" />
-      </label_pointsummary>
+      </label_charsheet>
 
-      <number_charpointtotals name="total_ads_points" source="points_cost_totals.total_ads_points">
-        <anchored to="total_stats_points" position="belowleft" offset="0,0" width="30" height="20" />
-        <tabtarget prev="total_stats_points" next="total_disads_points" />
+      <number_charpointtotals name="total_ads_points" source="pointtotals.ads">
+        <anchored to="total_attributes_points" position="belowleft" offset="0,0" width="30" height="20" />
       </number_charpointtotals>
 
-      <label_pointsummary>
+      <label_charsheet>
         <anchored to="total_ads_points" position="insidetopleft" offset="-97,4" />
 		<static textres="char_pointtotal_ads" />
-      </label_pointsummary>
+      </label_charsheet>
 
-      <number_charpointtotals name="total_disads_points" source="points_cost_totals.total_disads_points">
+      <number_charpointtotals name="total_disads_points" source="pointtotals.disads">
         <anchored to="total_ads_points" position="belowleft" offset="0,0" width="30" height="20" />
-        <tabtarget prev="total_ads_points" next="total_quirks_points" />
       </number_charpointtotals>
 
-      <label_pointsummary>
+      <label_charsheet>
         <anchored to="total_disads_points" position="insidetopleft" offset="-97,4" />
 		<static textres="char_pointtotal_disads" />
-      </label_pointsummary>
+      </label_charsheet>
 
-      <number_charpointtotals name="total_quirks_points" source="points_cost_totals.total_quirks_points">
+      <number_charpointtotals name="total_quirks_points" source="pointtotals.quirks">
         <anchored to="total_disads_points" position="belowleft" offset="0,0" width="30" height="20" />
-        <tabtarget prev="total_disads_points" next="total_skills_points" />
       </number_charpointtotals>
 
-      <label_pointsummary>
+      <label_charsheet>
         <anchored to="total_quirks_points" position="insidetopleft" offset="-97,4" />
 		<static textres="char_pointtotal_quirks" />
-      </label_pointsummary>
+      </label_charsheet>
 
-      <number_charpointtotals name="total_skills_points" source="points_cost_totals.total_skills_points">
+      <number_charpointtotals name="total_skills_points" source="pointtotals.skills">
         <anchored to="total_quirks_points" position="belowleft" offset="0,0" width="30" height="20" />
-        <tabtarget prev="total_quirks_points" next="total_spells_points" />
       </number_charpointtotals>
 
-      <label_pointsummary>
+      <label_charsheet>
         <anchored to="total_skills_points" position="insidetopleft" offset="-97,4" />
 		<static textres="char_pointtotal_skills" />
-      </label_pointsummary>
+      </label_charsheet>
 
-      <number_charpointtotals name="total_spells_points" source="points_cost_totals.total_spells_points">
+      <number_charpointtotals name="total_spells_points" source="pointtotals.spells">
         <anchored to="total_skills_points" position="belowleft" offset="0,0" width="30" height="20" />
-        <tabtarget prev="total_skills_points" next="total_powers_points" />
       </number_charpointtotals>
 
-      <label_pointsummary>
+      <label_charsheet>
         <anchored to="total_spells_points" position="insidetopleft" offset="-97,4" />
 		<static textres="char_pointtotal_spells" />
-      </label_pointsummary>
+      </label_charsheet>
 
-      <number_charpointtotals name="total_powers_points" source="points_cost_totals.total_powers_points">
+      <number_charpointtotals name="total_powers_points" source="pointtotals.powers">
         <anchored to="total_spells_points" position="belowleft" offset="0,0" width="30" height="20" />
-        <tabtarget prev="total_spells_points" next="total_other_points" />
       </number_charpointtotals>
 
-      <label_pointsummary>
+      <label_charsheet>
         <anchored to="total_powers_points" position="insidetopleft" offset="-97,4" />
 		<static textres="char_pointtotal_powers" />
-      </label_pointsummary>
+      </label_charsheet>
 
-      <number_charpointtotals name="total_other_points" source="points_cost_totals.total_other_points">
+      <number_charpointtotals name="total_others_points" source="pointtotals.others">
         <anchored to="total_powers_points" position="belowleft" offset="0,0" width="30" height="20" />
-        <tabtarget prev="total_powers_points" next="total_points" />
       </number_charpointtotals>
 
-      <label_pointsummary>
-        <anchored to="total_other_points" position="insidetopleft" offset="-97,4" />
+      <label_charsheet>
+        <anchored to="total_others_points" position="insidetopleft" offset="-97,4" />
 		<static textres="char_pointtotal_other" />
-      </label_pointsummary>
+      </label_charsheet>
 
-      <number_charpointtotals name="total_points" source="points_cost_totals.total_points">
-        <anchored to="total_other_points" position="belowleft" offset="0,0" width="30" height="20" />
-        <tabtarget prev="total_other_points" next="unspent_points" />
+      <number_charpointtotals name="total_points" source="pointtotals.totalpoints">
+        <anchored to="total_others_points" position="belowleft" offset="0,0" width="30" height="20" />
       </number_charpointtotals>
 
-      <label_pointsummary>
+      <label_charsheet>
         <anchored to="total_points" position="insidetopleft" offset="-97,4" />
 		<static textres="char_pointtotal_total" />
-      </label_pointsummary>
+      </label_charsheet>
 
-      <number_charpointtotals name="unspent_points" source="points_cost_totals.unspent_points">
+      <number_charfield name="unspent_points" source="pointtotals.unspentpoints">
         <anchored to="total_points" position="belowleft" offset="0,0" width="30" height="20" />
-        <tabtarget prev="total_points" next="descrption" />
-      </number_charpointtotals>
+      </number_charfield>
       
-      <label_pointsummary>
+      <label_charsheet>
         <anchored to="unspent_points" position="insidetopleft" offset="-97,4" />
 		<static textres="char_pointtotal_unspent" />
-      </label_pointsummary>
+      </label_charsheet>
 
 
 
@@ -200,7 +183,7 @@
 
 
 			<frame_char name="descriptionframe">
-				<bounds>15,240,-29,-14</bounds>
+				<bounds>15,240,-29,-15</bounds>
 			</frame_char>
 			<label_frametop>
 				<anchored to="descriptionframe" />

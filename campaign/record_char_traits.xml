@@ -10,7 +10,12 @@
 		<sheetdata>
 			<!-- ADVANTAGES / PERKS -->
 			<frame_char name="adsperksframe">
-				<bounds>15,0,-29,-279</bounds>
+				<anchored>
+					<top />
+					<bottom anchor="center" offset="-15"/>
+					<left offset="15"/>
+					<right offset="-29"/>
+				</anchored>
 			</frame_char>
 			<label_frametop>
 				<anchored to="adsperksframe" />
@@ -24,6 +29,7 @@
 				</anchored>
 				<invisible />
 			</genericcontrol>
+
 			<genericcontrol name="adsperks_idelete_header">
 				<anchored to="adsperks_rightanchor" width="20" height="20">
 					<top />
@@ -80,7 +86,13 @@
 
 			<!-- DISADVANTAGES / QUIRKS -->
 			<frame_char name="disadsquirksframe">
-				<bounds>15,265,-29,-14</bounds>
+				<anchored>
+					<top anchor="center" offset="-15"/>
+					<bottom offset="-15"/>
+					<left offset="15"/>
+					<right offset="-29"/>
+				</anchored>
+				
 			</frame_char>
 			<label_frametop>
 				<anchored to="disadsquirksframe" />
@@ -94,6 +106,7 @@
 				</anchored>
 				<invisible />
 			</genericcontrol>
+
 			<genericcontrol name="disadsquirks_idelete_header">
 				<anchored to="disadsquirks_rightanchor" width="20" height="20">
 					<top />

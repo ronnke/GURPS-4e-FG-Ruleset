@@ -12,7 +12,7 @@
 <!-- Secondary Characteristics -->
 
 			<frame_char name="secondarycharacteristicsframe"> 
-				<bounds>0,0,300,315</bounds>
+				<bounds>0,0,-28,315</bounds>
 			</frame_char>
 
 			<label_frametop>
@@ -20,38 +20,38 @@
 				<static textres="char_label_secondarycharacteristics" />
 			</label_frametop>
 
-			<string_labeled name="basiclift">
+			<string_labeled name="basiclift" source="attributes.basiclift">
 				<anchored to="secondarycharacteristicsframe" position="insidetopleft" offset="15,30" width="60" height="20" />
 				<labelres>char_label_basiclift</labelres>
 				<tabtarget prev="basicmove_points" next="thrust" />
 			</string_labeled>
-			<string_labeled name="thrust">
+			<string_labeled name="thrust" source="attributes.thrust">
 				<anchored to="basiclift" position="right" offset="10,0" width="50" />
 				<labelres>char_label_thrust</labelres>
 				<tabtarget prev="basiclift" next="swing" />
 			</string_labeled>
-			<string_labeled name="swing">
+			<string_labeled name="swing" source="attributes.swing">
 				<anchored to="thrust" position="right" offset="10,0" width="45" />
 				<labelres>char_label_swing</labelres>
 				<tabtarget prev="thrust" next="basicspeed" />
 			</string_labeled>
 
-			<string_labeled name="basicspeed">
+			<string_labeled name="basicspeed" source="attributes.basicspeed">
 				<anchored to="secondarycharacteristicsframe" position="insidetopleft" offset="15,55" width="65" height="20" />
 				<labelres>char_label_basicspeed</labelres>
 				<tabtarget prev="swing" next="basicspeed_points" />
 			</string_labeled>
-			<number_charpointfield name="basicspeed_points" source="stats.basicspeed_points">
+			<number_charpointfield name="basicspeed_points" source="attributes.basicspeed_points">
 				<anchored to="basicspeed" position="right" offset="5" width="20" />
 				<tabtarget prev="basicspeed" next="basicmove" />
 			</number_charpointfield>
 
-			<string_labeled name="basicmove">
+			<string_labeled name="basicmove" source="attributes.basicmove">
 				<anchored to="basicspeed" position="right" offset="60,0" width="60" />
 				<labelres>char_label_basicmove</labelres>
 				<tabtarget prev="basicspeed_points" next="basicmove_points" />
 			</string_labeled>
-			<number_charpointfield name="basicmove_points" source="stats.basicmove_points">
+			<number_charpointfield name="basicmove_points" source="attributes.basicmove_points">
 				<anchored to="basicmove" position="right" offset="5" width="20" />
 				<tabtarget prev="basicmove" next="basiclift" />
 			</number_charpointfield>
@@ -139,7 +139,7 @@
 			<stringcontrol>
 				<anchored to="enc_xhvy" width="60" height="20">
 					<top />
-					<right anchor="left" relation="relative" offset="-5" />
+					<left anchor="secondarycharacteristicsframe" offset="-130" />
 				</anchored>
 				<static textres="char_label_weight" />
 				<left />
@@ -186,7 +186,7 @@
 			<stringcontrol>
 				<anchored to="enc_move_xhvy" width="60" height="20">
 					<top />
-					<right anchor="left" relation="relative" offset="-5" />
+					<left anchor="secondarycharacteristicsframe" offset="-150" />
 				</anchored>
 				<static>Move</static>
 				<left />
@@ -238,7 +238,7 @@
 			<stringcontrol>
 				<anchored to="enc_dodge_xhvy" width="60" height="20">
 					<top />
-					<right anchor="left" relation="relative" offset="-10" />
+					<left anchor="secondarycharacteristicsframe" offset="-170" />
 				</anchored>
 				<static textres="char_label_dodge" />
 				<left />

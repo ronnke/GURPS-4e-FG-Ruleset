@@ -24,6 +24,7 @@
 				</anchored>
 				<invisible />
 			</genericcontrol>
+
 			<genericcontrol name="idelete_header">
 				<anchored to="rightanchor" width="20" height="20">
 					<top />
@@ -91,10 +92,6 @@
 					<bottom offset="-20" />
 				</anchored>
 			</list_charspell>
-			<scrollbar_list>
-				<anchored to="spellslist" />
-				<target>spellslist</target>
-			</scrollbar_list>
 
 			<button_iedit name="spellslist_iedit">
 				<anchored to="spellslist" position="aboveright" offset="5,20" />
@@ -346,7 +343,7 @@
 				<static textres="char_label_modifier" />
 			</label_columntop>
 
-			<list_charweaponmodifier name="modifierslist">
+			<list_charmodifier name="modifierslist">
 				<anchored to="modifiers_label">
 					<top anchor="bottom" relation="relative" />
 					<left parent="modifiersicon" anchor="right" offset="10" />
@@ -354,7 +351,7 @@
 				</anchored>
 				<class>char_modifier</class>
 				<noscroll />
-			</list_charweaponmodifier>
+			</list_charmodifier>
  
   			<button_iedit name="modifierslist_iedit">
 				<anchored to="modifierslist" position="belowright" offset="5,2" />

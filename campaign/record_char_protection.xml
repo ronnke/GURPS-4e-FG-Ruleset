@@ -24,6 +24,7 @@
 				</anchored>
 				<invisible />
 			</genericcontrol>
+
 			<genericcontrol name="idelete_header">
 				<anchored to="rightanchor" width="20" height="20">
 					<top />
@@ -39,6 +40,13 @@
 				</anchored>
 				<static textres="char_label_dr" />
 			</label_columntop>
+			<label_columntop name="db_label">
+				<anchored to="rightanchor" width="30">
+					<top />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_db" />
+			</label_columntop>
 			<label_columntop name="location_label">
 				<anchored to="rightanchor" width="150">
 					<top />
@@ -53,42 +61,42 @@
 				</anchored>
 				<disabled />
 			</genericcontrol>
-			<label_columntop name="armor_label">
+			<label_columntop name="armorshield_label">
 				<anchored to="rightanchor">
 					<top />
 					<left parent="protectionframe" offset="15" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
-				<static textres="char_label_armor" />
+				<static textres="char_label_armorshield" />
 			</label_columntop>
 			
-			<list_chararmor name="armorlist">
+			<list_charprotection name="protectionlist">
 				<anchored to="protectionframe">
 					<left offset="15" />
 					<top offset="50" />
 					<right offset="-25" />
 					<bottom offset="-20" />
 				</anchored>
-			</list_chararmor>
+			</list_charprotection>
 			<scrollbar_list>
-				<anchored to="armorlist" />
-				<target>armorlist</target>
+				<anchored to="protectionlist" />
+				<target>protectionlist</target>
 			</scrollbar_list>
 
-			<button_iedit name="armorlist_iedit">
-				<anchored to="armorlist" position="aboveright" offset="5,20" />
-				<target>armorlist</target>
+			<button_iedit name="protectionlist_iedit">
+				<anchored to="protectionlist" position="aboveright" offset="5,20" />
+				<target>protectionlist</target>
 			</button_iedit>
-			<button_iadd name="armorlist_iadd">
-				<anchored to="armorlist_iedit" position="lefthigh" offset="5,0" />
-				<target>armorlist</target>
+			<button_iadd name="protectionlist_iadd">
+				<anchored to="protectionlist_iedit" position="lefthigh" offset="5,0" />
+				<target>protectionlist</target>
 			</button_iadd>
 			
 		</sheetdata>
 	</windowclass>
 
 
-	<windowclass name="char_armor">
+	<windowclass name="char_protection">
 		<margins control="0,0,0,2" />
 		<sheetdata>
 		
@@ -111,14 +119,30 @@
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
-				<tabtarget prev="location" />
+				<tabtarget prev="db" />
 			</string_charfield>
+			<number_charmodfield name="db">
+				<anchored to="rightanchor" width="30" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget prev="location" next="dr" />
+				<script>
+					function onDragStart(button, x, y, draginfo)
+						return actionDrag(draginfo, window.name.getValue());
+					end
+
+					function onDoubleClick(x, y)
+						return action(window.name.getValue());
+					end
+				</script>
+			</number_charmodfield>
 			<string_charfield name="location">
 				<anchored to="rightanchor" width="150" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
-				<tabtarget prev="name" next="dr" />
+				<tabtarget prev="name" next="db" />
 			</string_charfield>
 			<linkcontrol name="shortcut">
 				<anchored width="20" height="20">

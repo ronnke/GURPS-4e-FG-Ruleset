@@ -7,14 +7,21 @@
 
 <root>
 	<!-- Buttons -->
-	<icon name="details" file="graphics/icons/details.png" />
-	<icon name="details_down" file="graphics/icons/details_down.png" />
+	<icon name="details" file="graphics/buttons/button_details.png" />
+	<icon name="details_down" file="graphics/buttons/button_details_down.png" />
 
-	<icon name="weapon_modes" file="graphics/icons/weapon_modes.png" />
-	<icon name="weapon_modes_down" file="graphics/icons/weapon_modes_down.png" />
+	<icon name="stats" file="graphics/buttons/button_stats.png" />
+	<icon name="stats_down" file="graphics/buttons/button_stats_down.png" />
 
-	<icon name="modifiers" file="graphics/icons/modifiers.png" />
-	<icon name="modifiers_down" file="graphics/icons/modifiers_down.png" />
+	<icon name="combat" file="graphics/buttons/button_combat.png" />
+	<icon name="combat_down" file="graphics/buttons/button_combat_down.png" />
+
+	<icon name="weapon_modes" file="graphics/buttons/button_modes.png" />
+	<icon name="weapon_modes_down" file="graphics/buttons/button_modes_down.png" />
+
+	<icon name="modifiers" file="graphics/buttons/button_modifiers.png" />
+	<icon name="modifiers_down" file="graphics/buttons/button_modifiers_down.png" />
+
 
 	<!-- Icons -->
 	<icon name="action_roll" file="graphics/icons/action_roll.png" />
@@ -29,7 +36,6 @@
 
 	<!-- Graphics -->
 	<includefile source="graphics/graphics_frames.xml" />
-
 
 	<!-- Tab controls -->
 	<icon name="tab_main" file="graphics/tabs/tab_main.png" />
@@ -50,5 +56,9 @@
 	
 	<!-- Fonts -->
 	<includefile source="graphics/graphics_fonts.xml" />
+	
+	<!-- Modifier stack -->
+	<icon name="modcollector" file="graphics/icons/modcollector.png" />
+	<icon name="modcollector_counter" file="graphics/icons/modcollector_counter.png" />
 	
 </root>

@@ -42,3 +42,23 @@ function convertStringToDice(s)
 	-- RESULTS
 	return aDice, nMod, sFunc, nNum;
 end
+
+function convertRelativeLevel(s)
+  -- SETUP
+  local sFunc = "+";
+  local nNum = 0
+  
+  -- PARSING
+  if s then
+    sFunc, nNum = s:match("%a+([+-])%s*([%dF]*)%s*$");
+    
+    if sFunc and nNum then
+      nNum = (tonumber(nNum) or 0);
+    else
+      return "+", 0
+    end
+  end
+  
+  -- RESULTS
+  return sFunc, nNum;
+end

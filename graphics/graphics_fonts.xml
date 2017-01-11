@@ -6,6 +6,7 @@
 -->
 
 <root>
+
 	<!-- Number fields -->
 	<font name="sheetnumberlarge">
 		<fgffile name="graphics/fonts/bold-14.fgf" />
@@ -21,4 +22,5 @@
 		<fgffile name="graphics/fonts/bold-8.fgf" />
 		<color value="#000000" />
 	</font>
+
 </root>

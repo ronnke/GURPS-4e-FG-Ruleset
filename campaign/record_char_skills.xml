@@ -12,18 +12,111 @@
 			<frame_char name="skillsframe">
 				<bounds>15,0,-28,-13</bounds>
 			</frame_char>
+
+			<number_attribute name="strength" source="attributes.strength">
+				<rollable_attribute />
+				<stat>ST</stat>
+				<anchored to="skillsframe" >
+					<top offset="20" />
+					<left anchor="center" offset="-170"/>
+				</anchored>
+				<tabtarget next="dexterity" />
+				<readonly />
+			</number_attribute>
+			<label_attribute>
+				<anchored to="strength" />
+				<static>ST</static>
+			</label_attribute>
+
+			<number_attribute name="dexterity" source="attributes.dexterity">
+				<rollable_attribute />
+				<stat>DX</stat>
+				<anchored to="skillsframe" >
+					<top offset="20" />
+					<left anchor="center" offset="-110"/>
+				</anchored>
+				<tabtarget prev="strength" next="intelligence" />
+				<readonly />
+			</number_attribute>
+			<label_attribute>
+				<anchored to="dexterity" />
+				<static>DX</static>
+			</label_attribute>
+
+			<number_attribute name="intelligence" source="attributes.intelligence">
+				<rollable_attribute />
+				<stat>IQ</stat>
+				<anchored to="skillsframe" >
+					<top offset="20" />
+					<left anchor="center" offset="-50"/>
+				</anchored>
+				<tabtarget prev="dexterity" next="health" />
+				<readonly />
+			</number_attribute>
+			<label_attribute>
+				<anchored to="intelligence" />
+				<static>IQ</static>
+			</label_attribute>
+
+			<number_attribute name="health"	source="attributes.health">
+				<rollable_attribute />
+				<stat>HT</stat>
+				<anchored to="skillsframe" >
+					<top offset="20" />
+					<left anchor="center" offset="10"/>
+				</anchored>
+				<tabtarget prev="intelligence" next="will" />
+				<readonly />
+			</number_attribute>
+			<label_attribute>
+				<anchored to="health" />
+				<static>HT</static>
+			</label_attribute>
+
+			<number_attribute name="will" source="attributes.will">
+				<rollable_attribute />
+				<stat>WILL</stat>
+				<anchored to="skillsframe" >
+					<top offset="20" />
+					<left anchor="center" offset="70"/>
+				</anchored>
+				<tabtarget prev="intelligence" next="perception" />
+				<readonly />
+			</number_attribute>
+			<label_attribute>
+				<anchored to="will" />
+				<static>WILL</static>
+			</label_attribute>
+
+			<number_attribute name="perception" source="attributes.perception">
+				<rollable_attribute />
+				<stat>PER</stat>
+				<anchored to="skillsframe" >
+					<top offset="20" />
+					<left anchor="center" offset="130"/>
+				</anchored>
+				<tabtarget prev="will" />
+				<readonly />
+			</number_attribute>
+			<label_attribute>
+				<anchored to="perception" />
+				<static>PER</static>
+			</label_attribute>
+
+
 			<label_frametop>
-				<anchored to="skillsframe" />
+				<anchored to="skillsframe" offset="0,60" />
 				<static textres="char_label_skills" />
 			</label_frametop>
 			
 			<genericcontrol name="rightanchor">
 				<anchored to="skillsframe" width="0" height="0">
-					<top offset="35" />
+					<top offset="80" />
 					<right />
 				</anchored>
 				<invisible />
 			</genericcontrol>
+			
 			<genericcontrol name="idelete_header">
 				<anchored to="rightanchor" width="20" height="20">
 					<top />
@@ -79,15 +172,11 @@
 			<list_charskill name="skillslist">
 				<anchored to="skillsframe">
 					<left offset="15" />
-					<top offset="50" />
+					<top offset="95" />
 					<right offset="-25" />
 					<bottom offset="-20" />
 				</anchored>
 			</list_charskill>
-			<scrollbar_list>
-				<anchored to="skillslist" />
-				<target>skillslist</target>
-			</scrollbar_list>
 
 			<button_iedit name="skillslist_iedit">
 				<anchored to="skillslist" position="aboveright" offset="5,20" />
@@ -231,7 +320,7 @@
 				<static textres="char_label_modifier" />
 			</label_columntop>
 
-			<list_charweaponmodifier name="modifierslist">
+			<list_charmodifier name="modifierslist">
 				<anchored to="modifiers_label">
 					<top anchor="bottom" relation="relative" />
 					<left parent="modifiersicon" anchor="right" offset="10" />
@@ -239,7 +328,7 @@
 				</anchored>
 				<class>char_modifier</class>
 				<noscroll />
-			</list_charweaponmodifier>
+			</list_charmodifier>
  
   			<button_iedit name="modifierslist_iedit">
 				<anchored to="modifierslist" position="belowright" offset="5,2" />
