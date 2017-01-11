@@ -22,10 +22,10 @@ function update()
   dexterity.setReadOnly(bReadOnly);
   intelligence.setReadOnly(bReadOnly);
   health.setReadOnly(bReadOnly);
-  hps.setReadOnly(bReadOnly);
+  hitpoints.setReadOnly(bReadOnly);
   will.setReadOnly(bReadOnly);
   perception.setReadOnly(bReadOnly);
-  fps.setReadOnly(bReadOnly);
+  fatiguepoints.setReadOnly(bReadOnly);
   
   basicspeed.setReadOnly(bReadOnly);
   move.setReadOnly(bReadOnly);
@@ -34,7 +34,7 @@ function update()
   thrust.setReadOnly(bReadOnly);
   label_traits.setVisible(not bReadOnly or traits.getValue("") ~= "");
   traits.setReadOnly(bReadOnly);
-  reaction_modifiers.setReadOnly(bReadOnly);
+  reactionmodifiers.setReadOnly(bReadOnly);
 
   dodge.setReadOnly(bReadOnly);
   parry.setReadOnly(bReadOnly);

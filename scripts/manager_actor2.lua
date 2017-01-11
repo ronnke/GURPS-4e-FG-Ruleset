@@ -12,7 +12,7 @@ COLOR_HEALTH_CRIT_WOUNDS = "C11B17";
 function getStatus(sNodeType, node)
 	local rActor = ActorManager.getActor(sNodeType, node);
 	
-	local nHP = DB.getValue(node, "attributes.hps", 0);
+	local nHP = DB.getValue(node, "attributes.hitpoints", 0);
   local nCHP = DB.getValue(node, "hps", 0);
 
 	local sStatus, nStatus;

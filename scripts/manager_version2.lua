@@ -37,29 +37,41 @@ function updateChar(nodePC, nVersion)
 			migrateChar3(nodePC);
 		end
 	end
+  if nVersion < 4 then
+    if nVersion < 4 then
+      migrateChar4(nodePC);
+    end
+  end
 end
 
 function updateCampaign()
 	local _, _, aMajor, aMinor = DB.getRulesetVersion();
 	local major = aMajor[rsname];
-  Debug.console(major);
 	if not major then
 		return;
 	end
-	
-	if major > 0 and major < 3 then
+	if major > 0 and major < 4 then
 		print("Migrating campaign database to latest data version. (" .. rsname ..")");
 		DB.backup();
 		
 		if major < 3 then
 			convertChars3();
 		end
+    if major < 4 then
+      convertChars4();
+    end
 	end
 end
 
 function convertChars3()
   for _,nodeChar in pairs(DB.getChildren("charsheet")) do
     migrateChar3(nodeChar);
+  end
+end
+
+function convertChars4()
+  for _,nodeChar in pairs(DB.getChildren("charsheet")) do
+    migrateChar4(nodeChar);
   end
 end
 
@@ -418,4 +430,28 @@ function migrateChar3(nodeChar)
   DB.deleteChild(nodeChar, "use_powers");
   DB.deleteChild(nodeChar, "points_visible");
   DB.deleteChild(nodeChar, "disclaimer_link");
+end
+
+function migrateChar4(nodeChar)
+  -- Convert Hit Points/HPS 
+  if DB.getChild(nodeChar, "attributes") then
+
+    DB.setValue(nodeChar, "attributes.hitpoints", "number", DB.getValue(nodeChar, "attributes.hps", 0));
+    DB.setValue(nodeChar, "attributes.hitpoints_points", "number", DB.getValue(nodeChar, "attributes.hps_points", 0));
+    DB.setValue(nodeChar, "attributes.fatiguepoints", "number", DB.getValue(nodeChar, "attributes.fps", 0));
+    DB.setValue(nodeChar, "attributes.fatiguepoints_points", "number", DB.getValue(nodeChar, "attributes.fps_points", 0));
+
+    DB.deleteChild(nodeChar, "attributes.hps");
+    DB.deleteChild(nodeChar, "attributes.hps_points");
+    DB.deleteChild(nodeChar, "attributes.fps");
+    DB.deleteChild(nodeChar, "attributes.fps_points");
+  
+    DB.setValue(nodeChar, "attributes.hps", "number", DB.getValue(nodeChar, "attributes.current_hps", 0));
+    DB.setValue(nodeChar, "attributes.fps", "number", DB.getValue(nodeChar, "attributes.current_fps", 0));
+    DB.setValue(nodeChar, "attributes.move", "string", DB.getValue(nodeChar, "attributes.current_move", ""));
+
+    DB.deleteChild(nodeChar, "attributes.current_hps");
+    DB.deleteChild(nodeChar, "attributes.current_fps");
+    DB.deleteChild(nodeChar, "attributes.current_move");
+  end
 end

@@ -137,29 +137,29 @@
 				</tabtarget>
 			</number_charpointfield>
 
-			<number_attribute name="hps" source="attributes.hps">
+			<number_attribute name="hitpoints" source="attributes.hitpoints">
 				<anchored to="basicattributesframe" position="insidetopleft" offset="100,40" />
 				<tabtarget>
-					<next>hps_points</next>
+					<next>hitpoints_points</next>
 					<prev>health_points</prev>
 				</tabtarget>
 			</number_attribute>
 			<label_attribute>
-				<anchored to="hps" />
+				<anchored to="hitpoints" />
 				<static>HP</static>
 			</label_attribute>
-			<number_charpointfield name="hps_points" source="attributes.hps_points">
-				<anchored to="hps" position="right" offset="7,-5" width="20" />
+			<number_charpointfield name="hitpoints_points" source="attributes.hitpoints_points">
+				<anchored to="hitpoints" position="right" offset="7,-5" width="20" />
 				<tabtarget>
 					<next>will</next>
-					<prev>hps</prev>
+					<prev>hitpoints</prev>
 				</tabtarget>
 			</number_charpointfield>
 
 			<number_attribute name="will" source="attributes.will">
 				<rollable_attribute />
 				<stat>WILL</stat>
-				<anchored to="hps" position="belowleft" offset="0,15" />
+				<anchored to="hitpoints" position="belowleft" offset="0,15" />
 				<tabtarget>
 					<next>will_points</next>
 					<prev>hps_points</prev>
@@ -198,22 +198,22 @@
 				</tabtarget>
 			</number_charpointfield>
 
-			<number_attribute name="fps" source="attributes.fps">
+			<number_attribute name="fatiguepoints" source="attributes.fatiguepoints">
 				<anchored to="perception" position="belowleft" offset="0,15" />
 				<tabtarget>
-					<next>fps_points</next>
+					<next>fatiguepoints_points</next>
 					<prev>perception_points</prev>
 				</tabtarget>
 			</number_attribute>
 			<label_attribute>
-				<anchored to="fps" />
+				<anchored to="fatiguepoints" />
 				<static>FP</static>
 			</label_attribute>
-			<number_charpointfield name="fps_points" source="attributes.fps_points">
-				<anchored to="fps" position="right" offset="7,-5" width="20" />
+			<number_charpointfield name="fatiguepoints_points" source="attributes.fatiguepoints_points">
+				<anchored to="fatiguepoints" position="right" offset="7,-5" width="20" />
 				<tabtarget>
-					<next>current_hps</next>
-					<prev>fps</prev>
+					<next>hitpoints</next>
+					<prev>fatiguepoints</prev>
 				</tabtarget>
 			</number_charpointfield>
 
@@ -229,30 +229,30 @@
 				<static textres="char_label_currentattributes" />
 			</label_frametop>
 
-			<number_attribute name="current_hps" source="attributes.current_hps">
+			<number_attribute name="hps" source="attributes.hps">
 				<anchored to="currentattributesframe" position="insidetopleft" offset="20,40" />
-				<tabtarget prev="fps_points" next="current_fps" />
+				<tabtarget prev="points" next="fps" />
 			</number_attribute>
 			<label_attribute>
-				<anchored to="current_hps" />
+				<anchored to="hps" />
 				<static>cHP</static>
 			</label_attribute>
 
-			<number_attribute name="current_fps" source="attributes.current_fps">
+			<number_attribute name="fps" source="attributes.fps">
 				<anchored to="currentattributesframe" position="insidetopleft" offset="70,40" />
-				<tabtarget prev="current_hps" next="current_move" />
+				<tabtarget prev="hps" next="move" />
 			</number_attribute>
 			<label_attribute>
-				<anchored to="current_fps" />
+				<anchored to="fps" />
 				<static>cFP</static>
 			</label_attribute>
 
-			<string_attribute name="current_move" source="attributes.current_move">
+			<string_attribute name="move" source="attributes.move">
 				<anchored to="currentattributesframe" position="insidetopleft" offset="120,40" />
 				<tabtarget prev="current_fps" next="languagesframe" />
 			</string_attribute>
 			<label_attribute>
-				<anchored to="current_move" />
+				<anchored to="move" />
 				<static>Move</static>
 			</label_attribute>
 

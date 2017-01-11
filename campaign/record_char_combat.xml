@@ -19,38 +19,38 @@
 				<static textres="char_label_currentattributes" />
 			</label_frametop>
 
-			<number_attribute name="current_hps" source="attributes.current_hps">
+			<number_attribute name="hps" source="attributes.hps">
 				<anchored to="currentattributesframe" position="insidetopleft" offset="25,40" />
 				<tabtarget>
-					<next>current_fps</next>
+					<next>fps</next>
 				</tabtarget>
 			</number_attribute>
 			<label_attribute>
-				<anchored to="current_hps" />
+				<anchored to="hps" />
 				<static>cHP</static>
 			</label_attribute>
 
-			<number_attribute name="current_fps" source="attributes.current_fps">
+			<number_attribute name="fps" source="attributes.fps">
 				<anchored to="currentattributesframe" position="insidetopleft" offset="85,40" />
 				<tabtarget>
-					<next>current_move</next>
-					<prev>current_hps</prev>
+					<next>move</next>
+					<prev>hps</prev>
 				</tabtarget>
 			</number_attribute>
 			<label_attribute>
-				<anchored to="current_fps" />
+				<anchored to="fps" />
 				<static>cFP</static>
 			</label_attribute>
 
-			<string_attribute name="current_move" source="attributes.current_move">
+			<string_attribute name="move" source="attributes.move">
 				<anchored to="currentattributesframe" position="insidetopleft" offset="145,40" />
 				<tabtarget>
 					<next>dodge</next>
-					<prev>current_fps</prev>
+					<prev>fps</prev>
 				</tabtarget>
 			</string_attribute>
 			<label_attribute>
-				<anchored to="current_move" />
+				<anchored to="move" />
 				<static>Move</static>
 			</label_attribute>
 

@@ -18,7 +18,7 @@
 				<rollable_attribute />
 				<stat>ST</stat>
 				<anchored to="contentanchor" position="insidetopleft" offset="7,15"  relation="relative"/>
-				<tabtarget prev="reaction_modifiers" next="dexterity" />
+				<tabtarget prev="reactionmodifiers" next="dexterity" />
 			</number_attribute>
 			<label_attribute>
 				<anchored to="strength" />
@@ -58,20 +58,20 @@
 				<static>HT</static>
 			</label_attribute>
 
-			<number_attribute name="hps" source="attributes.hps">
+			<number_attribute name="hitpoints" source="attributes.hitpoints">
 				<anchored to="contentanchor" position="insidetopleft" offset="60,15" />
 				<tabtarget prev="health" next="will" />
 			</number_attribute>
 			<label_attribute>
-				<anchored to="hps" />
+				<anchored to="hitpoints" />
 				<static>HP</static>
 			</label_attribute>
 
 			<number_attribute name="will" source="attributes.will">
 				<rollable_attribute />
 				<stat>WILL</stat>
-				<anchored to="hps" position="belowleft" offset="0,15" />
-				<tabtarget prev="hps" next="perception" />
+				<anchored to="hitpoints" position="belowleft" offset="0,15" />
+				<tabtarget prev="hitpoints" next="perception" />
 			</number_attribute>
 			<label_attribute>
 				<anchored to="will" />
@@ -89,12 +89,12 @@
 				<static>PER</static>
 			</label_attribute>
 
-			<number_attribute name="fps" source="attributes.fps">
+			<number_attribute name="fatiguepoints" source="attributes.fatiguepoints">
 				<anchored to="perception" position="belowleft" offset="0,15" />
 				<tabtarget prev="perception" next="basicspeed" />
 			</number_attribute>
 			<label_attribute>
-				<anchored to="fps" />
+				<anchored to="fatiguepoints" />
 				<static>FP</static>
 			</label_attribute>
 
@@ -114,13 +114,13 @@
 			<string_labeled name="sizemodifier" source="traits.sizemodifier">
 				<anchored to="move" position="right" offset="10,0" width="20" />
 				<labelres>npc_label_sizemodifier</labelres>
-				<tabtarget prev="move" next="swing" />
+				<tabtarget prev="move" next="reach" />
 			</string_labeled>
 
 			<string_labeled name="reach" source="traits.reach">
 				<anchored to="sizemodifier" position="right" offset="10,0" width="40" />
 				<labelres>npc_label_reach</labelres>
-				<tabtarget prev="move" next="swing" />
+				<tabtarget prev="sizemodifier" next="swing" />
 			</string_labeled>
 
 			<string_labeled name="swing" source="attributes.swing">
@@ -132,10 +132,10 @@
 			<string_labeled name="thrust" source="attributes.thrust">
 				<anchored to="swing" position="right" offset="10,0" width="50" />
 				<labelres>npc_label_thrust</labelres>
-				<tabtarget prev="swing" next="reaction_modifiers" />
+				<tabtarget prev="swing" next="reactionmodifiers" />
 			</string_labeled>
 
-			<string_labeled name="reaction_modifiers" source="traits.reaction_modifiers">
+			<string_labeled name="reactionmodifiers" source="traits.reactionmodifiers">
 				<anchored height="20">
 					<top parent="basicspeed" anchor="below" offset="10"/>
 					<left parent="basicspeed" anchor="left" />
@@ -147,8 +147,8 @@
 
 			<label_charsheet name="label_traits">
 				<anchored height="20">
-					<top parent="reaction_modifiers" anchor="below" offset="5"/>
-					<left parent="reaction_modifiers" anchor="left" />
+					<top parent="reactionmodifiers" anchor="below" offset="5"/>
+					<left parent="reactionmodifiers" anchor="left" />
 					<right offset="-5" />
 				</anchored>
 				<static textres="npc_label_traits" />
