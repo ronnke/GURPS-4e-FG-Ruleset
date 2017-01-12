@@ -34,19 +34,23 @@ currencies = { "$" };
 currencyDefault = "$";
 
 function getCharSelectDetailHost(nodeChar)
-  return "";
+  return "Points: " .. DB.getValue(nodeChar, "pointtotals.totalpoints", 0);
 end
 
 function requestCharSelectDetailClient()
-  return "name";
+  return "name,#pointtotals.totalpoints,#pointtotals.unspent";
 end
 
 function receiveCharSelectDetailClient(vDetails)
-  return vDetails, "";
+  return vDetails[1], "Points: " .. vDetails[2] .. "\n" .. "Unspent Points: " .. vDetails[3];
 end
 
 function getCharSelectDetailLocal(nodeLocal)
-  return DB.getValue(nodeLocal, "name", ""), "";
+  local vDetails = {};
+  table.insert(vDetails, DB.getValue(nodeLocal, "name", ""));
+  table.insert(vDetails, DB.getValue(nodeLocal, "pointtotals.totalpoints", 0));
+  table.insert(vDetails, DB.getValue(nodeLocal, "pointtotals.unspent", 0));
+  return receiveCharSelectDetailClient(vDetails);
 end
 
 function getDistanceUnitsPerGrid()
