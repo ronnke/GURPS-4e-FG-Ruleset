@@ -57,7 +57,6 @@ function getDistanceUnitsPerGrid()
   return 1;
 end
 
-
 -- GURPS Utility Functions
 
 function rollResult(nTotal, nTarget)
@@ -80,4 +79,51 @@ function rollResult(nTotal, nTarget)
   end
   
   return sResult;
+end
+
+function calcRangeMod(nRange)
+  local rangeMod = -1;
+  local factor = 0;
+  local scale = getDistanceUnitsPerGrid();
+  
+  if nRange == nil then 
+    nRange = 0;
+  end
+  
+  while rangeMod < 0 do
+    if (nRange*scale) <= (2 * math.pow(10,factor)) then
+      rangeMod = ((factor * 6) + 0);
+    elseif (nRange*scale) <= (3 * math.pow(10,factor)) then
+      rangeMod = ((factor * 6) + 1);
+    elseif (nRange*scale) <= (5 * math.pow(10,factor)) then
+      rangeMod = ((factor * 6) + 2);
+    elseif (nRange*scale) <= (7 * math.pow(10,factor)) then
+      rangeMod = ((factor * 6) + 3);
+    elseif (nRange*scale) <= (10 * math.pow(10,factor)) then
+      rangeMod = ((factor * 6) + 4);
+    elseif (nRange*scale) <= (15 * math.pow(10,factor)) then
+      rangeMod = ((factor * 6) + 5);
+    else
+      factor = factor + 1;
+    end
+  end
+  
+  return (rangeMod <= 0 and 0 or -rangeMod);
+end
+
+function calcSizeModifierGridUnits(nSM)
+  local nSize = 2;
+  
+  if nSM == nil or nSM <= 0 then 
+    return 1;
+  end
+  if nSM >= 10 then 
+    return 100; -- Stop at 100 so the tokens token scale doesn't get extreme
+  end
+  
+  while nSM >= math.abs(calcRangeMod(nSize + 1)) do
+    nSize = nSize + 1;
+  end
+   
+  return nSize;
 end

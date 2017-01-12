@@ -450,21 +450,26 @@
 			<icon_ctsection name="combaticon">
 				<icon>combat_down</icon>
 			</icon_ctsection>
-			<number_ct name="space">
+			<number_ct name="sizemodifier" source="traits.sizemodifier">
 				<anchored width="25" height="20">
 					<top parent="name" anchor="bottom" relation="relative" offset="10" />
 					<left parent="combaticon" anchor="right" offset="50" />
 				</anchored>
 				<description textres="ct_label_sizemodifier" />
+				<script>
+					function onValueChanged()
+						window.onSizeModifierChanged();
+					end
+				</script>
 				<default>0</default>
 			</number_ct>
-			<label name="spacelabel">
-				<anchored to="space" position="lefthigh" offset="10,0"/>
+			<label name="sizemodifierlabel">
+				<anchored to="sizemodifier" position="lefthigh" offset="10,0"/>
 				<static textres="ct_label_sizemodifier" />
 			</label>
 
 			<number_ct name="reach">
-				<anchored to="space" position="righthigh" offset="60,0" />
+				<anchored to="sizemodifier" position="righthigh" offset="60,0" />
 				<description textres="ct_label_reach" />
 				<default>0</default>
 			</number_ct>

@@ -109,6 +109,10 @@ function onLinkChanged()
 	end
 end
 
+function onSizeModifierChanged()
+  DB.setValue(getDatabaseNode(), "space", "number", GameSystem.calcSizeModifierGridUnits(sizemodifier.getValue()));
+end
+
 function onFactionChanged()
 	-- Update the entry frame
 	updateDisplay();
@@ -224,8 +228,8 @@ function setCombatVisible()
 
 	combaticon.setVisible(v);
 	
-	space.setVisible(v);
-	spacelabel.setVisible(v);
+	sizemodifier.setVisible(v);
+	sizemodifierlabel.setVisible(v);
 	reach.setVisible(v);
 	reachlabel.setVisible(v);
   move.setVisible(v);

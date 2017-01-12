@@ -12,7 +12,7 @@ function onInit()
 
 	CombatManager.setCustomAddNPC(addNPC);
 
-  CombatManager.setCustomNPCSpaceReach(funcSpaceReach);
+  CombatManager.setCustomNPCSpaceReach(npcSpaceReach);
   
 	CombatManager.setCustomCombatReset(resetInit);
 end
@@ -110,7 +110,8 @@ function addPC(nodePC)
   DB.setValue(nodeEntry, "hps", "number", DB.getValue(nodePC, "attributes.hps", 0));
   DB.setValue(nodeEntry, "fps", "number", DB.getValue(nodePC, "attributes.fps", 0));
 
-  DB.setValue(nodeEntry, "space", "number", tonumber(DB.getValue(nodePC, "traits.sizemodifier", "0")));
+  DB.setValue(nodeEntry, "traits.sizemodifier", "number", tonumber(DB.getValue(nodePC, "traits.sizemodifier", "0")));
+  DB.setValue(nodeEntry, "space", "number", GameSystem.calcSizeModifierGridUnits(tonumber(DB.getValue(nodePC, "traits.sizemodifier", "0"))));
   DB.setValue(nodeEntry, "reach", "number", tonumber(DB.getValue(nodePC, "traits.reach", "0")));
   
   DB.setValue(nodeEntry, "attributes.strength", "number", DB.getValue(nodePC, "attributes.strength", 0));
@@ -135,18 +136,21 @@ end
 function addNPC(sClass, nodeNPC, sName)
 	local nodeEntry, nodeLastMatch = CombatManager.addNPCHelper(nodeNPC, sName);
 
+  DB.setValue(nodeEntry, "traits.sizemodifier", "number", tonumber(DB.getValue(nodeNPC, "traits.sizemodifier", "0")));
+  DB.setValue(nodeEntry, "space", "number", GameSystem.calcSizeModifierGridUnits(tonumber(DB.getValue(nodeNPC, "traits.sizemodifier", "0"))));
+  DB.setValue(nodeEntry, "reach", "number", tonumber(DB.getValue(nodeNPC, "traits.reach", "0")));
+
 	-- Setup
   DB.setValue(nodeEntry, "speed", "number", tonumber(DB.getValue(nodeNPC, "attributes.basicspeed", "0")));
   DB.setValue(nodeEntry, "hps", "number", DB.getValue(nodeNPC, "attributes.hitpoints", 0));
   DB.setValue(nodeEntry, "fps", "number", DB.getValue(nodeNPC, "attributes.fatiguepoints", 0));
-  
+
 	return nodeEntry;
 end
 
-function funcSpaceReach(nodeNPC)
-   local nSpace = tonumber(DB.getValue(nodeNPC, "traits.sizemodifier", "0"));
+function npcSpaceReach(nodeNPC)
+   local nSpace = GameSystem.calcSizeModifierGridUnits(tonumber(DB.getValue(nodeNPC, "traits.sizemodifier", "0")));
    local nReach = tonumber(DB.getValue(nodeNPC, "traits.reach", "0"));
-   
    return nSpace, nReach;
 end
 --
