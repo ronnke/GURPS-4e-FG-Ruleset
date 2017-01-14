@@ -81,6 +81,7 @@
 	<script name="CombatManager2" file="scripts/manager_combat2.lua" />
 	<script name="StringManager2" file="scripts/manager_string2.lua" />
 	<script name="VersionManager2" file="scripts/manager_version2.lua" />
+	<script name="LanguageManager" file="scripts/manager_language.lua" />
 
 	<script name="ModifierStack" file="desktop/scripts/modifierstack.lua" />
 
