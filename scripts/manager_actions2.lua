@@ -33,15 +33,17 @@ function createActionMessage(rSource, rRoll)
   rMessage.diemodifier = 0;
   
   if rRoll.sType == "damage" and rRoll.sFunc then 
-    if rRoll.sFunc:find("[+-]") then
-      rMessage.diemodifier = (rRoll.nNum or 0);
+    if rRoll.sFunc == "+" then
+      rMessage.diemodifier = (rRoll.nNum or 0) + (bAddMod and rRoll.nMod or 0);
+    elseif rRoll.sFunc == "-" then
+      rMessage.diemodifier = -(rRoll.nNum or 0) + (bAddMod and rRoll.nMod or 0);
+    elseif rRoll.sFunc == "x" then
+      rMessage.diemodifier = 0;
     end
   else
-    if bAddMod then
-      rMessage.diemodifier = rRoll.nMod;
-    end
+      rMessage.diemodifier = (bAddMod and rRoll.nMod or 0);
   end
-  
+
   -- Check to see if this roll should be secret (GM or dice tower tag)
   if rRoll.bSecret then
     rMessage.secret = true;
@@ -68,21 +70,30 @@ function total(rRoll)
     nTotal = nTotal + v.result;
   end
 
+  Debug.console(rRoll.sType);
+  
   if GameSystem.actions[rRoll.sType] then
     bAddMod = GameSystem.actions[rRoll.sType].bAddMod;
   end
+
+  Debug.console(nTotal);
+  Debug.console(rRoll.nNum);
+  Debug.console(rRoll.nMod);
+  Debug.console(nMod);
   
-  if (rRoll.sFunc == "+") then
-    nTotal = nTotal + (rRoll.nNum or 0);
-  elseif (rRoll.sFunc == "-") then
-    nTotal = nTotal - (rRoll.nNum or 0);
-  elseif (rRoll.sFunc == "x") then
-    nTotal = nTotal * (rRoll.nNum or 1);
+  if rRoll.sType == "damage" and rRoll.sFunc then 
+    if (rRoll.sFunc == "+") then
+      nTotal = nTotal + (rRoll.nNum or 0);
+    elseif (rRoll.sFunc == "-") then
+      nTotal = nTotal - (rRoll.nNum or 0);
+    elseif (rRoll.sFunc == "x") then
+      nTotal = nTotal * (rRoll.nNum or 1);
+    end
   end
-  
-  if bAddMod then
-    nTotal = nTotal + rRoll.nMod;
-  end
+
+  nTotal = nTotal + (bAddMod and rRoll.nMod or 0);
+
+  Debug.console(nTotal);
   
   return nTotal;
 end

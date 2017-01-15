@@ -378,11 +378,21 @@ function migrateChar3(nodeChar)
   -- Convert Inventory
   if DB.getChild(nodeChar, "inventorylist") then
     for _,nodeInv in pairs(DB.getChildren(nodeChar, "inventorylist")) do
+      
+      local nQty = tonumber(DB.getValue(nodeInv,"inventory_quantity",0))
+      local nWeight = tonumber(DB.getValue(nodeInv,"inventory_weight",0));
+      local nCost = tonumber(DB.getValue(nodeInv,"inventory_cost","0"));
+      
+      if nQty ~= 0 and nQty ~= nil then
+        nWeight = nWeight / nQty;
+        nCost = nCost / nQty;
+      end
+      
       DB.setValue(nodeInv, "name", "string", DB.getValue(nodeInv,"inventory_name",""));
-      DB.setValue(nodeInv, "weight", "number", tonumber(DB.getValue(nodeInv,"inventory_weight",0)));
-      DB.setValue(nodeInv, "count", "number", tonumber(DB.getValue(nodeInv,"inventory_quantity",0)));
+      DB.setValue(nodeInv, "weight", "number", nWeight);
+      DB.setValue(nodeInv, "count", "number", nQty);
       DB.setValue(nodeInv, "location", "string", DB.getValue(nodeInv,"inventory_location",""));
-      DB.setValue(nodeInv, "cost", "string", DB.getValue(nodeInv,"inventory_cost",""));
+      DB.setValue(nodeInv, "cost", "string", nCost);
       
       DB.deleteChild(nodeInv,"inventory_name");      
       DB.deleteChild(nodeInv,"inventory_weight");      
