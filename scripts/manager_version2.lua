@@ -23,7 +23,6 @@ function onImport(node)
 	local aPath = StringManager.split(node.getNodeName(), ".");
 	if #aPath == 2 and aPath[1] == "charsheet" then
 		local _, _, aMajor, _ = DB.getImportRulesetVersion();
-  Debug.console(aMajor);
 		updateChar(node, aMajor[rsname]);
 	end
 end
@@ -32,7 +31,7 @@ function updateChar(nodePC, nVersion)
 	if not nVersion then
 		nVersion = 0;
 	end
-	Debug.console(nVersion);
+
 	if nVersion < 3 then
 		if nVersion < 3 then
 			migrateChar3(nodePC);

@@ -29,7 +29,7 @@
 			</button_charroll>
 
 			<basicstring name="reactionmodifiers" source="traits.reactionmodifiers">
-				<anchored to="reactionmodifiersframe" height="45">
+				<anchored to="reactionmodifiersframe" height="60">
 					<top offset="35" />
 					<left offset="20" />
 					<right offset="-30"/>
@@ -37,20 +37,12 @@
 				<multilinespacing>15</multilinespacing>
 			</basicstring>
 
-			<genericcontrol name="reactionmodifiers_rightanchor">
-				<anchored to="reactionmodifiersframe" width="0" height="0">
-					<top offset="90" />
-					<right offset="10"/>
-				</anchored>
-				<invisible />
-			</genericcontrol>
-
 	
 			<list_charreactionmodifier name="reactionmodifierslist">
 				<anchored to="reactionmodifiersframe">
 					<left offset="10" />
-					<top offset="95" />
-					<right offset="-20" />
+					<top offset="105" />
+					<right offset="-30" />
 					<bottom offset="-15" />
 				</anchored>
 			</list_charreactionmodifier>
@@ -60,7 +52,7 @@
 			</scrollbar_list>
 
 			<button_iedit name="reactionmodifierslist_iedit">
-				<anchored to="reactionmodifierslist" position="aboveright" offset="-5,65" />
+				<anchored to="reactionmodifierslist" position="aboveright" offset="-5,75" />
 				<target>reactionmodifierslist</target>
 			</button_iedit>
 			<button_iadd name="reactionmodifierslist_iadd">

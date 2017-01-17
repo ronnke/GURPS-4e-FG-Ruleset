@@ -50,6 +50,7 @@
 				<anchored to="headeranchor" position="insidetopright" offset="238,0" width="40" />
 				<static textres="ct_label_speed" />
 				<center />
+				<nodrop />
 			</label_ct>
 
 			<label_ct name="label_hps">
@@ -264,7 +265,9 @@
 				<tabtarget prev="name" />
 				<script>
 					function handleDrop(draginfo)
-						setValue(getValue() - draginfo.getNumberData());
+						if draginfo.getType() == "number" then
+							setValue(getValue() - draginfo.getNumberData());
+						end
 					end
 				</script>
 			</number_ct_crosslink>
@@ -277,9 +280,13 @@
 				<tabtarget prev="name" />
 				<script>
 					function handleDrop(draginfo)
-						setValue(getValue() - draginfo.getNumberData());
+						if draginfo.getType() == "number" then
+							local node = window.getDatabaseNode();
+							local rActor = ActorManager.getActorFromCT(node);
+							ActionDamage.applyDamage(nil, rActor, CombatManager.isCTHidden(node), draginfo.getDescription(), draginfo.getNumberData());
+						end
 					end
-
+					
 					function update()
 						window.onHealthChanged();
 					end
@@ -450,7 +457,7 @@
 			<icon_ctsection name="combaticon">
 				<icon>combat_down</icon>
 			</icon_ctsection>
-			<number_ct name="sizemodifier" source="traits.sizemodifier">
+			<string_ct name="sizemodifier" source="traits.sizemodifier">
 				<anchored width="25" height="20">
 					<top parent="name" anchor="bottom" relation="relative" offset="10" />
 					<left parent="combaticon" anchor="right" offset="50" />
@@ -462,17 +469,19 @@
 					end
 				</script>
 				<default>0</default>
-			</number_ct>
+				<center />
+			</string_ct>
 			<label name="sizemodifierlabel">
 				<anchored to="sizemodifier" position="lefthigh" offset="10,0"/>
 				<static textres="ct_label_sizemodifier" />
 			</label>
 
-			<number_ct name="reach">
-				<anchored to="sizemodifier" position="righthigh" offset="60,0" />
+			<string_ct name="reach" source="traits.reach">
+				<anchored to="sizemodifier" position="righthigh" offset="60,0" width="25" height="20"/>
 				<description textres="ct_label_reach" />
 				<default>0</default>
-			</number_ct>
+				<center />
+			</string_ct>
 			<label name="reachlabel">
 				<anchored to="reach" position="lefthigh" offset="10,0"/>
 				<static textres="ct_label_reach" />

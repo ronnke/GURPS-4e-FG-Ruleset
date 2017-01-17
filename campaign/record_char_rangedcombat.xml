@@ -36,21 +36,21 @@
 			</genericcontrol>
 
 			<label_columntop name="tl_label">
-				<anchored to="rightanchor" width="20">
+				<anchored to="rightanchor" width="30">
 					<top />
 					<right anchor="left" relation="relative" offset="-20" />
 				</anchored>
 				<static textres="char_label_tl" />
 			</label_columntop>
 			<label_columntop name="lc_label">
-				<anchored to="rightanchor" width="20">
+				<anchored to="rightanchor" width="30">
 					<top />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
 				<static textres="char_label_lc" />
 			</label_columntop>
 			<label_columntop name="bulk_label">
-				<anchored to="rightanchor" width="20">
+				<anchored to="rightanchor" width="30">
 					<top />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
@@ -195,21 +195,21 @@
 			</button_idelete>
 
 			<string_charfield name="tl">
-				<anchored to="rightanchor" width="20" height="20">
+				<anchored to="rightanchor" width="30" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
 				<tabtarget prev="lc" />
 			</string_charfield>
 			<string_charfield name="lc">
-				<anchored to="rightanchor" width="20" height="20">
+				<anchored to="rightanchor" width="30" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
 				<tabtarget prev="bulk" next="tl"/>
 			</string_charfield>
 			<number_charmodfield name="bulk">
-				<anchored to="rightanchor" width="20" height="20">
+				<anchored to="rightanchor" width="30" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>

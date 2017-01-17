@@ -67,10 +67,14 @@
 				<anchored to="otherframe">
 					<left offset="15" />
 					<top offset="50" />
-					<right offset="-25" />
+					<right offset="-30" />
 					<bottom offset="-20" />
 				</anchored>
 			</list_charother>
+			<scrollbar_list>
+				<anchored to="otherlist" />
+				<target>otherlist</target>
+			</scrollbar_list>
 
 			<button_iedit name="otherlist_iedit">
 				<anchored to="otherlist" position="aboveright" offset="5,20" />

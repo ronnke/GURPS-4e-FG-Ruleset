@@ -186,6 +186,29 @@
 		</string_charfield>
 	</template>
 
+	<template name="number_labeled">
+		<numberfield>
+			<font>sheettext</font>
+			<lineoffset default="on">1</lineoffset>
+			<script>
+				labelwidget = nil;
+			
+				function onInit()
+					if labelres then
+						labelwidget = addTextWidget("sheetlabelinline", string.upper(Interface.getString(labelres[1])));
+					else
+						labelwidget = addTextWidget("sheetlabelinline", string.upper(label[1]));
+					end
+					if labelwidget then
+						local w,h = labelwidget.getSize();
+						labelwidget.setPosition("bottomleft", w/2, h/2-4);
+					end
+				end
+			</script>
+		</numberfield>
+	</template>
+
+
 	<template name="number_charpoint">
 		<number_charfield>
 			<font>sheetnumbersmall</font>

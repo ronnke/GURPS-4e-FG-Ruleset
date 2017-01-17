@@ -30,6 +30,7 @@
 	<icon name="action_ranged" file="graphics/icons/action_ranged.png" />
 	<icon name="action_defense" file="graphics/icons/action_defense.png" />
 	<icon name="action_damage" file="graphics/icons/action_damage.png" />
+	<icon name="action_explosion" file="graphics/icons/action_explosion.png" />
 
 	<icon name="field_rollable" file="graphics/icons/field_rollable.png" />
 	<icon name="field_modifier" file="graphics/icons/field_modifier.png" />

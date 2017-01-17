@@ -9,12 +9,12 @@ actions = {
   ["table"] = { },
   ["effect"] = { sIcon = "action_effect", sTargeting = "all" },
   ["ability"] = { sIcon = "action_roll", bUseModStack = true, bAddMod = false },
-  ["melee"] = { sIcon = "action_melee", bUseModStack = true, bAddMod = false },
-  ["ranged"] = { sIcon = "action_ranged", bUseModStack = true, bAddMod = false },
+  ["melee"] = { sIcon = "action_melee", bUseModStack = true, bAddMod = false, sTargeting = "each" },
+  ["ranged"] = { sIcon = "action_ranged", bUseModStack = true, bAddMod = false, sTargeting = "each" },
   ["dodge"] = { sIcon = "action_defense", bUseModStack = true, bAddMod = false },
   ["parry"] = { sIcon = "action_defense", bUseModStack = true, bAddMod = false },
   ["block"] = { sIcon = "action_defense", bUseModStack = true, bAddMod = false },
-  ["damage"] = { sIcon = "action_damage", bUseModStack = true, bAddMod = true  },
+  ["damage"] = { sIcon = "action_damage", bUseModStack = true, bAddMod = true, sTargeting = "each"},
   ["reaction"] = { sIcon = "action_roll", bUseModStack = true, bAddMod = true },
 };
 
@@ -113,15 +113,16 @@ end
 
 function calcSizeModifierGridUnits(nSM)
   local nSize = 2;
+  local nSizeModifier = tonumber(nSM and nSM or 0);
   
-  if nSM == nil or nSM <= 0 then 
+  if nSizeModifier == nil or nSizeModifier <= 0 then 
     return 1;
   end
-  if nSM >= 10 then 
+  if nSizeModifier >= 10 then 
     return 100; -- Stop at 100 so the tokens token scale doesn't get extreme
   end
   
-  while nSM >= math.abs(calcRangeMod(nSize + 1)) do
+  while nSizeModifier >= math.abs(calcRangeMod(nSize + 1)) do
     nSize = nSize + 1;
   end
    

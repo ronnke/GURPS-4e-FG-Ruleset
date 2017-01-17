@@ -32,7 +32,7 @@
 				<anchored to="weight" position="right" offset="5,0" width="40" />
 				<labelres>char_label_sizemodifier</labelres>
 			</string_labeled>
-			<string_labeled name="sizereach" source="traits.reach">
+			<string_labeled name="reach" source="traits.reach">
 				<anchored to="sizemodifier" position="right" offset="5,0" width="40" />
 				<labelres>char_label_reach</labelres>
 			</string_labeled>

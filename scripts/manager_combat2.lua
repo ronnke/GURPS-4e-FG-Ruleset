@@ -110,8 +110,9 @@ function addPC(nodePC)
   DB.setValue(nodeEntry, "hps", "number", DB.getValue(nodePC, "attributes.hps", 0));
   DB.setValue(nodeEntry, "fps", "number", DB.getValue(nodePC, "attributes.fps", 0));
 
-  DB.setValue(nodeEntry, "traits.sizemodifier", "number", tonumber(DB.getValue(nodePC, "traits.sizemodifier", "0")));
-  DB.setValue(nodeEntry, "space", "number", GameSystem.calcSizeModifierGridUnits(tonumber(DB.getValue(nodePC, "traits.sizemodifier", "0"))));
+  DB.setValue(nodeEntry, "traits.sizemodifier", "string", DB.getValue(nodePC, "traits.sizemodifier", "0"));
+  DB.setValue(nodeEntry, "traits.reach", "string", DB.getValue(nodePC, "traits.reach", "0"));
+  DB.setValue(nodeEntry, "space", "number", GameSystem.calcSizeModifierGridUnits(DB.getValue(nodePC, "traits.sizemodifier", "0")));
   DB.setValue(nodeEntry, "reach", "number", tonumber(DB.getValue(nodePC, "traits.reach", "0")));
   
   DB.setValue(nodeEntry, "attributes.strength", "number", DB.getValue(nodePC, "attributes.strength", 0));
@@ -136,8 +137,9 @@ end
 function addNPC(sClass, nodeNPC, sName)
 	local nodeEntry, nodeLastMatch = CombatManager.addNPCHelper(nodeNPC, sName);
 
-  DB.setValue(nodeEntry, "traits.sizemodifier", "number", tonumber(DB.getValue(nodeNPC, "traits.sizemodifier", "0")));
-  DB.setValue(nodeEntry, "space", "number", GameSystem.calcSizeModifierGridUnits(tonumber(DB.getValue(nodeNPC, "traits.sizemodifier", "0"))));
+  DB.setValue(nodeEntry, "traits.sizemodifier", "string", tonumber(DB.getValue(nodeNPC, "traits.sizemodifier", "0")));
+  DB.setValue(nodeEntry, "traits.reach", "string", DB.getValue(nodeNPC, "traits.reach", "0"));
+  DB.setValue(nodeEntry, "space", "number", GameSystem.calcSizeModifierGridUnits(DB.getValue(nodeNPC, "traits.sizemodifier", "0")));
   DB.setValue(nodeEntry, "reach", "number", tonumber(DB.getValue(nodeNPC, "traits.reach", "0")));
 
 	-- Setup

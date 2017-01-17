@@ -10,14 +10,19 @@
 	<windowclass name="npc_main">
 		<script file="campaign/scripts/npc_main.lua" />
 		<sheetdata>
-			<anchor_column name="contentanchor"/>
+			<anchor_column name="contentanchor">
+				<bounds>1,0,-1,0</bounds>
+			</anchor_column>
 
 <!-- Attributes -->
 		
 			<number_attribute name="strength" source="attributes.strength">
 				<rollable_attribute />
 				<stat>ST</stat>
-				<anchored to="contentanchor" position="insidetopleft" offset="7,15"  relation="relative"/>
+				<anchored to="contentanchor" >
+					<top offset="10" />
+					<left anchor="center" offset="-210"/>
+				</anchored>
 				<tabtarget prev="reactionmodifiers" next="dexterity" />
 			</number_attribute>
 			<label_attribute>
@@ -28,7 +33,10 @@
 			<number_attribute name="dexterity" source="attributes.dexterity">
 				<rollable_attribute />
 				<stat>DX</stat>
-				<anchored to="strength" position="belowleft" offset="0,15" />
+				<anchored to="contentanchor" >
+					<top offset="10" />
+					<left anchor="center" offset="-155"/>
+				</anchored>
 				<tabtarget prev="strength" next="intelligence" />
 			</number_attribute>
 			<label_attribute>
@@ -39,7 +47,10 @@
 			<number_attribute name="intelligence" source="attributes.intelligence">
 				<rollable_attribute />
 				<stat>IQ</stat>
-				<anchored to="dexterity" position="belowleft" offset="0,15" />
+				<anchored to="contentanchor" >
+					<top offset="10" />
+					<left anchor="center" offset="-100"/>
+				</anchored>
 				<tabtarget prev="dexterity" next="health" />
 			</number_attribute>
 			<label_attribute>
@@ -50,7 +61,10 @@
 			<number_attribute name="health"	source="attributes.health">
 				<rollable_attribute />
 				<stat>HT</stat>
-				<anchored to="intelligence" position="belowleft" offset="0,15" />
+				<anchored to="contentanchor" >
+					<top offset="10" />
+					<left anchor="center" offset="-45"/>
+				</anchored>
 				<tabtarget prev="intelligence" next="hps" />
 			</number_attribute>
 			<label_attribute>
@@ -58,19 +72,13 @@
 				<static>HT</static>
 			</label_attribute>
 
-			<number_attribute name="hitpoints" source="attributes.hitpoints">
-				<anchored to="contentanchor" position="insidetopleft" offset="60,15" />
-				<tabtarget prev="health" next="will" />
-			</number_attribute>
-			<label_attribute>
-				<anchored to="hitpoints" />
-				<static>HP</static>
-			</label_attribute>
-
 			<number_attribute name="will" source="attributes.will">
 				<rollable_attribute />
 				<stat>WILL</stat>
-				<anchored to="hitpoints" position="belowleft" offset="0,15" />
+				<anchored to="contentanchor" >
+					<top offset="10" />
+					<left anchor="center" offset="10"/>
+				</anchored>
 				<tabtarget prev="hitpoints" next="perception" />
 			</number_attribute>
 			<label_attribute>
@@ -81,7 +89,10 @@
 			<number_attribute name="perception" source="attributes.perception">
 				<rollable_attribute />
 				<stat>PER</stat>
-				<anchored to="will" position="belowleft" offset="0,15" />
+				<anchored to="contentanchor" >
+					<top offset="10" />
+					<left anchor="center" offset="65"/>
+				</anchored>
 				<tabtarget prev="will" next="fps" />
 			</number_attribute>
 			<label_attribute>
@@ -89,8 +100,23 @@
 				<static>PER</static>
 			</label_attribute>
 
+			<number_attribute name="hitpoints" source="attributes.hitpoints">
+				<anchored to="contentanchor" >
+					<top offset="10" />
+					<left anchor="center" offset="120"/>
+				</anchored>
+				<tabtarget prev="health" next="will" />
+			</number_attribute>
+			<label_attribute>
+				<anchored to="hitpoints" />
+				<static>HP</static>
+			</label_attribute>
+
 			<number_attribute name="fatiguepoints" source="attributes.fatiguepoints">
-				<anchored to="perception" position="belowleft" offset="0,15" />
+				<anchored to="contentanchor" >
+					<top offset="10" />
+					<left anchor="center" offset="175"/>
+				</anchored>
 				<tabtarget prev="perception" next="basicspeed" />
 			</number_attribute>
 			<label_attribute>
@@ -100,65 +126,70 @@
 
 
 			<string_labeled name="basicspeed" source="attributes.basicspeed">
-				<anchored to="contentanchor" position="insidetopleft" offset="120,10" width="60" height="20" />
+				<anchored to="contentanchor" width="60" height="20">
+					<top parent="strength" anchor="below" offset="10" />
+					<left />
+				</anchored>
 				<labelres>npc_label_basicspeed</labelres>
 				<tabtarget prev="fps" next="move" />
 			</string_labeled>
 
 			<string_labeled name="move" source="attributes.move">
-				<anchored to="basicspeed" position="right" offset="10,0" width="55" />
+				<anchored to="basicspeed" position="right" relation="relative" offset="10,0" width="100" />
 				<labelres>npc_label_move</labelres>
 				<tabtarget prev="basicspeed" next="sizemodifier" />
 			</string_labeled>
 			
 			<string_labeled name="sizemodifier" source="traits.sizemodifier">
-				<anchored to="move" position="right" offset="10,0" width="20" />
+				<anchored to="move" position="right" relation="relative" offset="10,0" width="20" />
 				<labelres>npc_label_sizemodifier</labelres>
 				<tabtarget prev="move" next="reach" />
 			</string_labeled>
 
 			<string_labeled name="reach" source="traits.reach">
-				<anchored to="sizemodifier" position="right" offset="10,0" width="40" />
+				<anchored to="sizemodifier" position="right" relation="relative" offset="10,0" width="40" />
 				<labelres>npc_label_reach</labelres>
 				<tabtarget prev="sizemodifier" next="swing" />
 			</string_labeled>
 
 			<string_labeled name="swing" source="attributes.swing">
-				<anchored to="reach" position="right" offset="10,0" width="45" />
+				<anchored to="reach" position="right" relation="relative" offset="10,0" width="45" />
 				<labelres>npc_label_swing</labelres>
 				<tabtarget prev="sizemodifier" next="thrust" />
 			</string_labeled>
 
 			<string_labeled name="thrust" source="attributes.thrust">
-				<anchored to="swing" position="right" offset="10,0" width="50" />
+				<anchored to="swing" position="right" relation="relative" offset="10,0" width="50" />
 				<labelres>npc_label_thrust</labelres>
 				<tabtarget prev="swing" next="reactionmodifiers" />
 			</string_labeled>
 
+
 			<string_labeled name="reactionmodifiers" source="traits.reactionmodifiers">
-				<anchored height="20">
-					<top parent="basicspeed" anchor="below" offset="10"/>
-					<left parent="basicspeed" anchor="left" />
-					<right offset="-5" />
+				<anchored to="contentanchor" height="20">
+					<top parent="basicspeed" anchor="below" offset="10" />
+					<left />
+					<right />
 				</anchored>
 				<labelres>npc_label_reaction</labelres>
 				<tabtarget prev="thrust" next="strength" />
 			</string_labeled>
 
+
 			<label_charsheet name="label_traits">
-				<anchored height="20">
-					<top parent="reactionmodifiers" anchor="below" offset="5"/>
-					<left parent="reactionmodifiers" anchor="left" />
-					<right offset="-5" />
+				<anchored to="contentanchor" height="20">
+					<top parent="reactionmodifiers" anchor="below" offset="5" />
+					<left />
+					<right />
 				</anchored>
 				<static textres="npc_label_traits" />
 				<center />
 				<color>#808080</color>
 			</label_charsheet>
 			<basicstring name="traits" source="traits.description">
-				<anchored height="45" relation="relative">
-					<top parent="label_traits" anchor="below" offset="3"/>
-					<left parent="label_traits" anchor="left" />
+				<anchored to="contentanchor" height="20">
+					<top parent="label_traits" anchor="below" />
+					<left offset="5" />
 					<right offset="-5" />
 				</anchored>
 				<multilinespacing>15</multilinespacing>
@@ -166,7 +197,10 @@
 
 			<number_attribute name="dodge" source="combat.dodge">
 				<rollable_dodge />
-				<anchored to="contentanchor" position="insidetopleft" offset="120,150" />
+				<anchored to="contentanchor" >
+					<top parent="traits" anchor="below" offset="20"/>
+					<left anchor="center" offset="-100"/>
+				</anchored>
 				<tabtarget prev="perception" next="basicspeed" />
 			</number_attribute>
 			<label_attribute>
@@ -176,7 +210,10 @@
 
 			<number_attribute name="parry" source="combat.parry">
 				<rollable_parry />
-				<anchored to="contentanchor" position="insidetopleft" offset="175,150" />
+				<anchored to="contentanchor" >
+					<top parent="traits" anchor="below" offset="20"/>
+					<left anchor="center" offset="-45"/>
+				</anchored>
 				<tabtarget prev="perception" next="basicspeed" />
 			</number_attribute>
 			<label_attribute>
@@ -186,7 +223,10 @@
 
 			<number_attribute name="block" source="combat.block">
 				<rollable_block />
-				<anchored to="contentanchor" position="insidetopleft" offset="230,150" />
+				<anchored to="contentanchor" >
+					<top parent="traits" anchor="below" offset="20"/>
+					<left anchor="center" offset="10"/>
+				</anchored>
 				<tabtarget prev="perception" next="basicspeed" />
 			</number_attribute>
 			<label_attribute>
@@ -195,7 +235,10 @@
 			</label_attribute>
 
 			<string_attribute name="dr" source="combat.dr">
-				<anchored to="contentanchor" position="insidetopleft" offset="290,150" />
+				<anchored to="contentanchor" >
+					<top parent="traits" anchor="below" offset="20"/>
+					<left anchor="center" offset="65"/>
+				</anchored>
 				<tabtarget prev="perception" next="basicspeed" />
 			</string_attribute>
 			<label_attribute>
@@ -204,7 +247,7 @@
 			</label_attribute>
 
 			<anchor_column name="columnanchor">
-				<anchored to="health" position="below" relation="relative" offset="20" />
+				<anchored to="dr" position="below" relation="relative" offset="20" />
 			</anchor_column>
 
 			<header_column name="header_meleecombat">

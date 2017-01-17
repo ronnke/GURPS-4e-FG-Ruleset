@@ -34,7 +34,7 @@
 			</genericcontrol>
 
 			<label_columntop name="tl_label">
-				<anchored to="rightanchor" width="20">
+				<anchored to="rightanchor" width="30">
 					<top />
 					<right anchor="left" relation="relative" offset="-20" />
 				</anchored>
@@ -191,7 +191,7 @@
 			</button_idelete>
 
 			<string_charfield name="tl">
-				<anchored to="rightanchor" width="20" height="20">
+				<anchored to="rightanchor" width="30" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>

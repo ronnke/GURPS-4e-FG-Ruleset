@@ -76,7 +76,7 @@ function action(draginfo)
     local sMode = "";
     local nRoF = 1;
     local nRcl = 1;
-    local sFunc = "";
+    local sOperator = "";
     local nNum = 0
 
     local rRoll = { sType = sType, sDesc = sDesc, aDice = aDice, nMod = nMod };
@@ -180,8 +180,8 @@ function action(draginfo)
       sWeapon = DB.getValue(node.getParent().getParent(), "name", "");
       sMode = DB.getValue(node, "name", "");
       sDamage = getValue();
-      aDice, nMod, sFunc, nNum = StringManager2.convertStringToDice(getValue());
-      rRoll = { sType = sType, sDesc = sDesc, sWeapon = sWeapon, sMode = sMode, sDamage = sDamage, sFunc = sFunc, nNum = nNum, aDice = aDice, nMod = nMod };
+      aDice  = StringManager2.convertStringToDice(getValue());
+      rRoll = { sType = sType, sDesc = sDesc, sWeapon = sWeapon, sMode = sMode, sDamage = sDamage, aDice = aDice, nMod = nMod };
     elseif rollable_reaction or rollable_button_reaction then
       sType = "reaction";
       sDesc = "[REACTION]";
@@ -212,13 +212,13 @@ function onDrop(x, y, draginfo)
   if draginfo.getDescription() == "[SKILL]" and rollable_attribute then
       local node = draginfo.getCustomData();
 
-      local sFunc, nNum = StringManager2.convertRelativeLevel(DB.getValue(node, "relativelevel", ""));
+      local sOperator, nNum = StringManager2.convertRelativeLevel(DB.getValue(node, "relativelevel", ""));
       
       local rActor = ActorManager.getActor("pc", node.getParent().getParent().getParent());
       local sType = "ability";
       local sDesc = "[RELATIVE SKILL]";
-      local sTargetDesc = string.format("%s [%s%s%s]", DB.getValue(node, "name", ""), stat[1], sFunc, nNum);
-      local nTarget = getValue() + tonumber(string.format("%s%s", sFunc, nNum));
+      local sTargetDesc = string.format("%s [%s%s%s]", DB.getValue(node, "name", ""), stat[1], sOperator, nNum);
+      local nTarget = getValue() + tonumber(string.format("%s%s", sOperator, nNum));
       local aDice = { "d6","d6","d6" };
       local nMod = 0;
       local rRoll = { sType = sType, sDesc = sDesc, aDice = aDice, nMod = nMod, sTargetDesc = sTargetDesc, nTarget = nTarget };

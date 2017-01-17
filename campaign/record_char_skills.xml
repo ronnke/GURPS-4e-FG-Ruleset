@@ -173,10 +173,14 @@
 				<anchored to="skillsframe">
 					<left offset="15" />
 					<top offset="95" />
-					<right offset="-25" />
+					<right offset="-30" />
 					<bottom offset="-20" />
 				</anchored>
 			</list_charskill>
+			<scrollbar_list>
+				<anchored to="skillslist" />
+				<target>skillslist</target>
+			</scrollbar_list>
 
 			<button_iedit name="skillslist_iedit">
 				<anchored to="skillslist" position="aboveright" offset="5,20" />

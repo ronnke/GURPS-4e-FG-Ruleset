@@ -17,33 +17,34 @@
 		<pointer defaultconeangle="60" />
 	</imagesettings>
 	
-	<die name="dF">
-		<icon>d6icon</icon>
-		<position>570,-68</position>
-	</die>
-	<die name="d4">
-		<icon>d4icon</icon>
-		<position>520,-68</position>
-	</die>
 	<die name="d6">
 		<icon>d6icon</icon>
-		<position>470,-68</position>
+		<position>270,-68</position>
 	</die>
-	<die name="d8">
-		<icon>d8icon</icon>
-		<position>420,-68</position>
-	</die>
-	<die name="d10">
-		<icon>d10icon</icon>
+
+	<die name="d20">
+		<icon>d20icon</icon>
 		<position>370,-68</position>
 	</die>
 	<die name="d12">
 		<icon>d12icon</icon>
-		<position>320,-68</position>
+		<position>420,-68</position>
 	</die>
-	<die name="d20">
-		<icon>d20icon</icon>
-		<position>270,-68</position>
+	<die name="d10">
+		<icon>d10icon</icon>
+		<position>470,-68</position>
+	</die>
+	<die name="d8">
+		<icon>d8icon</icon>
+		<position>520,-68</position>
+	</die>
+	<die name="d4">
+		<icon>d4icon</icon>
+		<position>570,-68</position>
+	</die>
+	<die name="dF">
+		<icon>d6icon</icon>
+		<position>620,-68</position>
 	</die>
 
 </root>

@@ -67,10 +67,14 @@
 				<anchored to="powersframe">
 					<left offset="15" />
 					<top offset="50" />
-					<right offset="-25" />
+					<right offset="-30" />
 					<bottom offset="-20" />
 				</anchored>
 			</list_charpower>
+			<scrollbar_list>
+				<anchored to="powerslist" />
+				<target>powerslist</target>
+			</scrollbar_list>
 
 			<button_iedit name="powerslist_iedit">
 				<anchored to="powerslist" position="aboveright" offset="5,20" />

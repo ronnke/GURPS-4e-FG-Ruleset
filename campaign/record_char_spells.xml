@@ -88,10 +88,14 @@
 				<anchored to="spellsframe">
 					<left offset="15" />
 					<top offset="50" />
-					<right offset="-25" />
+					<right offset="-30" />
 					<bottom offset="-20" />
 				</anchored>
 			</list_charspell>
+			<scrollbar_list>
+				<anchored to="spellslist" />
+				<target>spellslist</target>
+			</scrollbar_list>
 
 			<button_iedit name="spellslist_iedit">
 				<anchored to="spellslist" position="aboveright" offset="5,20" />

@@ -155,6 +155,9 @@ function linkPCFields()
     perception.setLink(nodeChar.createChild("attributes.perception", "number"), true);
     fatiguepoints.setLink(nodeChar.createChild("attributes.fatiguepoints", "number"), true);
 
+    sizemodifier.setLink(nodeChar.createChild("traits.sizemodifier", "string"), true);
+    reach.setLink(nodeChar.createChild("traits.reach", "string"), true);
+
 
     dodge.setLink(nodeChar.createChild("combat.dodge", "number"), true);
     parry.setLink(nodeChar.createChild("combat.parry", "number"), true);

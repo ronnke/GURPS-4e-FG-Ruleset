@@ -11,12 +11,8 @@
 function convertStringToDice(s)
 	-- SETUP
 	local aDice = {};
-	local nMod = 0;
-	
 	local nDieCount = 0;
 	local nDice = 0;
-	local sFunc = "";
-	local nNum = 0
 	
 	local nDefaultDice = 6;
 	
@@ -24,7 +20,7 @@ function convertStringToDice(s)
 	if s then
 		local aRulesetDice = Interface.getDice();
 		
-    nDieCount, nDice, sFunc, nNum = s:match("^(%d*)[dD]([%dF]*)%s*([+-x]?)%s*([%dF]*)");
+    nDieCount, nDice  = s:match("^(%d*)[dD]([%dF]*)");
     
     if nDieCount then
       local sDie = string.format("d%d", (tonumber(nDice) or nDefaultDice));
@@ -33,26 +29,22 @@ function convertStringToDice(s)
         table.insert(aDice, sDie);
       end
     end
-    
-    if sFunc and nNum then
-      nNum = (tonumber(nNum) or 0);
-    end
 	end
 	
 	-- RESULTS
-	return aDice, nMod, sFunc, nNum;
+	return aDice;
 end
 
 function convertRelativeLevel(s)
   -- SETUP
-  local sFunc = "+";
+  local sOperator = "+";
   local nNum = 0
   
   -- PARSING
   if s then
-    sFunc, nNum = s:match("%a+([+-])%s*([%dF]*)%s*$");
+    sOperator, nNum = s:match("%a+([+-])%s*([%dF]*)%s*$");
     
-    if sFunc and nNum then
+    if sOperator and nNum then
       nNum = (tonumber(nNum) or 0);
     else
       return "+", 0
@@ -60,5 +52,5 @@ function convertRelativeLevel(s)
   end
   
   -- RESULTS
-  return sFunc, nNum;
+  return sOperator, nNum;
 end
