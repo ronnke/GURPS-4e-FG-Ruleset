@@ -187,7 +187,7 @@
 				<color>#808080</color>
 			</label_charsheet>
 			<basicstring name="traits" source="traits.description">
-				<anchored to="contentanchor" height="20">
+				<anchored to="contentanchor">
 					<top parent="label_traits" anchor="below" />
 					<left offset="5" />
 					<right offset="-5" />
