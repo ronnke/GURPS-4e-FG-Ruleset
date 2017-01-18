@@ -35,6 +35,13 @@
 				<disabled />
 			</genericcontrol>
 
+			<label_columntop name="rangedcombatlist_ispacer">
+				<anchored to="rightanchor" width="20">
+					<top />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<invisible />
+			</label_columntop>
 			<label_columntop name="tl_label">
 				<anchored to="rightanchor" width="30">
 					<top />
@@ -145,12 +152,9 @@
 				modes_label.setVisible(v);
 				modeslist.setVisible(v);
 				modeslist_iedit.setVisible(v);
-				modeslist_iadd.setVisible(v);
+				modeslist_ispacer.setVisible(v and modeslist_iedit.getValue() == 1);
+				modeslist_iadd.setVisible(v and modeslist_iedit.getValue() == 1)
 				frame_modes.setVisible(v);
-
-				if modeslist_iedit.getValue() == 0 then
-					modeslist_iadd.setVisible(false);
-				end
 			end
 			
 			function setModifiersVisible()
@@ -163,12 +167,8 @@
 				modifiers_label.setVisible(v);
 				modifierslist.setVisible(v);
 				modifierslist_iedit.setVisible(v);
-				modifierslist_iadd.setVisible(v);
+				modifierslist_iadd.setVisible(v and modifierslist_iedit.getValue() == 1)
 				frame_modifiers.setVisible(v);
-
-				if modifierslist_iedit.getValue() == 0 then
-					modifierslist_iadd.setVisible(false);
-				end
 			end
 		</script>
 		<sheetdata>
@@ -281,6 +281,12 @@
 				<icon>weapon_modes_down</icon>
 			</icon_detailsection>
 
+			<label_columntop name="modeslist_ispacer">
+				<anchored to="modesicon" width="20" height="20" offset="-10">
+					<top />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</label_columntop>
 			<label_columntop name="modes_rcl_label">
 				<anchored to="modesicon" width="20">
 					<top />

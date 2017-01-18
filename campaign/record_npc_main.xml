@@ -390,12 +390,9 @@
 				modes_label.setVisible(v);
 				modeslist.setVisible(v);
 				modeslist_iedit.setVisible(v and not bReadOnly)
-				modeslist_iadd.setVisible(v and not bReadOnly)
+				modeslist_ispacer.setVisible(v and not bReadOnly and modeslist_iedit.getValue() == 1)
+				modeslist_iadd.setVisible(v and not bReadOnly and modeslist_iedit.getValue() == 1)
 				frame_modes.setVisible(v);
-
-				if modeslist_iedit.getValue() == 0 then
-					modeslist_iadd.setVisible(false);
-				end
 			end
 			
 			function setModifiersVisible()
@@ -410,12 +407,8 @@
 				modifiers_label.setVisible(v);
 				modifierslist.setVisible(v);
 				modifierslist_iedit.setVisible(v and not bReadOnly)
-				modifierslist_iadd.setVisible(v and not bReadOnly)
+				modifierslist_iadd.setVisible(v and not bReadOnly and modifierslist_iedit.getValue() == 1)
 				frame_modifiers.setVisible(v);
-
-				if modifierslist_iedit.getValue() == 0 then
-					modifierslist_iadd.setVisible(false);
-				end
 			end
 		</script>
 		<sheetdata>
@@ -511,6 +504,12 @@
 				<icon>weapon_modes_down</icon>
 			</icon_detailsection>
 
+			<label_columntop name="modeslist_ispacer">
+				<anchored to="modesicon" width="20" height="20" offset="-10">
+					<top />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</label_columntop>
 			<label_columntop name="modes_parry_label">
 				<anchored to="modesicon" width="30">
 					<top />
@@ -757,12 +756,10 @@
 				modes_label.setVisible(v);
 				modeslist.setVisible(v);
 				modeslist_iedit.setVisible(v and not bReadOnly)
-				modeslist_iadd.setVisible(v and not bReadOnly)
+				modeslist_ispacer.setVisible(v and not bReadOnly and modeslist_iedit.getValue() == 1)
+				modeslist_iadd.setVisible(v and not bReadOnly and modeslist_iedit.getValue() == 1)
 				frame_modes.setVisible(v);
 
-				if modeslist_iedit.getValue() == 0 then
-					modeslist_iadd.setVisible(false);
-				end
 			end
 			
 			function setModifiersVisible()
@@ -777,12 +774,9 @@
 				modifiers_label.setVisible(v);
 				modifierslist.setVisible(v);
 				modifierslist_iedit.setVisible(v and not bReadOnly)
-				modifierslist_iadd.setVisible(v and not bReadOnly)
+				modifierslist_iadd.setVisible(v and not bReadOnly and modifierslist_iedit.getValue() == 1)
 				frame_modifiers.setVisible(v);
 
-				if modifierslist_iedit.getValue() == 0 then
-					modifierslist_iadd.setVisible(false);
-				end
 			end
 		</script>
 		<sheetdata>
@@ -824,6 +818,13 @@
 					end
 				</script>
 			</number_charmodfield>
+
+			<label_columntop name="modeslist_ispacer">
+				<anchored to="rightanchor" width="20" height="20" offset="-10">
+					<top offset="2" />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</label_columntop>
 			<label name="label_bulk">
 				<anchored to="rightanchor" width="30" height="20">
 					<top offset="2" />
@@ -1156,13 +1157,9 @@
 				modifierslist.setVisible(v);
 				modifierslist_iedit.setVisible(v);
 				modifierslist_iadd.setVisible(v);
-				modifierslist_iedit.setVisible(v and not bReadOnly)
-				modifierslist_iadd.setVisible(v and not bReadOnly)
+				modifierslist_iedit.setVisible(v and not bReadOnly and modifierslist_iedit.getValue() == 1)
+				modifierslist_iadd.setVisible(v and not bReadOnly and modifierslist_iedit.getValue() == 1)
 				frame_modifiers.setVisible(v);
-
-				if modifierslist_iedit.getValue() == 0 then
-					modifierslist_iadd.setVisible(false);
-				end
 			end
 		</script>
 		<sheetdata>

@@ -38,6 +38,13 @@
 				<disabled />
 			</genericcontrol>
 
+			<label_columntop name="adsperkslist_ispacer">
+				<anchored to="adsperks_rightanchor" width="20">
+					<top />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<invisible />
+			</label_columntop>
 			<label_columntop name="adsperks_points_label">
 				<anchored to="adsperks_rightanchor" width="30">
 					<top />
@@ -115,6 +122,13 @@
 				<disabled />
 			</genericcontrol>
 
+			<label_columntop name="disadsquirkslist_ispacer">
+				<anchored to="disadsquirks_rightanchor" width="20">
+					<top />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<invisible />
+			</label_columntop>
 			<label_columntop name="disadsquirks_points_label">
 				<anchored to="disadsquirks_rightanchor" width="30">
 					<top />

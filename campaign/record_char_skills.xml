@@ -120,11 +120,18 @@
 			<genericcontrol name="idelete_header">
 				<anchored to="rightanchor" width="20" height="20">
 					<top />
-					<right anchor="left" relation="relative" offset="-5" />
+					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
 				<disabled />
 			</genericcontrol>
 			
+			<label_columntop name="skillslist_ispacer">
+				<anchored to="rightanchor" width="20">
+					<top />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<invisible />
+			</label_columntop>
 			<label_columntop name="points_label">
 				<anchored to="rightanchor" width="20">
 					<top />
@@ -211,12 +218,8 @@
 				modifiers_label.setVisible(v);
 				modifierslist.setVisible(v);
 				modifierslist_iedit.setVisible(v);
-				modifierslist_iadd.setVisible(v);
+				modifierslist_iadd.setVisible(v and modifierslist_iedit.getValue() == 1)
 				frame_modifiers.setVisible(v);
-
-				if modifierslist_iedit.getValue() == 0 then
-					modifierslist_iadd.setVisible(false);
-				end
 			end
 		</script>
 		<sheetdata>

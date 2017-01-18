@@ -319,6 +319,7 @@
 			<icon_ctsection name="targetingicon">
 				<icon>button_section_targeting_down</icon>
 			</icon_ctsection>
+			
 			<subwindow name="sub_targeting">
 				<anchored>
 					<top parent="name" anchor="bottom" relation="relative" offset="10" />
@@ -338,6 +339,7 @@
 			<icon_ctsection name="statsicon">
 				<icon>stats_down</icon>
 			</icon_ctsection>
+			
 			<number_ct_ability name="strength" source="attributes.strength">
 				<rollable_attribute />
 				<stat>ST</stat>
@@ -446,10 +448,19 @@
 				<static textres="ct_label_fatiguepoints" />
 			</label_ct_ability>
 
+			<genericcontrol name="spacer_stats">
+				<anchored height="0">
+					<top parent="name" anchor="bottom" relation="relative" offset="2" />
+					<left parent="statsicon" anchor="right" offset="55" />
+					<right offset="-17" />
+				</anchored>
+				<disabled />
+			</genericcontrol>
+
 			<frame_ctsub name="frame_stats">
 				<anchored>
 					<top parent="statsicon" />
-					<bottom parent="strength" />
+					<bottom parent="spacer_stats" />
 				</anchored>
 			</frame_ctsub>
 
@@ -500,7 +511,7 @@
 			<number_ct_ability name="dodge" source="combat.dodge">
 				<rollable_dodge />
 				<anchored>
-					<top parent="name" anchor="bottom" relation="relative" offset="15" />
+					<top parent="name" anchor="bottom" relation="relative" offset="10" />
 					<left parent="combaticon" anchor="right" offset="25" />
 				</anchored>
 				<description textres="ct_label_dodge" />
@@ -545,14 +556,21 @@
 				<static textres="ct_label_dr" />
 			</label_ct_ability>
 
-			<anchor_column name="columnanchor">
-				<anchored to="dr" position="below" relation="relative" offset="20" />
-			</anchor_column>
+
+			<genericcontrol name="spacer_combat">
+				<anchored height="0">
+					<top parent="name" anchor="bottom" relation="relative" offset="5" />
+					<left parent="combaticon" anchor="right" offset="20" />
+					<right offset="-25" />
+				</anchored>
+				<disabled />
+			</genericcontrol>
 
 			<header_column name="header_meleecombat">
 				<anchored>
-					<left offset="105" />
-					<right offset="-30" />
+					<top parent="name" anchor="bottom" relation="relative" offset="5" />
+					<left parent="combaticon" anchor="right" offset="20" />
+					<right offset="-25" />
 				</anchored>
 				<static textres="npc_label_melee" />
 				<color>#808080</color>
@@ -567,8 +585,8 @@
 			</button_iadd>
 			<list_ctmeleecombat name="meleecombat">
 				<anchored>
-					<top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
-					<left offset="90" />
+					<top parent="name" anchor="bottom" relation="relative" offset="3" />
+					<left parent="combaticon" anchor="right" offset="10" />
 					<right offset="-10" />
 				</anchored>
 				<class>ct_meleecombat</class>
@@ -576,8 +594,9 @@
 
 			<header_column name="header_rangedcombat">
 				<anchored>
-					<left offset="105" />
-					<right offset="-30" />
+					<top parent="name" anchor="bottom" relation="relative" offset="5" />
+					<left parent="combaticon" anchor="right" offset="20" />
+					<right offset="-25" />
 				</anchored>
 				<static textres="npc_label_ranged" />
 				<color>#808080</color>
@@ -592,17 +611,26 @@
 			</button_iadd>
 			<list_npcrangedcombat name="rangedcombat">
 				<anchored>
-					<top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
-					<left offset="90" />
+					<top parent="name" anchor="bottom" relation="relative" offset="3" />
+					<left parent="combaticon" anchor="right" offset="10" />
 					<right offset="-10" />
 				</anchored>
 				<class>ct_rangedcombat</class>
 			</list_npcrangedcombat>
 
+			<genericcontrol name="spacer_combat2">
+				<anchored height="0">
+					<top parent="name" anchor="bottom" relation="relative" offset="3" />
+					<left parent="combaticon" anchor="right" offset="20" />
+					<right offset="-25" />
+				</anchored>
+				<disabled />
+			</genericcontrol>
+
 			<frame_ctsub name="frame_combat">
 				<anchored>
 					<top parent="combaticon" />
-					<bottom parent="rangedcombat" />
+					<bottom parent="spacer_combat2" />
 				</anchored>
 			</frame_ctsub>
 
@@ -682,12 +710,9 @@
 				modes_label.setVisible(v);
 				modeslist.setVisible(v);
 				modeslist_iedit.setVisible(v)
-				modeslist_iadd.setVisible(v)
+				modeslist_ispacer.setVisible(v and modeslist_iedit.getValue() == 1);
+				modeslist_iadd.setVisible(v and modeslist_iedit.getValue() == 1)
 				frame_modes.setVisible(v);
-
-				if modeslist_iedit.getValue() == 0 then
-					modeslist_iadd.setVisible(false);
-				end
 			end
 			
 			function setModifiersVisible()
@@ -700,12 +725,8 @@
 				modifiers_label.setVisible(v);
 				modifierslist.setVisible(v);
 				modifierslist_iedit.setVisible(v)
-				modifierslist_iadd.setVisible(v)
+				modifierslist_iadd.setVisible(v and modifierslist_iedit.getValue() == 1)
 				frame_modifiers.setVisible(v);
-
-				if modifierslist_iedit.getValue() == 0 then
-					modifierslist_iadd.setVisible(false);
-				end
 			end
 		</script>
 		<sheetdata>
@@ -715,6 +736,7 @@
 					<top />
 					<right />
 				</anchored>
+				<invisible />
 			</genericcontrol>
 			<genericcontrol name="bottomanchor">
 				<anchored height="0" width="0">
@@ -801,6 +823,12 @@
 				<icon>weapon_modes_down</icon>
 			</icon_detailsection>
 
+			<label_columntop name="modeslist_ispacer">
+				<anchored to="modesicon" width="20" height="20" offset="-10">
+					<top />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</label_columntop>
 			<label_columntop name="modes_parry_label">
 				<anchored to="modesicon" width="30">
 					<top />
@@ -1003,12 +1031,10 @@
 				modes_label.setVisible(v);
 				modeslist.setVisible(v);
 				modeslist_iedit.setVisible(v)
-				modeslist_iadd.setVisible(v)
+				modeslist_ispacer.setVisible(v and modeslist_iedit.getValue() == 1);
+				modeslist_iadd.setVisible(v and modeslist_iedit.getValue() == 1)
 				frame_modes.setVisible(v);
 
-				if modeslist_iedit.getValue() == 0 then
-					modeslist_iadd.setVisible(false);
-				end
 			end
 			
 			function setModifiersVisible()
@@ -1021,12 +1047,8 @@
 				modifiers_label.setVisible(v);
 				modifierslist.setVisible(v);
 				modifierslist_iedit.setVisible(v)
-				modifierslist_iadd.setVisible(v)
+				modifierslist_iadd.setVisible(v and modifierslist_iedit.getValue() == 1)
 				frame_modifiers.setVisible(v);
-
-				if modifierslist_iedit.getValue() == 0 then
-					modifierslist_iadd.setVisible(false);
-				end
 			end
 		</script>
 		<sheetdata>
@@ -1053,7 +1075,7 @@
 			</button_idelete>
 
 			<number_charmodfield name="bulk">
-				<anchored to="rightanchor" width="20" height="20">
+				<anchored to="rightanchor" width="30" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
@@ -1068,6 +1090,13 @@
 					end
 				</script>
 			</number_charmodfield>
+			
+			<label_columntop name="modeslist_ispacer">
+				<anchored to="rightanchor" width="20" height="20" offset="-10">
+					<top offset="2" />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</label_columntop>
 			<label name="label_bulk">
 				<anchored to="rightanchor" width="30" height="20">
 					<top offset="2" />

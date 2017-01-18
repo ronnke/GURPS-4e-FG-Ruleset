@@ -33,6 +33,13 @@
 				<disabled />
 			</genericcontrol>
 
+			<label_columntop name="protectionlist_ispacer">
+				<anchored to="rightanchor" width="20">
+					<top />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<invisible />
+			</label_columntop>
 			<label_columntop name="dr_label">
 				<anchored to="rightanchor" width="50">
 					<top />
