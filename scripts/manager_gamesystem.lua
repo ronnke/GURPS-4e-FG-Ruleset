@@ -38,7 +38,7 @@ function getCharSelectDetailHost(nodeChar)
 end
 
 function requestCharSelectDetailClient()
-  return "name,#pointtotals.totalpoints,#pointtotals.unspent";
+  return "name,#pointtotals.totalpoints,#pointtotals.unspentpoints";
 end
 
 function receiveCharSelectDetailClient(vDetails)
@@ -49,7 +49,7 @@ function getCharSelectDetailLocal(nodeLocal)
   local vDetails = {};
   table.insert(vDetails, DB.getValue(nodeLocal, "name", ""));
   table.insert(vDetails, DB.getValue(nodeLocal, "pointtotals.totalpoints", 0));
-  table.insert(vDetails, DB.getValue(nodeLocal, "pointtotals.unspent", 0));
+  table.insert(vDetails, DB.getValue(nodeLocal, "pointtotals.unspentpoints", 0));
   return receiveCharSelectDetailClient(vDetails);
 end
 

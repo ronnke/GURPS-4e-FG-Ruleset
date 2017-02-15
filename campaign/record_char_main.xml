@@ -290,6 +290,13 @@
 				<disabled />
 			</genericcontrol>
 
+			<label_columntop name="languageslist_ispacer">
+				<anchored to="languages_rightanchor" width="20">
+					<top />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<invisible />
+			</label_columntop>
 			<label_columntop name="languages_points_label">
 				<anchored to="languages_rightanchor" width="20">
 					<top />

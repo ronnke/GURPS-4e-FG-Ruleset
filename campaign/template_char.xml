@@ -144,7 +144,7 @@
 	
 	<template name="label_attribute">
 		<label_fieldtop>
-			<anchored offset="-2,-6" height="15"/>
+			<anchored offset="0,-6" height="15"/>
 			<frame name="attributelabel" />
 		</label_fieldtop>
 	</template>

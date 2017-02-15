@@ -1149,17 +1149,16 @@
 				if activatemodifiers.getValue() == 1 then
 					v = true;
 				end
-
-				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode().getParent().getParent().getParent());
 				
+				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode().getParent().getParent().getParent());
+
 				modifiersicon.setVisible(v);
 				modifiers_label.setVisible(v);
 				modifierslist.setVisible(v);
-				modifierslist_iedit.setVisible(v);
-				modifierslist_iadd.setVisible(v);
-				modifierslist_iedit.setVisible(v and not bReadOnly and modifierslist_iedit.getValue() == 1)
+				modifierslist_iedit.setVisible(v and not bReadOnly)
 				modifierslist_iadd.setVisible(v and not bReadOnly and modifierslist_iedit.getValue() == 1)
 				frame_modifiers.setVisible(v);
+
 			end
 		</script>
 		<sheetdata>

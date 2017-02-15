@@ -15,7 +15,7 @@
 
 	<imagesettings>
 		<pointer defaultconeangle="60" />
-	</imagesettings>
+   	</imagesettings>
 	
 	<die name="d6">
 		<icon>d6icon</icon>

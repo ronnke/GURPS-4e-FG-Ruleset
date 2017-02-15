@@ -104,6 +104,7 @@
 				<activate>1</activate>
 			</tabs_charsheet>
 		
+			<resize_charsheet />
 			<close_charsheet />
 		</sheetdata>
 	</windowclass>
