@@ -124,7 +124,7 @@ function action(draginfo)
       nTarget = DB.getValue(node, "level", "");
       rRoll = { sType = sType, sDesc = sDesc, aDice = aDice, nMod = nMod, sTargetDesc = sTargetDesc, nTarget = nTarget };
     elseif rollable_ability or rollable_button_ability then
-      rActor = ActorManager.getActor(sActor, node);
+      rActor = ActorManager.getActor(sActor, node.getParent().getParent().getParent());
       sType = "ability";
       sDesc = "[ABILITY]";
       sTargetDesc = DB.getValue(node, "name", "");
