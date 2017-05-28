@@ -42,12 +42,12 @@
 				<nodrag />
 			</stringfield>
 			
-			<stringfield name="text">
+			<ft_record name="text">
 				<bounds>25,85,-25,-15</bounds>
 				<multilinespacing>16</multilinespacing>
 				<font>reference-r</font>
 				<selectioncolor>#FFD296</selectioncolor>
-			</stringfield>
+			</ft_record>
 			<scrollbar>
 				<anchored to="text" />
 				<target>text</target>

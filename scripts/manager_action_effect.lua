@@ -31,7 +31,7 @@ function getRoll(draginfo, rActor, rAction)
 	if rRoll.sDesc == "" then
 		return nil;
 	end
-	
+
 	return rRoll;
 end
 
@@ -74,9 +74,31 @@ function onEffect(rSource, rTarget, rRoll)
 	if (rSource and ActorManager.getFaction(rSource) ~= "friend") and (not rTarget or ActorManager.getFaction(rTarget) ~= "friend") then
 		rEffect.nGMOnly = 1;
 	end
-	
-	-- Apply effect
-	EffectManager.notifyApply(rEffect, sTargetCT);
+
+  -- If shift-dragging, then apply to the source actor targets
+  if Input.isShiftPressed() then
+    local aTargetNodes = {};
+    local aTargets;
+    aTargets = TargetingManager.getFullTargets(rTarget);
+    for _,v in ipairs(aTargets) do
+      local sCTNode = ActorManager.getCTNodeName(v);
+      if sCTNode ~= "" then
+        table.insert(aTargetNodes, sCTNode);
+      end
+    end
+    -- Apply effect to all targets
+      EffectManager.notifyApply(rEffect, aTargetNodes);
+  
+  -- Apply to the source actor targets
+  elseif rRoll.aTargets then
+    local aTargets = StringManager.split(rRoll.aTargets, "|");
+    -- Apply effect to all targets
+    EffectManager.notifyApply(rEffect, aTargets);
+  
+  -- Otherwise, just apply effect to target normally
+  else
+    EffectManager.notifyApply(rEffect, sTargetCT);
+  end
 end
 
 --

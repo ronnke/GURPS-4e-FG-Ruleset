@@ -3,7 +3,7 @@
 -- attribution and copyright information.
 --
 
-local rsname = "GURPS";
+local rsname = "GURPS-4e-FG-Ruleset";
 
 function onInit()
 	if User.isHost() or User.isLocal() then
@@ -42,6 +42,11 @@ function updateChar(nodePC, nVersion)
       migrateChar4(nodePC);
     end
   end
+  if nVersion < 5 then
+    if nVersion < 5 then
+      migrateChar5(nodePC);
+    end
+  end
 end
 
 function updateCampaign()
@@ -50,7 +55,7 @@ function updateCampaign()
 	if not major then
 		return;
 	end
-	if major > 0 and major < 4 then
+	if major > 0 and major < 5 then
 		print("Migrating campaign database to latest data version. (" .. rsname ..")");
 		DB.backup();
 		
@@ -59,6 +64,9 @@ function updateCampaign()
 		end
     if major < 4 then
       convertChars4();
+    end
+    if major < 5 then
+      convertChars5();
     end
 	end
 end
@@ -72,6 +80,12 @@ end
 function convertChars4()
   for _,nodeChar in pairs(DB.getChildren("charsheet")) do
     migrateChar4(nodeChar);
+  end
+end
+
+function convertChars5()
+  for _,nodeChar in pairs(DB.getChildren("charsheet")) do
+    migrateChar5(nodeChar);
   end
 end
 
@@ -464,4 +478,97 @@ function migrateChar4(nodeChar)
     DB.deleteChild(nodeChar, "attributes.current_fps");
     DB.deleteChild(nodeChar, "attributes.current_move");
   end
+end
+
+function migrateChar5(nodeChar)
+  -- Convert General Notes
+  if DB.getChild(nodeChar, "notelist") then
+    for _,nodeOld in pairs(DB.getChildren(nodeChar, "notelist")) do
+      local nodeValue = DB.getValue(nodeOld,"text","");
+      DB.deleteChild(nodeOld, "text");
+      DB.setValue(nodeOld, "text", "formattedtext", nodeValue);
+    end
+  end
+
+  -- Convert Advantages
+  if DB.getChild(nodeChar, "traits.adslist") then
+    for _,nodeOld in pairs(DB.getChildren(nodeChar, "traits.adslist")) do
+      local nodeValue = DB.getValue(nodeOld,"text","");
+      DB.deleteChild(nodeOld, "text");
+      DB.setValue(nodeOld, "text", "formattedtext", nodeValue);
+    end
+  end
+
+  -- Convert Disadvantages
+  if DB.getChild(nodeChar, "traits.disadslist") then
+    for _,nodeOld in pairs(DB.getChildren(nodeChar, "traits.disadslist")) do
+      local nodeValue = DB.getValue(nodeOld,"text","");
+      DB.deleteChild(nodeOld, "text");
+      DB.setValue(nodeOld, "text", "formattedtext", nodeValue);
+    end
+  end
+
+  -- Convert Skills
+  if DB.getChild(nodeChar, "abilities.skilllist") then
+    for _,nodeOld in pairs(DB.getChildren(nodeChar, "abilities.skilllist")) do
+      local nodeValue = DB.getValue(nodeOld,"text","");
+      DB.deleteChild(nodeOld, "text");
+      DB.setValue(nodeOld, "text", "formattedtext", nodeValue);
+    end
+  end
+
+  -- Convert Spells
+  if DB.getChild(nodeChar, "abilities.spelllist") then
+    for _,nodeOld in pairs(DB.getChildren(nodeChar, "abilities.spelllist")) do
+      local nodeValue = DB.getValue(nodeOld,"text","");
+      DB.deleteChild(nodeOld, "text");
+      DB.setValue(nodeOld, "text", "formattedtext", nodeValue);
+    end
+  end
+
+  -- Convert Powers
+  if DB.getChild(nodeChar, "abilities.powerlist") then
+    for _,nodeOld in pairs(DB.getChildren(nodeChar, "abilities.powerlist")) do
+      local nodeValue = DB.getValue(nodeOld,"text","");
+      DB.deleteChild(nodeOld, "text");
+      DB.setValue(nodeOld, "text", "formattedtext", nodeValue);
+    end
+  end
+
+  -- Convert Others
+  if DB.getChild(nodeChar, "abilities.otherlist") then
+    for _,nodeOld in pairs(DB.getChildren(nodeChar, "abilities.otherlist")) do
+      local nodeValue = DB.getValue(nodeOld,"text","");
+      DB.deleteChild(nodeOld, "text");
+      DB.setValue(nodeOld, "text", "formattedtext", nodeValue);
+    end
+  end
+
+  -- Convert Melee Combat
+  if DB.getChild(nodeChar, "combat.meleecombatlist") then
+    for _,nodeOld in pairs(DB.getChildren(nodeChar, "combat.meleecombatlist")) do
+      local nodeValue = DB.getValue(nodeOld,"text","");
+      DB.deleteChild(nodeOld, "text");
+      DB.setValue(nodeOld, "text", "formattedtext", nodeValue);
+    end
+  end
+
+  -- Convert Ranged Combat
+  if DB.getChild(nodeChar, "combat.rangedcombatlist") then
+    for _,nodeOld in pairs(DB.getChildren(nodeChar, "combat.rangedcombatlist")) do
+      local nodeValue = DB.getValue(nodeOld,"text","");
+      DB.deleteChild(nodeOld, "text");
+      DB.setValue(nodeOld, "text", "formattedtext", nodeValue);
+    end
+  end
+
+  -- Convert Protection
+  if DB.getChild(nodeChar, "combat.protectionlist") then
+    for _,nodeOld in pairs(DB.getChildren(nodeChar, "combat.protectionlist")) do
+      local nodeValue = DB.getValue(nodeOld,"text","");
+      DB.deleteChild(nodeOld, "text");
+      DB.setValue(nodeOld, "text", "formattedtext", nodeValue);
+    end
+  end
+
 end
