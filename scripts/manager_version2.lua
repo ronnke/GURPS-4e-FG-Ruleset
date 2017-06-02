@@ -3,7 +3,7 @@
 -- attribution and copyright information.
 --
 
-local rsname = "GURPS-4e-FG-Ruleset";
+local rsname = "GURPS";
 
 function onInit()
 	if User.isHost() or User.isLocal() then
