@@ -87,8 +87,8 @@
 				</anchored>
 				<gmeditonly />
 				<parameters>
-					<labelsres>effect_label_durunitsec|effect_label_durunitmin|effect_label_durunithr|effect_label_durunitday</labelsres>
-					<values>sec|min|hr|day</values>
+					<labelsres>effect_label_durunitsec+|effect_label_durunitsec|effect_label_durunitmin|effect_label_durunithr|effect_label_durunitday</labelsres>
+					<values>sec+|sec|min|hr|day</values>
 				</parameters>
 				<script>
 					function onDragStart(button, x, y, draginfo)

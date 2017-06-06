@@ -161,7 +161,9 @@ function encodeEffectAsText(rEffect)
 		
     if rEffect.sUnits and rEffect.sUnits ~= "" then
       local sOutputUnits = nil;
-      if rEffect.sUnits == "sec" then
+      if rEffect.sUnits == "sec+" then
+        sOutputUnits = "SEC+";
+      elseif rEffect.sUnits == "sec" then
         sOutputUnits = "SEC";
       elseif rEffect.sUnits == "min" then
         sOutputUnits = "MIN";
@@ -202,7 +204,9 @@ function decodeEffectFromText(sEffect, bSecret)
     rEffect.sUnits = "";
     local sUnits = sEffect:match("%[UNITS ([^]]+)]");
     if sUnits then
-      if sUnits == "SEC" then
+      if sUnits == "SEC+" then
+        rEffect.sUnits = "sec+";
+      elseif sUnits == "SEC" then
         rEffect.sUnits = "sec";
       elseif sUnits == "MIN" then
         rEffect.sUnits = "min";

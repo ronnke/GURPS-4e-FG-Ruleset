@@ -176,9 +176,11 @@ function getEffectsString(nodeCTEntry, bPublicOnly)
       local nDuration = DB.getValue(v, "duration", 0);
       local sUnits = DB.getValue(v, "units", "");
 
-      if nDuration > 0 then
+      if nDuration > 0 or sUnits == "sec+" then
         local sOutputUnits = nil;
-        if sUnits == "sec" then
+        if sUnits == "sec+" then
+          sOutputUnits = "SEC+";
+        elseif sUnits == "sec" then
           sOutputUnits = "SEC";
         elseif sUnits == "min" then
           sOutputUnits = "MIN";
@@ -258,11 +260,13 @@ function addEffect(sUser, sIdentity, nodeCT, rNewEffect, bShowMsg)
 	-- BUILD MESSAGE
 	local msg = {font = "msgfont", icon = "roll_effect"};
 	msg.text = "Effect ['" .. rNewEffect.sName .. "'] ";
-  if rNewEffect.nDuration > 0 then
+  if rNewEffect.nDuration > 0 or rNewEffect.sUnits == "sec+" then
 
     if rNewEffect.sUnits and rNewEffect.sUnits ~= "" then
       local sOutputUnits = nil;
-      if rNewEffect.sUnits == "sec" then
+      if rNewEffect.sUnits == "sec+" then
+        sOutputUnits = "SEC+";
+      elseif rNewEffect.sUnits == "sec" then
         sOutputUnits = "SEC";
       elseif rNewEffect.sUnits == "min" then
         sOutputUnits = "MIN";
@@ -306,7 +310,7 @@ function processSOTEffects(nodeActor)
     local sUnits = DB.getValue(nodeEffect, "units", "");
     local nStatus = DB.getValue(nodeEffect, "status", 0);
 
-    if (nDuration <= 0) and (sUnits ~= "") then
+    if (nDuration <= 0) and (sUnits ~= "") and (sUnits ~= "sec+") then
         expireEffect(nodeActor, nodeEffect, 0);
     end
 
@@ -327,7 +331,8 @@ function processEOTEffects(nodeActor)
     
     -- Skip if new effect
     if (nStatus ~= 0) then
-      if (nDuration > 0) then
+      if (nDuration > 0) or (sUnits == "sec+") then
+        -- Convert minutes to seconds
         if sUnits == "min" then
           sUnits = "sec";
           nDuration = nDuration * 60;
@@ -337,12 +342,17 @@ function processEOTEffects(nodeActor)
         -- Decrement effect and check for expiration
         if (sUnits == "") or (sUnits == "sec") then
           nDuration = nDuration - 1;
-  
           if (nDuration <= 0) then
             expireEffect(nodeActor, nodeEffect, 0);
           else
             DB.setValue(nodeEffect, "duration", "number", nDuration);
           end
+        end
+
+        -- Increment effect
+        if (sUnits == "sec+") then
+          nDuration = nDuration + 1;
+          DB.setValue(nodeEffect, "duration", "number", nDuration);
         end
       elseif (sUnits ~= "") then
           expireEffect(nodeActor, nodeEffect, 0);
