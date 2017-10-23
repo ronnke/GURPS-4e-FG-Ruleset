@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<template name="image_record">
+		<image_record_step>
+			<bounds>21,93,-27,-29</bounds>
+			<script file="campaign/scripts/image_GURPS4e.lua" />
+		</image_record_step>
+	</template>
+
+	<windowclass name="imagewindow_toolbar" merge="join">
+		<script>
+			function onInit()
+				super.update();
+				update();
+			end 
+			
+			function update()
+				super.update();
+				local bHasGrid = parentcontrol.window.image.hasGrid();
+
+				if User.isHost() then
+					hMapScale.setVisible(bHasGrid);
+					toolbar_mapscale.setVisible(bHasGrid);
+					
+					local bShowScale = false;
+					if toolbar_mapscale.getValue() > 0 and bHasGrid then
+						bShowScale = true;
+					end
+					
+					mapscale.setVisible(bShowScale);
+					scaleunits.setVisible(bShowScale);
+					range.setVisible(bShowScale);
+				end
+			end
+		</script>
+		<sheetdata>
+			<genericcontrol name="hMapScale">
+				<anchored to="toolbar_anchor" width="5" height="34">
+					<top />
+					<left anchor="right" relation="relative" />
+				</anchored>
+				<invisible />
+			</genericcontrol>
+			<buttoncontrol name="toolbar_mapscale">
+				<anchored to="toolbar_anchor" width="34" height="34">
+					<top />
+					<left anchor="right" relation="relative" />
+				</anchored>
+				<state icon="tool_mapscale_30" color="60A0A0A0" />
+				<state icon="tool_mapscale_30" />
+				<frame name="toolbar_30" />
+				<tooltip textres="image_tooltip_mapscale" />
+				<invisible />
+				<script>
+					function onButtonPress(id)
+						local bShowScale = false;
+						if getValue() > 0 then
+							bShowScale = true;
+						end
+						
+						window.mapscale.setVisible(bShowScale);
+						window.scaleunits.setVisible(bShowScale);
+						window.range.setVisible(bShowScale);
+					end
+				</script>
+			</buttoncontrol>
+			<basicnumber name="mapscale">
+				<anchored to="toolbar_anchor" width="50" height="20">
+					<top offset="7"/>
+					<left anchor="right" relation="relative" offset="10" />
+				</anchored>
+				<gmeditonly />
+				<tooltip textres="image_tooltip_mapscale" />
+				<default>1</default>
+				<min>0</min>
+				<nodrag />
+				<center/>
+				<invisible />
+			</basicnumber>
+			<button_stringcycler name="scaleunits">
+				<anchored to="toolbar_anchor" width="80" height="20">
+					<top offset="7"/>
+					<left anchor="right" relation="relative" offset="10" />
+				</anchored>
+				<gmeditonly />
+				<parameters>
+					<defaultlabelres>no_units</defaultlabelres>
+					<labelsres>feet|yards|miles|meters|kilometers|au|lightyears|parsecs</labelsres>
+					<values>ft|yd|mi|m|km|AU|ly|pc</values>
+				</parameters>
+				<invisible />
+			</button_stringcycler>
+			<button_stringcycler name="range">
+				<anchored to="toolbar_anchor" width="65" height="20">
+					<top offset="7"/>
+					<left anchor="right" relation="relative" offset="10" />
+				</anchored>
+				<gmeditonly />
+				<parameters>
+					<defaultlabelres>range_off</defaultlabelres>
+					<labelsres>range_on</labelsres>
+					<values>on</values>
+				</parameters>
+				<invisible />
+			</button_stringcycler>
+		</sheetdata>
+	</windowclass>
+
+</root>
+
