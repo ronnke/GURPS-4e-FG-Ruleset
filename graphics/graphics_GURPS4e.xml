@@ -6,6 +6,10 @@
 -->
 
 <root>
+	<!-- Decals -->
+	<icon name="desktopdecal_gurps" file="graphics/decals/desktopdecal_gurps.png"/>
+	<icon name="desktopdecal_dfrpg" file="graphics/decals/desktopdecal_dfrpg.png"/>
+
 	<!-- Buttons -->
 	<icon name="details" file="graphics/buttons/button_details.png" />
 	<icon name="details_down" file="graphics/buttons/button_details_down.png" />
@@ -34,6 +38,9 @@
 
 	<icon name="field_rollable" file="graphics/icons/field_rollable.png" />
 	<icon name="field_modifier" file="graphics/icons/field_modifier.png" />
+
+	<!-- Icons -->
+	<icon name="tool_mapscale_30" file="graphics/toolbar/tool_mapscale_30.png" />
 
 	<!-- Graphics -->
 	<includefile source="graphics/graphics_frames.xml" />

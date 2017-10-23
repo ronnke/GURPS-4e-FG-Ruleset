@@ -34,6 +34,10 @@ function onNameOrTokenUpdated(vNode)
 				wTarget.onRefChanged();
 			end
 		end
+
+    for _,wEffect in pairs(w.effects.getWindows()) do
+      wEffect.target_summary.onTargetsChanged();
+    end
 	end
 end
 
@@ -73,8 +77,10 @@ function toggleVisibility()
 	
   local visibilityon = window.button_global_visibility.getValue();
   for _,v in pairs(getWindows()) do
-    if visibilityon ~= v.tokenvis.getValue() then
-      v.tokenvis.setValue(visibilityon);
+    if v.friendfoe.getStringValue() ~= "friend" then
+      if visibilityon ~= v.tokenvis.getValue() then
+        v.tokenvis.setValue(visibilityon);
+      end
     end
   end
 end
@@ -86,7 +92,9 @@ function toggleTargeting()
 	
 	local targetingon = window.button_global_targeting.getValue();
 	for _,v in pairs(getWindows()) do
-		v.activatetargeting.setValue(targetingon);
+    if targetingon ~= v.activatetargeting.getValue() then
+      v.activatetargeting.setValue(targetingon);
+    end
 	end
 end
 
@@ -97,7 +105,9 @@ function toggleStats()
   
   local statson = window.button_global_stats.getValue();
   for _,v in pairs(getWindows()) do
-    v.activatestats.setValue(statson);
+    if statson ~= v.activatestats.getValue() then
+      v.activatestats.setValue(statson);
+    end
   end
 end
 
@@ -108,7 +118,9 @@ function toggleCombat()
 	
 	local combaton = window.button_global_combat.getValue();
 	for _,v in pairs(getWindows()) do
-		v.activatecombat.setValue(combaton);
+    if combaton ~= v.activatecombat.getValue() then
+      v.activatecombat.setValue(combaton);
+    end
 	end
 end
 
@@ -119,7 +131,9 @@ function toggleEffects()
 	
 	local effectson = window.button_global_effects.getValue();
 	for _,v in pairs(getWindows()) do
-		v.activateeffects.setValue(effectson);
+    if effectson ~= v.activateeffects.getValue() then
+      v.activateeffects.setValue(effectson);
+    end
 	end
 end
 
@@ -138,15 +152,19 @@ end
 
 function onEntrySectionToggle()
 	local anyTargeting = 0;
-	local anySpacing = 0;
+  local anyStats = 0;
+	local anyCombat = 0;
 	local anyEffects = 0;
 
 	for _,v in pairs(getWindows()) do
 		if v.activatetargeting.getValue() == 1 then
 			anyTargeting = 1;
 		end
+    if v.activatestats.getValue() == 1 then
+      anyStats = 1;
+    end
 		if v.activatecombat.getValue() == 1 then
-			anySpacing = 1;
+			anyCombat = 1;
 		end
 		if v.activateeffects.getValue() == 1 then
 			anyEffects = 1;
@@ -155,7 +173,8 @@ function onEntrySectionToggle()
 
 	enableglobaltoggle = false;
 	window.button_global_targeting.setValue(anyTargeting);
-	window.button_global_combat.setValue(anySpacing);
+  window.button_global_stats.setValue(anyStats);
+	window.button_global_combat.setValue(anyCombat);
 	window.button_global_effects.setValue(anyEffects);
 	enableglobaltoggle = true;
 end

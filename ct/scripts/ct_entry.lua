@@ -95,7 +95,7 @@ function delete()
 	-- Delete the database node and close the window
 	node.delete();
 
-	-- Update list information (global subsection toggles)
+	-- Update list information (global subsection toggles, targeting)
 	windowlist.onVisibilityToggle();
 	windowlist.onEntrySectionToggle();
 end
@@ -107,6 +107,13 @@ function onLinkChanged()
 		linkPCFields();
 		name.setLine(false);
 	end
+end
+
+function onHealthChanged()
+  local sColor, sStatus, nStatus = ActorManager2.getStatusColor("ct", getDatabaseNode());
+
+  hps.setColor(sColor);
+  status.setValue(sStatus);
 end
 
 function onSizeModifierChanged()
@@ -123,13 +130,6 @@ function onFactionChanged()
 	else
 		tokenvis.setVisible(true);
 	end
-end
-
-function onHealthChanged()
-  local sColor, sStatus, nStatus = ActorManager2.getStatusColor("ct", getDatabaseNode());
-
-  hps.setColor(sColor);
-  status.setValue(sStatus);
 end
 
 function onVisibilityChanged()
@@ -157,7 +157,6 @@ function linkPCFields()
 
     sizemodifier.setLink(nodeChar.createChild("traits.sizemodifier", "string"), true);
     reach.setLink(nodeChar.createChild("traits.reach", "string"), true);
-
 
     dodge.setLink(nodeChar.createChild("combat.dodge", "number"), true);
     parry.setLink(nodeChar.createChild("combat.parry", "number"), true);
@@ -248,33 +247,29 @@ function setCombatVisible()
   label_dr.setVisible(v);
 	
 	header_meleecombat.setVisible(v and bNPC);
-	meleecombat_iedit.setVisible(v and bNPC);
-	meleecombat_iadd.setVisible(false);
 	meleecombat.setVisible(v and bNPC);
 
   header_rangedcombat.setVisible(v and bNPC);
-  rangedcombat_iedit.setVisible(v and bNPC);
-  rangedcombat_iadd.setVisible(false);
   rangedcombat.setVisible(v and bNPC);
 	
 	frame_combat.setVisible(v);
 end
 
 function setEffectsVisible()
-	local v = false;
-	if activateeffects.getValue() == 1 then
-		v = true;
-	end
-	
-	effecticon.setVisible(v);
-	
-	effects.setVisible(v);
-	effects_iadd.setVisible(v);
-	for _,w in pairs(effects.getWindows()) do
-		w.idelete.setValue(0);
-	end
+  local v = false;
+  if activateeffects.getValue() == 1 then
+    v = true;
+  end
+  
+  effecticon.setVisible(v);
+  
+  effects.setVisible(v);
+  effects_iadd.setVisible(v);
+  for _,w in pairs(effects.getWindows()) do
+    w.idelete.setValue(0);
+  end
 
-	frame_effects.setVisible(v);
+  frame_effects.setVisible(v);
 
-	effect_summary.onEffectsChanged();
+  effect_summary.onEffectsChanged();
 end

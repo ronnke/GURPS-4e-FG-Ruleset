@@ -9,6 +9,8 @@
 	<!-- Common -->
 	
 	<!-- Options -->
+	<string name="option_val_DDCL_gurps">GURPS</string>
+	<string name="option_val_DDCL_dfrpg">DFRPG</string>
 
 	<!-- Combat Tracker -->
 	<string name="ct_label_speed">Speed</string>
@@ -39,6 +41,8 @@
 
 	<string name="ct_tooltip_stats">Stats</string>
 	<string name="ct_tooltip_combat">Combat</string>
+	<string name="ct_tooltip_effectunit">Unit</string>
+
 
 	<!-- Party Sheet -->
 
@@ -182,6 +186,25 @@
 	<string name="effect_label_durunitday">DAY</string>
 	
 	<!-- Skills -->
+
+	<!-- Images -->
+	<string name="image_menu_mapscale">Map Scale</string>
+	<string name="image_tooltip_mapscale">Map Scale</string>
+	<string name="image_tooltip_scaleunits">Scale Units</string>
+
+	<string name="range_on">Range ON</string>
+	<string name="range_off">Range OFF</string>
+
+	<!-- General -->
+	<string name="no_units">- -</string>
+	<string name="feet">Feet</string>
+	<string name="yards">Yards</string>
+	<string name="miles">Miles</string>
+	<string name="meters">Meters</string>
+	<string name="kilometers">Kilometers</string>
+	<string name="au">AU</string>
+	<string name="lightyears">Light Years</string>
+	<string name="parsecs">Parsecs</string>
 
 	<!-- Local Mode -->
 	

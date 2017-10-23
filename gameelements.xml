@@ -10,7 +10,7 @@
 	<distance>
 		<base>1</base>
 		<diagmult>1</diagmult>
-		<suffix>yds</suffix>
+		<suffix>yd</suffix>
 	</distance>
 
 	<imagesettings>

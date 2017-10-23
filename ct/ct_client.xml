@@ -59,41 +59,46 @@
 			<anchor_title_ctbox name="contentanchor" />
 
 			<anchor_ctbox_client_header />
-			<frame_ctbox_client_header />
+			<anchor_ct_label_right />
+
 			<label_ct name="label_name">
-				<anchored to="headeranchor" position="insidetopleft" offset="33,0">
-					<right offset="-180" />
+				<anchored>
+					<left parent="headeranchor" offset="-138" />
+					<top parent="rightanchor" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
 				</anchored>
 				<static textres="ct_label_name" />
 				<center />
 			</label_ct>
+			
 			<label_ct name="label_speed">
-				<anchored to="headeranchor" position="insidetopright" offset="130,0" width="40" />
+				<anchored to="headeranchor" position="insidetopright" offset="152,0" width="40" />
 				<static textres="ct_label_speed" />
 				<center />
 			</label_ct>
-
+	
 			<label_ct name="label_hps">
-				<anchored to="headeranchor" position="insidetopright" offset="80,0" width="40" />
+				<anchored to="headeranchor" position="insidetopright" offset="102,0" width="40" />
 				<static textres="ct_label_hps" />
 				<center />
 			</label_ct>
-
+	
 			<label_ct name="label_fps">
-				<anchored to="headeranchor" position="insidetopright" offset="30,0" width="40" />
+				<anchored to="headeranchor" position="insidetopright" offset="52,0" width="40" />
 				<static textres="ct_label_fps" />
 				<center />
 			</label_ct>
+	
 			<label_ct name="label_status">
-				<anchored to="headeranchor" position="insidetopright" offset="30,0" width="90" />
+				<anchored to="headeranchor" position="insidetopright" offset="52,0" width="90" />
 				<static textres="ct_label_status" />
 				<center />
 			</label_ct>
-
+			
 			<list_ctbox_client />
 			<scrollbar_list />
 			
-			<button_ct_endturn />
+			<button_ct_endturn name="turn_complete" />
 			
 			<label_ct_client_rounds />
 			<number_ct_client_rounds />
@@ -114,40 +119,14 @@
 			<hn name="tokenvis" />
 			<hlink name="link" />
 
-			<genericcontrol name="active_spacer_top">
-				<anchored width="0" height="5">
-					<top />
-					<left />
-				</anchored>
-				<invisible />
-			</genericcontrol>
-			
-			<button_ctentry_client_active name="active">
-				<anchored width="33" height="40">
-					<top parent="active_spacer_top" anchor="bottom" />
-					<left />
-				</anchored>
-			</button_ctentry_client_active>
-			<token_ctentry_client name="token">
-				<anchored width="25" height="25">
-					<top parent="active_spacer_top" anchor="bottom" offset="7" />
-					<left offset="33" />
-				</anchored>
-			</token_ctentry_client>
+			<spacer_clientct_active_top name="active_spacer_top" />
 
-			<genericcontrol name="rightanchor">
-				<anchored width="0" height="0">
-					<top parent="active_spacer_top" anchor="bottom" offset="10" />
-					<right />
-				</anchored>
-				<invisible />
-			</genericcontrol>
-			<button_ctentry_friendfoe name="friendfoe">
-				<anchored to="rightanchor">
-					<top />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-			</button_ctentry_friendfoe>
+			<button_clientct_active name="active" />
+			<token_clientct name="token" />
+
+			<anchor_clientct_right name="rightanchor" />
+			<button_clientct_activateeffects name="activateeffects" />
+			<button_clientct_friendfoe name="friendfoe" />
 
 			<genericcontrol name="healthbase">
 				<anchored to="rightanchor" width="90" height="20">
@@ -192,35 +171,37 @@
 				</script>
 			</number_ct_static>
 
+			<string_clientct_name name="name" />
 
-
-			<stringu name="name">
-				<anchored height="20">
-					<top parent="active_spacer_top" anchor="bottom" offset="10" />
-					<left parent="token" anchor="right" offset="5" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
-				</anchored>
-				<readonly />
-			</stringu>
+			<!-- Effect subsection -->
+			<icon_clientctsection_effect name="effecticon" />
+			<spacer_clientctsection_effect name="effectspacer" />
+			<list_clientct_effect name="effects" />
 
 			<!-- Quick labels -->
 			<string_ctentry_targets name="target_summary" />
 			<string_ctentry_effects name="effect_summary" />
+			<spacer_clientct_middle name="spacer" />
 
-			<genericcontrol name="spacer">
-				<anchored width="0" height="7">
-					<top parent="name" anchor="bottom" relation="relative" />
-					<left />
-				</anchored>
-			</genericcontrol>
+			<spacer_clientct_active_bottom name="active_spacer_bottom" />
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="clientct_effect">
+		<frame>cteffect</frame>
+		<margins control="0,0,0,3" />
+		<script file="ct/scripts/ct_effect.lua" />
+		<sheetdata>
+			<anchor_clientct_effect_left name="leftanchor" />
+			<button_clientct_effect_isactive name="isactive" />
 
-			<genericcontrol name="active_spacer_bottom">
-				<anchored width="0" height="5">
-					<top parent="name" anchor="bottom" relation="relative" />
-					<left />
-				</anchored>
-				<invisible />
-			</genericcontrol>
+			<anchor_clientct_effect_right name="rightanchor" />
+			<button_clientct_effect_idelete name="idelete" />
+			<button_ct_effect_targetadd name="targeting_add_button" />
+
+			<string_clientct_effect name="label" />
+
+			<string_ct_effect_targets name="target_summary" />
 		</sheetdata>
 	</windowclass>
 </root>

@@ -35,38 +35,32 @@
 					end
 				</script>
 			</buttoncontrol>
-			
-			<frame_ctbox_host_header_toggles />
-			
-			<label_ct name="label_name">
+			<label_ct>
 				<anchored to="headeranchor" position="insidetopleft" offset="25,0">
 					<right offset="-268" />
 				</anchored>
 				<static textres="ct_label_name" />
 				<center />
 			</label_ct>
-
 			<label_ct name="label_speed">
 				<anchored to="headeranchor" position="insidetopright" offset="238,0" width="40" />
 				<static textres="ct_label_speed" />
 				<center />
 				<nodrop />
 			</label_ct>
-
 			<label_ct name="label_hps">
 				<anchored to="headeranchor" position="insidetopright" offset="188,0" width="40" />
 				<static textres="ct_label_hps" />
 				<center />
 			</label_ct>
-
 			<label_ct name="label_fps">
 				<anchored to="headeranchor" position="insidetopright" offset="138,0" width="40" />
 				<static textres="ct_label_fps" />
 				<center />
 			</label_ct>
-
+			<frame_ctbox_host_header_toggles />
 			<buttoncontrol name="button_global_targeting">
-				<anchored to="headeranchor" position="insidetopright" offset="83,0" width="20" height="20"/>
+				<anchored to="header_toggles" position="insidetopleft" offset="10,8" width="20" height="20"/>
 				<state icon="button_section_targeting" />
 				<state icon="button_section_targeting_down" />
 				<script>
@@ -76,7 +70,7 @@
 				</script>
 			</buttoncontrol>
 			<buttoncontrol name="button_global_stats">
-				<anchored to="headeranchor" position="insidetopright" offset="63,0" width="20" height="20"/>
+				<anchored to="header_toggles" position="insidetopleft" offset="30,8" width="20" height="20"/>
 				<state icon="stats" />
 				<state icon="stats_down" />
 				<script>
@@ -86,7 +80,7 @@
 				</script>
 			</buttoncontrol>
 			<buttoncontrol name="button_global_combat">
-				<anchored to="headeranchor" position="insidetopright" offset="43,0" width="20" height="20"/>
+				<anchored to="header_toggles" position="insidetopleft" offset="50,8" width="20" height="20"/>
 				<state icon="combat" />
 				<state icon="combat_down" />
 				<script>
@@ -96,7 +90,7 @@
 				</script>
 			</buttoncontrol>
 			<buttoncontrol name="button_global_effects">
-				<anchored to="headeranchor" position="insidetopright" offset="23,0" width="20" height="20"/>
+				<anchored to="header_toggles" position="insidetopleft" offset="70,8" width="20" height="20"/>
 				<state icon="button_effect" />
 				<state icon="button_effect_down" />
 				<script>
@@ -319,7 +313,6 @@
 			<icon_ctsection name="targetingicon">
 				<icon>button_section_targeting_down</icon>
 			</icon_ctsection>
-			
 			<subwindow name="sub_targeting">
 				<anchored>
 					<top parent="name" anchor="bottom" relation="relative" offset="10" />
@@ -575,14 +568,6 @@
 				<static textres="npc_label_melee" />
 				<color>#808080</color>
 			</header_column>
-			<button_iedit name="meleecombat_iedit">
-				<anchored to="header_meleecombat" position="righthigh" offset="-15,0" />
-				<target>meleecombat</target>
-			</button_iedit>
-			<button_iadd name="meleecombat_iadd">
-				<anchored to="meleecombat_iedit" position="lefthigh" offset="5,0" />
-				<target>meleecombat</target>
-			</button_iadd>
 			<list_ctmeleecombat name="meleecombat">
 				<anchored>
 					<top parent="name" anchor="bottom" relation="relative" offset="3" />
@@ -601,14 +586,6 @@
 				<static textres="npc_label_ranged" />
 				<color>#808080</color>
 			</header_column>
-			<button_iedit name="rangedcombat_iedit">
-				<anchored to="header_rangedcombat" position="righthigh" offset="-15,0" />
-				<target>rangedcombat</target>
-			</button_iedit>
-			<button_iadd name="rangedcombat_iadd">
-				<anchored to="rangedcombat_iedit" position="lefthigh" offset="5,0" />
-				<target>rangedcombat</target>
-			</button_iadd>
 			<list_npcrangedcombat name="rangedcombat">
 				<anchored>
 					<top parent="name" anchor="bottom" relation="relative" offset="3" />
@@ -709,9 +686,6 @@
 				modes_level_label.setVisible(v);
 				modes_label.setVisible(v);
 				modeslist.setVisible(v);
-				modeslist_iedit.setVisible(v)
-				modeslist_ispacer.setVisible(v and modeslist_iedit.getValue() == 1);
-				modeslist_iadd.setVisible(v and modeslist_iedit.getValue() == 1)
 				frame_modes.setVisible(v);
 			end
 			
@@ -724,8 +698,6 @@
 				modifiersicon.setVisible(v);
 				modifiers_label.setVisible(v);
 				modifierslist.setVisible(v);
-				modifierslist_iedit.setVisible(v)
-				modifierslist_iadd.setVisible(v and modifierslist_iedit.getValue() == 1)
 				frame_modifiers.setVisible(v);
 			end
 		</script>
@@ -745,13 +717,6 @@
 				</anchored>
 				<invisible />
 			</genericcontrol>
-			<button_idelete name="idelete">
-				<anchored>
-					<top offset="2" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
-				</anchored>
-				<invisible merge="delete" />
-			</button_idelete>
 
 			<string_charfield name="weight">
 				<anchored to="rightanchor" width="40" height="20">
@@ -823,16 +788,10 @@
 				<icon>weapon_modes_down</icon>
 			</icon_detailsection>
 
-			<label_columntop name="modeslist_ispacer">
-				<anchored to="modesicon" width="20" height="20" offset="-10">
-					<top />
-					<right parent="bottomanchor" anchor="left" relation="relative" offset="-5" />
-				</anchored>
-			</label_columntop>
 			<label_columntop name="modes_parry_label">
-				<anchored to="modesicon" width="30">
+				<anchored to="modesicon" width="30" offset="-30">
 					<top />
-					<right parent="bottomanchor" anchor="left" relation="relative" offset="-20" />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-15" />
 				</anchored>
 				<static textres="char_label_parry" />
 			</label_columntop>
@@ -876,22 +835,12 @@
 				<noscroll />
 			</list_charmeleemode>
  
-  			<button_iedit name="modeslist_iedit">
-				<anchored to="modeslist" position="belowright" offset="5,2" />
-				<target>modeslist</target>
-			</button_iedit>
-			<button_iadd name="modeslist_iadd">
-				<anchored to="modeslist_iedit" position="lefthigh" offset="5,0" />
-				<target>modeslist</target>
-				<invisible />
-			</button_iadd>
- 
 			<frame_detailsub name="frame_modes">
 				<anchored to="bottomanchor">
 					<top anchor="bottom" relation="relative" offset="5" />
 					<right parent="modeslist" anchor="right" offset="10" />
 					<left parent="modeslist" anchor="left" offset="-10" />
-					<bottom parent="modeslist_iedit" />
+					<bottom parent="modeslist" />
 				</anchored>
 			</frame_detailsub>
 		
@@ -920,22 +869,12 @@
 				<noscroll />
 			</list_charmodifier>
  
-  			<button_iedit name="modifierslist_iedit">
-				<anchored to="modifierslist" position="belowright" offset="5,2" />
-				<target>modifierslist</target>
-			</button_iedit>
-			<button_iadd name="modifierslist_iadd">
-				<anchored to="modifierslist_iedit" position="lefthigh" offset="5,0" />
-				<target>modifierslist</target>
-				<invisible />
-			</button_iadd>
-
 			<frame_detailsub name="frame_modifiers">
 				<anchored to="bottomanchor">
 					<top anchor="bottom" relation="relative" offset="5" />
 					<right parent="modifierslist" anchor="right" offset="10" />
 					<left parent="modifierslist" anchor="left" offset="-10" />
-					<bottom parent="modifierslist_iedit" />
+					<bottom parent="modifierslist" />
 				</anchored>
 			</frame_detailsub>
 			
@@ -953,19 +892,12 @@
 				</anchored>
 				<invisible />
 			</genericcontrol>
-			<button_idelete name="idelete">
-				<anchored>
-					<top offset="2" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
-				</anchored>
-				<invisible merge="delete" />
-			</button_idelete>
 			
 			<string_chardefensefield name="parry">
 				<rollable_weaponparry />
 				<anchored to="rightanchor" width="30" height="20">
 					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-10" />
+					<right anchor="left" relation="relative" offset="-5" />
 				</anchored>
 				<tabtarget prev="reach" />
 			</string_chardefensefield>
@@ -1030,9 +962,6 @@
 				modes_level_label.setVisible(v);
 				modes_label.setVisible(v);
 				modeslist.setVisible(v);
-				modeslist_iedit.setVisible(v)
-				modeslist_ispacer.setVisible(v and modeslist_iedit.getValue() == 1);
-				modeslist_iadd.setVisible(v and modeslist_iedit.getValue() == 1)
 				frame_modes.setVisible(v);
 
 			end
@@ -1046,8 +975,6 @@
 				modifiersicon.setVisible(v);
 				modifiers_label.setVisible(v);
 				modifierslist.setVisible(v);
-				modifierslist_iedit.setVisible(v)
-				modifierslist_iadd.setVisible(v and modifierslist_iedit.getValue() == 1)
 				frame_modifiers.setVisible(v);
 			end
 		</script>
@@ -1066,13 +993,6 @@
 				</anchored>
 				<invisible />
 			</genericcontrol>
-			<button_idelete name="idelete">
-				<anchored>
-					<top offset="2" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
-				</anchored>
-				<invisible merge="delete" />
-			</button_idelete>
 
 			<number_charmodfield name="bulk">
 				<anchored to="rightanchor" width="30" height="20">
@@ -1091,12 +1011,6 @@
 				</script>
 			</number_charmodfield>
 			
-			<label_columntop name="modeslist_ispacer">
-				<anchored to="rightanchor" width="20" height="20" offset="-10">
-					<top offset="2" />
-					<right parent="bottomanchor" anchor="left" relation="relative" offset="-5" />
-				</anchored>
-			</label_columntop>
 			<label name="label_bulk">
 				<anchored to="rightanchor" width="30" height="20">
 					<top offset="2" />
@@ -1163,7 +1077,7 @@
 			<label_columntop name="modes_rcl_label">
 				<anchored to="modesicon" width="20">
 					<top />
-					<right parent="bottomanchor" anchor="left" relation="relative" offset="-20" />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-15" />
 				</anchored>
 				<static textres="char_label_rcl" />
 			</label_columntop>
@@ -1228,22 +1142,12 @@
 				<noscroll />
 			</list_charrangedmode>
  
-  			<button_iedit name="modeslist_iedit">
-				<anchored to="modeslist" position="belowright" offset="5,2" />
-				<target>modeslist</target>
-			</button_iedit>
-			<button_iadd name="modeslist_iadd">
-				<anchored to="modeslist_iedit" position="lefthigh" offset="5,0" />
-				<target>modeslist</target>
-				<invisible />
-			</button_iadd>
- 
 			<frame_detailsub name="frame_modes">
 				<anchored to="bottomanchor">
 					<top anchor="bottom" relation="relative" offset="5" />
 					<right parent="modeslist" anchor="right" offset="10" />
 					<left parent="modeslist" anchor="left" offset="-10" />
-					<bottom parent="modeslist_iedit" />
+					<bottom parent="modeslist" />
 				</anchored>
 			</frame_detailsub>
 		
@@ -1272,22 +1176,12 @@
 				<noscroll />
 			</list_charmodifier>
  
-  			<button_iedit name="modifierslist_iedit">
-				<anchored to="modifierslist" position="belowright" offset="5,2" />
-				<target>modifierslist</target>
-			</button_iedit>
-			<button_iadd name="modifierslist_iadd">
-				<anchored to="modifierslist_iedit" position="lefthigh" offset="5,0" />
-				<target>modifierslist</target>
-				<invisible />
-			</button_iadd>
-
 			<frame_detailsub name="frame_modifiers">
 				<anchored to="bottomanchor">
 					<top anchor="bottom" relation="relative" offset="5" />
 					<right parent="modifierslist" anchor="right" offset="10" />
 					<left parent="modifierslist" anchor="left" offset="-10" />
-					<bottom parent="modifierslist_iedit" />
+					<bottom parent="modifierslist" />
 				</anchored>
 			</frame_detailsub>
 			
@@ -1305,18 +1199,11 @@
 				</anchored>
 				<invisible />
 			</genericcontrol>
-			<button_idelete name="idelete">
-				<anchored>
-					<top offset="2" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
-				</anchored>
-				<invisible merge="delete" />
-			</button_idelete>
 			
 			<number_charfield name="rcl">
 				<anchored to="rightanchor" width="20" height="20">
 					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-10" />
+					<right anchor="left" relation="relative" offset="-5" />
 				</anchored>
 				<tabtarget prev="shots" />
 			</number_charfield>
@@ -1391,72 +1278,23 @@
 		<margins control="0,0,0,2" />
 		<script file="ct/scripts/ct_effect.lua" />
 		<sheetdata>
-			<genericcontrol name="base">
-				<bounds>0,0,-1,-1</bounds>
-				<script>
-					function onDragStart(button, x, y, draginfo)
-						return window.onDragStart(button, x, y, draginfo);
-					end
-
-					function onDrop(x, y, draginfo)
-						return window.onDrop(x, y, draginfo);
-					end
-				</script>
-			</genericcontrol>
-
-			<buttonfield name="isgmonly">
-				<bounds>2,7,24,10</bounds>
-				<state icon="button_toggle_visible" tooltipres="visibilityon" />
-				<state icon="button_toggle_gm" tooltipres="visibilityoff" />
-			</buttonfield>
+			<base_ct_effect name="base" />
 			
-			<genericcontrol name="rightanchor">
-				<anchored height="0" width="0">
-					<top />
-					<right />
-				</anchored>
-			</genericcontrol>
-			<button_idelete name="idelete">
-				<anchored>
-					<top offset="2" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-2" />
-				</anchored>
-				<tooltip textres="ct_tooltip_effectdelete" />
-				<invisible merge="delete" />
-			</button_idelete>
+			<anchor_ct_effect_left name="leftanchor" />
+			<button_ct_effect_isactive name="isactive" />
+			<button_ct_effect_isgmonly name="isgmonly" />
+			
+			<anchor_ct_effect_right name="rightanchor" />
+			<button_ct_effect_idelete name="idelete" />
+			<button_ct_effect_targetadd name="targeting_add_button" />
+			<number_ct_effect_units name="units" />
+			<number_ct_effect_duration name="duration" />
 
-			<button_stringcycler name="units">
-				<anchored width="30">
-					<top offset="2" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<gmeditonly />
-				<parameters>
-					<labelsres>effect_label_durunitsec+|effect_label_durunitsec|effect_label_durunitmin|effect_label_durunithr|effect_label_durunitday</labelsres>
-					<values>sec+|sec|min|hr|day</values>
-				</parameters>
-				<script>
-					function onDragStart(button, x, y, draginfo)
-						return window.actionDrag(draginfo);
-					end
-				</script>
-			</button_stringcycler>
-			<basicnumber name="duration">
-				<anchored width="30" height="20">
-					<top offset="2" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<min>0</min>
-				<hideonvalue>0</hideonvalue>
-				<tooltip textres="ct_tooltip_effectdur" />
-			</basicnumber>
+			<string_ct_effect name="label" />
 
-			<string_ct_effect name="label">
-				<anchored position="insidetopleft" offset="31,2">
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
-				</anchored>
-				<multilinespacing>20</multilinespacing>
-			</string_ct_effect>
+			<hs_ct_effect_source name="source_name" />
+			<string_ct_effect_source name="source" />
+			<string_ct_effect_targets name="target_summary" />
 		</sheetdata>
 	</windowclass>
 

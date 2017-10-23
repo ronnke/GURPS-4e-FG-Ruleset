@@ -50,26 +50,6 @@ function updateDisplay()
   end
 end
 
-function onActiveChanged()
-  updateDisplay();
-end
-
-function onFactionChanged()
-  updateHealthDisplay();
-  updateDisplay();
-end
-
-function onTypeChanged()
-  updateHealthDisplay();
-end
-
-function onHealthChanged()
-  local sColor = ActorManager2.getStatusColor("ct", getDatabaseNode());
-
-  hps.setColor(sColor);
-  status.setColor(sColor);
-end
-
 function updateHealthDisplay()
   local sOption;
   if friendfoe.getStringValue() == "friend" then
@@ -94,4 +74,26 @@ function updateHealthDisplay()
 
     status.setVisible(false);
   end
+end
+
+function onActiveChanged()
+  updateDisplay();
+  updateHealthDisplay();
+end
+
+function onFactionChanged()
+  updateDisplay();
+  updateHealthDisplay();
+end
+
+function onTypeChanged()
+  updateDisplay();
+  updateHealthDisplay();
+end
+
+function onHealthChanged()
+  local sColor = ActorManager2.getStatusColor("ct", getDatabaseNode());
+
+  hps.setColor(sColor);
+  status.setColor(sColor);
 end
