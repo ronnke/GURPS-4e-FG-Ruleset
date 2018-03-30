@@ -24,7 +24,7 @@ function onAddItemToCombat(nodeChar, nodeItem)
     
     local nodeDefenses = DB.createChild(nodeDefensesList);
     DB.setValue(nodeDefenses, "name", "string", DB.getValue(nodeItem,"name",""));
-    DB.setValue(nodeDefenses, "db", "number", DB.getValue(nodeItem,"db",0));
+    DB.setValue(nodeDefenses, "db", "number", tonumber(DB.getValue(nodeItem,"db","0")));
     DB.setValue(nodeDefenses, "dr", "string", DB.getValue(nodeItem,"dr",""));
     DB.setValue(nodeDefenses, "locations", "string", DB.getValue(nodeItem,"locations",""));
     DB.setValue(nodeDefenses, "text", "formattedtext", DB.getValue(nodeItem,"notes",""));
@@ -62,7 +62,7 @@ function onAddItemToCombat(nodeChar, nodeItem)
     local nodeRangedWeapon = DB.createChild(nodeRangedCombatList);
     DB.setValue(nodeRangedWeapon, "name", "string", DB.getValue(nodeItem,"name",""));
     DB.setValue(nodeRangedWeapon, "st", "string", DB.getValue(nodeItem,"st",""));
-    DB.setValue(nodeRangedWeapon, "bulk", "number", DB.getValue(nodeItem,"bulk",0));
+    DB.setValue(nodeRangedWeapon, "bulk", "number", tonumber(DB.getValue(nodeItem,"bulk","0")));
     DB.setValue(nodeRangedWeapon, "lc", "string", DB.getValue(nodeItem,"lc",""));
     DB.setValue(nodeRangedWeapon, "tl", "string", DB.getValue(nodeItem,"tl",""));
     DB.setValue(nodeRangedWeapon, "text", "formattedtext", DB.getValue(nodeItem,"notes",""));
@@ -72,11 +72,11 @@ function onAddItemToCombat(nodeChar, nodeItem)
     DB.setValue(nodeMode, "name", "string", "");
     DB.setValue(nodeMode, "lvl", "number", 0);
     DB.setValue(nodeMode, "damage", "string", DB.getValue(nodeItem,"damage",""));
-    DB.setValue(nodeMode, "acc", "number", DB.getValue(nodeItem,"acc",0));
+    DB.setValue(nodeMode, "acc", "number", tonumber(DB.getValue(nodeItem,"acc","0")));
     DB.setValue(nodeMode, "range", "string", DB.getValue(nodeItem,"range",""));
     DB.setValue(nodeMode, "rof", "string", DB.getValue(nodeItem,"rof",""));
     DB.setValue(nodeMode, "shots", "string", DB.getValue(nodeItem,"shots",""));
-    DB.setValue(nodeMode, "rcl", "number", DB.getValue(nodeItem,"rcl",0));
+    DB.setValue(nodeMode, "rcl", "number", tonumber(DB.getValue(nodeItem,"rcl","0")));
   end
 end
 
