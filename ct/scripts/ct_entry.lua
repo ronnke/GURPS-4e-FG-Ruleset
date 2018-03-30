@@ -254,11 +254,14 @@ function setCombatVisible()
   dr.setVisible(v);
   label_dr.setVisible(v);
 	
-	header_meleecombat.setVisible(v and bNPC);
-	meleecombat.setVisible(v and bNPC);
+	local nodeChar = getDatabaseNode();
+	local bShowMelee = ActorManager2.hasMeleeWeapons(nodeChar)
+	header_meleecombat.setVisible(v and bNPC and bShowMelee);
+	meleecombat.setVisible(v and bNPC and bShowMelee);
 
-  header_rangedcombat.setVisible(v and bNPC);
-  rangedcombat.setVisible(v and bNPC);
+  local bShowRanged = ActorManager2.hasRangedWeapons(nodeChar)
+  header_rangedcombat.setVisible(v and bNPC and bShowRanged);
+  rangedcombat.setVisible(v and bNPC and bShowRanged);
 	
 	frame_combat.setVisible(v);
 end

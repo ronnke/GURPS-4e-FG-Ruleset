@@ -57,3 +57,21 @@ function getStatusColor(sNodeType, node)
 
 	return sColor, sStatus, nStatus;
 end
+
+function hasMeleeWeapons(node)
+  local nCount = DB.getChildCount(node, "combat.meleecombatlist")
+  if nCount > 0 then
+    return true;
+  end
+  
+  return false
+end
+
+function hasRangedWeapons(node)
+  local nCount = DB.getChildCount(node, "combat.rangedcombatlist")
+  if nCount > 0 then
+    return true;
+  end
+  
+  return false
+end
