@@ -7,6 +7,21 @@
 
 <root>
 	<windowclass name="charsheet_meleecombat">
+		<script>
+			function onDrop(x, y, draginfo)
+				if draginfo.isType("shortcut") then
+					local nodeItem = draginfo.getDatabaseNode();
+				    local nodeNPC = getDatabaseNode();
+				
+				    local bMeleeWeapon = LibraryDataGURPS4e.isMeleeWeapon(nodeItem);
+			
+					if bMeleeWeapon then
+						ItemManager2.onAddItemToCombat(nodeNPC, nodeItem)
+					end
+					return true;
+				end
+			end
+		</script>
 		<sheetdata>
 
 			<frame_char name="meleecombatframe">
@@ -361,7 +376,7 @@
 					<left parent="modifiersicon" anchor="right" offset="10" />
 					<right parent="bottomanchor" anchor="left" offset="-10" />
 				</anchored>
-				<class>char_modifier</class>
+				<class>basic_modifier</class>
 				<noscroll />
 			</list_charmodifier>
  

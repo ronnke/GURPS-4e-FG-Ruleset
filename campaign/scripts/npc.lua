@@ -23,6 +23,12 @@ function StateChanged()
   if main.subwindow then
     main.subwindow.update();
   end
+  if combat.subwindow then
+    combat.subwindow.update();
+  end
+  if abilities.subwindow then
+    abilities.subwindow.update();
+  end
 
 	local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
 	notes.setReadOnly(bReadOnly);

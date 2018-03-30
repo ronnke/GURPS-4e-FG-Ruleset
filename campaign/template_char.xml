@@ -482,10 +482,10 @@
 		</list_text>
 	</template>
 
-	<template name="list_charprotection">
+	<template name="list_chardefenses">
 		<list_text>
-			<datasource>.combat.protectionlist</datasource>
-			<class>char_protection</class>
+			<datasource>.combat.defenseslist</datasource>
+			<class>char_defenses</class>
 			<sortby><control>name</control></sortby>
 			<newfocus>name</newfocus>
 		</list_text>
@@ -545,7 +545,7 @@
 	<template name="list_charmodifier">
 		<list_text>
 			<datasource>.modifierlist</datasource>
-			<class>char_modifier</class>
+			<class>basic_modifier</class>
 			<sortby><control>name</control></sortby>
 			<newfocus>name</newfocus>
 		</list_text>

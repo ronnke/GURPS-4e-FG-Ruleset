@@ -125,9 +125,9 @@
 				<class>charsheet_rangedcombat</class>
 			</subwindow>
 
-			<subwindow name="protection">
+			<subwindow name="defenses">
 				<bounds>0,90,-1,-2</bounds>
-				<class>charsheet_protection</class>
+				<class>charsheet_defenses</class>
 			</subwindow>
 
 			<tabs_charcombat>
@@ -140,8 +140,8 @@
 					<subwindow>rangedcombat</subwindow>
 				</tab>
 				<tab>
-					<icon>tab_protection</icon>
-					<subwindow>protection</subwindow>
+					<icon>tab_defenses</icon>
+					<subwindow>defenses</subwindow>
 				</tab>
 				<activate>1</activate>
 			</tabs_charcombat>

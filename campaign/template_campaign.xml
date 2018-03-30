@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<template name="button_item_defenses">
+		<button_text_sm>
+			<anchored to="buttonanchor" width="80">
+				<top />
+				<left anchor="right" relation="relative" offset="5" />
+			</anchored>
+			<state textres="item_button_defenses" />
+			<script>
+				function onButtonPress()
+					local w = Interface.findWindow("reference_groupedlist", "reference.defense");
+					if w then
+						Interface.toggleWindow("reference_groupedlist", "reference.defense");
+					else
+						w = Interface.openWindow("reference_groupedlist", "reference.defense");
+						w.init({ sRecordType = "item", sListView = "defense" });
+					end
+				end
+			</script>
+		</button_text_sm>
+	</template>
+	<template name="button_item_meleeweapons">
+		<button_text_sm>
+			<anchored to="buttonanchor" width="120">
+				<top />
+				<left anchor="right" relation="relative" offset="5" />
+			</anchored>
+			<state textres="item_button_meleeweapons" />
+			<script>
+				function onButtonPress()
+					local w = Interface.findWindow("reference_groupedlist", "reference.meleeweapon");
+					if w then
+						Interface.toggleWindow("reference_groupedlist", "reference.meleeweapon");
+					else
+						w = Interface.openWindow("reference_groupedlist", "reference.meleeweapon");
+						w.init({ sRecordType = "item", sListView = "meleeweapon" });
+					end
+				end
+			</script>
+		</button_text_sm>
+	</template>
+	<template name="button_item_rangedweapons">
+		<button_text_sm>
+			<anchored to="buttonanchor" width="120">
+				<top />
+				<left anchor="right" relation="relative" offset="5" />
+			</anchored>
+			<state textres="item_button_rangedweapons" />
+			<script>
+				function onButtonPress()
+					local w = Interface.findWindow("reference_groupedlist", "reference.rangedweapon");
+					if w then
+						Interface.toggleWindow("reference_groupedlist", "reference.rangedweapon");
+					else
+						w = Interface.openWindow("reference_groupedlist", "reference.rangedweapon");
+						w.init({ sRecordType = "item", sListView = "rangedweapon" });
+					end
+				end
+			</script>
+		</button_text_sm>
+	</template>
+	<template name="button_npc_letter">
+		<button_text_sm>
+			<anchored to="buttonanchor" width="80">
+				<top />
+				<left anchor="right" relation="relative" offset="5" />
+			</anchored>
+			<state textres="npc_button_letter" />
+			<script>
+				function onButtonPress()
+					local w = Interface.findWindow("reference_groupedlist", "reference.npcbyletter");
+					if w then
+						Interface.toggleWindow("reference_groupedlist", "reference.npcbyletter");
+					else
+						w = Interface.openWindow("reference_groupedlist", "reference.npcbyletter");
+						w.init({ sRecordType = "npc", sListView = "byletter" });
+					end
+				end
+			</script>
+		</button_text_sm>
+	</template>
+	<template name="button_npc_type">
+		<button_text_sm>
+			<anchored to="buttonanchor" width="80">
+				<top />
+				<left anchor="right" relation="relative" offset="5" />
+			</anchored>
+			<state textres="npc_button_type" />
+			<script>
+				function onButtonPress()
+					local w = Interface.findWindow("reference_groupedlist", "reference.npcbytype");
+					if w then
+						Interface.toggleWindow("reference_groupedlist", "reference.npcbytype");
+					else
+						w = Interface.openWindow("reference_groupedlist", "reference.npcbytype");
+						w.init({ sRecordType = "npc", sListView = "bytype" });
+					end
+				end
+			</script>
+		</button_text_sm>
+	</template>
+	<template name="button_vehicle_groundvehicle">
+		<button_text_sm>
+			<anchored to="buttonanchor" width="100">
+				<top />
+				<left anchor="right" relation="relative" offset="5" />
+			</anchored>
+			<state textres="vehicle_button_groundvehicle" />
+			<script>
+				function onButtonPress()
+					local w = Interface.findWindow("reference_groupedlist", "reference.groundvehicle");
+					if w then
+						Interface.toggleWindow("reference_groupedlist", "reference.groundvehicle");
+					else
+						w = Interface.openWindow("reference_groupedlist", "reference.groundvehicle");
+						w.init({ sRecordType = "vehicle", sListView = "groundvehicle" });
+					end
+				end
+			</script>
+		</button_text_sm>
+	</template>
+	<template name="button_vehicle_watercraft">
+		<button_text_sm>
+			<anchored to="buttonanchor" width="80">
+				<top />
+				<left anchor="right" relation="relative" offset="5" />
+			</anchored>
+			<state textres="vehicle_button_watercraft" />
+			<script>
+				function onButtonPress()
+					local w = Interface.findWindow("reference_groupedlist", "reference.watercraft");
+					if w then
+						Interface.toggleWindow("reference_groupedlist", "reference.watercraft");
+					else
+						w = Interface.openWindow("reference_groupedlist", "reference.watercraft");
+						w.init({ sRecordType = "vehicle", sListView = "watercraft" });
+					end
+				end
+			</script>
+		</button_text_sm>
+	</template>
+	<template name="button_vehicle_aircraft">
+		<button_text_sm>
+			<anchored to="buttonanchor" width="80">
+				<top />
+				<left anchor="right" relation="relative" offset="5" />
+			</anchored>
+			<state textres="vehicle_button_aircraft" />
+			<script>
+				function onButtonPress()
+					local w = Interface.findWindow("reference_groupedlist", "reference.aircraft");
+					if w then
+						Interface.toggleWindow("reference_groupedlist", "reference.aircraft");
+					else
+						w = Interface.openWindow("reference_groupedlist", "reference.aircraft");
+						w.init({ sRecordType = "vehicle", sListView = "aircraft" });
+					end
+				end
+			</script>
+		</button_text_sm>
+	</template>
+	<template name="button_vehicle_spacecraft">
+		<button_text_sm>
+			<anchored to="buttonanchor" width="80">
+				<top />
+				<left anchor="right" relation="relative" offset="5" />
+			</anchored>
+			<state textres="vehicle_button_spacecraft" />
+			<script>
+				function onButtonPress()
+					local w = Interface.findWindow("reference_groupedlist", "reference.spacecraft");
+					if w then
+						Interface.toggleWindow("reference_groupedlist", "reference.spacecraft");
+					else
+						w = Interface.openWindow("reference_groupedlist", "reference.spacecraft");
+						w.init({ sRecordType = "vehicle", sListView = "spacecraft" });
+					end
+				end
+			</script>
+		</button_text_sm>
+	</template>
+</root>

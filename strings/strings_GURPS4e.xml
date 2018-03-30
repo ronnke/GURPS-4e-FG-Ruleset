@@ -7,7 +7,7 @@
 
 <root>
 	<!-- Common -->
-	
+
 	<!-- Options -->
 	<string name="option_val_DDCL_gurps">GURPS</string>
 	<string name="option_val_DDCL_dfrpg">DFRPG</string>
@@ -39,6 +39,7 @@
 	<string name="ct_label_weight">Weight</string>
 	<string name="ct_label_bulk">Bulk</string>
 
+	<string name="ct_tooltip_skip">Skip</string>
 	<string name="ct_tooltip_stats">Stats</string>
 	<string name="ct_tooltip_combat">Combat</string>
 	<string name="ct_tooltip_effectunit">Unit</string>
@@ -85,7 +86,6 @@
 	<string name="char_label_defenses">DEFENSES</string>
 	<string name="char_label_meleecombat">MELEE COMBAT</string>
 	<string name="char_label_rangedcombat">RANGED COMBAT</string>
-	<string name="char_label_protection">PROTECTION</string>
 
 	<string name="char_label_dodge">Dodge</string>
 	<string name="char_label_parry">Parry</string>
@@ -149,6 +149,11 @@
 
 	
 	<!-- NPCs -->
+	<string name="npc_button_letter">By Letter</string>
+	<string name="npc_button_type">By Type</string>
+
+	<string name="npc_label_type">Type</string>
+	<string name="npc_label_pts">Points</string>
 	<string name="npc_label_basicspeed">Basic Speed</string>
 	<string name="npc_label_move">Move</string>
 	<string name="npc_label_sizemodifier">SM</string>
@@ -166,9 +171,137 @@
 	<string name="npc_label_weight">Weight</string>
 	<string name="npc_label_bulk">Bulk</string>
 	
+	<string name="npc_grouped_title_byletter">NPCs By Letter</string>
+	<string name="npc_grouped_title_bytype">NPCs By Type</string>
+	<string name="npc_grouped_label_name">Name</string>
+	<string name="npc_grouped_label_pts">Pts</string>
+	
+	<string name="npc_grouped_tooltip_pts">Points</string>
+	
 	<!-- Encounters -->
 	
 	<!-- Items -->
+	<string name="item_button_defenses">Defenses</string>
+	<string name="item_button_meleeweapons">Melee Weapons</string>
+	<string name="item_button_rangedweapons">Ranged Weapons</string>
+
+	<string name="item_label_type">Type</string>
+	<string name="item_label_subtype">Subtype</string>
+
+	<string name="item_label_tl">Tech Level</string>
+	<string name="item_label_lc">Legality Class</string>
+	<string name="item_label_cost">Cost</string>
+	<string name="item_label_weight">Weight</string>
+	<string name="item_label_notes">Notes</string>
+
+	<string name="item_label_locations">Locations</string>
+	<string name="item_label_db">DB</string>
+	<string name="item_label_dr">DR</string>
+	<string name="item_label_don">Don</string>
+
+	<string name="item_label_damage">Damage</string>
+	<string name="item_label_reach">Reach</string>
+	<string name="item_label_parry">Parry</string>
+	<string name="item_label_st">Minimum ST</string>
+	<string name="item_label_acc">Accuracy</string>
+	<string name="item_label_range">Range</string>
+	<string name="item_label_rof">Rate of Fire</string>
+	<string name="item_label_shots">Shots</string>
+	<string name="item_label_bulk">Bulk Penalty</string>
+	<string name="item_label_rcl">Recoil Modifier</string>
+	
+	<string name="item_grouped_title_defenses">Defenses</string>
+	<string name="item_grouped_title_meleeweapons">Melee Weapons</string>
+	<string name="item_grouped_title_rangedweapons">Ranged Weapons</string>
+	
+	<string name="item_grouped_label_name">Name</string>
+	<string name="item_grouped_label_tl">TL</string>
+	<string name="item_grouped_label_lc">LC</string>
+	<string name="item_grouped_label_cost">Cost</string>
+	<string name="item_grouped_label_weight">Wt</string>
+	<string name="item_grouped_label_locations">Locations</string>
+	<string name="item_grouped_label_db">DB</string>
+	<string name="item_grouped_label_dr">DR</string>
+	<string name="item_grouped_label_don">Don</string>
+	<string name="item_grouped_label_damage">Damage</string>
+	<string name="item_grouped_label_reach">Reach</string>
+	<string name="item_grouped_label_parry">Parry</string>
+	<string name="item_grouped_label_st">ST</string>
+	<string name="item_grouped_label_dr">DR</string>
+	<string name="item_grouped_label_acc">Acc</string>
+	<string name="item_grouped_label_range">Range</string>
+	<string name="item_grouped_label_rof">RoF</string>
+	<string name="item_grouped_label_shots">Shots</string>
+	<string name="item_grouped_label_bulk">Bulk</string>
+	<string name="item_grouped_label_rcl">Rcl</string>
+
+	<string name="item_grouped_tooltip_tl">Tech Level</string>
+	<string name="item_grouped_tooltip_lc">Legality Class</string>
+	<string name="item_grouped_tooltip_weight">Weight</string>
+	<string name="item_grouped_tooltip_db">Defense Bonus</string>
+	<string name="item_grouped_tooltip_dr">Damage Resistance</string>
+	<string name="item_grouped_tooltip_st">Minimum Strength</string>
+	<string name="item_grouped_tooltip_acc">Accuracy</string>
+	<string name="item_grouped_tooltip_rof">Rate of Fire</string>
+	<string name="item_grouped_tooltip_rcl">Recoil Modifier</string>
+
+	<!-- Vehicles -->
+	<string name="vehicle_button_groundvehicle">Ground Vehicle</string>
+	<string name="vehicle_button_watercraft">Watercraft</string>
+	<string name="vehicle_button_aircraft">Aircraft</string>
+	<string name="vehicle_button_spacecraft">Spacecraft</string>
+
+	<string name="vehicle_label_type">Type</string>
+	<string name="vehicle_label_subtype">Subtype</string>
+
+	<string name="vehicle_label_tl">Tech Level</string>
+	<string name="vehicle_label_lc">Legality Class</string>
+	<string name="vehicle_label_cost">Cost</string>
+	<string name="vehicle_label_sthp">ST/HP</string>
+	<string name="vehicle_label_hndsr">Hnd/SR</string>
+	<string name="vehicle_label_ht">HT</string>
+	<string name="vehicle_label_move">Move</string>
+	<string name="vehicle_label_moveg">Move (G)</string>
+	<string name="vehicle_label_lwt">LWt.</string>
+	<string name="vehicle_label_load">Load</string>
+	<string name="vehicle_label_sm">SM</string>
+	<string name="vehicle_label_occ">Occ.</string>
+	<string name="vehicle_label_dr">DR</string>
+	<string name="vehicle_label_range">Range</string>
+	<string name="vehicle_label_locations">Locations</string>
+	<string name="vehicle_label_draft">Draft</string>
+	<string name="vehicle_label_stall">Stall</string>
+	
+	<string name="vehicle_grouped_title_groundvehicle">Ground Vehicle</string>
+	<string name="vehicle_grouped_title_watercraft">Watercraft</string>
+	<string name="vehicle_grouped_title_aircraft">Aircraft</string>
+	<string name="vehicle_grouped_title_spacecraft">Spacecraft</string>
+
+	<string name="vehicle_grouped_label_tl">TL</string>
+	<string name="vehicle_grouped_label_lc">LC</string>
+	<string name="vehicle_grouped_label_cost">Cost</string>
+	<string name="vehicle_grouped_label_sthp">ST/HP</string>
+	<string name="vehicle_grouped_label_hndsr">Hnd/SR</string>
+	<string name="vehicle_grouped_label_ht">HT</string>
+	<string name="vehicle_grouped_label_move">Move</string>
+	<string name="vehicle_grouped_label_moveg">Move (G)</string>
+	<string name="vehicle_grouped_label_lwt">LWt.</string>
+	<string name="vehicle_grouped_label_load">Load</string>
+	<string name="vehicle_grouped_label_sm">SM</string>
+	<string name="vehicle_grouped_label_occ">Occ.</string>
+	<string name="vehicle_grouped_label_dr">DR</string>
+	<string name="vehicle_grouped_label_range">Range</string>
+	<string name="vehicle_grouped_label_locations">Locations</string>
+	<string name="vehicle_grouped_label_draft">Draft</string>
+	<string name="vehicle_grouped_label_stall">Stall</string>
+
+	<string name="vehicle_grouped_tooltip_tl">Tech Level</string>
+	<string name="vehicle_grouped_tooltip_lc">Legality Class</string>
+	<string name="vehicle_grouped_tooltip_sthp">Strength / Hit Points</string>
+	<string name="vehicle_grouped_tooltip_hndsr">Handling / Stability Rating </string>
+	<string name="vehicle_grouped_tooltip_ht">Health</string>
+	<string name="vehicle_grouped_tooltip_lwt">Loaded Weight</string>
+	<string name="vehicle_grouped_tooltip_occ">Occupants</string>
 
 	<!-- Parcels -->
 
@@ -209,4 +342,6 @@
 	<!-- Local Mode -->
 	
 	<!-- Reference -->
+
+
 </root>

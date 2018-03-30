@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="item">
+		<frame>recordsheet</frame>
+		<placement>
+			<size width="350" height="400" />
+		</placement>
+		<sizelimits>
+			<minimum width="350" height="400" />
+			<dynamic />
+		</sizelimits>
+		<minimize>minimized_item</minimize>
+		<nodelete />
+		<playercontrol />
+		<sharable />
+		<tooltip field="name" />
+		<script file="campaign/scripts/item.lua" />
+		<sheetdata>
+			<sub_record_header name="header">
+				<class>item_header</class>
+			</sub_record_header>
+
+			<frame_record_content name="contentframe" />
+
+			<subwindow_record name="main">
+				<class>item_main</class>
+				<activate />
+			</subwindow_record>
+
+			<scrollbar_record>
+				<target>main</target>
+			</scrollbar_record>
+
+			<resize_recordsheet />
+			<close_recordsheet />
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="item_header" merge="join">
+		<margins control="0,0,0,2" />
+	</windowclass>
+	
+	<windowclass name="item_main">
+		<margins control="0,0,0,2" />
+		<script file="campaign/scripts/item_main.lua" />
+		<sheetdata>
+			<anchor_column name="columnanchor" />
+
+			<label_column name="nonid_name_label">
+				<static textres="item_label_unidentified" />
+			</label_column>
+			<string_columnh name="nonid_name" />
+			
+			<label_column name="nonid_notes_label">
+				<static textres="item_label_unidentifiednotes" />
+			</label_column>
+			<string_columnh name="nonid_notes" />
+
+			<line_column name="divider1" />
+
+			<label_column name="type_label">
+				<static textres="item_label_type" />
+			</label_column>
+			<string_columnh name="type">
+				<nohide />
+				<delaykeyupdate />
+				<script>
+					function onValueChanged()
+						window.update();
+					end
+				</script>
+			</string_columnh>
+
+			<label_column name="subtype_label">
+				<static textres="item_label_subtype" />
+			</label_column>
+			<string_columnh name="subtype">
+				<delaykeyupdate />
+				<script>
+					function onValueChanged()
+						window.update();
+					end
+				</script>
+			</string_columnh>
+
+			<line_column name="divider2" />
+
+			<label_column name="tl_label">
+				<static textres="item_label_tl" />
+			</label_column>
+			<string_columnh name="tl" />
+
+			<label_column name="cost_label">
+				<static textres="item_label_cost" />
+			</label_column>
+			<string_columnh name="cost" />
+
+			<label_column name="weight_label">
+				<static textres="item_label_weight" />
+			</label_column>
+			<number_columnh name="weight" />
+
+			<line_column name="divider3" />
+
+			<label_column name="locations_label">
+				<static textres="item_label_locations" />
+			</label_column>
+			<string_columnh name="locations" />
+
+			<label_column name="db_label">
+				<static textres="item_label_db" />
+			</label_column>
+			<string_columnh name="db" />
+
+			<label_column name="dr_label">
+				<static textres="item_label_dr" />
+			</label_column>
+			<string_columnh name="dr" />
+
+			<label_column name="don_label">
+				<static textres="item_label_don" />
+			</label_column>
+			<string_columnh name="don" />
+
+			<line_column name="divider4" />
+
+			<label_column name="damage_label">
+				<static textres="item_label_damage" />
+			</label_column>
+			<string_columnh name="damage" />
+
+			<label_column name="reach_label">
+				<static textres="item_label_reach" />
+			</label_column>
+			<string_columnh name="reach" />
+
+			<label_column name="parry_label">
+				<static textres="item_label_parry" />
+			</label_column>
+			<string_columnh name="parry" />
+
+			<label_column name="acc_label">
+				<static textres="item_label_acc" />
+			</label_column>
+			<string_columnh name="acc" />
+
+			<label_column name="range_label">
+				<static textres="item_label_range" />
+			</label_column>
+			<string_columnh name="range" />
+
+			<label_column name="rof_label">
+				<static textres="item_label_rof" />
+			</label_column>
+			<string_columnh name="rof" />
+
+			<label_column name="shots_label">
+				<static textres="item_label_shots" />
+			</label_column>
+			<string_columnh name="shots" />
+
+			<label_column name="st_label">
+				<static textres="item_label_st" />
+			</label_column>
+			<string_columnh name="st" />
+
+			<label_column name="bulk_label">
+				<static textres="item_label_bulk" />
+			</label_column>
+			<string_columnh name="bulk" />
+
+			<label_column name="rcl_label">
+				<static textres="item_label_rcl" />
+			</label_column>
+			<string_columnh name="rcl" />
+
+			<label_column name="lc_label">
+				<static textres="item_label_lc" />
+			</label_column>
+			<string_columnh name="lc" />
+
+			<line_column name="divider5" />
+
+			<ft_columnh name="notes" />
+		</sheetdata>
+	</windowclass>
+</root>

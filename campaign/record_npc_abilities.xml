@@ -6,125 +6,90 @@
 -->
 
 <root>
-	<windowclass name="charsheet_powers">
+	
+	<windowclass name="npcsheet_abilities">
+		<script file="campaign/scripts/npc_abilities.lua" />
 		<sheetdata>
-		
-			<frame_char name="powersframe">
-				<bounds>15,0,-28,-13</bounds>
-			</frame_char>
-			<label_frametop>
-				<anchored to="powersframe" />
-				<static textres="char_label_powers" />
-			</label_frametop>
-			
-			<genericcontrol name="rightanchor">
-				<anchored to="powersframe" width="0" height="0">
-					<top offset="35" />
-					<right />
-				</anchored>
-				<invisible />
-			</genericcontrol>
+			<anchor_column name="contentanchor">
+				<bounds>1,0,-1,0</bounds>
+			</anchor_column>
 
-			<genericcontrol name="idelete_header">
-				<anchored to="rightanchor" width="20" height="20">
-					<top />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<disabled />
-			</genericcontrol>
-			
-			<label_columntop name="powerslist_ispacer">
-				<anchored to="rightanchor" width="20">
-					<top />
-					<right anchor="left" relation="relative" offset="-5" />
-				</anchored>
-				<invisible />
-			</label_columntop>
-			<label_columntop name="points_label">
-				<anchored to="rightanchor" width="25">
-					<top />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<static textres="char_label_points" />
-			</label_columntop>
-			<label_columntop name="level_label">
-				<anchored to="rightanchor" width="20">
-					<top />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<static textres="char_label_level" />
-			</label_columntop>
-			<genericcontrol name="shortcut_header">
-				<anchored to="rightanchor" width="20" height="20">
-					<top />
-					<right anchor="left" relation="relative" offset="-5" />
-				</anchored>
-				<disabled />
-			</genericcontrol>
-			<label_columntop name="name_label">
-				<anchored to="rightanchor">
-					<top />
-					<left parent="powersframe" offset="15" />
-					<right anchor="left" relation="relative" offset="-5" />
-				</anchored>
-				<static textres="char_label_name" />
-			</label_columntop>
-			
-			<list_charpower name="powerslist">
-				<anchored to="powersframe">
-					<left offset="15" />
-					<top offset="50" />
-					<right offset="-30" />
-					<bottom offset="-20" />
-				</anchored>
-			</list_charpower>
-			<scrollbar_list>
-				<anchored to="powerslist" />
-				<target>powerslist</target>
-			</scrollbar_list>
+			<anchor_column name="columnanchor">
+				<anchored to="contentanchor" />
+			</anchor_column>
 
-			<button_iedit name="powerslist_iedit">
-				<anchored to="powerslist" position="aboveright" offset="5,20" />
-				<target>powerslist</target>
+			<header_column name="header_abilities">
+				<static textres="npc_label_abilities" />
+				<color>#808080</color>
+			</header_column>
+			<button_iedit name="abilities_iedit">
+				<anchored to="header_abilities" position="righthigh" offset="-20,0" />
+				<target>abilities</target>
 			</button_iedit>
-			<button_iadd name="powerslist_iadd">
-				<anchored to="powerslist_iedit" position="lefthigh" offset="5,0" />
-				<target>powerslist</target>
+			<button_iadd name="abilities_iadd">
+				<anchored to="abilities_iedit" position="lefthigh" offset="5,0" />
+				<target>abilities</target>
 			</button_iadd>
+			<list_npcabilities name="abilities">
+				<anchored>
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
+					<left offset="0" />
+					<right offset="-5" />
+				</anchored>
+				<class>npc_abilities</class>
+			</list_npcabilities>
 
 		</sheetdata>
 	</windowclass>
 
-	<windowclass name="char_power">
+
+	<windowclass name="npc_abilities">
 		<margins control="0,0,0,2" />
 		<script>
 			function onInit()
 				setModifiersVisible();
 			end
 			
+			function update(bReadOnly)
+				local vModifiers = false;
+				if activatemodifiers.getValue() == 1 then
+					vModifiers = true and not bReadOnly;
+				end
+
+				if bReadOnly then
+					if modifierslist_iedit then
+						modifierslist_iedit.setValue(0);
+						modifierslist_iedit.setVisible(false);
+					end
+				else
+					if modifierslist_iedit then
+						modifierslist_iedit.setVisible(vModifiers);
+					end
+				end
+				for _,w in ipairs(modifierslist.getWindows()) do
+					w.name.setReadOnly(bReadOnly);
+					w.modifier.setReadOnly(bReadOnly);
+				end
+			end
+
 			function setModifiersVisible()
 				local v = false;
 				if activatemodifiers.getValue() == 1 then
 					v = true;
 				end
 				
+				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode().getParent().getParent().getParent());
+
 				modifiersicon.setVisible(v);
 				modifiers_label.setVisible(v);
 				modifierslist.setVisible(v);
-				modifierslist_iedit.setVisible(v);
-				modifierslist_iadd.setVisible(v and modifierslist_iedit.getValue() == 1)
+				modifierslist_iedit.setVisible(v and not bReadOnly)
+				modifierslist_iadd.setVisible(v and not bReadOnly and modifierslist_iedit.getValue() == 1)
 				frame_modifiers.setVisible(v);
+
 			end
 		</script>
 		<sheetdata>
-		
-			<button_charroll>
-				<rollable_button_power />
-				<anchored>
-					<top offset="2" />
-					<left offset="5" />
-				</anchored>
-			</button_charroll>
 		
 			<genericcontrol name="rightanchor">
 				<anchored height="0" width="0">
@@ -140,21 +105,14 @@
 				<invisible />
 			</genericcontrol>
 			<button_idelete name="idelete">
-				<anchored>
+				<anchored to="rightanchor" >
 					<top offset="2" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+					<right anchor="left" relation="relative" offset="-5" />
 				</anchored>
 			</button_idelete>
 			
-			<number_charpointfield name="points">
-				<anchored to="rightanchor" width="25" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<tabtarget prev="level" />
-			</number_charpointfield>
 			<number_charlevelfield name="level">
-				<rollable_power />
+				<rollable_ability />
 				<anchored to="rightanchor" width="20" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
@@ -174,26 +132,25 @@
 					end
 				</script>
 			</buttoncontrol>
-			<linkcontrol name="shortcut">
-				<anchored to="rightanchor" width="20" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-5" />
-				</anchored>
-				<class>charnote</class>
-				<readonly />
-			</linkcontrol>
 			<string_textlistitem name="name">
 				<anchored height="20">
 					<top offset="2" />
-					<left offset="30" />
+					<left offset="45" />
 					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
 				</anchored>
 				<nodrag />
 				<tabtarget next="level" />
 			</string_textlistitem>
+			<button_charroll>
+				<rollable_button_ability />
+				<anchored>
+					<top offset="2" />
+					<left offset="20" />
+				</anchored>
+			</button_charroll>
 
 
-			<!-- POWER MODIFIERS SECTION --> 			
+			<!-- OTHER MODIFIERS SECTION --> 			
 			<icon_detailsection name="modifiersicon">
 				<icon>modifiers_down</icon>
 			</icon_detailsection>
@@ -238,4 +195,5 @@
 			
 		</sheetdata>
 	</windowclass>
+	
 </root>

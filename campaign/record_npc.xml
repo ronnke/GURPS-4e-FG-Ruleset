@@ -27,7 +27,13 @@
 			<frame_record_content_tabbed name="contentframe" />
 
 			<subwindow_record name="main">
-				<class>npc_main</class>
+				<class>npcsheet_main</class>
+			</subwindow_record>
+			<subwindow_record name="combat">
+				<class>npcsheet_combat</class>
+			</subwindow_record>
+			<subwindow_record name="abilities">
+				<class>npcsheet_abilities</class>
 			</subwindow_record>
 			<ft_record name="notes">
 				<anchored to="contentframe" position="over" />
@@ -39,6 +45,12 @@
 				<target>main</target>
 			</scrollbar_record>
 			<scrollbar_record>
+				<target>combat</target>
+			</scrollbar_record>
+			<scrollbar_record>
+				<target>abilities</target>
+			</scrollbar_record>
+			<scrollbar_record>
 				<target>notes</target>
 			</scrollbar_record>
 
@@ -46,6 +58,14 @@
 				<tab>
 					<icon>tab_main</icon>
 					<subwindow>main</subwindow>
+				</tab>
+				<tab>
+					<icon>tab_combat</icon>
+					<subwindow>combat</subwindow>
+				</tab>
+				<tab>
+					<icon>tab_abilities</icon>
+					<subwindow>abilities</subwindow>
 				</tab>
 				<tab>
 					<icon>tab_notes</icon>

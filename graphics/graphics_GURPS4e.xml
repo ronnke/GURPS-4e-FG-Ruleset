@@ -14,6 +14,9 @@
 	<icon name="details" file="graphics/buttons/button_details.png" />
 	<icon name="details_down" file="graphics/buttons/button_details_down.png" />
 
+	<icon name="skip" file="graphics/buttons/button_skip.png" />
+	<icon name="skip_down" file="graphics/buttons/button_skip_down.png" />
+
 	<icon name="stats" file="graphics/buttons/button_stats.png" />
 	<icon name="stats_down" file="graphics/buttons/button_stats_down.png" />
 
@@ -58,7 +61,7 @@
 	<icon name="tab_combat" file="graphics/tabs/tab_combat.png" />
 	<icon name="tab_meleecombat" file="graphics/tabs/tab_melee.png" />
 	<icon name="tab_rangedcombat" file="graphics/tabs/tab_ranged.png" />
-	<icon name="tab_protection" file="graphics/tabs/tab_protection.png" />
+	<icon name="tab_defenses" file="graphics/tabs/tab_defenses.png" />
 	<icon name="tab_inventory" file="graphics/tabs/tab_inventory.png" />
 	<icon name="tab_notes" file="graphics/tabs/tab_notes.png" />
 	

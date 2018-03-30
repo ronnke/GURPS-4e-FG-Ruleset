@@ -5,6 +5,7 @@
 
 function onInit()
 	-- Set the displays to what should be shown
+  setSkipVisible();
 	setTargetingVisible();
   setStatsVisible();
 	setCombatVisible();
@@ -186,6 +187,13 @@ function setTargetingVisible()
   frame_targeting.setVisible(v);
 
   target_summary.onTargetsChanged();
+end
+
+function setSkipVisible()
+  local v = false;
+  if activateskip.getValue() == 1 then
+    v = true;
+  end
 end
 
 function setStatsVisible()

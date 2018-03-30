@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="vehicle">
+		<frame>recordsheet</frame>
+		<placement>
+			<size width="350" height="400" />
+		</placement>
+		<sizelimits>
+			<minimum width="350" height="400" />
+			<dynamic />
+		</sizelimits>
+		<minimize>minimized_item</minimize>
+		<nodelete />
+		<tooltip field="name" />
+		<sharable />
+		<script>
+			function onLockChanged()
+				if header.subwindow then
+					header.subwindow.update();
+				end
+				if content and content.subwindow then
+					content.subwindow.update();
+				end
+			end
+		</script>
+		<sheetdata>
+			<sub_record_header name="header">
+				<class>vehicle_header</class>
+			</sub_record_header>
+
+			<frame_record_content name="contentframe" />
+			<subwindow_record name="content">
+				<class>vehicle_main</class>
+				<activate />
+			</subwindow_record>
+			<scrollbar_record>
+				<target>main</target>
+			</scrollbar_record>
+
+			<resize_recordsheet />
+			<close_recordsheet />
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="vehicle_header">
+		<margins control="0,0,0,7" />
+		<script>
+			function onInit()
+				update();
+			end
+			function update()
+				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
+				name.setReadOnly(bReadOnly);
+			end
+		</script>
+		<sheetdata>
+			<link_record_header>
+				<class>vehicle</class>
+			</link_record_header>
+
+			<anchor_record_header_right name="rightanchor" />
+			<tokenfield name="token">
+				<anchored to="rightanchor" width="25" height="25">
+					<top offset="-2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-3" />
+				</anchored>
+				<empty>token_empty</empty>
+			</tokenfield>
+			<icon_record_locked />
+			<button_record_locked />
+
+			<string_record_name name="name">
+				<empty textres="library_recordtype_empty_vehicle" />
+			</string_record_name>
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="vehicle_main">
+		<script file="campaign/scripts/vehicle_main.lua" />
+		<sheetdata>
+			<anchor_column name="columnanchor" />
+			
+			<label_column name="type_label">
+				<static textres="vehicle_label_type" />
+			</label_column>
+			<string_columnh name="type">
+				<nohide />
+				<delaykeyupdate />
+				<script>
+					function onValueChanged()
+						window.update();
+					end
+				</script>
+			</string_columnh>
+			
+			<label_column name="subtype_label">
+				<static textres="vehicle_label_subtype" />
+			</label_column>
+			<string_columnh name="subtype">
+				<nohide />
+				<delaykeyupdate />
+				<script>
+					function onValueChanged()
+						window.update();
+					end
+				</script>
+			</string_columnh>
+			
+			<line_column name="divider1" />
+
+			<label_column name="tl_label">
+				<static textres="vehicle_label_tl" />
+			</label_column>
+			<string_columnh name="tl" />
+
+			<label_column name="sthp_label">
+				<static textres="vehicle_label_sthp" />
+			</label_column>
+			<string_columnh name="sthp" />
+
+			<label_column name="hndsr_label">
+				<static textres="vehicle_label_hndsr" />
+			</label_column>
+			<string_columnh name="hndsr" />
+
+			<label_column name="move_label">
+				<static textres="vehicle_label_move" />
+			</label_column>
+			<string_columnh name="move" />
+
+			<label_column name="moveg_label">
+				<static textres="vehicle_label_moveg" />
+			</label_column>
+			<string_columnh name="moveg" />
+
+			<label_column name="lwt_label">
+				<static textres="vehicle_label_lwt" />
+			</label_column>
+			<string_columnh name="lwt" />
+
+			<label_column name="load_label">
+				<static textres="vehicle_label_load" />
+			</label_column>
+			<string_columnh name="load" />
+
+			<label_column name="sm_label">
+				<static textres="vehicle_label_sm" />
+			</label_column>
+			<string_columnh name="sm" />
+
+			<label_column name="occ_label">
+				<static textres="vehicle_label_occ" />
+			</label_column>
+			<string_columnh name="occ" />
+
+			<label_column name="dr_label">
+				<static textres="vehicle_label_dr" />
+			</label_column>
+			<string_columnh name="dr" />
+
+			<label_column name="range_label">
+				<static textres="vehicle_label_range" />
+			</label_column>
+			<string_columnh name="range" />
+
+			<label_column name="cost_label">
+				<static textres="vehicle_label_cost" />
+			</label_column>
+			<string_columnh name="cost" />
+
+			<label_column name="locations_label">
+				<static textres="vehicle_label_locations" />
+			</label_column>
+			<string_columnh name="locations" />
+
+			<label_column name="draft_label">
+				<static textres="vehicle_label_draft" />
+			</label_column>
+			<string_columnh name="draft" />
+
+			<label_column name="stall_label">
+				<static textres="vehicle_label_stall" />
+			</label_column>
+			<string_columnh name="stall" />
+
+			<line_column name="divider2" />
+
+			<ft_columnh name="notes" />
+		</sheetdata>
+	</windowclass>
+</root>

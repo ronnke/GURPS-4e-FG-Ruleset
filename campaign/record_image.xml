@@ -16,22 +16,22 @@
 	<windowclass name="imagewindow_toolbar" merge="join">
 		<script>
 			function onInit()
-				super.update();
 				update();
-			end 
-			
+			end 		
+		
 			function update()
-				super.update();
-				local bHasGrid = parentcontrol.window.image.hasGrid();
-
+				super.update()
 				if User.isHost() then
-					hMapScale.setVisible(bHasGrid);
-					toolbar_mapscale.setVisible(bHasGrid);
-					
 					local bShowScale = false;
-					if toolbar_mapscale.getValue() > 0 and bHasGrid then
-						bShowScale = true;
+					local bShowScaleToolbar = super.getImage().hasGrid()
+					if toggle_grid.getValue() &gt; 0 then
+						if toolbar_mapscale.getValue() &gt; 0 then
+							bShowScale = true;
+						end
 					end
+					
+					hMapScale.setVisible(bShowScaleToolbar);
+					toolbar_mapscale.setVisible(bShowScaleToolbar);
 					
 					mapscale.setVisible(bShowScale);
 					scaleunits.setVisible(bShowScale);
@@ -60,7 +60,7 @@
 				<script>
 					function onButtonPress(id)
 						local bShowScale = false;
-						if getValue() > 0 then
+						if getValue() &gt; 0 then
 							bShowScale = true;
 						end
 						

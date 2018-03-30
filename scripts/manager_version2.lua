@@ -33,19 +33,16 @@ function updateChar(nodePC, nVersion)
 	end
 
 	if nVersion < 3 then
-		if nVersion < 3 then
-			migrateChar3(nodePC);
-		end
+		migrateChar3(nodePC);
 	end
   if nVersion < 4 then
-    if nVersion < 4 then
-      migrateChar4(nodePC);
-    end
+    migrateChar4(nodePC);
   end
   if nVersion < 5 then
-    if nVersion < 5 then
-      migrateChar5(nodePC);
-    end
+    migrateChar5(nodePC);
+  end
+  if nVersion < 6 then
+    migrateChar6(nodePC);
   end
 end
 
@@ -55,7 +52,7 @@ function updateCampaign()
 	if not major then
 		return;
 	end
-	if major > 0 and major < 5 then
+	if major > 0 and major < 6 then
 		print("Migrating campaign database to latest data version. (" .. rsname ..")");
 		DB.backup();
 		
@@ -67,6 +64,9 @@ function updateCampaign()
     end
     if major < 5 then
       convertChars5();
+    end
+    if major < 6 then
+      convertChars6();
     end
 	end
 end
@@ -86,6 +86,12 @@ end
 function convertChars5()
   for _,nodeChar in pairs(DB.getChildren("charsheet")) do
     migrateChar5(nodeChar);
+  end
+end
+
+function convertChars6()
+  for _,nodeChar in pairs(DB.getChildren("charsheet")) do
+    migrateChar6(nodeChar);
   end
 end
 
@@ -572,3 +578,21 @@ function migrateChar5(nodeChar)
   end
 
 end
+
+function migrateChar6(nodeChar)
+  -- Convert Protection to Defenses
+  if DB.getChild(nodeChar, "combat.protectionlist") then
+    local nodeDefenses = DB.createChild(nodeChar, "combat.defenseslist");
+    for _,nodeOld in pairs(DB.getChildren(nodeChar, "combat.protectionlist")) do
+      local nodeNew = DB.createChild(nodeDefenses);
+      DB.setValue(nodeNew, "name", "string", DB.getValue(nodeOld,"name",""));
+      DB.setValue(nodeNew, "db", "number", DB.getValue(nodeOld,"db",0));
+      DB.setValue(nodeNew, "dr", "string", DB.getValue(nodeOld,"dr",""));
+      DB.setValue(nodeNew, "locations", "string", DB.getValue(nodeOld,"location",""));
+      DB.setValue(nodeNew, "text", "formattedtext", DB.getValue(nodeOld,"text",""));
+    end
+   
+    DB.deleteChild(nodeChar, "combat.protectionlist");
+  end
+end
+

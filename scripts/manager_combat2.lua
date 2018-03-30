@@ -15,6 +15,8 @@ function onInit()
   CombatManager.setCustomNPCSpaceReach(npcSpaceReach);
   
 	CombatManager.setCustomCombatReset(resetInit);
+	
+  CombatManager.setCustomTurnStart(onTurnStart);
 end
 
 --
@@ -155,6 +157,18 @@ function npcSpaceReach(nodeNPC)
    local nReach = tonumber(DB.getValue(nodeNPC, "traits.reach", "0"));
    return nSpace, nReach;
 end
+
+function onTurnStart(nodeEntry)
+  if not nodeEntry then
+    return;
+  end
+
+  -- Handle beginning of turn changes
+--  if DB.getValue(nodeEntry, "activateskip", 0) == 0 then
+--    CombatManager.nextActor();
+--  end
+end
+
 --
 -- RESET FUNCTIONS
 --

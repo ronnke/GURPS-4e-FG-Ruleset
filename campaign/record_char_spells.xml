@@ -356,7 +356,7 @@
 					<left parent="modifiersicon" anchor="right" offset="10" />
 					<right parent="bottomanchor" anchor="left" offset="-10" />
 				</anchored>
-				<class>char_modifier</class>
+				<class>basic_modifier</class>
 				<noscroll />
 			</list_charmodifier>
  

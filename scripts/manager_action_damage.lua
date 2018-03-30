@@ -54,6 +54,9 @@ function onDamage(rSource, rTarget, rRoll)
       elseif (sOperator == "x") then
         nTotal = nTotal * (nNum or 1);
         rMessage.diemodifier = 0;
+      elseif (sOperator == "/") then
+        nTotal = nTotal / (nNum or 1);
+        rMessage.diemodifier = 0;
       end
     end
     nTotal = nTotal + nMod;

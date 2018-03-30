@@ -37,24 +37,24 @@
 			</buttoncontrol>
 			<label_ct>
 				<anchored to="headeranchor" position="insidetopleft" offset="25,0">
-					<right offset="-268" />
+					<right offset="-282" />
 				</anchored>
 				<static textres="ct_label_name" />
 				<center />
 			</label_ct>
 			<label_ct name="label_speed">
-				<anchored to="headeranchor" position="insidetopright" offset="238,0" width="40" />
+				<anchored to="headeranchor" position="insidetopright" offset="263,0" width="40" />
 				<static textres="ct_label_speed" />
 				<center />
 				<nodrop />
 			</label_ct>
 			<label_ct name="label_hps">
-				<anchored to="headeranchor" position="insidetopright" offset="188,0" width="40" />
+				<anchored to="headeranchor" position="insidetopright" offset="213,0" width="40" />
 				<static textres="ct_label_hps" />
 				<center />
 			</label_ct>
 			<label_ct name="label_fps">
-				<anchored to="headeranchor" position="insidetopright" offset="138,0" width="40" />
+				<anchored to="headeranchor" position="insidetopright" offset="163,0" width="40" />
 				<static textres="ct_label_fps" />
 				<center />
 			</label_ct>
@@ -250,6 +250,21 @@
 					<right anchor="left" relation="relative" offset="-5" />
 				</anchored>
 			</button_ctentry_friendfoe>
+
+			<buttoncontrol name="activateskip">
+				<anchored to="rightanchor" width="20" height="20">
+					<top />
+					<right anchor="left" relation="relative"  offset="-5"/>
+				</anchored>
+				<state icon="skip" tooltipres="ct_tooltip_skip" />
+				<state icon="skip_down" />
+				<script>
+					function onValueChanged()
+						window.setSkipVisible();
+						window.windowlist.onEntrySectionToggle();
+					end
+				</script>
+			</buttoncontrol>
 
 			<number_ct_crosslink name="fps">
 				<anchored to="rightanchor" width="40" height="20">
@@ -865,7 +880,7 @@
 					<left parent="modifiersicon" anchor="right" offset="10" />
 					<right parent="bottomanchor" anchor="left" offset="-10" />
 				</anchored>
-				<class>char_modifier</class>
+				<class>basic_modifier</class>
 				<noscroll />
 			</list_charmodifier>
  
@@ -1172,7 +1187,7 @@
 					<left parent="modifiersicon" anchor="right" offset="10" />
 					<right parent="bottomanchor" anchor="left" offset="-10" />
 				</anchored>
-				<class>char_modifier</class>
+				<class>basic_modifier</class>
 				<noscroll />
 			</list_charmodifier>
  

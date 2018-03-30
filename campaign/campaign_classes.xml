@@ -7,7 +7,7 @@
 
 <root>
 
-	<windowclass name="char_modifier">
+	<windowclass name="basic_modifier">
 		<margins control="0,0,0,2" />
 		<script>
 			function actionDrag(draginfo)
