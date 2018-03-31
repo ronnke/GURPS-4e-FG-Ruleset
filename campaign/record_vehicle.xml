@@ -129,6 +129,11 @@
 			</label_column>
 			<string_columnh name="hndsr" />
 
+			<label_column name="ht_label">
+				<static textres="vehicle_label_ht" />
+			</label_column>
+			<string_columnh name="ht" />
+
 			<label_column name="move_label">
 				<static textres="vehicle_label_move" />
 			</label_column>

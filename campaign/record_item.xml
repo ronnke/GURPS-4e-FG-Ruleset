@@ -128,7 +128,10 @@
 			</label_column>
 			<string_columnh name="don" />
 
-			<line_column name="divider4" />
+			<label_column name="holdout_label">
+				<static textres="item_label_holdout" />
+			</label_column>
+			<string_columnh name="holdout" />
 
 			<label_column name="damage_label">
 				<static textres="item_label_damage" />
@@ -185,7 +188,7 @@
 			</label_column>
 			<string_columnh name="lc" />
 
-			<line_column name="divider5" />
+			<line_column name="divider4" />
 
 			<ft_columnh name="notes" />
 		</sheetdata>

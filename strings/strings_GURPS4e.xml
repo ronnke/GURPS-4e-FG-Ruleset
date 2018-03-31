@@ -198,6 +198,7 @@
 	<string name="item_label_db">DB</string>
 	<string name="item_label_dr">DR</string>
 	<string name="item_label_don">Don</string>
+	<string name="item_label_holdout">Holdout</string>
 
 	<string name="item_label_damage">Damage</string>
 	<string name="item_label_reach">Reach</string>
@@ -223,6 +224,7 @@
 	<string name="item_grouped_label_db">DB</string>
 	<string name="item_grouped_label_dr">DR</string>
 	<string name="item_grouped_label_don">Don</string>
+	<string name="item_grouped_label_holdout">Holdout</string>
 	<string name="item_grouped_label_damage">Damage</string>
 	<string name="item_grouped_label_reach">Reach</string>
 	<string name="item_grouped_label_parry">Parry</string>

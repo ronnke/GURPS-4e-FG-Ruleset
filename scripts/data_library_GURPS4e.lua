@@ -279,6 +279,8 @@ aListViews = {
         { sName = "cost", sType = "string", sHeadingRes = "item_grouped_label_cost", bCentered=true },
         { sName = "weight", sType = "number", sHeadingRes = "item_grouped_label_weight", sTooltipRes = "item_grouped_tooltip_weight", nWidth=30, bCentered=true },
         { sName = "don", sType = "string", sHeadingRes = "item_grouped_label_don", nWidth=30, bCentered=true },
+        { sName = "Holdout", sType = "string", sHeadingRes = "item_grouped_label_holdout", nWidth=50, bCentered=true },
+        { sName = "lc", sType = "string", sHeadingRes = "item_grouped_label_lc", nWidth=30, bCentered=true },
       },
       aFilters = { 
         { sDBField = "type", vFilterValue = "Defense" }, 
@@ -297,6 +299,7 @@ aListViews = {
 				{ sName = "cost", sType = "string", sHeadingRes = "item_grouped_label_cost", bCentered=true },
 				{ sName = "weight", sType = "number", sHeadingRes = "item_grouped_label_weight", sTooltipRes = "item_grouped_tooltip_weight", nWidth=30, bCentered=true },
         { sName = "st", sType = "string", sHeadingRes = "item_grouped_label_st", sTooltipRes = "item_grouped_tooltip_st", nWidth=30, bCentered=true },
+        { sName = "lc", sType = "string", sHeadingRes = "item_grouped_label_lc", nWidth=30, bCentered=true },
 			},
 			aFilters = { 
 				{ sDBField = "type", vFilterValue = "Melee Weapon" }, 
