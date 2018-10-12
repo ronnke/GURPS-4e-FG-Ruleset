@@ -7,7 +7,40 @@
 
 <root>
 	<!-- GURPS combat tracker templates -->
+	<template name="anchor_ct_left">
+		<genericcontrol name="leftanchor">
+			<anchored position="insidetopleft" offset="2,2" height="0" width="0" />
+		</genericcontrol>
+	</template>
+	<template name="anchor_ct_right">
+		<genericcontrol name="rightanchor">
+			<anchored position="insidetopright" offset="2,2" height="0" width="0" />
+		</genericcontrol>
+	</template>
 
+	<template name="frame_ctbox_host_header_toggles">
+		<frame_ct name="header_toggles">
+			<anchored to="headeranchor" height="35" width="100">
+				<top offset="-9" />
+				<right offset="-13" />
+			</anchored>
+		</frame_ct>
+	</template>
+	
+	<template name="list_ctbox_client">
+		<windowlist name="list">
+			<anchored to="contentanchor">
+				<top anchor="bottom" relation="relative" offset="5" />
+				<left offset="-30" />
+				<right offset="10" />
+				<bottom parent="" offset="-55" />
+			</anchored>
+			<datasource>.list</datasource>
+			<class>client_ct_entry</class>
+			<script file="ct/scripts/clientct.lua" />
+		</windowlist>
+	</template>
+	
 	<template name="list_ctbox_host">
 		<windowlist name="list">
 			<anchored to="contentanchor">
@@ -22,28 +55,253 @@
 			<script file="ct/scripts/ct.lua" />
 		</windowlist>
 	</template>
-
-	<template name="list_ctbox_client">
-		<windowlist name="list">
-			<anchored to="contentanchor">
-				<top anchor="bottom" relation="relative" offset="5" />
-				<left offset="-30" />
-				<right offset="10" />
-				<bottom parent="" offset="-55" />
+	
+	<template name="button_ctentry_activatecombat">
+		<buttoncontrol name="activatecombat">
+			<anchored to="rightanchor" width="20" height="20">
+				<top />
+				<right anchor="left" relation="relative" />
 			</anchored>
-			<datasource>.list</datasource>
-			<class>client_ct_entry</class>
-			<script file="ct/scripts/clientct.lua" />
-		</windowlist>
+			<state icon="button_section_combat" tooltipres="ct_tooltip_combat" />
+			<state icon="button_section_combat_down" />
+			<script>
+				function onValueChanged()
+					window.setCombatVisible();
+					window.windowlist.onEntrySectionToggle();
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="button_ctentry_activatestats">
+		<buttoncontrol name="activatestats">
+			<anchored to="rightanchor" width="20" height="20">
+				<top />
+				<right anchor="left" relation="relative" />
+			</anchored>
+			<state icon="button_section_stats" tooltipres="ct_tooltip_stats" />
+			<state icon="button_section_stats_down" />
+			<script>
+				function onValueChanged()
+					window.setStatsVisible();
+					window.windowlist.onEntrySectionToggle();
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="button_ctentry_skip">
+		<buttoncontrol name="activateskip">
+			<anchored to="rightanchor" width="20" height="20">
+				<top />
+				<right anchor="left" relation="relative"  offset="-5"/>
+			</anchored>
+			<state icon="button_skip" tooltipres="ct_tooltip_skip" />
+			<state icon="button_skip_down" />
+			<script>
+				function onValueChanged()
+					window.setSkipVisible();
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	
+	
+	<template name="number_ctfps">
+		<number_ct_crosslink name="fps">
+			<anchored to="rightanchor" width="40" height="20">
+				<top />
+				<right anchor="left" relation="relative" offset="-10" />
+			</anchored>
+			<tabtarget prev="name" />
+			<script>
+				function handleDrop(draginfo)
+					if draginfo.getType() == "number" then
+						setValue(getValue() - draginfo.getNumberData());
+					end
+				end
+			</script>
+		</number_ct_crosslink>
+	</template>
+	
+
+	<template name="number_cthps">
+		<number_ct_crosslink name="hps">
+			<anchored to="rightanchor" width="40" height="20">
+				<top />
+				<right anchor="left" relation="relative" offset="-10" />
+			</anchored>
+			<tabtarget prev="name" />
+			<script>
+				function handleDrop(draginfo)
+					if draginfo.getType() == "number" then
+						local node = window.getDatabaseNode();
+						local rActor = ActorManager.getActorFromCT(node);
+						ActionDamage.applyDamage(nil, rActor, CombatManager.isCTHidden(node), draginfo.getDescription(), draginfo.getNumberData());
+					end
+				end
+				
+				function update()
+					window.onHealthChanged();
+				end
+			</script>
+		</number_ct_crosslink>
 	</template>
 
-	<template name="frame_ctbox_host_header_toggles">
-		<frame_ct name="header_toggles">
-			<anchored to="headeranchor" height="35" width="100">
-				<top offset="-9" />
-				<right offset="-13" />
+	<template name="number_ctspeed">
+		<number_ct_crosslink name="speed">
+			<anchored to="rightanchor" width="40" height="20">
+				<top />
+				<right anchor="left" relation="relative" offset="-10" />
 			</anchored>
-		</frame_ct>
+			<tabtarget prev="name" />
+			<script>
+				function update()
+					window.windowlist.applySort();
+				end
+			</script>
+		</number_ct_crosslink>
+	</template>
+	
+	<template name="icon_ctsection_stats">
+		<icon_ctsection name="statsicon">
+			<icon>button_section_stats_down</icon>
+		</icon_ctsection>
+	</template>
+	<template name="sub_ctsection_stats">
+		<subwindow name="sub_stats">
+			<anchored>
+				<top parent="active_spacer_top" anchor="bottom" relation="relative" offset="10" />
+				<left parent="statsicon" anchor="right" offset="8" />
+				<right offset="-12" />
+			</anchored>
+			<class>ct_stats</class>
+			<fastinit />
+		</subwindow>
+	</template>
+	<template name="frame_ctsection_stats">
+		<frame_ctsub name="frame_stats">
+			<anchored>
+				<top parent="statsicon" />
+				<bottom parent="sub_stats" />
+			</anchored>
+		</frame_ctsub>
+	</template>
+
+	<template name="icon_ctsection_combat">
+		<icon_ctsection name="combaticon">
+			<icon>button_section_combat_down</icon>
+		</icon_ctsection>
+	</template>
+	<template name="sub_ctsection_combat">
+		<subwindow name="sub_combat">
+			<anchored>
+				<top parent="active_spacer_top" anchor="bottom" relation="relative" offset="10" />
+				<left parent="combaticon" anchor="right" offset="8" />
+				<right offset="-12" />
+			</anchored>
+			<class>ct_combat</class>
+			<fastinit />
+		</subwindow>
+	</template>
+	<template name="sub_ctsection_meleecombat">
+		<subwindow name="sub_meleecombat">
+			<anchored>
+				<top parent="active_spacer_top" anchor="bottom" relation="relative" offset="10" />
+				<left parent="combaticon" anchor="right" offset="8" />
+				<right offset="-12" />
+			</anchored>
+			<class>ct_meleecombat</class>
+			<fastinit />
+		</subwindow>
+	</template>
+	<template name="sub_ctsection_rangedcombat">
+		<subwindow name="sub_rangedcombat">
+			<anchored>
+				<top parent="active_spacer_top" anchor="bottom" relation="relative" offset="10" />
+				<left parent="combaticon" anchor="right" offset="8" />
+				<right offset="-12" />
+			</anchored>
+			<class>ct_rangedcombat</class>
+			<fastinit />
+		</subwindow>
+	</template>
+	<template name="frame_ctsection_combat">
+		<frame_ctsub name="frame_combat">
+			<anchored>
+				<top parent="combaticon" />
+				<bottom parent="sub_rangedcombat" />
+			</anchored>
+		</frame_ctsub>
+	</template>
+
+	<template name="icon_ctsection_meleemodes">
+		<icon_ctsection name="modesicon">
+			<icon>weapon_modes_down</icon>
+		</icon_ctsection>
+	</template>
+	<template name="sub_ctsection_meleemodes">
+		<subwindow name="sub_modes">
+			<anchored>
+				<top parent="active_spacer_top" anchor="bottom" relation="relative" offset="10" />
+				<left parent="modesicon" anchor="right" offset="8" />
+				<right offset="-12" />
+			</anchored>
+			<class>ct_meleemodes</class>
+		</subwindow>
+	</template>
+	<template name="frame_ctsection_meleemodes">
+		<frame_ctsub name="frame_modes">
+			<anchored>
+				<top parent="modesicon" />
+				<bottom parent="sub_modes" />
+			</anchored>
+		</frame_ctsub>
+	</template>
+	<template name="icon_ctsection_rangedmodes">
+		<icon_ctsection name="modesicon">
+			<icon>weapon_modes_down</icon>
+		</icon_ctsection>
+	</template>
+	<template name="sub_ctsection_rangedmodes">
+		<subwindow name="sub_modes">
+			<anchored>
+				<top parent="active_spacer_top" anchor="bottom" relation="relative" offset="10" />
+				<left parent="modesicon" anchor="right" offset="8" />
+				<right offset="-12" />
+			</anchored>
+			<class>ct_rangedmodes</class>
+		</subwindow>
+	</template>
+	<template name="frame_ctsection_rangedmodes">
+		<frame_ctsub name="frame_modes">
+			<anchored>
+				<top parent="modesicon" />
+				<bottom parent="sub_modes" />
+			</anchored>
+		</frame_ctsub>
+	</template>
+
+	<template name="icon_ctsection_modifiers">
+		<icon_ctsection name="modifiersicon">
+			<icon>modifiers_down</icon>
+		</icon_ctsection>
+	</template>
+	<template name="sub_ctsection_modifiers">
+		<subwindow name="sub_modifiers">
+			<anchored>
+				<top parent="active_spacer_top" anchor="bottom" relation="relative" offset="10" />
+				<left parent="modifiersicon" anchor="right" offset="8" />
+				<right offset="-12" />
+			</anchored>
+			<class>ct_modifiers</class>
+		</subwindow>
+	</template>
+	<template name="frame_ctsection_modifiers">
+		<frame_ctsub name="frame_modifiers">
+			<anchored>
+				<top parent="modifiersicon" />
+				<bottom parent="sub_modifiers" />
+			</anchored>
+		</frame_ctsub>
 	</template>
 	
 	<template name="label_ct_ability">
@@ -68,32 +326,6 @@
 			<script file="campaign/scripts/campaign_rollable.lua" />
 			<center />
 		</basicstring>
-	</template>
-	
-	<template name="number_ct_effect_duration">
-		<basicnumber name="duration">
-			<anchored to="rightanchor" height="20">
-				<sizelimits>
-					<minimum width="20" />
-				</sizelimits>
-				<top />
-				<right anchor="left" relation="relative" offset="-10" />
-			</anchored>
-			<min>0</min>
-			<hideonvalue>0</hideonvalue>
-			<tooltip textres="ct_tooltip_effectdur" />
-			<script>
-				function onDragStart(button, x, y, draginfo)
-					return window.onDragStart(button, x, y, draginfo);
-				end
-
-				function onDrop(x, y, draginfo)
-					if draginfo.getType() ~= "number" then
-						return window.onDrop(x, y, draginfo);
-					end
-				end
-			</script>
-		</basicnumber>
 	</template>
 	
 	<template name="number_ct_effect_units">

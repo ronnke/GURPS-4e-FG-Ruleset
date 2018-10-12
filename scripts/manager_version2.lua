@@ -44,6 +44,9 @@ function updateChar(nodePC, nVersion)
   if nVersion < 6 then
     migrateChar6(nodePC);
   end
+  if nVersion < 7 then
+    migrateChar7(nodePC);
+  end
 end
 
 function updateCampaign()
@@ -52,7 +55,7 @@ function updateCampaign()
 	if not major then
 		return;
 	end
-	if major > 0 and major < 6 then
+	if major > 0 and major < 7 then
 		print("Migrating campaign database to latest data version. (" .. rsname ..")");
 		DB.backup();
 		
@@ -67,6 +70,9 @@ function updateCampaign()
     end
     if major < 6 then
       convertChars6();
+    end
+    if major < 7 then
+      convertChars7();
     end
 	end
 end
@@ -92,6 +98,12 @@ end
 function convertChars6()
   for _,nodeChar in pairs(DB.getChildren("charsheet")) do
     migrateChar6(nodeChar);
+  end
+end
+
+function convertChars7()
+  for _,nodeChar in pairs(DB.getChildren("charsheet")) do
+    migrateChar7(nodeChar);
   end
 end
 
@@ -593,6 +605,15 @@ function migrateChar6(nodeChar)
     end
    
     DB.deleteChild(nodeChar, "combat.protectionlist");
+  end
+end
+
+function migrateChar7(nodeChar)
+  -- Identify Inventory
+  if DB.getChild(nodeChar, "inventorylist") then
+    for _,nodeInv in pairs(DB.getChildren(nodeChar, "inventorylist")) do
+      DB.setValue(nodeInv, "isidentified", "number", 1);
+    end
   end
 end
 

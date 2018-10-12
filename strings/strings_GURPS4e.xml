@@ -181,6 +181,7 @@
 	<!-- Encounters -->
 	
 	<!-- Items -->
+	<string name="item_button_bytype">By Type</string>
 	<string name="item_button_defenses">Defenses</string>
 	<string name="item_button_meleeweapons">Melee Weapons</string>
 	<string name="item_button_rangedweapons">Ranged Weapons</string>
@@ -211,6 +212,7 @@
 	<string name="item_label_bulk">Bulk Penalty</string>
 	<string name="item_label_rcl">Recoil Modifier</string>
 	
+	<string name="item_grouped_title_bytype">By Type</string>
 	<string name="item_grouped_title_defenses">Defenses</string>
 	<string name="item_grouped_title_meleeweapons">Melee Weapons</string>
 	<string name="item_grouped_title_rangedweapons">Ranged Weapons</string>

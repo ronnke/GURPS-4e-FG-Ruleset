@@ -24,11 +24,11 @@ function getItemRecordDisplayClass(vNode)
   if vNode then
     local sBasePath, sSecondPath = UtilityManager.getDataBaseNodePathSplit(vNode)
     if sBasePath == "reference" then
-      if sSecondPath == "defenses" then
+      if sSecondPath == "defense" or sSecondPath == "defenses" then
         sRecordDisplayClass = "defense"
-      elseif sSecondPath == "meleeweapons" then
+      elseif sSecondPath == "meleeweapon" or sSecondPath == "meleeweapons" then
         sRecordDisplayClass = "meleeweapon"
-      elseif sSecondPath == "rangedweapons" then
+      elseif sSecondPath == "rangedweapon" or sSecondPath == "rangedweapons" then
         sRecordDisplayClass = "rangedweapon"
       end
     end
@@ -41,7 +41,7 @@ function getVehicleRecordDisplayClass(vNode)
   if vNode then
     local sBasePath, sSecondPath = UtilityManager.getDataBaseNodePathSplit(vNode)
     if sBasePath == "reference" then
-      if sSecondPath == "groundvehicle" then
+      if sSecondPath == "groundvehicle" or sSecondPath == "groundvehicles" then
         sRecordDisplayClass = "groundvehicle"
       elseif sSecondPath == "watercraft" then
         sRecordDisplayClass = "watercraft"
@@ -71,7 +71,7 @@ function isDefense(vRecord)
   local sTypeLower = StringManager.trim(DB.getValue(nodeItem, "type", "")):lower();
   local sSubtypeLower = StringManager.trim(DB.getValue(nodeItem, "subtype", "")):lower();
 
-  if (sTypeLower == "defense") then
+  if (sTypeLower == "defense") or (sTypeLower == "defenses") or (sSubtypeLower == "defense") or (sSubtypeLower == "defenses")then
     bIsDefense = true;
   end
   
@@ -94,7 +94,7 @@ function isMeleeWeapon(vRecord)
   local sTypeLower = StringManager.trim(DB.getValue(nodeItem, "type", "")):lower();
   local sSubtypeLower = StringManager.trim(DB.getValue(nodeItem, "subtype", "")):lower();
 
-  if (sTypeLower == "melee weapon") or (sSubtypeLower == "melee weapon") then
+  if (sTypeLower == "melee weapon") or (sTypeLower == "melee weapons") or (sSubtypeLower == "melee weapon") or (sSubtypeLower == "melee weapons") then
     bIsMeleeWeapon = true;
   end
   
@@ -117,7 +117,7 @@ function isRangedWeapon(vRecord)
   local sTypeLower = StringManager.trim(DB.getValue(nodeItem, "type", "")):lower();
   local sSubtypeLower = StringManager.trim(DB.getValue(nodeItem, "subtype", "")):lower();
 
-  if (sTypeLower == "ranged weapon") or (sSubtypeLower == "ranged weapon") then
+  if (sTypeLower == "ranged weapon") or (sTypeLower == "ranged weapons") or (sSubtypeLower == "ranged weapon") or (sSubtypeLower == "ranged weapons") then
     bIsRangedWeapon = true;
   end
   
@@ -140,7 +140,7 @@ function isGroundVehicle(vRecord)
   local sTypeLower = StringManager.trim(DB.getValue(nodeItem, "type", "")):lower();
   local sSubtypeLower = StringManager.trim(DB.getValue(nodeItem, "subtype", "")):lower();
 
-  if (sTypeLower == "ground vehicle") then
+  if (sTypeLower == "ground vehicle") or (sTypeLower == "ground vehicles") then
     bIsGroundVehicle = true;
   end
   
@@ -226,8 +226,8 @@ aRecordOverrides = {
 	["item"] = { 
 		fRecordDisplayClass = getItemRecordDisplayClass,
 		aRecordDisplayClasses = { "item", "reference.defenses", "reference.meleeweapons", "reference.rangedweapons" },
-		aGMListButtons = { "button_item_defenses", "button_item_meleeweapons", "button_item_rangedweapons" };
-		aPlayerListButtons = { "button_item_defenses", "button_item_meleeweapons", "button_item_rangedweapons" };
+		aGMListButtons = { "button_item_bytype", "button_item_defenses", "button_item_meleeweapons", "button_item_rangedweapons" };
+		aPlayerListButtons = { "button_item_bytype", "button_item_defenses", "button_item_meleeweapons", "button_item_rangedweapons" };
 		aCustomFilters = {
 			["Type"] = { sField = "type"  },
 		},
@@ -268,6 +268,22 @@ aListViews = {
 		},
 	},
 	["item"] = {
+    ["bytype"] = {
+      sTitleRes = "item_grouped_title_bytype",
+      aColumns = {
+        { sName = "tl", sType = "string", sHeadingRes = "item_grouped_label_tl", sTooltipRes = "item_grouped_tooltip_tl", nWidth=30, bCentered=true },
+        { sName = "name", sType = "string", sHeadingRes = "item_grouped_label_name", nWidth=140 },
+        { sName = "cost", sType = "string", sHeadingRes = "item_grouped_label_cost", bCentered=true },
+        { sName = "weight", sType = "number", sHeadingRes = "item_grouped_label_weight", sTooltipRes = "item_grouped_tooltip_weight", nWidth=30, bCentered=true },
+        { sName = "lc", sType = "string", sHeadingRes = "item_grouped_label_lc", nWidth=30, bCentered=true },
+      },
+      aFilters = {},
+      aGroups = { 
+        { sDBField = "type" },
+        { sDBField = "subtype" } 
+      },
+      aGroupValueOrder = {},
+    },
     ["defense"] = {
       sTitleRes = "item_grouped_title_defenses",
       aColumns = {
@@ -279,7 +295,7 @@ aListViews = {
         { sName = "cost", sType = "string", sHeadingRes = "item_grouped_label_cost", bCentered=true },
         { sName = "weight", sType = "number", sHeadingRes = "item_grouped_label_weight", sTooltipRes = "item_grouped_tooltip_weight", nWidth=30, bCentered=true },
         { sName = "don", sType = "string", sHeadingRes = "item_grouped_label_don", nWidth=30, bCentered=true },
-        { sName = "Holdout", sType = "string", sHeadingRes = "item_grouped_label_holdout", nWidth=50, bCentered=true },
+        { sName = "holdout", sType = "string", sHeadingRes = "item_grouped_label_holdout", nWidth=50, bCentered=true },
         { sName = "lc", sType = "string", sHeadingRes = "item_grouped_label_lc", nWidth=30, bCentered=true },
       },
       aFilters = { 
@@ -302,7 +318,7 @@ aListViews = {
         { sName = "lc", sType = "string", sHeadingRes = "item_grouped_label_lc", nWidth=30, bCentered=true },
 			},
 			aFilters = { 
-				{ sDBField = "type", vFilterValue = "Melee Weapon" }, 
+        { sDBField = "type", vFilterValue = "Melee Weapon" }, 
 			},
       aGroups = { { sDBField = "subtype" } },
       aGroupValueOrder = {},
@@ -325,7 +341,7 @@ aListViews = {
         { sName = "lc", sType = "string", sHeadingRes = "item_grouped_label_lc", sTooltipRes = "item_grouped_tooltip_lc", nWidth=30, bCentered=true },
 			},
 			aFilters = { 
-				{ sDBField = "type", vFilterValue = "Ranged Weapon" }, 
+        { sDBField = "type", vFilterValue = "Ranged Weapon" }, 
 			},
       aGroups = { { sDBField = "subtype" } },
       aGroupValueOrder = {},

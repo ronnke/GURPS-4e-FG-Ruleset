@@ -34,3 +34,4 @@ Icon
 # IDE Project Files
 # ==========================
 .project
+/.vs

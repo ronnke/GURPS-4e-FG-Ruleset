@@ -71,8 +71,8 @@
 			</buttoncontrol>
 			<buttoncontrol name="button_global_stats">
 				<anchored to="header_toggles" position="insidetopleft" offset="30,8" width="20" height="20"/>
-				<state icon="stats" />
-				<state icon="stats_down" />
+				<state icon="button_section_stats" />
+				<state icon="button_section_stats_down" />
 				<script>
 					function onValueChanged()
 						window.list.toggleStats();
@@ -81,8 +81,8 @@
 			</buttoncontrol>
 			<buttoncontrol name="button_global_combat">
 				<anchored to="header_toggles" position="insidetopleft" offset="50,8" width="20" height="20"/>
-				<state icon="combat" />
-				<state icon="combat_down" />
+				<state icon="button_section_combat" />
+				<state icon="button_section_combat_down" />
 				<script>
 					function onValueChanged()
 						window.list.toggleCombat();
@@ -122,6 +122,9 @@
 		</sheetdata>
 	</windowclass>
 	
+	
+	
+	
 	<windowclass name="ct_entry">
 		<margins control="0,0,0,2" />
 		<frame>ctentrybox</frame>
@@ -141,1175 +144,60 @@
 				</script>
 			</hn>
 			<hs name="status" />
+						
+			<spacer_ctentry_active_top name="active_spacer_top" />
 			
-			<genericcontrol name="active_spacer_top">
-				<anchored width="0" height="5">
-					<top />
-					<left />
-				</anchored>
-				<invisible />
-			</genericcontrol>
+			<button_ctentry_active name="active" />
+			<token_ctentry name="token" />
+			<button_ctentry_tokenvis name="tokenvis" />
+			<button_ctentry_isidentified name="isidentified" />
 			
-			<button_ctentry_active name="active">
-				<anchored width="33" height="40">
-					<top parent="active_spacer_top" anchor="bottom" />
-					<left />
-				</anchored>
-			</button_ctentry_active>
-			<token_ctentry name="token">
-				<anchored width="25" height="25">
-					<top parent="active_spacer_top" anchor="bottom" offset="7" />
-					<left offset="33" />
-				</anchored>
-			</token_ctentry>
-			<button_ctentry_tokenvis name="tokenvis">
-				<anchored to="token" position="belowright" offset="-10,-7" />
-			</button_ctentry_tokenvis>
-			
-			<genericcontrol name="rightanchor">
-				<anchored width="0" height="0">
-					<top parent="active_spacer_top" anchor="bottom" offset="10" />
-					<right />
-				</anchored>
-				<invisible />
-			</genericcontrol>
-			<button_idelete name="idelete">
-				<anchored to="rightanchor">
-					<top />
-					<right anchor="left" relation="relative" offset="-12" />
-				</anchored>
-			</button_idelete>
-			
-			<link_ctentry name="link">
-				<anchored to="rightanchor">
-					<top />
-					<right anchor="left" relation="relative" offset="-8" />
-				</anchored>
-			</link_ctentry>
+			<anchor_ctentry_right name="rightanchor" />
+			<button_ctentry_idelete name="idelete" />
+			<link_ctentry name="link" />
+			<button_ctentry_activateeffects name="activateeffects" />
+			<button_ctentry_activatecombat name="activatecombat" />
+			<button_ctentry_activatestats name="activatestats" />
+			<button_ctentry_activatetargeting name="activatetargeting" />
+			<button_ctentry_friendfoe name="friendfoe" />
+			<button_ctentry_skip name="skip" />
 
-			<buttoncontrol name="activateeffects">
-				<anchored to="rightanchor" width="20" height="20">
-					<top />
-					<right anchor="left" relation="relative" offset="-5" />
-				</anchored>
-				<state icon="button_effect" tooltipres="ct_tooltip_effects" />
-				<state icon="button_effect_down" />
-				<script>
-					function onValueChanged()
-						window.setEffectsVisible();
-						window.windowlist.onEntrySectionToggle();
-					end
-				</script>
-			</buttoncontrol>
-			<buttoncontrol name="activatecombat">
-				<anchored to="rightanchor" width="20" height="20">
-					<top />
-					<right anchor="left" relation="relative" />
-				</anchored>
-				<state icon="combat" tooltipres="ct_tooltip_combat" />
-				<state icon="combat_down" />
-				<script>
-					function onValueChanged()
-						window.setCombatVisible();
-						window.windowlist.onEntrySectionToggle();
-					end
-				</script>
-			</buttoncontrol>
-			<buttoncontrol name="activatestats">
-				<anchored to="rightanchor" width="20" height="20">
-					<top />
-					<right anchor="left" relation="relative" />
-				</anchored>
-				<state icon="stats" tooltipres="ct_tooltip_stats" />
-				<state icon="stats_down" />
-				<script>
-					function onValueChanged()
-						window.setStatsVisible();
-						window.windowlist.onEntrySectionToggle();
-					end
-				</script>
-			</buttoncontrol>
-			<buttoncontrol name="activatetargeting">
-				<anchored to="rightanchor" width="20" height="20">
-					<top />
-					<right anchor="left" relation="relative" />
-				</anchored>
-				<state icon="button_section_targeting" tooltipres="ct_tooltip_targeting" />
-				<state icon="button_section_targeting_down" />
-				<script>
-					function onValueChanged()
-						window.setTargetingVisible();
-						window.windowlist.onEntrySectionToggle();
-					end
-				</script>
-			</buttoncontrol>
+			<number_ctfps name="fps" />
+			<number_cthps name="hps" />
+			<number_ctspeed name="speed" />
 
-			<button_ctentry_friendfoe name="friendfoe">
-				<anchored to="rightanchor">
-					<top />
-					<right anchor="left" relation="relative" offset="-5" />
-				</anchored>
-			</button_ctentry_friendfoe>
-
-			<buttoncontrol name="activateskip">
-				<anchored to="rightanchor" width="20" height="20">
-					<top />
-					<right anchor="left" relation="relative"  offset="-5"/>
-				</anchored>
-				<state icon="skip" tooltipres="ct_tooltip_skip" />
-				<state icon="skip_down" />
-				<script>
-					function onValueChanged()
-						window.setSkipVisible();
-						window.windowlist.onEntrySectionToggle();
-					end
-				</script>
-			</buttoncontrol>
-
-			<number_ct_crosslink name="fps">
-				<anchored to="rightanchor" width="40" height="20">
-					<top />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<tabtarget prev="name" />
-				<script>
-					function handleDrop(draginfo)
-						if draginfo.getType() == "number" then
-							setValue(getValue() - draginfo.getNumberData());
-						end
-					end
-				</script>
-			</number_ct_crosslink>
-
-			<number_ct_crosslink name="hps">
-				<anchored to="rightanchor" width="40" height="20">
-					<top />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<tabtarget prev="name" />
-				<script>
-					function handleDrop(draginfo)
-						if draginfo.getType() == "number" then
-							local node = window.getDatabaseNode();
-							local rActor = ActorManager.getActorFromCT(node);
-							ActionDamage.applyDamage(nil, rActor, CombatManager.isCTHidden(node), draginfo.getDescription(), draginfo.getNumberData());
-						end
-					end
-					
-					function update()
-						window.onHealthChanged();
-					end
-				</script>
-			</number_ct_crosslink>
-
-			<number_ct_crosslink name="speed">
-				<anchored to="rightanchor" width="40" height="20">
-					<top />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<tabtarget prev="name" />
-				<script>
-					function update()
-						window.windowlist.applySort();
-					end
-				</script>
-			</number_ct_crosslink>
-
-			<string_ctname name="name">
-				<anchored height="20">
-					<top parent="active_spacer_top" anchor="bottom" offset="10" />
-					<left parent="token" anchor="right" offset="5" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<tabtarget next="initresult" />
-			</string_ctname>
+			<string_ctname name="name" />
+			<string_ctname_nonid name="nonid_name" />
 			
 			<!-- Targeting subsection -->
-			<icon_ctsection name="targetingicon">
-				<icon>button_section_targeting_down</icon>
-			</icon_ctsection>
-			<subwindow name="sub_targeting">
-				<anchored>
-					<top parent="name" anchor="bottom" relation="relative" offset="10" />
-					<left parent="targetingicon" anchor="right" offset="8" />
-					<right offset="-12" />
-				</anchored>
-				<class>ct_targets</class>
-			</subwindow>
-			<frame_ctsub name="frame_targeting">
-				<anchored>
-					<top parent="targetingicon" />
-					<bottom parent="sub_targeting" />
-				</anchored>
-			</frame_ctsub>
+			<icon_ctsection_targeting name="targetingicon" />
+			<sub_ctsection_targeting name="sub_targeting" />
+			<frame_ctsection_targeting name="frame_targeting" />
 
 			<!-- Stats subsection -->
-			<icon_ctsection name="statsicon">
-				<icon>stats_down</icon>
-			</icon_ctsection>
-			
-			<number_ct_ability name="strength" source="attributes.strength">
-				<rollable_attribute />
-				<stat>ST</stat>
-				<anchored>
-					<top parent="name" anchor="bottom" relation="relative" offset="20" />
-					<left parent="statsicon" anchor="right" offset="25" />
-				</anchored>
-				<description textres="ct_label_strength" />
-				<hideonvalue value="0" />
-				<default>0</default>
-			</number_ct_ability>
-			<label_ct_ability name="label_strength">
-				<anchored to="strength" />
-				<static textres="ct_label_strength" />
-			</label_ct_ability>
-
-			<number_ct_ability name="dexterity" source="attributes.dexterity">
-				<rollable_attribute />
-				<stat>DX</stat>
-				<anchored to="strength" position="righthigh" offset="10,0" />
-				<description textres="ct_label_dexterity" />
-				<hideonvalue value="0" />
-				<default>0</default>
-			</number_ct_ability>
-			<label_ct_ability name="label_dexterity">
-				<anchored to="dexterity" />
-				<static textres="ct_label_dexterity" />
-			</label_ct_ability>
-			
-			<number_ct_ability name="intelligence" source="attributes.intelligence">
-				<rollable_attribute />
-				<stat>IQ</stat>
-				<anchored to="dexterity" position="righthigh" offset="10,0" />
-				<description textres="ct_label_intelligence" />
-				<hideonvalue value="0" />
-				<default>0</default>
-			</number_ct_ability>
-			<label_ct_ability name="label_intelligence">
-				<anchored to="intelligence" />
-				<static textres="ct_label_intelligence" />
-			</label_ct_ability>
-			
-			<number_ct_ability name="health" source="attributes.health">
-				<rollable_attribute />
-				<stat>HT</stat>
-				<anchored to="intelligence" position="righthigh" offset="10,0" />
-				<description textres="ct_label_health" />
-				<hideonvalue value="0" />
-				<default>0</default>
-			</number_ct_ability>
-			<label_ct_ability name="label_health">
-				<anchored to="health" />
-				<static textres="ct_label_health" />
-			</label_ct_ability>
-			
-			<number_ct_ability name="will" source="attributes.will">
-				<rollable_attribute />
-				<stat>WILL</stat>
-				<anchored to="health" position="righthigh" offset="10,0" />
-				<description textres="ct_label_will" />
-				<hideonvalue value="0" />
-				<default>0</default>
-			</number_ct_ability>
-			<label_ct_ability name="label_will">
-				<anchored to="will" />
-				<static textres="ct_label_will" />
-			</label_ct_ability>
-			
-			<number_ct_ability name="perception" source="attributes.perception">
-				<rollable_attribute />
-				<stat>PER</stat>
-				<anchored to="will" position="righthigh" offset="10,0" />
-				<description textres="ct_label_perception" />
-				<hideonvalue value="0" />
-				<default>0</default>
-			</number_ct_ability>
-			<label_ct_ability name="label_perception">
-				<anchored to="perception" />
-				<static textres="ct_label_perception" />
-			</label_ct_ability>
-			
-			<number_ct_ability name="hitpoints" source="attributes.hitpoints">
-				<anchored to="perception" position="righthigh" offset="10,0" />
-				<description textres="ct_label_hitpoints" />
-				<hideonvalue value="0" />
-				<default>0</default>
-				<script>
-					function onValueChanged()
-						window.onHealthChanged();
-					end
-				</script>
-			</number_ct_ability>
-			<label_ct_ability name="label_hitpoints">
-				<anchored to="hitpoints" />
-				<static textres="ct_label_hitpoints" />
-			</label_ct_ability>
-
-			<number_ct_ability name="fatiguepoints" source="attributes.fatiguepoints">
-				<anchored to="hitpoints" position="righthigh" offset="10,0" />
-				<description textres="ct_label_fatiguepoints" />
-				<hideonvalue value="0" />
-				<default>0</default>
-			</number_ct_ability>
-			<label_ct_ability name="label_fatiguepoints">
-				<anchored to="fatiguepoints" />
-				<static textres="ct_label_fatiguepoints" />
-			</label_ct_ability>
-
-			<genericcontrol name="spacer_stats">
-				<anchored height="0">
-					<top parent="name" anchor="bottom" relation="relative" offset="2" />
-					<left parent="statsicon" anchor="right" offset="55" />
-					<right offset="-17" />
-				</anchored>
-				<disabled />
-			</genericcontrol>
-
-			<frame_ctsub name="frame_stats">
-				<anchored>
-					<top parent="statsicon" />
-					<bottom parent="spacer_stats" />
-				</anchored>
-			</frame_ctsub>
+			<icon_ctsection_stats name="statsicon" />
+			<sub_ctsection_stats name="sub_stats" />
+			<frame_ctsection_stats name="frame_stats" />
 
 			<!-- Combat subsection -->
-			<icon_ctsection name="combaticon">
-				<icon>combat_down</icon>
-			</icon_ctsection>
-			<string_ct name="sizemodifier" source="traits.sizemodifier">
-				<anchored width="25" height="20">
-					<top parent="name" anchor="bottom" relation="relative" offset="10" />
-					<left parent="combaticon" anchor="right" offset="50" />
-				</anchored>
-				<description textres="ct_label_sizemodifier" />
-				<script>
-					function onValueChanged()
-						window.onSizeModifierChanged();
-					end
-				</script>
-				<default>0</default>
-				<center />
-			</string_ct>
-			<label name="sizemodifierlabel">
-				<anchored to="sizemodifier" position="lefthigh" offset="10,0"/>
-				<static textres="ct_label_sizemodifier" />
-			</label>
-
-			<string_ct name="reach" source="traits.reach">
-				<anchored to="sizemodifier" position="righthigh" offset="60,0" width="25" height="20"/>
-				<description textres="ct_label_reach" />
-				<default>0</default>
-				<center />
-			</string_ct>
-			<label name="reachlabel">
-				<anchored to="reach" position="lefthigh" offset="10,0"/>
-				<static textres="ct_label_reach" />
-			</label>
-
-			<string_ct name="move" source="attributes.move">
-				<anchored to="reach" position="righthigh" offset="60,0" height="20">
-					<right parent="" offset="-20" />
-				</anchored>
-			</string_ct>
-			<label name="label_move">
-				<anchored to="move" position="lefthigh" offset="10,0"/>
-				<static textres="ct_label_move" />
-			</label>
-
-			<number_ct_ability name="dodge" source="combat.dodge">
-				<rollable_dodge />
-				<anchored>
-					<top parent="name" anchor="bottom" relation="relative" offset="10" />
-					<left parent="combaticon" anchor="right" offset="25" />
-				</anchored>
-				<description textres="ct_label_dodge" />
-				<hideonvalue value="0" />
-				<default>0</default>
-			</number_ct_ability>
-			<label_ct_ability name="label_dodge">
-				<anchored to="dodge" />
-				<static textres="ct_label_dodge" />
-			</label_ct_ability>
-
-			<number_ct_ability name="parry" source="combat.parry">
-				<rollable_parry />
-				<anchored to="dodge" position="righthigh" offset="10,0" />
-				<description textres="ct_label_parry" />
-				<hideonvalue value="0" />
-				<default>0</default>
-			</number_ct_ability>
-			<label_ct_ability name="label_parry">
-				<anchored to="parry" />
-				<static textres="ct_label_parry" />
-			</label_ct_ability>
-
-			<number_ct_ability name="block" source="combat.block">
-				<rollable_block />
-				<anchored to="parry" position="righthigh" offset="10,0" />
-				<description textres="ct_label_block" />
-				<hideonvalue value="0" />
-				<default>0</default>
-			</number_ct_ability>
-			<label_ct_ability name="label_block">
-				<anchored to="block" />
-				<static textres="ct_label_block" />
-			</label_ct_ability>
-
-			<string_ct_ability name="dr" source="combat.dr">
-				<anchored to="block" position="righthigh" offset="20,0" />
-				<description textres="ct_label_dr" />
-			</string_ct_ability>
-			<label_ct_ability name="label_dr">
-				<anchored to="dr" />
-				<static textres="ct_label_dr" />
-			</label_ct_ability>
-
-
-			<genericcontrol name="spacer_combat">
-				<anchored height="0">
-					<top parent="name" anchor="bottom" relation="relative" offset="5" />
-					<left parent="combaticon" anchor="right" offset="20" />
-					<right offset="-25" />
-				</anchored>
-				<disabled />
-			</genericcontrol>
-
-			<header_column name="header_meleecombat">
-				<anchored>
-					<top parent="name" anchor="bottom" relation="relative" offset="5" />
-					<left parent="combaticon" anchor="right" offset="20" />
-					<right offset="-25" />
-				</anchored>
-				<static textres="npc_label_melee" />
-				<color>#808080</color>
-			</header_column>
-			<list_ctmeleecombat name="meleecombat">
-				<anchored>
-					<top parent="name" anchor="bottom" relation="relative" offset="3" />
-					<left parent="combaticon" anchor="right" offset="10" />
-					<right offset="-10" />
-				</anchored>
-				<class>ct_meleecombat</class>
-			</list_ctmeleecombat>
-
-			<header_column name="header_rangedcombat">
-				<anchored>
-					<top parent="name" anchor="bottom" relation="relative" offset="5" />
-					<left parent="combaticon" anchor="right" offset="20" />
-					<right offset="-25" />
-				</anchored>
-				<static textres="npc_label_ranged" />
-				<color>#808080</color>
-			</header_column>
-			<list_npcrangedcombat name="rangedcombat">
-				<anchored>
-					<top parent="name" anchor="bottom" relation="relative" offset="3" />
-					<left parent="combaticon" anchor="right" offset="10" />
-					<right offset="-10" />
-				</anchored>
-				<class>ct_rangedcombat</class>
-			</list_npcrangedcombat>
-
-			<genericcontrol name="spacer_combat2">
-				<anchored height="0">
-					<top parent="name" anchor="bottom" relation="relative" offset="3" />
-					<left parent="combaticon" anchor="right" offset="20" />
-					<right offset="-25" />
-				</anchored>
-				<disabled />
-			</genericcontrol>
-
-			<frame_ctsub name="frame_combat">
-				<anchored>
-					<top parent="combaticon" />
-					<bottom parent="spacer_combat2" />
-				</anchored>
-			</frame_ctsub>
+			<icon_ctsection_combat name="combaticon" />
+			<sub_ctsection_combat name="sub_combat" />
+			<sub_ctsection_meleecombat name="sub_meleecombat" />
+			<sub_ctsection_rangedcombat name="sub_rangedcombat" />
+			<frame_ctsection_combat name="frame_combat" />
 
 			<!-- Effect subsection -->
-			<icon_ctsection name="effecticon">
-				<icon>button_effect_down</icon>
-			</icon_ctsection>
-
-			<windowlist name="effects">
-				<anchored>
-					<top parent="name" anchor="bottom" relation="relative" offset="10" />
-					<left parent="effecticon" anchor="right" offset="8" />
-					<right offset="-12" />
-				</anchored>
-				<datasource>.effects</datasource>
-				<class>ct_effect</class>
-				<noscroll />
-				<script file="ct/scripts/ct_effectlist.lua" />
-			</windowlist>
- 
-			<button_iadd name="effects_iadd">
-				<anchored>
-					<top parent="name" anchor="bottom" relation="relative" offset="2" />
-					<right parent="effects" offset="-2" />
-				</anchored>
-				<target>effects</target>
-				<tooltip textres="ct_tooltip_effectadd" />
-			</button_iadd>
-			
-			<frame_ctsub name="frame_effects">
-				<anchored>
-					<top parent="effecticon" />
-					<bottom parent="effects_iadd" />
-				</anchored>
-			</frame_ctsub>
+			<icon_ctsection_effect name="effecticon" />
+			<list_ctsection_effect name="effects" />
+			<button_ctsection_effect_iadd name="effects_iadd" />
+			<frame_ctsection_effect name="frame_effects" />
 
 			<!-- Quick labels -->
 			<string_ctentry_targets name="target_summary" />
 			<string_ctentry_effects name="effect_summary" />
 
-			<genericcontrol name="spacer">
-				<anchored width="0" height="9">
-					<top parent="name" anchor="bottom" relation="relative" />
-					<left />
-				</anchored>
-			</genericcontrol>
-
-			<genericcontrol name="active_spacer_bottom">
-				<anchored width="0" height="5">
-					<top parent="name" anchor="bottom" relation="relative" />
-					<left />
-				</anchored>
-				<invisible />
-			</genericcontrol>
-		</sheetdata>
-	</windowclass>
-
-	<windowclass name="ct_meleecombat">
-		<margins control="0,0,0,2" />
-		<script>
-			function onInit()
-				setModesVisible();
-				setModifiersVisible();
-			end
-
-			function setModesVisible()
-				local v = false;
-				if activatemodes.getValue() == 1 then
-					v = true;
-				end
-
-				modesicon.setVisible(v);
-				modes_parry_label.setVisible(v);
-				modes_reach_label.setVisible(v);
-				modes_damage_label.setVisible(v);
-				modes_level_label.setVisible(v);
-				modes_label.setVisible(v);
-				modeslist.setVisible(v);
-				frame_modes.setVisible(v);
-			end
-			
-			function setModifiersVisible()
-				local v = false;
-				if activatemodifiers.getValue() == 1 then
-					v = true;
-				end
-				
-				modifiersicon.setVisible(v);
-				modifiers_label.setVisible(v);
-				modifierslist.setVisible(v);
-				frame_modifiers.setVisible(v);
-			end
-		</script>
-		<sheetdata>
-		
-			<genericcontrol name="rightanchor">
-				<anchored height="0" width="0">
-					<top />
-					<right />
-				</anchored>
-				<invisible />
-			</genericcontrol>
-			<genericcontrol name="bottomanchor">
-				<anchored height="0" width="0">
-					<top offset="20" />
-					<right />
-				</anchored>
-				<invisible />
-			</genericcontrol>
-
-			<string_charfield name="weight">
-				<anchored to="rightanchor" width="40" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<tabtarget prev="st" next="cost" />
-			</string_charfield>
-			<label name="label_weight">
-				<anchored to="rightanchor" width="40" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<static textres="ct_label_weight" />
-			</label>
-			<string_charfield name="st">
-				<anchored to="rightanchor" width="30" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<tabtarget prev="name" next="weight" />
-			</string_charfield>
-			<label name="label_st">
-				<anchored to="rightanchor" width="15" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<static textres="ct_label_st" />
-			</label>
-			<buttoncontrol name="activatemodifiers">
-				<anchored to="rightanchor" width="20" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<state icon="modifiers" tooltipres="char_tooltip_weaponmodifiers" />
-				<state icon="modifiers_down" />
-				<script>
-					function onValueChanged()
-						window.setModifiersVisible();
-					end
-				</script>
-			</buttoncontrol>
-			<buttoncontrol name="activatemodes">
-				<anchored to="rightanchor" width="20" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-5" />
-				</anchored>
-				<state icon="weapon_modes" tooltipres="char_tooltip_modes" />
-				<state icon="weapon_modes_down" />
-				<script>
-					function onValueChanged()
-						window.setModesVisible();
-					end
-				</script>
-			</buttoncontrol>
-			
-			<string_textlistitem name="name">
-				<anchored height="20">
-					<top offset="2" />
-					<left offset="5" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
-				</anchored>
-				<tabtarget next="st" />
-				<nodrag />
-			</string_textlistitem>
-			
-			<!-- WEAPON MODES SECTION --> 			
-			<icon_detailsection name="modesicon">
-				<icon>weapon_modes_down</icon>
-			</icon_detailsection>
-
-			<label_columntop name="modes_parry_label">
-				<anchored to="modesicon" width="30" offset="-30">
-					<top />
-					<right parent="bottomanchor" anchor="left" relation="relative" offset="-15" />
-				</anchored>
-				<static textres="char_label_parry" />
-			</label_columntop>
-			<label_columntop name="modes_reach_label">
-				<anchored to="modesicon" width="40">
-					<top />
-					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<static textres="char_label_reach" />
-			</label_columntop>
-			<label_columntop name="modes_damage_label">
-				<anchored to="modesicon" width="70">
-					<top />
-					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<static textres="char_label_damage" />
-			</label_columntop>
-			<label_columntop name="modes_level_label">
-				<anchored to="modesicon" width="20">
-					<top />
-					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<static textres="char_label_level" />
-			</label_columntop>
-			<label_columntop name="modes_label">
-				<anchored to="modesicon">
-					<top />
-					<left anchor="right" offset="5" />
-					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<static textres="char_label_mode" />
-			</label_columntop>
-
-			<list_charmeleemode name="modeslist">
-				<anchored to="modes_label">
-					<top anchor="bottom" relation="relative" />
-					<left parent="modesicon" anchor="right" offset="10" />
-					<right parent="bottomanchor" anchor="left" offset="-10" />
-				</anchored>
-				<class>ct_meleemode</class>
-				<noscroll />
-			</list_charmeleemode>
- 
-			<frame_detailsub name="frame_modes">
-				<anchored to="bottomanchor">
-					<top anchor="bottom" relation="relative" offset="5" />
-					<right parent="modeslist" anchor="right" offset="10" />
-					<left parent="modeslist" anchor="left" offset="-10" />
-					<bottom parent="modeslist" />
-				</anchored>
-			</frame_detailsub>
-		
-
-			<!-- WEAPON MODIFIERS SECTION --> 			
-			<icon_detailsection name="modifiersicon">
-				<icon>modifiers_down</icon>
-			</icon_detailsection>
-
-			<label_columntop name="modifiers_label">
-				<anchored to="modifiersicon">
-					<top />
-					<left anchor="right" offset="10" />
-					<right parent="bottomanchor" anchor="left" offset="-10" />
-				</anchored>
-				<static textres="char_label_modifier" />
-			</label_columntop>
-
-			<list_charmodifier name="modifierslist">
-				<anchored to="modifiers_label">
-					<top anchor="bottom" relation="relative" />
-					<left parent="modifiersicon" anchor="right" offset="10" />
-					<right parent="bottomanchor" anchor="left" offset="-10" />
-				</anchored>
-				<class>basic_modifier</class>
-				<noscroll />
-			</list_charmodifier>
- 
-			<frame_detailsub name="frame_modifiers">
-				<anchored to="bottomanchor">
-					<top anchor="bottom" relation="relative" offset="5" />
-					<right parent="modifierslist" anchor="right" offset="10" />
-					<left parent="modifierslist" anchor="left" offset="-10" />
-					<bottom parent="modifierslist" />
-				</anchored>
-			</frame_detailsub>
-			
-		</sheetdata>
-	</windowclass>
-
-	<windowclass name="ct_meleemode">
-		<margins control="0,0,0,2" />
-		<sheetdata>
-		
-			<genericcontrol name="rightanchor">
-				<anchored height="0" width="0">
-					<top />
-					<right />
-				</anchored>
-				<invisible />
-			</genericcontrol>
-			
-			<string_chardefensefield name="parry">
-				<rollable_weaponparry />
-				<anchored to="rightanchor" width="30" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-5" />
-				</anchored>
-				<tabtarget prev="reach" />
-			</string_chardefensefield>
-			<string_charfield name="reach">
-				<anchored to="rightanchor" width="40" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<tabtarget next="parry" prev="damage" />
-			</string_charfield>
-			<string_charfield name="damage">
-				<rollable_damage />
-				<anchored to="rightanchor" width="70" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<tabtarget next="reach" prev="name" />
-			</string_charfield>
-			<number_charfield name="level">
-				<rollable_melee />
-				<anchored to="rightanchor" width="20" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<tabtarget next="damage" prev="name" />
-			</number_charfield>
-			<string_textlistitem name="name">
-				<anchored height="20">
-					<top offset="2" />
-					<left offset="5" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<nodrag />
-				<tabtarget next="level" />
-			</string_textlistitem>
-			
-		</sheetdata>
-	</windowclass>
-
-	<windowclass name="ct_rangedcombat">
-		<margins control="0,0,0,2" />
-		<script>
-			function onInit()
-				setModesVisible();
-				setModifiersVisible();
-			end
-
-			function setModesVisible()
-				local v = false;
-				if activatemodes.getValue() == 1 then
-					v = true;
-				end
-			
-				modesicon.setVisible(v);
-				
-				modes_rcl_label.setVisible(v);
-				modes_shots_label.setVisible(v);
-				modes_rof_label.setVisible(v);
-				modes_range_label.setVisible(v);
-				modes_acc_label.setVisible(v);
-				modes_damage_label.setVisible(v);
-				modes_level_label.setVisible(v);
-				modes_label.setVisible(v);
-				modeslist.setVisible(v);
-				frame_modes.setVisible(v);
-
-			end
-			
-			function setModifiersVisible()
-				local v = false;
-				if activatemodifiers.getValue() == 1 then
-					v = true;
-				end
-				
-				modifiersicon.setVisible(v);
-				modifiers_label.setVisible(v);
-				modifierslist.setVisible(v);
-				frame_modifiers.setVisible(v);
-			end
-		</script>
-		<sheetdata>
-		
-			<genericcontrol name="rightanchor">
-				<anchored height="0" width="0">
-					<top />
-					<right />
-				</anchored>
-			</genericcontrol>
-			<genericcontrol name="bottomanchor">
-				<anchored height="0" width="0">
-					<top offset="20" />
-					<right />
-				</anchored>
-				<invisible />
-			</genericcontrol>
-
-			<number_charmodfield name="bulk">
-				<anchored to="rightanchor" width="30" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<tabtarget prev="st"/>
-				<script>
-					function onDragStart(button, x, y, draginfo)
-						return actionDrag(draginfo, "Bulk");
-					end
-
-					function onDoubleClick(x, y)
-						return action("Bulk");
-					end
-				</script>
-			</number_charmodfield>
-			
-			<label name="label_bulk">
-				<anchored to="rightanchor" width="30" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<static textres="ct_label_bulk" />
-			</label>
-			<string_charfield name="st">
-				<anchored to="rightanchor" width="30" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<tabtarget prev="name" next="bulk" />
-			</string_charfield>
-			<label name="label_st">
-				<anchored to="rightanchor" width="15" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<static textres="ct_label_st" />
-			</label>
-			<buttoncontrol name="activatemodifiers">
-				<anchored to="rightanchor" width="20" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<state icon="modifiers" tooltipres="char_tooltip_weaponmodifiers" />
-				<state icon="modifiers_down" />
-				<script>
-					function onValueChanged()
-						window.setModifiersVisible();
-					end
-				</script>
-			</buttoncontrol>
-			<buttoncontrol name="activatemodes">
-				<anchored to="rightanchor" width="20" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-5" />
-				</anchored>
-				<state icon="weapon_modes" tooltipres="char_tooltip_modes" />
-				<state icon="weapon_modes_down" />
-				<script>
-					function onValueChanged()
-						window.setModesVisible();
-					end
-				</script>
-			</buttoncontrol>
-			
-			<string_textlistitem name="name">
-				<anchored height="20">
-					<top offset="2" />
-					<left offset="5" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
-				</anchored>
-				<tabtarget next="st" />
-				<nodrag />
-			</string_textlistitem>
-			
-			<!-- WEAPON MODES SECTION --> 			
-			<icon_detailsection name="modesicon">
-				<icon>weapon_modes_down</icon>
-			</icon_detailsection>
-
-			<label_columntop name="modes_rcl_label">
-				<anchored to="modesicon" width="20">
-					<top />
-					<right parent="bottomanchor" anchor="left" relation="relative" offset="-15" />
-				</anchored>
-				<static textres="char_label_rcl" />
-			</label_columntop>
-			<label_columntop name="modes_shots_label">
-				<anchored to="modesicon" width="40">
-					<top />
-					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<static textres="char_label_shots" />
-			</label_columntop>
-			<label_columntop name="modes_rof_label">
-				<anchored to="modesicon" width="20">
-					<top />
-					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<static textres="char_label_rof" />
-			</label_columntop>
-			<label_columntop name="modes_range_label">
-				<anchored to="modesicon" width="60">
-					<top />
-					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<static textres="char_label_range" />
-			</label_columntop>
-			<label_columntop name="modes_acc_label">
-				<anchored to="modesicon" width="20">
-					<top />
-					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<static textres="char_label_acc" />
-			</label_columntop>
-			<label_columntop name="modes_damage_label">
-				<anchored to="modesicon" width="60">
-					<top />
-					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<static textres="char_label_damage" />
-			</label_columntop>
-			<label_columntop name="modes_level_label">
-				<anchored to="modesicon" width="20">
-					<top />
-					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<static textres="char_label_level" />
-			</label_columntop>
-			<label_columntop name="modes_label">
-				<anchored to="modesicon">
-					<top />
-					<left anchor="right" offset="5" />
-					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<static textres="char_label_mode" />
-			</label_columntop>
-
-			<list_charrangedmode name="modeslist">
-				<anchored to="modes_label">
-					<top anchor="bottom" relation="relative" />
-					<left parent="modesicon" anchor="right" offset="10" />
-					<right parent="bottomanchor" anchor="left" offset="-10" />
-				</anchored>
-				<class>ct_rangedmode</class>
-				<noscroll />
-			</list_charrangedmode>
- 
-			<frame_detailsub name="frame_modes">
-				<anchored to="bottomanchor">
-					<top anchor="bottom" relation="relative" offset="5" />
-					<right parent="modeslist" anchor="right" offset="10" />
-					<left parent="modeslist" anchor="left" offset="-10" />
-					<bottom parent="modeslist" />
-				</anchored>
-			</frame_detailsub>
-		
-
-			<!-- WEAPON MODIFIERS SECTION --> 			
-			<icon_detailsection name="modifiersicon">
-				<icon>modifiers_down</icon>
-			</icon_detailsection>
-
-			<label_columntop name="modifiers_label">
-				<anchored to="modifiersicon">
-					<top />
-					<left anchor="right" offset="10" />
-					<right parent="bottomanchor" anchor="left" offset="-10" />
-				</anchored>
-				<static textres="char_label_modifier" />
-			</label_columntop>
-
-			<list_charmodifier name="modifierslist">
-				<anchored to="modifiers_label">
-					<top anchor="bottom" relation="relative" />
-					<left parent="modifiersicon" anchor="right" offset="10" />
-					<right parent="bottomanchor" anchor="left" offset="-10" />
-				</anchored>
-				<class>basic_modifier</class>
-				<noscroll />
-			</list_charmodifier>
- 
-			<frame_detailsub name="frame_modifiers">
-				<anchored to="bottomanchor">
-					<top anchor="bottom" relation="relative" offset="5" />
-					<right parent="modifierslist" anchor="right" offset="10" />
-					<left parent="modifierslist" anchor="left" offset="-10" />
-					<bottom parent="modifierslist" />
-				</anchored>
-			</frame_detailsub>
-			
-		</sheetdata>
-	</windowclass>
-
-	<windowclass name="ct_rangedmode">
-		<margins control="0,0,0,2" />
-		<sheetdata>
-		
-			<genericcontrol name="rightanchor">
-				<anchored height="0" width="0">
-					<top />
-					<right />
-				</anchored>
-				<invisible />
-			</genericcontrol>
-			
-			<number_charfield name="rcl">
-				<anchored to="rightanchor" width="20" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-5" />
-				</anchored>
-				<tabtarget prev="shots" />
-			</number_charfield>
-			<string_charfield name="shots">
-				<anchored to="rightanchor" width="40" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<tabtarget next="rcl" prev="rof" />
-			</string_charfield>
-			<string_charfield name="rof">
-				<anchored to="rightanchor" width="20" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<tabtarget next="shots" prev="range" />
-			</string_charfield>
-			<string_charfield name="range">
-				<anchored to="rightanchor" width="60" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<tabtarget next="rof" prev="acc" />
-			</string_charfield>
-			<number_charmodfield name="acc">
-				<anchored to="rightanchor" width="20" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<tabtarget next="range" prev="damage" />
-				<script>
-					function onDragStart(button, x, y, draginfo)
-						return actionDrag(draginfo, "Acc");
-					end
-
-					function onDoubleClick(x, y)
-						return action("Acc");
-					end
-				</script>
-			</number_charmodfield>
-			<string_charfield name="damage">
-				<rollable_damage />
-				<anchored to="rightanchor" width="60" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<tabtarget next="acc" prev="level" />
-			</string_charfield>
-			<number_charfield name="level">
-				<rollable_ranged />
-				<anchored to="rightanchor" width="20" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<tabtarget next="damage" prev="name" />
-			</number_charfield>
-			<string_textlistitem name="name">
-				<anchored height="20">
-					<top offset="2" />
-					<left offset="5" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<nodrag />
-				<tabtarget next="level" />
-			</string_textlistitem>
-			
-		</sheetdata>
-	</windowclass>
-
-
-	<windowclass name="ct_effect">
-		<margins control="0,0,0,2" />
-		<script file="ct/scripts/ct_effect.lua" />
-		<sheetdata>
-			<base_ct_effect name="base" />
-			
-			<anchor_ct_effect_left name="leftanchor" />
-			<button_ct_effect_isactive name="isactive" />
-			<button_ct_effect_isgmonly name="isgmonly" />
-			
-			<anchor_ct_effect_right name="rightanchor" />
-			<button_ct_effect_idelete name="idelete" />
-			<button_ct_effect_targetadd name="targeting_add_button" />
-			<number_ct_effect_units name="units" />
-			<number_ct_effect_duration name="duration" />
-
-			<string_ct_effect name="label" />
-
-			<hs_ct_effect_source name="source_name" />
-			<string_ct_effect_source name="source" />
-			<string_ct_effect_targets name="target_summary" />
+			<spacer_ctentry_middle name="spacer" />
+			<spacer_ctentry_active_bottom name="active_spacer_bottom" />
 		</sheetdata>
 	</windowclass>
 
@@ -1410,4 +298,802 @@
 			</tokencontrol>
 		</sheetdata>
 	</windowclass>
+
+	<windowclass name="ct_stats">
+		<margins control="0,0,3,2" />
+		<sheetdata>
+			<number_ct_ability name="strength" source="attributes.strength">
+				<rollable_attribute />
+				<stat>ST</stat>
+				<anchored>
+					<top relation="relative" offset="10" />
+					<left offset="10" />
+				</anchored>
+				<description textres="ct_label_strength" />
+				<hideonvalue value="0" />
+				<default>0</default>
+			</number_ct_ability>
+			<label_ct_ability name="label_strength">
+				<anchored to="strength" />
+				<static textres="ct_label_strength" />
+			</label_ct_ability>
+
+			<number_ct_ability name="dexterity" source="attributes.dexterity">
+				<rollable_attribute />
+				<stat>DX</stat>
+				<anchored to="strength" position="righthigh" offset="10,0" />
+				<description textres="ct_label_dexterity" />
+				<hideonvalue value="0" />
+				<default>0</default>
+			</number_ct_ability>
+			<label_ct_ability name="label_dexterity">
+				<anchored to="dexterity" />
+				<static textres="ct_label_dexterity" />
+			</label_ct_ability>
+			
+			<number_ct_ability name="intelligence" source="attributes.intelligence">
+				<rollable_attribute />
+				<stat>IQ</stat>
+				<anchored to="dexterity" position="righthigh" offset="10,0" />
+				<description textres="ct_label_intelligence" />
+				<hideonvalue value="0" />
+				<default>0</default>
+			</number_ct_ability>
+			<label_ct_ability name="label_intelligence">
+				<anchored to="intelligence" />
+				<static textres="ct_label_intelligence" />
+			</label_ct_ability>
+			
+			<number_ct_ability name="health" source="attributes.health">
+				<rollable_attribute />
+				<stat>HT</stat>
+				<anchored to="intelligence" position="righthigh" offset="10,0" />
+				<description textres="ct_label_health" />
+				<hideonvalue value="0" />
+				<default>0</default>
+			</number_ct_ability>
+			<label_ct_ability name="label_health">
+				<anchored to="health" />
+				<static textres="ct_label_health" />
+			</label_ct_ability>
+			
+			<number_ct_ability name="will" source="attributes.will">
+				<rollable_attribute />
+				<stat>WILL</stat>
+				<anchored to="health" position="righthigh" offset="10,0" />
+				<description textres="ct_label_will" />
+				<hideonvalue value="0" />
+				<default>0</default>
+			</number_ct_ability>
+			<label_ct_ability name="label_will">
+				<anchored to="will" />
+				<static textres="ct_label_will" />
+			</label_ct_ability>
+			
+			<number_ct_ability name="perception" source="attributes.perception">
+				<rollable_attribute />
+				<stat>PER</stat>
+				<anchored to="will" position="righthigh" offset="10,0" />
+				<description textres="ct_label_perception" />
+				<hideonvalue value="0" />
+				<default>0</default>
+			</number_ct_ability>
+			<label_ct_ability name="label_perception">
+				<anchored to="perception" />
+				<static textres="ct_label_perception" />
+			</label_ct_ability>
+			
+			<number_ct_ability name="hitpoints" source="attributes.hitpoints">
+				<anchored to="perception" position="righthigh" offset="10,0" />
+				<description textres="ct_label_hitpoints" />
+				<hideonvalue value="0" />
+				<default>0</default>
+			</number_ct_ability>
+			<label_ct_ability name="label_hitpoints">
+				<anchored to="hitpoints" />
+				<static textres="ct_label_hitpoints" />
+			</label_ct_ability>
+
+			<number_ct_ability name="fatiguepoints" source="attributes.fatiguepoints">
+				<anchored to="hitpoints" position="righthigh" offset="10,0" />
+				<description textres="ct_label_fatiguepoints" />
+				<hideonvalue value="0" />
+				<default>0</default>
+			</number_ct_ability>
+			<label_ct_ability name="label_fatiguepoints">
+				<anchored to="fatiguepoints" />
+				<static textres="ct_label_fatiguepoints" />
+			</label_ct_ability>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="ct_combat">
+		<margins control="0,0,3,2" />
+		<sheetdata>
+			<anchor_ct_left name="columnanchor" />
+			<anchor_ct_left name="leftanchor" />
+			<anchor_ct_right name="rightanchor" />
+			
+			<label name="sizemodifierlabel">
+				<anchored to="columnanchor">
+					<top relation="relative" offset="5" />
+					<left offset="10" />
+				</anchored>
+				<static textres="ct_label_sizemodifier" />
+			</label>
+			<string_ct name="sizemodifier" source="traits.sizemodifier">
+				<anchored to="sizemodifierlabel" position="right" offset="10" width="30" />
+				<description textres="ct_label_sizemodifier" />
+				<script>
+					function onValueChanged()
+						window.onSizeModifierChanged();
+					end
+				</script>
+				<default>0</default>
+				<center />
+			</string_ct>
+
+			<label name="label_reach">
+				<anchored to="sizemodifier" position="rightlow" offset="20"/>
+				<static textres="ct_label_reach" />
+			</label>
+			<string_ct name="reach" source="traits.reach">
+				<anchored to="label_reach" position="right" offset="10" width="30"/>
+				<description textres="ct_label_reach" />
+				<default>0</default>
+				<center />
+			</string_ct>
+
+			<label name="label_move">
+				<anchored to="reach" top="0" position="rightlow" offset="20"/>
+				<static textres="ct_label_move" />
+			</label>
+			<string_ct name="move" source="attributes.move">
+				<anchored to="label_move" position="right" offset="10">
+					<right parent="rightanchor" anchor="left" offset="-5" />
+				</anchored>
+			</string_ct>
+
+			<number_ct_ability name="dodge" source="combat.dodge">
+				<rollable_dodge />
+				<anchored to="columnanchor">
+					<top relation="relative" offset="35" />
+					<left offset="10" />
+				</anchored>
+				<description textres="ct_label_dodge" />
+				<hideonvalue value="0" />
+				<default>0</default>
+			</number_ct_ability>
+			<label_ct_ability name="label_dodge">
+				<anchored to="dodge" />
+				<static textres="ct_label_dodge" />
+			</label_ct_ability>
+
+			<number_ct_ability name="parry" source="combat.parry">
+				<rollable_parry />
+				<anchored to="dodge" position="righthigh" offset="10,0" />
+				<description textres="ct_label_parry" />
+				<hideonvalue value="0" />
+				<default>0</default>
+			</number_ct_ability>
+			<label_ct_ability name="label_parry">
+				<anchored to="parry" />
+				<static textres="ct_label_parry" />
+			</label_ct_ability>
+
+			<number_ct_ability name="block" source="combat.block">
+				<rollable_block />
+				<anchored to="parry" position="righthigh" offset="10,0" />
+				<description textres="ct_label_block" />
+				<hideonvalue value="0" />
+				<default>0</default>
+			</number_ct_ability>
+			<label_ct_ability name="label_block">
+				<anchored to="block" />
+				<static textres="ct_label_block" />
+			</label_ct_ability>
+
+			<string_ct_ability name="dr" source="combat.dr">
+				<anchored to="block" position="righthigh" offset="20,0" />
+				<description textres="ct_label_dr" />
+			</string_ct_ability>
+			<label_ct_ability name="label_dr">
+				<anchored to="dr" />
+				<static textres="ct_label_dr" />
+			</label_ct_ability>
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="ct_meleecombat">
+		<margins control="0,0,3,2" />
+		<sheetdata>
+			<anchor_ct_left name="columnanchor" />
+			<header_column name="header_meleecombat">
+				<anchored>
+					<top relation="relative" offset="5" />
+					<left offset="10" />
+					<right offset="-5" />
+				</anchored>
+				<static textres="npc_label_melee" />
+				<color>#808080</color>
+			</header_column>
+			<list_ctmeleecombat name="meleecombat">
+				<anchored to="columnanchor">
+					<top relation="relative" offset="3" />
+					<left offset="10" />
+					<right offset="-10" />
+				</anchored>
+				<class>ct_melee</class>
+			</list_ctmeleecombat>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="ct_melee">
+		<margins control="0,0,0,2" />
+		<script>
+			function onInit()
+				setModesVisible();
+				setModifiersVisible();
+			end
+
+			function setModesVisible()
+				local v = false;
+				if activatemodes.getValue() == 1 then
+					v = true;
+				end
+			
+				modesicon.setVisible(v);
+				sub_modes.setVisible(v);
+				frame_modes.setVisible(v);
+
+			end
+			
+			function setModifiersVisible()
+				local v = false;
+				if activatemodifiers.getValue() == 1 then
+					v = true;
+				end
+				
+				modifiersicon.setVisible(v);
+				sub_modifiers.setVisible(v);
+				frame_modifiers.setVisible(v);
+			end
+		</script>
+		<sheetdata>
+			<spacer_ctentry_active_top name="active_spacer_top" />
+			<anchor_ctentry_right name="rightanchor" />
+
+			<string_charfield name="weight">
+				<anchored to="rightanchor" width="40" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget prev="st" next="cost" />
+			</string_charfield>
+			<label name="label_weight">
+				<anchored to="rightanchor" width="40" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="ct_label_weight" />
+			</label>
+			<string_charfield name="st">
+				<anchored to="rightanchor" width="30" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget prev="name" next="weight" />
+			</string_charfield>
+			<label name="label_st">
+				<anchored to="rightanchor" width="15" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="ct_label_st" />
+			</label>
+			<buttoncontrol name="activatemodifiers">
+				<anchored to="rightanchor" width="20" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<state icon="modifiers" tooltipres="char_tooltip_weaponmodifiers" />
+				<state icon="modifiers_down" />
+				<script>
+					function onValueChanged()
+						window.setModifiersVisible();
+					end
+				</script>
+			</buttoncontrol>
+			<buttoncontrol name="activatemodes">
+				<anchored to="rightanchor" width="20" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<state icon="weapon_modes" tooltipres="char_tooltip_modes" />
+				<state icon="weapon_modes_down" />
+				<script>
+					function onValueChanged()
+						window.setModesVisible();
+					end
+				</script>
+			</buttoncontrol>
+			
+			<string_textlistitem name="name">
+				<anchored height="20">
+					<top offset="2" />
+					<left offset="5" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<tabtarget next="st" />
+				<nodrag />
+			</string_textlistitem>
+			
+			<!-- WEAPON MODES SUBSECTION --> 			
+			<icon_ctsection_meleemodes name="modesicon" />
+			<sub_ctsection_meleemodes name="sub_modes" />
+			<frame_ctsection_meleemodes name="frame_modes" />
+
+			<!-- WEAPON MODIFIERS SECTION --> 			
+			<icon_ctsection_modifiers name="modifiersicon" />
+			<sub_ctsection_modifiers name="sub_modifiers" />
+			<frame_ctsection_modifiers name="frame_modifiers" />
+			
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="ct_meleemodes">
+		<margins control="0,0,3,2" />
+		<sheetdata>
+			<label_columntop name="modes_parry_label">
+				<anchored width="30">
+					<right relation="relative" offset="-15" />
+				</anchored>
+				<static textres="char_label_parry" />
+			</label_columntop>
+			<label_columntop name="modes_reach_label">
+				<anchored width="40">
+					<right relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_reach" />
+			</label_columntop>
+			<label_columntop name="modes_damage_label">
+				<anchored width="70">
+					<right relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_damage" />
+			</label_columntop>
+			<label_columntop name="modes_level_label">
+				<anchored width="20">
+					<right relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_level" />
+			</label_columntop>
+			<label_columntop name="modes_label">
+				<anchored>
+					<left offset="5" />
+					<right relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_mode" />
+			</label_columntop>
+
+			<list_charmeleemode name="modeslist">
+				<anchored to="modes_label">
+					<top anchor="bottom" relation="relative" />
+					<left offset="10" />
+					<right offset="-10" />
+				</anchored>
+				<class>ct_meleemode</class>
+				<noscroll />
+			</list_charmeleemode>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="ct_meleemode">
+		<margins control="0,0,0,2" />
+		<sheetdata>
+		
+			<anchor_ct_right name="rightanchor" />
+			
+			<string_chardefensefield name="parry">
+				<rollable_weaponparry />
+				<anchored to="rightanchor" width="30" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<tabtarget prev="reach" />
+			</string_chardefensefield>
+			<string_charfield name="reach">
+				<anchored to="rightanchor" width="40" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget next="parry" prev="damage" />
+			</string_charfield>
+			<string_charfield name="damage">
+				<rollable_damage />
+				<anchored to="rightanchor" width="70" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget next="reach" prev="name" />
+			</string_charfield>
+			<number_charfield name="level">
+				<rollable_melee />
+				<anchored to="rightanchor" width="20" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget next="damage" prev="name" />
+			</number_charfield>
+			<string_textlistitem name="name">
+				<anchored height="20">
+					<top offset="2" />
+					<left offset="5" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<nodrag />
+				<tabtarget next="level" />
+			</string_textlistitem>
+			
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="ct_rangedcombat">
+		<margins control="0,0,3,2" />
+		<sheetdata>
+			<anchor_ct_left name="columnanchor" />
+			<header_column name="header_rangedcombat">
+				<anchored>
+					<top relation="relative" offset="5" />
+					<left offset="10" />
+					<right offset="-10" />
+				</anchored>
+				<static textres="npc_label_ranged" />
+				<color>#808080</color>
+			</header_column>
+			<list_npcrangedcombat name="rangedcombat">
+				<anchored>
+					<top relation="relative" offset="3" />
+					<left offset="10" />
+					<right offset="-10" />
+				</anchored>
+				<class>ct_ranged</class>
+			</list_npcrangedcombat>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="ct_ranged">
+		<margins control="0,0,0,2" />
+		<script>
+			function onInit()
+				setModesVisible();
+				setModifiersVisible();
+			end
+
+			function setModesVisible()
+				local v = false;
+				if activatemodes.getValue() == 1 then
+					v = true;
+				end
+			
+				modesicon.setVisible(v);
+				sub_modes.setVisible(v);
+				frame_modes.setVisible(v);
+
+			end
+			
+			function setModifiersVisible()
+				local v = false;
+				if activatemodifiers.getValue() == 1 then
+					v = true;
+				end
+				
+				modifiersicon.setVisible(v);
+				sub_modifiers.setVisible(v);
+				frame_modifiers.setVisible(v);
+			end
+		</script>
+		<sheetdata>
+			<spacer_ctentry_active_top name="active_spacer_top" />
+			<genericcontrol name="rightanchor">
+				<anchored height="0" width="0">
+					<top />
+					<right />
+				</anchored>
+			</genericcontrol>
+			<genericcontrol name="bottomanchor">
+				<anchored height="0" width="0">
+					<top offset="20" />
+					<right />
+				</anchored>
+				<invisible />
+			</genericcontrol>
+
+			<number_charmodfield name="bulk">
+				<anchored to="rightanchor" width="30" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget prev="st"/>
+				<script>
+					function onDragStart(button, x, y, draginfo)
+						return actionDrag(draginfo, "Bulk");
+					end
+
+					function onDoubleClick(x, y)
+						return action("Bulk");
+					end
+				</script>
+			</number_charmodfield>
+			
+			<label name="label_bulk">
+				<anchored to="rightanchor" width="30" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="ct_label_bulk" />
+			</label>
+			<string_charfield name="st">
+				<anchored to="rightanchor" width="30" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget prev="name" next="bulk" />
+			</string_charfield>
+			<label name="label_st">
+				<anchored to="rightanchor" width="15" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="ct_label_st" />
+			</label>
+			<buttoncontrol name="activatemodifiers">
+				<anchored to="rightanchor" width="20" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<state icon="modifiers" tooltipres="char_tooltip_weaponmodifiers" />
+				<state icon="modifiers_down" />
+				<script>
+					function onValueChanged()
+						window.setModifiersVisible();
+					end
+				</script>
+			</buttoncontrol>
+			<buttoncontrol name="activatemodes">
+				<anchored to="rightanchor" width="20" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<state icon="weapon_modes" tooltipres="char_tooltip_modes" />
+				<state icon="weapon_modes_down" />
+				<script>
+					function onValueChanged()
+						window.setModesVisible();
+					end
+				</script>
+			</buttoncontrol>
+			
+			<string_textlistitem name="name">
+				<anchored height="20">
+					<top offset="2" />
+					<left offset="5" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<tabtarget next="st" />
+				<nodrag />
+			</string_textlistitem>
+			
+			<!-- WEAPON MODES SUBSECTION --> 			
+			<icon_ctsection_rangedmodes name="modesicon" />
+			<sub_ctsection_rangedmodes name="sub_modes" />
+			<frame_ctsection_rangedmodes name="frame_modes" />
+
+			<!-- WEAPON MODIFIERS SECTION --> 			
+			<icon_ctsection_modifiers name="modifiersicon" />
+			<sub_ctsection_modifiers name="sub_modifiers" />
+			<frame_ctsection_modifiers name="frame_modifiers" />
+			
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="ct_rangedmodes">
+		<margins control="0,0,0,2" />
+		<sheetdata>
+			<label_columntop name="modes_rcl_label">
+				<anchored to="modesicon" width="20">
+					<top />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-15" />
+				</anchored>
+				<static textres="char_label_rcl" />
+			</label_columntop>
+			<label_columntop name="modes_shots_label">
+				<anchored to="modesicon" width="40">
+					<top />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_shots" />
+			</label_columntop>
+			<label_columntop name="modes_rof_label">
+				<anchored to="modesicon" width="20">
+					<top />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_rof" />
+			</label_columntop>
+			<label_columntop name="modes_range_label">
+				<anchored to="modesicon" width="60">
+					<top />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_range" />
+			</label_columntop>
+			<label_columntop name="modes_acc_label">
+				<anchored to="modesicon" width="20">
+					<top />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_acc" />
+			</label_columntop>
+			<label_columntop name="modes_damage_label">
+				<anchored to="modesicon" width="60">
+					<top />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_damage" />
+			</label_columntop>
+			<label_columntop name="modes_level_label">
+				<anchored to="modesicon" width="20">
+					<top />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_level" />
+			</label_columntop>
+			<label_columntop name="modes_label">
+				<anchored to="modesicon">
+					<top />
+					<left anchor="right" offset="5" />
+					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="char_label_mode" />
+			</label_columntop>
+
+			<list_charrangedmode name="modeslist">
+				<anchored to="modes_label">
+					<top anchor="bottom" relation="relative" />
+					<left parent="modesicon" anchor="right" offset="10" />
+					<right parent="bottomanchor" anchor="left" offset="-10" />
+				</anchored>
+				<class>ct_rangedmode</class>
+				<noscroll />
+			</list_charrangedmode>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="ct_rangedmode">
+		<margins control="0,0,0,2" />
+		<sheetdata>
+		
+			<anchor_ct_right name="rightanchor" />
+		
+			<number_charfield name="rcl">
+				<anchored to="rightanchor" width="20" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<tabtarget prev="shots" />
+			</number_charfield>
+			<string_charfield name="shots">
+				<anchored to="rightanchor" width="40" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget next="rcl" prev="rof" />
+			</string_charfield>
+			<string_charfield name="rof">
+				<anchored to="rightanchor" width="20" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget next="shots" prev="range" />
+			</string_charfield>
+			<string_charfield name="range">
+				<anchored to="rightanchor" width="60" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget next="rof" prev="acc" />
+			</string_charfield>
+			<number_charmodfield name="acc">
+				<anchored to="rightanchor" width="20" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget next="range" prev="damage" />
+				<script>
+					function onDragStart(button, x, y, draginfo)
+						return actionDrag(draginfo, "Acc");
+					end
+
+					function onDoubleClick(x, y)
+						return action("Acc");
+					end
+				</script>
+			</number_charmodfield>
+			<string_charfield name="damage">
+				<rollable_damage />
+				<anchored to="rightanchor" width="60" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget next="acc" prev="level" />
+			</string_charfield>
+			<number_charfield name="level">
+				<rollable_ranged />
+				<anchored to="rightanchor" width="20" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget next="damage" prev="name" />
+			</number_charfield>
+			<string_textlistitem name="name">
+				<anchored height="20">
+					<top offset="2" />
+					<left offset="5" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<nodrag />
+				<tabtarget next="level" />
+			</string_textlistitem>
+			
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="ct_modifiers">
+		<margins control="0,0,3,2" />
+		<sheetdata>
+			<label_columntop name="modifiers_label">
+				<anchored>
+					<left offset="10" />
+					<right offset="-10" />
+				</anchored>
+				<static textres="char_label_modifier" />
+			</label_columntop>
+
+			<list_charmodifier name="modifierslist">
+				<anchored to="modifiers_label">
+					<top anchor="bottom" relation="relative" />
+					<left offset="10" />
+					<right offset="-10" />
+				</anchored>
+				<class>basic_modifier</class>
+				<noscroll />
+			</list_charmodifier>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="ct_effect">
+		<margins control="0,0,0,2" />
+		<script file="ct/scripts/ct_effect.lua" />
+		<sheetdata>
+			<base_ct_effect name="base" />
+			
+			<anchor_ct_effect_left name="leftanchor" />
+			<button_ct_effect_isactive name="isactive" />
+			<button_ct_effect_isgmonly name="isgmonly" />
+			
+			<anchor_ct_effect_right name="rightanchor" />
+			<button_ct_effect_idelete name="idelete" />
+			<button_ct_effect_targetadd name="targeting_add_button" />
+			<number_ct_effect_units name="units" />
+			<number_ct_effect_duration name="duration" />
+
+			<string_ct_effect name="label" />
+
+			<hs_ct_effect_source name="source_name" />
+			<string_ct_effect_source name="source" />
+			<string_ct_effect_targets name="target_summary" />
+		</sheetdata>
+	</windowclass>
+	
 </root>
