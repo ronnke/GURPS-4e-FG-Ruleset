@@ -35,7 +35,7 @@
 					end
 				</script>
 			</buttoncontrol>
-			<label_ct>
+			<label_ct name="label_name">
 				<anchored to="headeranchor" position="insidetopleft" offset="25,0">
 					<right offset="-282" />
 				</anchored>
@@ -59,18 +59,8 @@
 				<center />
 			</label_ct>
 			<frame_ctbox_host_header_toggles />
-			<buttoncontrol name="button_global_targeting">
-				<anchored to="header_toggles" position="insidetopleft" offset="10,8" width="20" height="20"/>
-				<state icon="button_section_targeting" />
-				<state icon="button_section_targeting_down" />
-				<script>
-					function onValueChanged()
-						window.list.toggleTargeting();
-					end
-				</script>
-			</buttoncontrol>
 			<buttoncontrol name="button_global_stats">
-				<anchored to="header_toggles" position="insidetopleft" offset="30,8" width="20" height="20"/>
+				<anchored to="header_toggles" position="insidetopleft" offset="10,8" width="20" height="20"/>
 				<state icon="button_section_stats" />
 				<state icon="button_section_stats_down" />
 				<script>
@@ -80,12 +70,22 @@
 				</script>
 			</buttoncontrol>
 			<buttoncontrol name="button_global_combat">
-				<anchored to="header_toggles" position="insidetopleft" offset="50,8" width="20" height="20"/>
+				<anchored to="header_toggles" position="insidetopleft" offset="30,8" width="20" height="20"/>
 				<state icon="button_section_combat" />
 				<state icon="button_section_combat_down" />
 				<script>
 					function onValueChanged()
 						window.list.toggleCombat();
+					end
+				</script>
+			</buttoncontrol>
+			<buttoncontrol name="button_global_targeting">
+				<anchored to="header_toggles" position="insidetopleft" offset="50,8" width="20" height="20"/>
+				<state icon="button_section_targeting" />
+				<state icon="button_section_targeting_down" />
+				<script>
+					function onValueChanged()
+						window.list.toggleTargeting();
 					end
 				</script>
 			</buttoncontrol>
@@ -122,9 +122,6 @@
 		</sheetdata>
 	</windowclass>
 	
-	
-	
-	
 	<windowclass name="ct_entry">
 		<margins control="0,0,0,2" />
 		<frame>ctentrybox</frame>
@@ -156,11 +153,11 @@
 			<button_ctentry_idelete name="idelete" />
 			<link_ctentry name="link" />
 			<button_ctentry_activateeffects name="activateeffects" />
+			<button_ctentry_activatetargeting name="activatetargeting" />
 			<button_ctentry_activatecombat name="activatecombat" />
 			<button_ctentry_activatestats name="activatestats" />
-			<button_ctentry_activatetargeting name="activatetargeting" />
 			<button_ctentry_friendfoe name="friendfoe" />
-			<button_ctentry_skip name="skip" />
+      		<button_ctentry_skip name="skip" />
 
 			<number_ctfps name="fps" />
 			<number_cthps name="hps" />
@@ -169,11 +166,6 @@
 			<string_ctname name="name" />
 			<string_ctname_nonid name="nonid_name" />
 			
-			<!-- Targeting subsection -->
-			<icon_ctsection_targeting name="targetingicon" />
-			<sub_ctsection_targeting name="sub_targeting" />
-			<frame_ctsection_targeting name="frame_targeting" />
-
 			<!-- Stats subsection -->
 			<icon_ctsection_stats name="statsicon" />
 			<sub_ctsection_stats name="sub_stats" />
@@ -185,6 +177,11 @@
 			<sub_ctsection_meleecombat name="sub_meleecombat" />
 			<sub_ctsection_rangedcombat name="sub_rangedcombat" />
 			<frame_ctsection_combat name="frame_combat" />
+
+			<!-- Targeting subsection -->
+			<icon_ctsection_targeting name="targetingicon" />
+			<sub_ctsection_targeting name="sub_targeting" />
+			<frame_ctsection_targeting name="frame_targeting" />
 
 			<!-- Effect subsection -->
 			<icon_ctsection_effect name="effecticon" />
@@ -201,101 +198,27 @@
 		</sheetdata>
 	</windowclass>
 
-	<windowclass name="ct_targets">
+	<windowclass name="ct_effect">
 		<margins control="0,0,0,2" />
+		<script file="ct/scripts/ct_effect.lua" />
 		<sheetdata>
-			<windowlist name="targets">
-				<anchored>
-					<top />
-					<left />
-					<right offset="-50" />
-				</anchored>
-				<datasource>.targets</datasource>
-				<class>ct_target</class>
-				<noscroll />
-				<columns>
-					<width>26</width>
-					<fillwidth />
-				</columns>
-			</windowlist>
-
-			<buttoncontrol name="targeting_add_button">
-				<bounds>-45,2,20,20</bounds>
-				<icon normal="button_targeting" pressed="button_targeting_down" />
-				<tooltip textres="ct_tooltip_dragtarget" />
-				<script>
-					function onInit()
-						registerMenuItem(Interface.getString("ct_menu_targeting"), "goto", 4);
-						registerMenuItem(Interface.getString("ct_menu_targetingfriend"), "turn", 4, 3);
-						registerMenuItem(Interface.getString("ct_menu_targetingnonfriend"), "mask", 4, 5);
-					end
-					
-					function onDragStart(button, x, y, draginfo)
-						local nodeWin = window.getDatabaseNode();
-						if not nodeWin then
-							return false;
-						end
-						
-						draginfo.setType("targeting");
-						draginfo.setIcon("drag_targeting");
-						draginfo.setShortcutData(window.getClass(), nodeWin.getNodeName());
-						
-						return true;
-					end
-
-					function onMenuSelection(selection, subselection)
-						if selection == 4 then
-							if subselection == 3 then
-								TargetingManager.setCTFactionTargets(window.getDatabaseNode());
-							elseif subselection == 5 then
-								TargetingManager.setCTFactionTargets(window.getDatabaseNode(), true);
-							end
-						end
-					end
-				</script>
-			</buttoncontrol>
-
-			<buttoncontrol name="targeting_clear_button">
-				<bounds>-20,2,20,20</bounds>
-				<icon normal="button_clear" pressed="button_clear_down" />
-				<tooltip textres="ct_tooltip_cleartarget" />
-				<script>
-					function onButtonPress()
-						TargetingManager.clearCTTargets(window.getDatabaseNode());
-					end
-				</script>
-			</buttoncontrol>
-		</sheetdata>
-	</windowclass>
-	
-	<windowclass name="ct_target">
-		<margins control="0,0,3,2" />
-		<script file="ct/scripts/ct_target.lua" />
-		<sheetdata>
-			<hs name="noderef">
-				<script>
-					function onValueChanged()
-						window.onRefChanged();
-					end
-				</script>
-			</hs>
+			<base_ct_effect name="base" />
 			
-			<tokencontrol name="token">
-				<bounds>3,2,20,20</bounds>
-				<empty>token_empty</empty>
-				<disable />
-				<tooltip nodelay="true" />
-				<script>
-					function onClickDown(button, x, y)
-						return true;
-					end
-					
-					function onClickRelease(button, x, y)
-						window.removeTarget();
-						return true;
-					end
-				</script>
-			</tokencontrol>
+			<anchor_ct_effect_left name="leftanchor" />
+			<button_ct_effect_isactive name="isactive" />
+			<button_ct_effect_isgmonly name="isgmonly" />
+			
+			<anchor_ct_effect_right name="rightanchor" />
+			<button_ct_effect_idelete name="idelete" />
+			<button_ct_effect_targetadd name="targeting_add_button" />
+			<number_ct_effect_units name="units" />
+			<number_ct_effect_duration name="duration" />
+
+			<string_ct_effect name="label" />
+
+			<hs_ct_effect_source name="source_name" />
+			<string_ct_effect_source name="source" />
+			<string_ct_effect_targets name="target_summary" />
 		</sheetdata>
 	</windowclass>
 
@@ -414,7 +337,7 @@
 			<anchor_ct_left name="leftanchor" />
 			<anchor_ct_right name="rightanchor" />
 			
-			<label name="sizemodifierlabel">
+			<label name="label_sizemodifier">
 				<anchored to="columnanchor">
 					<top relation="relative" offset="5" />
 					<left offset="10" />
@@ -422,7 +345,7 @@
 				<static textres="ct_label_sizemodifier" />
 			</label>
 			<string_ct name="sizemodifier" source="traits.sizemodifier">
-				<anchored to="sizemodifierlabel" position="right" offset="10" width="30" />
+				<anchored to="label_sizemodifier" position="right" offset="10" width="30" />
 				<description textres="ct_label_sizemodifier" />
 				<script>
 					function onValueChanged()
@@ -542,9 +465,9 @@
 					v = true;
 				end
 			
-				modesicon.setVisible(v);
-				sub_modes.setVisible(v);
-				frame_modes.setVisible(v);
+				meleemodesicon.setVisible(v);
+				sub_meleemodes.setVisible(v);
+				frame_meleemodes.setVisible(v);
 
 			end
 			
@@ -554,9 +477,9 @@
 					v = true;
 				end
 				
-				modifiersicon.setVisible(v);
-				sub_modifiers.setVisible(v);
-				frame_modifiers.setVisible(v);
+				meleemodifiersicon.setVisible(v);
+				sub_meleemodifiers.setVisible(v);
+				frame_meleemodifiers.setVisible(v);
 			end
 		</script>
 		<sheetdata>
@@ -629,14 +552,14 @@
 			</string_textlistitem>
 			
 			<!-- WEAPON MODES SUBSECTION --> 			
-			<icon_ctsection_meleemodes name="modesicon" />
-			<sub_ctsection_meleemodes name="sub_modes" />
-			<frame_ctsection_meleemodes name="frame_modes" />
+			<icon_ctsection_meleemodes name="meleemodesicon" />
+			<sub_ctsection_meleemodes name="sub_meleemodes" />
+			<frame_ctsection_meleemodes name="frame_meleemodes" />
 
 			<!-- WEAPON MODIFIERS SECTION --> 			
-			<icon_ctsection_modifiers name="modifiersicon" />
-			<sub_ctsection_modifiers name="sub_modifiers" />
-			<frame_ctsection_modifiers name="frame_modifiers" />
+			<icon_ctsection_meleemodifiers name="meleemodifiersicon" />
+			<sub_ctsection_meleemodifiers name="sub_meleemodifiers" />
+			<frame_ctsection_meleemodifiers name="frame_meleemodifiers" />
 			
 		</sheetdata>
 	</windowclass>
@@ -776,9 +699,9 @@
 					v = true;
 				end
 			
-				modesicon.setVisible(v);
-				sub_modes.setVisible(v);
-				frame_modes.setVisible(v);
+				rangemodesicon.setVisible(v);
+				sub_rangemodes.setVisible(v);
+				frame_rangemodes.setVisible(v);
 
 			end
 			
@@ -788,9 +711,9 @@
 					v = true;
 				end
 				
-				modifiersicon.setVisible(v);
-				sub_modifiers.setVisible(v);
-				frame_modifiers.setVisible(v);
+				rangemodifiersicon.setVisible(v);
+				sub_rangemodifiers.setVisible(v);
+				frame_rangemodifiers.setVisible(v);
 			end
 		</script>
 		<sheetdata>
@@ -809,8 +732,23 @@
 				<invisible />
 			</genericcontrol>
 
+			<number_charfield name="ammo">
+				<anchored to="rightanchor" width="35" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget prev="bulk"/>
+			</number_charfield>
+			<label name="label_ammo">
+				<anchored to="rightanchor" width="40" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<static textres="ct_label_ammo" />
+			</label>
+			
 			<number_charmodfield name="bulk">
-				<anchored to="rightanchor" width="30" height="20">
+				<anchored to="rightanchor" width="20" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
@@ -827,7 +765,7 @@
 			</number_charmodfield>
 			
 			<label name="label_bulk">
-				<anchored to="rightanchor" width="30" height="20">
+				<anchored to="rightanchor" width="25" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
@@ -885,14 +823,14 @@
 			</string_textlistitem>
 			
 			<!-- WEAPON MODES SUBSECTION --> 			
-			<icon_ctsection_rangedmodes name="modesicon" />
-			<sub_ctsection_rangedmodes name="sub_modes" />
-			<frame_ctsection_rangedmodes name="frame_modes" />
+			<icon_ctsection_rangedmodes name="rangemodesicon" />
+			<sub_ctsection_rangedmodes name="sub_rangemodes" />
+			<frame_ctsection_rangedmodes name="frame_rangemodes" />
 
 			<!-- WEAPON MODIFIERS SECTION --> 			
-			<icon_ctsection_modifiers name="modifiersicon" />
-			<sub_ctsection_modifiers name="sub_modifiers" />
-			<frame_ctsection_modifiers name="frame_modifiers" />
+			<icon_ctsection_rangemodifiers name="rangemodifiersicon" />
+			<sub_ctsection_rangemodifiers name="sub_rangemodifiers" />
+			<frame_ctsection_rangemodifiers name="frame_rangemodifiers" />
 			
 		</sheetdata>
 	</windowclass>
@@ -901,59 +839,59 @@
 		<margins control="0,0,0,2" />
 		<sheetdata>
 			<label_columntop name="modes_rcl_label">
-				<anchored to="modesicon" width="20">
+				<anchored to="rangemodesicon" width="20">
 					<top />
-					<right parent="bottomanchor" anchor="left" relation="relative" offset="-15" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-15" />
 				</anchored>
 				<static textres="char_label_rcl" />
 			</label_columntop>
 			<label_columntop name="modes_shots_label">
-				<anchored to="modesicon" width="40">
+				<anchored to="rangemodesicon" width="40">
 					<top />
-					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
 				</anchored>
 				<static textres="char_label_shots" />
 			</label_columntop>
 			<label_columntop name="modes_rof_label">
-				<anchored to="modesicon" width="20">
+				<anchored to="rangemodesicon" width="20">
 					<top />
-					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
 				</anchored>
 				<static textres="char_label_rof" />
 			</label_columntop>
 			<label_columntop name="modes_range_label">
-				<anchored to="modesicon" width="60">
+				<anchored to="rangemodesicon" width="60">
 					<top />
-					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
 				</anchored>
 				<static textres="char_label_range" />
 			</label_columntop>
 			<label_columntop name="modes_acc_label">
-				<anchored to="modesicon" width="20">
+				<anchored to="rangemodesicon" width="20">
 					<top />
-					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
 				</anchored>
 				<static textres="char_label_acc" />
 			</label_columntop>
 			<label_columntop name="modes_damage_label">
-				<anchored to="modesicon" width="60">
+				<anchored to="rangemodesicon" width="60">
 					<top />
-					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
 				</anchored>
 				<static textres="char_label_damage" />
 			</label_columntop>
 			<label_columntop name="modes_level_label">
-				<anchored to="modesicon" width="20">
+				<anchored to="rangemodesicon" width="20">
 					<top />
-					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
 				</anchored>
 				<static textres="char_label_level" />
 			</label_columntop>
 			<label_columntop name="modes_label">
-				<anchored to="modesicon">
+				<anchored to="rangemodesicon">
 					<top />
 					<left anchor="right" offset="5" />
-					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
 				</anchored>
 				<static textres="char_label_mode" />
 			</label_columntop>
@@ -961,8 +899,8 @@
 			<list_charrangedmode name="modeslist">
 				<anchored to="modes_label">
 					<top anchor="bottom" relation="relative" />
-					<left parent="modesicon" anchor="right" offset="10" />
-					<right parent="bottomanchor" anchor="left" offset="-10" />
+					<left parent="rangemodesicon" anchor="right" offset="10" />
+					<right parent="rightanchor" anchor="left" offset="-10" />
 				</anchored>
 				<class>ct_rangedmode</class>
 				<noscroll />
@@ -1069,30 +1007,6 @@
 				<class>basic_modifier</class>
 				<noscroll />
 			</list_charmodifier>
-		</sheetdata>
-	</windowclass>
-
-	<windowclass name="ct_effect">
-		<margins control="0,0,0,2" />
-		<script file="ct/scripts/ct_effect.lua" />
-		<sheetdata>
-			<base_ct_effect name="base" />
-			
-			<anchor_ct_effect_left name="leftanchor" />
-			<button_ct_effect_isactive name="isactive" />
-			<button_ct_effect_isgmonly name="isgmonly" />
-			
-			<anchor_ct_effect_right name="rightanchor" />
-			<button_ct_effect_idelete name="idelete" />
-			<button_ct_effect_targetadd name="targeting_add_button" />
-			<number_ct_effect_units name="units" />
-			<number_ct_effect_duration name="duration" />
-
-			<string_ct_effect name="label" />
-
-			<hs_ct_effect_source name="source_name" />
-			<string_ct_effect_source name="source" />
-			<string_ct_effect_targets name="target_summary" />
 		</sheetdata>
 	</windowclass>
 	

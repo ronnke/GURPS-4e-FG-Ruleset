@@ -16,6 +16,13 @@
 
 			<anchor_column name="columnanchor" />
 
+			<label_column name="nonid_name_label">
+				<static textres="npc_label_unidentified" />
+			</label_column>
+			<string_columnh name="nonid_name" />
+
+			<line_column name="divider" />
+
 			<label_column name="type_label">
 				<static textres="npc_label_type" />
 			</label_column>

@@ -8,20 +8,12 @@
 <root>
 	<windowclass name="charsheet_rangedcombat">
 		<script>
-			function onDrop(x, y, draginfo)
-				if draginfo.isType("shortcut") then
-					local nodeItem = draginfo.getDatabaseNode();
-				    local nodeNPC = getDatabaseNode();
-				
-				    local bRangedWeapon = LibraryDataGURPS4e.isRangedWeapon(nodeItem);
-			
-					if bRangedWeapon then
-						ItemManager2.onAddItemToCombat(nodeNPC, nodeItem)
-					end
-					return true;
-				end
-			end
-		</script>
+      function onDrop(x, y, draginfo)
+        if draginfo.isType("shortcut") then
+          return ItemManager2.AddItemToCombat(getDatabaseNode(), draginfo.getDatabaseNode());
+        end
+      end
+    </script>
 		<sheetdata>
 
 			<!-- RANGED COMBAT -->
@@ -57,10 +49,17 @@
 				</anchored>
 				<invisible />
 			</label_columntop>
-			<label_columntop name="tl_label">
-				<anchored to="rightanchor" width="30">
+			<label_columntop name="ammo_label">
+				<anchored to="rightanchor" width="35">
 					<top />
 					<right anchor="left" relation="relative" offset="-20" />
+				</anchored>
+				<static textres="char_label_ammo" />
+			</label_columntop>
+			<label_columntop name="tl_label">
+				<anchored to="rightanchor" width="20">
+					<top />
+					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
 				<static textres="char_label_tl" />
 			</label_columntop>
@@ -72,7 +71,7 @@
 				<static textres="char_label_lc" />
 			</label_columntop>
 			<label_columntop name="bulk_label">
-				<anchored to="rightanchor" width="30">
+				<anchored to="rightanchor" width="20">
 					<top />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
@@ -122,7 +121,12 @@
 					<right offset="-25" />
 					<bottom offset="-20" />
 				</anchored>
-			</list_charrangedcombat>
+        <script>
+          function onFilter(w)
+            return (DB.getValue(w.getDatabaseNode(), "isHidden", 0) == 0);
+          end
+        </script>
+      </list_charrangedcombat>
 			<scrollbar_list>
 				<anchored to="rangedcombatlist" />
 				<target>rangedcombatlist</target>
@@ -209,8 +213,15 @@
 				<invisible merge="delete" />
 			</button_idelete>
 
+			<number_charfield name="ammo">
+				<anchored to="rightanchor" width="35" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget prev="tl" />
+			</number_charfield>
 			<string_charfield name="tl">
-				<anchored to="rightanchor" width="30" height="20">
+				<anchored to="rightanchor" width="20" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
@@ -224,7 +235,7 @@
 				<tabtarget prev="bulk" next="tl"/>
 			</string_charfield>
 			<number_charmodfield name="bulk">
-				<anchored to="rightanchor" width="30" height="20">
+				<anchored to="rightanchor" width="20" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>

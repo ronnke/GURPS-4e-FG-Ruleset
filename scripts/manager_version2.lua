@@ -616,4 +616,3 @@ function migrateChar7(nodeChar)
     end
   end
 end
-

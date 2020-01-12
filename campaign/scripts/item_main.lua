@@ -54,8 +54,8 @@ function update()
 
   local bSection3 = false;
   if updateControl("tl", bReadOnly, bID) then bSection3 = true; end
-	if updateControl("cost", bReadOnly, bID) then bSection3 = true; end
-	if updateControl("weight", bReadOnly, bID) then bSection3 = true; end
+  if updateControl("cost", bReadOnly, bID) then bSection3 = true; end
+  if updateControl("weight", bReadOnly, bID) then bSection3 = true; end
   if updateControl("lc", bReadOnly, bID) then bSection3 = true; end
 
   local bSection4 = false;

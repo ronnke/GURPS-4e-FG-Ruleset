@@ -4,7 +4,7 @@
 --
 
 function onInit()
-	ActionsManager.registerResultHandler("dodge", onDefense);
+  ActionsManager.registerResultHandler("dodge", onDefense);
   ActionsManager.registerResultHandler("parry", onDefense);
   ActionsManager.registerResultHandler("block", onDefense);
 end

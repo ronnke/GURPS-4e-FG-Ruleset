@@ -5,9 +5,8 @@
 
 function onInit()
 	-- Set the displays to what should be shown
-  setSkipVisible();
 	setTargetingVisible();
-  setStatsVisible();
+    setStatsVisible();
 	setCombatVisible();
 	setEffectsVisible();
 
@@ -20,6 +19,8 @@ function onInit()
 	-- Update the displays
 	onFactionChanged();
 	onHealthChanged();
+
+    onSkipChanged();
 
 	-- Register the deletion menu item for the host
 	registerMenuItem(Interface.getString("list_menu_deleteitem"), "delete", 6);
@@ -62,6 +63,8 @@ function updateDisplay()
       setFrame("ctentrybox");
     end
   end
+
+  skip.setValue(DB.getValue(getDatabaseNode(), "skip", 0));
 end
 
 function linkToken()
@@ -185,7 +188,13 @@ function onHealthChanged()
 end
 
 function onSizeModifierChanged()
-  DB.setValue(getDatabaseNode(), "space", "number", GameSystem.calcSizeModifierGridUnits(sizemodifier.getValue()));
+  local nodeRecord = getDatabaseNode();
+  DB.setValue(nodeRecord, "space", "number", GameSystem.calcSizeModifierGridUnits(DB.getValue(nodeRecord, "trait.sizemodifier", 0)));
+end
+
+function onSkipChanged()
+  local nodeRecord = getDatabaseNode();
+  DB.setValue(nodeRecord, "skip", "number", skip.getValue());
 end
 
 --
@@ -203,13 +212,6 @@ function setTargetingVisible()
   frame_targeting.setVisible(v);
 
   target_summary.onTargetsChanged();
-end
-
-function setSkipVisible()
-  local v = false;
-  if skip.getValue() == 1 then
-    v = true;
-  end
 end
 
 function setStatsVisible()
@@ -239,7 +241,7 @@ function setCombatVisible()
   local bShowMelee = ActorManager2.hasMeleeWeapons(nodeChar)
   local bShowRanged = ActorManager2.hasRangedWeapons(nodeChar)
 
-	combaticon.setVisible(v);
+  combaticon.setVisible(v);
   sub_combat.setVisible(v);
   sub_meleecombat.setVisible(v and bNPC and bShowRanged);
   sub_rangedcombat.setVisible(v and bNPC and bShowMelee);

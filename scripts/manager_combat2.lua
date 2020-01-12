@@ -8,16 +8,109 @@ CT_LIST = "combattracker.list"
 function onInit()
 	CombatManager.setCustomSort(sortfuncGURPS);
 
-  CombatManager.setCustomAddPC(addPC);
-
+	CombatManager.setCustomAddPC(addPC);
 	CombatManager.setCustomAddNPC(addNPC);
 
-  CombatManager.setCustomNPCSpaceReach(npcSpaceReach);
-  
-	CombatManager.setCustomCombatReset(resetInit);
-	
-  CombatManager.setCustomTurnStart(onTurnStart);
+	CombatManager.setCustomNPCSpaceReach(npcSpaceReach);
+
+	CombatManager.setCustomRoundStart(onRoundStart);
+	CombatManager.setCustomTurnStart(onTurnStart);
 end
+
+
+function nextActor(bSkipBell, bNoRoundAdvance)
+	if not User.isHost() then
+		return;
+	end
+
+	local nodeActive = CombatManager.getActiveCT();
+	local nIndexActive = 0;
+	
+	-- Check the skip hidden NPC option
+	local bSkipHidden = OptionsManager.isOption("CTSH", "on");
+	
+	-- Determine the next actor
+	local nodeNext = nil;
+	local aEntries = CombatManager.getSortedCombatantList();
+	if #aEntries > 0 then
+		if nodeActive then
+			for i = 1,#aEntries do
+				if aEntries[i] == nodeActive then
+					nIndexActive = i;
+					break;
+				end
+			end
+		end
+		if bSkipHidden then
+			local nIndexNext = 0;
+			for i = nIndexActive + 1, #aEntries do
+				if DB.getValue(aEntries[i], "friendfoe", "") == "friend" then
+					nIndexNext = i;
+					break;
+				else
+					if not CombatManager.isCTHidden(aEntries[i]) and not isCTSkipped(aEntries[i]) then
+						nIndexNext = i;
+						break;
+					end
+				end
+			end
+			if nIndexNext > nIndexActive then
+				nodeNext = aEntries[nIndexNext];
+				for i = nIndexActive + 1, nIndexNext - 1 do
+					CombatManager.showTurnMessage(aEntries[i], false);
+				end
+			end
+		else
+			local nIndexNext = 0;
+			for i = nIndexActive + 1, #aEntries do
+				if not isCTSkipped(aEntries[i]) then
+					nIndexNext = i;
+					break;
+				end
+			end
+			if nIndexNext > nIndexActive then
+				nodeNext = aEntries[nIndexNext];
+				for i = nIndexActive + 1, nIndexNext - 1 do
+					CombatManager.showTurnMessage(aEntries[i], false);
+				end
+			end
+			-- nodeNext = aEntries[nIndexActive + 1];
+		end
+		
+		-- if nodeActive then
+			-- for i = 1,#aEntries do
+				-- if aEntries[i] == nodeActive then
+					-- nodeNext = aEntries[i+1];
+				-- end
+			-- end
+		-- else
+			-- nodeNext = aEntries[1];
+		-- end
+	end
+
+	-- If next actor available, advance effects, activate and start turn
+	if nodeNext then
+		-- End turn for current actor
+		CombatManager.onTurnEndEvent(nodeActive);
+	
+		-- Process effects in between current and next actors
+		if nodeActive then
+			CombatManager.onInitChangeEvent(nodeActive, nodeNext);
+		else
+			CombatManager.onInitChangeEvent(nil, nodeNext);
+		end
+		
+		-- Start turn for next actor
+		CombatManager.requestActivation(nodeNext, bSkipBell);
+		CombatManager.onTurnStartEvent(nodeNext);
+	elseif not bNoRoundAdvance then
+		for i = nIndexActive + 1, #aEntries do
+			CombatManager.showTurnMessage(aEntries[i], false);
+		end
+		CombatManager.nextRound(1);
+	end
+end
+
 
 --
 -- COMBAT TRACKER SORT
@@ -100,6 +193,7 @@ function addPC(nodePC)
   -- Set up the CT specific information
   DB.setValue(nodeEntry, "link", "windowreference", "charsheet", nodePC.getNodeName());
   DB.setValue(nodeEntry, "friendfoe", "string", "friend");
+  DB.setValue(nodeEntry, "skip", "number", 0);
 
   local sToken = DB.getValue(nodePC, "token", nil);
   if not sToken or sToken == "" then
@@ -137,7 +231,9 @@ function addPC(nodePC)
 end
 
 function addNPC(sClass, nodeNPC, sName)
-	local nodeEntry, nodeLastMatch = CombatManager.addNPCHelper(nodeNPC, sName);
+  local nodeEntry, nodeLastMatch = CombatManager.addNPCHelper(nodeNPC, sName);
+
+  DB.setValue(nodeEntry, "skip", "number", 0);
 
   DB.setValue(nodeEntry, "traits.sizemodifier", "string", tonumber(DB.getValue(nodeNPC, "traits.sizemodifier", "0")));
   DB.setValue(nodeEntry, "traits.reach", "string", DB.getValue(nodeNPC, "traits.reach", "0"));
@@ -158,20 +254,32 @@ function npcSpaceReach(nodeNPC)
    return nSpace, nReach;
 end
 
+function onRoundStart(nodeEntry)
+  if not nodeEntry then
+    return;
+  end
+end
+
 function onTurnStart(nodeEntry)
   if not nodeEntry then
     return;
   end
 
-  -- Handle beginning of turn changes
---  if DB.getValue(nodeEntry, "activateskip", 0) == 0 then
---    CombatManager.nextActor();
+--  if isCTAllSkipped() then
+--    return;
 --  end
+
+  if isCTSkipped(nodeEntry) then
+    nextActor(true, false);
+  end
 end
 
 --
 -- RESET FUNCTIONS
 --
+
+function resetInit()
+end
 
 function resetEffects()
 	for _, vChild in pairs(DB.getChildren(CombatManager.CT_LIST)) do
@@ -184,5 +292,19 @@ function resetEffects()
 	end
 end
 
-function resetInit()
+
+function isCTSkipped(vEntry)
+	if DB.getValue(vEntry, "skip", 0) == 0 then
+        return false;
+	end
+	return true;
+end
+
+function isCTAllSkipped()
+  	for _,v in pairs(CombatManager.getCombatantNodes()) do
+		if DB.getValue(v, "skip", 0) == 0 then
+          return false;
+		end
+	end
+	return true;
 end

@@ -8,20 +8,12 @@
 <root>
 	<windowclass name="charsheet_defenses">
 		<script>
-			function onDrop(x, y, draginfo)
-				if draginfo.isType("shortcut") then
-					local nodeItem = draginfo.getDatabaseNode();
-				    local nodeNPC = getDatabaseNode();
-				
-				    local bDefense = LibraryDataGURPS4e.isDefense(nodeItem);
-			
-					if bDefense then
-						ItemManager2.onAddItemToCombat(nodeNPC, nodeItem)
-					end
-					return true;
-				end
-			end
-		</script>
+      function onDrop(x, y, draginfo)
+        if draginfo.isType("shortcut") then
+          return ItemManager2.AddItemToCombat(getDatabaseNode(), draginfo.getDatabaseNode());
+        end
+      end
+    </script>
 		<sheetdata>
 
 			<frame_char name="defensesframe">
@@ -99,7 +91,12 @@
 					<right offset="-25" />
 					<bottom offset="-20" />
 				</anchored>
-			</list_chardefenses>
+        <script>
+          function onFilter(w)
+            return (DB.getValue(w.getDatabaseNode(), "isHidden", 0) == 0);
+          end
+        </script>
+      </list_chardefenses>
 			<scrollbar_list>
 				<anchored to="defenseslist" />
 				<target>defenseslist</target>

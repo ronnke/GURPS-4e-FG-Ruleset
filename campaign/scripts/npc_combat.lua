@@ -70,6 +70,7 @@ function update()
     w.name.setReadOnly(bReadOnly);
     w.st.setReadOnly(bReadOnly);
     w.bulk.setReadOnly(bReadOnly);
+    w.ammo.setReadOnly(bReadOnly);
     w.update(bReadOnly);
   end
 	

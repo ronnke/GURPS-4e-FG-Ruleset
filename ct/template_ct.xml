@@ -97,10 +97,12 @@
 			<state icon="button_skip" tooltipres="ct_tooltip_skip" />
 			<state icon="button_skip_down" />
 			<script>
-				function onValueChanged()
-					window.setSkipVisible();
-				end
-			</script>
+        function onValueChanged()
+          if window.onSkipChanged() then
+            window.onSkipChanged();
+          end
+        end
+      </script>
 		</buttoncontrol>
 	</template>
 	
@@ -159,6 +161,15 @@
 				end
 			</script>
 		</number_ct_crosslink>
+	</template>
+	
+	<template name="icon_ctsubsection">
+		<genericcontrol>
+			<anchored width="20" height="20">
+				<left offset="0" />
+				<top parent="active_spacer_top" anchor="bottom" relation="current" offset="10" />
+			</anchored>
+		</genericcontrol>
 	</template>
 	
 	<template name="icon_ctsection_stats">
@@ -234,15 +245,15 @@
 	</template>
 
 	<template name="icon_ctsection_meleemodes">
-		<icon_ctsection name="modesicon">
+		<icon_ctsubsection name="meleemodesicon">
 			<icon>weapon_modes_down</icon>
-		</icon_ctsection>
+		</icon_ctsubsection>
 	</template>
 	<template name="sub_ctsection_meleemodes">
-		<subwindow name="sub_modes">
+		<subwindow name="sub_meleemodes">
 			<anchored>
 				<top parent="active_spacer_top" anchor="bottom" relation="relative" offset="10" />
-				<left parent="modesicon" anchor="right" offset="8" />
+				<left parent="meleemodesicon" anchor="right" offset="8" />
 				<right offset="-12" />
 			</anchored>
 			<class>ct_meleemodes</class>
@@ -251,21 +262,21 @@
 	<template name="frame_ctsection_meleemodes">
 		<frame_ctsub name="frame_modes">
 			<anchored>
-				<top parent="modesicon" />
-				<bottom parent="sub_modes" />
+				<top parent="meleemodesicon" />
+				<bottom parent="sub_meleemodes" />
 			</anchored>
 		</frame_ctsub>
 	</template>
 	<template name="icon_ctsection_rangedmodes">
-		<icon_ctsection name="modesicon">
+		<icon_ctsubsection name="rangemodesicon">
 			<icon>weapon_modes_down</icon>
-		</icon_ctsection>
+		</icon_ctsubsection>
 	</template>
 	<template name="sub_ctsection_rangedmodes">
-		<subwindow name="sub_modes">
+		<subwindow name="sub_rangemodes">
 			<anchored>
 				<top parent="active_spacer_top" anchor="bottom" relation="relative" offset="10" />
-				<left parent="modesicon" anchor="right" offset="8" />
+				<left parent="rangemodesicon" anchor="right" offset="8" />
 				<right offset="-12" />
 			</anchored>
 			<class>ct_rangedmodes</class>
@@ -274,32 +285,56 @@
 	<template name="frame_ctsection_rangedmodes">
 		<frame_ctsub name="frame_modes">
 			<anchored>
-				<top parent="modesicon" />
-				<bottom parent="sub_modes" />
+				<top parent="rangemodesicon" />
+				<bottom parent="sub_rangemodes" />
 			</anchored>
 		</frame_ctsub>
 	</template>
 
-	<template name="icon_ctsection_modifiers">
-		<icon_ctsection name="modifiersicon">
+	<template name="icon_ctsection_meleemodifiers">
+		<icon_ctsubsection name="meleemodifiersicon">
 			<icon>modifiers_down</icon>
-		</icon_ctsection>
+		</icon_ctsubsection>
 	</template>
-	<template name="sub_ctsection_modifiers">
-		<subwindow name="sub_modifiers">
+	<template name="sub_ctsection_meleemodifiers">
+		<subwindow name="sub_meleemodifiers">
 			<anchored>
 				<top parent="active_spacer_top" anchor="bottom" relation="relative" offset="10" />
-				<left parent="modifiersicon" anchor="right" offset="8" />
+				<left parent="meleemodifiersicon" anchor="right" offset="8" />
 				<right offset="-12" />
 			</anchored>
 			<class>ct_modifiers</class>
 		</subwindow>
 	</template>
-	<template name="frame_ctsection_modifiers">
-		<frame_ctsub name="frame_modifiers">
+	<template name="frame_ctsection_meleemodifiers">
+		<frame_ctsub name="frame_meleemodifiers">
 			<anchored>
-				<top parent="modifiersicon" />
-				<bottom parent="sub_modifiers" />
+				<top parent="meleemodifiersicon" />
+				<bottom parent="sub_meleemodifiers" />
+			</anchored>
+		</frame_ctsub>
+	</template>
+
+	<template name="icon_ctsection_rangemodifiers">
+		<icon_ctsubsection name="rangemodifiersicon">
+			<icon>modifiers_down</icon>
+		</icon_ctsubsection>
+	</template>
+	<template name="sub_ctsection_rangemodifiers">
+		<subwindow name="sub_rangemodifiers">
+			<anchored>
+				<top parent="active_spacer_top" anchor="bottom" relation="relative" offset="10" />
+				<left parent="rangemodifiersicon" anchor="right" offset="8" />
+				<right offset="-12" />
+			</anchored>
+			<class>ct_modifiers</class>
+		</subwindow>
+	</template>
+	<template name="frame_ctsection_rangemodifiers">
+		<frame_ctsub name="frame_rangemodifiers">
+			<anchored>
+				<top parent="rangemodifiersicon" />
+				<bottom parent="sub_rangemodifiers" />
 			</anchored>
 		</frame_ctsub>
 	</template>

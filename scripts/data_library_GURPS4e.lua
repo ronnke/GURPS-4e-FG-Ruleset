@@ -318,7 +318,7 @@ aListViews = {
         { sName = "lc", sType = "string", sHeadingRes = "item_grouped_label_lc", nWidth=30, bCentered=true },
 			},
 			aFilters = { 
-        { sDBField = "type", vFilterValue = "Melee Weapon" }, 
+				{ sDBField = "type", vFilterValue = "Melee Weapon" }, 
 			},
       aGroups = { { sDBField = "subtype" } },
       aGroupValueOrder = {},
@@ -341,7 +341,7 @@ aListViews = {
         { sName = "lc", sType = "string", sHeadingRes = "item_grouped_label_lc", sTooltipRes = "item_grouped_tooltip_lc", nWidth=30, bCentered=true },
 			},
 			aFilters = { 
-        { sDBField = "type", vFilterValue = "Ranged Weapon" }, 
+				{ sDBField = "type", vFilterValue = "Ranged Weapon" }, 
 			},
       aGroups = { { sDBField = "subtype" } },
       aGroupValueOrder = {},

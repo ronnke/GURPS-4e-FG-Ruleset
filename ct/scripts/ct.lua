@@ -169,7 +169,7 @@ function onEntrySectionToggle()
 
 	enableglobaltoggle = false;
 	window.button_global_targeting.setValue(anyTargeting);
-  window.button_global_stats.setValue(anyStats);
+    window.button_global_stats.setValue(anyStats);
 	window.button_global_combat.setValue(anyCombat);
 	window.button_global_effects.setValue(anyEffects);
 	enableglobaltoggle = true;

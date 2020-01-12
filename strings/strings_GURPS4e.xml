@@ -38,6 +38,7 @@
 	<string name="ct_label_st">ST</string>
 	<string name="ct_label_weight">Weight</string>
 	<string name="ct_label_bulk">Bulk</string>
+	<string name="ct_label_ammo">Ammo</string>
 
 	<string name="ct_tooltip_skip">Skip</string>
 	<string name="ct_tooltip_stats">Stats</string>
@@ -97,6 +98,7 @@
 	<string name="char_label_st">ST</string>
 	<string name="char_label_weight">Weight</string>
 	<string name="char_label_cost">Cost</string>
+	<string name="char_label_ammo">Ammo</string>
 	<string name="char_label_tl">TL</string>
 	<string name="char_label_lc">LC</string>
 	<string name="char_label_acc">Acc</string>
@@ -170,6 +172,7 @@
 	<string name="npc_label_st">ST</string>
 	<string name="npc_label_weight">Weight</string>
 	<string name="npc_label_bulk">Bulk</string>
+	<string name="npc_label_ammo">Ammo</string>
 	
 	<string name="npc_grouped_title_byletter">NPCs By Letter</string>
 	<string name="npc_grouped_title_bytype">NPCs By Type</string>

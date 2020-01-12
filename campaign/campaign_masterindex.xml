@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="masterindex" merge="join">
+		<placement>
+			<size width="500" height="450" />
+		</placement>
+		<sizelimits>
+			<minimum width="500" height="450" />
+			<dynamic />
+		</sizelimits>
+	</windowclass>
+</root>

@@ -98,7 +98,7 @@
 				<static textres="char_label_encumbrancenone" />
 			</label_columntop>
 
-<--! Weight -->
+<!-- Weight -->
 			<stringu_charfield name="enc_xhvy" source="encumbrance.enc4_weight">
 				<anchored to="secondarycharacteristicsframe" position="insidetopright" offset="25,125" width="35" height="20" />
 				<center />
@@ -145,7 +145,7 @@
 				<left />
 			</stringcontrol>
 
-<--! Move -->
+<!-- Move -->
 			<stringu_charfield name="enc_move_xhvy" source="encumbrance.enc4_move" >
 				<anchored to="secondarycharacteristicsframe" position="insidetopright" offset="25,145" width="35" height="20" />
 				<center />
@@ -192,7 +192,7 @@
 				<left />
 			</stringcontrol>
 
-<--! Dodge -->
+<!-- Dodge -->
 			<number_charfield name="enc_dodge_xhvy" source="encumbrance.enc4_dodge">
 				<rollable_dodge />
 				<anchored to="secondarycharacteristicsframe" position="insidetopright" offset="30,165" width="25" height="20" />
@@ -245,7 +245,7 @@
 			</stringcontrol>
 
 
-<--! Encumbrance Table -->
+<!-- Encumbrance Table -->
 
 			<genericcontrol name="encumbrance_rightanchor">
 				<anchored to="secondarycharacteristicsframe" width="0" height="0">

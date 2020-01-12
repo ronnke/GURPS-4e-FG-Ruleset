@@ -8,7 +8,7 @@
 <root>
 	<template name="image_record">
 		<image_record_step>
-			<bounds>21,93,-27,-29</bounds>
+			<bounds>21,57,-27,-29</bounds>
 			<script file="campaign/scripts/image_GURPS4e.lua" />
 		</image_record_step>
 	</template>
@@ -20,7 +20,6 @@
 			end 		
 		
 			function update()
-				super.update()
 				if User.isHost() then
 					local bShowScale = false;
 					local bShowScaleToolbar = super.getImage().hasGrid()
@@ -37,6 +36,8 @@
 					scaleunits.setVisible(bShowScale);
 					range.setVisible(bShowScale);
 				end
+
+				super.update();
 			end
 		</script>
 		<sheetdata>

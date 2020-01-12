@@ -134,22 +134,14 @@ function action(draginfo)
       rActor = ActorManager.getActor(sActor,node.getParent().getParent().getParent().getParent().getParent());
       sType = "melee";
       sDesc = "[MELEE]";
-      sWeapon = DB.getValue(node.getParent().getParent(), "name", "");
-      sMode = DB.getValue(node, "name", "");
-      sTargetDesc =  DB.getValue(node, "name", "");
-      nTarget = getValue();
-      rRoll = { sType = sType, sDesc = sDesc, sWeapon = sWeapon, sMode = sMode, aDice = aDice, nMod = nMod, sTargetDesc = sTargetDesc, nTarget = nTarget };
+      sNode = node.getPath();
+      rRoll = { sType = sType, sDesc = sDesc, aDice = aDice, nMod = nMod, sNode = sNode };
     elseif rollable_ranged or rollable_button_ranged then
       rActor = ActorManager.getActor(sActor, node.getParent().getParent().getParent().getParent().getParent());
       sType = "ranged";
       sDesc = "[RANGED]";
-      sWeapon = DB.getValue(node.getParent().getParent(), "name", "");
-      sMode = DB.getValue(node, "name", "");
-      nRoF = DB.getValue(node, "rof", "");
-      nRcl = DB.getValue(node, "rcl", "");
-      sTargetDesc =  DB.getValue(node, "name", "");
-      nTarget = getValue();
-      rRoll = { sType = sType, sDesc = sDesc, sWeapon = sWeapon, sMode = sMode, nRoF = nRoF, nRcl = nRcl, aDice = aDice, nMod = nMod, sTargetDesc = sTargetDesc, nTarget = nTarget };
+      sNode = node.getPath();
+      rRoll = { sType = sType, sDesc = sDesc, aDice = aDice, nMod = nMod, sNode = sNode };
     elseif rollable_dodge or rollable_button_dodge then
       sType = "dodge";
       sDesc = "[DODGE]";

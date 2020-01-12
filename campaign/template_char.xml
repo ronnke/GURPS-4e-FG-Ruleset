@@ -497,7 +497,7 @@
 			<class>char_meleecombat</class>
 			<sortby><control>name</control></sortby>
 			<newfocus>name</newfocus>
-		</list_text>
+    </list_text>
 	</template>
 
 	<template name="list_charrangedcombat">
