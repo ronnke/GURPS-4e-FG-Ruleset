@@ -3,13 +3,13 @@
 -- attribution and copyright information.
 --
 
-function onInit()
-	ItemManager.setCustomCharAdd(onItemAdded)
-	ItemManager.setCustomCharRemove(onItemRemoved);
+function onInit()	
+    ItemManager.setCustomCharAdd(onItemAdded)
+    ItemManager.setCustomCharRemove(onItemRemoved);		
 end
 
 function AddMeleeItem(nodeChar, nodeItem)
-  if not nodeChar or not nodeItem then 
+  if not nodeChar or not nodeItem then  
     return false;
   end
  
@@ -23,20 +23,54 @@ function AddMeleeItem(nodeChar, nodeItem)
   end
     
   local nodeMeleeWeapon = DB.createChild(nodeMeleeCombatList);
-  DB.setValue(nodeMeleeWeapon, "name", "string", DB.getValue(nodeItem,"name",""));
-  DB.setValue(nodeMeleeWeapon, "st", "string", DB.getValue(nodeItem,"st",""));
+  DB.setValue(nodeMeleeWeapon, "name", "string", DB.getValue(nodeItem,"name",""));  
+  local minstVals = ManagerGURPS4e.strsplit("|", DB.getValue(nodeItem,"st",""));  
+  local minstCount = 0;    
   DB.setValue(nodeMeleeWeapon, "weight", "string", DB.getValue(nodeItem,"weight",""));
   DB.setValue(nodeMeleeWeapon, "cost", "string", DB.getValue(nodeItem,"cost",""));
   DB.setValue(nodeMeleeWeapon, "tl", "string", DB.getValue(nodeItem,"tl",""));
   DB.setValue(nodeMeleeWeapon, "text", "formattedtext", DB.getValue(nodeItem,"notes",""));
   
-  local nodeModeList = DB.createChild(nodeMeleeWeapon, "meleemodelist");
-  local nodeMode = DB.createChild(nodeModeList);
-  DB.setValue(nodeMode, "name", "string", "");
-  DB.setValue(nodeMode, "lvl", "number", 0);
-  DB.setValue(nodeMode, "damage", "string", DB.getValue(nodeItem,"damage",""));
-  DB.setValue(nodeMode, "reach", "string", DB.getValue(nodeItem,"reach",""));
-  DB.setValue(nodeMode, "parry", "string", DB.getValue(nodeItem,"parry",""));
+  local nodeModeList = DB.createChild(nodeMeleeWeapon, "meleemodelist");  
+  local thrust = tostring(DB.getValue(nodeChar,"attributes.thrust",0));
+  local swing = tostring(DB.getValue(nodeChar,"attributes.swing",0));		
+  local charST = DB.getValue(nodeChar, "attributes.strength", 0);		
+  local chThrust = ManagerGURPS4e.getItemThrust(charST);	
+  local chSwing = ManagerGURPS4e.getItemSwing(charST);			
+  for _, flds, mmNode in pairs(DB.getChildren(nodeItem, "")) do		  
+    for i, idk, idNode in pairs(DB.getChildren(flds, "")) do				
+	  if (DB.getValue(idk, "modename", "") ~= "") and (DB.getValue(idk, "reach", "") ~= "") then		 				  
+	    local nodeMode = DB.createChild(nodeModeList);
+	    local newDmg = "";
+	    DB.setValue(nodeMode, "name", "string", DB.getValue(idk, "modename", "atk here"));				  
+	    minstCount = minstCount + 1;
+	    DB.setValue(nodeMode, "lvl", "number", DB.getValue(idk, "Level", "0"));		  
+	    if (string.find(DB.getValue(idk, "damage", ""), "thr")) then
+		  newDmg = ManagerGURPS4e.calculateDam(thrust, DB.getValue(idk, "damage", "") );		    
+	    elseif (string.find(DB.getValue(idk, "damage", ""), "sw")) then   
+		  newDmg = ManagerGURPS4e.calculateDam(swing, DB.getValue(idk, "damage", "") );
+	    else
+	      newDmg = DB.getValue(idk, "damage", "");
+	    end		  
+	    DB.setValue(nodeMode, "damage", "string", newDmg);
+	    DB.setValue(nodeMode, "reach", "string", DB.getValue(idk,"reach",""));
+	    local myParry = DB.getValue(idk, "parry", "");		  
+	    DB.setValue(nodeMode, "parry", "string", ManagerGURPS4e.calculateParry(DB.getValue(idk, "parry", ""))); 		  		  		  	  
+	    DB.setValue(nodeMeleeWeapon, "isHidden", "number", 0);		  		  
+	    DB.setValue(nodeItem, "combatmeleelink", "string", nodeMode.getParent().getParent().getNodeName());
+      end
+    end	     
+  end
+  local lastVal = "";
+  local mstr = "";  
+  for i=1, minstCount do	
+	if minstVals[i] and tonumber(minstVals[i]) ~= tonumber(lastVal) then
+		if lastVal ~= "" then mstr = mstr .. "|"; end
+		lastVal = minstVals[i];		
+		mstr = mstr .. minstVals[i];
+	end
+  end
+  DB.setValue(nodeMeleeWeapon, "st", "string", mstr);	
 
   return true;
 end
@@ -57,23 +91,74 @@ function AddRangedItem(nodeChar, nodeItem)
     
   local nodeRangedWeapon = DB.createChild(nodeRangedCombatList);
   DB.setValue(nodeRangedWeapon, "name", "string", DB.getValue(nodeItem,"name",""));
-  DB.setValue(nodeRangedWeapon, "st", "string", DB.getValue(nodeItem,"st",""));
+  local minstVals = ManagerGURPS4e.strsplit("|", DB.getValue(nodeItem,"st",""));  
+  local minstCount = 0;
   DB.setValue(nodeRangedWeapon, "bulk", "number", tonumber(DB.getValue(nodeItem,"bulk","0")));
   DB.setValue(nodeRangedWeapon, "lc", "string", DB.getValue(nodeItem,"lc",""));
   DB.setValue(nodeRangedWeapon, "tl", "string", DB.getValue(nodeItem,"tl",""));
   DB.setValue(nodeRangedWeapon, "text", "formattedtext", DB.getValue(nodeItem,"notes",""));
     
   local nodeModeList = DB.createChild(nodeRangedWeapon, "rangedmodelist");
-  local nodeMode = DB.createChild(nodeModeList);
-  DB.setValue(nodeMode, "name", "string", "");
-  DB.setValue(nodeMode, "lvl", "number", 0);
-  DB.setValue(nodeMode, "damage", "string", DB.getValue(nodeItem,"damage",""));
-  DB.setValue(nodeMode, "acc", "number", tonumber(DB.getValue(nodeItem,"acc","0")));
-  DB.setValue(nodeMode, "range", "string", DB.getValue(nodeItem,"range",""));
-  DB.setValue(nodeMode, "rof", "string", DB.getValue(nodeItem,"rof",""));
-  DB.setValue(nodeMode, "shots", "string", DB.getValue(nodeItem,"shots",""));
-  DB.setValue(nodeMode, "rcl", "number", tonumber(DB.getValue(nodeItem,"rcl","0")));
-
+  local thrustpc = tostring(DB.getValue(nodeChar,"attributes.thrust",0));
+  local swingpc = tostring(DB.getValue(nodeChar,"attributes.swing",0));	
+  local charST = tostring(DB.getValue(nodeChar, "attributes.strength", 0));	
+  local accMods = "";
+  local modifierFlag = 0;
+  for _, flds, mmNode in pairs(DB.getChildren(nodeItem, "")) do
+    for i, idk, idNode in pairs(DB.getChildren(flds, "")) do
+  	  if (DB.getValue(idk, "modename", "") ~= "") and (DB.getValue(idk, "rof", "") ~= "") then				  
+ 	    local nodeMode = DB.createChild(nodeModeList); 
+	    local newDmg = "";
+	    minstCount = minstCount + 1;
+	    DB.setValue(nodeMode, "name", "string", DB.getValue(idk, "modename", "atk name"));
+	    DB.setValue(nodeMode, "lvl", "number", 0);			  
+	    local useST = DB.getValue(nodeItem,"weaponst","");			  		  
+	    if useST ~= "" then 			
+  		  useThrust = ManagerGURPS4e.getItemThrust(useST);
+		  useSwing = ManagerGURPS4e.getItemSwing(useST);
+	    else
+  		  useST = charST; 						
+		  useThrust = thrustpc;
+		  useSwing = swingpc
+	    end
+	    if (string.find(DB.getValue(idk, "damage", ""), "thr")) then
+  		  newDmg = ManagerGURPS4e.calculateDam(useThrust, DB.getValue(idk, "damage", "") );
+	    elseif (string.find(DB.getValue(idk, "damage", ""), "sw")) then
+ 		  newDmg = ManagerGURPS4e.calculateDam(useSwing, DB.getValue(idk, "damage", "") );
+	    else
+ 		  newDmg = DB.getValue(idk, "damage", "");			
+	    end		  		  		  
+	    DB.setValue(nodeMode, "damage", "string", newDmg); 
+	    accMods = DB.getValue(idk,"acc","0");		  
+	    accMods = ManagerGURPS4e.strsplit("%+", accMods);	
+	    DB.setValue(nodeMode, "acc", "number", tonumber(accMods[1]));		  
+	    DB.setValue(nodeMode, "range", "string", ManagerGURPS4e.calculateRange(useST, DB.getValue(idk, "range", "")));
+	    DB.setValue(nodeMode, "rof", "string", DB.getValue(idk,"rof",""));
+	    DB.setValue(nodeMode, "shots", "string", DB.getValue(idk,"shots",""));
+	    DB.setValue(nodeMode, "rcl", "number", tonumber(DB.getValue(idk,"rcl","0")));
+	    if (#accMods > 1) and (modifierFlag ~= 1) then
+  		  modifierFlag = 1;
+		  local modifNode = DB.createChild(nodeRangedWeapon, "modifierlist");		
+		  local mofNode = DB.createChild(modifNode);
+		  DB.setValue(mofNode, "name", "string", "Bonus Acc");
+		  DB.setValue(mofNode, "modifier", "number", tonumber(accMods[2]));
+	    end	    
+	    DB.setValue(nodeRangedWeapon, "isHidden", "number", 0);
+	    DB.setValue(nodeItem, "combatrangedlink", "string", nodeMode.getParent().getParent().getNodeName());	  		  
+	  end		
+    end  	 
+  end
+  local lastVal = "";
+  local mstr = "";
+  local startPos = #minstVals - minstCount + 1;	
+  for i=startPos, #minstVals do		
+  	if minstVals[i] and tonumber(minstVals[i]) ~= tonumber(lastVal) then						
+	  if lastVal ~= "" then mstr = mstr .. "|"; end
+	  lastVal = minstVals[i];
+	  mstr = mstr .. minstVals[i];
+	end
+  end
+  DB.setValue(nodeRangedWeapon, "st", "string", mstr);
   return true;
 end
 
@@ -91,33 +176,57 @@ function AddDefenseItem(nodeChar, nodeItem)
     nodeDefensesList = DB.createChild(nodeChar, "combat.defenseslist");
   end
     
-  local nodeDefenses = DB.createChild(nodeDefensesList);
-  DB.setValue(nodeDefenses, "name", "string", DB.getValue(nodeItem,"name",""));
+  local nodeDefenses = DB.createChild(nodeDefensesList);  
+  DB.setValue(nodeDefenses, "name", "string", DB.getValue(nodeItem,"name",""));  
   DB.setValue(nodeDefenses, "db", "number", tonumber(DB.getValue(nodeItem,"db","0")));
   DB.setValue(nodeDefenses, "dr", "string", DB.getValue(nodeItem,"dr",""));
   DB.setValue(nodeDefenses, "locations", "string", DB.getValue(nodeItem,"locations",""));
-  DB.setValue(nodeDefenses, "text", "formattedtext", DB.getValue(nodeItem,"notes",""));
-
+  DB.setValue(nodeDefenses, "text", "formattedtext", DB.getValue(nodeItem,"notes",""));   
+  DB.setValue(nodeDefenses, "isHidden", "number", 0);
+  DB.setValue(nodeItem, "defenselink", "string", nodeDefenses.getNodeName());	    
   return true;
 end
 
-function AddItemToCombat(nodeChar, nodeItem)
-  local bAdded = false;
-
-  bAdded = AddMeleeItem(nodeChar, nodeItem) or bAdded;
-  bAdded = AddRangedItem(nodeChar, nodeItem) or bAdded;
-  bAdded = AddDefenseItem(nodeChar, nodeItem) or bAdded;
-
-  return bAdded;
+function AddItemToCombat(nodeChar, nodeItem)	
+	local bAdded = false;    	
+	if not DB.getValue(nodeItem, "combatmeleelink") or not DB.findNode(DB.getValue(nodeItem, "combatmeleelink")) then		
+		bAdded = AddMeleeItem(nodeChar, nodeItem) or bAdded;
+	end
+	if not DB.getValue(nodeItem, "combatrangedlink") or not DB.findNode(DB.getValue(nodeItem, "combatrangedlink")) then			
+		bAdded = AddRangedItem(nodeChar, nodeItem) or bAdded;
+	end
+	if not DB.getValue(nodeItem, "defenselink") or not DB.findNode(DB.getValue(nodeItem, "defenselink")) then			
+		bAdded = AddDefenseItem(nodeChar, nodeItem) or bAdded;    	
+	end			
+	if DB.getValue(nodeItem, "combatmeleelink") ~= "" or DB.getValue(nodeItem, "combatrangedlink") ~= "" or DB.getValue(nodeItem, "defenselink") ~= "" then
+		CharItemEquip.setHidden(nodeItem, 0);
+	end  
+	return bAdded;
 end
 
 function onItemAdded(nodeItem)
-  local nodeChar = nodeItem.getParent().getParent();
-  return AddItemToCombat(nodeChar, nodeItem);
+  local nodeChar = nodeItem.getParent().getParent();    
+  local bAdded = AddItemToCombat(nodeChar,nodeItem);  
+  CharItemEquip.toggleEquipped(nodeItem, true);
+  return bAdded;
 end
 
-function onItemRemoved(nodeItem)
--- Do your remove code
+function onItemRemoved(nodeItem)	
+	if LibraryDataGURPS4e.isMeleeWeapon(nodeItem) then					
+		if (DB.getValue(nodeItem, "combatmeleelink", "")) ~= "" then
+			DB.deleteNode(DB.getValue(nodeItem, "combatmeleelink", ""));			
+		end
+	end  	
+	if LibraryDataGURPS4e.isRangedWeapon(nodeItem) then		
+		if (DB.getValue(nodeItem, "combatrangedlink", "")) ~= "" then
+			DB.deleteNode(DB.getValue(nodeItem, "combatrangedlink", ""));			
+		end
+	end  		
+	if LibraryDataGURPS4e.isDefense(nodeItem) then		
+		if (DB.getValue(nodeItem, "defenselink", "")) ~= "" then					
+			DB.deleteNode(DB.getValue(nodeItem, "defenselink", ""));			
+		end
+	end  	
 end
 
 --

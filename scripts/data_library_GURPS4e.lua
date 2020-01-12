@@ -24,11 +24,11 @@ function getItemRecordDisplayClass(vNode)
   if vNode then
     local sBasePath, sSecondPath = UtilityManager.getDataBaseNodePathSplit(vNode)
     if sBasePath == "reference" then
-      if sSecondPath == "defense" or sSecondPath == "defenses" then
+      if string.find(sSecondPath, "defense") then
         sRecordDisplayClass = "defense"
-      elseif sSecondPath == "meleeweapon" or sSecondPath == "meleeweapons" then
+      elseif string.find(sSecondPath, "meleeweapon") then
         sRecordDisplayClass = "meleeweapon"
-      elseif sSecondPath == "rangedweapon" or sSecondPath == "rangedweapons" then
+      elseif string.find(sSecondPath, "rangedweapon") then
         sRecordDisplayClass = "rangedweapon"
       end
     end
@@ -41,13 +41,13 @@ function getVehicleRecordDisplayClass(vNode)
   if vNode then
     local sBasePath, sSecondPath = UtilityManager.getDataBaseNodePathSplit(vNode)
     if sBasePath == "reference" then
-      if sSecondPath == "groundvehicle" or sSecondPath == "groundvehicles" then
+      if string.find(sSecondPath, "groundvehicle") then
         sRecordDisplayClass = "groundvehicle"
-      elseif sSecondPath == "watercraft" then
+      elseif string.find(sSecondPath, "watercraft") then
         sRecordDisplayClass = "watercraft"
-      elseif sSecondPath == "aircraft" then
+      elseif string.find(sSecondPath, "aircraft") then
         sRecordDisplayClass = "aircraft"
-      elseif sSecondPath == "spacecraft" then
+      elseif string.find(sSecondPath, "spacecraft") then
         sRecordDisplayClass = "spacecraft"
       end
     end
@@ -71,7 +71,7 @@ function isDefense(vRecord)
   local sTypeLower = StringManager.trim(DB.getValue(nodeItem, "type", "")):lower();
   local sSubtypeLower = StringManager.trim(DB.getValue(nodeItem, "subtype", "")):lower();
 
-  if (sTypeLower == "defense") or (sTypeLower == "defenses") or (sSubtypeLower == "defense") or (sSubtypeLower == "defenses")then
+  if string.find(sTypeLower, "defense") or string.find(sSubtypeLower, "defense") then    
     bIsDefense = true;
   end
   
@@ -93,8 +93,8 @@ function isMeleeWeapon(vRecord)
   
   local sTypeLower = StringManager.trim(DB.getValue(nodeItem, "type", "")):lower();
   local sSubtypeLower = StringManager.trim(DB.getValue(nodeItem, "subtype", "")):lower();
-
-  if (sTypeLower == "melee weapon") or (sTypeLower == "melee weapons") or (sSubtypeLower == "melee weapon") or (sSubtypeLower == "melee weapons") then
+    
+  if string.find(sTypeLower, "melee") or string.find(sSubtypeLower, "melee") then
     bIsMeleeWeapon = true;
   end
   
@@ -116,8 +116,8 @@ function isRangedWeapon(vRecord)
 
   local sTypeLower = StringManager.trim(DB.getValue(nodeItem, "type", "")):lower();
   local sSubtypeLower = StringManager.trim(DB.getValue(nodeItem, "subtype", "")):lower();
-
-  if (sTypeLower == "ranged weapon") or (sTypeLower == "ranged weapons") or (sSubtypeLower == "ranged weapon") or (sSubtypeLower == "ranged weapons") then
+  
+  if string.find(sTypeLower, "ranged") or string.find(sSubtypeLower, "ranged") then
     bIsRangedWeapon = true;
   end
   
@@ -140,7 +140,7 @@ function isGroundVehicle(vRecord)
   local sTypeLower = StringManager.trim(DB.getValue(nodeItem, "type", "")):lower();
   local sSubtypeLower = StringManager.trim(DB.getValue(nodeItem, "subtype", "")):lower();
 
-  if (sTypeLower == "ground vehicle") or (sTypeLower == "ground vehicles") then
+  if string.find(sTypeLower, "ground vehicle") then
     bIsGroundVehicle = true;
   end
   
@@ -163,7 +163,7 @@ function isWatercraft(vRecord)
   local sTypeLower = StringManager.trim(DB.getValue(nodeItem, "type", "")):lower();
   local sSubtypeLower = StringManager.trim(DB.getValue(nodeItem, "subtype", "")):lower();
 
-  if (sTypeLower == "watercraft") then
+  if string.find(sTypeLower, "watercraft") then
     bIsWatercraft = true;
   end
   
@@ -186,7 +186,7 @@ function isAircraft(vRecord)
   local sTypeLower = StringManager.trim(DB.getValue(nodeItem, "type", "")):lower();
   local sSubtypeLower = StringManager.trim(DB.getValue(nodeItem, "subtype", "")):lower();
 
-  if (sTypeLower == "aircraft") then
+  if string.find(sTypeLower, "aircraft") then
     bIsAircraft = true;
   end
   
@@ -209,7 +209,7 @@ function isSpacecraft(vRecord)
   local sTypeLower = StringManager.trim(DB.getValue(nodeItem, "type", "")):lower();
   local sSubtypeLower = StringManager.trim(DB.getValue(nodeItem, "subtype", "")):lower();
 
-  if (sTypeLower == "spacecraft") then
+  if string.find(sTypeLower, "spacecraft") then
     bIsSpacecraft = true;
   end
   
@@ -318,7 +318,7 @@ aListViews = {
         { sName = "lc", sType = "string", sHeadingRes = "item_grouped_label_lc", nWidth=30, bCentered=true },
 			},
 			aFilters = { 
-				{ sDBField = "type", vFilterValue = "Melee Weapon" }, 
+				{ sDBField = "type", vFilterValue = "Melee Weapon" },				
 			},
       aGroups = { { sDBField = "subtype" } },
       aGroupValueOrder = {},
@@ -341,7 +341,7 @@ aListViews = {
         { sName = "lc", sType = "string", sHeadingRes = "item_grouped_label_lc", sTooltipRes = "item_grouped_tooltip_lc", nWidth=30, bCentered=true },
 			},
 			aFilters = { 
-				{ sDBField = "type", vFilterValue = "Ranged Weapon" }, 
+				{ sDBField = "type", vFilterValue = "Ranged Weapon" },				
 			},
       aGroups = { { sDBField = "subtype" } },
       aGroupValueOrder = {},
