@@ -61,14 +61,11 @@ function isRollableButton()
 end
 
 function action(draginfo)
-  local node = window.getDatabaseNode();
-  
-  local sActor = "pc";
-  if not ActorManager.isPC(node) then
-    sActor = "npc";
-  end
+    local sActorType, node = ActorManager.getTypeAndNode(window.getDatabaseNode());
+    if not sActorType or not node then
+        return;
+    end
 
-  if node then
     local rActor = ActorManager.getActor(sActor, node);
     local sType = "dice";
     local sDesc = "[ROLL]";
@@ -186,7 +183,6 @@ function action(draginfo)
     end  
     
     ActionsManager.performAction(draginfo, rActor, rRoll);
-  end
 end
 
 function onButtonPress(x, y)

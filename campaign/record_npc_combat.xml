@@ -20,8 +20,9 @@
 					<top offset="10" />
 					<left anchor="center" offset="-100"/>
 				</anchored>
-				<tabtarget prev="perception" next="basicspeed" />
-			</number_attribute>
+				<tabtarget next="parry" />
+        <default>0</default>
+      </number_attribute>
 			<label_attribute>
 				<anchored to="dodge" />
 				<static textres="char_label_dodge" />
@@ -33,8 +34,9 @@
 					<top offset="10" />
 					<left anchor="center" offset="-45"/>
 				</anchored>
-				<tabtarget prev="perception" next="basicspeed" />
-			</number_attribute>
+				<tabtarget prev="dodge" next="block" />
+        <default>0</default>
+      </number_attribute>
 			<label_attribute>
 				<anchored to="parry" />
 				<static textres="char_label_parry" />
@@ -46,8 +48,9 @@
 					<top offset="10" />
 					<left anchor="center" offset="10"/>
 				</anchored>
-				<tabtarget prev="perception" next="basicspeed" />
-			</number_attribute>
+				<tabtarget prev="parry" next="dr" />
+        <default>0</default>
+      </number_attribute>
 			<label_attribute>
 				<anchored to="block" />
 				<static textres="char_label_block" />
@@ -58,7 +61,7 @@
 					<top offset="10" />
 					<left anchor="center" offset="65"/>
 				</anchored>
-				<tabtarget prev="perception" next="basicspeed" />
+				<tabtarget prev="block" />
 			</string_attribute>
 			<label_attribute>
 				<anchored to="dr" />

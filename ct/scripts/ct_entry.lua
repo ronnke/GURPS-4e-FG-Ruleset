@@ -19,7 +19,6 @@ function onInit()
 	-- Update the displays
 	onFactionChanged();
 	onHealthChanged();
-
     onSkipChanged();
 	
 	-- Register the deletion menu item for the host	
@@ -64,7 +63,7 @@ function updateDisplay()
 		end
 	end
  
- skip.setValue(DB.getValue(getDatabaseNode(), "skip", 0));
+	skip.setValue(DB.getValue(getDatabaseNode(), "skip", 0));
 end
 
 function linkToken()
@@ -175,21 +174,25 @@ function linkPCFields()
     sub_combat.subwindow.dr.setLink(nodeChar.createChild("combat.dr", "string"), true);
     sub_combat.subwindow.move.setLink(nodeChar.createChild("attributes.move", "number"), true);
 
+    injury.setLink(nodeChar.createChild("attributes.injury", "number"));
+    fatigue.setLink(nodeChar.createChild("attributes.fatigue", "number"));
+    hpstatus.setLink(nodeChar.createChild("attributes.hpstatus", "string"));
     hps.setLink(nodeChar.createChild("attributes.hps", "number"));
     fps.setLink(nodeChar.createChild("attributes.fps", "number"));
   end
 end
 
 function onHealthChanged()
-  local sColor, sStatus, nStatus = ActorManager2.getStatusColor("ct", getDatabaseNode());
+  local sColor, sStatus, nStatus = ActorManager2.getInjuryStatusColor("ct", getDatabaseNode());
 
   hps.setColor(sColor);
   status.setValue(sStatus);
 end
 
-function onSizeModifierChanged()
-  local nodeRecord = getDatabaseNode();
-  DB.setValue(nodeRecord, "space", "number", GameSystem.calcSizeModifierGridUnits(DB.getValue(nodeRecord, "trait.sizemodifier", 0)));
+function onFatigueChanged()
+  local sColor, sStatus, nStatus = ActorManager2.getFatigueStatusColor("ct", getDatabaseNode());
+
+  fps.setColor(sColor);
 end
 
 function onSkipChanged()
@@ -226,10 +229,10 @@ function setStatsVisible()
 end
 
 function setCombatVisible()
-	local v = false;
-	if activatecombat.getValue() == 1 then
-		v = true;
-	end
+  local v = false;
+  if activatecombat.getValue() == 1 then
+	v = true;
+  end
 
   local sClass, sRecord = link.getValue();
   local bNPC = (sClass ~= "charsheet");
@@ -240,11 +243,11 @@ function setCombatVisible()
   local nodeChar = getDatabaseNode();
   local bShowMelee = ActorManager2.hasMeleeWeapons(nodeChar)
   local bShowRanged = ActorManager2.hasRangedWeapons(nodeChar)
-	
+
   combaticon.setVisible(v);
   sub_combat.setVisible(v);
-  sub_meleecombat.setVisible(v and bNPC and bShowRanged);
-  sub_rangedcombat.setVisible(v and bNPC and bShowMelee);
+  sub_meleecombat.setVisible(v and bNPC and bShowMelee);
+  sub_rangedcombat.setVisible(v and bNPC and bShowRanged);
   frame_combat.setVisible(v);
 end
 

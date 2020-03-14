@@ -31,22 +31,24 @@ function updateChar(nodePC, nVersion)
 	if not nVersion then
 		nVersion = 0;
 	end
-
 	if nVersion < 3 then
 		migrateChar3(nodePC);
 	end
-  if nVersion < 4 then
-    migrateChar4(nodePC);
-  end
-  if nVersion < 5 then
-    migrateChar5(nodePC);
-  end
-  if nVersion < 6 then
-    migrateChar6(nodePC);
-  end
-  if nVersion < 7 then
-    migrateChar7(nodePC);
-  end
+    if nVersion < 4 then
+        migrateChar4(nodePC);
+    end
+    if nVersion < 5 then
+        migrateChar5(nodePC);
+    end
+    if nVersion < 6 then
+        migrateChar6(nodePC);
+    end
+    if nVersion < 7 then
+        migrateChar7(nodePC);
+    end
+    if nVersion < 8 then
+        migrateChar8(nodePC);
+    end
 end
 
 function updateCampaign()
@@ -55,25 +57,28 @@ function updateCampaign()
 	if not major then
 		return;
 	end
-	if major > 0 and major < 7 then
+	if major > 0 and major < 8 then
 		print("Migrating campaign database to latest data version. (" .. rsname ..")");
 		DB.backup();
 		
-		if major < 3 then
-			convertChars3();
-		end
-    if major < 4 then
-      convertChars4();
-    end
-    if major < 5 then
-      convertChars5();
-    end
-    if major < 6 then
-      convertChars6();
-    end
-    if major < 7 then
-      convertChars7();
-    end
+	    if major < 3 then
+		    convertChars3();
+	    end
+        if major < 4 then
+          convertChars4();
+        end
+        if major < 5 then
+          convertChars5();
+        end
+        if major < 6 then
+          convertChars6();
+        end
+        if major < 7 then
+          convertChars7();
+        end
+        if major < 8 then
+          convertChars8();
+        end
 	end
 end
 
@@ -104,6 +109,12 @@ end
 function convertChars7()
   for _,nodeChar in pairs(DB.getChildren("charsheet")) do
     migrateChar7(nodeChar);
+  end
+end
+
+function convertChars8()
+  for _,nodeChar in pairs(DB.getChildren("charsheet")) do
+    migrateChar8(nodeChar);
   end
 end
 
@@ -614,5 +625,14 @@ function migrateChar7(nodeChar)
     for _,nodeInv in pairs(DB.getChildren(nodeChar, "inventorylist")) do
       DB.setValue(nodeInv, "isidentified", "number", 1);
     end
+  end
+end
+
+function migrateChar8(nodeChar)
+  if DB.getChild(nodeChar, "attributes") then
+    local nInjury = DB.getValue(nodeChar, "attributes.hitpoints",  0) - DB.getValue(nodeChar, "attributes.hps",  0);
+    local nFatigue = DB.getValue(nodeChar, "attributes.fatiguepoints",  0) - DB.getValue(nodeChar, "attributes.fps",  0);
+    DB.setValue(nodeChar, "attributes.injury", "number", (nInjury < 0 and 0 or nInjury));
+    DB.setValue(nodeChar, "attributes.fatigue", "number", (nFatigue < 0 and 0 or nFatigue));
   end
 end

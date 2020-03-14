@@ -44,7 +44,7 @@
 					<top parent="columnanchor" anchor="bottom" relation="current" offset="15" />
 					<left anchor="center" offset="-210"/>
 				</anchored>
-				<tabtarget prev="reactionmodifiers" next="dexterity" />
+				<tabtarget prev="pts" next="dexterity" />
 			</number_attribute>
 			<label_attribute>
 				<anchored to="strength" />
@@ -86,7 +86,7 @@
 					<top parent="columnanchor" anchor="bottom" relation="current" offset="15" />
 					<left anchor="center" offset="-45"/>
 				</anchored>
-				<tabtarget prev="intelligence" next="hps" />
+				<tabtarget prev="intelligence" next="will" />
 			</number_attribute>
 			<label_attribute>
 				<anchored to="health" />
@@ -100,7 +100,7 @@
 					<top parent="columnanchor" anchor="bottom" relation="current" offset="15" />
 					<left anchor="center" offset="10"/>
 				</anchored>
-				<tabtarget prev="hitpoints" next="perception" />
+				<tabtarget prev="health" next="perception" />
 			</number_attribute>
 			<label_attribute>
 				<anchored to="will" />
@@ -114,7 +114,7 @@
 					<top parent="columnanchor" anchor="bottom" relation="current" offset="15" />
 					<left anchor="center" offset="65"/>
 				</anchored>
-				<tabtarget prev="will" next="fps" />
+				<tabtarget prev="will" next="hitpoints" />
 			</number_attribute>
 			<label_attribute>
 				<anchored to="perception" />
@@ -126,7 +126,7 @@
 					<top parent="columnanchor" anchor="bottom" relation="current" offset="15" />
 					<left anchor="center" offset="120"/>
 				</anchored>
-				<tabtarget prev="health" next="will" />
+				<tabtarget prev="perception" next="fatiguepoints" />
 			</number_attribute>
 			<label_attribute>
 				<anchored to="hitpoints" />
@@ -138,7 +138,7 @@
 					<top parent="columnanchor" anchor="bottom" relation="current" offset="15" />
 					<left anchor="center" offset="175"/>
 				</anchored>
-				<tabtarget prev="perception" next="basicspeed" />
+				<tabtarget prev="hitpoints" next="basicspeed" />
 			</number_attribute>
 			<label_attribute>
 				<anchored to="fatiguepoints" />
@@ -152,7 +152,7 @@
 					<left />
 				</anchored>
 				<labelres>npc_label_basicspeed</labelres>
-				<tabtarget prev="fps" next="move" />
+				<tabtarget prev="fatiguepoints" next="move" />
 			</string_labeled>
 
 			<string_labeled name="move" source="attributes.move">
@@ -193,7 +193,7 @@
 					<right />
 				</anchored>
 				<labelres>npc_label_reaction</labelres>
-				<tabtarget prev="thrust" next="strength" />
+				<tabtarget prev="thrust" next="traits" />
 			</string_labeled>
 
 
@@ -213,7 +213,8 @@
 					<left offset="5" />
 					<right offset="-5" />
 				</anchored>
-				<multilinespacing>15</multilinespacing>
+        <tabtarget prev="reactionmodifiers" />
+        <multilinespacing>15</multilinespacing>
 			</basicstring>
 			
 		</sheetdata>

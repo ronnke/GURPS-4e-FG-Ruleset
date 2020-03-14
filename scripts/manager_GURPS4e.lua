@@ -18,6 +18,8 @@ function calcRangeModifier(length,unit)
     scale = 1.0936133;
   elseif unit == "km" then
     scale = 1093.6133
+  elseif unit == "nmi" then
+    scale = 2025.37;
   elseif unit == "AU" then
     scale = 0
   elseif unit == "ly" then
@@ -281,11 +283,14 @@ function calculateParry(charPar)
 	return calcParry
 end
 
-function calculateDam(charDmg, itemDmg)		
-	local myDieCount = string.match(charDmg, "([^d]+)");			
-	local myMod = string.match(charDmg, "[^d]-$");
-	myMod = tonumber(myMod);
-	if (myMod == nil) then myMod = 0; end	
+function calculateDam(charDmg, itemDmg)
+    charDmg = StringManager.trim(charDmg);
+    itemDmg = StringManager.trim(itemDmg);
+
+	local nDieCount = tonumber(string.match(charDmg, "([^d]+)"));			
+	if (nDieCount == nil) then nDieCount = 0; end	
+    local nMod = tonumber(string.match(charDmg, "[^d]-$"));
+	if (nMod == nil) then nMod = 0; end	
 	local dmgType = string.match(itemDmg, "%s.-$");
 	local pat = string.match(itemDmg, "(%a+)");			
 	local itemMod = string.match(itemDmg, "[^%a"..pat.."%s]+"); 
@@ -300,10 +305,10 @@ function calculateDam(charDmg, itemDmg)
 	end
 	itemMod = tonumber(itemMod); if (itemMod == nil) then itemMod = 0; end				
 	local newDmg = itemDmg;	
-	local newMod = myMod + itemMod;
+	local newMod = nMod + itemMod;
 	if (newMod > 0) then newMod = "+" .. tostring(newMod); end 
 	if (newMod == 0) then newMod = ""; end		
-	newDmg = myDieCount .. "d" .. newMod .. armDivOut .. dmgType;	
+	newDmg = nDieCount .. "d" .. newMod .. armDivOut .. dmgType;	
 	return newDmg
 end
 

@@ -27,7 +27,7 @@ end
 function toggleEquipped(nodeItem, view)
 	if view == "add" then			
 		local nodeChar = nodeItem.getParent().getParent();				
-		ItemManager2.AddItemToCombat(nodeChar,nodeItem);									
+		ItemManager2.AddItemToCombat(nodeChar, nodeItem, true);									
 	else		
 		setHidden(nodeItem, 1);		
 	end	

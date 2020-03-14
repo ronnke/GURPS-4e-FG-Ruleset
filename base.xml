@@ -5,10 +5,10 @@
   attribution and copyright information.
 -->
 
-<root version="3.0" release="7" logo="logo.png">
-	<announcement text="GURPS 4E core ruleset v3.3.2 for Fantasy Grounds." font="emotefont" />
+<root version="3.0" release="8" logo="logo.png">
+	<announcement text="GURPS 4E core ruleset v3.4.0 for Fantasy Grounds." font="emotefont" />
 	<announcement text="Produced with the permission of Steve Jackson Games." font="emotefont" />
-	<announcement text="This work is based on GURPS 4E System and is the accumulated effort of several members of the Fantasy Grounds community. This release was authored by Brian Ronnle, building on previous releases by Eric Hilerio and Graham Brand." font="emotefont" />
+	<announcement text="This work is based on GURPS 4E System and is the accumulated effort of several members of the Fantasy Grounds community. This release was authored by Brian Ronnle, building on previous releases by Eric Hilerio and Graham Brand. Contributors: Jesse Meigs (Jaxilon)" font="emotefont" />
 	<announcement text="GURPS is a trademark of Steve Jackson Games, and its rules and art are copyrighted by Steve Jackson Games. All rights are reserved by Steve Jackson Games. This game aid is the original creation of the Fantasy Grounds GURPS community and is released for free distribution and not for resale under the permissions granted in the Steve Jackson Games Online Policy" font="emotefont" />
 	
 	<!-- Attributes -->
@@ -30,7 +30,10 @@
 	<!-- Graphics -->	
 	<includefile source="graphics/graphics_GURPS4e.xml" />
 
-	<!-- Campaign Records -->
+  <!-- Common -->
+  <includefile source="common/template_GURPS4e.xml" />
+
+  <!-- Campaign Records -->
   <includefile source="campaign/campaign_masterindex.xml" />
   <includefile source="campaign/template_campaign.xml" />
 	<includefile source="campaign/template_char.xml" />
@@ -68,9 +71,14 @@
 
 	<includefile source="campaign/record_vehicle.xml" />
 
-	<!-- Desktop -->
+	<includefile source="campaign/record_ability.xml" />
+
+  <includefile source="campaign/record_trait.xml" />
+
+  <!-- Desktop -->
 	<script name="LibraryDataGURPS4e" file="scripts/data_library_GURPS4e.lua" />
-	<script name="OptionsGURPS4e" file="scripts/data_options_GURPS4e.lua" />
+  <script name="DataCommonGURPS" file="scripts/data_common_GURPS4e.lua" />
+  <script name="OptionsGURPS4e" file="scripts/data_options_GURPS4e.lua" />
 	<includefile source="desktop/desktop_classes.xml" />
 	<includefile source="desktop/desktop_panels.xml" />
 
@@ -92,18 +100,20 @@
 	<script name="ActorManager2" file="scripts/manager_actor2.lua" />
 	<script name="CampaignDataManager2" file="scripts/manager_campaigndata2.lua" />
 	<script name="CombatManager2" file="scripts/manager_combat2.lua" />
-	<script name="CharItemEquip" file="campaign/scripts/char_item_equip.lua" />
 	<script name="ItemManager2" file="scripts/manager_item2.lua" />
 	<script name="StringManager2" file="scripts/manager_string2.lua" />
 	<script name="VersionManager2" file="scripts/manager_version2.lua" />
 	<script name="ImageManagerGURPS4e" file="scripts/manager_image_GURPS4e.lua" />
 
-	<script name="ActionGeneral" file="scripts/manager_action_ability.lua" />
+  <script name="CharItemEquip" file="campaign/scripts/char_item_equip.lua" />
+
+  <script name="ActionGeneral" file="scripts/manager_action_ability.lua" />
 	<script name="ActionMelee" file="scripts/manager_action_melee.lua" />
 	<script name="ActionRanged" file="scripts/manager_action_ranged.lua" />
 	<script name="ActionDefense" file="scripts/manager_action_defense.lua" />
-	<script name="ActionDamage" file="scripts/manager_action_damage.lua" />
-	<script name="ActionReaction" file="scripts/manager_action_reaction.lua" />
+  <script name="ActionDamage" file="scripts/manager_action_damage.lua" />
+  <script name="ActionFatigue" file="scripts/manager_action_fatigue.lua" />
+  <script name="ActionReaction" file="scripts/manager_action_reaction.lua" />
 
 	<script name="ModifierStack" file="desktop/scripts/modifierstack.lua" />		
 

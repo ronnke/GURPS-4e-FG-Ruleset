@@ -6,7 +6,170 @@
 -->
 
 <root>
-	<template name="button_item_bytype">
+  <template name="button_ability_skills">
+    <button_text_sm>
+      <anchored to="buttonanchor" width="100">
+        <top />
+        <left anchor="right" relation="relative" offset="5" />
+      </anchored>
+      <state textres="ability_button_skills" />
+      <script>
+        function onButtonPress()
+					local w = Interface.findWindow("reference_groupedlist", "reference.skill");
+					if w then
+						Interface.toggleWindow("reference_groupedlist", "reference.skill");
+					else
+						w = Interface.openWindow("reference_groupedlist", "reference.skill");
+						w.init({ sRecordType = "ability", sListView = "skill" });
+					end
+        end
+      </script>
+    </button_text_sm>
+  </template>
+  <template name="button_ability_spells">
+    <button_text_sm>
+      <anchored to="buttonanchor" width="100">
+        <top />
+        <left anchor="right" relation="relative" offset="5" />
+      </anchored>
+      <state textres="ability_button_spells" />
+      <script>
+        function onButtonPress()
+					local w = Interface.findWindow("reference_groupedlist", "reference.spell");
+					if w then
+						Interface.toggleWindow("reference_groupedlist", "reference.spell");
+					else
+						w = Interface.openWindow("reference_groupedlist", "reference.spell");
+						w.init({ sRecordType = "ability", sListView = "spell" });
+					end
+        end
+      </script>
+    </button_text_sm>
+  </template>
+  <template name="button_ability_powers">
+    <button_text_sm>
+      <anchored to="buttonanchor" width="100">
+        <top />
+        <left anchor="right" relation="relative" offset="5" />
+      </anchored>
+      <state textres="ability_button_powers" />
+      <script>
+        function onButtonPress()
+					local w = Interface.findWindow("reference_groupedlist", "reference.power");
+					if w then
+						Interface.toggleWindow("reference_groupedlist", "reference.power");
+					else
+						w = Interface.openWindow("reference_groupedlist", "reference.power");
+						w.init({ sRecordType = "ability", sListView = "power" });
+					end
+        end
+      </script>
+    </button_text_sm>
+  </template>
+  <template name="button_ability_others">
+    <button_text_sm>
+      <anchored to="buttonanchor" width="100">
+        <top />
+        <left anchor="right" relation="relative" offset="5" />
+      </anchored>
+      <state textres="ability_button_others" />
+      <script>
+        function onButtonPress()
+					local w = Interface.findWindow("reference_groupedlist", "reference.other");
+					if w then
+						Interface.toggleWindow("reference_groupedlist", "reference.other");
+					else
+						w = Interface.openWindow("reference_groupedlist", "reference.other");
+						w.init({ sRecordType = "ability", sListView = "other" });
+					end
+        end
+      </script>
+    </button_text_sm>
+  </template>
+
+  <template name="button_trait_advantages">
+    <button_text_sm>
+      <anchored to="buttonanchor" width="100">
+        <top />
+        <left anchor="right" relation="relative" offset="5" />
+      </anchored>
+      <state textres="trait_button_advantages" />
+      <script>
+        function onButtonPress()
+					local w = Interface.findWindow("reference_groupedlist", "reference.trait");
+					if w then
+						Interface.toggleWindow("reference_groupedlist", "reference.trait");
+					else
+						w = Interface.openWindow("reference_groupedlist", "reference.trait");
+						w.init({ sRecordType = "trait", sListView = "advantage" });
+					end
+        end
+      </script>
+    </button_text_sm>
+  </template>
+  <template name="button_trait_disadvantages">
+    <button_text_sm>
+      <anchored to="buttonanchor" width="100">
+        <top />
+        <left anchor="right" relation="relative" offset="5" />
+      </anchored>
+      <state textres="trait_button_disadvantages" />
+      <script>
+        function onButtonPress()
+					local w = Interface.findWindow("reference_groupedlist", "reference.disadvantage");
+					if w then
+						Interface.toggleWindow("reference_groupedlist", "reference.disadvantage");
+					else
+						w = Interface.openWindow("reference_groupedlist", "reference.disadvantage");
+						w.init({ sRecordType = "trait", sListView = "disadvantage" });
+					end
+        end
+      </script>
+    </button_text_sm>
+  </template>
+  <template name="button_trait_perks">
+    <button_text_sm>
+      <anchored to="buttonanchor" width="100">
+        <top />
+        <left anchor="right" relation="relative" offset="5" />
+      </anchored>
+      <state textres="trait_button_perks" />
+      <script>
+        function onButtonPress()
+					local w = Interface.findWindow("reference_groupedlist", "reference.perk");
+					if w then
+						Interface.toggleWindow("reference_groupedlist", "reference.perk");
+					else
+						w = Interface.openWindow("reference_groupedlist", "reference.perk");
+						w.init({ sRecordType = "trait", sListView = "perk" });
+					end
+        end
+      </script>
+    </button_text_sm>
+  </template>
+  <template name="button_trait_quirks">
+    <button_text_sm>
+      <anchored to="buttonanchor" width="100">
+        <top />
+        <left anchor="right" relation="relative" offset="5" />
+      </anchored>
+      <state textres="trait_button_quirks" />
+      <script>
+        function onButtonPress()
+					local w = Interface.findWindow("reference_groupedlist", "reference.quirk");
+					if w then
+						Interface.toggleWindow("reference_groupedlist", "reference.quirk");
+					else
+						w = Interface.openWindow("reference_groupedlist", "reference.quirk");
+						w.init({ sRecordType = "trait", sListView = "quirk" });
+					end
+        end
+      </script>
+    </button_text_sm>
+  </template>
+  
+  
+  <template name="button_item_bytype">
 		<button_text_sm>
 			<anchored to="buttonanchor" width="80">
 				<top />

@@ -22,23 +22,24 @@
 			function update()
 				if User.isHost() then
 					local bShowScale = false;
-					local bShowScaleToolbar = super.getImage().hasGrid()
-					if toggle_grid.getValue() &gt; 0 then
-						if toolbar_mapscale.getValue() &gt; 0 then
-							bShowScale = true;
-						end
+					local bShowScaleToolbar = getImage().hasGrid()
+					if toolbar_mapscale.getValue() &gt; 0 then
+						bShowScale = true;
 					end
 					
 					hMapScale.setVisible(bShowScaleToolbar);
 					toolbar_mapscale.setVisible(bShowScaleToolbar);
-					
-					mapscale.setVisible(bShowScale);
-					scaleunits.setVisible(bShowScale);
-					range.setVisible(bShowScale);
+          
+					showMapScale(bShowScale)
 				end
-
 				super.update();
 			end
+      
+      function showMapScale(bShow)
+				mapscale.setVisible(bShow);
+				scaleunits.setVisible(bShow);
+				range.setVisible(bShow);
+      end;
 		</script>
 		<sheetdata>
 			<genericcontrol name="hMapScale">
@@ -59,17 +60,10 @@
 				<tooltip textres="image_tooltip_mapscale" />
 				<invisible />
 				<script>
-					function onButtonPress(id)
-						local bShowScale = false;
-						if getValue() &gt; 0 then
-							bShowScale = true;
-						end
-						
-						window.mapscale.setVisible(bShowScale);
-						window.scaleunits.setVisible(bShowScale);
-						window.range.setVisible(bShowScale);
-					end
-				</script>
+          function onButtonPress(id)
+						window.showMapScale(getValue() ~= 0)
+          end
+        </script>
 			</buttoncontrol>
 			<basicnumber name="mapscale">
 				<anchored to="toolbar_anchor" width="50" height="20">
@@ -92,8 +86,8 @@
 				<gmeditonly />
 				<parameters>
 					<defaultlabelres>no_units</defaultlabelres>
-					<labelsres>feet|yards|miles|meters|kilometers|au|lightyears|parsecs</labelsres>
-					<values>ft|yd|mi|m|km|AU|ly|pc</values>
+					<labelsres>feet|yards|miles|meters|kilometers|nautical miles|au|lightyears|parsecs</labelsres>
+					<values>ft|yd|mi|m|km|nmi|AU|ly|pc</values>
 				</parameters>
 				<invisible />
 			</button_stringcycler>
@@ -112,6 +106,5 @@
 			</button_stringcycler>
 		</sheetdata>
 	</windowclass>
-
 </root>
 

@@ -105,31 +105,81 @@
       </script>
 		</buttoncontrol>
 	</template>
-	
-	
-	<template name="number_ctfps">
-		<number_ct_crosslink name="fps">
-			<anchored to="rightanchor" width="40" height="20">
-				<top />
-				<right anchor="left" relation="relative" offset="-10" />
-			</anchored>
-			<tabtarget prev="name" />
-			<script>
-				function handleDrop(draginfo)
-					if draginfo.getType() == "number" then
-						setValue(getValue() - draginfo.getNumberData());
-					end
-				end
-			</script>
-		</number_ct_crosslink>
-	</template>
-	
 
-	<template name="number_cthps">
-		<number_ct_crosslink name="hps">
-			<anchored to="rightanchor" width="40" height="20">
+  <template name="number_ct_fatigue">
+    <number_ct_crosslink name="fatigue">
+      <anchored to="rightanchor" width="30" height="20">
+        <top />
+        <right anchor="left" relation="relative" offset="-10" />
+      </anchored>
+      <tabtarget prev="name" />
+      <script>
+        function handleDrop(draginfo)
+					if draginfo.getType() == "number" then
+						local node = window.getDatabaseNode();
+						local rActor = ActorManager.getActorFromCT(node);
+						ActionFatigue.applyFatigue(nil, rActor, CombatManager.isCTHidden(node), draginfo.getDescription(), draginfo.getNumberData());
+					end
+        end
+
+        function update()
+					local node = window.getDatabaseNode();
+					local rActor = ActorManager.getActorFromCT(node);
+					ActionFatigue.updateFatigue(rActor);
+        end
+      </script>
+      <min value="0" />
+      <hideonvalue value="0" />
+    </number_ct_crosslink>
+  </template>
+
+  <template name="number_ct_injury">
+    <number_ct_crosslink name="injury">
+      <anchored to="rightanchor" width="30" height="20">
+        <top />
+        <right anchor="left" relation="relative" offset="-10" />
+      </anchored>
+      <tabtarget prev="name" />
+      <script>
+        function handleDrop(draginfo)
+					if draginfo.getType() == "number" then
+						local node = window.getDatabaseNode();
+						local rActor = ActorManager.getActorFromCT(node);
+						ActionDamage.applyDamage(nil, rActor, CombatManager.isCTHidden(node), draginfo.getDescription(), draginfo.getNumberData());
+					end
+        end
+
+        function update()
+					local node = window.getDatabaseNode();
+					local rActor = ActorManager.getActorFromCT(node);
+					ActionDamage.updateDamage(rActor);
+        end
+      </script>
+      <min value="0" />
+      <hideonvalue value="0" />
+    </number_ct_crosslink>
+  </template>
+
+  <template name="string_ct_hpstatus">
+    <simplestring name="hpstatus">
+      <script file="common/scripts/string_crosslink.lua" />
+      <anchored to="rightanchor" width="40" height="20">
+        <top />
+        <right anchor="left" relation="relative" offset="-5" />
+      </anchored>
+      <tabtarget prev="name" />
+      <color>#C11B17</color>
+      <readonly />
+      <center />
+      <nolinkwidget />
+    </simplestring>
+  </template>
+  
+  <template name="number_ct_fps">
+		<number_ct_crosslink name="fps">
+			<anchored to="rightanchor" width="30" height="20">
 				<top />
-				<right anchor="left" relation="relative" offset="-10" />
+				<right anchor="left" relation="relative" offset="-5" />
 			</anchored>
 			<tabtarget prev="name" />
 			<script>
@@ -137,42 +187,149 @@
 					if draginfo.getType() == "number" then
 						local node = window.getDatabaseNode();
 						local rActor = ActorManager.getActorFromCT(node);
-						ActionDamage.applyDamage(nil, rActor, CombatManager.isCTHidden(node), draginfo.getDescription(), draginfo.getNumberData());
+						ActionFatigue.applyFatigue(nil, rActor, CombatManager.isCTHidden(node), draginfo.getDescription(), draginfo.getNumberData());
 					end
 				end
-				
+        
 				function update()
-					window.onHealthChanged();
-				end
+					window.onFatigueChanged();
+        end
 			</script>
-		</number_ct_crosslink>
+      <readonly />
+    </number_ct_crosslink>
 	</template>
 
-	<template name="number_ctspeed">
-		<number_ct_crosslink name="speed">
-			<anchored to="rightanchor" width="40" height="20">
+	<template name="number_ct_hps">
+		<number_ct_crosslink name="hps">
+			<anchored to="rightanchor" width="30" height="20">
 				<top />
 				<right anchor="left" relation="relative" offset="-10" />
 			</anchored>
 			<tabtarget prev="name" />
 			<script>
+        function handleDrop(draginfo)
+					if draginfo.getType() == "number" then
+						local node = window.getDatabaseNode();
+						local rActor = ActorManager.getActorFromCT(node);
+						ActionDamage.applyDamage(nil, rActor, CombatManager.isCTHidden(node), draginfo.getDescription(), draginfo.getNumberData());
+					end
+        end
+
 				function update()
-					window.windowlist.applySort();
-				end
-			</script>
-		</number_ct_crosslink>
+					window.onHealthChanged();
+        end
+      </script>
+      <readonly />
+    </number_ct_crosslink>
 	</template>
-	
-	<template name="icon_ctsubsection">
+
+  <template name="number_ct_speed">
+    <number_ct_crosslink name="speed">
+      <anchored to="rightanchor" width="30" height="20">
+        <top />
+        <right anchor="left" relation="relative" offset="-10" />
+      </anchored>
+      <tabtarget prev="name" />
+      <script>
+        function update()
+					window.windowlist.applySort();
+        end
+      </script>
+    </number_ct_crosslink>
+  </template>
+
+  <template name="string_clientct_status">
+    <simplestring name="status">
+      <anchored to="rightanchor" width="90" height="20">
+        <top />
+        <right anchor="left" relation="relative" offset="-10" />
+      </anchored>
+      <frame name="fieldlight" offset="7,5,7,5" />
+      <center />
+      <static />
+    </simplestring>
+  </template>
+
+  <template name="number_clientct_fatigue">
+    <number_ct_static name="fatigue">
+      <anchored to="rightanchor" width="30" height="20">
+        <top />
+        <right anchor="left" relation="relative" offset="-10" />
+      </anchored>
+    </number_ct_static>
+  </template>
+
+  <template name="number_clientct_injury">
+    <number_ct_static name="injury">
+      <anchored to="rightanchor" width="30" height="20">
+        <top />
+        <right anchor="left" relation="relative" offset="-10" />
+      </anchored>
+    </number_ct_static>
+  </template>
+
+  <template name="number_clientct_fps">
+    <number_ct_static name="fps">
+      <anchored to="rightanchor" width="30" height="20">
+        <top />
+        <right anchor="left" relation="relative" offset="-10" />
+      </anchored>
+      <script>
+        function onInit()
+					window.onFatigueChanged();
+        end
+
+				function onValueChanged()
+					window.onFatigueChanged();
+        end
+      </script>
+      <hideonvalue merge="delete" />
+    </number_ct_static>
+  </template>
+
+  <template name="number_clientct_hps">
+    <number_ct_static name="hps">
+      <anchored to="rightanchor" width="30" height="20">
+        <top />
+        <right anchor="left" relation="relative" offset="-10" />
+      </anchored>
+      <script>
+        function onInit()
+					window.onHealthChanged();
+        end
+
+				function onValueChanged()
+					window.onHealthChanged();
+        end
+      </script>
+      <hideonvalue merge="delete" />
+    </number_ct_static>
+  </template>
+
+  <template name="number_clientct_speed">
+    <number_ct_static name="speed">
+      <anchored to="rightanchor" width="30" height="20">
+        <top />
+        <right anchor="left" relation="relative" offset="-10" />
+      </anchored>
+      <script>
+        function onValueChanged()
+	        window.windowlist.applySort();
+        end
+      </script>
+    </number_ct_static>
+  </template>
+
+  <template name="icon_ctsubsection">
 		<genericcontrol>
 			<anchored width="20" height="20">
 				<left offset="0" />
-				<top parent="active_spacer_top" anchor="bottom" relation="current" offset="10" />
+				<top parent="active_spacer_top" anchor="bottom" relation="current" offset="25" />
 			</anchored>
 		</genericcontrol>
 	</template>
-	
-	<template name="icon_ctsection_stats">
+
+  <template name="icon_ctsection_stats">
 		<icon_ctsection name="statsicon">
 			<icon>button_section_stats_down</icon>
 		</icon_ctsection>
@@ -216,7 +373,7 @@
 	<template name="sub_ctsection_meleecombat">
 		<subwindow name="sub_meleecombat">
 			<anchored>
-				<top parent="active_spacer_top" anchor="bottom" relation="relative" offset="10" />
+				<top parent="active_spacer_top" anchor="bottom" relation="relative" offset="5" />
 				<left parent="combaticon" anchor="right" offset="8" />
 				<right offset="-12" />
 			</anchored>
@@ -227,7 +384,7 @@
 	<template name="sub_ctsection_rangedcombat">
 		<subwindow name="sub_rangedcombat">
 			<anchored>
-				<top parent="active_spacer_top" anchor="bottom" relation="relative" offset="10" />
+				<top parent="active_spacer_top" anchor="bottom" relation="relative" />
 				<left parent="combaticon" anchor="right" offset="8" />
 				<right offset="-12" />
 			</anchored>
@@ -235,24 +392,34 @@
 			<fastinit />
 		</subwindow>
 	</template>
-	<template name="frame_ctsection_combat">
-		<frame_ctsub name="frame_combat">
+  <template name="spacer_ctsection_combat">
+    <genericcontrol name="spacer_combat">
+    <anchored height="0">
+      <top parent="active_spacer_top" anchor="bottom" relation="relative" />
+      <left parent="combaticon" anchor="right" offset="55" />
+      <right offset="-17" />
+    </anchored>
+    <disabled />
+  </genericcontrol>
+  </template>
+  <template name="frame_ctsection_combat">
+    <frame_ctsub name="frame_combat">
 			<anchored>
 				<top parent="combaticon" />
-				<bottom parent="sub_rangedcombat" />
+				<bottom parent="spacer_combat" />
 			</anchored>
 		</frame_ctsub>
 	</template>
 
 	<template name="icon_ctsection_meleemodes">
-		<icon_ctsubsection name="meleemodesicon">
+    <icon_ctsubsection name="meleemodesicon">
 			<icon>weapon_modes_down</icon>
 		</icon_ctsubsection>
 	</template>
 	<template name="sub_ctsection_meleemodes">
 		<subwindow name="sub_meleemodes">
 			<anchored>
-				<top parent="active_spacer_top" anchor="bottom" relation="relative" offset="10" />
+				<top parent="active_spacer_top" anchor="bottom" relation="relative" offset="30" />
 				<left parent="meleemodesicon" anchor="right" offset="8" />
 				<right offset="-12" />
 			</anchored>
@@ -262,21 +429,24 @@
 	<template name="frame_ctsection_meleemodes">
 		<frame_ctsub name="frame_modes">
 			<anchored>
-				<top parent="meleemodesicon" />
+        <left offset="15" />
+        <right offset="-4" />
+        <top parent="meleemodesicon" offset="0" />
 				<bottom parent="sub_meleemodes" />
 			</anchored>
 		</frame_ctsub>
 	</template>
-	<template name="icon_ctsection_rangedmodes">
-		<icon_ctsubsection name="rangemodesicon">
+  
+  <template name="icon_ctsection_rangedmodes">
+		<icon_ctsubsection name="rangedmodesicon">
 			<icon>weapon_modes_down</icon>
 		</icon_ctsubsection>
 	</template>
 	<template name="sub_ctsection_rangedmodes">
-		<subwindow name="sub_rangemodes">
+		<subwindow name="sub_rangedmodes">
 			<anchored>
-				<top parent="active_spacer_top" anchor="bottom" relation="relative" offset="10" />
-				<left parent="rangemodesicon" anchor="right" offset="8" />
+				<top parent="active_spacer_top" anchor="bottom" relation="relative" offset="30" />
+				<left parent="rangedmodesicon" anchor="right" offset="8" />
 				<right offset="-12" />
 			</anchored>
 			<class>ct_rangedmodes</class>
@@ -285,8 +455,10 @@
 	<template name="frame_ctsection_rangedmodes">
 		<frame_ctsub name="frame_modes">
 			<anchored>
-				<top parent="rangemodesicon" />
-				<bottom parent="sub_rangemodes" />
+        <left offset="15" />
+        <right offset="-4" />
+        <top parent="rangedmodesicon" offset="0" />
+				<bottom parent="sub_rangedmodes" />
 			</anchored>
 		</frame_ctsub>
 	</template>
@@ -299,7 +471,7 @@
 	<template name="sub_ctsection_meleemodifiers">
 		<subwindow name="sub_meleemodifiers">
 			<anchored>
-				<top parent="active_spacer_top" anchor="bottom" relation="relative" offset="10" />
+				<top parent="active_spacer_top" anchor="bottom" relation="relative" offset="30" />
 				<left parent="meleemodifiersicon" anchor="right" offset="8" />
 				<right offset="-12" />
 			</anchored>
@@ -309,32 +481,36 @@
 	<template name="frame_ctsection_meleemodifiers">
 		<frame_ctsub name="frame_meleemodifiers">
 			<anchored>
-				<top parent="meleemodifiersicon" />
+        <left offset="15" />
+        <right offset="-4" />
+        <top parent="meleemodifiersicon" offset="0" />
 				<bottom parent="sub_meleemodifiers" />
 			</anchored>
 		</frame_ctsub>
 	</template>
 
-	<template name="icon_ctsection_rangemodifiers">
-		<icon_ctsubsection name="rangemodifiersicon">
+	<template name="icon_ctsection_rangedmodifiers">
+		<icon_ctsubsection name="rangedmodifiersicon">
 			<icon>modifiers_down</icon>
 		</icon_ctsubsection>
 	</template>
-	<template name="sub_ctsection_rangemodifiers">
-		<subwindow name="sub_rangemodifiers">
+	<template name="sub_ctsection_rangedmodifiers">
+		<subwindow name="sub_rangedmodifiers">
 			<anchored>
-				<top parent="active_spacer_top" anchor="bottom" relation="relative" offset="10" />
-				<left parent="rangemodifiersicon" anchor="right" offset="8" />
+				<top parent="active_spacer_top" anchor="bottom" relation="relative" offset="30" />
+				<left parent="rangedmodifiersicon" anchor="right" offset="8" />
 				<right offset="-12" />
 			</anchored>
 			<class>ct_modifiers</class>
 		</subwindow>
 	</template>
-	<template name="frame_ctsection_rangemodifiers">
-		<frame_ctsub name="frame_rangemodifiers">
+	<template name="frame_ctsection_rangedmodifiers">
+		<frame_ctsub name="frame_rangedmodifiers">
 			<anchored>
-				<top parent="rangemodifiersicon" />
-				<bottom parent="sub_rangemodifiers" />
+        <left offset="15" />
+        <right offset="-4" />
+        <top parent="rangedmodifiersicon" offset="0" />
+				<bottom parent="sub_rangedmodifiers" />
 			</anchored>
 		</frame_ctsub>
 	</template>

@@ -16,7 +16,10 @@
 	<string name="ct_label_speed">Speed</string>
 	<string name="ct_label_hps">HP</string>
 	<string name="ct_label_fps">FP</string>
-	<string name="ct_label_status">Status</string>
+  <string name="ct_label_hpstatus">-HP</string>
+  <string name="ct_label_injury">Injury</string>
+  <string name="ct_label_fatigue">Fatigue</string>
+  <string name="ct_label_status">Status</string>
 
 	<string name="ct_label_strength">ST</string>
 	<string name="ct_label_dexterity">DX</string>
@@ -71,18 +74,20 @@
 	<string name="char_label_encumbrancemedium">Med</string>
 	<string name="char_label_encumbranceheavy">Hvy</string>
 	<string name="char_label_encumbrancexheavy">X-Hvy</string>
+  <string name="char_label_encumbrancelevel">Encumbrance Level</string>
+  
+  <string name="char_label_currentattributes">CURRENT ATTRIBUTES</string>
+  <string name="char_label_injuryandfatigure">INJURY &amp; FATIGUE</string>
 
-	<string name="char_label_currentattributes">CURRENT ATTRIBUTES</string>
-
-	<string name="char_label_languages">LANGUAGES</string>
+  <string name="char_label_languages">LANGUAGES</string>
 	<string name="char_label_spoken">Spoken</string>
 	<string name="char_label_written">Written</string>
 
 	<string name="char_label_culturalfamiliarities">CULTURAL FAMILIARITIES</string>
 	<string name="char_label_reactionmodifiers">REACTION MODIFIERS</string>
 	
-	<string name="char_label_adsperks">ADVANTAGES / PERKS</string>
-	<string name="char_label_disadsquirks">DISADVANTAGES / QUIRKS</string>
+	<string name="char_label_adsperks">ADVANTAGES &amp; PERKS</string>
+	<string name="char_label_disadsquirks">DISADVANTAGES &amp; QUIRKS</string>
 
 	<string name="char_label_defenses">DEFENSES</string>
 	<string name="char_label_meleecombat">MELEE COMBAT</string>
@@ -325,9 +330,70 @@
 	<string name="effect_label_durunithr">HR</string>
 	<string name="effect_label_durunitday">DAY</string>
 	
-	<!-- Skills -->
+	<!-- Abilities -->
+  <string name="ability_type_label">Type</string>
+  <string name="ability_subtype_label">Subtype</string>
+  <string name="ability_page_label">Page</string>
+  
+  <string name="ability_skilltype_label">Skill Type</string>
+  <string name="ability_skilldefault_label">Skill Default</string>
+  
+  <string name="ability_spellcollege_label">College</string>
+  <string name="ability_spellclass_label">Class</string>
+  <string name="ability_spelltype_label">Type</string>
+  <string name="ability_spellresist_label">Resist</string>
+  <string name="ability_spellduration_label">Duration</string>
+  <string name="ability_spellcost_label">Cost</string>
+  <string name="ability_spelltimetocast_label">Time to cast</string>
+  <string name="ability_spellprerequisite_label">Prerequisite</string>
 
-	<!-- Images -->
+  <string name="ability_powerskill_label">Power Skill</string>
+  <string name="ability_powerdefault_label">Skill Default</string>
+
+  <string name="ability_otherlevel_label">Level</string>
+  <string name="ability_otherpoints_label">Points</string>
+
+  <string name="ability_button_skills">Skills</string>
+  <string name="ability_button_spells">Spells</string>
+  <string name="ability_button_powers">Powers</string>
+  <string name="ability_button_others">Others</string>
+
+  <string name="ability_grouped_title_skilllist">Skill List</string>
+  <string name="ability_grouped_title_spelllist">Spell List</string>
+  <string name="ability_grouped_title_powerlist">Power List</string>
+  <string name="ability_grouped_title_otherlist">Other List</string>
+  <string name="ability_grouped_label_name">Name</string>
+  <string name="ability_grouped_label_type">Type</string>
+  <string name="ability_grouped_label_default">Defaults</string>
+  <string name="ability_grouped_label_page">Page</string>
+  <string name="ability_grouped_label_class">Class</string>
+  <string name="ability_grouped_label_duration">Duration</string>
+  <string name="ability_grouped_label_cost">Cost</string>
+  <string name="ability_grouped_label_timetocast">Time to cast</string>
+  <string name="ability_grouped_label_prerequisite">Prerequisites</string>
+  <string name="ability_grouped_label_level">Level</string>
+  <string name="ability_grouped_label_points">Points</string>
+
+  <!-- Traits -->
+  <string name="trait_type_label">Type</string>
+  <string name="trait_subtype_label">Subtype</string>
+  <string name="trait_page_label">Page</string>
+  <string name="trait_points_label">Points</string>
+
+  <string name="trait_button_advantages">Advantages</string>
+  <string name="trait_button_disadvantages">Disadvantages</string>
+  <string name="trait_button_perks">Perks</string>
+  <string name="trait_button_quirks">Quirks</string>
+
+  <string name="trait_grouped_title_advantagelist">Advantage List</string>
+  <string name="trait_grouped_title_disadvantagelist">Disadvantage List</string>
+  <string name="trait_grouped_title_perklist">Perk List</string>
+  <string name="trait_grouped_title_quirklist">Quirk List</string>
+  <string name="trait_grouped_label_name">Name</string>
+  <string name="trait_grouped_label_points">Points</string>
+  <string name="trait_grouped_label_page">Page</string>
+
+  <!-- Images -->
 	<string name="image_menu_mapscale">Map Scale</string>
 	<string name="image_tooltip_mapscale">Map Scale</string>
 	<string name="image_tooltip_scaleunits">Scale Units</string>
@@ -341,14 +407,19 @@
 	<string name="yards">Yards</string>
 	<string name="miles">Miles</string>
 	<string name="meters">Meters</string>
-	<string name="kilometers">Kilometers</string>
-	<string name="au">AU</string>
+  <string name="kilometers">Kilometers</string>
+  <string name="nautical miles">Nautical Miles</string>
+  <string name="au">AU</string>
 	<string name="lightyears">Light Years</string>
 	<string name="parsecs">Parsecs</string>
 
-	<!-- Local Mode -->
+  <!-- Local Mode -->
 	
 	<!-- Reference -->
+  <string name="library_recordtype_label_ability">Abilities</string>
+  <string name="library_recordtype_empty_ability">&#171; New Ability &#187;</string>
+  <string name="library_recordtype_label_trait">Traits</string>
+  <string name="library_recordtype_empty_trait">&#171; New Trait &#187;</string>
 
 
 </root>

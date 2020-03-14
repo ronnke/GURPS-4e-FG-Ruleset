@@ -10,7 +10,7 @@
 		<script>
       function onDrop(x, y, draginfo)
         if draginfo.isType("shortcut") then
-          return ItemManager2.AddItemToCombat(getDatabaseNode(), draginfo.getDatabaseNode());
+          return ItemManager2.AddItemToCombat(getDatabaseNode(), draginfo.getDatabaseNode(), false);
         end
       end
     </script>

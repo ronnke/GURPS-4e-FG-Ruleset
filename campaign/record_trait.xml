@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+  <windowclass name="trait">
+    <frame>recordsheet</frame>
+    <placement>
+      <size width="400" height="350" />
+    </placement>
+    <sizelimits>
+      <minimum width="350" height="400" />
+      <dynamic />
+    </sizelimits>
+    <minimize>minimized_reference</minimize>
+    <nodelete />
+    <playercontrol />
+    <sharable />
+    <tooltip field="name" />
+    <script file="campaign/scripts/trait.lua" />
+    <sheetdata>
+      <sub_record_header name="header">
+        <class>trait_header</class>
+      </sub_record_header>
+
+      <frame_record_content name="contentframe" />
+
+      <subwindow_record name="main">
+        <class>trait_main</class>
+        <activate />
+      </subwindow_record>
+
+      <scrollbar_record>
+        <target>main</target>
+      </scrollbar_record>
+
+      <resize_referencepage />
+      <close_referencepage />
+    </sheetdata>
+  </windowclass>
+
+  <windowclass name="trait_header">
+    <margins control="0,0,0,7" />
+    <script>
+      function onInit()
+        update();
+      end
+      function update()
+        local nodeRecord = getDatabaseNode();
+
+        local bReadOnly = WindowManager.getReadOnlyState(nodeRecord);
+        name.setReadOnly(bReadOnly);
+      end
+    </script>
+    <sheetdata>
+      <link_record_header name="link">
+        <class>trait</class>
+      </link_record_header>
+
+      <anchor_record_header_right name="rightanchor" />
+      <icon_record_locked />
+      <button_record_locked />
+
+      <string_record_name name="name">
+        <empty textres="library_recordtype_empty_item" />
+      </string_record_name>
+    </sheetdata>
+  </windowclass>
+
+  <windowclass name="trait_main">
+    <margins control="0,0,0,2" />
+    <script file="campaign/scripts/trait_main.lua" />
+    <sheetdata>
+      <anchor_column name="columnanchor" />
+
+      <label_column name="type_label">
+        <static textres="trait_type_label" />
+      </label_column>
+      <combobox_column name="type">
+        <delaykeyupdate />
+        <script>
+          function onInit()
+            super.onInit();
+            addItems(DataCommonGURPS.aTraitTypeData);
+          end
+          function onValueChanged()
+            window.update();
+          end
+        </script>
+        <unsorted />
+      </combobox_column>
+
+      <label_column name="subtype_label">
+        <static textres="trait_subtype_label" />
+      </label_column>
+      <string_columnh name="subtype" />
+
+      <label_column name="page_label">
+        <static textres="trait_page_label" />
+      </label_column>
+      <string_columnh name="page" />
+
+      <line_column name="divider1" />
+
+      <label_column name="points_label">
+        <static textres="trait_points_label" />
+      </label_column>
+      <number_columnh name="points" />
+
+      <line_column name="divider2" />
+
+      <ft_columnh name="text" />
+    </sheetdata>
+  </windowclass>
+</root>

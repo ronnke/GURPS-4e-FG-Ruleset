@@ -8,7 +8,7 @@ function onInit()
     ItemManager.setCustomCharRemove(onItemRemoved);		
 end
 
-function AddMeleeItem(nodeChar, nodeItem)
+function AddMeleeItem(nodeChar, nodeItem, seupLinks)
   if not nodeChar or not nodeItem then  
     return false;
   end
@@ -56,11 +56,15 @@ function AddMeleeItem(nodeChar, nodeItem)
 	    DB.setValue(nodeMode, "reach", "string", DB.getValue(idk,"reach",""));
 	    local myParry = DB.getValue(idk, "parry", "");		  
 	    DB.setValue(nodeMode, "parry", "string", ManagerGURPS4e.calculateParry(DB.getValue(idk, "parry", ""))); 		  		  		  	  
-	    DB.setValue(nodeMeleeWeapon, "isHidden", "number", 0);		  		  
-	    DB.setValue(nodeItem, "combatmeleelink", "string", nodeMode.getParent().getParent().getNodeName());
       end
     end	     
   end
+
+  if seupLinks then
+    DB.setValue(nodeMeleeWeapon, "isHidden", "number", 0);		
+	DB.setValue(nodeItem, "combatmeleelink", "string", nodeMeleeWeapon.getNodeName());
+  end
+
   local lastVal = "";
   local mstr = "";  
   for i=1, minstCount do	
@@ -75,7 +79,7 @@ function AddMeleeItem(nodeChar, nodeItem)
   return true;
 end
 
-function AddRangedItem(nodeChar, nodeItem)
+function AddRangedItem(nodeChar, nodeItem, seupLinks)
   if not nodeChar or not nodeItem then 
     return false;
   end
@@ -143,11 +147,15 @@ function AddRangedItem(nodeChar, nodeItem)
 		  DB.setValue(mofNode, "name", "string", "Bonus Acc");
 		  DB.setValue(mofNode, "modifier", "number", tonumber(accMods[2]));
 	    end	    
-	    DB.setValue(nodeRangedWeapon, "isHidden", "number", 0);
-	    DB.setValue(nodeItem, "combatrangedlink", "string", nodeMode.getParent().getParent().getNodeName());	  		  
 	  end		
     end  	 
   end
+
+  if seupLinks then
+    DB.setValue(nodeRangedWeapon, "isHidden", "number", 0);
+    DB.setValue(nodeItem, "combatrangedlink", "string", nodeRangedWeapon.getNodeName());	  		  
+  end
+
   local lastVal = "";
   local mstr = "";
   local startPos = #minstVals - minstCount + 1;	
@@ -162,7 +170,7 @@ function AddRangedItem(nodeChar, nodeItem)
   return true;
 end
 
-function AddDefenseItem(nodeChar, nodeItem)
+function AddDefenseItem(nodeChar, nodeItem, seupLinks)
   if not nodeChar or not nodeItem then 
     return false;
   end
@@ -182,21 +190,26 @@ function AddDefenseItem(nodeChar, nodeItem)
   DB.setValue(nodeDefenses, "dr", "string", DB.getValue(nodeItem,"dr",""));
   DB.setValue(nodeDefenses, "locations", "string", DB.getValue(nodeItem,"locations",""));
   DB.setValue(nodeDefenses, "text", "formattedtext", DB.getValue(nodeItem,"notes",""));   
-  DB.setValue(nodeDefenses, "isHidden", "number", 0);
-  DB.setValue(nodeItem, "defenselink", "string", nodeDefenses.getNodeName());	    
+
+  if seupLinks then
+    DB.setValue(nodeDefenses, "isHidden", "number", 0);
+    DB.setValue(nodeItem, "defenselink", "string", nodeDefenses.getNodeName());	    
+  end
+
   return true;
 end
 
-function AddItemToCombat(nodeChar, nodeItem)	
+function AddItemToCombat(nodeChar, nodeItem, setupLinks)	
 	local bAdded = false;    	
 	if not DB.getValue(nodeItem, "combatmeleelink") or not DB.findNode(DB.getValue(nodeItem, "combatmeleelink")) then		
-		bAdded = AddMeleeItem(nodeChar, nodeItem) or bAdded;
+		bAdded = AddMeleeItem(nodeChar, nodeItem, setupLinks) or bAdded;
+    else
 	end
 	if not DB.getValue(nodeItem, "combatrangedlink") or not DB.findNode(DB.getValue(nodeItem, "combatrangedlink")) then			
-		bAdded = AddRangedItem(nodeChar, nodeItem) or bAdded;
+		bAdded = AddRangedItem(nodeChar, nodeItem, setupLinks) or bAdded;
 	end
 	if not DB.getValue(nodeItem, "defenselink") or not DB.findNode(DB.getValue(nodeItem, "defenselink")) then			
-		bAdded = AddDefenseItem(nodeChar, nodeItem) or bAdded;    	
+		bAdded = AddDefenseItem(nodeChar, nodeItem, setupLinks) or bAdded;    	
 	end			
 	if DB.getValue(nodeItem, "combatmeleelink") ~= "" or DB.getValue(nodeItem, "combatrangedlink") ~= "" or DB.getValue(nodeItem, "defenselink") ~= "" then
 		CharItemEquip.setHidden(nodeItem, 0);
@@ -206,7 +219,7 @@ end
 
 function onItemAdded(nodeItem)
   local nodeChar = nodeItem.getParent().getParent();    
-  local bAdded = AddItemToCombat(nodeChar,nodeItem);  
+  local bAdded = AddItemToCombat(nodeChar,nodeItem, true);  
   CharItemEquip.toggleEquipped(nodeItem, true);
   return bAdded;
 end

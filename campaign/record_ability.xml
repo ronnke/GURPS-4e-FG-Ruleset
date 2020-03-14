@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="ability">
+		<frame>recordsheet</frame>
+		<placement>
+			<size width="400" height="350" />
+		</placement>
+		<sizelimits>
+			<minimum width="350" height="400" />
+			<dynamic />
+		</sizelimits>
+		<minimize>minimized_reference</minimize>
+		<nodelete />
+		<playercontrol />
+		<sharable />
+		<tooltip field="name" />
+		<script file="campaign/scripts/ability.lua" />
+		<sheetdata>
+			<sub_record_header name="header">
+				<class>ability_header</class>
+			</sub_record_header>
+
+			<frame_record_content name="contentframe" />
+
+			<subwindow_record name="main">
+				<class>ability_main</class>
+				<activate />
+			</subwindow_record>
+
+			<scrollbar_record>
+				<target>main</target>
+			</scrollbar_record>
+
+			<resize_referencepage />
+			<close_referencepage />
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="ability_header">
+		<margins control="0,0,0,7" />
+		<script>
+			function onInit()
+				update();
+			end
+			function update()
+				local nodeRecord = getDatabaseNode();
+
+				local bReadOnly = WindowManager.getReadOnlyState(nodeRecord);
+				name.setReadOnly(bReadOnly);
+			end
+		</script>
+		<sheetdata>
+			<link_record_header name="link">
+				<class>ability</class>
+			</link_record_header>
+
+			<anchor_record_header_right name="rightanchor" />
+			<icon_record_locked />
+			<button_record_locked />
+
+			<string_record_name name="name">
+				<empty textres="library_recordtype_empty_item" />
+			</string_record_name>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="ability_main">
+		<margins control="0,0,0,2" />
+		<script file="campaign/scripts/ability_main.lua" />
+		<sheetdata>
+			<anchor_column name="columnanchor" />
+
+			<label_column name="type_label">
+				<static textres="ability_type_label" />
+			</label_column>
+			<combobox_column name="type">
+				<delaykeyupdate />
+				<script>
+					function onInit()
+						super.onInit();
+						addItems(DataCommonGURPS.aAbilityTypeData);
+					end
+					function onValueChanged()
+						window.update();
+					end
+				</script>
+				<unsorted />
+			</combobox_column>
+
+			<label_column name="subtype_label">
+				<static textres="ability_subtype_label" />
+			</label_column>
+			<string_columnh name="subtype" />
+
+			<label_column name="page_label">
+				<static textres="ability_page_label" />
+			</label_column>
+			<string_columnh name="page" />
+
+			<line_column name="divider1" />
+
+			<!--Skill-->
+			<label_column name="skilltype_label">
+				<static textres="ability_skilltype_label" />
+			</label_column>
+			<combobox_column name="skilltype">
+				<script>
+					function onInit()
+						super.onInit();
+						addItems(DataCommonGURPS.aSkillTypeData);
+					end
+				</script>
+				<unsorted />
+			</combobox_column>
+
+			<label_column name="skilldefault_label">
+				<static textres="ability_skilldefault_label" />
+			</label_column>
+			<string_columnh name="skilldefault" />
+
+			<line_column name="divider2" />
+
+			<!--Spell-->
+			<label_column name="spellcollege_label">
+				<static textres="ability_spellcollege_label" />
+			</label_column>
+			<string_columnh name="spellcollege" />
+
+			<label_column name="spellclass_label">
+				<static textres="ability_spellclass_label" />
+			</label_column>
+			<combobox_column name="spellclass">
+				<script>
+					function onInit()
+						super.onInit();
+						addItems(DataCommonGURPS.aSpellClassData);
+					end
+				</script>
+				<unsorted />
+			</combobox_column>
+
+			<label_column name="spelltype_label">
+				<static textres="ability_spelltype_label" />
+			</label_column>
+			<combobox_column name="spelltype">
+				<script>
+					function onInit()
+						super.onInit();
+						addItems(DataCommonGURPS.aSpellTypeData);
+					end
+				</script>
+				<unsorted />
+			</combobox_column>
+
+			<label_column name="spellresist_label">
+				<static textres="ability_spellresist_label" />
+			</label_column>
+			<string_columnh name="spellresist" />
+
+			<label_column name="spellduration_label">
+				<static textres="ability_spellduration_label" />
+			</label_column>
+			<string_columnh name="spellduration" />
+
+			<label_column name="spellcost_label">
+				<static textres="ability_spellcost_label" />
+			</label_column>
+			<string_columnh name="spellcost" />
+
+			<label_column name="spelltimetocast_label">
+				<static textres="ability_spelltimetocast_label" />
+			</label_column>
+			<string_columnh name="spelltimetocast" />
+
+			<label_column name="spellprerequisite_label">
+				<static textres="ability_spellprerequisite_label" />
+			</label_column>
+			<string_columnh name="spellprerequisite" />
+
+			<line_column name="divider3" />
+
+			<!--Power-->
+      <label_column name="powerskill_label">
+        <static textres="ability_powerskill_label" />
+      </label_column>
+      <combobox_column name="powerskill">
+        <script>
+          function onInit()
+						super.onInit();
+						addItems(DataCommonGURPS.aSkillTypeData);
+          end
+        </script>
+        <unsorted />
+      </combobox_column>
+
+      <label_column name="powerdefault_label">
+        <static textres="ability_powerdefault_label" />
+      </label_column>
+      <string_columnh name="powerdefault" />
+
+      <line_column name="divider4" />
+
+			<!--Other-->
+			<label_column name="otherlevel_label">
+				<static textres="ability_otherlevel_label" />
+			</label_column>
+			<number_columnh name="otherlevel">
+        <min value="0"/>
+        <hideonvalue value="0" />
+      </number_columnh>
+
+      <label_column name="otherpoints_label">
+        <static textres="ability_otherpoints_label" />
+      </label_column>
+      <number_columnh name="otherpoints">
+	      <min value="0"/>
+        <hideonvalue value="0" />
+      </number_columnh>
+
+      <line_column name="divider5" />
+			
+			<ft_columnh name="text" />
+		</sheetdata>
+	</windowclass>
+</root>

@@ -77,46 +77,4 @@
 			<close_recordsheet />
 		</sheetdata>
 	</windowclass>
-
-	<windowclass name="npc_header">
-		<margins control="0,0,0,7" />
-		<script file="campaign/scripts/npc_header.lua" />
-		<sheetdata>
-			<link_record_header_id name="link">
-				<class>npc</class>
-			</link_record_header_id>
-			
-			<anchor_record_header_right name="rightanchor" />
-			<button_activateid>
-				<anchored to="rightanchor" width="23" height="22">
-					<top offset="-2" />
-					<right anchor="left" relation="relative" offset="-5" />
-				</anchored>
-			</button_activateid>
-			<tokenfield name="token">
-				<anchored to="rightanchor" width="25" height="25">
-					<top offset="-2" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-3" />
-				</anchored>
-				<empty>token_empty</empty>
-				<script>
-					function onDoubleClick(x, y)
-						CombatManager.openMap(window.getDatabaseNode());
-					end
-				</script>
-			</tokenfield>
-			<button_record_isidentified name="isidentified" />
-			<icon_record_locked />
-			<button_record_locked />
-
-			<string_record_name_id name="name">
-				<empty textres="library_recordtype_empty_npc" />
-			</string_record_name_id>
-			<string_record_name_id name="nonid_name">
-				<empty textres="library_recordtype_empty_nonid_npc" />
-				<invisible />
-			</string_record_name_id>
-		</sheetdata>
-	</windowclass>
-	
-</root>
+  </root>

@@ -232,7 +232,8 @@
 		<number_charfield>
 			<anchored width="40" height="30" />
 			<font>sheetnumberlarge</font>
-		</number_charfield>
+      <default>10</default>
+    </number_charfield>
 	</template>
 
 	<template name="string_attribute">
