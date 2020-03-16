@@ -201,19 +201,19 @@
 				<static textres="char_label_currentattributes" />
 			</label_frametop>
 
-			<number_attribute name="hps" source="attributes.hps">
+      <number_combat_attribute name="hps" source="attributes.hps">
 				<anchored to="currentattributesframe" position="insidetopleft" offset="20,40" />
         <readonly />
-			</number_attribute>
+			</number_combat_attribute>
 			<label_attribute>
 				<anchored to="hps" />
 				<static>cHP</static>
 			</label_attribute>
 
-			<number_attribute name="fps" source="attributes.fps">
+      <number_combat_attribute name="fps" source="attributes.fps">
 				<anchored to="currentattributesframe" position="insidetopleft" offset="70,40" />
         <readonly />
-      </number_attribute>
+      </number_combat_attribute>
 			<label_attribute>
 				<anchored to="fps" />
 				<static>cFP</static>

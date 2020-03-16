@@ -295,7 +295,7 @@ function calculateDam(charDmg, itemDmg)
 	if (nDieCount == nil) then nDieCount = 0; end	
     local nMod = tonumber(string.match(charDmg, "[^d]-$"));
 	if (nMod == nil) then nMod = 0; end	
-	local dmgType = string.match(itemDmg, "%s.-$");
+	local dmgType = string.match(itemDmg, "%s.-$") or "";
 	local pat = string.match(itemDmg, "(%a+)");			
 	local itemMod = string.match(itemDmg, "[^%a"..pat.."%s]+"); 
 	if not (itemMod) then

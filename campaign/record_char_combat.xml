@@ -29,11 +29,11 @@
 				<static textres="char_label_injuryandfatigure" />
 			</label_frametop>
 
-			<number_attribute name="hps" source="attributes.hps">
+			<number_combat_attribute name="hps" source="attributes.hps">
 				<anchored to="currentattributesframe" position="insidetopleft" offset="25,40" />
         <tabtarget next="injury" />
         <readonly />
-      </number_attribute>
+      </number_combat_attribute>
 			<label_attribute>
 				<anchored to="hps" />
 				<static>HP</static>
@@ -62,12 +62,12 @@
         <color>#C11B17</color>
         <readonly />
       </simplestring>
-      
-      <number_attribute name="fps" source="attributes.fps">
+
+      <number_combat_attribute name="fps" source="attributes.fps">
 				<anchored to="currentattributesframe" position="insidetopleft" offset="115,40" />
         <tabtarget prev="injury" next="fatigue" />
         <readonly />
-      </number_attribute>
+      </number_combat_attribute>
 			<label_attribute>
 				<anchored to="fps" />
 				<static>FP</static>

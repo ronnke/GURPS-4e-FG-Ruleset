@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <!-- 
   Please see the license.html file included with this distribution for 
@@ -233,10 +233,19 @@
 			<anchored width="40" height="30" />
 			<font>sheetnumberlarge</font>
       <default>10</default>
+      <min>0</min>
     </number_charfield>
 	</template>
 
-	<template name="string_attribute">
+  <template name="number_combat_attribute">
+    <number_charfield>
+      <anchored width="40" height="30" />
+      <font>sheetnumberlarge</font>
+      <default>10</default>
+    </number_charfield>
+  </template>
+
+  <template name="string_attribute">
 		<string_charfield>
 			<anchored width="40" height="30" />
 			<font>sheetnumberlarge</font>
