@@ -286,6 +286,10 @@ end
 function calculateDam(charDmg, itemDmg)
     charDmg = StringManager.trim(charDmg);
     itemDmg = StringManager.trim(itemDmg);
+    
+    if not charDmg or not itemDmg then
+        return "";
+    end
 
 	local nDieCount = tonumber(string.match(charDmg, "([^d]+)"));			
 	if (nDieCount == nil) then nDieCount = 0; end	

@@ -172,13 +172,13 @@ function linkPCFields()
     sub_combat.subwindow.parry.setLink(nodeChar.createChild("combat.parry", "number"), true);
     sub_combat.subwindow.block.setLink(nodeChar.createChild("combat.block", "number"), true);
     sub_combat.subwindow.dr.setLink(nodeChar.createChild("combat.dr", "string"), true);
-    sub_combat.subwindow.move.setLink(nodeChar.createChild("attributes.move", "number"), true);
+    sub_combat.subwindow.move.setLink(nodeChar.createChild("attributes.move", "string"), true);
 
+    hps.setLink(nodeChar.createChild("attributes.hps", "number"), true);
+    fps.setLink(nodeChar.createChild("attributes.fps", "number"), true);
     injury.setLink(nodeChar.createChild("attributes.injury", "number"));
     fatigue.setLink(nodeChar.createChild("attributes.fatigue", "number"));
     hpstatus.setLink(nodeChar.createChild("attributes.hpstatus", "string"));
-    hps.setLink(nodeChar.createChild("attributes.hps", "number"));
-    fps.setLink(nodeChar.createChild("attributes.fps", "number"));
   end
 end
 
