@@ -16,13 +16,17 @@
 				local rActor = ActorManager.getActor("pc", getDatabaseNode());
 				ActionFatigue.updateFatigue(rActor);
 			end
+      function onEncumbranceChanged()
+				local rActor = ActorManager.getActor("pc", getDatabaseNode());
+				ActorManager2.updateEncumbrance(rActor);
+      end
 		</script>
 		<sheetdata>
 		
 			<!-- CURRENT STATS -->
 			
 			<frame_char name="currentattributesframe">
-				<bounds>15,0,210,90</bounds>
+				<bounds>15,0,210,100</bounds>
 			</frame_char>
 			<label_frametop>
 				<anchored to="currentattributesframe" />
@@ -88,9 +92,17 @@
         <min value="0" />
       </number_dropadd>
 
+      <button_checkbox name="halfmovedodge" source="attributes.halfmovedodge">
+        <anchored to="currentattributesframe" position="insidetopleft" offset="30,72" width="20" height="20" />
+      </button_checkbox>
+      <label name="halfmovedodge_label">
+        <anchored to="currentattributesframe" position="insidetopleft" offset="50,72" />
+        <static textres="char_label_halfmovedodge" />
+      </label>
+
       <!-- DEFENSES -->
 			<frame_char name="defensesframe">
-				<bounds>225,0,270,90</bounds>
+				<bounds>225,0,270,100</bounds>
 			</frame_char>
 			<label_frametop>
 				<anchored to="defensesframe" />
@@ -142,17 +154,17 @@
 
 
 			<subwindow name="meleecombat">
-				<bounds>0,90,-1,-2</bounds>
+				<bounds>0,100,-1,-2</bounds>
 				<class>charsheet_meleecombat</class>
 			</subwindow>
 
 			<subwindow name="rangedcombat">
-				<bounds>0,90,-1,-2</bounds>
+				<bounds>0,100,-1,-2</bounds>
 				<class>charsheet_rangedcombat</class>
 			</subwindow>
 
 			<subwindow name="defenses">
-				<bounds>0,90,-1,-2</bounds>
+				<bounds>0,100,-1,-2</bounds>
 				<class>charsheet_defenses</class>
 			</subwindow>
 

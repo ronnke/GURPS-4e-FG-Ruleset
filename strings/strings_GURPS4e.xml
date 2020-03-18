@@ -78,7 +78,8 @@
   
   <string name="char_label_currentattributes">CURRENT ATTRIBUTES</string>
   <string name="char_label_injuryandfatigure">INJURY &amp; FATIGUE</string>
-
+  <string name="char_label_halfmovedodge">Half Move &amp; Dodge</string>
+  
   <string name="char_label_languages">LANGUAGES</string>
 	<string name="char_label_spoken">Spoken</string>
 	<string name="char_label_written">Written</string>

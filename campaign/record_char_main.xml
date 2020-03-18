@@ -14,6 +14,10 @@
 				local rActor = ActorManager.getActor("pc", getDatabaseNode());
 				ActionFatigue.updateFatigue(rActor);
 			end
+      function onEncumbranceChanged()
+				local rActor = ActorManager.getActor("pc", getDatabaseNode());
+				ActorManager2.updateEncumbrance(rActor);
+      end
 		</script>
     <sheetdata>
 
@@ -193,7 +197,7 @@
 <!-- Current Attributes -->
 
 			<frame_char name="currentattributesframe">
-				<bounds>15,305,180,90</bounds>
+				<bounds>15,305,180,100</bounds>
 			</frame_char>
 			
 			<label_frametop>
@@ -228,12 +232,25 @@
 				<static>Move</static>
 			</label_attribute>
 
+      <button_checkbox name="halfmovedodge" source="attributes.halfmovedodge">
+        <anchored to="currentattributesframe" position="insidetopleft" offset="20,72" width="20" height="20" />
+        <script>
+          function onValueChanged()
+	          window.onEncumbranceChanged();
+          end
+        </script>
+      </button_checkbox>
+      <label name="halfmovedodge_label">
+        <anchored to="currentattributesframe" position="insidetopleft" offset="40,72" />
+        <static textres="char_label_halfmovedodge" />
+      </label>
 
-<!-- Languages -->
+
+      <!-- Languages -->
 
 			<frame_char name="languagesframe">
 				<anchored>
-					<top offset="395"/>
+					<top offset="405"/>
 					<bottom offset="-15"/>
 					<left offset="15"/>
 					<right anchor="center" offset="40"/>

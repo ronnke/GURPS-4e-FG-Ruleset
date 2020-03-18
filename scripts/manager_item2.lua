@@ -194,7 +194,8 @@ function AddRangedItem(nodeChar, nodeItem, seupLinks)
                     DB.setValue(nodeMode, "name", "string", DB.getValue(idk, "modename", "atk name"));
                     DB.setValue(nodeMode, "lvl", "number", 0);			  
                     
-                    local useST = DB.getValue(nodeItem,"weaponst",charST);			  		  
+                    local useST = DB.getValue(nodeItem, "weaponst", charST);			  		  
+                    useST = (useST ~= "" and useST or 0);
                     useThrust = ManagerGURPS4e.getItemThrust(useST);
                     useSwing = ManagerGURPS4e.getItemSwing(useST);
 

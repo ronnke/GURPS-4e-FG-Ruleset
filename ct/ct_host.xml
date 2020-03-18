@@ -440,7 +440,16 @@
 				<anchored to="dr" />
 				<static textres="ct_label_dr" />
 			</label_ct_ability>
-		</sheetdata>
+
+      <!--<button_checkboxc name="halfmovedodge" source="attributes.halfmovedodge">
+        <anchored to="dr" position="righthigh" offset="10,-10" width="20" height="20" />
+      </button_checkboxc>
+      <label name="halfmovedodge_label">
+        <anchored to="dr" position="righthigh" offset="30,-10" />
+        <static textres="char_label_halfmovedodge" />
+      </label>-->
+
+    </sheetdata>
 	</windowclass>
 	
 	<windowclass name="ct_meleecombat">

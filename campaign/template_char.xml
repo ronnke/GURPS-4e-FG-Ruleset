@@ -215,7 +215,34 @@
 		</basicstring>
 	</template>
 
-	<template name="stringu_charfield">
+  <template name="string_charskilltype">
+    <button_stringcycler>
+      <frame mergerule="replace" name="fielddark" offset="7,5,7,5" />
+      <parameters>
+        <defaultlabelres></defaultlabelres>
+        <labels>ST/E|ST/A|ST/H|ST/VH|DX/E|DX/A|DX/H|DX/VH|IQ/E|IQ/A|IQ/H|IQ/VH|HT/E|HT/A|HT/H|HT/VH|Will/E|Will/A|Will/H|Will/VH|Per/E|Per/A|Per/H|Per/VH|Tech/A|Tech/H</labels>
+        <values>ST/E|ST/A|ST/H|ST/VH|DX/E|DX/A|DX/H|DX/VH|IQ/E|IQ/A|IQ/H|IQ/VH|HT/E|HT/A|HT/H|HT/VH|Will/E|Will/A|Will/H|Will/VH|Per/E|Per/A|Per/H|Per/VH|Tech/A|Tech/H</values>
+      </parameters>
+      <center />
+      <nodrop />
+    </button_stringcycler>
+  </template>
+
+  <template name="string_charspelltype">
+    <button_stringcycler>
+      <frame mergerule="replace" name="fielddark" offset="7,5,7,5" />
+      <parameters>
+        <defaultlabelres></defaultlabelres>
+        <labels>IQ/H|IQ/VH</labels>
+        <values>IQ/H|IQ/VH</values>
+      </parameters>
+      <center />
+      <nodrop />
+    </button_stringcycler>
+  </template>
+
+
+  <template name="stringu_charfield">
 		<stringu>
 			<nodrop />
 		</stringu>

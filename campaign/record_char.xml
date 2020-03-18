@@ -10,11 +10,11 @@
 
 		<frame>charsheet</frame>
 		<placement>
-			<size width="525" height="611" />
+			<size width="525" height="630" />
 		</placement>
 		<sizelimits>
 			<dynamic />
-			<minimum width="525" height="611" />
+			<minimum width="525" height="630" />
 		</sizelimits>
 		<softclose />
 		<nodelete />

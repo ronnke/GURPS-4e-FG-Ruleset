@@ -448,5 +448,12 @@ function updateEncumbrance(nodeChar)
 		DB.setValue(nodeActor, "combat.dodge", "number", 3);  
 	end
 
+	if DB.getValue(nodeActor, "attributes.halfmovedodge", 0) == 1 then 
+		local halfMove = math.ceil(tonumber(string.match(DB.getValue(nodeActor, "attributes.move", "0"), "%d+") or 0) / 2);
+		local halfDodge = math.ceil(DB.getValue(nodeActor, "combat.dodge", 0) / 2);
+		DB.setValue(nodeActor, "attributes.move", "string", halfMove);  
+		DB.setValue(nodeActor, "combat.dodge", "number", halfDodge);  
+	end
+
 	return true;
 end
