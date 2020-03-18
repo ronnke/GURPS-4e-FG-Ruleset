@@ -7,6 +7,16 @@
 
 <root>
 	<windowclass name="charsheet_combat">
+		<script>
+			function onHealthChanged()
+				local rActor = ActorManager.getActor("pc", getDatabaseNode());
+				ActionDamage.updateDamage(rActor);
+			end
+			function onFatigueChanged()
+				local rActor = ActorManager.getActor("pc", getDatabaseNode());
+				ActionFatigue.updateFatigue(rActor);
+			end
+		</script>
 		<sheetdata>
 		
 			<!-- CURRENT STATS -->
@@ -16,46 +26,69 @@
 			</frame_char>
 			<label_frametop>
 				<anchored to="currentattributesframe" />
-				<static textres="char_label_currentattributes" />
+				<static textres="char_label_injuryandfatigure" />
 			</label_frametop>
 
-			<number_attribute name="hps" source="attributes.hps">
+			<number_combat_attribute name="hps" source="attributes.hps">
 				<anchored to="currentattributesframe" position="insidetopleft" offset="25,40" />
-				<tabtarget>
-					<next>fps</next>
-				</tabtarget>
-			</number_attribute>
+        <tabtarget next="injury" />
+        <readonly />
+      </number_combat_attribute>
 			<label_attribute>
 				<anchored to="hps" />
-				<static>cHP</static>
+				<static>HP</static>
 			</label_attribute>
 
-			<number_attribute name="fps" source="attributes.fps">
-				<anchored to="currentattributesframe" position="insidetopleft" offset="85,40" />
-				<tabtarget>
-					<next>move</next>
-					<prev>hps</prev>
-				</tabtarget>
-			</number_attribute>
+      <number_dropadd name="injury" source="attributes.injury">
+        <anchored to="hps" width="25" height="25">
+          <bottom />
+          <left anchor="right" offset="7" />
+        </anchored>
+        <tabtarget prev="hps" next="fps" />
+        <hideonvalue value="0" />
+        <min value="0" />
+				<script>
+					function onValueChanged()
+						window.onHealthChanged();
+					end
+				</script>
+      </number_dropadd>
+
+      <simplestring name="hpstatus" source="attributes.hpstatus">
+        <anchored to="injury" width="40" height="20">
+          <top offset="-20" />
+          <left anchor="left" />
+        </anchored>
+        <color>#C11B17</color>
+        <readonly />
+      </simplestring>
+
+      <number_combat_attribute name="fps" source="attributes.fps">
+				<anchored to="currentattributesframe" position="insidetopleft" offset="115,40" />
+        <tabtarget prev="injury" next="fatigue" />
+        <readonly />
+      </number_combat_attribute>
 			<label_attribute>
 				<anchored to="fps" />
-				<static>cFP</static>
+				<static>FP</static>
 			</label_attribute>
 
-			<string_attribute name="move" source="attributes.move">
-				<anchored to="currentattributesframe" position="insidetopleft" offset="145,40" />
-				<tabtarget>
-					<next>dodge</next>
-					<prev>fps</prev>
-				</tabtarget>
-			</string_attribute>
-			<label_attribute>
-				<anchored to="move" />
-				<static>Move</static>
-			</label_attribute>
+      <number_dropadd name="fatigue" source="attributes.fatigue">
+				<script>
+					function onValueChanged()
+						window.onFatigueChanged();
+					end
+				</script>
+        <anchored to="fps" width="25" height="25">
+          <bottom />
+          <left anchor="right" offset="7" />
+        </anchored>
+        <tabtarget prev="fps" next="dodge" />
+        <hideonvalue value="0" />
+        <min value="0" />
+      </number_dropadd>
 
-			
-			<!-- DEFENSES -->
+      <!-- DEFENSES -->
 			<frame_char name="defensesframe">
 				<bounds>225,0,270,90</bounds>
 			</frame_char>
@@ -67,11 +100,10 @@
 			<number_attribute name="dodge" source="combat.dodge">
 				<rollable_dodge />
 				<anchored to="defensesframe" position="insidetopleft" offset="25,40" />
-				<tabtarget>
-					<next>parry</next>
-					<prev>move</prev>
-				</tabtarget>
-			</number_attribute>
+        <tabtarget prev="fatigue" next="parry" />
+        <default>0</default>
+        <readonly />
+      </number_attribute>
 			<label_attribute>
 				<anchored to="dodge" />
 				<static textres="char_label_dodge" />
@@ -80,11 +112,9 @@
 			<number_attribute name="parry" source="combat.parry">
 				<rollable_parry />
 				<anchored to="defensesframe" position="insidetopleft" offset="85,40" />
-				<tabtarget>
-					<next>block</next>
-					<prev>dodge</prev>
-				</tabtarget>
-			</number_attribute>
+        <tabtarget prev="dodge" next="block" />
+        <default>0</default>
+      </number_attribute>
 			<label_attribute>
 				<anchored to="parry" />
 				<static textres="char_label_parry" />
@@ -93,11 +123,9 @@
 			<number_attribute name="block" source="combat.block">
 				<rollable_block />
 				<anchored to="defensesframe" position="insidetopleft" offset="145,40" />
-				<tabtarget>
-					<next>dr</next>
-					<prev>parry</prev>
-				</tabtarget>
-			</number_attribute>
+        <tabtarget prev="parry" next="dr" />
+        <default>0</default>
+      </number_attribute>
 			<label_attribute>
 				<anchored to="block" />
 				<static textres="char_label_block" />
@@ -105,10 +133,8 @@
 
 			<string_attribute name="dr" source="combat.dr">
 				<anchored to="defensesframe" position="insidetopleft" offset="205,40" />
-				<tabtarget>
-					<prev>block</prev>
-				</tabtarget>
-			</string_attribute>
+        <tabtarget prev="block" />
+      </string_attribute>
 			<label_attribute>
 				<anchored to="dr" />
 				<static textres="char_label_dr" />

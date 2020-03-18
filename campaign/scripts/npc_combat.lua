@@ -70,6 +70,7 @@ function update()
     w.name.setReadOnly(bReadOnly);
     w.st.setReadOnly(bReadOnly);
     w.bulk.setReadOnly(bReadOnly);
+    w.ammo.setReadOnly(bReadOnly);
     w.update(bReadOnly);
   end
 	
@@ -92,14 +93,14 @@ end
 function onDrop(x, y, draginfo)
 	if draginfo.isType("shortcut") then
 		local nodeItem = draginfo.getDatabaseNode();
-    local nodeNPC = getDatabaseNode();
+        local nodeNPC = getDatabaseNode();
 
-    local bMeleeWeapon = LibraryDataGURPS4e.isMeleeWeapon(nodeItem);
-    local bRangedWeapon = LibraryDataGURPS4e.isRangedWeapon(nodeItem);
+        local bMeleeWeapon = LibraryDataGURPS4e.isMeleeWeapon(nodeItem);
+        local bRangedWeapon = LibraryDataGURPS4e.isRangedWeapon(nodeItem);
 
-		if bMeleeWeapon or bRangedWeapon then
-      ItemManager2.onAddItemToCombat(nodeNPC, nodeItem)
-		end
-		return true;
+	    if bMeleeWeapon or bRangedWeapon then
+            ItemManager2.AddItemToCombat(nodeNPC, nodeItem, false)
+	    end
+	    return true;
 	end
 end

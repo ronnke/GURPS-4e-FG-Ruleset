@@ -61,14 +61,11 @@ function isRollableButton()
 end
 
 function action(draginfo)
-  local node = window.getDatabaseNode();
-  
-  local sActor = "pc";
-  if not ActorManager.isPC(node) then
-    sActor = "npc";
-  end
+    local sActorType, node = ActorManager.getTypeAndNode(window.getDatabaseNode());
+    if not sActorType or not node then
+        return;
+    end
 
-  if node then
     local rActor = ActorManager.getActor(sActor, node);
     local sType = "dice";
     local sDesc = "[ROLL]";
@@ -134,22 +131,14 @@ function action(draginfo)
       rActor = ActorManager.getActor(sActor,node.getParent().getParent().getParent().getParent().getParent());
       sType = "melee";
       sDesc = "[MELEE]";
-      sWeapon = DB.getValue(node.getParent().getParent(), "name", "");
-      sMode = DB.getValue(node, "name", "");
-      sTargetDesc =  DB.getValue(node, "name", "");
-      nTarget = getValue();
-      rRoll = { sType = sType, sDesc = sDesc, sWeapon = sWeapon, sMode = sMode, aDice = aDice, nMod = nMod, sTargetDesc = sTargetDesc, nTarget = nTarget };
+      sNode = node.getPath();
+      rRoll = { sType = sType, sDesc = sDesc, aDice = aDice, nMod = nMod, sNode = sNode };
     elseif rollable_ranged or rollable_button_ranged then
       rActor = ActorManager.getActor(sActor, node.getParent().getParent().getParent().getParent().getParent());
       sType = "ranged";
       sDesc = "[RANGED]";
-      sWeapon = DB.getValue(node.getParent().getParent(), "name", "");
-      sMode = DB.getValue(node, "name", "");
-      nRoF = DB.getValue(node, "rof", "");
-      nRcl = DB.getValue(node, "rcl", "");
-      sTargetDesc =  DB.getValue(node, "name", "");
-      nTarget = getValue();
-      rRoll = { sType = sType, sDesc = sDesc, sWeapon = sWeapon, sMode = sMode, nRoF = nRoF, nRcl = nRcl, aDice = aDice, nMod = nMod, sTargetDesc = sTargetDesc, nTarget = nTarget };
+      sNode = node.getPath();
+      rRoll = { sType = sType, sDesc = sDesc, aDice = aDice, nMod = nMod, sNode = sNode };
     elseif rollable_dodge or rollable_button_dodge then
       sType = "dodge";
       sDesc = "[DODGE]";
@@ -194,7 +183,6 @@ function action(draginfo)
     end  
     
     ActionsManager.performAction(draginfo, rActor, rRoll);
-  end
 end
 
 function onButtonPress(x, y)

@@ -7,6 +7,15 @@
 
 <root>
 	<windowclass name="charsheet_inventory">
+    <script>
+      function onInit()
+				onEncumbranceChanged();
+      end
+      function onEncumbranceChanged()
+				local rActor = ActorManager.getActor("pc", getDatabaseNode());
+				ActorManager2.updateEncumbrance(rActor);
+      end
+    </script>
 		<sheetdata>
 			<frame_char name="inventoryframe">
 				<bounds>15,0,-29,-219</bounds>
@@ -101,16 +110,32 @@
 				<bounds>15,-219,240,-15</bounds>
 			</frame_char>
 			<simplenumber name="encumbranceload" source="encumbrance.load">
-				<anchored to="encumbranceframe" position="insidetopleft" offset="160,30" width="55" height="20" />
+				<anchored to="encumbranceframe" position="insidetopleft" offset="150,30" width="70" height="20" />
 				<frame name="fieldlight" offset="7,5,7,5" />
 				<readonly />
+        <script>
+          function onValueChanged()
+						window.onEncumbranceChanged();
+          end
+        </script>
 			</simplenumber>
 			<label name="encumbrance_label">
 				<anchored to="encumbranceframe" position="insidetopleft" offset="15,30" />
 				<static textres="char_label_totalweight" />
 			</label>
 
-			<frame_char name="coinframe">
+      <simplestring name="encumbrancelevel" source="encumbrance.level">
+        <anchored to="encumbranceframe" position="insidetopleft" offset="150,60" width="70" height="20" />
+        <frame name="fieldlight" offset="7,5,7,5" />
+        <readonly />
+        <center />
+      </simplestring>
+      <label name="encumbrancelevel_label">
+        <anchored to="encumbranceframe" position="insidetopleft" offset="15,60" />
+        <static textres="char_label_encumbrancelevel" />
+      </label>
+
+      <frame_char name="coinframe">
 				<bounds>255,-219,-29,-15</bounds>
 			</frame_char>
 			<label_frametop name="coin_label">
@@ -168,99 +193,6 @@
 				</anchored>
 				<multilinespacing>20</multilinespacing>
 			</basicstring>
-		</sheetdata>
-	</windowclass>
-
-	<windowclass name="char_invitem">
-		<margins control="0,0,0,2" />
-		<script>
-			function onInit()
-				onIDChanged();
-				getDatabaseNode().onDelete = onDelete;
-			end
-
-			function onIDChanged()
-				local bID = ItemManager.getIDState(getDatabaseNode(), true);
-				name.setVisible(bID);
-				nonid_name.setVisible(not bID);
-			end
-
-			function onDelete(node)
-				ItemManager.onCharRemoveEvent(node);
-			end
-		</script>
-		<sheetdata>
-			<hn name="isidentified">
-				<script>
-					function onValueChanged()
-						window.onIDChanged();
-					end
-				</script>
-			</hn>
-
-			<number_charinv name="count">
-				<bounds>5,2,20,20</bounds>
-				<tabtarget next="name" />
-				<default>1</default>
-			</number_charinv>
-
-			<genericcontrol name="rightanchor">
-				<anchored width="0" height="0">
-					<top />
-					<right />
-				</anchored>
-				<invisible />
-			</genericcontrol>
-			<button_idelete name="idelete">
-				<anchored width="20" height="20">
-					<top offset="2" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
-				</anchored>
-			</button_idelete>
-			<linkcontrol_id name="shortcut">
-				<anchored width="20" height="20">
-					<top offset="2" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-2" />
-				</anchored>
-				<class>item</class>
-				<readonly />
-			</linkcontrol_id>
-			<button_char_inv_carried name="carried">
-				<anchored width="20" height="20">
-					<top offset="2" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
-				</anchored>
-			</button_char_inv_carried>
-			<number_charinv name="weight">
-				<anchored width="30" height="20">
-					<top offset="2" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<delaykeyupdate />
-				<tabtarget prev="location" />
-			</number_charinv>
-			<string_charinvloc name="location">
-				<anchored width="80" height="20">
-					<top offset="2" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<tabtarget next="weight" prev="nonid_name" />
-			</string_charinvloc>
-
-			<string_charinvname name="name">
-				<anchored position="insidetopleft" offset="35,2" height="20">
-					<right parent="rightanchor" anchor="left" relation="current" offset="-5" />
-				</anchored>
-				<tabtarget next="nonid_name" prev="count" />
-			</string_charinvname>
-			<string_charinvname name="nonid_name">
-				<anchored position="insidetopleft" offset="35,2" height="20">
-					<right parent="rightanchor" anchor="left" relation="current" offset="-5" />
-				</anchored>
-				<empty textres="library_recordtype_empty_nonid_item" />
-				<invisible />
-				<tabtarget next="location" prev="name" />
-			</string_charinvname>
 		</sheetdata>
 	</windowclass>
 </root>

@@ -26,7 +26,7 @@ function onDamage(rSource, rTarget, rRoll)
   end
   
   if bShowMsg then
-    local _, _, sOperator, nNum = parseDamage(rRoll.sDamage);
+    local _, _, sOperator, nNum, xMult = parseDamage(rRoll.sDamage);	--MOD by Jaxilon
     
     rMessage.text = string.format("%s\n%s%s%s %s",
         (string.format("%s%s",(rTarget and string.format("%s || ",rTarget.sName) or ""), rMessage.text)),
@@ -34,7 +34,7 @@ function onDamage(rSource, rTarget, rRoll)
         ((rRoll.sWeapon and rRoll.sWeapon ~= '' and rRoll.sMode and rRoll.sMode ~= '') and "\n" or ""), 
         (rRoll.sMode or ""), 
         (string.format("[%s]%s", (rRoll.sDamage or ""), (rRoll.nMod ~= 0 and string.format("(%s%d)",(rRoll.nMod > 0 and "+" or ""),rRoll.nMod) or "")) or "")
-    );
+    );	
 
     rMessage.diemodifier = 0;
     
@@ -42,26 +42,29 @@ function onDamage(rSource, rTarget, rRoll)
     for _,v in ipairs(rRoll.aDice) do
       nTotal = nTotal + v.result;
     end
-  
-    local nMod = (bAddMod and rRoll.nMod or 0);
+
+    local nMod = (bAddMod and rRoll.nMod or 0);	
     if sOperator then 
       if (sOperator == "+") then
-        nTotal = nTotal + (nNum or 0);
-        rMessage.diemodifier = (nNum or 0) + nMod;
+        nTotal = nTotal + (nNum or 0);		
+        rMessage.diemodifier = (nNum or 0) + nMod;				
       elseif (sOperator == "-") then
-        nTotal = nTotal - (nNum or 0);
-        rMessage.diemodifier = -(nNum or 0) + nMod;
+        nTotal = nTotal - (nNum or 0);		
+        rMessage.diemodifier = -(nNum or 0) + nMod;		
       elseif (sOperator == "x") then
-        nTotal = nTotal * (nNum or 1);
-        rMessage.diemodifier = 0;
+        nTotal = nTotal * (nNum or 1);		
+        rMessage.diemodifier = 0;		
       elseif (sOperator == "/") then
-        nTotal = nTotal / (nNum or 1);
-        rMessage.diemodifier = 0;
+        nTotal = nTotal / (nNum or 1);		
+        rMessage.diemodifier = 0;		
       end
     end
-    nTotal = nTotal + nMod;
+	if (sOperator ~= "x" and xMult) then	--MOD by Jaxilon
+		nTotal = nTotal * xMult;			--MOD by Jaxilon
+	end										--MOD by Jaxilon
+    nTotal = nTotal + nMod;		
     Comm.deliverChatMessage(rMessage);
-
+	
     -- Deliver Total Damage
     rMessage.type = "number";
     rMessage.icon = "action_damage";
@@ -80,15 +83,40 @@ function applyDamage(rSource, rTarget, bSecret, sDamage, nTotal)
     return;
   end
 
-  local nHP, nCHP;
+  local nHP, nInjury;
   if sTargetType == "pc" then
     nHP = DB.getValue(nodeTarget, "attributes.hitpoints", 0);
-    nCHP = DB.getValue(nodeTarget, "attributes.hps", 0) - nTotal;
-    DB.setValue(nodeTarget, "attributes.hps", "number", nCHP);
+    nInjury = DB.getValue(nodeTarget, "attributes.injury", 0) + nTotal;
+    DB.setValue(nodeTarget, "attributes.hps", "number", nHP - (nInjury < 0 and 0 or nInjury));
+    DB.setValue(nodeTarget, "attributes.injury", "number", (nInjury < 0 and 0 or nInjury));
+    DB.setValue(nodeTarget, "attributes.hpstatus", "string", ActorManager2.getHPStatus(sTargetType, nodeTarget));
   else
     nHP = DB.getValue(nodeTarget, "attributes.hitpoints", 0);
-    nCHP = DB.getValue(nodeTarget, "hps", 0) - nTotal;
-    DB.setValue(nodeTarget, "hps", "number", nCHP);
+    nInjury = DB.getValue(nodeTarget, "injury", 0) + nTotal;
+    DB.setValue(nodeTarget, "hps", "number", nHP - (nInjury < 0 and 0 or nInjury));
+    DB.setValue(nodeTarget, "injury", "number", (nInjury < 0 and 0 or nInjury));
+    DB.setValue(nodeTarget, "hpstatus", "string", ActorManager2.getHPStatus(sTargetType, nodeTarget));
+  end
+end
+
+function updateDamage(rActor)
+  -- Get health fields
+  local sActorType, nodeActor = ActorManager.getTypeAndNode(rActor);
+  if sActorType ~= "pc" and sActorType ~= "ct" then
+    return;
+  end
+
+  local nHP, nInjury;
+  if sActorType == "pc" then
+    nHP = DB.getValue(nodeActor, "attributes.hitpoints", 0);
+    nInjury = DB.getValue(nodeActor, "attributes.injury", 0);
+    DB.setValue(nodeActor, "attributes.hps", "number", nHP - (nInjury < 0 and 0 or nInjury));
+    DB.setValue(nodeActor, "attributes.hpstatus", "string", ActorManager2.getHPStatus(sActorType, nodeActor));
+  else
+    nHP = DB.getValue(nodeActor, "attributes.hitpoints", 0);
+    nInjury = DB.getValue(nodeActor, "injury", 0);
+    DB.setValue(nodeActor, "hps", "number", nHP - (nInjury < 0 and 0 or nInjury));
+    DB.setValue(nodeActor, "hpstatus", "string", ActorManager2.getHPStatus(sActorType, nodeActor));
   end
 end
 
@@ -101,14 +129,13 @@ function parseDamage(s)
   local nDice = 0;
   local sOperator = "";
   local nNum = 0
-  
+  local xMult = 0;
   -- PARSING
   if s then
+	xMultiply = s:match("x(%d+)");		--MOD by Jaxilon
     nDieCount, nDice, sOperator, nNum = s:match("^(%d*)[dD]([%dF]*)%s*([+-x]?)%s*([%dF]*)");
-    
     if nDieCount then
       local sDie = string.format("d%d", (tonumber(nDice) or DICE_DEFAULT));
-      
       for i = 1, nDieCount do
         table.insert(aDice, sDie);
       end
@@ -118,8 +145,8 @@ function parseDamage(s)
       nNum = (tonumber(nNum) or 0);
     end
   end
-  
+
   -- RESULTS
-  return aDice, nMod, sOperator, nNum;
+  return aDice, nMod, sOperator, nNum, xMultiply;	--MOD by Jaxilon
 end
 

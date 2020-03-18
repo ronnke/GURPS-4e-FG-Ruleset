@@ -14,14 +14,14 @@
 	<icon name="details" file="graphics/buttons/button_details.png" />
 	<icon name="details_down" file="graphics/buttons/button_details_down.png" />
 
-	<icon name="skip" file="graphics/buttons/button_skip.png" />
-	<icon name="skip_down" file="graphics/buttons/button_skip_down.png" />
+	<icon name="button_skip" file="graphics/buttons/button_skip.png" />
+	<icon name="button_skip_down" file="graphics/buttons/button_skip_down.png" />
 
-	<icon name="stats" file="graphics/buttons/button_stats.png" />
-	<icon name="stats_down" file="graphics/buttons/button_stats_down.png" />
+	<icon name="button_section_stats" file="graphics/buttons/button_stats.png" />
+	<icon name="button_section_stats_down" file="graphics/buttons/button_stats_down.png" />
 
-	<icon name="combat" file="graphics/buttons/button_combat.png" />
-	<icon name="combat_down" file="graphics/buttons/button_combat_down.png" />
+	<icon name="button_section_combat" file="graphics/buttons/button_combat.png" />
+	<icon name="button_section_combat_down" file="graphics/buttons/button_combat_down.png" />
 
 	<icon name="weapon_modes" file="graphics/buttons/button_modes.png" />
 	<icon name="weapon_modes_down" file="graphics/buttons/button_modes_down.png" />
@@ -29,8 +29,13 @@
 	<icon name="modifiers" file="graphics/buttons/button_modifiers.png" />
 	<icon name="modifiers_down" file="graphics/buttons/button_modifiers_down.png" />
 
+  <!-- Sidebar -->
+  <icon name="button_abilities" file="graphics/sidebar/button_abilities.png" />
+  <icon name="button_abilities_down" file="graphics/sidebar/button_abilities_down.png" />
+  <icon name="button_traits" file="graphics/sidebar/button_traits.png" />
+  <icon name="button_traits_down" file="graphics/sidebar/button_traits_down.png" />
 
-	<!-- Icons -->
+  <!-- Icons -->
 	<icon name="action_roll" file="graphics/icons/action_roll.png" />
 	<icon name="action_effect" file="graphics/icons/action_effect.png" />
 	<icon name="action_melee" file="graphics/icons/action_melee.png" />

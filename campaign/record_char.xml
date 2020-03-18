@@ -23,6 +23,13 @@
 		<script file="campaign/scripts/char.lua" />
 		
 		<sheetdata>
+			<button_charactivate name="speak">
+				<bounds>-41,30,23,22</bounds>
+			</button_charactivate>
+		
+			<token_char name="token">
+				<bounds>-86,23,40,40</bounds>
+			</token_char>
 		
 			<genericcontrol>
 				<bounds>15,21,45,45</bounds>
@@ -47,16 +54,6 @@
 				<labelres>char_label_charactername</labelres>
 			</string_labeled>
 			
-			<button_charactivate name="speak">
-				<bounds>-41,30,23,22</bounds>
-			</button_charactivate>
-		
-			<tokenfield name="token">
-				<bounds>-86,23,40,40</bounds>
-				<empty>token_empty</empty>
-				<tooltip textres="char_tooltip_token" />
-			</tokenfield>
-		
 			<sub_charsheet name="main">
 				<class>charsheet_main</class>
 			</sub_charsheet>

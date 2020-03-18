@@ -12,46 +12,48 @@
 			<size width="500" height="500" />
 		</placement>
 		<sizelimits>
-			<minimum width="350" height="350" />
+			<minimum width="450" height="350" />
 			<dynamic />
 		</sizelimits>
 		<softclose />
 		<nodelete />
 		<script>
-			function onInit()
-				OptionsManager.registerCallback("SHPC", updateHealthDisplay);
-				OptionsManager.registerCallback("SHNPC", updateHealthDisplay);
-				updateHealthDisplay();
-				OptionsManager.registerCallback("CTSI", updateShowOrder);
-				updateShowOrder();
-			end
-			
-			function onClose()
-				OptionsManager.unregisterCallback("SHPC", updateHealthDisplay);
-				OptionsManager.unregisterCallback("SHNPC", updateHealthDisplay);
-				OptionsManager.unregisterCallback("CTSI", updateShowOrder);
-			end
-			
-			function updateHealthDisplay()
-				local sOptSHPC = OptionsManager.getOption("SHPC");
-				local sOptSHNPC = OptionsManager.getOption("SHNPC");
-				local bShowDetail = (sOptSHPC == "detailed") or (sOptSHNPC == "detailed");
-				
-				label_hps.setVisible(bShowDetail);
-				label_fps.setVisible(bShowDetail);
+      function onInit()
+        OptionsManager.registerCallback("SHPC", updateHealthDisplay);
+        OptionsManager.registerCallback("SHNPC", updateHealthDisplay);
+        updateHealthDisplay();
+        OptionsManager.registerCallback("CTSI", updateShowOrder);
+        updateShowOrder();
+      end
 
-				label_status.setVisible(not bShowDetail);
+      function onClose()
+        OptionsManager.unregisterCallback("SHPC", updateHealthDisplay);
+        OptionsManager.unregisterCallback("SHNPC", updateHealthDisplay);
+        OptionsManager.unregisterCallback("CTSI", updateShowOrder);
+      end
 
-				for _,w in pairs(list.getWindows()) do
-					w.updateHealthDisplay();
-				end
-			end
-			
-			function updateShowOrder()
-				local bShowSpeed = not OptionsManager.isOption("CTSI", "off");
-				label_speed.setVisible(bShowSpeed);
-			end
-		</script>
+      function updateHealthDisplay()
+        local sOptSHPC = OptionsManager.getOption("SHPC");
+        local sOptSHNPC = OptionsManager.getOption("SHNPC");
+        local bShowDetail = (sOptSHPC == "detailed") or (sOptSHNPC == "detailed");
+
+        label_hps.setVisible(bShowDetail);
+        label_fps.setVisible(bShowDetail);
+        label_injury.setVisible(bShowDetail);
+        label_fatigue.setVisible(bShowDetail);
+
+        label_status.setVisible(not bShowDetail);
+
+        for _,w in pairs(list.getWindows()) do
+          w.updateHealthDisplay();
+        end
+      end
+
+      function updateShowOrder()
+        local bShowSpeed = not OptionsManager.isOption("CTSI", "off");
+        label_speed.setVisible(bShowSpeed);
+      end
+    </script>
 		<sheetdata>
 			<windowtitlebar name="title">
 				<resource>ct_window_title</resource>
@@ -63,7 +65,7 @@
 
 			<label_ct name="label_name">
 				<anchored>
-					<left parent="headeranchor" offset="-138" />
+					<left parent="headeranchor" offset="-167" />
 					<top parent="rightanchor" />
 					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
 				</anchored>
@@ -72,25 +74,37 @@
 			</label_ct>
 			
 			<label_ct name="label_speed">
-				<anchored to="headeranchor" position="insidetopright" offset="152,0" width="40" />
+				<anchored to="headeranchor" position="insidetopright" offset="207,0" width="40" />
 				<static textres="ct_label_speed" />
 				<center />
 			</label_ct>
 	
 			<label_ct name="label_hps">
-				<anchored to="headeranchor" position="insidetopright" offset="102,0" width="40" />
+				<anchored to="headeranchor" position="insidetopright" offset="167,0" width="40" />
 				<static textres="ct_label_hps" />
 				<center />
 			</label_ct>
 	
 			<label_ct name="label_fps">
-				<anchored to="headeranchor" position="insidetopright" offset="52,0" width="40" />
+				<anchored to="headeranchor" position="insidetopright" offset="127,0" width="40" />
 				<static textres="ct_label_fps" />
 				<center />
 			</label_ct>
-	
-			<label_ct name="label_status">
-				<anchored to="headeranchor" position="insidetopright" offset="52,0" width="90" />
+
+      <label_ct name="label_injury">
+        <anchored to="headeranchor" position="insidetopright" offset="87,0" width="40" />
+        <static textres="ct_label_injury" />
+        <center />
+      </label_ct>
+
+      <label_ct name="label_fatigue">
+        <anchored to="headeranchor" position="insidetopright" offset="47,0" width="40" />
+        <static textres="ct_label_fatigue" />
+        <center />
+      </label_ct>
+
+      <label_ct name="label_status">
+				<anchored to="headeranchor" position="insidetopright" offset="47,0" width="90" />
 				<static textres="ct_label_status" />
 				<center />
 			</label_ct>
@@ -114,94 +128,62 @@
 		<frame>ctentrybox</frame>
 		<script file="ct/scripts/clientct_entry.lua" />
 		<sheetdata>
-			<hs name="tokenrefid" />
-			<hs name="tokenrefnode" />
-			<hn name="tokenvis" />
-			<hlink name="link" />
+      <hidden_record_isidentified name="isidentified" />
+      <hlink_clientct name="link" />
+      <hs name="tokenrefid" />
+      <hs name="tokenrefnode" />
+      <hn name="tokenvis" />
 
-			<spacer_clientct_active_top name="active_spacer_top" />
+      <spacer_ctentry_active_top name="active_spacer_top" />
 
-			<button_clientct_active name="active" />
-			<token_clientct name="token" />
+      <button_clientct_active name="active" />
+      <token_clientct name="token" />
 
-			<anchor_clientct_right name="rightanchor" />
-			<button_clientct_activateeffects name="activateeffects" />
-			<button_clientct_friendfoe name="friendfoe" />
+      <anchor_ctentry_right name="rightanchor" />
+      <button_clientct_activateeffects name="activateeffects" />
+      <button_ctentry_friendfoe name="friendfoe" />
 
-			<genericcontrol name="healthbase">
-				<anchored to="rightanchor" width="90" height="20">
-					<top />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<disabled />
-			</genericcontrol>
-			<simplestring name="status">
-				<anchored to="healthbase" position="over" />
-				<frame name="fieldlight" offset="7,5,7,5" />
-				<center />
-				<static />
-				<invisible />
-			</simplestring>
-			<number_ct_static name="fps">
-				<anchored to="healthbase" width="40" height="20">
-					<top />
-					<right />
-				</anchored>
-			</number_ct_static>
-			<number_ct_static name="hps">
-				<anchored to="fps" width="40" height="20">
-					<top />
-					<right anchor="left" offset="-10" />
-				</anchored>
-				<script>
-					function onValueChanged()
-						window.onHealthChanged();
-					end
-				</script>
-			</number_ct_static>
-			<number_ct_static name="speed">
-				<anchored to="rightanchor" width="40" height="20">
-					<top />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<script>
-					function onValueChanged()
-						window.windowlist.applySort();
-					end
-				</script>
-			</number_ct_static>
+      <string_clientct_status name="status" />
 
-			<string_clientct_name name="name" />
+      <number_clientct_fatigue name="fatigue" />
+      <number_clientct_injury name="injury" />
+      <number_clientct_fps name="fps" />
+			<number_clientct_hps name="hps" />
+			<number_clientct_speed name="speed" />
+      
+      <string_clientct_name name="name" />
+      <string_clientct_name name="nonid_name">
+        <empty textres="library_recordtype_empty_nonid_npc" />
+        <invisible />
+      </string_clientct_name>
 
-			<!-- Effect subsection -->
-			<icon_clientctsection_effect name="effecticon" />
-			<spacer_clientctsection_effect name="effectspacer" />
-			<list_clientct_effect name="effects" />
+      <icon_clientctsection_effect name="effecticon" />
+      <spacer_clientctsection_effect name="effectspacer" />
+      <list_clientct_effect name="effects" />
 
-			<!-- Quick labels -->
-			<string_ctentry_targets name="target_summary" />
-			<string_ctentry_effects name="effect_summary" />
-			<spacer_clientct_middle name="spacer" />
+      <string_ctentry_targets name="target_summary" />
+      <string_ctentry_effects name="effect_summary" />
 
-			<spacer_clientct_active_bottom name="active_spacer_bottom" />
-		</sheetdata>
+      <spacer_ctentry_middle name="spacer" />
+      <spacer_ctentry_active_bottom name="active_spacer_bottom" />
+    </sheetdata>
 	</windowclass>
-	
-	<windowclass name="clientct_effect">
-		<frame>cteffect</frame>
-		<margins control="0,0,0,3" />
-		<script file="ct/scripts/ct_effect.lua" />
-		<sheetdata>
-			<anchor_clientct_effect_left name="leftanchor" />
-			<button_clientct_effect_isactive name="isactive" />
 
-			<anchor_clientct_effect_right name="rightanchor" />
-			<button_clientct_effect_idelete name="idelete" />
-			<button_ct_effect_targetadd name="targeting_add_button" />
+  <windowclass name="clientct_effect">
+    <frame>cteffect</frame>
+    <margins control="0,0,0,3" />
+    <script file="ct/scripts/ct_effect.lua" />
+    <sheetdata>
+      <anchor_clientct_effect_left name="leftanchor" />
+      <button_clientct_effect_isactive name="isactive" />
 
-			<string_clientct_effect name="label" />
+      <anchor_clientct_effect_right name="rightanchor" />
+      <button_clientct_effect_idelete name="idelete" />
+      <button_ct_effect_targetadd name="targeting_add_button" />
 
-			<string_ct_effect_targets name="target_summary" />
-		</sheetdata>
-	</windowclass>
+      <string_clientct_effect name="label" />
+
+      <string_ct_effect_targets name="target_summary" />
+    </sheetdata>
+  </windowclass>
 </root>

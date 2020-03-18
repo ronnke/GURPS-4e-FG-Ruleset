@@ -7,8 +7,14 @@
 
 <root>
 	<windowclass name="charsheet_skills">
-		<sheetdata>
-		
+    <script>
+      function onDrop(x, y, draginfo)
+				if draginfo.isType("shortcut") and LibraryDataGURPS4e.isSkill(draginfo.getDatabaseNode()) then
+					return ActorManager2.addAbility(getDatabaseNode(), draginfo.getDatabaseNode());
+				end
+      end
+    </script>
+    <sheetdata>
 			<frame_char name="skillsframe">
 				<bounds>15,0,-28,-13</bounds>
 			</frame_char>

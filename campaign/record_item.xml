@@ -42,10 +42,6 @@
 		</sheetdata>
 	</windowclass>
 	
-	<windowclass name="item_header" merge="join">
-		<margins control="0,0,0,2" />
-	</windowclass>
-	
 	<windowclass name="item_main">
 		<margins control="0,0,0,2" />
 		<script file="campaign/scripts/item_main.lua" />
@@ -67,16 +63,20 @@
 			<label_column name="type_label">
 				<static textres="item_label_type" />
 			</label_column>
-			<string_columnh name="type">
-				<nohide />
+			<combobox_column name="type">
 				<delaykeyupdate />
 				<script>
+					function onInit()
+						super.onInit();
+						addItems(DataCommonGURPS.aItemTypeData);
+					end
 					function onValueChanged()
 						window.update();
 					end
 				</script>
-			</string_columnh>
-
+				<unsorted />
+			</combobox_column>
+      
 			<label_column name="subtype_label">
 				<static textres="item_label_subtype" />
 			</label_column>
@@ -128,7 +128,10 @@
 			</label_column>
 			<string_columnh name="don" />
 
-			<line_column name="divider4" />
+			<label_column name="holdout_label">
+				<static textres="item_label_holdout" />
+			</label_column>
+			<string_columnh name="holdout" />
 
 			<label_column name="damage_label">
 				<static textres="item_label_damage" />
@@ -185,7 +188,7 @@
 			</label_column>
 			<string_columnh name="lc" />
 
-			<line_column name="divider5" />
+			<line_column name="divider4" />
 
 			<ft_columnh name="notes" />
 		</sheetdata>

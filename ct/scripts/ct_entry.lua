@@ -5,9 +5,8 @@
 
 function onInit()
 	-- Set the displays to what should be shown
-  setSkipVisible();
 	setTargetingVisible();
-  setStatsVisible();
+    setStatsVisible();
 	setCombatVisible();
 	setEffectsVisible();
 
@@ -20,8 +19,9 @@ function onInit()
 	-- Update the displays
 	onFactionChanged();
 	onHealthChanged();
+    onSkipChanged();
 	
-	-- Register the deletion menu item for the host
+	-- Register the deletion menu item for the host	
 	registerMenuItem(Interface.getString("list_menu_deleteitem"), "delete", 6);
 	registerMenuItem(Interface.getString("list_menu_deleteconfirm"), "delete", 6, 7);
 end
@@ -31,6 +31,7 @@ function updateDisplay()
 
 	if DB.getValue(getDatabaseNode(), "active", 0) == 1 then
 		name.setFont("sheetlabel");
+	    nonid_name.setFont("sheetlabel");
 		
 		active_spacer_top.setVisible(true);
 		active_spacer_bottom.setVisible(true);
@@ -46,6 +47,7 @@ function updateDisplay()
 		end
 	else
 		name.setFont("sheettext");
+	    nonid_name.setFont("sheettext");
 		
 		active_spacer_top.setVisible(false);
 		active_spacer_bottom.setVisible(false);
@@ -60,6 +62,8 @@ function updateDisplay()
 			setFrame("ctentrybox");
 		end
 	end
+ 
+	skip.setValue(DB.getValue(getDatabaseNode(), "skip", 0));
 end
 
 function linkToken()
@@ -96,7 +100,7 @@ function delete()
 	-- Delete the database node and close the window
 	node.delete();
 
-	-- Update list information (global subsection toggles, targeting)
+	-- Update list information (global subsection toggles)
 	windowlist.onVisibilityToggle();
 	windowlist.onEntrySectionToggle();
 end
@@ -108,17 +112,22 @@ function onLinkChanged()
 		linkPCFields();
 		name.setLine(false);
 	end
+  onIDChanged();
 end
 
-function onHealthChanged()
-  local sColor, sStatus, nStatus = ActorManager2.getStatusColor("ct", getDatabaseNode());
-
-  hps.setColor(sColor);
-  status.setValue(sStatus);
-end
-
-function onSizeModifierChanged()
-  DB.setValue(getDatabaseNode(), "space", "number", GameSystem.calcSizeModifierGridUnits(sizemodifier.getValue()));
+function onIDChanged()
+  local nodeRecord = getDatabaseNode();
+  local sClass = DB.getValue(nodeRecord, "link", "", "");
+  if sClass == "npc" then
+    local bID = LibraryData.getIDState("npc", nodeRecord, true);
+    name.setVisible(bID);
+    nonid_name.setVisible(not bID);
+    isidentified.setVisible(true);
+  else
+    name.setVisible(true);
+    nonid_name.setVisible(false);
+    isidentified.setVisible(false);
+  end
 end
 
 function onFactionChanged()
@@ -147,27 +156,48 @@ function linkPCFields()
   if nodeChar then
     name.setLink(nodeChar.createChild("name", "string"), true);
 
-    strength.setLink(nodeChar.createChild("attributes.strength", "number"), true);
-    dexterity.setLink(nodeChar.createChild("attributes.dexterity", "number"), true);
-    intelligence.setLink(nodeChar.createChild("attributes.intelligence", "number"), true);
-    health.setLink(nodeChar.createChild("attributes.health", "number"), true);
-    hitpoints.setLink(nodeChar.createChild("attributes.hitpoints", "number"), true);
-    will.setLink(nodeChar.createChild("attributes.will", "number"), true);
-    perception.setLink(nodeChar.createChild("attributes.perception", "number"), true);
-    fatiguepoints.setLink(nodeChar.createChild("attributes.fatiguepoints", "number"), true);
+    sub_stats.subwindow.strength.setLink(nodeChar.createChild("attributes.strength", "number"), true);
+    sub_stats.subwindow.dexterity.setLink(nodeChar.createChild("attributes.dexterity", "number"), true);
+    sub_stats.subwindow.intelligence.setLink(nodeChar.createChild("attributes.intelligence", "number"), true);
+    sub_stats.subwindow.health.setLink(nodeChar.createChild("attributes.health", "number"), true);
+    sub_stats.subwindow.hitpoints.setLink(nodeChar.createChild("attributes.hitpoints", "number"), true);
+    sub_stats.subwindow.will.setLink(nodeChar.createChild("attributes.will", "number"), true);
+    sub_stats.subwindow.perception.setLink(nodeChar.createChild("attributes.perception", "number"), true);
+    sub_stats.subwindow.fatiguepoints.setLink(nodeChar.createChild("attributes.fatiguepoints", "number"), true);
 
-    sizemodifier.setLink(nodeChar.createChild("traits.sizemodifier", "string"), true);
-    reach.setLink(nodeChar.createChild("traits.reach", "string"), true);
+    sub_combat.subwindow.sizemodifier.setLink(nodeChar.createChild("traits.sizemodifier", "string"), true);
+    sub_combat.subwindow.reach.setLink(nodeChar.createChild("traits.reach", "string"), true);
 
-    dodge.setLink(nodeChar.createChild("combat.dodge", "number"), true);
-    parry.setLink(nodeChar.createChild("combat.parry", "number"), true);
-    block.setLink(nodeChar.createChild("combat.block", "number"), true);
-    dr.setLink(nodeChar.createChild("combat.dr", "string"), true);
+    sub_combat.subwindow.dodge.setLink(nodeChar.createChild("combat.dodge", "number"), true);
+    sub_combat.subwindow.parry.setLink(nodeChar.createChild("combat.parry", "number"), true);
+    sub_combat.subwindow.block.setLink(nodeChar.createChild("combat.block", "number"), true);
+    sub_combat.subwindow.dr.setLink(nodeChar.createChild("combat.dr", "string"), true);
+    sub_combat.subwindow.move.setLink(nodeChar.createChild("attributes.move", "string"), true);
 
-    hps.setLink(nodeChar.createChild("attributes.hps", "number"));
-    fps.setLink(nodeChar.createChild("attributes.fps", "number"));
-    move.setLink(nodeChar.createChild("attributes.move", "number"), true);
+    hps.setLink(nodeChar.createChild("attributes.hps", "number"), true);
+    fps.setLink(nodeChar.createChild("attributes.fps", "number"), true);
+    injury.setLink(nodeChar.createChild("attributes.injury", "number"));
+    fatigue.setLink(nodeChar.createChild("attributes.fatigue", "number"));
+    hpstatus.setLink(nodeChar.createChild("attributes.hpstatus", "string"));
   end
+end
+
+function onHealthChanged()
+  local sColor, sStatus, nStatus = ActorManager2.getInjuryStatusColor("ct", getDatabaseNode());
+
+  hps.setColor(sColor);
+  status.setValue(sStatus);
+end
+
+function onFatigueChanged()
+  local sColor, sStatus, nStatus = ActorManager2.getFatigueStatusColor("ct", getDatabaseNode());
+
+  fps.setColor(sColor);
+end
+
+function onSkipChanged()
+  local nodeRecord = getDatabaseNode();
+  DB.setValue(nodeRecord, "skip", "number", skip.getValue());
 end
 
 --
@@ -181,19 +211,10 @@ function setTargetingVisible()
   end
 
   targetingicon.setVisible(v);
-  
   sub_targeting.setVisible(v);
-  
   frame_targeting.setVisible(v);
 
   target_summary.onTargetsChanged();
-end
-
-function setSkipVisible()
-  local v = false;
-  if activateskip.getValue() == 1 then
-    v = true;
-  end
 end
 
 function setStatsVisible()
@@ -203,32 +224,15 @@ function setStatsVisible()
   end
 
   statsicon.setVisible(v);
-
-  strength.setVisible(v);
-  label_strength.setVisible(v);
-  dexterity.setVisible(v);
-  label_dexterity.setVisible(v);
-  intelligence.setVisible(v);
-  label_intelligence.setVisible(v);
-  health.setVisible(v);
-  label_health.setVisible(v);
-  hitpoints.setVisible(v);
-  label_hitpoints.setVisible(v);
-  will.setVisible(v);
-  label_will.setVisible(v);
-  perception.setVisible(v);
-  label_perception.setVisible(v);
-  fatiguepoints.setVisible(v);
-  label_fatiguepoints.setVisible(v);
-  
+  sub_stats.setVisible(v);
   frame_stats.setVisible(v);
 end
 
 function setCombatVisible()
-	local v = false;
-	if activatecombat.getValue() == 1 then
-		v = true;
-	end
+  local v = false;
+  if activatecombat.getValue() == 1 then
+	v = true;
+  end
 
   local sClass, sRecord = link.getValue();
   local bNPC = (sClass ~= "charsheet");
@@ -236,31 +240,15 @@ function setCombatVisible()
     v = true;
   end
 
-	combaticon.setVisible(v);
-	
-	sizemodifier.setVisible(v);
-	sizemodifierlabel.setVisible(v);
-	reach.setVisible(v);
-	reachlabel.setVisible(v);
-  move.setVisible(v);
-  label_move.setVisible(v);
+  local nodeChar = getDatabaseNode();
+  local bShowMelee = ActorManager2.hasMeleeWeapons(nodeChar)
+  local bShowRanged = ActorManager2.hasRangedWeapons(nodeChar)
 
-  dodge.setVisible(v);
-  label_dodge.setVisible(v);
-  parry.setVisible(v);
-  label_parry.setVisible(v);
-  block.setVisible(v);
-  label_block.setVisible(v);
-  dr.setVisible(v);
-  label_dr.setVisible(v);
-	
-	header_meleecombat.setVisible(v and bNPC);
-	meleecombat.setVisible(v and bNPC);
-
-  header_rangedcombat.setVisible(v and bNPC);
-  rangedcombat.setVisible(v and bNPC);
-	
-	frame_combat.setVisible(v);
+  combaticon.setVisible(v);
+  sub_combat.setVisible(v);
+  sub_meleecombat.setVisible(v and bNPC and bShowMelee);
+  sub_rangedcombat.setVisible(v and bNPC and bShowRanged);
+  frame_combat.setVisible(v);
 end
 
 function setEffectsVisible()
@@ -278,6 +266,5 @@ function setEffectsVisible()
   end
 
   frame_effects.setVisible(v);
-
   effect_summary.onEffectsChanged();
 end

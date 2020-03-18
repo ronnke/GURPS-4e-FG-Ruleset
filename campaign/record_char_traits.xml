@@ -7,7 +7,14 @@
 
 <root>
 	<windowclass name="charsheet_traits">
-		<sheetdata>
+    <script>
+      function onDrop(x, y, draginfo)
+				if draginfo.isType("shortcut") then
+					return ActorManager2.addTrait(getDatabaseNode(), draginfo.getDatabaseNode());
+				end
+      end
+    </script>
+    <sheetdata>
 			<!-- ADVANTAGES / PERKS -->
 			<frame_char name="adsperksframe">
 				<anchored>

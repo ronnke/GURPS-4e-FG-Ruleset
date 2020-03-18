@@ -53,13 +53,9 @@ function addAbilities(sName, sDesc)
 end
 
 function onDrop(x, y, draginfo)
-	if draginfo.isType("shortcut") then
-		local sClass = draginfo.getShortcutData();
-		local nodeSource = draginfo.getDatabaseNode();
-		
-		if sClass == "abilities" then
-      addAbilities(nodeSource);
-		end
-		return true;
+	local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
+	if draginfo.isType("shortcut") and not bReadOnly then
+		return ActorManager2.addAbility(getDatabaseNode(), draginfo.getDatabaseNode());
 	end
 end
+

@@ -7,38 +7,42 @@ local enableglobaltoggle = true;
 local enablevisibilitytoggle = true;
 
 function onInit()
-	Interface.onHotkeyActivated = onHotkey;
-	
-	registerMenuItem(Interface.getString("list_menu_createitem"), "insert", 5);
+  Interface.onHotkeyActivated = onHotkey;
+  
+  registerMenuItem(Interface.getString("list_menu_createitem"), "insert", 5);
 
-	onVisibilityToggle();
-	onEntrySectionToggle();
+  onVisibilityToggle();
+  onEntrySectionToggle();
 
-	local node = getDatabaseNode();
-	DB.addHandler(DB.getPath(node, "*.name"), "onUpdate", onNameOrTokenUpdated);
-	DB.addHandler(DB.getPath(node, "*.token"), "onUpdate", onNameOrTokenUpdated);
+  local node = getDatabaseNode();
+  DB.addHandler(DB.getPath(node, "*.name"), "onUpdate", onNameOrTokenUpdated);
+  DB.addHandler(DB.getPath(node, "*.nonid_name"), "onUpdate", onNameOrTokenUpdated);
+  DB.addHandler(DB.getPath(node, "*.isidentified"), "onUpdate", onNameOrTokenUpdated);
+  DB.addHandler(DB.getPath(node, "*.token"), "onUpdate", onNameOrTokenUpdated);
 end
 
 function onClose()
-	local node = getDatabaseNode();
-	DB.removeHandler(DB.getPath(node, "*.name"), "onUpdate", onNameOrTokenUpdated);
-	DB.removeHandler(DB.getPath(node, "*.token"), "onUpdate", onNameOrTokenUpdated);
+  local node = getDatabaseNode();
+  DB.removeHandler(DB.getPath(node, "*.name"), "onUpdate", onNameOrTokenUpdated);
+  DB.removeHandler(DB.getPath(node, "*.nonid_name"), "onUpdate", onNameOrTokenUpdated);
+  DB.removeHandler(DB.getPath(node, "*.isidentified"), "onUpdate", onNameOrTokenUpdated);
+  DB.removeHandler(DB.getPath(node, "*.token"), "onUpdate", onNameOrTokenUpdated);
 end
 
-function onNameOrTokenUpdated(vNode)
-	for _,w in pairs(getWindows()) do
-		w.target_summary.onTargetsChanged();
-		
-		if w.sub_targeting.subwindow then
-			for _,wTarget in pairs(w.sub_targeting.subwindow.targets.getWindows()) do
-				wTarget.onRefChanged();
-			end
-		end
-
+function onNameOrTokenUpdated()
+  for _,w in pairs(getWindows()) do
+    w.target_summary.onTargetsChanged();
+    
+    if w.sub_targeting.subwindow then
+      for _,wTarget in pairs(w.sub_targeting.subwindow.targets.getWindows()) do
+        wTarget.onRefChanged();
+      end
+    end
+    
     for _,wEffect in pairs(w.effects.getWindows()) do
       wEffect.target_summary.onTargetsChanged();
     end
-	end
+  end
 end
 
 function addEntry(bFocus)
@@ -86,16 +90,14 @@ function toggleVisibility()
 end
 
 function toggleTargeting()
-	if not enableglobaltoggle then
-		return;
-	end
-	
-	local targetingon = window.button_global_targeting.getValue();
-	for _,v in pairs(getWindows()) do
-    if targetingon ~= v.activatetargeting.getValue() then
-      v.activatetargeting.setValue(targetingon);
-    end
-	end
+  if not enableglobaltoggle then
+    return;
+  end
+  
+  local targetingon = window.button_global_targeting.getValue();
+  for _,v in pairs(getWindows()) do
+    v.activatetargeting.setValue(targetingon);
+  end
 end
 
 function toggleStats()
@@ -105,9 +107,7 @@ function toggleStats()
   
   local statson = window.button_global_stats.getValue();
   for _,v in pairs(getWindows()) do
-    if statson ~= v.activatestats.getValue() then
-      v.activatestats.setValue(statson);
-    end
+    v.activatestats.setValue(statson);
   end
 end
 
@@ -118,23 +118,19 @@ function toggleCombat()
 	
 	local combaton = window.button_global_combat.getValue();
 	for _,v in pairs(getWindows()) do
-    if combaton ~= v.activatecombat.getValue() then
-      v.activatecombat.setValue(combaton);
-    end
+    v.activatecombat.setValue(combaton);
 	end
 end
 
 function toggleEffects()
-	if not enableglobaltoggle then
-		return;
-	end
-	
-	local effectson = window.button_global_effects.getValue();
-	for _,v in pairs(getWindows()) do
-    if effectson ~= v.activateeffects.getValue() then
-      v.activateeffects.setValue(effectson);
-    end
-	end
+  if not enableglobaltoggle then
+    return;
+  end
+  
+  local effectson = window.button_global_effects.getValue();
+  for _,v in pairs(getWindows()) do
+    v.activateeffects.setValue(effectson);
+  end
 end
 
 function onVisibilityToggle()
@@ -173,23 +169,23 @@ function onEntrySectionToggle()
 
 	enableglobaltoggle = false;
 	window.button_global_targeting.setValue(anyTargeting);
-  window.button_global_stats.setValue(anyStats);
+    window.button_global_stats.setValue(anyStats);
 	window.button_global_combat.setValue(anyCombat);
 	window.button_global_effects.setValue(anyEffects);
 	enableglobaltoggle = true;
 end
 
 function onDrop(x, y, draginfo)
-	if draginfo.isType("shortcut") then
-		return CampaignDataManager.handleDrop("combattracker", draginfo);
-	end
-	
-	-- Capture any drops meant for specific CT entries
-	local win = getWindowAt(x,y);
-	if win then
-		local nodeWin = win.getDatabaseNode();
-		if nodeWin then
-			return CombatManager.onDrop("ct", nodeWin.getNodeName(), draginfo);
-		end
-	end
+  if draginfo.isType("shortcut") then
+    return CampaignDataManager.handleDrop("combattracker", draginfo);
+  end
+  
+  -- Capture any drops meant for specific CT entries
+  local win = getWindowAt(x,y);
+  if win then
+    local nodeWin = win.getDatabaseNode();
+    if nodeWin then
+      return CombatManager.onDrop("ct", nodeWin.getNodeName(), draginfo);
+    end
+  end
 end

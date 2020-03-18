@@ -87,17 +87,21 @@
 			<anchor_column name="columnanchor" />
 			
 			<label_column name="type_label">
-				<static textres="vehicle_label_type" />
+				<static textres="item_label_type" />
 			</label_column>
-			<string_columnh name="type">
-				<nohide />
+			<combobox_column name="type">
 				<delaykeyupdate />
 				<script>
+					function onInit()
+						super.onInit();
+						addItems(DataCommonGURPS.aVehicleTypeData);
+					end
 					function onValueChanged()
 						window.update();
 					end
 				</script>
-			</string_columnh>
+				<unsorted />
+			</combobox_column>
 			
 			<label_column name="subtype_label">
 				<static textres="vehicle_label_subtype" />
@@ -128,6 +132,11 @@
 				<static textres="vehicle_label_hndsr" />
 			</label_column>
 			<string_columnh name="hndsr" />
+
+			<label_column name="ht_label">
+				<static textres="vehicle_label_ht" />
+			</label_column>
+			<string_columnh name="ht" />
 
 			<label_column name="move_label">
 				<static textres="vehicle_label_move" />

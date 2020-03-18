@@ -10,10 +10,10 @@ function onInit()
   EffectManager.setCustomOnEffectAddStart(onEffectAddStart);
 
   EffectManager.setCustomOnEffectStartTurn(onEffectStartTurn);
-  EffectManager.setCustomOnEffectEndTurn(onEffectEndTurn);
-
   EffectManager.setCustomOnEffectActorStartTurn(onEffectActorStartTurn);
+
   EffectManager.setCustomOnEffectActorEndTurn(onEffectActorEndTurn);
+  EffectManager.setCustomOnEffectEndTurn(onEffectEndTurn);
   
   EffectManager.setCustomOnEffectTextEncode(onEffectTextEncode);
   EffectManager.setCustomOnEffectTextDecode(onEffectTextDecode);
@@ -28,18 +28,18 @@ function onEffectAddStart(rEffect)
   elseif rEffect.sUnits == "sec+" then        
     rEffect.nStatus = 1;    
   end
-  
 end
 
 function onEffectStartTurn(nodeEffect)
   return true;
 end
 function onEffectEndTurn(nodeEffect)
-  return true;
+  return false;
 end
 
 function onEffectActorStartTurn(nodeActor, nodeEffect)
-    DB.setValue(nodeEffect, "status", "number", 1);
+  DB.setValue(nodeEffect, "status", "number", 1);
+  return false;
 end
 
 function onEffectActorEndTurn(nodeActor, nodeEffect)
@@ -66,6 +66,7 @@ function onEffectActorEndTurn(nodeActor, nodeEffect)
     DB.setValue(nodeEffect, "status", "number", 1);
     DB.setValue(nodeEffect, "duration", "number", nDuration);
   end
+  return false;
 end
 
 function onEffectTextEncode(rEffect)

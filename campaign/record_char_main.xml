@@ -5,7 +5,17 @@
 
 <root>
 	<windowclass name="charsheet_main">
-		<sheetdata>
+		<script>
+			function onHealthChanged()
+				local rActor = ActorManager.getActor("pc", getDatabaseNode());
+				ActionDamage.updateDamage(rActor);
+			end
+			function onFatigueChanged()
+				local rActor = ActorManager.getActor("pc", getDatabaseNode());
+				ActionFatigue.updateFatigue(rActor);
+			end
+		</script>
+    <sheetdata>
 
 <!-- Character Details -->
 
@@ -57,10 +67,7 @@
 				<rollable_attribute />
 				<stat>ST</stat>
 				<anchored to="basicattributesframe" position="insidetopleft" offset="20,40" />
-				<tabtarget>
-					<next>strength_points</next>
-					<prev>appearance</prev>
-				</tabtarget>
+        <tabtarget next="strength_points" />
 			</number_attribute>
 			<label_attribute>
 				<anchored to="strength" />
@@ -68,20 +75,14 @@
 			</label_attribute>
 			<number_charpointfield name="strength_points" source="attributes.strength_points">
 				<anchored to="strength" position="right" offset="7,-5" width="20" />
-				<tabtarget>
-					<next>dexterity</next>
-					<prev>strength</prev>
-				</tabtarget>
+        <tabtarget prev="strength" next="dexterity" />
 			</number_charpointfield>
 
 			<number_attribute name="dexterity" source="attributes.dexterity">
 				<rollable_attribute />
 				<stat>DX</stat>
 				<anchored to="strength" position="belowleft" offset="0,15" />
-				<tabtarget>
-					<next>dexterity_points</next>
-					<prev>strength_points</prev>
-				</tabtarget>
+        <tabtarget prev="strength_points" next="dexterity_points" />
 			</number_attribute>
 			<label_attribute>
 				<anchored to="dexterity" />
@@ -89,20 +90,14 @@
 			</label_attribute>
 			<number_charpointfield name="dexterity_points" source="attributes.dexterity_points">
 				<anchored to="dexterity" position="right" offset="7,-5" width="20" />
-				<tabtarget>
-					<next>intelligence</next>
-					<prev>dexterity</prev>
-				</tabtarget>
+        <tabtarget prev="dexterity" next="intelligence" />
 			</number_charpointfield>
 
 			<number_attribute name="intelligence" source="attributes.intelligence">
 				<rollable_attribute />
 				<stat>IQ</stat>
 				<anchored to="dexterity" position="belowleft" offset="0,15" />
-				<tabtarget>
-					<next>intelligence_points</next>
-					<prev>dexterity_points</prev>
-				</tabtarget>
+        <tabtarget prev="dexterity_points" next="intelligence_points" />
 			</number_attribute>
 			<label_attribute>
 				<anchored to="intelligence" />
@@ -110,20 +105,14 @@
 			</label_attribute>
 			<number_charpointfield name="intelligence_points" source="attributes.intelligence_points">
 				<anchored to="intelligence" position="right" offset="7,-5" width="20" />
-				<tabtarget>
-					<next>health</next>
-					<prev>intelligence</prev>
-				</tabtarget>
+        <tabtarget prev="intelligence" next="health" />
 			</number_charpointfield>
 
 			<number_attribute name="health"	source="attributes.health">
 				<rollable_attribute />
 				<stat>HT</stat>
 				<anchored to="intelligence" position="belowleft" offset="0,15" />
-				<tabtarget>
-					<next>health_points</next>
-					<prev>intelligence_points</prev>
-				</tabtarget>
+        <tabtarget prev="intelligence_points" next="health_points" />
 			</number_attribute>
 			<label_attribute>
 				<anchored to="health" />
@@ -131,39 +120,32 @@
 			</label_attribute>
 			<number_charpointfield name="health_points" source="attributes.health_points">
 				<anchored to="health" position="right" offset="7,-5" width="20" />
-				<tabtarget>
-					<next>hps</next>
-					<prev>health</prev>
-				</tabtarget>
+        <tabtarget prev="health" next="hitpoints" />
 			</number_charpointfield>
 
 			<number_attribute name="hitpoints" source="attributes.hitpoints">
 				<anchored to="basicattributesframe" position="insidetopleft" offset="100,40" />
-				<tabtarget>
-					<next>hitpoints_points</next>
-					<prev>health_points</prev>
-				</tabtarget>
-			</number_attribute>
+        <tabtarget prev="health_points" next="hitpoints_points" />
+        <script>
+          function onValueChanged()
+	          window.onHealthChanged();
+          end
+        </script>
+      </number_attribute>
 			<label_attribute>
 				<anchored to="hitpoints" />
 				<static>HP</static>
 			</label_attribute>
 			<number_charpointfield name="hitpoints_points" source="attributes.hitpoints_points">
 				<anchored to="hitpoints" position="right" offset="7,-5" width="20" />
-				<tabtarget>
-					<next>will</next>
-					<prev>hitpoints</prev>
-				</tabtarget>
+        <tabtarget prev="hitpoints" next="will" />
 			</number_charpointfield>
 
 			<number_attribute name="will" source="attributes.will">
 				<rollable_attribute />
 				<stat>WILL</stat>
 				<anchored to="hitpoints" position="belowleft" offset="0,15" />
-				<tabtarget>
-					<next>will_points</next>
-					<prev>hps_points</prev>
-				</tabtarget>
+        <tabtarget prev="hps_points" next="will_points" />
 			</number_attribute>
 			<label_attribute>
 				<anchored to="will" />
@@ -171,20 +153,14 @@
 			</label_attribute>
 			<number_charpointfield name="will_points" source="attributes.will_points">
 				<anchored to="will" position="right" offset="7,-5" width="20" />
-				<tabtarget>
-					<next>perception</next>
-					<prev>will</prev>
-				</tabtarget>
+        <tabtarget prev="will" next="perception" />
 			</number_charpointfield>
 
 			<number_attribute name="perception" source="attributes.perception">
 				<rollable_attribute />
 				<stat>PER</stat>
 				<anchored to="will" position="belowleft" offset="0,15" />
-				<tabtarget>
-					<next>perception_points</next>
-					<prev>will_points</prev>
-				</tabtarget>
+        <tabtarget prev="will_points" next="perception_points" />
 			</number_attribute>
 			<label_attribute>
 				<anchored to="perception" />
@@ -192,29 +168,25 @@
 			</label_attribute>
 			<number_charpointfield name="perception_points" source="attributes.perception_points">
 				<anchored to="perception" position="right" offset="7,-5" width="20" />
-				<tabtarget>
-					<next>fps</next>
-					<prev>perception</prev>
-				</tabtarget>
+        <tabtarget prev="perception" next="fatiguepoints" />
 			</number_charpointfield>
 
 			<number_attribute name="fatiguepoints" source="attributes.fatiguepoints">
 				<anchored to="perception" position="belowleft" offset="0,15" />
-				<tabtarget>
-					<next>fatiguepoints_points</next>
-					<prev>perception_points</prev>
-				</tabtarget>
-			</number_attribute>
+        <tabtarget prev="perception_points" next="fatiguepoints_points" />
+        <script>
+          function onValueChanged()
+	          window.onFatigueChanged();
+          end
+        </script>
+      </number_attribute>
 			<label_attribute>
 				<anchored to="fatiguepoints" />
 				<static>FP</static>
 			</label_attribute>
 			<number_charpointfield name="fatiguepoints_points" source="attributes.fatiguepoints_points">
 				<anchored to="fatiguepoints" position="right" offset="7,-5" width="20" />
-				<tabtarget>
-					<next>hitpoints</next>
-					<prev>fatiguepoints</prev>
-				</tabtarget>
+        <tabtarget prev="fatiguepoints" />
 			</number_charpointfield>
 
 
@@ -229,19 +201,19 @@
 				<static textres="char_label_currentattributes" />
 			</label_frametop>
 
-			<number_attribute name="hps" source="attributes.hps">
+      <number_combat_attribute name="hps" source="attributes.hps">
 				<anchored to="currentattributesframe" position="insidetopleft" offset="20,40" />
-				<tabtarget prev="points" next="fps" />
-			</number_attribute>
+        <readonly />
+			</number_combat_attribute>
 			<label_attribute>
 				<anchored to="hps" />
 				<static>cHP</static>
 			</label_attribute>
 
-			<number_attribute name="fps" source="attributes.fps">
+      <number_combat_attribute name="fps" source="attributes.fps">
 				<anchored to="currentattributesframe" position="insidetopleft" offset="70,40" />
-				<tabtarget prev="hps" next="move" />
-			</number_attribute>
+        <readonly />
+      </number_combat_attribute>
 			<label_attribute>
 				<anchored to="fps" />
 				<static>cFP</static>
@@ -249,8 +221,8 @@
 
 			<string_attribute name="move" source="attributes.move">
 				<anchored to="currentattributesframe" position="insidetopleft" offset="120,40" />
-				<tabtarget prev="current_fps" next="languagesframe" />
-			</string_attribute>
+        <readonly />
+      </string_attribute>
 			<label_attribute>
 				<anchored to="move" />
 				<static>Move</static>
@@ -273,7 +245,6 @@
 				<static textres="char_label_languages" />
 			</label_frametop>
 
-			
 			<genericcontrol name="languages_rightanchor">
 				<anchored to="languagesframe" width="0" height="0">
 					<top offset="35" />
@@ -296,6 +267,7 @@
 					<right anchor="left" relation="relative" offset="-5" />
 				</anchored>
 				<invisible />
+        <readonly />
 			</label_columntop>
 			<label_columntop name="languages_points_label">
 				<anchored to="languages_rightanchor" width="20">

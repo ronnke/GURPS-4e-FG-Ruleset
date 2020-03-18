@@ -8,20 +8,12 @@
 <root>
 	<windowclass name="charsheet_meleecombat">
 		<script>
-			function onDrop(x, y, draginfo)
-				if draginfo.isType("shortcut") then
-					local nodeItem = draginfo.getDatabaseNode();
-				    local nodeNPC = getDatabaseNode();
-				
-				    local bMeleeWeapon = LibraryDataGURPS4e.isMeleeWeapon(nodeItem);
-			
-					if bMeleeWeapon then
-						ItemManager2.onAddItemToCombat(nodeNPC, nodeItem)
-					end
-					return true;
-				end
-			end
-		</script>
+      function onDrop(x, y, draginfo)
+        if draginfo.isType("shortcut") then
+          return ItemManager2.AddItemToCombat(getDatabaseNode(), draginfo.getDatabaseNode(), false);
+        end
+      end
+    </script>
 		<sheetdata>
 
 			<frame_char name="meleecombatframe">
@@ -56,7 +48,7 @@
 				<invisible />
 			</label_columntop>
 			<label_columntop name="tl_label">
-				<anchored to="rightanchor" width="30">
+				<anchored to="rightanchor" width="20">
 					<top />
 					<right anchor="left" relation="relative" offset="-20" />
 				</anchored>
@@ -120,11 +112,16 @@
 					<right offset="-25" />
 					<bottom offset="-20" />
 				</anchored>
+        <script>
+          function onFilter(w)
+            return (DB.getValue(w.getDatabaseNode(), "isHidden", 0) == 0);
+          end
+        </script>
 			</list_charmeleecombat>
 			<scrollbar_list>
 				<anchored to="meleecombatlist" />
 				<target>meleecombatlist</target>
-			</scrollbar_list>
+      </scrollbar_list>
 
 			<button_iedit name="meleecombatlist_iedit">
 				<anchored to="meleecombatlist" position="aboveright" offset="5,20" />
@@ -146,7 +143,7 @@
 				setModesVisible();
 				setModifiersVisible();
 			end
-			
+      
 			function setModesVisible()
 				local v = false;
 				if activatemodes.getValue() == 1 then
@@ -206,7 +203,7 @@
 			</button_idelete>
 
 			<string_charfield name="tl">
-				<anchored to="rightanchor" width="30" height="20">
+				<anchored to="rightanchor" width="20" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
