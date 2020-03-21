@@ -8,6 +8,10 @@ aAbilityTypeData = {
 
 aSkillTypeData = {
 	"",
+	"ST/Easy",
+	"ST/Average",
+	"ST/Hard",
+	"ST/Very Hard",
 	"DX/Easy",
 	"DX/Average",
 	"DX/Hard",
@@ -16,6 +20,10 @@ aSkillTypeData = {
 	"IQ/Average",
 	"IQ/Hard",
 	"IQ/Very Hard",
+	"HT/Easy",
+	"HT/Average",
+	"HT/Hard",
+	"HT/Very Hard",
 	"WILL/Easy",
 	"WILL/Average",
 	"WILL/Hard",
@@ -24,10 +32,6 @@ aSkillTypeData = {
 	"PER/Average",
 	"PER/Hard",
 	"PER/Very Hard",
-	"ST/Easy",
-	"ST/Average",
-	"ST/Hard",
-	"ST/Very Hard",
 	"Tech/Average",
 	"Tech/Hard",
 };
@@ -62,6 +66,10 @@ aItemTypeData = {
 	"Defense",
 	"Melee Weapon",
 	"Ranged Weapon",
+	"Melee Weapon, Ranged Weapon",
+	"Defense, Melee Weapon",
+	"Defense, Ranged Weapon",
+	"Defense, Melee Weapon, Ranged Weapon",
 };
 
 -- Vehicle drop down list data

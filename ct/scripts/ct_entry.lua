@@ -174,7 +174,7 @@ function linkPCFields()
     sub_combat.subwindow.dr.setLink(nodeChar.createChild("combat.dr", "string"), true);
     sub_combat.subwindow.move.setLink(nodeChar.createChild("attributes.move", "string"), true);
 	
-	--sub_combat.subwindow.halfmovedodge.setLink(nodeChar.createChild("attributes.halfmovedodge", "number"));
+	sub_combat.subwindow.halfmovedodge.setLink(nodeChar.createChild("attributes.halfmovedodge", "number"));
 
     hps.setLink(nodeChar.createChild("attributes.hps", "number"), true);
     fps.setLink(nodeChar.createChild("attributes.fps", "number"), true);
@@ -202,16 +202,6 @@ function onSkipChanged()
   DB.setValue(nodeRecord, "skip", "number", skip.getValue());
 end
 
-function onHalfMoveDodge(bHalfMove)
-	local nodeRecord = getDatabaseNode();
-
-	local move = tonumber(string.match(DB.getValue(nodeActor, "attributes.move", "0"), "%d+") or 0);
-	local halfMove = math.ceil(move / 2);
-	local halfDodge = math.ceil(DB.getValue(nodeActor, "combat.dodge", 0) / 2);
-	DB.setValue(nodeActor, "attributes.move", "string", halfMove);  
-	DB.setValue(nodeActor, "combat.dodge", "number", halfDodge);  
-	end
-end
 
 --
 -- SECTION VISIBILITY FUNCTIONS

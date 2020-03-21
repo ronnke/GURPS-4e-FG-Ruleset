@@ -6,129 +6,20 @@
 -->
 
 <root>
-	<windowclass name="effectlist">
-		<frame>utilitybox3</frame>
-		<placement>
-			<size width="350" height="350" />
-		</placement>
-		<sizelimits>
-			<dynamic />
-			<minimum width="350" height="350" />
-		</sizelimits>
-		<playercontrol />
-		<nodelete />
-		<tooltip textres="library_recordtype_label_effect" />
-		<sheetdata>
-			<windowtitlebar name="title">
-				<resource>library_recordtype_label_effect</resource>
-			</windowtitlebar>
-			<anchor_title_utilitybox3 name="contentanchor" />
-			
-			<list_effects name="list" />
-			<scrollbar_list />
+  <windowclass name="effectsmall">
+    <margins control="0,0,0,2" />
+    <script file="utility/scripts/effect.lua" />
+    <sheetdata>
+      <anchor_effect_left name="leftanchor" />
+      <button_effect_activate name="activate" />
 
-			<anchor_campaign2 />
-			<button_iedit_campaign />
-			<button_iadd_utility />
-			<filter_utility />
-			
-			<resize_utilitybox3 />
-			<helper_effects />
-			<close_utilitybox3 />
-		</sheetdata>
-	</windowclass>
+      <anchor_effect_right name="rightanchor" />
+      <button_effect_idelete name="idelete" />
+      <button_effect_isgmonly name="isgmonly" />
+      <button_effect_units name="units" />
+      <number_effect_duration name="duration" />
 
-	<windowclass name="effectsmall">
-		<margins control="0,0,0,2" />
-		<script file="utility/scripts/effect.lua" />
-		<sheetdata>
-			<buttoncontrol>
-				<anchored position="insidetopleft" offset="2,2" width="20" height="20" />
-				<icon normal="button_action_effect" pressed="button_action_effect_down" />
-				<script>
-					function onDragStart(button, x, y, draginfo)
-						return window.actionDrag(draginfo);
-					end
-
-					function onButtonPress(x, y)
-						return window.action();
-					end
-				</script>
-			</buttoncontrol>
-
-			<genericcontrol name="rightanchor">
-				<anchored height="0" width="0">
-					<top />
-					<right />
-				</anchored>
-			</genericcontrol>
-			<button_idelete name="idelete">
-				<anchored>
-					<top offset="2" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
-				</anchored>
-			</button_idelete>
-			<buttonfield name="isgmonly">
-				<anchored width="20" height="20">
-					<top offset="3" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
-				</anchored>
-				<gmvisibleonly />
-				<gmeditonly />
-				<state icon="visibilityon" tooltipres="effect_visibilityon" />
-				<state icon="visibilityoff" tooltipres="effect_visibilityoff" />
-				<gmvisibleonly />
-			</buttonfield>
-			
-			<button_stringcycler name="units">
-				<anchored width="30">
-					<top offset="2" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<gmeditonly />
-				<parameters>
-					<labelsres>effect_label_durunitsec+|effect_label_durunitsec|effect_label_durunitmin|effect_label_durunithr|effect_label_durunitday</labelsres>
-					<values>sec+|sec|min|hr|day</values>
-				</parameters>
-				<script>
-					function onDragStart(button, x, y, draginfo)
-						return window.actionDrag(draginfo);
-					end
-				</script>
-			</button_stringcycler>
-			<basicnumber name="duration">
-				<anchored width="25" height="20">
-					<top offset="2" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<gmeditonly />
-				<min>0</min>
-				<default>0</default>
-				<hideonvalue>0</hideonvalue>
-				<script>
-					function onDragStart(button, x, y, draginfo)
-						return window.actionDrag(draginfo);
-					end
-				</script>
-				<tabtarget prev="label" />
-			</basicnumber>
-
-			<string_textlistitem name="label">
-				<anchored position="insidetopleft" offset="27,2" height="20">
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<gmeditonly />
-				<script>
-					function onDragStart(button, x, y, draginfo)
-						return window.actionDrag(draginfo);
-					end
-
-					function onDoubleClick(x, y)
-						return window.action();
-					end
-				</script>
-				<tabtarget next="duration" />
-			</string_textlistitem>
-		</sheetdata>
-	</windowclass>
+      <string_effect name="label" />
+    </sheetdata>
+  </windowclass>
 </root>

@@ -441,13 +441,19 @@
 				<static textres="ct_label_dr" />
 			</label_ct_ability>
 
-      <!--<button_checkboxc name="halfmovedodge" source="attributes.halfmovedodge">
+      <button_ct_checkbox name="halfmovedodge" source="attributes.halfmovedodge">
         <anchored to="dr" position="righthigh" offset="10,-10" width="20" height="20" />
-      </button_checkboxc>
+        <script>
+          function onValueChanged()
+						local rActor = ActorManager.getActorFromCT(window.getDatabaseNode());
+						ActorManager2.updateEncumbrance(rActor);
+          end
+        </script>
+      </button_ct_checkbox>
       <label name="halfmovedodge_label">
         <anchored to="dr" position="righthigh" offset="30,-10" />
         <static textres="char_label_halfmovedodge" />
-      </label>-->
+      </label>
 
     </sheetdata>
 	</windowclass>

@@ -1,4 +1,4 @@
 GURPS-4e-FG-Ruleset
 ===================
 
-Fantasy Grounds II ruleset for GURPS 4e
+Fantasy Grounds and Fantasy Grounds Unity ruleset for GURPS 4e

@@ -103,7 +103,6 @@ end
 
 function getHPStatus(sNodeType, node)
 	if sNodeType ~= "pc" and sNodeType ~= "ct" then
-	Debug.chat(sNodeType, node);
 		return "";
 	end
 	
@@ -393,59 +392,67 @@ end
 
 function updateEncumbrance(nodeChar)
 	local sActorType, nodeActor = ActorManager.getTypeAndNode(nodeChar);
-	if not sActorType or not nodeActor then  
-		return false;
+	if sActorType ~= "pc" and sActorType ~= "ct" then
+		return;
 	end
 
-	local nodeEnc = DB.getChild(nodeActor, "encumbrance");
-	local nTotal = DB.getValue(nodeEnc,"load",0);
+	if sActorType == "pc" then
+		local nodeEnc = DB.getChild(nodeActor, "encumbrance");
+		local nTotal = DB.getValue(nodeEnc,"load",0);
 
-	local nEncNone = tonumber(DB.getValue(nodeEnc,"enc0_weight","0")) or 0;
-	local nEncLight = tonumber(DB.getValue(nodeEnc,"enc1_weight","0")) or 0;
-	local nEncMedium = tonumber(DB.getValue(nodeEnc,"enc2_weight","0")) or 0;
-	local nEncHeavy = tonumber(DB.getValue(nodeEnc,"enc3_weight","0")) or 0;
-	local nEncXHeavy = tonumber(DB.getValue(nodeEnc,"enc4_weight","0")) or 0;
+		local nEncNone = tonumber(DB.getValue(nodeEnc,"enc0_weight","0")) or 0;
+		local nEncLight = tonumber(DB.getValue(nodeEnc,"enc1_weight","0")) or 0;
+		local nEncMedium = tonumber(DB.getValue(nodeEnc,"enc2_weight","0")) or 0;
+		local nEncHeavy = tonumber(DB.getValue(nodeEnc,"enc3_weight","0")) or 0;
+		local nEncXHeavy = tonumber(DB.getValue(nodeEnc,"enc4_weight","0")) or 0;
 
-	DB.setValue(nodeEnc, "enc_0", "number", 0);  
-	DB.setValue(nodeEnc, "enc_1", "number", 0);  
-	DB.setValue(nodeEnc, "enc_2", "number", 0);  
-	DB.setValue(nodeEnc, "enc_3", "number", 0);  
-	DB.setValue(nodeEnc, "enc_4", "number", 0);  
+		DB.setValue(nodeEnc, "enc_0", "number", 0);  
+		DB.setValue(nodeEnc, "enc_1", "number", 0);  
+		DB.setValue(nodeEnc, "enc_2", "number", 0);  
+		DB.setValue(nodeEnc, "enc_3", "number", 0);  
+		DB.setValue(nodeEnc, "enc_4", "number", 0);  
 
-	if nTotal <= nEncNone then 
-		DB.setValue(nodeEnc, "level", "string", "None");  
-		DB.setValue(nodeEnc, "enc_0", "number", 1);  
-		DB.setValue(nodeActor, "attributes.move", "string", DB.getValue(nodeEnc,"enc0_move","0"));  
-		DB.setValue(nodeActor, "combat.dodge", "number", DB.getValue(nodeEnc,"enc0_dodge",0));  
-	elseif nTotal <= nEncLight then 
-		DB.setValue(nodeEnc, "level", "string", "Light");  
-		DB.setValue(nodeEnc, "enc_1", "number", 1);  
-		DB.setValue(nodeActor, "attributes.move", "string", DB.getValue(nodeEnc,"enc1_move","0"));  
-		DB.setValue(nodeActor, "combat.dodge", "number", DB.getValue(nodeEnc,"enc1_dodge",0));  
-	elseif nTotal <= nEncMedium then 
-		DB.setValue(nodeEnc, "level", "string", "Medium");  
-		DB.setValue(nodeEnc, "enc_2", "number", 1);  
-		DB.setValue(nodeActor, "attributes.move", "string", DB.getValue(nodeEnc,"enc2_move","0"));  
-		DB.setValue(nodeActor, "combat.dodge", "number", DB.getValue(nodeEnc,"enc2_dodge",0));  
-	elseif nTotal <= nEncHeavy then 
-		DB.setValue(nodeEnc, "level", "string", "Heavy");  
-		DB.setValue(nodeEnc, "enc_3", "number", 1);  
-		DB.setValue(nodeActor, "attributes.move", "string", DB.getValue(nodeEnc,"enc3_move","0"));  
-		DB.setValue(nodeActor, "combat.dodge", "number", DB.getValue(nodeEnc,"enc3_dodge",0));  
-	elseif nTotal <= nEncXHeavy then 
-		DB.setValue(nodeEnc, "level", "string", "X-Heavy");  
-		DB.setValue(nodeEnc, "enc_4", "number", 1);  
-		DB.setValue(nodeActor, "attributes.move", "string", DB.getValue(nodeEnc,"enc4_move","0"));  
-		DB.setValue(nodeActor, "combat.dodge", "number", DB.getValue(nodeEnc,"enc4_dodge",0));  
+		if nTotal <= nEncNone then 
+			DB.setValue(nodeEnc, "level", "string", "None");  
+			DB.setValue(nodeEnc, "enc_0", "number", 1);  
+			DB.setValue(nodeActor, "attributes.move", "string", DB.getValue(nodeEnc,"enc0_move","0"));  
+			DB.setValue(nodeActor, "combat.dodge", "number", DB.getValue(nodeEnc,"enc0_dodge",0));  
+		elseif nTotal <= nEncLight then 
+			DB.setValue(nodeEnc, "level", "string", "Light");  
+			DB.setValue(nodeEnc, "enc_1", "number", 1);  
+			DB.setValue(nodeActor, "attributes.move", "string", DB.getValue(nodeEnc,"enc1_move","0"));  
+			DB.setValue(nodeActor, "combat.dodge", "number", DB.getValue(nodeEnc,"enc1_dodge",0));  
+		elseif nTotal <= nEncMedium then 
+			DB.setValue(nodeEnc, "level", "string", "Medium");  
+			DB.setValue(nodeEnc, "enc_2", "number", 1);  
+			DB.setValue(nodeActor, "attributes.move", "string", DB.getValue(nodeEnc,"enc2_move","0"));  
+			DB.setValue(nodeActor, "combat.dodge", "number", DB.getValue(nodeEnc,"enc2_dodge",0));  
+		elseif nTotal <= nEncHeavy then 
+			DB.setValue(nodeEnc, "level", "string", "Heavy");  
+			DB.setValue(nodeEnc, "enc_3", "number", 1);  
+			DB.setValue(nodeActor, "attributes.move", "string", DB.getValue(nodeEnc,"enc3_move","0"));  
+			DB.setValue(nodeActor, "combat.dodge", "number", DB.getValue(nodeEnc,"enc3_dodge",0));  
+		elseif nTotal <= nEncXHeavy then 
+			DB.setValue(nodeEnc, "level", "string", "X-Heavy");  
+			DB.setValue(nodeEnc, "enc_4", "number", 1);  
+			DB.setValue(nodeActor, "attributes.move", "string", DB.getValue(nodeEnc,"enc4_move","0"));  
+			DB.setValue(nodeActor, "combat.dodge", "number", DB.getValue(nodeEnc,"enc4_dodge",0));  
+		else
+			DB.setValue(nodeEnc, "level", "string", "Overloaded");  
+			DB.setValue(nodeEnc, "enc_0", "number", 1);  
+			DB.setValue(nodeEnc, "enc_1", "number", 1);  
+			DB.setValue(nodeEnc, "enc_2", "number", 1);  
+			DB.setValue(nodeEnc, "enc_3", "number", 1);  
+			DB.setValue(nodeEnc, "enc_4", "number", 1);  
+			DB.setValue(nodeActor, "attributes.move", "string", "0");  
+			DB.setValue(nodeActor, "combat.dodge", "number", 3);  
+		end
 	else
-		DB.setValue(nodeEnc, "level", "string", "Overloaded");  
-		DB.setValue(nodeEnc, "enc_0", "number", 1);  
-		DB.setValue(nodeEnc, "enc_1", "number", 1);  
-		DB.setValue(nodeEnc, "enc_2", "number", 1);  
-		DB.setValue(nodeEnc, "enc_3", "number", 1);  
-		DB.setValue(nodeEnc, "enc_4", "number", 1);  
-		DB.setValue(nodeActor, "attributes.move", "string", "0");  
-		DB.setValue(nodeActor, "combat.dodge", "number", 3);  
+		local move = tonumber(string.match(DB.getValue(nodeActor, "basemove", "0"), "%d+") or 0);
+		local dodge = DB.getValue(nodeActor, "basedodge", 0);
+
+		DB.setValue(nodeActor, "attributes.move", "string", move);  
+		DB.setValue(nodeActor, "combat.dodge", "number", dodge);  
 	end
 
 	if DB.getValue(nodeActor, "attributes.halfmovedodge", 0) == 1 then 
@@ -454,6 +461,4 @@ function updateEncumbrance(nodeChar)
 		DB.setValue(nodeActor, "attributes.move", "string", halfMove);  
 		DB.setValue(nodeActor, "combat.dodge", "number", halfDodge);  
 	end
-
-	return true;
 end

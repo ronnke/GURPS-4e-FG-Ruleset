@@ -620,7 +620,7 @@ aListViews = {
                 { sName = "lc", sType = "string", sHeadingRes = "item_grouped_label_lc", nWidth=30, bCentered=true },
             },
             aFilters = { 
-                { sDBField = "type", vFilterValue = "Defense" }, 
+				{ sCustom = "item_isdefense" }
             },
             aGroups = { 
                 { sDBField = "subtype" } 
@@ -641,7 +641,7 @@ aListViews = {
                 { sName = "lc", sType = "string", sHeadingRes = "item_grouped_label_lc", nWidth=30, bCentered=true },
             },
             aFilters = { 
-	            { sDBField = "type", vFilterValue = "Melee Weapon" },				
+				{ sCustom = "item_ismeleeweapon" }
             },
             aGroups = { 
                 { sDBField = "subtype" } 
@@ -666,7 +666,7 @@ aListViews = {
                 { sName = "lc", sType = "string", sHeadingRes = "item_grouped_label_lc", sTooltipRes = "item_grouped_tooltip_lc", nWidth=30, bCentered=true },
             },
             aFilters = { 
-	            { sDBField = "type", vFilterValue = "Ranged Weapon" },				
+				{ sCustom = "item_israngedweapon" }
             },
             aGroups = { 
                 { sDBField = "subtype" } 
@@ -791,6 +791,12 @@ aDefaultSidebarState = {
 };
 
 function onInit()
+	LibraryData.setCustomFilterHandler("item_isidentified", getItemIsIdentified);
+	
+    LibraryData.setCustomFilterHandler("item_isdefense", isDefense);
+	LibraryData.setCustomFilterHandler("item_ismeleeweapon", isMeleeWeapon);
+	LibraryData.setCustomFilterHandler("item_israngedweapon", isRangedWeapon);
+
 	for kDefSidebar,vDefSidebar in pairs(aDefaultSidebarState) do
 		DesktopManager.setDefaultSidebarState(kDefSidebar, vDefSidebar);
 	end

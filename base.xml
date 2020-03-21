@@ -88,9 +88,10 @@
 	<includefile source="ct/ct_client.xml" />
 
 	<!-- Utilities -->
-	<includefile source="utility/utility_effects.xml" />
+  <includefile source="utility/utility_effects.xml" />
+  <includefile source="utility/templates_GURPS4e.xml" />
 
-	<!-- High-level scripts -->
+  <!-- High-level scripts -->
 	<script name="GameSystem" file="scripts/manager_gamesystem.lua" />
 
 	<script name="ManagerGURPS4e" file="scripts/manager_GURPS4e.lua" />

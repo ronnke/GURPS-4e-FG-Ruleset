@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+  <template name="button_effect_units">
+    <button_stringcycler>
+      <anchored to="rightanchor" width="30" height="20">
+        <top />
+        <right anchor="left" relation="relative" offset="-10" />
+      </anchored>
+      <gmeditonly />
+      <parameters>
+        <labelsres>effect_label_durunitsec+|effect_label_durunitsec|effect_label_durunitmin|effect_label_durunithr|effect_label_durunitday</labelsres>
+        <values>sec+|sec|min|hr|day</values>
+      </parameters>
+      <script>
+        function onDragStart(button, x, y, draginfo)
+          return window.actionDrag(draginfo);
+        end
+      </script>
+      <tabtarget prev="duration" />
+    </button_stringcycler>
+  </template>
+</root>

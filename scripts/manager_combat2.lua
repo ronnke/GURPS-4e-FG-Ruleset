@@ -118,72 +118,75 @@ end
 --
 
 function addPC(nodePC)
-  if not nodePC then
-    return;
-  end
+    if not nodePC then
+        return;
+    end
   
-  -- Create a new combat tracker window
-  local nodeEntry = DB.createChild(CT_LIST);
-  if not nodeEntry then
-    return;
-  end
+    -- Create a new combat tracker window
+    local nodeEntry = DB.createChild(CT_LIST);
+    if not nodeEntry then
+        return;
+    end
   
-  -- Set up the CT specific information
-  DB.setValue(nodeEntry, "link", "windowreference", "charsheet", nodePC.getNodeName());
-  DB.setValue(nodeEntry, "friendfoe", "string", "friend");
-  DB.setValue(nodeEntry, "skip", "number", 0);
+    -- Set up the CT specific information
+    DB.setValue(nodeEntry, "link", "windowreference", "charsheet", nodePC.getNodeName());
+    DB.setValue(nodeEntry, "friendfoe", "string", "friend");
+    DB.setValue(nodeEntry, "skip", "number", 0);
 
-  local sToken = DB.getValue(nodePC, "token", nil);
-  if not sToken or sToken == "" then
-    sToken = "portrait_" .. nodePC.getName() .. "_token"
-  end
-  DB.setValue(nodeEntry, "token", "token", sToken);
+    local sToken = DB.getValue(nodePC, "token", nil);
+    if not sToken or sToken == "" then
+        sToken = "portrait_" .. nodePC.getName() .. "_token"
+    end
+    DB.setValue(nodeEntry, "token", "token", sToken);
 
-  -- Setup
-  DB.setValue(nodeEntry, "speed", "number", tonumber(DB.getValue(nodePC, "attributes.basicspeed", "0")));
-  DB.setValue(nodeEntry, "hps", "number", DB.getValue(nodePC, "attributes.hps", 0));
-  DB.setValue(nodeEntry, "fps", "number", DB.getValue(nodePC, "attributes.fps", 0));
+    -- Setup
+    DB.setValue(nodeEntry, "speed", "number", tonumber(DB.getValue(nodePC, "attributes.basicspeed", "0")));
+    DB.setValue(nodeEntry, "hps", "number", DB.getValue(nodePC, "attributes.hps", 0));
+    DB.setValue(nodeEntry, "fps", "number", DB.getValue(nodePC, "attributes.fps", 0));
 
-  DB.setValue(nodeEntry, "traits.sizemodifier", "string", DB.getValue(nodePC, "traits.sizemodifier", "0"));
-  DB.setValue(nodeEntry, "traits.reach", "string", DB.getValue(nodePC, "traits.reach", "0"));
-  DB.setValue(nodeEntry, "space", "number", GameSystem.calcSizeModifierGridUnits(DB.getValue(nodePC, "traits.sizemodifier", "0")));
-  DB.setValue(nodeEntry, "reach", "number", tonumber(DB.getValue(nodePC, "traits.reach", "0")));
+    DB.setValue(nodeEntry, "traits.sizemodifier", "string", DB.getValue(nodePC, "traits.sizemodifier", "0"));
+    DB.setValue(nodeEntry, "traits.reach", "string", DB.getValue(nodePC, "traits.reach", "0"));
+    DB.setValue(nodeEntry, "space", "number", GameSystem.calcSizeModifierGridUnits(DB.getValue(nodePC, "traits.sizemodifier", "0")));
+    DB.setValue(nodeEntry, "reach", "number", tonumber(DB.getValue(nodePC, "traits.reach", "0")));
   
-  DB.setValue(nodeEntry, "attributes.strength", "number", DB.getValue(nodePC, "attributes.strength", 0));
-  DB.setValue(nodeEntry, "attributes.dexterity", "number", DB.getValue(nodePC, "attributes.dexterity", 0));
-  DB.setValue(nodeEntry, "attributes.intelligence", "number", DB.getValue(nodePC, "attributes.intelligence", 0));
-  DB.setValue(nodeEntry, "attributes.health", "number", DB.getValue(nodePC, "attributes.health", 0));
-  DB.setValue(nodeEntry, "attributes.hitpoints", "number", DB.getValue(nodePC, "attributes.hitpoints", 0));
-  DB.setValue(nodeEntry, "attributes.will", "number", DB.getValue(nodePC, "attributes.will", 0));
-  DB.setValue(nodeEntry, "attributes.perception", "number", DB.getValue(nodePC, "attributes.perception", 0));
-  DB.setValue(nodeEntry, "attributes.fatiguepoints", "number", DB.getValue(nodePC, "attributes.fatiguepoints", 0));
+    DB.setValue(nodeEntry, "attributes.strength", "number", DB.getValue(nodePC, "attributes.strength", 0));
+    DB.setValue(nodeEntry, "attributes.dexterity", "number", DB.getValue(nodePC, "attributes.dexterity", 0));
+    DB.setValue(nodeEntry, "attributes.intelligence", "number", DB.getValue(nodePC, "attributes.intelligence", 0));
+    DB.setValue(nodeEntry, "attributes.health", "number", DB.getValue(nodePC, "attributes.health", 0));
+    DB.setValue(nodeEntry, "attributes.hitpoints", "number", DB.getValue(nodePC, "attributes.hitpoints", 0));
+    DB.setValue(nodeEntry, "attributes.will", "number", DB.getValue(nodePC, "attributes.will", 0));
+    DB.setValue(nodeEntry, "attributes.perception", "number", DB.getValue(nodePC, "attributes.perception", 0));
+    DB.setValue(nodeEntry, "attributes.fatiguepoints", "number", DB.getValue(nodePC, "attributes.fatiguepoints", 0));
 
-  DB.setValue(nodeEntry, "combat.dodge", "number", DB.getValue(nodePC, "combat.dodge", 0));
-  DB.setValue(nodeEntry, "combat.parry", "number", DB.getValue(nodePC, "combat.parry", 0));
-  DB.setValue(nodeEntry, "combat.block", "number", DB.getValue(nodePC, "combat.block", 0));
-  DB.setValue(nodeEntry, "combat.dr", "string", DB.getValue(nodePC, "combat.dr", "0"));
+    DB.setValue(nodeEntry, "combat.dodge", "number", DB.getValue(nodePC, "combat.dodge", 0));
+    DB.setValue(nodeEntry, "combat.parry", "number", DB.getValue(nodePC, "combat.parry", 0));
+    DB.setValue(nodeEntry, "combat.block", "number", DB.getValue(nodePC, "combat.block", 0));
+    DB.setValue(nodeEntry, "combat.dr", "string", DB.getValue(nodePC, "combat.dr", "0"));
 
-  DB.setValue(nodeEntry, "attributes.move", "string", DB.getValue(nodePC, "attributes.move", "0"));
+    DB.setValue(nodeEntry, "attributes.move", "string", DB.getValue(nodePC, "attributes.move", "0"));
 
-  return nodeEntry;
+    return nodeEntry;
 end
 
 function addNPC(sClass, nodeNPC, sName)
-  local nodeEntry, nodeLastMatch = CombatManager.addNPCHelper(nodeNPC, sName);
+    local nodeEntry, nodeLastMatch = CombatManager.addNPCHelper(nodeNPC, sName);
 
-  DB.setValue(nodeEntry, "skip", "number", 0);
+    DB.setValue(nodeEntry, "skip", "number", 0);
 
-  DB.setValue(nodeEntry, "traits.sizemodifier", "string", DB.getValue(nodeNPC, "traits.sizemodifier", "0"));
-  DB.setValue(nodeEntry, "traits.reach", "string", DB.getValue(nodeNPC, "traits.reach", "0"));
-  DB.setValue(nodeEntry, "space", "number", GameSystem.calcSizeModifierGridUnits(DB.getValue(nodeNPC, "traits.sizemodifier", "0")));
-  DB.setValue(nodeEntry, "reach", "number", tonumber(DB.getValue(nodeNPC, "traits.reach", "0")));
+    DB.setValue(nodeEntry, "traits.sizemodifier", "string", DB.getValue(nodeNPC, "traits.sizemodifier", "0"));
+    DB.setValue(nodeEntry, "traits.reach", "string", DB.getValue(nodeNPC, "traits.reach", "0"));
+    DB.setValue(nodeEntry, "space", "number", GameSystem.calcSizeModifierGridUnits(DB.getValue(nodeNPC, "traits.sizemodifier", "0")));
+    DB.setValue(nodeEntry, "reach", "number", tonumber(DB.getValue(nodeNPC, "traits.reach", "0")));
 
-	-- Setup
-  DB.setValue(nodeEntry, "speed", "number", tonumber(DB.getValue(nodeNPC, "attributes.basicspeed", "0")));
-  DB.setValue(nodeEntry, "hps", "number", DB.getValue(nodeNPC, "attributes.hitpoints", 0));
-  DB.setValue(nodeEntry, "fps", "number", DB.getValue(nodeNPC, "attributes.fatiguepoints", 0));
+    -- Setup
+    DB.setValue(nodeEntry, "basemove", "string", DB.getValue(nodeNPC, "attributes.move", "0"));
+    DB.setValue(nodeEntry, "basedodge", "number", DB.getValue(nodeNPC, "combat.dodge", 0));
+    DB.setValue(nodeEntry, "attributes.move", "string", DB.getValue(nodeNPC, "attributes.move", "0"));
+    DB.setValue(nodeEntry, "speed", "number", tonumber(DB.getValue(nodeNPC, "attributes.basicspeed", "0")));
+    DB.setValue(nodeEntry, "hps", "number", DB.getValue(nodeNPC, "attributes.hitpoints", 0));
+    DB.setValue(nodeEntry, "fps", "number", DB.getValue(nodeNPC, "attributes.fatiguepoints", 0));
 
-	return nodeEntry;
+    return nodeEntry;
 end
 
 function npcSpaceReach(nodeNPC)

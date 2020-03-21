@@ -238,6 +238,12 @@
     </number_ct_crosslink>
   </template>
 
+  <template name="button_ct_checkbox">
+    <button_checkbox>
+      <script file="common/scripts/button_crosslink.lua" />
+    </button_checkbox>
+  </template>
+  
   <template name="string_clientct_status">
     <simplestring name="status">
       <anchored to="rightanchor" width="90" height="20">
