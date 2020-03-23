@@ -174,7 +174,7 @@ function AddRangedItem(nodeChar, nodeItem, seupLinks)
             end		  
 	    
             DB.setValue(nodeMode, "acc", "number", tonumber(modeAcc));
-            DB.setValue(nodeMode, "range", "string", modeRange); 		  		  		  	  
+            DB.setValue(nodeMode, "range", "string", ManagerGURPS4e.calculateRange(charST, modeRange)); 		  		  		  	  
             DB.setValue(nodeMode, "rof", "string", modeRoF); 		  		  		  	  
             DB.setValue(nodeMode, "shots", "string", modeShots); 		  		  		  	  
             DB.setValue(nodeMode, "rcl", "number", tonumber(modeRcl)); 		  		  		  	  
@@ -195,7 +195,7 @@ function AddRangedItem(nodeChar, nodeItem, seupLinks)
                     DB.setValue(nodeMode, "lvl", "number", 0);			  
                     
                     local useST = DB.getValue(nodeItem, "weaponst", charST);			  		  
-                    useST = (useST ~= "" and useST or 0);
+                    useST = (useST ~= "" and useST or charST);
                     useThrust = ManagerGURPS4e.getItemThrust(useST);
                     useSwing = ManagerGURPS4e.getItemSwing(useST);
 

@@ -6,7 +6,7 @@
 -->
 
 <root version="3.0" release="8" logo="logo.png">
-	<announcement text="GURPS 4E core ruleset v3.5.0 for Fantasy Grounds." font="emotefont" />
+	<announcement text="GURPS 4E core ruleset v3.5.1 for Fantasy Grounds." font="emotefont" />
 	<announcement text="Produced with the permission of Steve Jackson Games." font="emotefont" />
 	<announcement text="This work is based on GURPS 4E System and is the accumulated effort of several members of the Fantasy Grounds community. This release was authored by Brian Ronnle, building on previous releases by Eric Hilerio and Graham Brand. Contributors: Jesse Meigs (Jaxilon)" font="emotefont" />
 	<announcement text="GURPS is a trademark of Steve Jackson Games, and its rules and art are copyrighted by Steve Jackson Games. All rights are reserved by Steve Jackson Games. This game aid is the original creation of the Fantasy Grounds GURPS community and is released for free distribution and not for resale under the permissions granted in the Steve Jackson Games Online Policy" font="emotefont" />
