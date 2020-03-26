@@ -71,7 +71,7 @@ function isDefense(vRecord)
   local sTypeLower = StringManager.trim(DB.getValue(nodeItem, "type", "")):lower();
   local sSubtypeLower = StringManager.trim(DB.getValue(nodeItem, "subtype", "")):lower();
 
-  if string.find(sTypeLower, "defense") or string.find(sSubtypeLower, "defense") then    
+  if string.find(sTypeLower, "defense") then    
     bIsDefense = true;
   end
   
@@ -94,7 +94,7 @@ function isMeleeWeapon(vRecord)
   local sTypeLower = StringManager.trim(DB.getValue(nodeItem, "type", "")):lower();
   local sSubtypeLower = StringManager.trim(DB.getValue(nodeItem, "subtype", "")):lower();
     
-  if string.find(sTypeLower, "melee") or string.find(sSubtypeLower, "melee") then
+  if string.find(sTypeLower, "melee") then
     bIsMeleeWeapon = true;
   end
   
@@ -117,7 +117,7 @@ function isRangedWeapon(vRecord)
   local sTypeLower = StringManager.trim(DB.getValue(nodeItem, "type", "")):lower();
   local sSubtypeLower = StringManager.trim(DB.getValue(nodeItem, "subtype", "")):lower();
   
-  if string.find(sTypeLower, "ranged") or string.find(sSubtypeLower, "ranged") then
+  if string.find(sTypeLower, "ranged") then
     bIsRangedWeapon = true;
   end
   

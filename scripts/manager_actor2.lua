@@ -400,11 +400,11 @@ function updateEncumbrance(nodeChar)
 		local nodeEnc = DB.getChild(nodeActor, "encumbrance");
 		local nTotal = DB.getValue(nodeEnc,"load",0);
 
-		local nEncNone = tonumber(DB.getValue(nodeEnc,"enc0_weight","0")) or 0;
-		local nEncLight = tonumber(DB.getValue(nodeEnc,"enc1_weight","0")) or 0;
-		local nEncMedium = tonumber(DB.getValue(nodeEnc,"enc2_weight","0")) or 0;
-		local nEncHeavy = tonumber(DB.getValue(nodeEnc,"enc3_weight","0")) or 0;
-		local nEncXHeavy = tonumber(DB.getValue(nodeEnc,"enc4_weight","0")) or 0;
+		local nEncNone = tonumber(string.match(DB.getValue(nodeEnc,"enc0_weight","0"), "%d+")) or 0;
+		local nEncLight = tonumber(string.match(DB.getValue(nodeEnc,"enc1_weight","0"), "%d+")) or 0;
+		local nEncMedium = tonumber(string.match(DB.getValue(nodeEnc,"enc2_weight","0"), "%d+")) or 0;
+		local nEncHeavy = tonumber(string.match(DB.getValue(nodeEnc,"enc3_weight","0"), "%d+")) or 0;
+		local nEncXHeavy = tonumber(string.match(DB.getValue(nodeEnc,"enc4_weight","0"), "%d+")) or 0;
 
 		DB.setValue(nodeEnc, "enc_0", "number", 0);  
 		DB.setValue(nodeEnc, "enc_1", "number", 0);  
