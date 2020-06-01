@@ -4,7 +4,11 @@
 --
 
 function onInit()
+	ActionsManager.registerModHandler("ability", modRoll);
 	ActionsManager.registerResultHandler("ability", onRoll);
+end
+
+function modRoll(rSource, rTarget, rRoll)
 end
 
 function onRoll(rSource, rTarget, rRoll)

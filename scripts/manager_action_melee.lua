@@ -4,7 +4,11 @@
 --
 
 function onInit()
+  ActionsManager.registerModHandler("melee", modRoll);
   ActionsManager.registerResultHandler("melee", onMelee);
+end
+
+function modRoll(rSource, rTarget, rRoll)
 end
 
 function onMelee(rSource, rTarget, rRoll)

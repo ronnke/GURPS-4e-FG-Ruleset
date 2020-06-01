@@ -11,7 +11,8 @@ COLOR_HEALTH_CRIT_WOUNDS = "C11B17";
 
 COLOR_FATIGUE_NORMAL = "008000";
 COLOR_FATIGUE_FATIGUED = "AF7817";
-COLOR_FATIGUE_CRITICAL = "C11B17";
+COLOR_FATIGUE_CRITICAL = "E56717";
+COLOR_FATIGUE_UNCONSCIOUS = "C11B17";
 
 function getInjuryStatus(sNodeType, node)
 	local rActor = ActorManager.getActor(sNodeType, node);
@@ -23,13 +24,13 @@ function getInjuryStatus(sNodeType, node)
 	if nCHP >= nHP then
 		sStatus = "Healthy";
 		nStatus = 0;
-	elseif nCHP > 0 and nCHP > nHP/2 then
+	elseif nCHP > nHP/2 then
 		sStatus = "Good";
 		nStatus = 1;
 	elseif nCHP > 0 then
 		sStatus = "Fair";
 	    nStatus = 2;
-	elseif nCHP < 1 and nCHP > -nHP then
+	elseif nCHP > -nHP then
 		sStatus = "Serious";
 	    nStatus = 3;
 	else
@@ -72,12 +73,15 @@ function getFatigueStatus(sNodeType, node)
 	if nCFP >= nFP/3 then
 		sStatus = "Normal";
 		nStatus = 0;
-	elseif nCFP > 0 and nCFP < nFP/3 then
+	elseif nCFP > 0 then
 		sStatus = "Fatigued";
 		nStatus = 1;
-	else
+	elseif nCFP > -nFP then
 		sStatus = "Critical";
-	    nStatus = 2;
+		nStatus = 2;
+	else
+		sStatus = "Unconscious";
+	    nStatus = 3;
 	end
 
 	return sStatus, nStatus, rActor;
@@ -94,8 +98,10 @@ function getFatigueStatusColor(sNodeType, node)
 		sColor = COLOR_FATIGUE_NORMAL;
 	elseif nStatus == 1 then
 	    sColor = COLOR_FATIGUE_FATIGUED;
-	else
+	elseif nStatus == 2 then
 	    sColor = COLOR_FATIGUE_CRITICAL;
+	else
+	    sColor = COLOR_FATIGUE_UNCONSCIOUS;
 	end
 
 	return sColor, sStatus, nStatus;
@@ -115,11 +121,38 @@ function getHPStatus(sNodeType, node)
 		nInjury = DB.getValue(node, "injury", 0);
 	end
 
-	if nHP == 0 then return ""; end;
-
 	local hpLevel = math.floor(nInjury/nHP) - 1;
+	if hpLevel > 0 then return -hpLevel.."xHP"; end;
 
-	return (hpLevel > 0 and -hpLevel.."xHP" or "");
+	if (nHP - nInjury) <= 0 then return "0 HP"; end;
+
+	if (nHP - nInjury) < nHP/3 then return "1/3 HP"; end;
+
+	return "";
+end
+
+function getFPStatus(sNodeType, node)
+	if sNodeType ~= "pc" and sNodeType ~= "ct" then
+		return "";
+	end
+	
+	local nFP, nFatigue;
+	if sNodeType == "pc" then
+		nFP = DB.getValue(node, "attributes.fatiguepoints", 0);
+		nFatigue = DB.getValue(node, "attributes.fatigue", 0);
+	else
+		nFP = DB.getValue(node, "attributes.fatiguepoints", 0);
+		nFatigue = DB.getValue(node, "fatigue", 0);
+	end
+
+	local fpLevel = math.floor(nFatigue/nFP) - 1;
+	if fpLevel > 0 then return -fpLevel.."xFP"; end;
+
+	if (nFP - nFatigue) <= 0 then return "0 FP"; end;
+
+	if (nFP - nFatigue) < nFP/3 then return "1/3 FP"; end;
+
+	return "";
 end
 
 function getSkillLevel(nodeChar, type, points)
@@ -460,5 +493,124 @@ function updateEncumbrance(nodeChar)
 		local halfDodge = math.ceil(DB.getValue(nodeActor, "combat.dodge", 0) / 2);
 		DB.setValue(nodeActor, "attributes.move", "string", halfMove);  
 		DB.setValue(nodeActor, "combat.dodge", "number", halfDodge);  
+	end
+end
+
+function getTypeAndRootNode(node)
+	while node.getParent() ~= nil and node.getParent().getNodeName() ~= "charsheet" and node.getParent().getNodeName() ~= "npc" do
+		node = node.getParent();
+	end
+
+	return ActorManager.getTypeAndNode(node);
+end
+
+function updatePointsTotal(nodeChar)
+	local sActorType, nodeActor = getTypeAndRootNode(nodeChar);
+	if sActorType ~= "pc" then
+		return;
+	end
+
+	if sActorType == "pc" then
+	  local total = 0;
+	  local temp = 0;
+	  local tempquirks = 0;
+	  local tempdisadvantages = 0;
+
+	  local attributes = {};
+	  table.insert(attributes, DB.getValue(nodeActor,"attributes.strength_points",0));
+	  table.insert(attributes, DB.getValue(nodeActor,"attributes.dexterity_points",0));
+	  table.insert(attributes, DB.getValue(nodeActor,"attributes.intelligence_points",0));
+	  table.insert(attributes, DB.getValue(nodeActor,"attributes.health_points",0));
+	  table.insert(attributes, DB.getValue(nodeActor,"attributes.hitpoints_points",0));
+	  table.insert(attributes, DB.getValue(nodeActor,"attributes.will_points",0));
+	  table.insert(attributes, DB.getValue(nodeActor,"attributes.perception_points",0));
+	  table.insert(attributes, DB.getValue(nodeActor,"attributes.fatiguepoints_points",0));
+	  table.insert(attributes, DB.getValue(nodeActor,"attributes.basicspeed_points",0));
+	  table.insert(attributes, DB.getValue(nodeActor,"attributes.basicmove_points",0));
+	  table.insert(attributes, DB.getValue(nodeActor,"traits.tl_points",0));
+  
+	  for _,value in pairs(attributes) do 
+		temp = temp + value;
+		if value < 0 then
+		  tempdisadvantages = tempdisadvantages + value;
+		end
+	  end
+
+	  DB.setValue(nodeActor,"pointtotals.attributes","number",temp);
+
+	  total = total + temp;
+	  temp = 0;
+
+	  for _,node in pairs(DB.getChildren(nodeActor,"traits.culturalfamiliaritylist")) do
+		temp = temp + DB.getValue(node,"points",0);
+	  end
+
+	  for _,node in pairs(DB.getChildren(nodeActor,"traits.languagelist")) do
+		temp = temp + DB.getValue(node,"points",0);
+	  end
+
+	  for _,node in pairs(DB.getChildren(nodeActor,"traits.adslist")) do
+		temp = temp + DB.getValue(node,"points",0);
+	  end
+	  DB.setValue(nodeActor,"pointtotals.ads","number",temp);
+
+	  total = total + temp;
+	  temp = 0;
+
+	  for _,node in pairs(DB.getChildren(nodeActor,"traits.disadslist")) do
+		if DB.getValue(node,"points",0) == -1 then
+		  tempquirks = tempquirks + DB.getValue(node,"points",0);
+		else
+		  temp = temp + DB.getValue(node,"points",0);
+		end
+	  end
+	  DB.setValue(nodeActor,"pointtotals.disads","number",temp);
+	  DB.setValue(nodeActor,"pointtotals.quirks","number",tempquirks);
+  	  DB.setValue(nodeActor,"pointtotals.totaldisads","number",temp + tempdisadvantages + tempquirks);
+
+	  total = total + temp + tempquirks;
+	  temp = 0;
+  
+	  for _,node in pairs(DB.getChildren(nodeActor,"abilities.skilllist")) do
+		temp = temp + DB.getValue(node,"points",0);
+	  end
+	  DB.setValue(nodeActor,"pointtotals.skills","number",temp);
+
+	  total = total + temp;
+	  temp = 0;
+
+	  for _,node in pairs(DB.getChildren(nodeActor,"abilities.spelllist")) do
+		temp = temp + DB.getValue(node,"points",0);
+	  end
+	  DB.setValue(nodeActor,"pointtotals.spells","number",temp);
+
+	  total = total + temp;
+	  temp = 0;
+
+	  for _,node in pairs(DB.getChildren(nodeActor,"abilities.powerlist")) do
+		temp = temp + DB.getValue(node,"points",0);
+	  end
+	  DB.setValue(nodeActor,"pointtotals.powers","number",temp);
+
+	  total = total + temp;
+	  temp = 0;
+ 
+	  for _,node in pairs(DB.getChildren(nodeActor,"abilities.otherlist")) do
+		temp = temp + DB.getValue(node,"points",0);
+	  end
+	  DB.setValue(nodeActor,"pointtotals.others","number",temp);
+
+	  total = total + temp;
+
+	  local disads = DB.getValue(nodeActor,"pointtotals.disads",0);
+	  local totaldisads = DB.getValue(nodeActor,"pointtotals.totaldisads",0);
+
+	  if disads == totaldisads then
+	    DB.setValue(nodeActor,"pointtotals.disadsummary","string", string.format("%d", disads));
+	  else
+		DB.setValue(nodeActor,"pointtotals.disadsummary","string", string.format("%d (%d)", disads, totaldisads));  
+	  end 
+
+	  DB.setValue(nodeActor,"pointtotals.totalpoints","number",total);
 	end
 end

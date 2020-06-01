@@ -4,7 +4,11 @@
 --
 
 function onInit()
-	ActionsManager.registerResultHandler("reaction", onReaction);
+  ActionsManager.registerModHandler("reaction", modRoll);
+  ActionsManager.registerResultHandler("reaction", onReaction);
+end
+
+function modRoll(rSource, rTarget, rRoll)
 end
 
 function onReaction(rSource, rTarget, rRoll)

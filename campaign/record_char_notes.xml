@@ -57,104 +57,94 @@
 				<static textres="char_label_summary" />
 			</label_frametop>
 
-
-
-
-
-
-
-
-
-
-
       <number_charpointtotals name="total_attributes_points" source="pointtotals.attributes">
-        <anchored to="summaryframe" position="insidetopleft" offset="112,30" width="30" height="20" />
+        <anchored to="summaryframe" position="insidetopleft" offset="97,30" width="50" height="20" />
       </number_charpointtotals>
 
       <label_charsheet>
-        <anchored to="total_attributes_points" position="insidetopleft" offset="-97,4" />
-		<static textres="char_pointtotal_attributes" />
+        <anchored to="total_attributes_points" position="insidetopleft" offset="-85,4" />
+				<static textres="char_pointtotal_attributes" />
       </label_charsheet>
 
       <number_charpointtotals name="total_ads_points" source="pointtotals.ads">
-        <anchored to="total_attributes_points" position="belowleft" offset="0,0" width="30" height="20" />
+        <anchored to="total_attributes_points" position="belowleft" offset="0,0" width="50" height="20" />
       </number_charpointtotals>
 
       <label_charsheet>
-        <anchored to="total_ads_points" position="insidetopleft" offset="-97,4" />
-		<static textres="char_pointtotal_ads" />
+        <anchored to="total_ads_points" position="insidetopleft" offset="-85,4" />
+				<static textres="char_pointtotal_ads" />
       </label_charsheet>
 
-      <number_charpointtotals name="total_disads_points" source="pointtotals.disads">
-        <anchored to="total_ads_points" position="belowleft" offset="0,0" width="30" height="20" />
-      </number_charpointtotals>
+      <string_charpointtotals name="total_disads_points" source="pointtotals.disadsummary">
+        <anchored to="total_ads_points" position="belowleft" offset="0,0" width="50" height="20" />
+      </string_charpointtotals>
 
       <label_charsheet>
-        <anchored to="total_disads_points" position="insidetopleft" offset="-97,4" />
-		<static textres="char_pointtotal_disads" />
+        <anchored to="total_disads_points" position="insidetopleft" offset="-85,4" />
+				<static textres="char_pointtotal_disads" />
       </label_charsheet>
 
       <number_charpointtotals name="total_quirks_points" source="pointtotals.quirks">
-        <anchored to="total_disads_points" position="belowleft" offset="0,0" width="30" height="20" />
+        <anchored to="total_disads_points" position="belowleft" offset="0,0" width="50" height="20" />
       </number_charpointtotals>
 
       <label_charsheet>
-        <anchored to="total_quirks_points" position="insidetopleft" offset="-97,4" />
-		<static textres="char_pointtotal_quirks" />
+        <anchored to="total_quirks_points" position="insidetopleft" offset="-85,4" />
+				<static textres="char_pointtotal_quirks" />
       </label_charsheet>
 
       <number_charpointtotals name="total_skills_points" source="pointtotals.skills">
-        <anchored to="total_quirks_points" position="belowleft" offset="0,0" width="30" height="20" />
+        <anchored to="total_quirks_points" position="belowleft" offset="0,0" width="50" height="20" />
       </number_charpointtotals>
 
       <label_charsheet>
-        <anchored to="total_skills_points" position="insidetopleft" offset="-97,4" />
-		<static textres="char_pointtotal_skills" />
+        <anchored to="total_skills_points" position="insidetopleft" offset="-85,4" />
+				<static textres="char_pointtotal_skills" />
       </label_charsheet>
 
       <number_charpointtotals name="total_spells_points" source="pointtotals.spells">
-        <anchored to="total_skills_points" position="belowleft" offset="0,0" width="30" height="20" />
+        <anchored to="total_skills_points" position="belowleft" offset="0,0" width="50" height="20" />
       </number_charpointtotals>
 
       <label_charsheet>
-        <anchored to="total_spells_points" position="insidetopleft" offset="-97,4" />
-		<static textres="char_pointtotal_spells" />
+        <anchored to="total_spells_points" position="insidetopleft" offset="-85,4" />
+				<static textres="char_pointtotal_spells" />
       </label_charsheet>
 
       <number_charpointtotals name="total_powers_points" source="pointtotals.powers">
-        <anchored to="total_spells_points" position="belowleft" offset="0,0" width="30" height="20" />
+        <anchored to="total_spells_points" position="belowleft" offset="0,0" width="50" height="20" />
       </number_charpointtotals>
 
       <label_charsheet>
-        <anchored to="total_powers_points" position="insidetopleft" offset="-97,4" />
-		<static textres="char_pointtotal_powers" />
+        <anchored to="total_powers_points" position="insidetopleft" offset="-85,4" />
+				<static textres="char_pointtotal_powers" />
       </label_charsheet>
 
       <number_charpointtotals name="total_others_points" source="pointtotals.others">
-        <anchored to="total_powers_points" position="belowleft" offset="0,0" width="30" height="20" />
+        <anchored to="total_powers_points" position="belowleft" offset="0,0" width="50" height="20" />
       </number_charpointtotals>
 
       <label_charsheet>
-        <anchored to="total_others_points" position="insidetopleft" offset="-97,4" />
-		<static textres="char_pointtotal_other" />
+        <anchored to="total_others_points" position="insidetopleft" offset="-85,4" />
+				<static textres="char_pointtotal_other" />
       </label_charsheet>
 
       <number_charpointtotals name="total_points" source="pointtotals.totalpoints">
-        <anchored to="total_others_points" position="belowleft" offset="0,0" width="30" height="20" />
+        <anchored to="total_others_points" position="belowleft" offset="0,0" width="50" height="20" />
       </number_charpointtotals>
 
       <label_charsheet>
-        <anchored to="total_points" position="insidetopleft" offset="-97,4" />
-		<static textres="char_pointtotal_total" />
+        <anchored to="total_points" position="insidetopleft" offset="-85,4" />
+				<static textres="char_pointtotal_total" />
       </label_charsheet>
 
       <number_charfield name="unspent_points" source="pointtotals.unspentpoints">
-        <anchored to="total_points" position="belowleft" offset="0,0" width="30" height="20" />
+        <anchored to="total_points" position="belowleft" offset="12,0" width="25" height="20" />
       </number_charfield>
       
       <label_charsheet>
         <anchored to="unspent_points" position="insidetopleft" offset="-97,4" />
-		<static textres="char_pointtotal_unspent" />
+				<static textres="char_pointtotal_unspent" />
       </label_charsheet>
 
 

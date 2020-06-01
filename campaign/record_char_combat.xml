@@ -92,6 +92,15 @@
         <min value="0" />
       </number_dropadd>
 
+      <simplestring name="fpstatus" source="attributes.fpstatus">
+        <anchored to="fatigue" width="40" height="20">
+          <top offset="-20" />
+          <left anchor="left" />
+        </anchored>
+        <color>#C11B17</color>
+        <readonly />
+      </simplestring>
+
       <button_checkbox name="halfmovedodge" source="attributes.halfmovedodge">
         <anchored to="currentattributesframe" position="insidetopleft" offset="30,72" width="20" height="20" />
       </button_checkbox>

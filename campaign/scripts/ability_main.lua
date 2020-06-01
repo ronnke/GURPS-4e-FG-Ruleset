@@ -44,6 +44,7 @@ function update()
 	local bSection2 = false;
 	if updateControl("skilltype", bReadOnly, not bSkill) then bSection2 = true; end
 	if updateControl("skilldefault", bReadOnly, not bSkill) then bSection2 = true; end
+	if updateControl("skillprerequisite", bReadOnly, not bSkill) then bSection2 = true; end
 
 	local bSection3 = false;
 	if updateControl("spellcollege", bReadOnly, not bSpell) then bSection3 = true; end

@@ -123,8 +123,12 @@
 				<static textres="ability_skilldefault_label" />
 			</label_column>
 			<string_columnh name="skilldefault" />
+      <label_column name="skillprerequisite_label">
+        <static textres="ability_skillprerequisite_label" />
+      </label_column>
+      <string_columnh name="skillprerequisite" />
 
-			<line_column name="divider2" />
+      <line_column name="divider2" />
 
 			<!--Spell-->
 			<label_column name="spellcollege_label">

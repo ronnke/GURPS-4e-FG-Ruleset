@@ -16,7 +16,7 @@
 	<string name="ct_label_speed">Speed</string>
 	<string name="ct_label_hps">HP</string>
 	<string name="ct_label_fps">FP</string>
-  <string name="ct_label_hpstatus">-HP</string>
+  <string name="ct_label_condition">Cond</string>
   <string name="ct_label_injury">Injury</string>
   <string name="ct_label_fatigue">Fatigue</string>
   <string name="ct_label_status">Status</string>
@@ -338,6 +338,7 @@
   
   <string name="ability_skilltype_label">Skill Type</string>
   <string name="ability_skilldefault_label">Skill Default</string>
+  <string name="ability_skillprerequisite_label">Prerequisites</string>
   
   <string name="ability_spellcollege_label">College</string>
   <string name="ability_spellclass_label">Class</string>
@@ -346,7 +347,7 @@
   <string name="ability_spellduration_label">Duration</string>
   <string name="ability_spellcost_label">Cost</string>
   <string name="ability_spelltimetocast_label">Time to cast</string>
-  <string name="ability_spellprerequisite_label">Prerequisite</string>
+  <string name="ability_spellprerequisite_label">Prerequisites</string>
 
   <string name="ability_powerskill_label">Power Skill</string>
   <string name="ability_powerdefault_label">Skill Default</string>

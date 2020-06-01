@@ -180,7 +180,8 @@ function linkPCFields()
     fps.setLink(nodeChar.createChild("attributes.fps", "number"), true);
     injury.setLink(nodeChar.createChild("attributes.injury", "number"));
     fatigue.setLink(nodeChar.createChild("attributes.fatigue", "number"));
-    hpstatus.setLink(nodeChar.createChild("attributes.hpstatus", "string"));
+    ctstatus.subwindow.hpstatus.setLink(nodeChar.createChild("attributes.hpstatus", "string"));
+    ctstatus.subwindow.fpstatus.setLink(nodeChar.createChild("attributes.fpstatus", "string"));
   end
 end
 
@@ -189,12 +190,14 @@ function onHealthChanged()
 
   hps.setColor(sColor);
   status.setValue(sStatus);
+  ctstatus.subwindow.hpstatus.setColor(sColor);
 end
 
 function onFatigueChanged()
   local sColor, sStatus, nStatus = ActorManager2.getFatigueStatusColor("ct", getDatabaseNode());
 
   fps.setColor(sColor);
+  ctstatus.subwindow.fpstatus.setColor(sColor);
 end
 
 function onSkipChanged()

@@ -58,9 +58,9 @@
 				<static textres="ct_label_fps" />
 				<center />
 			</label_ct>
-      <label_ct name="label_hpstatus">
+      <label_ct name="label_condition">
         <anchored to="headeranchor" position="insidetopright" offset="238,0" width="40" />
-        <static textres="ct_label_hpstatus" />
+        <static textres="ct_label_condition" />
         <center />
       </label_ct>
       <label_ct name="label_injury">
@@ -168,7 +168,7 @@
 
       <number_ct_fatigue name="fatigue" />
       <number_ct_injury name="injury" />
-      <string_ct_hpstatus name="hpstatus" />
+      <custom_ct_status name="ctstatus" />
       <number_ct_fps name="fps" />
       <number_ct_hps name="hps" />
       <number_ct_speed name="speed" />

@@ -327,12 +327,26 @@
 			<nodrop />
 		</number_charfield>
 	</template>
+  <template name="string_charpoint">
+    <string_charfield>
+      <font>sheetnumbersmall</font>
+      <center />
+      <noreset />
+      <nodrag />
+      <nodrop />
+    </string_charfield>
+  </template>
 
-	<template name="number_charpointfield">
+  <template name="number_charpointfield">
 		<number_charfield>
 			<frame merge="replace" name="textline" />
 			<color>#808080</color>
-			<script file="campaign/scripts/char_points.lua" />
+      <script>
+        function onValueChanged()
+					node = window.getDatabaseNode();
+					ActorManager2.updatePointsTotal(node);
+				end
+      </script>
 		</number_charfield>
 	</template>
 
@@ -342,8 +356,14 @@
 			<readonly />
 		</number_charpoint>
 	</template>
-	
-	<template name="button_charroll">
+  <template name="string_charpointtotals">
+    <string_charpoint>
+      <frame merge="replace" name="textline" />
+      <readonly />
+    </string_charpoint>
+  </template>
+
+  <template name="button_charroll">
 		<button_roll>
 			<script file="campaign/scripts/campaign_rollable.lua" />
 		</button_roll>

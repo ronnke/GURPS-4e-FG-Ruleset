@@ -106,7 +106,6 @@
 					<left offset="15"/>
 					<right offset="-29"/>
 				</anchored>
-				
 			</frame_char>
 			<label_frametop>
 				<anchored to="disadsquirksframe" />

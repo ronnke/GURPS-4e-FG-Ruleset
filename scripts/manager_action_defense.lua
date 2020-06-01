@@ -4,9 +4,16 @@
 --
 
 function onInit()
+  ActionsManager.registerModHandler("dodge", modRoll);
+  ActionsManager.registerModHandler("parry", modRoll);
+  ActionsManager.registerModHandler("block", modRoll);
+
   ActionsManager.registerResultHandler("dodge", onDefense);
   ActionsManager.registerResultHandler("parry", onDefense);
   ActionsManager.registerResultHandler("block", onDefense);
+end
+
+function modRoll(rSource, rTarget, rRoll)
 end
 
 function onDefense(rSource, rTarget, rRoll)

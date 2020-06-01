@@ -104,7 +104,7 @@
       </label_ct>
 
       <label_ct name="label_status">
-				<anchored to="headeranchor" position="insidetopright" offset="47,0" width="90" />
+				<anchored to="headeranchor" position="insidetopright" offset="52,0" width="90" />
 				<static textres="ct_label_status" />
 				<center />
 			</label_ct>
@@ -143,6 +143,7 @@
       <button_clientct_activateeffects name="activateeffects" />
       <button_ctentry_friendfoe name="friendfoe" />
 
+      <base_clientct_health name="healthbase" />
       <string_clientct_status name="status" />
 
       <number_clientct_fatigue name="fatigue" />

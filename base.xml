@@ -6,7 +6,7 @@
 -->
 
 <root version="3.0" release="8" logo="logo.png">
-	<announcement text="GURPS 4E core ruleset v3.5.2 for Fantasy Grounds." font="emotefont" />
+	<announcement text="GURPS 4E core ruleset v3.5.3 for Fantasy Grounds." font="emotefont" />
 	<announcement text="Produced with the permission of Steve Jackson Games." font="emotefont" />
 	<announcement text="This work is based on GURPS 4E System and is the accumulated effort of several members of the Fantasy Grounds community. This release was authored by Brian Ronnle, building on previous releases by Eric Hilerio and Graham Brand. Contributors: Jesse Meigs (Jaxilon)" font="emotefont" />
 	<announcement text="GURPS is a trademark of Steve Jackson Games, and its rules and art are copyrighted by Steve Jackson Games. All rights are reserved by Steve Jackson Games. This game aid is the original creation of the Fantasy Grounds GURPS community and is released for free distribution and not for resale under the permissions granted in the Steve Jackson Games Online Policy" font="emotefont" />
@@ -76,13 +76,11 @@
   <includefile source="campaign/record_trait.xml" />
 
   <!-- Desktop -->
-	<script name="LibraryDataGURPS4e" file="scripts/data_library_GURPS4e.lua" />
-  <script name="DataCommonGURPS" file="scripts/data_common_GURPS4e.lua" />
-  <script name="OptionsGURPS4e" file="scripts/data_options_GURPS4e.lua" />
 	<includefile source="desktop/desktop_classes.xml" />
 	<includefile source="desktop/desktop_panels.xml" />
+  <script name="CharacterListManager2" file="desktop/scripts/manager_characterlist2.lua" />
 
-	<!-- Combat tracker -->
+  <!-- Combat tracker -->
 	<includefile source="ct/template_ct.xml" />
 	<includefile source="ct/ct_host.xml" />
 	<includefile source="ct/ct_client.xml" />
@@ -94,7 +92,11 @@
   <!-- High-level scripts -->
 	<script name="GameSystem" file="scripts/manager_gamesystem.lua" />
 
-	<script name="ManagerGURPS4e" file="scripts/manager_GURPS4e.lua" />
+  <script name="LibraryDataGURPS4e" file="scripts/data_library_GURPS4e.lua" />
+  <script name="DataCommonGURPS" file="scripts/data_common_GURPS4e.lua" />
+  <script name="OptionsGURPS4e" file="scripts/data_options_GURPS4e.lua" />
+
+  <script name="ManagerGURPS4e" file="scripts/manager_GURPS4e.lua" />
 	<script name="EffectManagerGURPS4e" file="scripts/manager_effect_GURPS4e.lua" />
 	<script name="LanguageManager" file="scripts/manager_language.lua" />
 	<script name="ActionsManager2" file="scripts/manager_actions2.lua" />
@@ -108,8 +110,9 @@
 
   <script name="CharItemEquip" file="campaign/scripts/char_item_equip.lua" />
 
-  <script name="ActionGeneral" file="scripts/manager_action_ability.lua" />
-	<script name="ActionMelee" file="scripts/manager_action_melee.lua" />
+  <script name="ActionGeneral" file="scripts/manager_action_general.lua" />
+  <script name="ActionAbility" file="scripts/manager_action_ability.lua" />
+  <script name="ActionMelee" file="scripts/manager_action_melee.lua" />
 	<script name="ActionRanged" file="scripts/manager_action_ranged.lua" />
 	<script name="ActionDefense" file="scripts/manager_action_defense.lua" />
   <script name="ActionDamage" file="scripts/manager_action_damage.lua" />

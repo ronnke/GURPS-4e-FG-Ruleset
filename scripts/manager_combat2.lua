@@ -74,9 +74,9 @@ function sortfuncGURPS(node1, node2)
   else
     if bShowInit1 then
       local nValue1 = DB.getValue(node1, "speed", 0);
-      local nDX1 = DB.getValue(node1, "dexterity", 0);
+      local nDX1 = DB.getValue(node1, "attributes.dexterity", 0);
       local nValue2 = DB.getValue(node2, "speed", 0);
-      local nDX2 = DB.getValue(node2, "dexterity", 0);
+      local nDX2 = DB.getValue(node2, "attributes.dexterity", 0);
       
       if nValue1 ~= nValue2 then
         return nValue1 > nValue2;
@@ -186,6 +186,9 @@ function addNPC(sClass, nodeNPC, sName)
     DB.setValue(nodeEntry, "hps", "number", DB.getValue(nodeNPC, "attributes.hitpoints", 0));
     DB.setValue(nodeEntry, "fps", "number", DB.getValue(nodeNPC, "attributes.fatiguepoints", 0));
 
+    ActionDamage.updateDamage(nodeEntry);
+    ActionFatigue.updateFatigue(nodeEntry);
+
     return nodeEntry;
 end
 
@@ -202,7 +205,6 @@ function updateSpaceReach(node)
     DB.setValue(node, "reach", "number", nReach);
 end
 
-
 --
 -- RESET FUNCTIONS
 --
@@ -211,19 +213,21 @@ function resetInit()
 end
 
 function resetEffects()
-	for _, vChild in pairs(DB.getChildren(CombatManager.CT_LIST)) do
-		local nodeEffects = vChild.getChild("effects");
-		if nodeEffects then
-			for _, vEffect in pairs(nodeEffects.getChildren()) do
-				vEffect.delete();
-			end
-		end
+	function clearEffect(nodeEffect)
+		nodeEffect.delete();
 	end
+	CombatManager.callForEachCombatantEffect(clearEffect);
 end
 
-function isCTSkipped(vEntry)
-	if DB.getValue(vEntry, "skip", 0) == 0 then
-        return false;
+function clearExpiringEffects()
+	function checkEffectExpire(nodeEffect)
+		local sLabel = DB.getValue(nodeEffect, "label", "");
+		local nDuration = DB.getValue(nodeEffect, "duration", 0);
+		local sApply = DB.getValue(nodeEffect, "apply", "");
+		
+		if nDuration ~= 0 or sApply ~= "" or sLabel == "" then
+			nodeEffect.delete();
+		end
 	end
-	return true;
+	CombatManager.callForEachCombatantEffect(checkEffectExpire);
 end

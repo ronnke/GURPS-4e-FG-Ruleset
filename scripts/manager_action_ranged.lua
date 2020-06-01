@@ -4,7 +4,11 @@
 --
 
 function onInit()
+  ActionsManager.registerModHandler("ranged", modRoll);
   ActionsManager.registerResultHandler("ranged", onRanged);
+end
+
+function modRoll(rSource, rTarget, rRoll)
 end
 
 function onRanged(rSource, rTarget, rRoll)

@@ -7,7 +7,11 @@
 DICE_DEFAULT = 6;
 
 function onInit()
+	ActionsManager.registerModHandler("damage", modRoll);
 	ActionsManager.registerResultHandler("damage", onDamage);
+end
+
+function modRoll(rSource, rTarget, rRoll)
 end
 
 function onDamage(rSource, rTarget, rRoll)

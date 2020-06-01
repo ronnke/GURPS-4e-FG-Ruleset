@@ -55,8 +55,17 @@
 			<script file="ct/scripts/ct.lua" />
 		</windowlist>
 	</template>
-	
-	<template name="button_ctentry_activatecombat">
+
+  <template name="button_ct_menu">
+    <buttoncontrol>
+      <bounds>26,11,40,20</bounds>
+      <icon normal="button_menu" pressed="button_menu_down" />
+      <tooltip textres="ct_tooltip_menu" />
+      <script file="ct/scripts/ct_menu.lua" />
+    </buttoncontrol>
+  </template>
+
+  <template name="button_ctentry_activatecombat">
 		<buttoncontrol name="activatecombat">
 			<anchored to="rightanchor" width="20" height="20">
 				<top />
@@ -160,6 +169,52 @@
     </number_ct_crosslink>
   </template>
 
+  <template name="custom_ct_status">
+    <subwindow name="ct_status">
+      <anchored to="rightanchor" width="40" height="20" >
+        <top />
+        <right anchor="left" relation="relative" offset="-5" />
+      </anchored>
+      <class>ct_status</class>
+      <activate />
+      <fastinit />
+    </subwindow>
+  </template>
+
+  <windowclass name="ct_status">
+    <margins control="0,0,0,0" />
+    <sheetdata>
+      <simplestring name="fpstatus">
+        <anchored height="15">
+          <bottom anchor="center" offset="2"/>
+          <left />
+          <right />
+        </anchored>
+        <script file="common/scripts/string_crosslink.lua" />
+        <font>sheetnumbersmall</font>
+        <tabtarget prev="name" />
+        <color>#C11B17</color>
+        <readonly />
+        <center />
+        <nolinkwidget />
+      </simplestring>
+      <simplestring name="hpstatus">
+        <anchored height="15">
+					<top anchor="center" offset="-2"/>
+          <left />
+          <right />
+        </anchored>
+        <script file="common/scripts/string_crosslink.lua" />
+        <font>sheetnumbersmall</font>
+        <tabtarget prev="name" />
+        <color>#C11B17</color>
+        <readonly />
+        <center />
+        <nolinkwidget />
+      </simplestring>
+    </sheetdata>
+  </windowclass>
+
   <template name="string_ct_hpstatus">
     <simplestring name="hpstatus">
       <script file="common/scripts/string_crosslink.lua" />
@@ -174,7 +229,22 @@
       <nolinkwidget />
     </simplestring>
   </template>
-  
+
+  <template name="string_ct_fpstatus">
+    <simplestring name="fpstatus">
+      <script file="common/scripts/string_crosslink.lua" />
+      <anchored to="rightanchor" width="40" height="20">
+        <top />
+        <right anchor="left" relation="relative" offset="-5" />
+      </anchored>
+      <tabtarget prev="name" />
+      <color>#C11B17</color>
+      <readonly />
+      <center />
+      <nolinkwidget />
+    </simplestring>
+  </template>
+
   <template name="number_ct_fps">
 		<number_ct_crosslink name="fps">
 			<anchored to="rightanchor" width="30" height="20">
@@ -208,7 +278,7 @@
 			<tabtarget prev="name" />
 			<script>
         function handleDrop(draginfo)
-					if draginfo.getType() == "number" then
+					if draginfo.getType() == "number" or draginfo.getType() == "damage"then
 						local node = window.getDatabaseNode();
 						local rActor = ActorManager.getActorFromCT(node);
 						ActionDamage.applyDamage(nil, rActor, CombatManager.isCTHidden(node), draginfo.getDescription(), draginfo.getNumberData());
@@ -243,42 +313,53 @@
       <script file="common/scripts/button_crosslink.lua" />
     </button_checkbox>
   </template>
-  
-  <template name="string_clientct_status">
-    <simplestring name="status">
-      <anchored to="rightanchor" width="90" height="20">
+
+  <template name="base_clientct_health">
+    <genericcontrol name="healthbase">
+      <anchored to="rightanchor" width="150" height="20">
         <top />
         <right anchor="left" relation="relative" offset="-10" />
+      </anchored>
+      <disabled />
+    </genericcontrol>
+  </template>
+
+  <template name="string_clientct_status">
+    <simplestring name="status">
+      <anchored to="healthbase" width="90" height="20">
+        <top />
+        <right />
       </anchored>
       <frame name="fieldlight" offset="7,5,7,5" />
       <center />
       <static />
+      <invisible />
     </simplestring>
   </template>
 
   <template name="number_clientct_fatigue">
     <number_ct_static name="fatigue">
-      <anchored to="rightanchor" width="30" height="20">
+      <anchored to="healthbase" width="30" height="20">
         <top />
-        <right anchor="left" relation="relative" offset="-10" />
+        <right />
       </anchored>
     </number_ct_static>
   </template>
 
   <template name="number_clientct_injury">
     <number_ct_static name="injury">
-      <anchored to="rightanchor" width="30" height="20">
+      <anchored to="fatigue" width="30" height="20">
         <top />
-        <right anchor="left" relation="relative" offset="-10" />
+        <right anchor="left" offset="-10" />
       </anchored>
     </number_ct_static>
   </template>
 
   <template name="number_clientct_fps">
     <number_ct_static name="fps">
-      <anchored to="rightanchor" width="30" height="20">
+      <anchored to="injury" width="30" height="20">
         <top />
-        <right anchor="left" relation="relative" offset="-10" />
+        <right anchor="left" offset="-10" />
       </anchored>
       <script>
         function onInit()
@@ -295,9 +376,9 @@
 
   <template name="number_clientct_hps">
     <number_ct_static name="hps">
-      <anchored to="rightanchor" width="30" height="20">
+      <anchored to="fps" width="30" height="20">
         <top />
-        <right anchor="left" relation="relative" offset="-10" />
+        <right anchor="left" offset="-10" />
       </anchored>
       <script>
         function onInit()

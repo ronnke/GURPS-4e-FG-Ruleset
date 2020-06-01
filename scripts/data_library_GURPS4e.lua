@@ -461,6 +461,7 @@ aListViews = {
                 { sName = "name", sType = "string", sHeadingRes = "ability_grouped_label_name", nWidth=140 },
                 { sName = "skilltype", sType = "string", sHeadingRes = "ability_grouped_label_type", nWidth=80 },
                 { sName = "skilldefault", sType = "string", sHeadingRes = "ability_grouped_label_default", nWidth=100 },
+                { sName = "skillprerequisite", sType = "string", sHeadingRes = "ability_grouped_label_prerequisite", nWidth=120 },
                 { sName = "page", sType = "string", sHeadingRes = "ability_grouped_label_page", bCentered=true },
             },
             aFilters = { 
