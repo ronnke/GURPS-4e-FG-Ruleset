@@ -13,6 +13,8 @@ function onInit()
 
 	CombatManager.setCustomNPCSpaceReach(npcSpaceReach);
 
+	CombatManager.setCustomCombatReset(resetCombat);
+
 	CombatManager.setCustomRoundStart(onRoundStart);
 	CombatManager.setCustomTurnStart(onTurnStart);
 end
@@ -209,7 +211,10 @@ end
 -- RESET FUNCTIONS
 --
 
-function resetInit()
+function resetCombat()
+	function resetCombatant(nodeCT)
+	end
+	CombatManager.callForEachCombatant(resetCombatant);
 end
 
 function resetEffects()

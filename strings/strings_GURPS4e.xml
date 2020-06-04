@@ -13,7 +13,10 @@
 	<string name="option_val_DDCL_dfrpg">DFRPG</string>
 
 	<!-- Combat Tracker -->
-	<string name="ct_label_speed">Speed</string>
+  <string name="ct_menu_resetmenu">Reset</string>
+  <string name="ct_menu_itemdeleteall">Delete All</string>
+
+  <string name="ct_label_speed">Speed</string>
 	<string name="ct_label_hps">HP</string>
 	<string name="ct_label_fps">FP</string>
   <string name="ct_label_condition">Cond</string>
@@ -422,6 +425,5 @@
   <string name="library_recordtype_empty_ability">&#171; New Ability &#187;</string>
   <string name="library_recordtype_label_trait">Traits</string>
   <string name="library_recordtype_empty_trait">&#171; New Trait &#187;</string>
-
-
+  
 </root>
