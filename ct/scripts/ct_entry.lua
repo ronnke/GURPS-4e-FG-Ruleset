@@ -80,6 +80,8 @@ function onMenuSelection(selection, subselection)
 end
 
 function delete()
+	local wlist = windowlist
+  
 	local node = getDatabaseNode();
 	if not node then
 		close();
@@ -101,8 +103,8 @@ function delete()
 	node.delete();
 
 	-- Update list information (global subsection toggles)
-	windowlist.onVisibilityToggle();
-	windowlist.onEntrySectionToggle();
+	wlist.onVisibilityToggle();
+	wlist.onEntrySectionToggle();
 end
 
 function onLinkChanged()
