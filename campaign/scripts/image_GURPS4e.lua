@@ -4,6 +4,8 @@
 --
 
 function onInit()
+  super.onInit();
+
   if User.isHost() then
     setGridToolType("hex");
     setTokenOrientationCount(12);
@@ -17,6 +19,8 @@ function onCursorModeChanged(sTool)
 end
 
 function onGridStateChanged(sGridType)
+  super.onGridStateChanged(sGridType);
+
   if User.isHost() then
     if sGridType == "hexcolumn" or sGridType == "hexrow" then
       setTokenOrientationCount(12)
@@ -24,7 +28,6 @@ function onGridStateChanged(sGridType)
       setTokenOrientationCount(8)
     end
   end
-  super.onGridStateChanged();
 end
 
 function getScale()

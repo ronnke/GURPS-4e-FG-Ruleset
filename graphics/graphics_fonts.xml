@@ -10,19 +10,19 @@
 	<!-- Number fields -->
 	<font name="sheetnumberlarge">
 		<fgffile name="graphics/fonts/bold-14.fgf" />
-    <ttf file="graphics/fonts/Noto_Sans/NotoSans-Bold.ttf" name="Noto Sans Bold" size="16" />
+    <ttf file="graphics/fonts/Noto_Sans/NotoSans-Bold.ttf" name="Noto Sans Bold" size="24" />
     <color value="#000000" />
 	</font>
 
 	<font name="sheetnumbersmall">
 		<fgffile name="graphics/fonts/regular-8.fgf" />
-    <ttf file="graphics/fonts/Noto_Sans/NotoSans-Regular.ttf" name="Noto Sans" size="10" />
+    <ttf file="graphics/fonts/Noto_Sans/NotoSans-Regular.ttf" name="Noto Sans" size="12" />
     <color value="#000000" />
 	</font>
 
 	<font name="sheetlabelsmall">
 		<fgffile name="graphics/fonts/bold-8.fgf" />
-    <ttf file="graphics/fonts/Noto_Sans/NotoSans-Bold.ttf" name="Noto Sans Bold" size="10" />
+    <ttf file="graphics/fonts/Noto_Sans/NotoSans-Bold.ttf" name="Noto Sans Bold" size="12" />
     <color value="#000000" />
 	</font>
 

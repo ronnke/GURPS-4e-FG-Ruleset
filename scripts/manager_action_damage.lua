@@ -75,7 +75,6 @@ function onDamage(rSource, rTarget, rRoll)
     rMessage.text = string.format("Total [%s]%s", (rRoll.sDamage or ""), (rRoll.nMod ~= 0 and string.format("(%s%d)",(rRoll.nMod > 0 and "+" or ""),rRoll.nMod) or ""));
     rMessage.dice = {};
     rMessage.diemodifier = (nTotal > 0 and nTotal or 0);
-    rMessage.dicedisplay = 0;
     Comm.deliverChatMessage(rMessage);
   end
 end

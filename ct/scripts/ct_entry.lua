@@ -80,8 +80,6 @@ function onMenuSelection(selection, subselection)
 end
 
 function delete()
-	local wlist = windowlist
-  
 	local node = getDatabaseNode();
 	if not node then
 		close();
@@ -100,6 +98,7 @@ function delete()
 	end
 
 	-- Delete the database node and close the window
+	local wlist = windowlist
 	node.delete();
 
 	-- Update list information (global subsection toggles)
