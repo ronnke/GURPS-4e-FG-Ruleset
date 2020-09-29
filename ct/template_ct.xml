@@ -606,6 +606,7 @@
 		<label_fieldtop>
 			<anchored offset="0,-5" height="13"/>
 			<frame name="attributelabel" />
+      <color>#000000</color>
 		</label_fieldtop>
 	</template>
 	<template name="number_ct_ability">

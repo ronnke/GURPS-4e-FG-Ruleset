@@ -146,6 +146,7 @@
 		<label_fieldtop>
 			<anchored offset="0,-6" height="15"/>
 			<frame name="attributelabel" />
+      <color>#000000</color>
 		</label_fieldtop>
 	</template>
 
