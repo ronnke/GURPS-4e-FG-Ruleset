@@ -136,15 +136,15 @@
 				
 				spelldetail.setVisible(bShow);
 				time_label.setVisible(bShow);
-				time.setVisible(bShow);
+				spelltimetocast.setVisible(bShow);
 				duration_label.setVisible(bShow);
-				duration.setVisible(bShow);
+				spellduration.setVisible(bShow);
 				costmaintain_label.setVisible(bShow);
-				costmaintain.setVisible(bShow);
+				spellcost.setVisible(bShow);
 				resist_label.setVisible(bShow);
 				resist.setVisible(bShow);
 				college_label.setVisible(bShow);
-				college.setVisible(bShow);
+				spellcollege.setVisible(bShow);
 				page_label.setVisible(bShow);
 				page.setVisible(bShow);
 			end
@@ -199,21 +199,24 @@
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
-				<tabtarget prev="type" next="time" />
+				<tabtarget prev="type_abbr" next="time" />
 			</number_charpointfield>
-			<string_charfield name="type">
+			<stringfield name="type_abbr">
 				<anchored to="rightanchor" width="35" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
-				<tabtarget prev="class" next="points" />
-			</string_charfield>
-			<string_charfield name="class">
+				<center />
+				<font>sheettext</font>
+				<readonly/>
+				<tabtarget prev="spellclass" next="points" />
+			</stringfield>			
+			<string_charfield name="spellclass">
 				<anchored to="rightanchor" width="50" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
-				<tabtarget prev="level" next="type" />
+				<tabtarget prev="level" next="type_abbr" />
 			</string_charfield>
 			<number_charlevelfield name="level">
 				<rollable_spell />
@@ -221,7 +224,7 @@
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
-				<tabtarget prev="name" next="class" />
+				<tabtarget prev="name" next="spellclass" />
 			</number_charlevelfield>
 			<buttoncontrol name="activatemodifiers">
 				<anchored to="rightanchor" width="20" height="20">
@@ -242,14 +245,14 @@
 					<right anchor="left" relation="relative" offset="-5" />
 				</anchored>
 			</button_toggledetail>
-			<linkcontrol name="shortcut">
+			<linkcontrol_id name="shortcut">
 				<anchored to="rightanchor" width="20" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-5" />
 				</anchored>
-				<class>charnote</class>
+				<class>ability</class>
 				<readonly />
-			</linkcontrol>
+			</linkcontrol_id>
 			<string_textlistitem name="name">
 				<anchored height="20">
 					<top offset="2" />
@@ -266,14 +269,14 @@
 					<top offset="25" />
 					<right anchor="left" relation="relative" offset="-15" />
 				</anchored>
-				<tabtarget prev="college" />
+				<tabtarget prev="spellcollege" />
 			</string_charfield>
 			<label_fieldtop name="page_label">
 				<anchored to="page" />
 				<static textres="char_label_page" />
 			</label_fieldtop>
 
-			<string_charfield name="college">
+			<string_charfield name="spellcollege">
 				<anchored to="bottomanchor" width="90" height="20">
 					<top offset="25" />
 					<right anchor="left" relation="relative" offset="-10" />
@@ -281,7 +284,7 @@
 				<tabtarget prev="resist" next="page" />
 			</string_charfield>
 			<label_fieldtop name="college_label">
-				<anchored to="college" />
+				<anchored to="spellcollege" />
 				<static textres="char_label_college" />
 			</label_fieldtop>
 
@@ -290,46 +293,46 @@
 					<top offset="25" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
-				<tabtarget prev="costmaintain" next="college" />
+				<tabtarget prev="spellcost" next="spellcollege" />
 			</string_charfield>
 			<label_fieldtop name="resist_label">
 				<anchored to="resist" />
 				<static textres="char_label_resist" />
 			</label_fieldtop>
 
-			<string_charfield name="costmaintain">
+			<string_charfield name="spellcost">
 				<anchored to="bottomanchor" width="80" height="20">
 					<top offset="25" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
-				<tabtarget prev="duration" next="resist" />
+				<tabtarget prev="spellduration" next="resist" />
 			</string_charfield>
 			<label_fieldtop name="costmaintain_label">
-				<anchored to="costmaintain" />
+				<anchored to="spellcost" />
 				<static textres="char_label_costmaintain" />
 			</label_fieldtop>
 
-			<string_charfield name="duration">
+			<string_charfield name="spellduration">
 				<anchored to="bottomanchor" width="50" height="20">
 					<top offset="25" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
-				<tabtarget prev="time" next="costmaintain" />
+				<tabtarget prev="spelltimetocast" next="spellcost" />
 			</string_charfield>
 			<label_fieldtop name="duration_label">
-				<anchored to="duration" />
+				<anchored to="spellduration" />
 				<static textres="char_label_duration" />
 			</label_fieldtop>
 
-			<string_charfield name="time">
+			<string_charfield name="spelltimetocast">
 				<anchored to="bottomanchor" width="40" height="20">
 					<top offset="25" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
-				<tabtarget prev="points" next="duration" />
+				<tabtarget prev="points" next="spellduration" />
 			</string_charfield>
 			<label_fieldtop name="time_label">
-				<anchored to="time" />
+				<anchored to="spelltimetocast" />
 				<static textres="char_label_time" />
 			</label_fieldtop>
 

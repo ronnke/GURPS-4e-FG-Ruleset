@@ -265,27 +265,33 @@
 				</anchored>
 				<tabtarget prev="relativelevel" />
 			</number_charpointfield>
-			<string_charfield name="relativelevel">
+			<stringfield name="relativelevel">
 				<anchored to="rightanchor" width="35" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
-				<tabtarget next="points" prev="type" />
-			</string_charfield>
-			<string_charfield name="type">
+				<center />
+				<font>sheettext</font>
+				<readonly/>
+				<tabtarget next="points" prev="type_abbr" />
+			</stringfield>			
+			<stringfield name="type_abbr">
 				<anchored to="rightanchor" width="35" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
+				<center />
+				<font>sheettext</font>
+				<readonly/>
 				<tabtarget next="relativelevel" prev="level" />
-			</string_charfield>
+			</stringfield>			
 			<number_charlevelfield name="level">
 				<rollable_skill />
 				<anchored to="rightanchor" width="20" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
-				<tabtarget next="type" prev="name" />
+				<tabtarget next="type_abbr" prev="name" />
 			</number_charlevelfield>
 			<buttoncontrol name="activatemodifiers">
 				<anchored to="rightanchor" width="20" height="20">
@@ -300,14 +306,14 @@
 					end
 				</script>
 			</buttoncontrol>
-			<linkcontrol name="shortcut">
+			<linkcontrol_id name="shortcut">
 				<anchored to="rightanchor" width="20" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-5" />
 				</anchored>
-				<class>charnote</class>
+				<class>ability</class>
 				<readonly />
-			</linkcontrol>
+			</linkcontrol_id>
 			<string_textlistitem name="name">
 				<anchored height="20">
 					<top offset="2" />

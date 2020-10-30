@@ -180,14 +180,14 @@
 					end
 				</script>
 			</buttoncontrol>
-			<linkcontrol name="shortcut">
+			<linkcontrol_id name="shortcut">
 				<anchored to="rightanchor" width="20" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-5" />
 				</anchored>
-				<class>charnote</class>
+				<class>ability</class>
 				<readonly />
-			</linkcontrol>
+			</linkcontrol_id>
 			<string_textlistitem name="name">
 				<anchored height="20">
 					<top offset="2" />
