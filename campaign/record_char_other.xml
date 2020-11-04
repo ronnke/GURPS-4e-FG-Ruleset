@@ -181,14 +181,14 @@
 					end
 				</script>
 			</buttoncontrol>
-			<linkcontrol_id name="shortcut">
+			<linkcontrol name="shortcut">
 				<anchored to="rightanchor" width="20" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-5" />
 				</anchored>
-				<class>ability</class>
+				<class>charnote</class>
 				<readonly />
-			</linkcontrol_id>
+			</linkcontrol>
 			<string_textlistitem name="name">
 				<anchored height="20">
 					<top offset="2" />

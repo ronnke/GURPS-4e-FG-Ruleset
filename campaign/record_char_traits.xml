@@ -205,14 +205,14 @@
 				</anchored>
 				<tabtarget next="name" />
 			</number_charpointfield>
-			<linkcontrol_id name="shortcut">
+			<linkcontrol name="shortcut">
 				<anchored width="20" height="20">
 					<top offset="2" />
 					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
 				</anchored>
-				<class>trait</class>
+				<class>charnote</class>
 				<readonly />
-			</linkcontrol_id>
+			</linkcontrol>
 			<string_textlistitem name="name">
 				<anchored height="20">
 					<top offset="2" />

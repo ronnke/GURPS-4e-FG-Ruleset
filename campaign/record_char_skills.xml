@@ -270,28 +270,29 @@
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
-				<center />
+				<center/>
 				<font>sheettext</font>
-				<readonly/>
-				<tabtarget next="points" prev="type_abbr" />
-			</stringfield>			
-			<stringfield name="type_abbr">
+				<readonly />
+				<tabtarget next="points" prev="type" />
+			</stringfield>
+			<stringfield name="type">
 				<anchored to="rightanchor" width="35" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
-				<center />
+				<center/>
 				<font>sheettext</font>
-				<readonly/>
+				<readonly />
 				<tabtarget next="relativelevel" prev="level" />
-			</stringfield>			
+			</stringfield>
 			<number_charlevelfield name="level">
 				<rollable_skill />
 				<anchored to="rightanchor" width="20" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
-				<tabtarget next="type_abbr" prev="name" />
+				<readonly />
+				<tabtarget next="type" prev="name" />
 			</number_charlevelfield>
 			<buttoncontrol name="activatemodifiers">
 				<anchored to="rightanchor" width="20" height="20">
@@ -306,14 +307,14 @@
 					end
 				</script>
 			</buttoncontrol>
-			<linkcontrol_id name="shortcut">
+			<linkcontrol name="shortcut">
 				<anchored to="rightanchor" width="20" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-5" />
 				</anchored>
-				<class>ability</class>
+				<class>char_skill_flyout</class>
 				<readonly />
-			</linkcontrol_id>
+			</linkcontrol>
 			<string_textlistitem name="name">
 				<anchored height="20">
 					<top offset="2" />
@@ -368,6 +369,96 @@
 				</anchored>
 			</frame_detailsub>
 			
+		</sheetdata>
+	</windowclass>
+
+	<!-- Similar to the library ability window -->
+	<windowclass name="char_skill_flyout">
+		<frame>recordsheet</frame>
+		<placement>
+			<size width="400" height="350" />
+		</placement>
+		<sizelimits>
+			<minimum width="350" height="400" />
+			<dynamic />
+		</sizelimits>
+		<minimize>minimized_reference</minimize>
+		<nodelete />
+		<playercontrol />
+		<sharable />
+		<tooltip field="name" />
+		<script file="campaign/scripts/charsheet/char_skill_flyout.lua" />
+		<sheetdata>
+			<sub_record_header name="header">
+				<class>ability_header</class>
+			</sub_record_header>
+
+			<frame_record_content name="contentframe" />
+
+			<subwindow_record name="detail">
+				<class>char_skill_detail</class>
+				<activate />
+			</subwindow_record>
+
+			<scrollbar_record>
+				<target>detail</target>
+			</scrollbar_record>
+
+			<resize_referencepage />
+			<close_referencepage />
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="char_skill_detail">
+		<margins control="0,0,0,2" />
+		<script file="campaign/scripts/charsheet/char_skill_detail.lua" />
+		<sheetdata>
+			<anchor_column name="columnanchor" />
+
+			<label_column name="type_label">
+				<static textres="ability_skilltype_label" />
+			</label_column>
+			<combobox_column name="type">
+				<script>
+					function onInit()
+						super.onInit();
+						addItems(DataCommonGURPS.aSkillTypeAbbrData);
+					end
+				</script>
+				<unsorted />
+			</combobox_column>
+
+			<label_column name="points_label">
+				<static textres="ability_grouped_label_points" />
+			</label_column>
+			<number_columnh name="points" />
+
+			<label_column name="defaults_label">
+				<static textres="ability_skilldefault_label" />
+			</label_column>
+			<string_columnh name="defaults" />
+			
+			<label_column name="prereqs_label">
+				<static textres="ability_skillprerequisite_label" />
+			</label_column>
+			<string_columnh name="prereqs" />
+
+			<ft_columnh name="text" />
+
+			<label_column name="page_label">
+				<static textres="ability_page_label" />
+			</label_column>
+			<string_columnh name="page" />
+
+			<label_column name="level_adj_label">
+				<static textres="ability_level_adjustment_label" />
+			</label_column>
+			<number_columnh name="level_adj" />
+
+			<label_column name="points_adj_label">
+				<static textres="ability_points_adjustment_label" />
+			</label_column>
+			<number_columnh name="points_adj" />
 		</sheetdata>
 	</windowclass>
 </root>
