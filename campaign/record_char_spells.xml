@@ -201,26 +201,33 @@
 				</anchored>
 				<tabtarget prev="type" next="time" />
 			</number_charpointfield>
-			<string_charfield name="type">
+			<stringfield name="type">
 				<anchored to="rightanchor" width="35" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
+				<center/>
+				<font>sheettext</font>
+				<readonly/>
 				<tabtarget prev="class" next="points" />
-			</string_charfield>
-			<string_charfield name="class">
+			</stringfield>
+			<stringfield name="class">
 				<anchored to="rightanchor" width="50" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
+				<center/>
+				<font>sheettext</font>
+				<readonly/>
 				<tabtarget prev="level" next="type" />
-			</string_charfield>
+			</stringfield>
 			<number_charlevelfield name="level">
 				<rollable_spell />
 				<anchored to="rightanchor" width="20" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
+				<readonly/>
 				<tabtarget prev="name" next="class" />
 			</number_charlevelfield>
 			<buttoncontrol name="activatemodifiers">
@@ -247,7 +254,7 @@
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-5" />
 				</anchored>
-				<class>charnote</class>
+				<class>char_spell_flyout</class>
 				<readonly />
 			</linkcontrol>
 			<string_textlistitem name="name">
@@ -385,7 +392,134 @@
 					<bottom parent="modifierslist_iedit" />
 				</anchored>
 			</frame_detailsub>
+		</sheetdata>
+	</windowclass>
 
+	<!-- Similar to the library ability window -->
+	<windowclass name="char_spell_flyout">
+		<frame>recordsheet</frame>
+		<placement>
+			<size width="400" height="350" />
+		</placement>
+		<sizelimits>
+			<minimum width="350" height="400" />
+			<dynamic />
+		</sizelimits>
+		<minimize>minimized_reference</minimize>
+		<nodelete />
+		<playercontrol />
+		<sharable />
+		<tooltip field="name" />
+		<script file="campaign/scripts/charsheet/char_spell_flyout.lua" />
+		<sheetdata>
+			<sub_record_header name="header">
+				<class>ability_header</class>
+			</sub_record_header>
+
+			<frame_record_content name="contentframe" />
+
+			<subwindow_record name="detail">
+				<class>char_spell_detail</class>
+				<activate />
+			</subwindow_record>
+
+			<scrollbar_record>
+				<target>detail</target>
+			</scrollbar_record>
+
+			<resize_referencepage />
+			<close_referencepage />
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="char_spell_detail">
+		<margins control="0,0,0,2" />
+		<script file="campaign/scripts/charsheet/char_spell_detail.lua" />
+		<sheetdata>
+			<anchor_column name="columnanchor" />
+
+			<label_column name="type_label">
+				<static textres="ability_spelltype_label" />
+			</label_column>
+			<combobox_column name="type">
+				<script>
+					function onInit()
+						super.onInit();
+						addItems(DataCommonGURPS.aSpellTypeAbbrData);
+					end
+				</script>
+				<unsorted />
+			</combobox_column>
+
+			<label_column name="points_label">
+				<static textres="ability_grouped_label_points" />
+			</label_column>
+			<number_columnh name="points" />
+
+			<label_column name="college_label">
+				<static textres="ability_spellcollege_label" />
+			</label_column>
+			<string_columnh name="college" />
+
+			<label_column name="class_label">
+				<static textres="ability_spellclass_label" />
+			</label_column>
+			<combobox_column name="class">
+				<script>
+					function onInit()
+						super.onInit();
+						addItems(DataCommonGURPS.aSpellClassData);
+					end
+				</script>
+				<unsorted />
+			</combobox_column>
+
+			<label_column name="resist_label">
+				<static textres="ability_spellresist_label" />
+			</label_column>
+			<string_columnh name="resist" />
+
+			<ft_columnh name="text" />
+
+			<label_column name="duration_label">
+				<static textres="ability_spellduration_label" />
+			</label_column>
+			<string_columnh name="duration" />
+
+			<label_column name="spellcost_label">
+				<static textres="ability_spellcost_label" />
+			</label_column>
+			<string_columnh name="spellcost" />
+
+			<label_column name="costmaintain_label">
+				<static textres="char_label_costmaintain" />
+			</label_column>
+			<string_columnh name="costmaintain" />
+
+			<label_column name="time_label">
+				<static textres="ability_spelltimetocast_label" />
+			</label_column>
+			<string_columnh name="time" />
+
+			<label_column name="prereqs_label">
+				<static textres="ability_spellprerequisite_label" />
+			</label_column>
+			<string_columnh name="prereqs" />
+
+			<label_column name="page_label">
+				<static textres="ability_page_label" />
+			</label_column>
+			<string_columnh name="page" />
+
+			<label_column name="level_adj_label">
+				<static textres="ability_level_adjustment_label" />
+			</label_column>
+			<number_columnh name="level_adj" />
+
+			<label_column name="points_adj_label">
+				<static textres="ability_points_adjustment_label" />
+			</label_column>
+			<number_columnh name="points_adj" />
 		</sheetdata>
 	</windowclass>
 </root>
