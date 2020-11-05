@@ -443,8 +443,6 @@
 			</label_column>
 			<string_columnh name="prereqs" />
 
-			<ft_columnh name="text" />
-
 			<label_column name="page_label">
 				<static textres="ability_page_label" />
 			</label_column>
@@ -459,6 +457,8 @@
 				<static textres="ability_points_adjustment_label" />
 			</label_column>
 			<number_columnh name="points_adj" />
+
+			<ft_columnh name="text" />
 		</sheetdata>
 	</windowclass>
 </root>
