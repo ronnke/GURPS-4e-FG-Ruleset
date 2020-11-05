@@ -390,7 +390,7 @@
 		<script file="campaign/scripts/charsheet/char_skill_flyout.lua" />
 		<sheetdata>
 			<sub_record_header name="header">
-				<class>ability_header</class>
+				<class>skill_instance_header</class>
 			</sub_record_header>
 
 			<frame_record_content name="contentframe" />
@@ -443,8 +443,6 @@
 			</label_column>
 			<string_columnh name="prereqs" />
 
-			<ft_columnh name="text" />
-
 			<label_column name="page_label">
 				<static textres="ability_page_label" />
 			</label_column>
@@ -459,6 +457,28 @@
 				<static textres="ability_points_adjustment_label" />
 			</label_column>
 			<number_columnh name="points_adj" />
+
+			<ft_columnh name="text" />
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="skill_instance_header">
+		<margins control="0,0,0,7" />
+		<script  file="campaign/scripts/charsheet/ability_header.lua" />
+		<sheetdata>
+			<linkcontrol name="link">
+				<bounds>5,5,20,20</bounds>
+				<class>char_skill_flyout</class>
+				<readonly />
+			</linkcontrol>
+
+			<anchor_record_header_right name="rightanchor" />
+			<icon_record_locked />
+			<button_record_locked />
+
+			<string_record_name name="name">
+				<empty textres="library_recordtype_empty_item" />
+			</string_record_name>
 		</sheetdata>
 	</windowclass>
 </root>
