@@ -254,7 +254,7 @@
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-5" />
 				</anchored>
-				<class>char_spell_flyout</class>
+				<class>spell_instance_popup</class>
 				<readonly />
 			</linkcontrol>
 			<string_textlistitem name="name">
@@ -396,7 +396,7 @@
 	</windowclass>
 
 	<!-- Similar to the library ability window -->
-	<windowclass name="char_spell_flyout">
+	<windowclass name="spell_instance_popup">
 		<frame>recordsheet</frame>
 		<placement>
 			<size width="400" height="350" />
@@ -410,7 +410,7 @@
 		<playercontrol />
 		<sharable />
 		<tooltip field="name" />
-		<script file="campaign/scripts/charsheet/char_spell_flyout.lua" />
+		<script file="campaign/scripts/charsheet/spell_instance_popup.lua" />
 		<sheetdata>
 			<sub_record_header name="header">
 				<class>spell_instance_header</class>
@@ -418,13 +418,13 @@
 
 			<frame_record_content name="contentframe" />
 
-			<subwindow_record name="detail">
-				<class>char_spell_detail</class>
+			<subwindow_record name="details">
+				<class>spell_instance_details</class>
 				<activate />
 			</subwindow_record>
 
 			<scrollbar_record>
-				<target>detail</target>
+				<target>details</target>
 			</scrollbar_record>
 
 			<resize_referencepage />
@@ -432,9 +432,9 @@
 		</sheetdata>
 	</windowclass>
 
-	<windowclass name="char_spell_detail">
+	<windowclass name="spell_instance_details">
 		<margins control="0,0,0,2" />
-		<script file="campaign/scripts/charsheet/char_spell_detail.lua" />
+		<script file="campaign/scripts/charsheet/spell_instance_details.lua" />
 		<sheetdata>
 			<anchor_column name="columnanchor" />
 
@@ -519,6 +519,7 @@
 			</label_column>
 			<number_columnh name="points_adj" />
 
+			<line_column name="textdivider" />
 			<ft_columnh name="text" />
 		</sheetdata>
 	</windowclass>
@@ -529,7 +530,7 @@
 		<sheetdata>
 			<linkcontrol name="link">
 				<bounds>5,5,20,20</bounds>
-				<class>char_spell_flyout</class>
+				<class>spell_instance_popup</class>
 				<readonly />
 			</linkcontrol>
 

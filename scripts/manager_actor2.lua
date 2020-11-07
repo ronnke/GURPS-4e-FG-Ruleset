@@ -17,6 +17,8 @@ COLOR_FATIGUE_UNCONSCIOUS = "C11B17";
 function onInit()
 	DB.addHandler(DB.getPath("charsheet.*.abilities.skilllist.*.*"), "onUpdate", onPCSkillPropertyUpdated);
 	DB.addHandler(DB.getPath("charsheet.*.abilities.spelllist.*.*"), "onUpdate", onPCSpellPropertyUpdated);
+	DB.addHandler(DB.getPath("charsheet.*.traits.adslist.*.*"), "onUpdate", onPCAdvantagePropertyUpdated);
+	DB.addHandler(DB.getPath("charsheet.*.traits.disadslist.*.*"), "onUpdate", onPCDisadvantagePropertyUpdated);
 end
 
 function getInjuryStatus(sNodeType, node)
@@ -533,6 +535,7 @@ function addTrait(nodeChar, nodeTrait)
 		local nodeAdvantage = DB.createChild(nodeAdvantageList);
 		DB.setValue(nodeAdvantage, "name", "string", DB.getValue(nodeTrait,"name",""));  
 		DB.setValue(nodeAdvantage, "points", "number", DB.getValue(nodeTrait,"points",0));
+		DB.setValue(nodeAdvantage, "page", "string", DB.getValue(nodeTrait, "page", ""));
 		DB.setValue(nodeAdvantage, "text", "formattedtext", DB.getValue(nodeTrait,"text",""));
 
 		return true;
@@ -547,12 +550,37 @@ function addTrait(nodeChar, nodeTrait)
 		local nodeDisadvantage = DB.createChild(nodeDisadvantageList);
 		DB.setValue(nodeDisadvantage, "name", "string", DB.getValue(nodeTrait,"name",""));  
 		DB.setValue(nodeDisadvantage, "points", "number", DB.getValue(nodeTrait,"points",0));
+		DB.setValue(nodeDisadvantage, "page", "string", DB.getValue(nodeTrait, "page", ""));
 		DB.setValue(nodeDisadvantage, "text", "formattedtext", DB.getValue(nodeTrait,"text",""));
 		
 		return true;
 	end
 
 	return false;
+end
+
+function onPCAdvantagePropertyUpdated(nodeProperty)
+	local sPropertyName = nodeProperty.getName();
+	local nodeTrait = nodeProperty.getParent();
+	if sPropertyName == "points" then
+		local points = DB.getValue(nodeTrait, "points", 0);
+		if points < 0 then -- ensure positive or zero total for advantages.
+			-- will cause a recursion warning in FGU. that should be okay.
+			DB.setValue(nodeTrait, "points", "number", 0);
+		end
+	end
+end
+
+function onPCDisadvantagePropertyUpdated(nodeProperty)
+	local sPropertyName = nodeProperty.getName();
+	local nodeTrait = nodeProperty.getParent();
+	if sPropertyName == "points" then
+		local points = DB.getValue(nodeTrait, "points", 0);
+		if points > 0 then -- ensure negative or zero total for disadvantages.
+			-- will cause a recursion warning in FGU. that should be okay.
+			DB.setValue(nodeTrait, "points", "number", 0);
+		end
+	end
 end
 
 function updateEncumbrance(nodeChar)

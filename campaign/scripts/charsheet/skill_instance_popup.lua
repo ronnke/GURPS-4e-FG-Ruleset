@@ -21,8 +21,8 @@ function onStateChanged()
 	if header.subwindow then
 		header.subwindow.update();
 	end
-	if detail.subwindow then
-		detail.subwindow.update();
+	if details.subwindow then
+		details.subwindow.update();
 	end
 end
 
