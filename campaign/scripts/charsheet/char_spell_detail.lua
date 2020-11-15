@@ -17,7 +17,6 @@ function update()
 	self["resist"].update(bReadOnly);
 	self["text"].update(bReadOnly);
 	self["duration"].update(bReadOnly);
-	self["spellcost"].update(bReadOnly);
 	self["costmaintain"].update(bReadOnly);
 	self["time"].update(bReadOnly);
 	self["prereqs"].update(bReadOnly);

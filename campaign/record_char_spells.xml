@@ -484,11 +484,6 @@
 			</label_column>
 			<string_columnh name="duration" />
 
-			<label_column name="spellcost_label">
-				<static textres="ability_spellcost_label" />
-			</label_column>
-			<string_columnh name="spellcost" />
-
 			<label_column name="costmaintain_label">
 				<static textres="char_label_costmaintain" />
 			</label_column>
