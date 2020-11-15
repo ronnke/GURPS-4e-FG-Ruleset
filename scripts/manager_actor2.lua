@@ -484,8 +484,9 @@ function reconcilePCSpell(nSpell)
 	-- at this point, we have enough information to calculate our skill.
 	local nCharacter = nSpell.getParent().getParent().getParent();
 	local skillData = getSkillLevel(nCharacter, type, points, DB.getValue(nSpell, "level_adj", 0));
-	if not skillData then
+	if skillData == nil then
 		-- the type or points could be invalid.
+		return;
 	end
 
 	DB.setValue(nSpell, "level", "number", skillData.adjustedLevel);
