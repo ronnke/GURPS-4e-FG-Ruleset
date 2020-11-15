@@ -345,22 +345,21 @@ function addAbility(nodeChar, nodeAbility)
 		if not skillData then
 			return false;
 		end
-
 		local nodeSpell = DB.createChild(nodeSpellsList);
 		DB.setValue(nodeSpell, "name", "string", DB.getValue(nodeAbility,"name",""));
-		DB.setValue(nodeSpell, "class", "string", DB.getValue(nodeAbility,"spellclass",""));
-		DB.setValue(nodeSpell, "time", "string", DB.getValue(nodeAbility,"spelltimetocast",""));
-		DB.setValue(nodeSpell, "duration", "string", DB.getValue(nodeAbility,"spellduration",""));
-		DB.setValue(nodeSpell, "costmaintain", "string", DB.getValue(nodeAbility,"spellcost",""));
-		DB.setValue(nodeSpell, "resist", "string", DB.getValue(nodeAbility,"spellresist",""));
-		DB.setValue(nodeSpell, "college", "string", DB.getValue(nodeAbility,"spellcollege",""));
 		DB.setValue(nodeSpell, "page", "string", DB.getValue(nodeAbility,"page",""));
+		DB.setValue(nodeSpell, "class", "string", DB.getValue(nodeAbility,"spellclass",""));
+		DB.setValue(nodeSpell, "college", "string", DB.getValue(nodeAbility,"spellcollege",""));
+		DB.setValue(nodeSpell, "costmaintain", "string", DB.getValue(nodeAbility,"spellcost",""));
+		DB.setValue(nodeSpell, "duration", "string", DB.getValue(nodeAbility,"spellduration",""));
+		DB.setValue(nodeSpell, "prereqs", "string", DB.getValue(nodeAbility,"spellprerequisite",""));
+		DB.setValue(nodeSpell, "resist", "string", DB.getValue(nodeAbility,"spellresist",""));
+		DB.setValue(nodeSpell, "time", "string", DB.getValue(nodeAbility,"spelltimetocast",""));
 		DB.setValue(nodeSpell, "text", "formattedtext", DB.getValue(nodeAbility,"text",""));
+		DB.setValue(nodeSpell, "type", "string", skillData.abbreviatedSkillType);
 		DB.setValue(nodeSpell, "level_adj", "number", 0);
 		DB.setValue(nodeSpell, "points_adj", "number", 0);
 		DB.setValue(nodeSpell, "points", "number", 1);
-		DB.setValue(nodeSpell, "type", "string", skillData.abbreviatedSkillType);
-
 		return true;
 	end
 
@@ -453,15 +452,15 @@ function onPCSpellPropertyUpdated(nodeProperty)
 	local sPropertyName = nodeProperty.getName();
 	-- we only care about certain properties changing for the purposes of skill reconciliaition.
 	if sPropertyName == "type" then
-		reconcilePCSkill(nodeProperty.getParent());
+		reconcilePCSpell(nodeProperty.getParent());
 	elseif sPropertyName == "points" then
-		reconcilePCSkill(nodeProperty.getParent());
+		reconcilePCSpell(nodeProperty.getParent());
 	elseif sPropertyName == "prereqs" then
-		reconcilePCSkill(nodeProperty.getParent());
+		reconcilePCSpell(nodeProperty.getParent());
 	elseif sPropertyName == "level_adj" then
-		reconcilePCSkill(nodeProperty.getParent());
+		reconcilePCSpell(nodeProperty.getParent());
 	elseif sPropertyName == "points_adj" then
-		reconcilePCSkill(nodeProperty.getParent());
+		reconcilePCSpell(nodeProperty.getParent());
 	end
 end
 
