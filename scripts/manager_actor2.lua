@@ -323,6 +323,7 @@ function addAbility(nodeChar, nodeAbility)
 		DB.setValue(nodeSpell, "college", "string", DB.getValue(nodeAbility,"spellcollege",""));
 		DB.setValue(nodeSpell, "page", "string", DB.getValue(nodeAbility,"page",""));
 		DB.setValue(nodeSpell, "text", "formattedtext", DB.getValue(nodeAbility,"text",""));
+		DB.setValue(nodeSpell, "prereqs", "string", DB.getValue(nodeAbility,"spellprerequisite",""));
 		DB.setValue(nodeSpell, "level_adj", "number", 0);
 		DB.setValue(nodeSpell, "points_adj", "number", 0);
 		DB.setValue(nodeSpell, "points", "number", DEFAULT_NEW_ABILITY_POINTS);
