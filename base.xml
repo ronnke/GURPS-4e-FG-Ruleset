@@ -101,6 +101,7 @@
 	<script name="LanguageManager" file="scripts/manager_language.lua" />
 	<script name="ActionsManager2" file="scripts/manager_actions2.lua" />
 	<script name="ActorManager2" file="scripts/manager_actor2.lua" />
+	<script name="ActorAbilityManager" file="scripts/manager_actor_ability.lua" />
 	<script name="CampaignDataManager2" file="scripts/manager_campaigndata2.lua" />
 	<script name="CombatManager2" file="scripts/manager_combat2.lua" />
 	<script name="ItemManager2" file="scripts/manager_item2.lua" />

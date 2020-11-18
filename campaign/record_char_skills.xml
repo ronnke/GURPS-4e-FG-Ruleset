@@ -448,6 +448,13 @@
 			</label_column>
 			<string_columnh name="page" />
 
+			<label_column name="basis_label">
+				<static textres="ability_basis_label" />
+			</label_column>
+			<string_columnh name="basis">
+				<readonly/>
+			</string_columnh>
+
 			<label_column name="level_adj_label">
 				<static textres="ability_level_adjustment_label" />
 			</label_column>

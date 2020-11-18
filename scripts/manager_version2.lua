@@ -543,6 +543,16 @@ function migrateChar5(nodeChar)
       local nodeValue = DB.getValue(nodeOld,"text","");
       DB.deleteChild(nodeOld, "text");
       DB.setValue(nodeOld, "text", "formattedtext", nodeValue);
+      local totalCP = DB.getValue(nodeOld, "points", 0);
+      local abilityName = DB.getValue(nodeOld, "name", "");
+      local abilityType = DB.getValue(nodeOld, "type", "");
+      local desiredLevel = DB.getValue(nodeOld, "level", 0);
+      local abilityInfo = ActorAbilityManager.calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, "", 0);
+      if abilityInfo then
+        if abilityInfo.level ~= desiredLevel then
+          DB.setValue(nodeOld, "level_adj", "number", desiredLevel - abilityInfo.level);
+        end
+      end
     end
   end
 
@@ -552,6 +562,19 @@ function migrateChar5(nodeChar)
       local nodeValue = DB.getValue(nodeOld,"text","");
       DB.deleteChild(nodeOld, "text");
       DB.setValue(nodeOld, "text", "formattedtext", nodeValue);
+      local totalCP = DB.getValue(nodeOld, "points", 0);
+      local abilityName = DB.getValue(nodeOld, "name", "");
+      local abilityType = DB.getValue(nodeOld, "type", "");
+      if abilityType == "" then
+        abilityType = "IQ/H";
+      end
+      local desiredLevel = DB.getValue(nodeOld, "level", 0);
+      local abilityInfo = ActorAbilityManager.calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, "", 0);
+      if abilityInfo then
+        if abilityInfo.level ~= desiredLevel then
+          DB.setValue(nodeOld, "level_adj", "number", desiredLevel - abilityInfo.level);
+        end
+      end
     end
   end
 
