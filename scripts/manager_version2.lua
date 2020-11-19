@@ -49,9 +49,6 @@ function updateChar(nodePC, nVersion)
     if nVersion < 8 then
         migrateChar8(nodePC);
     end
-    if nVersion < 9 then
-        migrateChar9(nodePC);
-  end
 end
 
 function updateCampaign()
@@ -60,7 +57,7 @@ function updateCampaign()
 	if not major then
 		return;
 	end
-	if major > 0 and major < 9 then
+	if major > 0 and major < 8 then
 		print("Migrating campaign database to latest data version. (" .. rsname ..")");
 		DB.backup();
 		
@@ -81,9 +78,6 @@ function updateCampaign()
         end
         if major < 8 then
           convertChars8();
-        end
-        if major < 9 then
-          convertChars9();
         end
 	end
 end
@@ -121,12 +115,6 @@ end
 function convertChars8()
   for _,nodeChar in pairs(DB.getChildren("charsheet")) do
     migrateChar8(nodeChar);
-  end
-end
-
-function convertChars9()
-  for _,nodeChar in pairs(DB.getChildren("charsheet")) do
-    migrateChar9(nodeChar);
   end
 end
 
@@ -646,39 +634,5 @@ function migrateChar8(nodeChar)
     local nFatigue = DB.getValue(nodeChar, "attributes.fatiguepoints",  0) - DB.getValue(nodeChar, "attributes.fps",  0);
     DB.setValue(nodeChar, "attributes.injury", "number", (nInjury < 0 and 0 or nInjury));
     DB.setValue(nodeChar, "attributes.fatigue", "number", (nFatigue < 0 and 0 or nFatigue));
-  end
-end
-
-function migrateChar9(nodeChar)
-  -- adjust existing skills and spells to take into accunt the existance of the new bonus levels feature.
-  if DB.getChild(nodeChar, "abilities.skilllist") then
-    for _,nodeOld in pairs(DB.getChildren(nodeChar, "abilities.skilllist")) do
-      local totalCP = DB.getValue(nodeOld, "points", 0);
-      local abilityName = DB.getValue(nodeOld, "name", "");
-      local abilityType = DB.getValue(nodeOld, "type", "");
-      local desiredLevel = DB.getValue(nodeOld, "level", 0);
-      local abilityInfo = ActorAbilityManager.calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, "", 0);
-      if abilityInfo then
-        if abilityInfo.level ~= desiredLevel then
-          DB.setValue(nodeOld, "level_adj", "number", desiredLevel - abilityInfo.level);
-        end
-      end
-    end
-  end
-
-  -- Convert Spells
-  if DB.getChild(nodeChar, "abilities.spelllist") then
-    for _,nodeOld in pairs(DB.getChildren(nodeChar, "abilities.spelllist")) do
-      local totalCP = DB.getValue(nodeOld, "points", 0);
-      local abilityName = DB.getValue(nodeOld, "name", "");
-      local abilityType = DB.getValue(nodeOld, "type", "");
-      local desiredLevel = DB.getValue(nodeOld, "level", 0);
-      local abilityInfo = ActorAbilityManager.calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, "", 0);
-      if abilityInfo then
-        if abilityInfo.level ~= desiredLevel then
-          DB.setValue(nodeOld, "level_adj", "number", desiredLevel - abilityInfo.level);
-        end
-      end
-    end
   end
 end

@@ -36,36 +36,6 @@ aSkillTypeData = {
 	"Tech/Hard",
 };
 
-aSkillTypeAbbrData = {
-	"",
-	"ST/E",
-	"ST/A",
-	"ST/H",
-	"ST/VH",
-	"DX/E",
-	"DX/A",
-	"DX/H",
-	"DX/VH",
-	"IQ/E",
-	"IQ/A",
-	"IQ/H",
-	"IQ/VH",
-	"HT/E",
-	"HT/A",
-	"HT/H",
-	"HT/VH",
-	"Will/E",
-	"Will/A",
-	"Will/H",
-	"Will/VH",
-	"Per/E",
-	"Per/A",
-	"Per/H",
-	"Per/VH",
-	"Tech/A",
-	"Tech/H",
-};
-
 aSpellClassData = {
 	"Regular",
 	"Area",
@@ -80,11 +50,6 @@ aSpellClassData = {
 aSpellTypeData = {
 	"IQ/Hard",
 	"IQ/Very Hard",
-};
-
-aSpellTypeAbbrData = {
-	"IQ/H",
-	"IQ/VH",
 };
 
 aTraitTypeData = {
