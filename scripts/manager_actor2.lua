@@ -14,6 +14,14 @@ COLOR_FATIGUE_FATIGUED = "AF7817";
 COLOR_FATIGUE_CRITICAL = "E56717";
 COLOR_FATIGUE_UNCONSCIOUS = "C11B17";
 
+local DEFAULT_NEW_ABILITY_POINTS = 1;
+
+function onInit()
+	DB.addHandler(DB.getPath("charsheet.*.attributes.*"), "onUpdate", onAttributeUpdated);
+	DB.addHandler(DB.getPath("charsheet.*.traits.adslist.*.*"), "onUpdate", onAdvantageUpdated);
+	DB.addHandler(DB.getPath("charsheet.*.traits.disadslist.*.*"), "onUpdate", onDisadvantageUpdated);
+end
+
 function getInjuryStatus(sNodeType, node)
 	local rActor = ActorManager.getActor(sNodeType, node);
 	
@@ -155,75 +163,6 @@ function getFPStatus(sNodeType, node)
 	return "";
 end
 
-function getSkillLevel(nodeChar, type, points)
-	if not nodeChar then  
-		return;
-	end
-
-	local attribute, difficulty = type:match("^(%a+)[/]([%a%s]+)");
-	if not attribute or not difficulty then
-		return;
-	end
-
-	local nLevel, skilltype, relativelevel;
-	
-	nLevel = 0
-	if attribute:lower() ~= "tech" then
-		if points == 1 then
-			nLevel = 0;
-		elseif points == 2 then
-			nLevel = 1;
-		elseif points >= 4 then
-			nLevel = 1 + math.floor(points/4);
-		end
-
-		if difficulty:lower() == "easy" then
-			skilltype = string.format("%s/%s", attribute, "E");
-		elseif difficulty:lower() == "average" then
-			skilltype = string.format("%s/%s", attribute, "A");
-			nLevel = nLevel - 1;
-		elseif difficulty:lower() == "hard" then
-			skilltype = string.format("%s/%s", attribute, "H");
-			nLevel = nLevel - 2;
-		elseif difficulty:lower() == "very hard" then
-			skilltype = string.format("%s/%s", attribute, "VH");
-			nLevel = nLevel - 3;
-		end
-
-		relativelevel = string.format("%s%s%d", attribute, (nLevel >= 0 and "+" or ""), nLevel);
-	elseif attribute:lower() == "tech" then
-		if difficulty:lower() == "average" then
-			skilltype = string.format("%s/%s", attribute, "A");
-			nLevel = points;
-		elseif difficulty:lower() == "hard" then
-			skilltype = string.format("%s/%s", attribute, "H");
-			nLevel = (points >= 2 and points - 1 or 0);
-		end
-
-		relativelevel = string.format("Def+%d", nLevel);
-	end
-
-	if nodeChar then  
-		if attribute:lower() == "st" then
-			nLevel = nLevel + DB.getValue(nodeChar,"attributes.strength",0);
-		elseif attribute:lower() == "dx" then
-			nLevel = nLevel + DB.getValue(nodeChar,"attributes.dexterity",0);
-		elseif attribute:lower() == "iq" then
-			nLevel = nLevel + DB.getValue(nodeChar,"attributes.intelligence",0);
-		elseif attribute:lower() == "ht" then
-			nLevel = nLevel + DB.getValue(nodeChar,"attributes.health",0);
-		elseif attribute:lower() == "will" then
-			nLevel = nLevel + DB.getValue(nodeChar,"attributes.will",0);
-		elseif attribute:lower() == "per" then
-			nLevel = nLevel + DB.getValue(nodeChar,"attributes.perception",0);
-		else
-			nLevel = 0;
-		end
-	end
-
-	return nLevel, skilltype, relativelevel;
-end
-
 function hasMeleeWeapons(node)
   local nCount = DB.getChildCount(node, "combat.meleecombatlist");
   if nCount > 0 then
@@ -242,6 +181,49 @@ function hasRangedWeapons(node)
   return false
 end
 
+function onAttributeUpdated(nodeAttribute)
+	local nodeActor = nodeAttribute.getParent().getParent();
+	local attributeName = nodeAttribute.getName();
+	local newValue = DB.getValue(nodeActor, attributeName, 0);
+	if attributeName == "strength" then
+		onStrengthUpdated(nodeActor, newValue);
+	elseif attributeName == "dexterity" then
+		onDexterityUpdated(nodeActor, newValue);
+	elseif attributeName == "intelligence" then
+		onIntelligenceUpdated(nodeActor, newValue);
+	elseif attributeName == "health" then
+		onHealthUpdated(nodeActor, newValue);
+	elseif attributeName == "perception" then
+		onPerceptionUpdated(nodeActor, newValue);
+	elseif attributeName == "will" then
+		onWillUpdated(nodeActor, newValue);
+	end
+end
+
+function onStrengthUpdated(nodeActor, newValue)
+	ActorAbilityManager.reconcileAbilitiesBasedOn(nodeActor, "ST");
+end
+
+function onDexterityUpdated(nodeActor, newValue)
+	ActorAbilityManager.reconcileAbilitiesBasedOn(nodeActor, "DX");
+end
+
+function onIntelligenceUpdated(nodeActor, newValue)
+	ActorAbilityManager.reconcileAbilitiesBasedOn(nodeActor, "IQ");
+end
+
+function onHealthUpdated(nodeActor, newValue)
+	ActorAbilityManager.reconcileAbilitiesBasedOn(nodeActor, "HT");
+end
+
+function onPerceptionUpdated(nodeActor, newValue)
+	ActorAbilityManager.reconcileAbilitiesBasedOn(nodeActor, "Per");
+end
+
+function onWillUpdated(nodeActor, newValue)
+	ActorAbilityManager.reconcileAbilitiesBasedOn(nodeActor, "Will");
+end
+
 function addAbility(nodeChar, nodeAbility)
 	if not nodeChar or not nodeAbility then  
 		return false;
@@ -257,27 +239,41 @@ function addAbility(nodeChar, nodeAbility)
 	end
 
 	local sActorType, nodeActor = ActorManager.getTypeAndNode(nodeChar);
+	local abilityName = DB.getValue(nodeAbility,"name","");
+	local defaultsLine = DB.getValue(nodeAbility,"defaults","");
 	if sActorType ~= "pc" then
 		local nodeAbilitiesList = DB.getChild(nodeChar, "abilities.abilitieslist")
 		if not nodeAbilitiesList then
 			nodeAbilitiesList = DB.createChild(nodeChar, "abilities.abilitieslist");
 		end
 
-		local level = 0;
-		if bSkill then
-			level = getSkillLevel(nodeChar, DB.getValue(nodeAbility,"skilltype",""), 1);
+		local typeNodeTarget;
+		local npcNodeAbility;
+		if bOther then
+			nodeNPCAbility = DB.createChild(nodeAbilitiesList);
+			DB.setValue(nodeNPCAbility, "name", "string", abilityName);
+			DB.setValue(nodeNPCAbility, "level", "number", DB.getValue(nodeAbility,"otherlevel",0));
+			return true;
+		elseif bSkill then
+			typeNodeTarget = "skilltype";
 		elseif bSpell then
-			level = getSkillLevel(nodeChar, DB.getValue(nodeAbility,"spelltype",""), 1);
+			typeNodeTarget = "spelltype";
 		elseif bPower then
-			level = getSkillLevel(nodeChar, DB.getValue(nodeAbility,"powerskill",""), 1);
-		elseif bOther then
-			level = DB.getValue(nodeAbility,"otherlevel",0);
+			typeNodeTarget = "powerskill";
 		end
 
-		local nodeNPCAbility = DB.createChild(nodeAbilitiesList);
-		DB.setValue(nodeNPCAbility, "name", "string", DB.getValue(nodeAbility,"name",""));  
-		DB.setValue(nodeNPCAbility, "level", "number", level);
+		if not typeNodeTarget then
+			return false;
+		end
 
+		local abilityInfo = ActorAbilityManager.calculateAbilityInfo(nodeChar, DB.getValue(nodeAbility, typeNodeTarget, ""), 1, abilityName, defaultsLine, 0);
+		if not abilityInfo then
+			return false;
+		end
+
+		nodeNPCAbility = DB.createChild(nodeAbilitiesList);
+		DB.setValue(nodeNPCAbility, "name", "string", abilityName);  
+		DB.setValue(nodeNPCAbility, "level", "number", abilityInfo.level);
 		return true;
 	end
 
@@ -287,16 +283,22 @@ function addAbility(nodeChar, nodeAbility)
 			nodeSkillsList = DB.createChild(nodeChar, "abilities.skilllist");
 		end
 
-		local level, type, relativelevel = getSkillLevel(nodeChar, DB.getValue(nodeAbility,"skilltype",""), 1);
+		local abilityInfo = ActorAbilityManager.calculateAbilityInfo(nodeChar, DB.getValue(nodeAbility,"skilltype",""), DEFAULT_NEW_ABILITY_POINTS, abilityName, defaultsLine, 0);
+		if not abilityInfo then
+			return false;
+		end
 
 		local nodeSkill = DB.createChild(nodeSkillsList);
-		DB.setValue(nodeSkill, "name", "string", DB.getValue(nodeAbility,"name",""));  
-		DB.setValue(nodeSkill, "level", "number", level);
-		DB.setValue(nodeSkill, "type", "string", type);
-		DB.setValue(nodeSkill, "relativelevel", "string", relativelevel);
-		DB.setValue(nodeSkill, "points", "number", 1);
+		DB.setValue(nodeSkill, "name", "string", abilityName);
 		DB.setValue(nodeSkill, "text", "formattedtext", DB.getValue(nodeAbility,"text",""));
-
+		DB.setValue(nodeSkill, "defaults", "string", DB.getValue(nodeAbility,"skilldefault",""));
+		DB.setValue(nodeSkill, "prereqs", "string", DB.getValue(nodeAbility,"skillprerequisite",""));
+		DB.setValue(nodeSkill, "page", "string", DB.getValue(nodeAbility,"page",""));
+		DB.setValue(nodeSkill, "level_adj", "number", 0);
+		DB.setValue(nodeSkill, "points_adj", "number", 0);
+		DB.setValue(nodeSkill, "points", "number", DEFAULT_NEW_ABILITY_POINTS);
+		DB.setValue(nodeSkill, "level", "number", abilityInfo.level);
+		DB.setValue(nodeSkill, "type", "string", abilityInfo.type);
 		return true;
 	end
 
@@ -305,15 +307,15 @@ function addAbility(nodeChar, nodeAbility)
 		if not nodeSpellsList then
 			nodeSpellsList = DB.createChild(nodeChar, "abilities.spelllist");
 		end
-
-		local level, type, relativelevel = getSkillLevel(nodeChar, DB.getValue(nodeAbility,"spelltype",""), 1);
 	  
+		local abilityInfo = ActorAbilityManager.calculateAbilityInfo(nodeChar, DB.getValue(nodeAbility,"spelltype",""), DEFAULT_NEW_ABILITY_POINTS, abilityName, defaultsLine, 0);
+		if not abilityInfo then
+			return false;
+		end
+
 		local nodeSpell = DB.createChild(nodeSpellsList);
-		DB.setValue(nodeSpell, "name", "string", DB.getValue(nodeAbility,"name",""));  
-		DB.setValue(nodeSpell, "level", "number", level);
+		DB.setValue(nodeSpell, "name", "string", abilityName);
 		DB.setValue(nodeSpell, "class", "string", DB.getValue(nodeAbility,"spellclass",""));
-		DB.setValue(nodeSpell, "type", "string", type);
-		DB.setValue(nodeSpell, "points", "number", 1);
 		DB.setValue(nodeSpell, "time", "string", DB.getValue(nodeAbility,"spelltimetocast",""));
 		DB.setValue(nodeSpell, "duration", "string", DB.getValue(nodeAbility,"spellduration",""));
 		DB.setValue(nodeSpell, "costmaintain", "string", DB.getValue(nodeAbility,"spellcost",""));
@@ -321,7 +323,12 @@ function addAbility(nodeChar, nodeAbility)
 		DB.setValue(nodeSpell, "college", "string", DB.getValue(nodeAbility,"spellcollege",""));
 		DB.setValue(nodeSpell, "page", "string", DB.getValue(nodeAbility,"page",""));
 		DB.setValue(nodeSpell, "text", "formattedtext", DB.getValue(nodeAbility,"text",""));
-	
+		DB.setValue(nodeSpell, "prereqs", "string", DB.getValue(nodeAbility,"spellprerequisite",""));
+		DB.setValue(nodeSpell, "level_adj", "number", 0);
+		DB.setValue(nodeSpell, "points_adj", "number", 0);
+		DB.setValue(nodeSpell, "points", "number", DEFAULT_NEW_ABILITY_POINTS);
+		DB.setValue(nodeSpell, "level", "number", abilityInfo.level);
+		DB.setValue(nodeSpell, "type", "string", abilityInfo.type);
 		return true;
 	end
 
@@ -331,14 +338,16 @@ function addAbility(nodeChar, nodeAbility)
 			nodePowersList = DB.createChild(nodeChar, "abilities.powerlist");
 		end
 
-		local level, type, relativelevel = getSkillLevel(nodeChar, DB.getValue(nodeAbility,"powerskill",""), 1);
-
+		local abilityInfo = ActorAbilityManager.calculateAbilityInfo(nodeChar, DB.getValue(nodeAbility,"powerskill",""), DEFAULT_NEW_ABILITY_POINTS, abilityName, defaultsLine, 0);
+		if not abilityInfo then
+			return false;
+		end
+		
 		local nodePower = DB.createChild(nodePowersList);
-		DB.setValue(nodePower, "name", "string", DB.getValue(nodeAbility,"name",""));  
-		DB.setValue(nodePower, "level", "number", level);
-		DB.setValue(nodePower, "points", "number", 1);
+		DB.setValue(nodePower, "name", "string", abilityName);  
 		DB.setValue(nodePower, "text", "formattedtext", DB.getValue(nodeAbility,"text",""));
-	
+		DB.setValue(nodePower, "points", "number", DEFAULT_NEW_ABILITY_POINTS);
+		DB.setValue(nodePower, "level", "number", abilityInfo.level);
 		return true;
 	end
 
@@ -349,11 +358,10 @@ function addAbility(nodeChar, nodeAbility)
 		end
 
 		local nodeOther = DB.createChild(nodeOtherList);
-		DB.setValue(nodeOther, "name", "string", DB.getValue(nodeAbility,"name",""));  
+		DB.setValue(nodeOther, "name", "string", abilityName);  
 		DB.setValue(nodeOther, "level", "number", DB.getValue(nodeAbility,"otherlevel",0));
 		DB.setValue(nodeOther, "points", "number", DB.getValue(nodeAbility,"otherpoints",0));
 		DB.setValue(nodeOther, "text", "formattedtext", DB.getValue(nodeAbility,"text",""));
-	
 		return true;
 	end
 
@@ -401,6 +409,7 @@ function addTrait(nodeChar, nodeTrait)
 		local nodeAdvantage = DB.createChild(nodeAdvantageList);
 		DB.setValue(nodeAdvantage, "name", "string", DB.getValue(nodeTrait,"name",""));  
 		DB.setValue(nodeAdvantage, "points", "number", DB.getValue(nodeTrait,"points",0));
+		DB.setValue(nodeAdvantage, "page", "string", DB.getValue(nodeTrait, "page", ""));
 		DB.setValue(nodeAdvantage, "text", "formattedtext", DB.getValue(nodeTrait,"text",""));
 
 		return true;
@@ -415,12 +424,41 @@ function addTrait(nodeChar, nodeTrait)
 		local nodeDisadvantage = DB.createChild(nodeDisadvantageList);
 		DB.setValue(nodeDisadvantage, "name", "string", DB.getValue(nodeTrait,"name",""));  
 		DB.setValue(nodeDisadvantage, "points", "number", DB.getValue(nodeTrait,"points",0));
+		DB.setValue(nodeDisadvantage, "page", "string", DB.getValue(nodeTrait, "page", ""));
 		DB.setValue(nodeDisadvantage, "text", "formattedtext", DB.getValue(nodeTrait,"text",""));
-
+		
 		return true;
 	end
 
 	return false;
+end
+
+function onAdvantageUpdated(nodeField)
+	local advantageName = nodeField.getName();
+	local advantage = nodeField.getParent();
+	if advantageName == "points" then
+		local points = DB.getValue(advantage, "points", 0);
+		if points < 0 then
+			-- Note: This can cause a recursion warning. Since we are terminating the function
+			-- right now anyway, this is okay.
+			DB.setValue(advantage, "points", "number", 0);
+			return;
+		end
+	end
+end
+
+function onDisadvantageUpdated(nodeField)
+	local disadvantageName = nodeField.getName();
+	local disadvantage = nodeField.getParent();
+	if disadvantageName == "points" then
+		local points = DB.getValue(disadvantage, "points", 0);
+		if points > 0 then
+			-- Note: This can cause a recursion warning. Since we are terminating the function
+			-- right now anyway, this is okay.
+			DB.setValue(disadvantage, "points", "number", 0);
+			return;
+		end
+	end
 end
 
 function updateEncumbrance(nodeChar)
@@ -502,6 +540,117 @@ function getTypeAndRootNode(node)
 	end
 
 	return ActorManager.getTypeAndNode(node);
+end
+
+-- Given an actor and the name of an attribute or ability, this will return a table with
+-- current information about that stat.
+function getStat(nodeActor, sName)
+	if not nodeActor or not sName or sName:len() < 2 then
+		return;
+	end
+
+	local nodeChar = nodeActor;
+	local stat;
+	if ActorManager.isPC(nodeChar) then
+		stat = getAttributeStatFromList(nodeChar.getChild("attributes"), sName, "pc");
+		if stat then 
+			return stat;
+		end
+
+		stat = getAbilityStatFromList(nodeChar.getChild("abilities.skilllist"), sName, "skill", "pc");
+		if stat then 
+			return stat;
+		end
+
+		stat = getAbilityStatFromList(nodeChar.getChild("abilities.spelllist"), sName, "spell", "pc");
+		if stat then 
+			return stat;
+		end
+
+		stat = getAbilityStatFromList(nodeChar.getChild("abilities.powerlist"), sName, "power", "pc");
+		if stat then 
+			return stat;
+		end
+
+		stat = getAbilityStatFromList(nodeChar.getChild("abilities.otherlist"), sName, "ability", "pc");
+		if stat then 
+			return stat;
+		end
+
+	else
+		stat = getAttributeStatFromList(nodeChar.getChild("attributes"), sName, "npc");
+		if stat then 
+			return stat;
+		end
+
+		stat = getAbilityStatFromList(nodeChar.getChild("abilites.abilitieslist"), sName, "ability", "npc");
+		if stat then 
+			return stat;
+		end
+    end
+    
+	return;
+end
+
+function getAttributeStatFromList(nAttributeList, sName, sActorType)
+	if not nAttributeList or not sName or sName:len() < 2 then
+		return;
+    end
+    
+    local name = StringManager.trim(sName:lower());
+    if name == "st" then
+        name = "strength";
+    elseif name == "dx" then
+        name = "dexterity";
+    elseif name == "iq" then
+        name = "intelligence";
+    elseif name == "ht" then
+        name = "health";
+    elseif name == "per" then
+        name = "perception";
+    end
+
+	local node = nAttributeList.getChild(name);
+	if not node then
+		return;
+	end
+
+	local result = {};
+	result.requestedName = sName;
+	result.name = name;
+	result.actorType = sActorType;
+	result.statType = "attribute";
+	result.level = DB.getValue(nAttributeList, name, 0);
+	result.points = DB.getValue(nAttributeList, name .. "_points", 0);
+	return result;
+end
+
+-- Gets the numeric value of an ability from a list of abilities.
+-- This will not return a default ability unless that default
+-- ability has been entered in the list already.
+function getAbilityStatFromList(nodeList, sName, sActorType, sStatType)
+	if not nodeList or not sName or sName:len() < 2 then
+		return;
+	end
+
+	for _, node in pairs(nodeList.getChildren()) do
+		local name = DB.getValue(node, "name", "");
+		if name == sName then
+			local result = {};
+			result.requestedName = sName;
+			result.name = name;
+			result.actorType = sActorType;
+			result.statType = sStatType;
+			result.level = DB.getValue(node, "level", 0);
+			result.level_adj = DB.getValue(node, "level_adj", 0);
+			result.points = DB.getValue(node, "points", 0);
+			result.points_adj = DB.getValue(node, "points_adj", 0);
+			result.basis = DB.getValue(node, "basis", ActorAbilityManager.DEFAULT_BASIS_NAME);
+			result.relativelevel = DB.getValue(node, "relativelevel", "");
+			result.type = DB.getValue(node, "type", "");
+			return result;
+		end
+	end
 end
 
 function updatePointsTotal(nodeChar)

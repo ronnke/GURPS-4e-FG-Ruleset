@@ -5,7 +5,7 @@
   attribution and copyright information.
 -->
 
-<root version="3.0" release="8" logo="logo.png">
+<root version="3.0" release="9" logo="logo.png">
 	<announcement text="GURPS 4E core ruleset v3.5.6 for Fantasy Grounds." font="emotefont" />
 	<announcement text="Produced with the permission of Steve Jackson Games." font="emotefont" />
 	<announcement text="This work is based on GURPS 4E System and is the accumulated effort of several members of the Fantasy Grounds community. This release was authored by Brian Ronnle, building on previous releases by Eric Hilerio and Graham Brand. Contributors: Jesse Meigs (Jaxilon)" font="emotefont" />
@@ -101,6 +101,7 @@
 	<script name="LanguageManager" file="scripts/manager_language.lua" />
 	<script name="ActionsManager2" file="scripts/manager_actions2.lua" />
 	<script name="ActorManager2" file="scripts/manager_actor2.lua" />
+	<script name="ActorAbilityManager" file="scripts/manager_actor_ability.lua" />
 	<script name="CampaignDataManager2" file="scripts/manager_campaigndata2.lua" />
 	<script name="CombatManager2" file="scripts/manager_combat2.lua" />
 	<script name="ItemManager2" file="scripts/manager_item2.lua" />

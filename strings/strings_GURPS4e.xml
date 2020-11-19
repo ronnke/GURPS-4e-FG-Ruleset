@@ -338,6 +338,10 @@
   <string name="ability_type_label">Type</string>
   <string name="ability_subtype_label">Subtype</string>
   <string name="ability_page_label">Page</string>
+  <string name="ability_relativelevel">Relative Level</string>
+  <string name="ability_level_adjustment_label">Level Bonus</string>
+  <string name="ability_points_adjustment_label">Point Bonus</string>
+  <string name="ability_basis_label">Basis</string>
   
   <string name="ability_skilltype_label">Skill Type</string>
   <string name="ability_skilldefault_label">Skill Default</string>

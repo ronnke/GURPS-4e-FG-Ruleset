@@ -44,17 +44,7 @@
 
 	<windowclass name="ability_header">
 		<margins control="0,0,0,7" />
-		<script>
-			function onInit()
-				update();
-			end
-			function update()
-				local nodeRecord = getDatabaseNode();
-
-				local bReadOnly = WindowManager.getReadOnlyState(nodeRecord);
-				name.setReadOnly(bReadOnly);
-			end
-		</script>
+		<script file="campaign/scripts/charsheet/ability_header.lua" />
 		<sheetdata>
 			<link_record_header name="link">
 				<class>ability</class>
