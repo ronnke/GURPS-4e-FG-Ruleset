@@ -289,6 +289,7 @@ function addAbility(nodeChar, nodeAbility)
 		end
 
 		local nodeSkill = DB.createChild(nodeSkillsList);
+		DB.setValue(nodeSkill, "basis", "string", abilityInfo.basis);  
 		DB.setValue(nodeSkill, "name", "string", abilityName);
 		DB.setValue(nodeSkill, "text", "formattedtext", DB.getValue(nodeAbility,"text",""));
 		DB.setValue(nodeSkill, "defaults", "string", DB.getValue(nodeAbility,"skilldefault",""));

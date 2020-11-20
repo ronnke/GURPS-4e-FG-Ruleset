@@ -176,7 +176,7 @@ function calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, defau
 	end
 
 	if typeInfo.basis == "Tech" then -- this is a technique.
-		if bestDefault then -- techniques must have a default.
+		if bestDefault then
 			level = bestDefaultLevel;
 			if bestDefault.statType ~= "attribute" then
 				basis = bestDefault.name;
@@ -192,6 +192,10 @@ function calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, defau
 
 			level = level + level_adj;
 			relativelevel = makeRelativeLevelString("Def", level - bestDefaultLevel);
+		else
+			basis = "Unknown";
+			level = level_adj;
+			relativelevel = makeRelativeLevelString("Unk", level - 10);
 		end
 	elseif nameInfo.wild then -- this is a wildcard ability.
 		local baseStat = ActorManager2.getStat(nodeChar, typeInfo.basis);
@@ -204,44 +208,54 @@ function calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, defau
 
 			level = level + level_adj;
 			relativelevel = makeRelativeLevelString(typeInfo.basis, level - baseStat.level);
+		else
+			basis = "Unknown";
+			level = level_adj;
+			relativelevel = makeRelativeLevelString("Unk", level - 10);
 		end
 	else -- this is a typical ability.
 		local baseStat = ActorManager2.getStat(nodeChar, typeInfo.basis);
-		if totalCP <= 0 then -- this skill is based on a default.
-			if bestDefault then
-				level = bestDefaultLevel;
-				if bestDefault.statType ~= "attribute" then
-					basis = bestDefault.name;
-				end
-			end
-		else -- we spent points on this.
-			if bestDefault then -- Improving Skills from Default (B:173)
-				if bestDefault.statType ~= "attribute" then
-					local bonus_points = calculatePointsNeededForAbilityLevel(baseStat.level, typeInfo.difficulty, bestDefaultLevel);
-					if bonus_points > 0 then
+		if baseStat then
+			if totalCP <= 0 then -- this skill is based on a default.
+				if bestDefault then
+					level = bestDefaultLevel;
+					if bestDefault.statType ~= "attribute" then
 						basis = bestDefault.name;
 					end
-					totalCP = totalCP + bonus_points;
+				end
+			else -- we spent points on this.
+				if bestDefault then -- Improving Skills from Default (B:173)
+					if bestDefault.statType ~= "attribute" then
+						local bonus_points = calculatePointsNeededForAbilityLevel(baseStat.level, typeInfo.difficulty, bestDefaultLevel);
+						if bonus_points > 0 then
+							basis = bestDefault.name;
+						end
+						totalCP = totalCP + bonus_points;
+					end
+				end
+
+				if totalCP >= 2 then
+					level = baseStat.level + math.floor(totalCP/4) - 2;
+				else
+					level = baseStat.level - 3;
+				end
+
+				if typeInfo.difficulty == "E" then
+					level = level + 3;
+				elseif typeInfo.difficulty == "A" then
+					level = level + 2;
+				elseif typeInfo.difficulty == "H" then
+					level = level + 1;
 				end
 			end
 
-			if totalCP >= 2 then
-				level = baseStat.level + math.floor(totalCP/4) - 2;
-			else
-				level = baseStat.level - 3;
-			end
-
-			if typeInfo.difficulty == "E" then
-				level = level + 3;
-			elseif typeInfo.difficulty == "A" then
-				level = level + 2;
-			elseif typeInfo.difficulty == "H" then
-				level = level + 1;
-			end
+			level = level + level_adj;
+			relativelevel = makeRelativeLevelString(typeInfo.basis, level - baseStat.level);
+		else
+			basis = "Unknown";
+			level = level_adj;
+			relativelevel = makeRelativeLevelString("Unk", level - 10);
 		end
-
-		level = level + level_adj;
-		relativelevel = makeRelativeLevelString(typeInfo.basis, level - baseStat.level);
 	end
 
 	result = {};
@@ -346,6 +360,7 @@ function reconcilePCSkill(nodeSkill)
 		return;
 	end
 
+	DB.setValue(nodeSkill, "basis", "string", abilityInfo.basis);
 	DB.setValue(nodeSkill, "level", "number", abilityInfo.level);
 	DB.setValue(nodeSkill, "relativelevel", "string", abilityInfo.relativelevel);
 end

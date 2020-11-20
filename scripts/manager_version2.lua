@@ -661,9 +661,12 @@ function migrateChar9(nodeChar)
       local defaultsLine = DB.getValue(nodeOld, "defaults", "");
       local level_adjust = DB.getValue(nodeOld, "level_adj", 0);
       local abilityInfo = ActorAbilityManager.calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, defaultsLine, level_adjust);
-      if abilityInfo and abilityInfo.level ~= desiredLevel then
-        print("Adjusting level for '" .. abilityInfo.name .. "' skill on '" .. characterName .. "'. Old level is '" .. desiredLevel .. "' but calculated level was '" .. abilityInfo.level .. "'.");
-        DB.setValue(nodeOld, "level_adj", "number", desiredLevel - abilityInfo.level);
+      if abilityInfo then
+        DB.setValue(nodeOld, "basis", "string", abilityInfo.basis);
+        if abilityInfo.level ~= desiredLevel then
+          print("Adjusting level for '" .. abilityInfo.name .. "' skill on '" .. characterName .. "'. Old level is '" .. desiredLevel .. "' but calculated level was '" .. abilityInfo.level .. "'.");
+          DB.setValue(nodeOld, "level_adj", "number", desiredLevel - abilityInfo.level);
+        end
       end
     end
   end
