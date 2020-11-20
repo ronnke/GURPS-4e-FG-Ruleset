@@ -651,15 +651,20 @@ end
 
 function migrateChar9(nodeChar)
   -- adjust existing skills and spells to take into accunt the existance of the new bonus levels feature.
+  local characterName = DB.getValue(nodeChar, "name", "");
   if DB.getChild(nodeChar, "abilities.skilllist") then
     for _,nodeOld in pairs(DB.getChildren(nodeChar, "abilities.skilllist")) do
       local totalCP = DB.getValue(nodeOld, "points", 0);
       local abilityName = DB.getValue(nodeOld, "name", "");
       local abilityType = DB.getValue(nodeOld, "type", "");
       local desiredLevel = DB.getValue(nodeOld, "level", 0);
-      local abilityInfo = ActorAbilityManager.calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, "", 0);
+      local defaultsLine = DB.getValue(nodeOld, "defaults", "");
+      local level_adjust = DB.getValue(nodeOld, "level_adj", 0);
+      local abilityInfo = ActorAbilityManager.calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, defaultsLine, level_adjust);
       if abilityInfo then
+        DB.setValue(nodeOld, "basis", "string", abilityInfo.basis);
         if abilityInfo.level ~= desiredLevel then
+          print("Adjusting level for '" .. abilityInfo.name .. "' skill on '" .. characterName .. "'. Old level is '" .. desiredLevel .. "' but calculated level was '" .. abilityInfo.level .. "'.");
           DB.setValue(nodeOld, "level_adj", "number", desiredLevel - abilityInfo.level);
         end
       end
@@ -673,11 +678,11 @@ function migrateChar9(nodeChar)
       local abilityName = DB.getValue(nodeOld, "name", "");
       local abilityType = DB.getValue(nodeOld, "type", "");
       local desiredLevel = DB.getValue(nodeOld, "level", 0);
-      local abilityInfo = ActorAbilityManager.calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, "", 0);
-      if abilityInfo then
-        if abilityInfo.level ~= desiredLevel then
-          DB.setValue(nodeOld, "level_adj", "number", desiredLevel - abilityInfo.level);
-        end
+      local level_adjust = DB.getValue(nodeOld, "level_adj", 0);
+      local abilityInfo = ActorAbilityManager.calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, "", level_adjust);
+      if abilityInfo and abilityInfo.level ~= desiredLevel then
+        print("Adjusting level for '" .. abilityInfo.name .. "' spell on '" .. characterName .. "'. Old level is '" .. desiredLevel .. "' but calculated level was '" .. abilityInfo.level .. "'.");
+        DB.setValue(nodeOld, "level_adj", "number", desiredLevel - abilityInfo.level);
       end
     end
   end
