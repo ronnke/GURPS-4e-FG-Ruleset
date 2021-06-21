@@ -25,7 +25,7 @@ function onRanged(rSource, rTarget, rRoll)
   local sMode = DB.getValue(node, "name", "");
 
   local nRoF = tonumber(string.match(DB.getValue(node, "rof", ""), "%d+"));
-  nRoF = ((nRoF == nil or nRoF < 1) and 1 or nRoF);
+  nRoF = ((nRoF == nil or nRoF < 0) and 0 or nRoF);
   
   local nAmmo = DB.getValue(node.getParent().getParent(), "ammo", 0) - nRoF;
   nAmmo = ((nAmmo < 0) and 0 or nAmmo);
@@ -55,7 +55,7 @@ function onRanged(rSource, rTarget, rRoll)
         sTargetDesc, 
         (rRoll.nMod ~= 0 and string.format("(%d%s%d)=", nTarget, (rRoll.nMod > 0 and "+" or ""), rRoll.nMod) or ""),
         nTarget + rRoll.nMod, 
-        GameSystem.rollResult(nTotal, nTarget + rRoll.nMod),
+        ManagerGURPS4e.rollResult(nTotal, nTarget + rRoll.nMod),
         (nHits > 0 and string.format(" [Maximum %d hit%s]", nHits, (nHits > 1 and "s" or "")) or "")
     );
     

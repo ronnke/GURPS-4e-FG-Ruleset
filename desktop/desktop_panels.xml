@@ -29,10 +29,13 @@
 	</panel>
 
 	<panel name="dicetower" modes="host,client">
+		<anchored height="90" width="90">
+			<bottom offset="-35" />
+			<left parent="modifierstack" anchor="right" offset="50" />
+		</anchored>
 		<class>dicetower</class>
-		<bounds>120,-120,90,90</bounds>
 		<dynamic />
 		<locked />
 	</panel>
-	
+  
 </root>

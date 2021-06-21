@@ -3,6 +3,91 @@
 -- attribution and copyright information.
 --
 
+-- GURPS Utility Functions
+
+function rollResult(nTotal, nTarget)
+  local sResult = "";
+  
+  if nTotal <= 4 or (nTotal <= 16 and nTotal <= nTarget) then
+    if nTotal <= 4 then
+      sResult = string.format("[ Critical Success! ] by %s", math.abs(nTotal - (nTarget < 4 and nTotal or nTarget)));
+    elseif nTarget - nTotal >= 10 and nTotal <= 6 then
+      sResult = string.format("[ Margin Critical! ] by %s", math.abs(nTotal - nTarget));
+    else
+      sResult = string.format("[ Success! ] by %s", math.abs(nTotal - nTarget));
+    end
+  else
+    if nTotal == 18 or (nTotal == 17 and nTarget <= 15) or nTotal - nTarget >= 10 then
+      sResult = string.format("[ Critical Failure! ] by %s", math.abs(nTotal - (nTarget > 18 and 18 or nTarget)));
+    else
+      sResult = string.format("[ Failure! ] by %s", math.abs(nTotal - (nTarget > 18 and 18 or nTarget)));
+    end
+  end
+  
+  return sResult;
+end
+
+function calcRangeMod(nRange)
+  local rangeMod = -1;
+  local factor = 0;
+  local scale = getDistanceUnitsPerGrid();
+  
+  if nRange == nil then 
+    nRange = 0;
+  end
+  
+  while rangeMod < 0 do
+    if (nRange*scale) <= (2 * math.pow(10,factor)) then
+      rangeMod = ((factor * 6) + 0);
+    elseif (nRange*scale) <= (3 * math.pow(10,factor)) then
+      rangeMod = ((factor * 6) + 1);
+    elseif (nRange*scale) <= (5 * math.pow(10,factor)) then
+      rangeMod = ((factor * 6) + 2);
+    elseif (nRange*scale) <= (7 * math.pow(10,factor)) then
+      rangeMod = ((factor * 6) + 3);
+    elseif (nRange*scale) <= (10 * math.pow(10,factor)) then
+      rangeMod = ((factor * 6) + 4);
+    elseif (nRange*scale) <= (15 * math.pow(10,factor)) then
+      rangeMod = ((factor * 6) + 5);
+    else
+      factor = factor + 1;
+    end
+  end
+  
+  return (rangeMod <= 0 and 0 or -rangeMod);
+end
+
+function calcSizeModifierGridUnits(nSM)
+  local nSize = 1;
+  local nSizeModifier = tonumber(nSM and nSM or 0);
+  
+ if nSizeModifier == nil or nSizeModifier <= 0 then
+    nSize = 1;
+  elseif nSizeModifier == 1 then
+    nSize = 3
+  elseif nSizeModifier == 2 then
+    nSize = 5
+  elseif nSizeModifier == 3 then
+    nSize = 7
+  elseif nSizeModifier == 4 then
+    nSize = 10
+  elseif nSizeModifier == 5 then
+    nSize = 15
+  elseif nSizeModifier == 6 then
+    nSize = 20
+  elseif nSizeModifier == 7 then
+    nSize = 30
+  elseif nSizeModifier == 8 then
+    nSize = 50
+  elseif nSizeModifier == 9 then
+    nSize = 70
+  else
+    nSize = 100 -- Stop at 100 so the token scale doesn't become extreme
+  end
+
+  return nSize;
+end
+
 function calcRangeModifier(length,unit)
   local rangeMod = -1;
   local factor = 0;

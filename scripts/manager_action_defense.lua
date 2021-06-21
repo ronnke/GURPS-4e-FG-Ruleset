@@ -43,7 +43,7 @@ function onDefense(rSource, rTarget, rRoll)
         (rRoll.nMod ~= 0 and string.format("(%d%s%d)=", nTarget, (rRoll.nMod > 0 and "+" or ""), rRoll.nMod) or ""),
         nTarget + rRoll.nMod, 
         sExtra,
-        GameSystem.rollResult(nTotal, nTarget + rRoll.nMod)
+        ManagerGURPS4e.rollResult(nTotal, nTarget + rRoll.nMod)
     );
   
     rMessage.diemodifier = (bAddMod and rRoll.nMod or 0);

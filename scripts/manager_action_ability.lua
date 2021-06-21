@@ -36,7 +36,7 @@ function onRoll(rSource, rTarget, rRoll)
         (rRoll.sTargetDesc or ""), 
         (rRoll.nMod ~= 0 and string.format("(%d%s%d)=", nTarget, (rRoll.nMod > 0 and "+" or ""), rRoll.nMod) or ""),
         nTarget + rRoll.nMod, 
-        GameSystem.rollResult(nTotal, nTarget + rRoll.nMod)
+        ManagerGURPS4e.rollResult(nTotal, nTarget + rRoll.nMod)
     );
   	
     rMessage.diemodifier = (bAddMod and rRoll.nMod or 0);
