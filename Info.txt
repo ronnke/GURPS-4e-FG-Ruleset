@@ -1,0 +1,185 @@
+This unofficial GURPS Ruleset for Fantasy Grounds is developed with the permission of Steve Jackson Games. 
+
+[SIZE=3][B]Latest Release Downloads[/B][/SIZE]
+
+[B]GURPS 4E Core Ruleset[/B]
+Download latest release from here: [URL="http://bit.ly/GURPS4ECore"]http://bit.ly/GURPS4ECore[/URL] 
+[I](Updated: 18th Jul 2021)[/I]
+[B][COLOR="#FF0000"](This update v3.6.x will make irreversible changes to the campaign database. As a precaution, backup your campaign folder before applying)[/COLOR][/B]
+
+* Here is a video demonstrating some of the features of the GURPS ruleset (it will be updated some day): [URL="https://youtu.be/pSm-9Trzd5w"]https://youtu.be/pSm-9Trzd5w[/URL]
+
+[B]GURPS Core Theme[/B]
+Download the latest release of the GURPS Core theme from here: [URL="http://bit.ly/GURPSCoreTheme"]http://bit.ly/GURPSCoreTheme[/URL]
+[I](Updated: 20th Mar 2020)[/I]
+[I](Courtesy of Gigermann)[/I]
+
+[B]GURPS Core Theme for Unity[/B]
+Download the latest release of the GURPS Core theme from here: [URL="http://bit.ly/GURPSCoreUTheme"]http://bit.ly/GURPSCoreUTheme[/URL]
+[I](Updated: 4th Dec 2020)[/I]
+[I](Courtesy of Gigermann)[/I]
+
+[B]GCA Exporter Files[/B]
+Download the GCA exporter files from here: [URL="http://bit.ly/GCAtoFGExport"]http://bit.ly/GCAtoFGExport[/URL] 
+[I](Updated: 21st Aug 2018)[/I]
+[I](Courtesy of Andraax)[/I]
+
+[B]GURPS No Dice Extension[/B]
+Download an extension to remove non-GURPS dice from the Fantasy Grounds desktop: [URL="http://bit.ly/GURPSNoDiceExt"]http://bit.ly/GURPSNoDiceExt[/URL] 
+[I](Updated: 16th Mar 2020)[/I]
+[I](Courtesy of Ronnke)[/I]
+
+* A video tutorial demonstrating the process of exporting and importing characters from GCA: [url]https://youtu.be/CHn7jkM0UFQ[/url]
+* A video tutorial demonstrating the process of exporting and importing characters from GCS: [url]https://youtu.be/atTstjdU2_A[/url]
+
+Please report any bugs, errors.
+
+You can export and import (player characters only) from the previous ruleset. You can also import PCs/NPCs using the currently available GCA export to FG created by Saithan.
+
+One feature which is not obviously clear, you can drag and drop [I]Skills [/I] onto the attributes at the top of the skills section. This will perform an attribute based skill role using the skill's relative levels. eg To do an IQ based, [I]Guns[/I] roll, to un-jam a rifle, simply drag and drop the appropriate skill onto the IQ box. 
+
+Enjoy.
+
+[SIZE=4][B]Suggest New Ideas and Features[/B][/SIZE]
+
+Click the following link to have your input on future ruleset development/improvement: [url]http://gurps4efg.idea.informer.com/proj/[/url]
+
+
+[SIZE=4][B]Upcoming Features/Wishlist[/B][/SIZE]
+[LIST]
+[*]Add GURPS Character and Racial templates
+[*]Mini Sheets
+[*]Allow the adding of vehicles/mounts to the Combat Tracker
+[*]Hit Points by location (torso, arms, legs, shield, etc)
+[*]Heath status and effects to show in token mouseover(tooltip).
+[/LIST]
+
+
+[SIZE=4][B]Version Information[/B][/SIZE]
+
+[LIST]
+[*][B]GURPS 4e Ruleset v3.6.2[/B] - 18th Jul 2021 
+- Added: Resource tracking tab to main page of the character sheet.
+- Fixed: Fixed theme compatibility issue.
+- Other changes fixes not worth mentioning.
+[/LIST]
+[LIST]
+[*][B]GURPS 4e Ruleset v3.6.1[/B] - 3rd Apr 2021 
+- Fixed: Script errors related to 0 point Techniques.
+[/LIST]
+[LIST]
+[*][B]GURPS 4e Ruleset v3.6.0[/B] - 17th Mar 2021 
+[B][COLOR="#FF0000"](This update will make irreversible changes to the campaign database. As a precaution, backup your campaign folder before applying)[/COLOR][/B]
+- Added: Abilities and Traits properly reflect information contained in Library data. Accessible via the "Info/Detail" section.
+- Added: Skill and spell point values will now calculate the appropriate levels. Bonus points or levels are adjusted via the abilities "Info/Detail" section.
+- Fixed: Some issues with FGU.
+- some other changes not worth mentioning. 
+[/LIST]
+[LIST]
+[*][B]GURPS 4e Ruleset v3.5.6[/B] - 29th Sep 2020
+- Fixed: Character sheet labels to work better with the FGU Light and Dark themes.
+[/LIST]
+[LIST]
+[*][B]GURPS 4e Ruleset v3.5.5[/B] - 18th Sep 2020
+- Fixed: Some FGU compatibility issues.
+[/LIST]
+[LIST]
+[*][B]GURPS 4e Ruleset v3.5.4[/B] - 4th Jun 2020
+- Fixed: Issue with the combat tracker menu not displaying reset combat option.
+- Added: Option in the combat tracker menu to delete everything from the tracker.
+[/LIST]
+[LIST]
+[*][B]GURPS 4e Ruleset v3.5.3[/B] - 2nd Jun 2020
+- Added: New HP and FP status conditions to combat tracker and character sheet combat tab.
+- Added: Effects clearing to the combat tracker menu.
+- Added: Prerequisites field to skill records.
+- Fixed: Issue where combat tracker was not sorting properly in all cases.
+- Updated: Point calculations to calculate disadvantages across the whole character sheet, not just the Traits Tab.
+- Refactored some code in preparation for the next major release.
+- A few minor fixes not worth mentioning. 
+[/LIST]
+[LIST]
+[*][B]GURPS 4e Ruleset v3.5.2[/B] - 26th Mar 2020
+- Fixed issue related to characters imported from GCS, where Encumbrance Level was always overloaded.
+[/LIST]
+[LIST]
+[*][B]GURPS 4e Ruleset v3.5.1[/B] - 23th Mar 2020
+- Fixed: Bug with range calculation for muscle powered ranged weapons.
+[/LIST]
+[LIST]
+[*][B]GURPS 4e Ruleset v3.5.0[/B] - 22th Mar 2020
+- Added: Half Move and Dodge check box to character sheet and tracker. [I](Clear and re-insert characters to Combat Tracker if experiencing problems)[/I]
+- Added: Added ability for items to have multiple types. eg Melee Weapon and Ranged Weapon.
+- Added: Added missing skill types for abilities (HT/E, HT/A, HT/H, HT/VH).
+- Fixed: Bug with auto-fill of combat stats when some items were dropped onto a character sheet.
+[/LIST]
+[LIST]
+[*][B]GURPS 4e Ruleset v3.4.0[/B] - 16th Mar 2020
+- Added: Injury and Fatigue fields to character sheet and tracker. Ctrl+Mouse-wheel to change, or drag and drop damage to field.
+- Added: Negative HP status
+- Added: Auto updating encumbrance will update encumbrance level, move and dodge from the inventory items.
+- Added: Library for adding skills, spells, advantages, disadvantages, etc (enable sidebar buttons "Abilities","Traits" from Library window)
+- Added: When adding skills, spells, etc to character sheet, values will auto fill.
+- Added: Weapons items auto fill when added to PC and NPC character sheet.
+- Added: Items in the combat tab as linked to inventory. Equip to show in combat tab, unequipped to hide it.
+- Added: Nautical Miles to map scales.
+- Added: Item type dropdown selection.
+- Added: Vehicle type dropdown selection.
+- Fixed: A bunch of bugs.
+- Fixed: Issue with adding new items to inventory. Items were added as unidentified.
+- Fixed: Known issues when using the ruleset with FGU.
+- Redesigned: Combat tracker, combat items for NPCs.
+- Many behind the scenes improvements.
+[/LIST]
+[LIST]
+[*][B]GURPS 4e Ruleset v3.3.0[/B] - 1st May 2019
+- Added ammo counter for ranged weapons.
+- Some behind the scenes improvements.
+[/LIST]
+[LIST]
+[*][B]GURPS 4e Ruleset v3.2.6[/B] - 21st Apr 2019
+- Fixed minor issue when opening/sharing locked images.
+[/LIST]
+[LIST]
+[*][B]GURPS 4e Ruleset v3.2.5[/B] - 21st Aug 2018
+- Fixed "Unidentified Item" in PC inventory issue, post FG 3.3.6 update.
+[/LIST]
+[LIST]
+[*][B]GURPS 4e Ruleset v3.2.4[/B] - 5th Aug 2018
+- Fixed bug with combat tracker, post FG 3.3.6 update.
+[/LIST]
+[LIST]
+[*][B]GURPS 4e Ruleset v3.2.3[/B] - 1st Apr 2018
+- Added LC to all items.
+- Added Holdout to Defense items.
+[/LIST]
+[LIST]
+[*][B]GURPS 4e Ruleset v3.2.2[/B] - 31th Mar 2018
+- Fixed bug with vehicle HT missing on vehicles sheet.
+- Combat tracker will not display melee/ranged weapon stats block of no weapon configured.
+[/LIST]
+[LIST]
+[*][B]GURPS 4e Ruleset v3.2.1[/B] - 30th Mar 2018
+- Fixed bug with adding defense items to character sheet.
+[/LIST]
+[LIST]
+[*][B]GURPS 4e Ruleset v3.2.0[/B] - 29th Mar 2018 (Howto instructions TBA)
+- Added the ability to create Melee Weapons, Ranged Weapons, and Defense items.
+- Added the ability to drag and drop Melee, Ranged and Defense items to the combat tab of the PC and NPC character sheets
+- Added, when dragging and dropping a Melee, Ranged, and Defense items to the PC inventory, corresponding entries are added to the combat tab.
+- Added the ability to create Ground Vehicles, Watercraft, Aircraft and Spacecraft to vehicles.
+- Changed. Combat tracker will not display the (melee/ranged) combat sections if no weapons are configured.
+- Changed. Protection tab of the PC character sheet renamed to Defenses, to conform to standard GURPS terminology.
+- Several code optimisations and minor bug fixes.
+[/LIST]
+[LIST]
+[*][B]GURPS 4e Ruleset v3.1.0[/B] - 20th Oct 2017 
+- Added Map Scales and Range Modifier calculation to pointers (Access via scale icon in the image toolbar). 
+- Fixed bug with effects (post CoreRPG 3.3.3 effect changes. Players can add, remove and target their own effects).
+- Cleaned up combat tracker (editing NPC attack modes now done via linked NPC sheet).
+- Fixed issue with hex row and hex column (can now use both options with no problems).
+- Set the default grid type to hex (because GURPS!!!).
+- Token facing increased from 6 to 12 positions.
+- Added GURPS and Dungeon Fantasy RPG decal options.
+- Code optimisations and minor bug fixes.
+[/LIST]

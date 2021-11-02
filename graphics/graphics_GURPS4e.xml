@@ -56,8 +56,9 @@
 	<!-- Tab controls -->
 	<icon name="tab_main" file="graphics/tabs/tab_main.png" />
 	<icon name="tab_reactionmodifiers" file="graphics/tabs/tab_reactionmodifiers.png" />
-	<icon name="tab_secondarycharacteristics" file="graphics/tabs/tab_secondarycharacteristics.png" />
-	<icon name="tab_traits" file="graphics/tabs/tab_traits.png" />
+  <icon name="tab_secondarycharacteristics" file="graphics/tabs/tab_secondarycharacteristics.png" />
+  <icon name="tab_resources" file="graphics/tabs/tab_resources.png" />
+  <icon name="tab_traits" file="graphics/tabs/tab_traits.png" />
 	<icon name="tab_abilities" file="graphics/tabs/tab_abilities.png" />
 	<icon name="tab_skills" file="graphics/tabs/tab_skills.png" />
 	<icon name="tab_spells" file="graphics/tabs/tab_spells.png" />

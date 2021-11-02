@@ -395,8 +395,12 @@
 				<class>charsheet_reactionmodifiers</class>
 			</subwindow>
 
+      <subwindow name="resources">
+        <bounds>195,80,-1,315</bounds>
+        <class>charsheet_resources</class>
+      </subwindow>
 
-			<tabs_charmain>
+      <tabs_charmain>
 				<tab>
 					<icon>tab_secondarycharacteristics</icon>
 					<subwindow>secondarycharacteristics</subwindow>
@@ -405,7 +409,11 @@
 					<icon>tab_reactionmodifiers</icon>
 					<subwindow>reactionmodifiers</subwindow>
 				</tab>
-				<activate>1</activate>
+        <tab>
+          <icon>tab_resources</icon>
+          <subwindow>resources</subwindow>
+        </tab>
+        <activate>1</activate>
 			</tabs_charmain>
 
 

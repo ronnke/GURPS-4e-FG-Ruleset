@@ -148,7 +148,7 @@ function addPC(nodePC)
 
     DB.setValue(nodeEntry, "traits.sizemodifier", "string", DB.getValue(nodePC, "traits.sizemodifier", "0"));
     DB.setValue(nodeEntry, "traits.reach", "string", DB.getValue(nodePC, "traits.reach", "0"));
-    DB.setValue(nodeEntry, "space", "number", GameSystem.calcSizeModifierGridUnits(DB.getValue(nodePC, "traits.sizemodifier", "0")));
+    DB.setValue(nodeEntry, "space", "number", ManagerGURPS4e.calcSizeModifierGridUnits(DB.getValue(nodePC, "traits.sizemodifier", "0")));
     DB.setValue(nodeEntry, "reach", "number", tonumber(DB.getValue(nodePC, "traits.reach", "0")));
   
     DB.setValue(nodeEntry, "attributes.strength", "number", DB.getValue(nodePC, "attributes.strength", 0));
@@ -177,7 +177,7 @@ function addNPC(sClass, nodeNPC, sName)
 
     DB.setValue(nodeEntry, "traits.sizemodifier", "string", DB.getValue(nodeNPC, "traits.sizemodifier", "0"));
     DB.setValue(nodeEntry, "traits.reach", "string", DB.getValue(nodeNPC, "traits.reach", "0"));
-    DB.setValue(nodeEntry, "space", "number", GameSystem.calcSizeModifierGridUnits(DB.getValue(nodeNPC, "traits.sizemodifier", "0")));
+    DB.setValue(nodeEntry, "space", "number", ManagerGURPS4e.calcSizeModifierGridUnits(DB.getValue(nodeNPC, "traits.sizemodifier", "0")));
     DB.setValue(nodeEntry, "reach", "number", tonumber(DB.getValue(nodeNPC, "traits.reach", "0")));
 
     -- Setup
@@ -195,13 +195,13 @@ function addNPC(sClass, nodeNPC, sName)
 end
 
 function npcSpaceReach(nodeNPC)
-   local nSpace = GameSystem.calcSizeModifierGridUnits(DB.getValue(nodeNPC, "traits.sizemodifier", "0"));
+   local nSpace = ManagerGURPS4e.calcSizeModifierGridUnits(DB.getValue(nodeNPC, "traits.sizemodifier", "0"));
    local nReach = tonumber(DB.getValue(nodeNPC, "traits.reach", "0"));
    return nSpace, nReach;
 end
 
 function updateSpaceReach(node)
-    local nSpace = GameSystem.calcSizeModifierGridUnits(DB.getValue(node, "traits.sizemodifier", "0"));
+    local nSpace = ManagerGURPS4e.calcSizeModifierGridUnits(DB.getValue(node, "traits.sizemodifier", "0"));
 	local nReach = tonumber(DB.getValue(node, "traits.reach", "0"));
 	DB.setValue(node, "space", "number", nSpace);
     DB.setValue(node, "reach", "number", nReach);

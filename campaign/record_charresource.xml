@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+
+  <windowclass name="charresource">
+    <frame>recordsheet</frame>
+    <placement>
+      <size width="400" height="350" />
+    </placement>
+    <sizelimits>
+      <minimum width="350" height="400" />
+      <dynamic />
+    </sizelimits>
+    <minimize>minimized_reference</minimize>
+    <nodelete />
+    <playercontrol />
+    <sharable />
+    <tooltip field="name" />
+    <script file="campaign/scripts/resource.lua" />
+    <sheetdata>
+      <sub_record_header name="header">
+        <class>charresource_header</class>
+      </sub_record_header>
+
+      <frame_record_content name="contentframe" />
+
+      <subwindow_record name="details">
+        <class>charresource_details</class>
+        <activate />
+      </subwindow_record>
+
+      <scrollbar_record>
+        <target>details</target>
+      </scrollbar_record>
+
+      <resize_referencepage />
+      <close_referencepage />
+    </sheetdata>
+  </windowclass>
+	
+  <windowclass name="charresource_header">
+    <margins control="0,0,0,7" />
+		<script>
+			function onInit()
+				update();
+			end
+			function update()
+				local nodeRecord = getDatabaseNode();
+
+				local bReadOnly = WindowManager.getReadOnlyState(nodeRecord);
+				name.setReadOnly(bReadOnly);
+			end
+		</script>
+    <sheetdata>
+      <link_record_header name="link">
+        <class>charresource</class>
+      </link_record_header>
+
+      <anchor_record_header_right name="rightanchor" />
+      <icon_record_locked />
+      <button_record_locked />
+
+      <string_record_name name="name">
+        <empty textres="library_recordtype_empty_item" />
+      </string_record_name>
+    </sheetdata>
+  </windowclass>
+
+  <windowclass name="charresource_details">
+    <margins control="0,0,0,2" />
+    <script file="campaign/scripts/resource_details.lua" />
+    <sheetdata>
+      <anchor_column name="columnanchor" />
+
+      <label_column name="level_label">
+        <static textres="resource_level_label" />
+      </label_column>
+      <number_columnh name="resource_level" />
+
+      <line_column name="currentleveldivider" />
+
+      <label_column name="minlevel_label">
+        <static textres="resource_min_label" />
+      </label_column>
+      <number_columnh name="min_level">
+        <nohide />
+      </number_columnh>
+
+      <label_column name="maxlevel_label">
+        <static textres="resource_max_label" />
+      </label_column>
+      <number_columnh name="max_level">
+        <nohide />
+      </number_columnh>
+
+      <!-- To be developed
+      <label_column name="defaults_label">
+        <static textres="resource_defaults_label" />
+      </label_column>
+      <string_columnh name="defaults" />
+      -->
+
+      <line_column name="textdivider" />
+      <ft_columnh name="text" />
+    </sheetdata>
+  </windowclass>
+
+</root>

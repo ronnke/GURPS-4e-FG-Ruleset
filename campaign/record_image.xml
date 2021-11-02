@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <!-- 
   Please see the license.html file included with this distribution for 
@@ -6,105 +6,100 @@
 -->
 
 <root>
-	<template name="image_record">
+	<template name="image_record" merge="join" version="&lt;4">
 		<image_record_step>
 			<bounds>21,57,-27,-29</bounds>
 			<script file="campaign/scripts/image_GURPS4e.lua" />
 		</image_record_step>
 	</template>
 
-	<windowclass name="imagewindow_toolbar" merge="join">
+  <template name="image_toolbar_toggle_mapscale" version="&lt;4">
+    <image_toolbar_button_toggle>
+      <icon>tool_mapscale_30</icon>
+      <tooltip textres="image_tooltip_mapscale" />
+      <invisible />
+      <script>
+        function onValueChanged()
+          window.update();
+        end
+      </script>
+    </image_toolbar_button_toggle>
+  </template>
+  
+	<windowclass name="imagewindow_toolbar" merge="join" version="&lt;4">
 		<script>
 			function onInit()
 				update();
 			end 		
 		
 			function update()
-				if User.isHost() then
-					local bShowScale = false;
-					local bShowScaleToolbar = getImage().hasGrid()
-					if toolbar_mapscale.getValue() &gt; 0 then
-						bShowScale = true;
-					end
-					
-					hMapScale.setVisible(bShowScaleToolbar);
-					toolbar_mapscale.setVisible(bShowScaleToolbar);
+		    if Session.IsHost then
+			    local bShowMapscaleToggle = getImage().hasGrid();
+			    
+          h4.setVisible(bShowMapscaleToggle);
+			    toggle_mapscale.setVisible(bShowMapscaleToggle);
+
+          local bShowMapscaleToolbar = false;
+			    if toggle_mapscale.getValue() > 0 then
+				    bShowMapscaleToolbar = bShowMapscaleToggle;
+			    end
           
-					showMapScale(bShowScale)
-				end
+			    mapscale.setVisible(bShowMapscaleToolbar);
+			    scaleunits.setVisible(bShowMapscaleToolbar);
+			    range.setVisible(bShowMapscaleToolbar);
+			    h5.setVisible(bShowMapscaleToolbar);
+		    end
+        
 				super.update();
 			end
-      
-      function showMapScale(bShow)
-				mapscale.setVisible(bShow);
-				scaleunits.setVisible(bShow);
-				range.setVisible(bShow);
-      end;
 		</script>
 		<sheetdata>
-			<genericcontrol name="hMapScale">
-				<anchored to="toolbar_anchor" width="5" height="34">
-					<top />
-					<left anchor="right" relation="relative" />
-				</anchored>
-				<invisible />
-			</genericcontrol>
-			<buttoncontrol name="toolbar_mapscale">
-				<anchored to="toolbar_anchor" width="34" height="34">
-					<top />
-					<left anchor="right" relation="relative" />
-				</anchored>
-				<state icon="tool_mapscale_30" color="60A0A0A0" />
-				<state icon="tool_mapscale_30" />
-				<frame name="toolbar_30" />
-				<tooltip textres="image_tooltip_mapscale" />
-				<invisible />
-				<script>
-          function onButtonPress(id)
-						window.showMapScale(getValue() ~= 0)
-          end
-        </script>
-			</buttoncontrol>
-			<basicnumber name="mapscale">
-				<anchored to="toolbar_anchor" width="50" height="20">
-					<top offset="7"/>
-					<left anchor="right" relation="relative" offset="10" />
-				</anchored>
-				<gmeditonly />
-				<tooltip textres="image_tooltip_mapscale" />
-				<default>1</default>
-				<min>0</min>
-				<nodrag />
-				<center/>
-				<invisible />
-			</basicnumber>
-			<button_stringcycler name="scaleunits">
-				<anchored to="toolbar_anchor" width="80" height="20">
-					<top offset="7"/>
-					<left anchor="right" relation="relative" offset="10" />
-				</anchored>
-				<gmeditonly />
-				<parameters>
-					<defaultlabelres>no_units</defaultlabelres>
-					<labelsres>feet|yards|miles|meters|kilometers|nautical miles|au|lightyears|parsecs</labelsres>
-					<values>ft|yd|mi|m|km|nmi|AU|ly|pc</values>
-				</parameters>
-				<invisible />
-			</button_stringcycler>
-			<button_stringcycler name="range">
-				<anchored to="toolbar_anchor" width="65" height="20">
-					<top offset="7"/>
-					<left anchor="right" relation="relative" offset="10" />
-				</anchored>
-				<gmeditonly />
-				<parameters>
-					<defaultlabelres>range_off</defaultlabelres>
-					<labelsres>range_on</labelsres>
-					<values>on</values>
-				</parameters>
-				<invisible />
-			</button_stringcycler>
-		</sheetdata>
+      <image_toolbar_separator name="h4" />
+
+      <basicnumber name="mapscale">
+        <anchored to="toolbar_anchor" width="50" height="20">
+          <top offset="7"/>
+          <right anchor="left" relation="relative" offset="-10" />
+        </anchored>
+        <gmeditonly />
+        <tooltip textres="image_tooltip_mapscale" />
+        <default>1</default>
+        <min>0</min>
+        <nodrag />
+        <center/>
+        <invisible />
+      </basicnumber>
+      <button_stringcycler name="scaleunits">
+        <anchored to="toolbar_anchor" width="80" height="20">
+          <top offset="7"/>
+          <right anchor="left" relation="relative" offset="-10" />
+        </anchored>
+        <gmeditonly />
+        <parameters>
+          <defaultlabelres>no_units</defaultlabelres>
+          <labelsres>feet|yards|miles|meters|kilometers|nautical miles|au|lightyears|parsecs</labelsres>
+          <values>ft|yd|mi|m|km|nmi|AU|ly|pc</values>
+        </parameters>
+        <invisible />
+      </button_stringcycler>
+      <button_stringcycler name="range">
+        <anchored to="toolbar_anchor" width="65" height="20">
+          <top offset="7"/>
+          <right anchor="left" relation="relative" offset="-10" />
+        </anchored>
+        <gmeditonly />
+        <parameters>
+          <defaultlabelres>range_off</defaultlabelres>
+          <labelsres>range_on</labelsres>
+          <values>on</values>
+        </parameters>
+        <invisible />
+      </button_stringcycler>
+
+      <image_toolbar_separator name="h5" />
+
+      <image_toolbar_toggle_mapscale name="toggle_mapscale" />
+    </sheetdata>
 	</windowclass>
 </root>
 

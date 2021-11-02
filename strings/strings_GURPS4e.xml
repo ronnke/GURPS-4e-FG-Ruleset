@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <!-- 
   Please see the license.html file included with this distribution for 
@@ -19,9 +19,9 @@
   <string name="ct_label_speed">Speed</string>
 	<string name="ct_label_hps">HP</string>
 	<string name="ct_label_fps">FP</string>
-  <string name="ct_label_condition">Cond</string>
-  <string name="ct_label_injury">Injury</string>
-  <string name="ct_label_fatigue">Fatigue</string>
+  <string name="ct_label_condition">Cond.</string>
+  <string name="ct_label_injury">Inj.</string>
+  <string name="ct_label_fatigue">Fat.</string>
   <string name="ct_label_status">Status</string>
 
 	<string name="ct_label_strength">ST</string>
@@ -88,9 +88,10 @@
 	<string name="char_label_written">Written</string>
 
 	<string name="char_label_culturalfamiliarities">CULTURAL FAMILIARITIES</string>
-	<string name="char_label_reactionmodifiers">REACTION MODIFIERS</string>
-	
-	<string name="char_label_adsperks">ADVANTAGES &amp; PERKS</string>
+  <string name="char_label_reactionmodifiers">REACTION MODIFIERS</string>
+  <string name="char_label_resources">RESOURCES</string>
+
+  <string name="char_label_adsperks">ADVANTAGES &amp; PERKS</string>
 	<string name="char_label_disadsquirks">DISADVANTAGES &amp; QUIRKS</string>
 
 	<string name="char_label_defenses">DEFENSES</string>
@@ -333,8 +334,14 @@
 	<string name="effect_label_durunitmin">MIN</string>
 	<string name="effect_label_durunithr">HR</string>
 	<string name="effect_label_durunitday">DAY</string>
-	
-	<!-- Abilities -->
+  
+  <!-- Resources -->
+  <string name="resource_level_label">Resource Level</string>
+  <string name="resource_min_label">Minimum Value</string>
+  <string name="resource_max_label">Maximum Value</string>
+  <string name="resource_defaults_label">Default Value</string>
+  
+  <!-- Abilities -->
   <string name="ability_type_label">Type</string>
   <string name="ability_subtype_label">Subtype</string>
   <string name="ability_page_label">Page</string>

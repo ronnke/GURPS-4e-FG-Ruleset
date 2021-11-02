@@ -6,9 +6,9 @@
 -->
 
 <root version="3.0" release="9" logo="logo.png">
-	<announcement text="GURPS 4E core ruleset v3.5.6 for Fantasy Grounds." font="emotefont" />
+	<announcement text="GURPS 4E core ruleset v3.6.2 for Fantasy Grounds." font="emotefont" />
 	<announcement text="Produced with the permission of Steve Jackson Games." font="emotefont" />
-	<announcement text="This work is based on GURPS 4E System and is the accumulated effort of several members of the Fantasy Grounds community. This release was authored by Brian Ronnle, building on previous releases by Eric Hilerio and Graham Brand. Contributors: Jesse Meigs (Jaxilon)" font="emotefont" />
+	<announcement text="This work is based on GURPS 4E System and is the accumulated effort of several members of the Fantasy Grounds community. This release was authored by Brian Ronnle, building on previous releases by Eric Hilerio and Graham Brand. Contributors: Jesse Meigs (Jaxilon), Charles Durham (Baoghal)" font="emotefont" />
 	<announcement text="GURPS is a trademark of Steve Jackson Games, and its rules and art are copyrighted by Steve Jackson Games. All rights are reserved by Steve Jackson Games. This game aid is the original creation of the Fantasy Grounds GURPS community and is released for free distribution and not for resale under the permissions granted in the Steve Jackson Games Online Policy" font="emotefont" />
 	
 	<!-- Attributes -->
@@ -42,8 +42,9 @@
 	<includefile source="campaign/record_char.xml" />
 	<includefile source="campaign/record_char_main.xml" />
 	<includefile source="campaign/record_char_secondarycharacteristics.xml" />
-	<includefile source="campaign/record_char_reactionmodifiers.xml" />
-	<includefile source="campaign/record_char_traits.xml" />
+  <includefile source="campaign/record_char_reactionmodifiers.xml" />
+  <includefile source="campaign/record_char_resources.xml" />
+  <includefile source="campaign/record_char_traits.xml" />
 	<includefile source="campaign/record_char_abilities.xml" />
 	<includefile source="campaign/record_char_combat.xml" />
 	<includefile source="campaign/record_char_inventory.xml" />
@@ -57,8 +58,9 @@
 	<includefile source="campaign/record_char_meleecombat.xml" />
 	<includefile source="campaign/record_char_rangedcombat.xml" />
 	<includefile source="campaign/record_char_defenses.xml" />
-	
-	<includefile source="campaign/record_charnotes.xml" />
+
+  <includefile source="campaign/record_charresource.xml" />
+  <includefile source="campaign/record_charnote.xml" />
 
 	<includefile source="campaign/record_npc.xml" />
 	<includefile source="campaign/record_npc_main.xml" />

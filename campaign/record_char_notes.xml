@@ -147,31 +147,6 @@
 				<static textres="char_pointtotal_unspent" />
       </label_charsheet>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			<frame_char name="descriptionframe">
 				<bounds>15,240,-29,-15</bounds>
 			</frame_char>

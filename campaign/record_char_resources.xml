@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="charsheet_resources">
+		<sheetdata>
+		
+			<frame_char name="resourcesframe">
+				<bounds>0,0,-28,315</bounds>
+			</frame_char>
+			
+			<label_frametop>
+				<anchored to="resourcesframe" />
+				<static textres="char_label_resources" />
+			</label_frametop>
+
+      <list_charresource name="resourceslist">
+				<anchored to="resourcesframe">
+					<left offset="0" />
+					<top offset="35" />
+					<right offset="-30" />
+					<bottom offset="-15" />
+				</anchored>
+			</list_charresource>
+			<scrollbar_list>
+				<anchored to="resourceslist" />
+				<target>resourceslist</target>
+			</scrollbar_list>
+
+			<button_iedit name="resourceslist_iedit">
+				<anchored to="resourceslist" position="aboveright" offset="-5,5" />
+				<target>resourceslist</target>
+			</button_iedit>
+			<button_iadd name="resourceslist_iadd">
+				<anchored to="resourceslist_iedit" position="lefthigh" offset="5,0" />
+				<target>resourceslist</target>
+			</button_iadd>
+		
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="char_resource">
+    <script>
+      function onInit()
+				onResourceChanged();
+      end
+      
+      function onResourceChanged()
+        resource_level.setColor(ActorManager2.onResourceUpdated(getDatabaseNode()));
+      end
+    </script>
+    <margins control="0,0,0,2" />
+		<sheetdata>
+			<genericcontrol name="rightanchor">
+				<anchored height="0" width="0">
+					<top />
+					<right />
+				</anchored>
+			</genericcontrol>
+			<button_idelete name="idelete">
+				<anchored>
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<invisible merge="delete" />
+			</button_idelete>
+
+      <number_resourcefield name="resource_level">
+				<anchored to="rightanchor" width="30" height="20">
+					<top offset="2" />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+        <script>
+          function onValueChanged()
+						window.onResourceChanged();
+          end
+        </script>
+        <tabtarget prev="name" />
+			</number_resourcefield>
+      <linkcontrol name="shortcut">
+        <anchored to="rightanchor" width="20" height="20">
+          <top offset="2" />
+          <right anchor="left" relation="relative" offset="-5" />
+        </anchored>
+        <class>charresource</class>
+        <readonly />
+      </linkcontrol>
+      <string_textlistitem name="name">
+				<anchored height="20">
+					<top offset="2" />
+					<left offset="30" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<nodrag />
+				<tabtarget next="resource_level" />
+			</string_textlistitem>
+			
+		</sheetdata>
+	</windowclass>
+
+</root>

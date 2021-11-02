@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <!-- 
   Please see the license.html file included with this distribution for 
@@ -121,7 +121,7 @@
         <top />
         <right anchor="left" relation="relative" offset="-10" />
       </anchored>
-      <tabtarget prev="name" />
+      <tabtarget prev="injury" next="injury" />
       <script>
         function handleDrop(draginfo)
 					if draginfo.getType() == "number" then
@@ -148,7 +148,7 @@
         <top />
         <right anchor="left" relation="relative" offset="-10" />
       </anchored>
-      <tabtarget prev="name" />
+      <tabtarget prev="fatigue" next="fatigue" />
       <script>
         function handleDrop(draginfo)
 					if draginfo.getType() == "number" then
@@ -184,29 +184,27 @@
   <windowclass name="ct_status">
     <margins control="0,0,0,0" />
     <sheetdata>
-      <simplestring name="fpstatus">
-        <anchored height="15">
-          <bottom anchor="center" offset="2"/>
+      <simplestring name="hpstatus">
+        <anchored height="10">
+          <top />
           <left />
           <right />
         </anchored>
         <script file="common/scripts/string_crosslink.lua" />
-        <font>sheetnumbersmall</font>
-        <tabtarget prev="name" />
+        <font>sheetlabelsmall</font>
         <color>#C11B17</color>
         <readonly />
         <center />
         <nolinkwidget />
       </simplestring>
-      <simplestring name="hpstatus">
-        <anchored height="15">
-					<top anchor="center" offset="-2"/>
+      <simplestring name="fpstatus">
+        <anchored to="hpstatus" height="10">
+          <top anchor="bottom" />
           <left />
           <right />
         </anchored>
         <script file="common/scripts/string_crosslink.lua" />
-        <font>sheetnumbersmall</font>
-        <tabtarget prev="name" />
+        <font>sheetlabelsmall</font>
         <color>#C11B17</color>
         <readonly />
         <center />

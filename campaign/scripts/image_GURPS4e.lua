@@ -45,8 +45,22 @@ function getRange()
   return DB.getValue(node, "range", "");
 end
 
+function scaledDistance(nDistance)
+  return ImageManagerGURPS4e.scaledDistance(nDistance, getScale())
+end
+
+function rangeModifier(nDistance)
+  local scaleUnits = getScaleUnits();
+  local showRange = getRange();
+  local nDistance = ImageManagerGURPS4e.scaledDistance(nDistance, getScale());
+  if showRange == "on" and scaleUnits ~= "" and scaleUnits ~= "AU" and scaleUnits ~= "ly" and scaleUnits ~= "pc" then
+    return " (" .. ManagerGURPS4e.calcRangeModifier(nDistance, scaleUnits) .. ")";
+  end
+  return ""
+end
+
 function onMeasureVector(token, aVector)
-  if hasGrid() then
+  if hasGrid() and not UtilityManager.isClientFGU() then
     local sGridType = getGridType()
     local nGridSize = getGridSize()
     local nDistance = 0
@@ -64,11 +78,10 @@ function onMeasureVector(token, aVector)
     end
     return scaledDistance(nDistance) .. getScaleUnits() .. rangeModifier(nDistance)
   end
-  return ""
 end
 
 function onMeasurePointer(nLength, sPointerType, nStartX, nStartY, nEndX, nEndY)
-  if hasGrid() then
+  if hasGrid() and not UtilityManager.isClientFGU() then
     local sGridType = getGridType()
     local nGridSize = getGridSize()
     if sGridType == "hexrow" or sGridType == "hexcolumn" then
@@ -79,20 +92,4 @@ function onMeasurePointer(nLength, sPointerType, nStartX, nStartY, nEndX, nEndY)
     end
     return scaledDistance(nDistance) .. getScaleUnits() .. rangeModifier(nDistance)
   end
-  return ""
 end
-
-function scaledDistance(nDistance)
-  return ImageManagerGURPS4e.scaledDistance(nDistance, getScale())
-end
-
-function rangeModifier(nDistance)
-  local scaleUnits = getScaleUnits();
-  local showRange = getRange();
-  local nDistance = ImageManagerGURPS4e.scaledDistance(nDistance, getScale());
-  if showRange == "on" and scaleUnits ~= "" and scaleUnits ~= "AU" and scaleUnits ~= "ly" and scaleUnits ~= "pc" then
-    return " (" .. ManagerGURPS4e.calcRangeModifier(nDistance, scaleUnits) .. ")";
-  end
-  return ""
-end
-

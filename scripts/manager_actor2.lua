@@ -14,6 +14,11 @@ COLOR_FATIGUE_FATIGUED = "AF7817";
 COLOR_FATIGUE_CRITICAL = "E56717";
 COLOR_FATIGUE_UNCONSCIOUS = "C11B17";
 
+COLOR_RESOURCE_MAX = "008000";
+COLOR_RESOURCE_MIN = "C11B17";
+COLOR_RESOURCE_USED = "AF7817";
+
+
 local DEFAULT_NEW_ABILITY_POINTS = 1;
 
 function onInit()
@@ -432,6 +437,29 @@ function addTrait(nodeChar, nodeTrait)
 
 	return false;
 end
+
+function onResourceUpdated(nodeResource)
+	if not nodeResource then
+		return 0;
+	end
+
+	local current = DB.getValue(nodeResource, "resource_level");
+	local min = DB.getValue(nodeResource, "min_level");
+	local max = DB.getValue(nodeResource, "max_level");
+
+	if max and current >= max then
+		DB.setValue(nodeResource, "resource_level", "number", max);
+		return COLOR_RESOURCE_MAX
+	end
+        
+	if min and current <= min then
+		DB.setValue(nodeResource, "resource_level", "number", min);
+		return COLOR_RESOURCE_MIN
+	end
+
+	return COLOR_RESOURCE_USED;
+end
+
 
 function onAdvantageUpdated(nodeField)
 	local advantageName = nodeField.getName();

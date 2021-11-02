@@ -54,7 +54,7 @@
 				<target>notes</target>
 			</scrollbar_record>
 
-			<tabs_recordsheet>
+			<tabs_recordsheet name="tabs" merge="join">
 				<tab>
 					<icon>tab_main</icon>
 					<subwindow>main</subwindow>

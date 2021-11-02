@@ -115,3 +115,18 @@ aVehicleTypeData = {
 	"Aircraft",
 	"Spacecraft",
 };
+
+-- Damage types 
+dmgtypes = {
+	"burn",
+	"cor",
+	"cut",
+	"cr",
+	"fat",
+	"imp",
+	"pi-",
+	"pi",
+	"pi+",
+	"pi++",
+	"tox",
+};

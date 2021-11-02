@@ -286,7 +286,14 @@
 		</number_charfield>
 	</template>
 
-	<template name="string_chardefensefield">
+  <template name="number_resourcefield">
+    <number_charfield>
+      <script>
+      </script>
+    </number_charfield>
+  </template>
+
+  <template name="string_chardefensefield">
 		<string_charfield>
 		</string_charfield>
 	</template>
@@ -477,7 +484,18 @@
 		</list_text>
 	</template>
 
-	<template name="list_charadperk">
+  <template name="list_charresource">
+    <list_text>
+      <datasource>.traits.resourcelist</datasource>
+      <class>char_resource</class>
+      <sortby>
+        <control>name</control>
+      </sortby>
+      <newfocus>name</newfocus>
+    </list_text>
+  </template>
+
+  <template name="list_charadperk">
 		<list_text>
 			<datasource>.traits.adslist</datasource>
 			<class>char_trait</class>
