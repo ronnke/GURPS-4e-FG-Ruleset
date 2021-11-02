@@ -372,7 +372,7 @@
 			<list_charencumbrance name="encumbrancelist">
 				<anchored to="secondarycharacteristicsframe">
 					<left offset="10" />
-					<top offset="200" />
+					<top offset="205" />
 					<right offset="-20" />
 					<bottom offset="-15" />
 				</anchored>
@@ -383,7 +383,7 @@
 			</scrollbar_list>
 
 			<button_iedit name="encumbrancelist_iedit">
-				<anchored to="encumbrancelist" position="aboveright" offset="5,90" />
+				<anchored to="encumbrancelist" position="aboveright" offset="5,95" />
 				<target>encumbrancelist</target>
 			</button_iedit>
 			<button_iadd name="encumbrancelist_iadd">
