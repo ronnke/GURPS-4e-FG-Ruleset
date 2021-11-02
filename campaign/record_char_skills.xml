@@ -210,24 +210,21 @@
 	<windowclass name="char_skill">
 		<margins control="0,0,0,2" />
 		<script>
-			function onInit()
-				setModifiersVisible();
-			end
-			
-			function setModifiersVisible()
-				local v = false;
-				if activatemodifiers.getValue() == 1 then
-					v = true;
-				end
-				
+      function onInit()
+      setModifiersVisible();
+      end
+
+      function setModifiersVisible()
+				local v = (activatemodifiers.getValue() == 1);
+
 				modifiersicon.setVisible(v);
 				modifiers_label.setVisible(v);
 				modifierslist.setVisible(v);
 				modifierslist_iedit.setVisible(v);
-				modifierslist_iadd.setVisible(v and modifierslist_iedit.getValue() == 1)
+				modifierslist_iadd.setVisible(v)
 				frame_modifiers.setVisible(v);
-			end
-		</script>
+      end
+    </script>
 		<sheetdata>
 		
 			<button_charroll>

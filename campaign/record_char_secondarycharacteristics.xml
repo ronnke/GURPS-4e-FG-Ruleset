@@ -383,7 +383,7 @@
 			</scrollbar_list>
 
 			<button_iedit name="encumbrancelist_iedit">
-				<anchored to="encumbrancelist" position="aboveright" offset="-5,170" />
+				<anchored to="encumbrancelist" position="aboveright" offset="5,90" />
 				<target>encumbrancelist</target>
 			</button_iedit>
 			<button_iadd name="encumbrancelist_iadd">

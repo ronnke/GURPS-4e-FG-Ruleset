@@ -191,8 +191,8 @@
 				modes_label.setVisible(v);
 				modeslist.setVisible(v);
 				modeslist_iedit.setVisible(v and not bReadOnly)
-				modeslist_ispacer.setVisible(v and not bReadOnly and modeslist_iedit.getValue() == 1)
-				modeslist_iadd.setVisible(v and not bReadOnly and modeslist_iedit.getValue() == 1)
+				modeslist_ispacer.setVisible(v and not bReadOnly)
+				modeslist_iadd.setVisible(v and not bReadOnly)
 				frame_modes.setVisible(v);
 			end
 			
@@ -208,7 +208,7 @@
 				modifiers_label.setVisible(v);
 				modifierslist.setVisible(v);
 				modifierslist_iedit.setVisible(v and not bReadOnly)
-				modifierslist_iadd.setVisible(v and not bReadOnly and modifierslist_iedit.getValue() == 1)
+				modifierslist_iadd.setVisible(v and not bReadOnly)
 				frame_modifiers.setVisible(v);
 			end
 		</script>
@@ -498,13 +498,8 @@
 			end
 			
 			function update(bReadOnly)
-				local vModes,vModifiers = false;
-				if activatemodes.getValue() == 1 then
-					vModes = true and not bReadOnly;
-				end
-				if activatemodifiers.getValue() == 1 then
-					vModifiers = true and not bReadOnly;
-				end
+				local vModes= (activatemodes.getValue() == 1) and not bReadOnly
+        local vModifiers = (activatemodifiers.getValue() == 1) and not bReadOnly;
 
 				if bReadOnly then
 					if modeslist_iedit then
@@ -523,6 +518,7 @@
 						modifierslist_iedit.setVisible(vModifiers);
 					end
 				end
+        
 				for _,w in ipairs(modeslist.getWindows()) do
 					w.name.setReadOnly(bReadOnly);
 					w.level.setReadOnly(bReadOnly);
@@ -533,6 +529,7 @@
 					w.shots.setReadOnly(bReadOnly);
 					w.rcl.setReadOnly(bReadOnly);
 				end
+        
 				for _,w in ipairs(modifierslist.getWindows()) do
 					w.name.setReadOnly(bReadOnly);
 					w.modifier.setReadOnly(bReadOnly);
@@ -540,10 +537,7 @@
 			end
 
 			function setModesVisible()
-				local v = false;
-				if activatemodes.getValue() == 1 then
-					v = true;
-				end
+				local v = (activatemodes.getValue() == 1);
 			
 				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode().getParent().getParent().getParent());
 			
@@ -559,17 +553,14 @@
 				modes_label.setVisible(v);
 				modeslist.setVisible(v);
 				modeslist_iedit.setVisible(v and not bReadOnly)
-				modeslist_ispacer.setVisible(v and not bReadOnly and modeslist_iedit.getValue() == 1)
-				modeslist_iadd.setVisible(v and not bReadOnly and modeslist_iedit.getValue() == 1)
+				modeslist_ispacer.setVisible(v and not bReadOnly)
+				modeslist_iadd.setVisible(v and not bReadOnly)
 				frame_modes.setVisible(v);
 
 			end
 			
 			function setModifiersVisible()
-				local v = false;
-				if activatemodifiers.getValue() == 1 then
-					v = true;
-				end
+				local v = (activatemodifiers.getValue() == 1);
 				
 				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode().getParent().getParent().getParent());
 
@@ -577,7 +568,7 @@
 				modifiers_label.setVisible(v);
 				modifierslist.setVisible(v);
 				modifierslist_iedit.setVisible(v and not bReadOnly)
-				modifierslist_iadd.setVisible(v and not bReadOnly and modifierslist_iedit.getValue() == 1)
+				modifierslist_iadd.setVisible(v and not bReadOnly)
 				frame_modifiers.setVisible(v);
 
 			end

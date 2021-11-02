@@ -132,34 +132,31 @@
 			end
 			
 			function toggleDetail()
-				local bShow = (activatedetail.getValue() == 1);
+				local v = (activatedetail.getValue() == 1);
 				
-				spelldetail.setVisible(bShow);
-				time_label.setVisible(bShow);
-				time.setVisible(bShow);
-				duration_label.setVisible(bShow);
-				duration.setVisible(bShow);
-				costmaintain_label.setVisible(bShow);
-				costmaintain.setVisible(bShow);
-				resist_label.setVisible(bShow);
-				resist.setVisible(bShow);
-				college_label.setVisible(bShow);
-				college.setVisible(bShow);
-				page_label.setVisible(bShow);
-				page.setVisible(bShow);
+				spelldetail.setVisible(v);
+				time_label.setVisible(v);
+				time.setVisible(v);
+				duration_label.setVisible(v);
+				duration.setVisible(v);
+				costmaintain_label.setVisible(v);
+				costmaintain.setVisible(v);
+				resist_label.setVisible(v);
+				resist.setVisible(v);
+				college_label.setVisible(v);
+				college.setVisible(v);
+				page_label.setVisible(v);
+				page.setVisible(v);
 			end
 			
 			function setModifiersVisible()
-				local v = false;
-				if activatemodifiers.getValue() == 1 then
-					v = true;
-				end
+				local v = (activatemodifiers.getValue() == 1);
 				
 				modifiersicon.setVisible(v);
 				modifiers_label.setVisible(v);
 				modifierslist.setVisible(v);
 				modifierslist_iedit.setVisible(v);
-				modifierslist_iadd.setVisible(v and modifierslist_iedit.getValue() == 1)
+				modifierslist_iadd.setVisible(v)
 				frame_modifiers.setVisible(v);
 			end
 		</script>

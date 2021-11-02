@@ -139,19 +139,16 @@
 	<windowclass name="char_meleecombat">
 		<margins control="0,0,0,2" />
 		<script>
-			function onInit()
+      function onInit()
 				setModesVisible();
 				setModifiersVisible();
-			end
-      
-			function setModesVisible()
-				local v = false;
-				if activatemodes.getValue() == 1 then
-					v = true;
-				end
-			
+      end
+
+      function setModesVisible()
+				local v = (activatemodes.getValue() == 1);
+
 				modesicon.setVisible(v);
-				
+
 				modes_parry_label.setVisible(v);
 				modes_reach_label.setVisible(v);
 				modes_damage_label.setVisible(v);
@@ -159,25 +156,22 @@
 				modes_label.setVisible(v);
 				modeslist.setVisible(v);
 				modeslist_iedit.setVisible(v);
-				modeslist_ispacer.setVisible(v and modeslist_iedit.getValue() == 1);
-				modeslist_iadd.setVisible(v and modeslist_iedit.getValue() == 1)
+				modeslist_ispacer.setVisible(v);
+				modeslist_iadd.setVisible(v)
 				frame_modes.setVisible(v);
-			end
-			
-			function setModifiersVisible()
-				local v = false;
-				if activatemodifiers.getValue() == 1 then
-					v = true;
-				end
-				
+      end
+
+      function setModifiersVisible()
+				local v = (activatemodifiers.getValue() == 1);
+
 				modifiersicon.setVisible(v);
 				modifiers_label.setVisible(v);
 				modifierslist.setVisible(v);
 				modifierslist_iedit.setVisible(v);
-				modifierslist_iadd.setVisible(v and modifierslist_iedit.getValue() == 1)
+				modifierslist_iadd.setVisible(v)
 				frame_modifiers.setVisible(v);
-			end
-		</script>
+      end
+    </script>
 		<sheetdata>
 		
 			<genericcontrol name="rightanchor">

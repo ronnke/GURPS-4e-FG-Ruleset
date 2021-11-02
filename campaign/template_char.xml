@@ -6,7 +6,7 @@
 -->
 
 <root>
-	<template name="button_iadd">
+	<!--<template name="button_iadd">
 		<buttoncontrol>
 			<anchored width="20" height="20" />
 			<icon normal="button_add" pressed="button_add_down" />
@@ -76,7 +76,7 @@
 				end
 			</script>
 		</buttoncontrol>
-	</template>
+	</template>-->
 
 	<template name="sub_charsheet">
 		<subwindow>
