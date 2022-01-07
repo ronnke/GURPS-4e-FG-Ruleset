@@ -6,6 +6,184 @@
 -->
 
 <root>
+
+  <template name="anchor_left">
+    <genericcontrol name="leftanchor">
+      <anchored position="insidetopleft" offset="2,2" height="0" width="0" />
+    </genericcontrol>
+  </template>
+  <template name="anchor_right">
+    <genericcontrol name="rightanchor">
+      <anchored position="insidetopright" offset="2,2" height="0" width="0" />
+    </genericcontrol>
+  </template>
+  <template name="spacer_entry_top">
+    <genericcontrol name="spacer_top">
+      <anchored position="insidetopleft" width="0" height="5" />
+      <invisible />
+    </genericcontrol>
+  </template>
+  <template name="spacer_entry_bottom">
+    <genericcontrol name="spacer_bottom">
+      <anchored width="0" height="5">
+        <top parent="spacer_top" anchor="bottom" relation="relative" />
+        <left />
+      </anchored>
+      <invisible />
+    </genericcontrol>
+  </template>
+
+
+  <template name="sub_section_meleecombat">
+		<subwindow name="sub_meleecombat">
+			<anchored>
+				<top parent="spacer_top" anchor="bottom" relation="relative" offset="5" />
+				<left anchor="right" offset="8" />
+				<right offset="-12" />
+			</anchored>
+			<class>meleecombat</class>
+			<fastinit />
+		</subwindow>
+	</template>
+	<template name="sub_section_rangedcombat">
+		<subwindow name="sub_rangedcombat">
+			<anchored>
+				<top parent="spacer_top" anchor="bottom" relation="relative" />
+				<left anchor="right" offset="8" />
+				<right offset="-12" />
+			</anchored>
+			<class>rangedcombat</class>
+			<fastinit />
+		</subwindow>
+	</template>
+  <template name="spacer_section_combat">
+    <genericcontrol name="spacer_combat">
+    <anchored height="0">
+      <top parent="spacer_top" anchor="bottom" relation="relative" />
+      <left anchor="right" offset="55" />
+      <right offset="-17" />
+    </anchored>
+    <disabled />
+  </genericcontrol>
+  </template>
+  <template name="frame_section_combat">
+    <frame_sub name="frame_combat">
+			<anchored>
+				<top parent="combaticon" />
+				<bottom parent="spacer_combat" />
+			</anchored>
+		</frame_sub>
+	</template>
+
+	<template name="icon_section_meleemodes">
+    <icon_subsection name="meleemodesicon">
+			<icon>weapon_modes_down</icon>
+		</icon_subsection>
+	</template>
+	<template name="sub_section_meleemodes">
+		<subwindow name="sub_meleemodes">
+			<anchored>
+				<top parent="spacer_top" anchor="bottom" relation="relative" offset="30" />
+				<left parent="meleemodesicon" anchor="right" offset="8" />
+				<right offset="-12" />
+			</anchored>
+			<class>meleemodes</class>
+		</subwindow>
+	</template>
+	<template name="frame_section_meleemodes">
+		<frame_sub name="frame_modes">
+			<anchored>
+        <left offset="15" />
+        <right offset="-4" />
+        <top parent="meleemodesicon" offset="0" />
+				<bottom parent="sub_meleemodes" />
+			</anchored>
+		</frame_sub>
+	</template>
+  
+  <template name="icon_section_rangedmodes">
+		<icon_subsection name="rangedmodesicon">
+			<icon>weapon_modes_down</icon>
+		</icon_subsection>
+	</template>
+	<template name="sub_section_rangedmodes">
+		<subwindow name="sub_rangedmodes">
+			<anchored>
+				<top parent="spacer_top" anchor="bottom" relation="relative" offset="30" />
+				<left parent="rangedmodesicon" anchor="right" offset="8" />
+				<right offset="-12" />
+			</anchored>
+			<class>rangedmodes</class>
+		</subwindow>
+	</template>
+	<template name="frame_section_rangedmodes">
+		<frame_sub name="frame_modes">
+			<anchored>
+        <left offset="15" />
+        <right offset="-4" />
+        <top parent="rangedmodesicon" offset="0" />
+				<bottom parent="sub_rangedmodes" />
+			</anchored>
+		</frame_sub>
+	</template>
+
+	<template name="icon_section_meleemodifiers">
+		<icon_subsection name="meleemodifiersicon">
+			<icon>modifiers_down</icon>
+		</icon_subsection>
+	</template>
+	<template name="sub_section_meleemodifiers">
+		<subwindow name="sub_meleemodifiers">
+			<anchored>
+				<top parent="spacer_top" anchor="bottom" relation="relative" offset="30" />
+				<left parent="meleemodifiersicon" anchor="right" offset="8" />
+				<right offset="-12" />
+			</anchored>
+			<class>modifiers</class>
+		</subwindow>
+	</template>
+	<template name="frame_section_meleemodifiers">
+		<frame_sub name="frame_meleemodifiers">
+			<anchored>
+        <left offset="15" />
+        <right offset="-4" />
+        <top parent="meleemodifiersicon" offset="0" />
+				<bottom parent="sub_meleemodifiers" />
+			</anchored>
+		</frame_sub>
+	</template>
+
+	<template name="icon_section_rangedmodifiers">
+		<icon_subsection name="rangedmodifiersicon">
+			<icon>modifiers_down</icon>
+		</icon_subsection>
+	</template>
+	<template name="sub_section_rangedmodifiers">
+		<subwindow name="sub_rangedmodifiers">
+			<anchored>
+				<top parent="spacer_top" anchor="bottom" relation="relative" offset="30" />
+				<left parent="rangedmodifiersicon" anchor="right" offset="8" />
+				<right offset="-12" />
+			</anchored>
+			<class>modifiers</class>
+		</subwindow>
+	</template>
+	<template name="frame_section_rangedmodifiers">
+		<frame_sub name="frame_rangedmodifiers">
+			<anchored>
+        <left offset="15" />
+        <right offset="-4" />
+        <top parent="rangedmodifiersicon" offset="0" />
+				<bottom parent="sub_rangedmodifiers" />
+			</anchored>
+		</frame_sub>
+	</template>  
+  
+  
+  
+  
+  
+
   <template name="button_ability_skills">
     <button_text_sm>
       <anchored to="buttonanchor" width="100">

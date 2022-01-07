@@ -68,7 +68,6 @@
 				<static textres="char_label_dr" />
 			</label_attribute>
 
-
 			<anchor_column name="columnanchor">
 				<anchored to="dr" />
 			</anchor_column>
@@ -89,14 +88,13 @@
 				<anchored to="meleecombat_iedit" position="lefthigh" offset="5,0" />
 				<target>meleecombat</target>
 			</button_iadd>
-			<list_npcmeleecombat name="meleecombat">
-				<anchored>
-					<top parent="header_meleecombat" anchor="bottom" relation="relative" offset="7" />
-					<left offset="0" />
-					<right offset="-5" />
-				</anchored>
-				<class>npc_meleecombat</class>
-			</list_npcmeleecombat>
+      <sub_section_meleecombat name="meleecombat">
+        <anchored>
+          <top parent="header_meleecombat" anchor="bottom" relation="relative" offset="7" />
+          <left offset="0" />
+          <right offset="-5" />
+        </anchored>
+      </sub_section_meleecombat>
 
 
 			<header_column name="header_rangedcombat">
@@ -114,20 +112,19 @@
 				<anchored to="rangedcombat_iedit" position="lefthigh" offset="5,0" />
 				<target>rangedcombat</target>
 			</button_iadd>
-			<list_npcrangedcombat name="rangedcombat">
-				<anchored>
-					<top parent="header_rangedcombat" anchor="bottom" relation="relative" offset="7" />
-					<left offset="0" />
-					<right offset="-5" />
-				</anchored>
-				<class>npc_rangedcombat</class>
-			</list_npcrangedcombat>
+      <!--<sub_section_rangedcombat name="rangedcombat">
+        <anchored>
+          <top parent="header_rangedcombat" anchor="bottom" relation="relative" offset="7" />
+          <left offset="0" />
+          <right offset="-5" />
+        </anchored>
+      </sub_section_rangedcombat>-->
 
-		</sheetdata>
+    </sheetdata>
 	</windowclass>
 
 
-	<windowclass name="npc_meleecombat">
+	<windowclass name="meleecombat">
 		<margins control="0,0,0,2" />
 		<script>
 			function onInit()
@@ -135,65 +132,16 @@
 				setModifiersVisible();
 			end
 
-			function update(bReadOnly)
-				local vModes,vModifiers = false;
-				if activatemodes.getValue() == 1 then
-					vModes = true and not bReadOnly;
-				end
-				if activatemodifiers.getValue() == 1 then
-					vModifiers = true and not bReadOnly;
-				end
-				
-				if bReadOnly then
-					if modeslist_iedit then
-						modeslist_iedit.setValue(0);
-						modeslist_iedit.setVisible(false);
-					end
-					if modifierslist_iedit then
-						modifierslist_iedit.setValue(0);
-						modifierslist_iedit.setVisible(false);
-					end
-				else
-					if modeslist_iedit then
-						modeslist_iedit.setVisible(vModes);
-					end
-					if modifierslist_iedit then
-						modifierslist_iedit.setVisible(vModifiers);
-					end
-				end
-				for _,w in ipairs(modeslist.getWindows()) do
-					w.name.setReadOnly(bReadOnly);
-					w.level.setReadOnly(bReadOnly);
-					w.damage.setReadOnly(bReadOnly);
-					w.reach.setReadOnly(bReadOnly);
-					w.parry.setReadOnly(bReadOnly);
-				end
-				for _,w in ipairs(modifierslist.getWindows()) do
-					w.name.setReadOnly(bReadOnly);
-					w.modifier.setReadOnly(bReadOnly);
-				end
-			end
-
 			function setModesVisible()
 				local v = false;
 				if activatemodes.getValue() == 1 then
 					v = true;
 				end
-
-				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode().getParent().getParent().getParent());
 			
-				modesicon.setVisible(v);
-				
-				modes_parry_label.setVisible(v);
-				modes_reach_label.setVisible(v);
-				modes_damage_label.setVisible(v);
-				modes_level_label.setVisible(v);
-				modes_label.setVisible(v);
-				modeslist.setVisible(v);
-				modeslist_iedit.setVisible(v and not bReadOnly)
-				modeslist_ispacer.setVisible(v and not bReadOnly)
-				modeslist_iadd.setVisible(v and not bReadOnly)
-				frame_modes.setVisible(v);
+				meleemodesicon.setVisible(v);
+				sub_meleemodes.setVisible(v);
+				frame_meleemodes.setVisible(v);
+
 			end
 			
 			function setModifiersVisible()
@@ -202,38 +150,14 @@
 					v = true;
 				end
 				
-				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode().getParent().getParent().getParent());
-
-				modifiersicon.setVisible(v);
-				modifiers_label.setVisible(v);
-				modifierslist.setVisible(v);
-				modifierslist_iedit.setVisible(v and not bReadOnly)
-				modifierslist_iadd.setVisible(v and not bReadOnly)
-				frame_modifiers.setVisible(v);
+				meleemodifiersicon.setVisible(v);
+				sub_meleemodifiers.setVisible(v);
+				frame_meleemodifiers.setVisible(v);
 			end
 		</script>
 		<sheetdata>
-		
-			<genericcontrol name="rightanchor">
-				<anchored height="0" width="0">
-					<top />
-					<right />
-				</anchored>
-			</genericcontrol>
-			<genericcontrol name="bottomanchor">
-				<anchored height="0" width="0">
-					<top offset="20" />
-					<right />
-				</anchored>
-				<invisible />
-			</genericcontrol>
-			<button_idelete name="idelete">
-				<anchored>
-					<top offset="2" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
-				</anchored>
-				<invisible merge="delete" />
-			</button_idelete>
+      <spacer_entry_top name="spacer_top" />
+      <anchor_right name="rightanchor" />
 
 			<string_charfield name="weight">
 				<anchored to="rightanchor" width="40" height="20">
@@ -293,150 +217,173 @@
 			<string_textlistitem name="name">
 				<anchored height="20">
 					<top offset="2" />
-					<left offset="20" />
+					<left offset="5" />
 					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
 				</anchored>
 				<tabtarget next="st" />
 				<nodrag />
 			</string_textlistitem>
 			
-			<!-- WEAPON MODES SECTION --> 			
-			<icon_detailsection name="modesicon">
-				<icon>weapon_modes_down</icon>
-			</icon_detailsection>
+			<!-- WEAPON MODES SUBSECTION -->
+			<icon_section_meleemodes name="meleemodesicon" />
+			<sub_section_meleemodes name="sub_meleemodes" />
+			<frame_section_meleemodes name="frame_meleemodes" />
 
-			<label_columntop name="modeslist_ispacer">
-				<anchored to="modesicon" width="20" height="20" offset="-10">
-					<top />
-					<right parent="bottomanchor" anchor="left" relation="relative" offset="-5" />
-				</anchored>
-			</label_columntop>
-			<label_columntop name="modes_parry_label">
-				<anchored to="modesicon" width="30">
-					<top />
-					<right parent="bottomanchor" anchor="left" relation="relative" offset="-20" />
-				</anchored>
-				<static textres="char_label_parry" />
-			</label_columntop>
-			<label_columntop name="modes_reach_label">
-				<anchored to="modesicon" width="40">
-					<top />
-					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<static textres="char_label_reach" />
-			</label_columntop>
-			<label_columntop name="modes_damage_label">
-				<anchored to="modesicon" width="70">
-					<top />
-					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<static textres="char_label_damage" />
-			</label_columntop>
-			<label_columntop name="modes_level_label">
-				<anchored to="modesicon" width="20">
-					<top />
-					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<static textres="char_label_level" />
-			</label_columntop>
-			<label_columntop name="modes_label">
-				<anchored to="modesicon">
-					<top />
-					<left anchor="right" offset="5" />
-					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<static textres="char_label_mode" />
-			</label_columntop>
-
-			<list_charmeleemode name="modeslist">
-				<anchored to="modes_label">
-					<top anchor="bottom" relation="relative" />
-					<left parent="modesicon" anchor="right" offset="10" />
-					<right parent="bottomanchor" anchor="left" offset="-10" />
-				</anchored>
-				<class>char_meleemode</class>
-				<noscroll />
-			</list_charmeleemode>
- 
-  			<button_iedit name="modeslist_iedit">
-				<anchored to="modeslist" position="belowright" offset="5,2" />
-				<target>modeslist</target>
-			</button_iedit>
-			<button_iadd name="modeslist_iadd">
-				<anchored to="modeslist_iedit" position="lefthigh" offset="5,0" />
-				<target>modeslist</target>
-				<invisible />
-			</button_iadd>
- 
-			<frame_detailsub name="frame_modes">
-				<anchored to="bottomanchor">
-					<top anchor="bottom" relation="relative" offset="5" />
-					<right parent="modeslist" anchor="right" offset="10" />
-					<left parent="modeslist" anchor="left" offset="-10" />
-					<bottom parent="modeslist_iedit" />
-				</anchored>
-			</frame_detailsub>
-		
-
-			<!-- WEAPON MODIFIERS SECTION --> 			
-			<icon_detailsection name="modifiersicon">
-				<icon>modifiers_down</icon>
-			</icon_detailsection>
-
-			<label_columntop name="modifiers_label">
-				<anchored to="modifiersicon">
-					<top />
-					<left anchor="right" offset="10" />
-					<right parent="bottomanchor" anchor="left" offset="-10" />
-				</anchored>
-				<static textres="char_label_modifier" />
-			</label_columntop>
-
-			<list_charmodifier name="modifierslist">
-				<anchored to="modifiers_label">
-					<top anchor="bottom" relation="relative" />
-					<left parent="modifiersicon" anchor="right" offset="10" />
-					<right parent="bottomanchor" anchor="left" offset="-10" />
-				</anchored>
-				<class>basic_modifier</class>
-				<noscroll />
-			</list_charmodifier>
- 
-  			<button_iedit name="modifierslist_iedit">
-				<anchored to="modifierslist" position="belowright" offset="5,2" />
-				<target>modifierslist</target>
-			</button_iedit>
-			<button_iadd name="modifierslist_iadd">
-				<anchored to="modifierslist_iedit" position="lefthigh" offset="5,0" />
-				<target>modifierslist</target>
-				<invisible />
-			</button_iadd>
-
-			<frame_detailsub name="frame_modifiers">
-				<anchored to="bottomanchor">
-					<top anchor="bottom" relation="relative" offset="5" />
-					<right parent="modifierslist" anchor="right" offset="10" />
-					<left parent="modifierslist" anchor="left" offset="-10" />
-					<bottom parent="modifierslist_iedit" />
-				</anchored>
-			</frame_detailsub>
+			<!-- WEAPON MODIFIERS SECTION -->
+      <icon_section_meleemodifiers name="meleemodifiersicon" />
+      <sub_section_meleemodifiers name="sub_meleemodifiers" />
+      <frame_section_meleemodifiers name="frame_meleemodifiers" />
 			
 		</sheetdata>
 	</windowclass>
 
+  <windowclass name="meleemodes">
+    <margins control="0,0,3,2" />
+    <sheetdata>
+      
+      <anchor_right name="rightanchor" />
 
-	<windowclass name="npc_meleemode">
+      <label_columntop name="modeslist_ispacer">
+        <anchored to="modesicon" width="20" offset="-10">
+          <top />
+          <right parent="bottomanchor" anchor="left" relation="relative" offset="-5" />
+        </anchored>
+        <disabled />
+        <backcolor>#CCCCCC</backcolor>
+      </label_columntop>
+      
+      <label_columntop name="modes_parry_label">
+        <anchored width="30">
+          <top />
+          <right parent="rightanchor" anchor="left" relation="relative" />
+        </anchored>
+        <static textres="char_label_parry" />
+      </label_columntop>
+      <label_columntop name="modes_reach_label">
+        <anchored width="40">
+          <top />
+          <right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
+        </anchored>
+        <static textres="char_label_reach" />
+      </label_columntop>
+      <label_columntop name="modes_damage_label">
+        <anchored width="70">
+          <top />
+          <right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
+        </anchored>
+        <static textres="char_label_damage" />
+      </label_columntop>
+      <label_columntop name="modes_level_label">
+        <anchored width="20">
+          <top />
+          <right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
+        </anchored>
+        <static textres="char_label_level" />
+      </label_columntop>
+      <label_columntop name="modes_label">
+        <anchored >
+          <top />
+          <left offset="-5" />
+          <right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
+        </anchored>
+        <static textres="char_label_mode" />
+      </label_columntop>
+
+      <list_charmeleemode name="modeslist">
+        <anchored>
+          <top offset="10" />
+          <left offset="-5" />
+          <right offset="5" />
+        </anchored>
+        <class>meleemode</class>
+        <noscroll />
+      </list_charmeleemode>
+
+      <button_iedit name="modeslist_iedit">
+        <anchored to="modeslist" position="belowright" offset="5,2" />
+        <target>modeslist</target>
+      </button_iedit>
+      <button_iadd name="modeslist_iadd">
+        <anchored to="modeslist_iedit" position="lefthigh" offset="5,0" />
+        <target>modeslist</target>
+      </button_iadd>
+
+    </sheetdata>
+  </windowclass>
+
+  <windowclass name="meleemode">
+    <margins control="0,0,0,2" />
+    <sheetdata>
+
+      <anchor_right name="rightanchor" />
+
+      <button_idelete name="idelete">
+        <anchored>
+          <top offset="2" />
+          <right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+        </anchored>
+        <invisible merge="delete" />
+      </button_idelete>
+
+      <string_chardefensefield name="parry">
+        <rollable_weaponparry />
+        <anchored to="rightanchor" width="30" height="20">
+          <top offset="2" />
+          <right anchor="left" relation="relative" offset="-5" />
+        </anchored>
+        <tabtarget prev="reach" />
+      </string_chardefensefield>
+      <string_charfield name="reach">
+        <anchored to="rightanchor" width="40" height="20">
+          <top offset="2" />
+          <right anchor="left" relation="relative" offset="-10" />
+        </anchored>
+        <tabtarget next="parry" prev="damage" />
+      </string_charfield>
+      <string_charfield name="damage">
+        <rollable_damage />
+        <anchored to="rightanchor" width="70" height="20">
+          <top offset="2" />
+          <right anchor="left" relation="relative" offset="-10" />
+        </anchored>
+        <tabtarget next="reach" prev="name" />
+      </string_charfield>
+      <number_charfield name="level">
+        <rollable_melee />
+        <anchored to="rightanchor" width="20" height="20">
+          <top offset="2" />
+          <right anchor="left" relation="relative" offset="-10" />
+        </anchored>
+        <tabtarget next="damage" prev="name" />
+      </number_charfield>
+      <string_textlistitem name="name">
+        <anchored height="20">
+          <top offset="2" />
+          <left offset="5" />
+          <right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
+        </anchored>
+        <nodrag />
+        <tabtarget next="level" />
+      </string_textlistitem>
+
+    </sheetdata>
+  </windowclass>
+
+  
+  
+  
+  
+  
+  
+  
+
+  <!--<windowclass name="npc_meleemode">
 		<margins control="0,0,0,2" />
 		<sheetdata>
-		
-			<genericcontrol name="rightanchor">
-				<anchored height="0" width="0">
-					<top />
-					<right />
-				</anchored>
-				<invisible />
-			</genericcontrol>
-			<button_idelete name="idelete">
+
+      <anchor_right name="rightanchor" />
+
+      <button_idelete name="idelete">
 				<anchored>
 					<top offset="2" />
 					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
@@ -493,31 +440,15 @@
 		<margins control="0,0,0,2" />
 		<script>
 			function onInit()
-				setModesVisible();
-				setModifiersVisible();
+      	local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode().getParent().getParent().getParent());
+
+				setModesVisible(bReadOnly);
+				setModifiersVisible(bReadOnly);
 			end
 			
 			function update(bReadOnly)
-				local vModes= (activatemodes.getValue() == 1) and not bReadOnly
-        local vModifiers = (activatemodifiers.getValue() == 1) and not bReadOnly;
-
-				if bReadOnly then
-					if modeslist_iedit then
-						modeslist_iedit.setValue(0);
-						modeslist_iedit.setVisible(false);
-					end
-					if modifierslist_iedit then
-						modifierslist_iedit.setValue(0);
-						modifierslist_iedit.setVisible(false);
-					end
-				else
-					if modeslist_iedit then
-						modeslist_iedit.setVisible(vModes);
-					end
-					if modifierslist_iedit then
-						modifierslist_iedit.setVisible(vModifiers);
-					end
-				end
+				setModesVisible(bReadOnly);
+				setModifiersVisible(bReadOnly);
         
 				for _,w in ipairs(modeslist.getWindows()) do
 					w.name.setReadOnly(bReadOnly);
@@ -536,10 +467,8 @@
 				end
 			end
 
-			function setModesVisible()
+			function setModesVisible(bReadOnly)
 				local v = (activatemodes.getValue() == 1);
-			
-				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode().getParent().getParent().getParent());
 			
 				modesicon.setVisible(v);
 				
@@ -553,24 +482,21 @@
 				modes_label.setVisible(v);
 				modeslist.setVisible(v);
 				modeslist_iedit.setVisible(v and not bReadOnly)
-				modeslist_ispacer.setVisible(v and not bReadOnly)
+				modeslist_ispacer.setVisible(v and modeslist_iedit and not bReadOnly)
 				modeslist_iadd.setVisible(v and not bReadOnly)
 				frame_modes.setVisible(v);
-
 			end
 			
-			function setModifiersVisible()
+			function setModifiersVisible(bReadOnly)
 				local v = (activatemodifiers.getValue() == 1);
-				
-				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode().getParent().getParent().getParent());
 
 				modifiersicon.setVisible(v);
+        
 				modifiers_label.setVisible(v);
 				modifierslist.setVisible(v);
 				modifierslist_iedit.setVisible(v and not bReadOnly)
 				modifierslist_iadd.setVisible(v and not bReadOnly)
 				frame_modifiers.setVisible(v);
-
 			end
 		</script>
 		<sheetdata>
@@ -596,12 +522,7 @@
 				<invisible merge="delete" />
 			</button_idelete>
 
-			<label_columntop name="modeslist_ispacer">
-				<anchored to="rightanchor" width="20" height="20" offset="-10">
-					<top offset="2" />
-					<right parent="bottomanchor" anchor="left" relation="relative" offset="-5" />
-				</anchored>
-			</label_columntop>
+
 
 			<number_charfield name="ammo">
 				<anchored to="rightanchor" width="35" height="20">
@@ -693,12 +614,19 @@
 				<nodrag />
 			</string_textlistitem>
 			
-			<!-- WEAPON MODES SECTION --> 			
+			--><!-- WEAPON MODES SECTION --><!-- 			
 			<icon_detailsection name="modesicon">
 				<icon>weapon_modes_down</icon>
 			</icon_detailsection>
 
-			<label_columntop name="modes_rcl_label">
+      <label_columntop name="modeslist_ispacer">
+        <anchored to="modesicon" width="20" offset="-10">
+          <top />
+          <right parent="bottomanchor" anchor="left" relation="relative" offset="-5" />
+        </anchored>
+        <disabled />
+      </label_columntop>
+      <label_columntop name="modes_rcl_label">
 				<anchored to="modesicon" width="20">
 					<top />
 					<right parent="bottomanchor" anchor="left" relation="relative" offset="-20" />
@@ -766,9 +694,15 @@
 				<noscroll />
 			</list_charrangedmode>
  
-  			<button_iedit name="modeslist_iedit">
+  		<button_iedit name="modeslist_iedit">
 				<anchored to="modeslist" position="belowright" offset="5,2" />
 				<target>modeslist</target>
+        <script>
+					function onValueChanged()
+						super.onValueChanged();
+						window.setModesVisible();
+					end
+				</script>
 			</button_iedit>
 			<button_iadd name="modeslist_iadd">
 				<anchored to="modeslist_iedit" position="lefthigh" offset="5,0" />
@@ -786,7 +720,7 @@
 			</frame_detailsub>
 		
 
-			<!-- WEAPON MODIFIERS SECTION --> 			
+			--><!-- WEAPON MODIFIERS SECTION --><!-- 			
 			<icon_detailsection name="modifiersicon">
 				<icon>modifiers_down</icon>
 			</icon_detailsection>
@@ -923,6 +857,6 @@
 			</string_textlistitem>
 			
 		</sheetdata>
-	</windowclass>
+	</windowclass>-->
 
 </root>
