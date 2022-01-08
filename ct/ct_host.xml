@@ -445,7 +445,7 @@
         <anchored to="dr" position="righthigh" offset="10,-10" width="20" height="20" />
         <script>
           function onValueChanged()
-						local rActor = ActorManager.getActorFromCT(window.getDatabaseNode());
+						local rActor = ActorManager.resolveActor(window.getDatabaseNode());
 						ActorManager2.updateEncumbrance(rActor);
           end
         </script>
