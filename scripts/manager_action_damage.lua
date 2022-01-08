@@ -156,3 +156,27 @@ function parseDamage(s)
   return aDice, nMod, sOperator, nNum, xMultiply;	--MOD by Jaxilon
 end
 
+function performRoll(draginfo, rActor, sWeapon, sMode, sDamage)
+    local aDice  = StringManager2.convertStringToDice(sDamage);
+    rRoll = { sType = "damage", sDesc = "[DAMAGE]", aDice = aDice, nMod = 0, sWeapon = sWeapon, sMode = sMode, sDamage = sDamage };
+    
+    ActionsManager.performAction(draginfo, rActor, rRoll);
+end
+
+function performThrustRoll(draginfo, rActor, sDamage)
+    local aDice  = StringManager2.convertStringToDice(sDamage);
+    local sWeapon = "Basic Thrust";
+    local sMode = "";
+    rRoll = { sType = "damage", sDesc = "[DAMAGE]", aDice = aDice, nMod = 0, sWeapon = sWeapon, sMode = sMode, sDamage = sDamage };
+    
+    ActionsManager.performAction(draginfo, rActor, rRoll);
+end
+
+function performSwingRoll(draginfo, rActor, sDamage)
+    local aDice  = StringManager2.convertStringToDice(sDamage);
+    local sWeapon = "Basic Swing";
+    local sMode = "";
+    rRoll = { sType = "damage", sDesc = "[DAMAGE]", aDice = aDice, nMod = 0, sWeapon = sWeapon, sMode = sMode, sDamage = sDamage };
+    
+    ActionsManager.performAction(draginfo, rActor, rRoll);
+end

@@ -173,18 +173,25 @@
 				<tabtarget prev="sizemodifier" next="swing" />
 			</string_labeled>
 
-			<string_labeled name="swing" source="attributes.swing">
-				<anchored to="reach" position="right" relation="relative" offset="10,0" width="45" />
+      <button_charroll name="thrust_btn">
+        <rollable_button_thrust />
+        <anchored to="reach" position="right" offset="10,0" />
+      </button_charroll>
+      <string_labeled name="thrust" source="attributes.thrust">
+        <anchored to="thrust_btn" position="right" relation="relative" offset="5,0" width="50" />
+        <labelres>npc_label_thrust</labelres>
+        <tabtarget prev="swing" next="reactionmodifiers" />
+      </string_labeled>
+
+      <button_charroll name="swing_btn">
+        <rollable_button_swing />
+        <anchored to="thrust" position="right" offset="10,0" />
+      </button_charroll>
+      <string_labeled name="swing" source="attributes.swing">
+				<anchored to="swing_btn" position="right" relation="relative" offset="5,0" width="45" />
 				<labelres>npc_label_swing</labelres>
 				<tabtarget prev="sizemodifier" next="thrust" />
 			</string_labeled>
-
-			<string_labeled name="thrust" source="attributes.thrust">
-				<anchored to="swing" position="right" relation="relative" offset="10,0" width="50" />
-				<labelres>npc_label_thrust</labelres>
-				<tabtarget prev="swing" next="reactionmodifiers" />
-			</string_labeled>
-
 
 			<string_labeled name="reactionmodifiers" source="traits.reactionmodifiers">
 				<anchored to="contentanchor" height="20">

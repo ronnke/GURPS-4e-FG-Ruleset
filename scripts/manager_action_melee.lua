@@ -21,7 +21,7 @@ function onMelee(rSource, rTarget, rRoll)
   end
 
   local node = DB.findNode(rRoll.sNode);
-  local sWeapon = DB.getValue(node.getParent().getParent(), "name", "");
+  local sWeapon = DB.getValue(node.getChild("..."), "name", "");
   local sMode = DB.getValue(node, "name", "");
 
   -- Send the chat message
@@ -34,7 +34,7 @@ function onMelee(rSource, rTarget, rRoll)
     local sTargetDesc =  DB.getValue(node, "name", "");
     local nTarget = DB.getValue(node, "level", 0);
     
-    rMessage.text = string.format("%s\n%s%s%s %s(%d):%s",
+    rMessage.text = string.format("%s\n%s%s%s %s(%d)\n%s",
         (string.format("%s%s",(rTarget and string.format("%s || ",rTarget.sName) or ""), rMessage.text)),
         sWeapon, 
         ((sWeapon and sWeapon ~= '' and sTargetDesc and sTargetDesc ~= '') and "\n" or ""), 
@@ -48,4 +48,10 @@ function onMelee(rSource, rTarget, rRoll)
     
     Comm.deliverChatMessage(rMessage);
   end
+end
+
+function performRoll(draginfo, rActor, sNode)
+    rRoll = { sType = "melee", sDesc = "[MELEE]", aDice = { "d6","d6","d6" }, nMod = 0, sNode = sNode };
+    
+    ActionsManager.performAction(draginfo, rActor, rRoll);
 end

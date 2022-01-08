@@ -126,14 +126,14 @@
         function handleDrop(draginfo)
 					if draginfo.getType() == "number" then
 						local node = window.getDatabaseNode();
-						local rActor = ActorManager.getActorFromCT(node);
+						local rActor = ActorManager.resolveActor(node);
 						ActionFatigue.applyFatigue(nil, rActor, CombatManager.isCTHidden(node), draginfo.getDescription(), draginfo.getNumberData());
 					end
         end
 
         function update()
 					local node = window.getDatabaseNode();
-					local rActor = ActorManager.getActorFromCT(node);
+					local rActor = ActorManager.resolveActor(node);
 					ActionFatigue.updateFatigue(rActor);
         end
       </script>
@@ -153,14 +153,14 @@
         function handleDrop(draginfo)
 					if draginfo.getType() == "number" then
 						local node = window.getDatabaseNode();
-						local rActor = ActorManager.getActorFromCT(node);
+						local rActor = ActorManager.resolveActor(node);
 						ActionDamage.applyDamage(nil, rActor, CombatManager.isCTHidden(node), draginfo.getDescription(), draginfo.getNumberData());
 					end
         end
 
         function update()
 					local node = window.getDatabaseNode();
-					local rActor = ActorManager.getActorFromCT(node);
+					local rActor = ActorManager.resolveActor(node);
 					ActionDamage.updateDamage(rActor);
         end
       </script>
@@ -254,7 +254,7 @@
 				function handleDrop(draginfo)
 					if draginfo.getType() == "number" then
 						local node = window.getDatabaseNode();
-						local rActor = ActorManager.getActorFromCT(node);
+						local rActor = ActorManager.resolveActor(node);
 						ActionFatigue.applyFatigue(nil, rActor, CombatManager.isCTHidden(node), draginfo.getDescription(), draginfo.getNumberData());
 					end
 				end
@@ -278,7 +278,7 @@
         function handleDrop(draginfo)
 					if draginfo.getType() == "number" or draginfo.getType() == "damage"then
 						local node = window.getDatabaseNode();
-						local rActor = ActorManager.getActorFromCT(node);
+						local rActor = ActorManager.resolveActor(node);
 						ActionDamage.applyDamage(nil, rActor, CombatManager.isCTHidden(node), draginfo.getDescription(), draginfo.getNumberData());
 					end
         end

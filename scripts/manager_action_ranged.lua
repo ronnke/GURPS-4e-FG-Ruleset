@@ -21,16 +21,16 @@ function onRanged(rSource, rTarget, rRoll)
   end
 
   local node = DB.findNode(rRoll.sNode);
-  local sWeapon = DB.getValue(node.getParent().getParent(), "name", "");
+  local sWeapon = DB.getValue(node.getChild("..."), "name", "");
   local sMode = DB.getValue(node, "name", "");
 
   local nRoF = tonumber(string.match(DB.getValue(node, "rof", ""), "%d+"));
   nRoF = ((nRoF == nil or nRoF < 0) and 0 or nRoF);
   
-  local nAmmo = DB.getValue(node.getParent().getParent(), "ammo", 0) - nRoF;
+  local nAmmo = DB.getValue(node.getChild("..."), "ammo", 0) - nRoF;
   nAmmo = ((nAmmo < 0) and 0 or nAmmo);
   
-  DB.setValue(node.getParent().getParent(), "ammo", "number",  nAmmo );
+  DB.setValue(node.getChild("..."), "ammo", "number",  nAmmo );
 
   -- Send the chat message
   local bShowMsg = true;
@@ -48,7 +48,7 @@ function onRanged(rSource, rTarget, rRoll)
     local nHits = 1 + math.floor((nTarget + rRoll.nMod - nTotal) / nRcl);
     nHits = (nHits > nRoF and nRoF or nHits);
     
-    rMessage.text = string.format("%s\n%s%s%s %s(%d):%s%s",
+    rMessage.text = string.format("%s\n%s%s%s %s(%d)\n%s%s",
         (string.format("%s%s",(rTarget and string.format("%s || ",rTarget.sName) or ""), rMessage.text)),
         sWeapon, 
         ((sWeapon and sWeapon ~= '' and sTargetDesc and sTargetDesc ~= '') and "\n" or ""), 
@@ -63,4 +63,10 @@ function onRanged(rSource, rTarget, rRoll)
     
     Comm.deliverChatMessage(rMessage);
   end
+end
+
+function performRoll(draginfo, rActor, sNode)
+    rRoll = { sType = "ranged", sDesc = "[RANGED]", aDice = { "d6","d6","d6" }, nMod = 0, sNode = sNode };
+    
+    ActionsManager.performAction(draginfo, rActor, rRoll);
 end

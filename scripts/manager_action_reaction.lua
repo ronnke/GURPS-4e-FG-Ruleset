@@ -53,3 +53,9 @@ function onReaction(rSource, rTarget, rRoll)
   	Comm.deliverChatMessage(rMessage);
   end
 end
+
+function performRoll(draginfo, rActor)
+    rRoll = { sType = "reaction", sDesc = "[REACTION]", aDice = { "d6","d6","d6" }, nMod = 0 };
+    
+    ActionsManager.performAction(draginfo, rActor, rRoll);
+end

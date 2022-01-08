@@ -35,7 +35,7 @@ function onDefense(rSource, rTarget, rRoll)
     local nTarget = tonumber((string.match(rRoll.nTarget, "%d+") or "0"));
     local sExtra = (string.match(rRoll.nTarget, "[uUfF]") or "");
   
-    rMessage.text = string.format("%s\n%s%s%s %s(%d%s):%s",
+    rMessage.text = string.format("%s\n%s%s%s %s(%d%s)\n%s",
         (string.format("%s%s",(rTarget and string.format("%s || ",rTarget.sName) or ""), rMessage.text)),
         (rRoll.sWeapon or ""), 
         ((rRoll.sWeapon and rRoll.sWeapon ~= '' and rRoll.sTargetDesc and rRoll.sTargetDesc ~= '') and "\n" or ""), 
@@ -50,4 +50,28 @@ function onDefense(rSource, rTarget, rRoll)
   	
   	Comm.deliverChatMessage(rMessage);
   end
+end
+
+function performDodgeRoll(draginfo, rActor, nTarget)
+    rRoll = { sType = "dodge", sDesc = "[DODGE]", aDice = { "d6","d6","d6" }, nMod = 0, sTargetDesc = "Dodge", nTarget = nTarget };
+    
+    ActionsManager.performAction(draginfo, rActor, rRoll);
+end
+
+function performBlockRoll(draginfo, rActor, nTarget)
+    rRoll = { sType = "block", sDesc = "[BLOCK]", aDice = { "d6","d6","d6" }, nMod = 0, sTargetDesc = "Block", nTarget = nTarget };
+    
+    ActionsManager.performAction(draginfo, rActor, rRoll);
+end
+
+function performParryRoll(draginfo, rActor, nTarget)
+    rRoll = { sType = "parry", sDesc = "[PARRY]", aDice = { "d6","d6","d6" }, nMod = 0, sTargetDesc = "Parry", nTarget = nTarget };
+    
+    ActionsManager.performAction(draginfo, rActor, rRoll);
+end
+
+function performWeaponParryRoll(draginfo, rActor, sWeapon, sMode, sTargetDesc, nTarget)
+    rRoll = { sType = "parry", sDesc = "[PARRY]", aDice = { "d6","d6","d6" }, nMod = 0, sWeapon = sWeapon, sMode = sMode, sTargetDesc = sTargetDesc, nTarget = nTarget };
+    
+    ActionsManager.performAction(draginfo, rActor, rRoll);
 end

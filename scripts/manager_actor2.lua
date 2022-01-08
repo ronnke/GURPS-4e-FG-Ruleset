@@ -28,7 +28,7 @@ function onInit()
 end
 
 function getInjuryStatus(sNodeType, node)
-	local rActor = ActorManager.getActor(sNodeType, node);
+	local rActor = ActorManager.resolveActor(node);
 	
 	local nHP = DB.getValue(node, "attributes.hitpoints", 0);
 	local nCHP = DB.getValue(node, "hps", 0);
@@ -77,7 +77,7 @@ function getInjuryStatusColor(sNodeType, node)
 end
 
 function getFatigueStatus(sNodeType, node)
-	local rActor = ActorManager.getActor(sNodeType, node);
+	local rActor = ActorManager.resolveActor(node);
 	
 	local nFP = DB.getValue(node, "attributes.fatiguepoints", 0);
 	local nCFP = DB.getValue(node, "fps", 0);
@@ -562,8 +562,16 @@ function updateEncumbrance(nodeChar)
 	end
 end
 
+function resolveActor(node)
+	while node.getParent() ~= nil and node.getParent().getNodeName() ~= "charsheet" and node.getParent().getNodeName() ~= "npc" and node.getParent().getPath() ~= "combattracker.list" do
+		node = node.getParent();
+	end
+
+	return ActorManager.resolveActor(node);
+end
+
 function getTypeAndRootNode(node)
-	while node.getParent() ~= nil and node.getParent().getNodeName() ~= "charsheet" and node.getParent().getNodeName() ~= "npc" do
+	while node.getParent() ~= nil and node.getParent().getNodeName() ~= "charsheet" and node.getParent().getNodeName() ~= "npc" and node.getParent().getPath() ~= "combattracker.list" do
 		node = node.getParent();
 	end
 

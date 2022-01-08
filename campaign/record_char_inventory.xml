@@ -12,7 +12,7 @@
 				onEncumbranceChanged();
       end
       function onEncumbranceChanged()
-				local rActor = ActorManager.getActor("pc", getDatabaseNode());
+				local rActor = ActorManager.resolveActor(getDatabaseNode());
 				ActorManager2.updateEncumbrance(rActor);
       end
     </script>

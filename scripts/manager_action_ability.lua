@@ -29,7 +29,7 @@ function onRoll(rSource, rTarget, rRoll)
   if bShowMsg then
     local nTarget = tonumber((string.match(rRoll.nTarget, "%d+") or "0"));
   
-    rMessage.text = string.format("%s\n%s%s%s %s(%d):%s",
+    rMessage.text = string.format("%s\n%s%s%s %s(%d)\n%s",
         (string.format("%s%s",(rTarget and string.format("%s || ",rTarget.sName) or ""), rMessage.text)),
         (rRoll.sWeapon or ""), 
         ((rRoll.sWeapon and rRoll.sWeapon ~= '' and rRoll.sTargetDesc and rRoll.sTargetDesc ~= '') and "\n" or ""), 
@@ -43,4 +43,46 @@ function onRoll(rSource, rTarget, rRoll)
  	
   	Comm.deliverChatMessage(rMessage);
   end
+end
+
+function performAbilityRoll(draginfo, rActor, sTargetDesc, nTarget)
+    rRoll = { sType = "ability", sDesc = "[ABILITY]", aDice = { "d6","d6","d6" }, nMod = 0, sTargetDesc = sTargetDesc, nTarget = nTarget };
+    
+    ActionsManager.performAction(draginfo, rActor, rRoll);
+end
+
+function performAttributeRoll(draginfo, rActor, sTargetDesc, nTarget)
+    rRoll = { sType = "ability", sDesc = "[ATTRIBUTE]", aDice = { "d6","d6","d6" }, nMod = 0, sTargetDesc = sTargetDesc, nTarget = nTarget };
+    
+    ActionsManager.performAction(draginfo, rActor, rRoll);
+end
+
+function performSkillRoll(draginfo, rActor, sTargetDesc, nTarget)
+    rRoll = { sType = "ability", sDesc = "[SKILL]", aDice = { "d6","d6","d6" }, nMod = 0, sTargetDesc = sTargetDesc, nTarget = nTarget };
+    
+    ActionsManager.performAction(draginfo, rActor, rRoll);
+end
+
+function performRelativeSkillRoll(draginfo, rActor, sTargetDesc, nTarget)
+    rRoll = { sType = "ability", sDesc = "[RELATIVE SKILL]", aDice = { "d6","d6","d6" }, nMod = 0, sTargetDesc = sTargetDesc, nTarget = nTarget };
+    
+    ActionsManager.performAction(draginfo, rActor, rRoll);
+end
+
+function performSpellRoll(draginfo, rActor, sTargetDesc, nTarget)
+    rRoll = { sType = "ability", sDesc = "[SPELL]", aDice = { "d6","d6","d6" }, nMod = 0, sTargetDesc = sTargetDesc, nTarget = nTarget };
+    
+    ActionsManager.performAction(draginfo, rActor, rRoll);
+end
+
+function performPowerRoll(draginfo, rActor, sTargetDesc, nTarget)
+    rRoll = { sType = "ability", sDesc = "[POWER]", aDice = { "d6","d6","d6" }, nMod = 0, sTargetDesc = sTargetDesc, nTarget = nTarget };
+    
+    ActionsManager.performAction(draginfo, rActor, rRoll);
+end
+
+function performOtherRoll(draginfo, rActor, sTargetDesc, nTarget)
+    rRoll = { sType = "ability", sDesc = "[OTHER]", aDice = { "d6","d6","d6" }, nMod = 0, sTargetDesc = sTargetDesc, nTarget = nTarget };
+    
+    ActionsManager.performAction(draginfo, rActor, rRoll);
 end
