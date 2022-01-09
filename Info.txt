@@ -58,6 +58,10 @@ Click the following link to have your input on future ruleset development/improv
 [SIZE=4][B]Version Information[/B][/SIZE]
 
 [LIST]
+[*][B]GURPS 4e Ruleset v3.7.1[/B] - 10th Jan 2022 
+- Fixed: issue with abilities and weapons were not rollable.
+[/LIST]
+[LIST]
 [*][B]GURPS 4e Ruleset v3.7.0[/B] - 10th Jan 2022 
 - Fixed: breaking changes from Nov 2021 FGU update.
 - Fixed: issue with adding new characters from character window.

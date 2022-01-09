@@ -65,8 +65,8 @@ function isRollableButton()
 end
 
 function action(draginfo)
-    local sActorType, node = ActorManager.getTypeAndNode(window.getDatabaseNode());
-    if not sActorType or not node then
+    local  node = window.getDatabaseNode();
+    if not node then
         return;
     end
 
