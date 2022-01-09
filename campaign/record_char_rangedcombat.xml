@@ -167,9 +167,9 @@
 				modes_level_label.setVisible(v);
 				modes_label.setVisible(v);
 				modeslist.setVisible(v);
-				modeslist_iedit.setVisible(v);
-				modeslist_ispacer.setVisible(v);
 				modeslist_iadd.setVisible(v)
+				modeslist_iedit.setVisible(v);
+				modeslist_ispacer.setVisible(v and modeslist_iedit.getValue() == 1);
 				frame_modes.setVisible(v);
 			end
 			

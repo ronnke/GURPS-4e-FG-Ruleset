@@ -6,19 +6,6 @@
 -->
 
 <root>
-	<!--<template name="button_iadd">
-		<buttoncontrol>
-			<anchored width="20" height="20" />
-			<icon normal="button_add" pressed="button_add_down" />
-			<tooltip textres="button_add" />
-			<invisible />
-			<script>
-				function onButtonPress()
-					window[target[1]].addEntry(true);
-				end
-			</script>
-		</buttoncontrol>
-	</template>
 	<template name="button_iedit">
 		<buttoncontrol>
 			<anchored width="20" height="20" />
@@ -30,16 +17,11 @@
 						return;
 					end
 					local node = window.getDatabaseNode();
-					if not node or node.isReadOnly() then
+					if node and node.isReadOnly() then
 						setVisible(false);
 					end
 				end
-				
 				function onValueChanged()
-					local sAdd = target[1] .. "_iadd";
-					if window[sAdd] then
-						window[sAdd].setVisible(getValue() == 1);
-					end
 					local sSpacer = target[1] .. "_ispacer";
 					if window[sSpacer] then
 						window[sSpacer].setVisible(getValue() == 1);
@@ -52,32 +34,7 @@
 			</script>
 		</buttoncontrol>
 	</template>
-	<template name="button_idelete">
-		<buttoncontrol>
-			<anchored width="20" height="20" />
-			<state icon="button_delete" tooltipres="button_delete" />
-			<state icon="button_deleteconfirm" tooltipres="button_deleteconfirm" />
-			<tooltip textres="button_delete" />
-			<invisible />
-			<script>
-				function setVisibility(bVisible)
-					setValue(0);
-					setVisible(bVisible);
-				end
-				
-				function onButtonPress()
-					if getValue() == 0 then
-						if window.delete then
-							window.delete();
-						else
-							window.getDatabaseNode().delete();
-						end
-					end
-				end
-			</script>
-		</buttoncontrol>
-	</template>-->
-
+  
 	<template name="sub_charsheet">
 		<subwindow>
 			<bounds>0,65,-1,-1</bounds>
