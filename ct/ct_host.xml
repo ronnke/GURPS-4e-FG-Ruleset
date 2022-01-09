@@ -490,7 +490,6 @@
 				meleemodesicon.setVisible(v);
 				sub_meleemodes.setVisible(v);
 				frame_meleemodes.setVisible(v);
-
 			end
 			
 			function setModifiersVisible()

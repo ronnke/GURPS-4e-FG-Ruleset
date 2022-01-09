@@ -410,6 +410,7 @@ aRecordOverrides = {
 		aDisplayIcon = { "button_abilities", "button_abilities_down" },
 	    aGMListButtons = { "button_ability_skills", "button_ability_spells", "button_ability_powers", "button_ability_others" };
 	    aPlayerListButtons = { "button_ability_skills", "button_ability_spells", "button_ability_powers", "button_ability_others" };
+        sSidebarCategory = "create",
 	    aCustomFilters = {
 		    ["Type"] = { sField = "type"  },
 	    },
@@ -420,6 +421,7 @@ aRecordOverrides = {
 		aDisplayIcon = { "button_traits", "button_traits_down" },
 	    aGMListButtons = { "button_trait_advantages", "button_trait_disadvantages", "button_trait_perks", "button_trait_quirks" };
 	    aPlayerListButtons = { "button_trait_advantages", "button_trait_disadvantages", "button_trait_perks", "button_trait_quirks" };
+        sSidebarCategory = "create",
 	    aCustomFilters = {
 		    ["Type"] = { sField = "type"  },
 	    },
@@ -798,9 +800,12 @@ function onInit()
 	LibraryData.setCustomFilterHandler("item_ismeleeweapon", isMeleeWeapon);
 	LibraryData.setCustomFilterHandler("item_israngedweapon", isRangedWeapon);
 
-	for kDefSidebar,vDefSidebar in pairs(aDefaultSidebarState) do
-		DesktopManager.setDefaultSidebarState(kDefSidebar, vDefSidebar);
-	end
+    if not UtilityManager.isClientFGU() then
+	    for kDefSidebar,vDefSidebar in pairs(aDefaultSidebarState) do
+		    DesktopManager.setDefaultSidebarState(kDefSidebar, vDefSidebar);
+	    end
+    end
+
 	for kRecordType,vRecordType in pairs(aRecordOverrides) do
 		LibraryData.overrideRecordTypeInfo(kRecordType, vRecordType);
 	end
