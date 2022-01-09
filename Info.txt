@@ -4,7 +4,7 @@ This unofficial GURPS Ruleset for Fantasy Grounds is developed with the permissi
 
 [B]GURPS 4E Core Ruleset[/B]
 Download latest release from here: [URL="http://bit.ly/GURPS4ECore"]http://bit.ly/GURPS4ECore[/URL] 
-[I](Updated: 18th Jul 2021)[/I]
+[I](Updated: 10th Jan 2022)[/I]
 [B][COLOR="#FF0000"](This update v3.6.x will make irreversible changes to the campaign database. As a precaution, backup your campaign folder before applying)[/COLOR][/B]
 
 * Here is a video demonstrating some of the features of the GURPS ruleset (it will be updated some day): [URL="https://youtu.be/pSm-9Trzd5w"]https://youtu.be/pSm-9Trzd5w[/URL]
@@ -57,6 +57,13 @@ Click the following link to have your input on future ruleset development/improv
 
 [SIZE=4][B]Version Information[/B][/SIZE]
 
+[LIST]
+[*][B]GURPS 4e Ruleset v3.7.0[/B] - 10th Jan 2022 
+- Fixed: breaking changes from Nov 2021 FGU update.
+- Fixed: issue with adding new characters from character window.
+- Added: button to roll basic Swing and Thrust damage.
+- Other changes fixes not worth mentioning.
+[/LIST]
 [LIST]
 [*][B]GURPS 4e Ruleset v3.6.2[/B] - 18th Jul 2021 
 - Added: Resource tracking tab to main page of the character sheet.
