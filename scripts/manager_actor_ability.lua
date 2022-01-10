@@ -176,7 +176,7 @@ function calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, defau
 	end
 
 	if typeInfo.basis == "Tech" then -- this is a technique.
-		if bestDefault then -- techniques must have a default.
+		if bestDefault then
 			level = bestDefaultLevel;
 			if bestDefault.statType ~= "attribute" then
 				basis = bestDefault.name;
@@ -192,6 +192,10 @@ function calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, defau
 
 			level = level + level_adj;
 			relativelevel = makeRelativeLevelString("Def", level - bestDefaultLevel);
+		else
+			basis = "Unknown";
+			level = level_adj;
+			relativelevel = makeRelativeLevelString("Unk", level - 10);
 		end
 	elseif nameInfo.wild then -- this is a wildcard ability.
 		local baseStat = ActorManager2.getStat(nodeChar, typeInfo.basis);
@@ -204,6 +208,10 @@ function calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, defau
 
 			level = level + level_adj;
 			relativelevel = makeRelativeLevelString(typeInfo.basis, level - baseStat.level);
+		else
+			basis = "Unknown";
+			level = level_adj;
+			relativelevel = makeRelativeLevelString("Unk", level - 10);
 		end
 	else -- this is a typical ability.
 		local baseStat = ActorManager2.getStat(nodeChar, typeInfo.basis);
@@ -241,9 +249,8 @@ function calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, defau
 				end
 			end
 
-			level = level + level_adj;
-			relativelevel = makeRelativeLevelString(typeInfo.basis, level - baseStat.level);
-		end
+		level = level + level_adj;
+		relativelevel = makeRelativeLevelString(typeInfo.basis, level - baseStat.level);
 	end
 
 	result = {};
@@ -348,6 +355,7 @@ function reconcilePCSkill(nodeSkill)
 		return;
 	end
 
+	DB.setValue(nodeSkill, "basis", "string", abilityInfo.basis);
 	DB.setValue(nodeSkill, "level", "number", abilityInfo.level);
 	DB.setValue(nodeSkill, "relativelevel", "string", abilityInfo.relativelevel);
 end
