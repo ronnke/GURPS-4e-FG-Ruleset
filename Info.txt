@@ -60,6 +60,7 @@ Click the following link to have your input on future ruleset development/improv
 [LIST]
 [*][B]GURPS 4e Ruleset v3.7.1[/B] - 10th Jan 2022 
 - Fixed: issue with abilities and weapons were not rollable.
+- Fixed: issue where you could add NPC abilities in readonly mode
 [/LIST]
 [LIST]
 [*][B]GURPS 4e Ruleset v3.7.0[/B] - 10th Jan 2022 

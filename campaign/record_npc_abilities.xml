@@ -54,11 +54,17 @@
 				local vModifiers = (activatemodifiers.getValue() == 1) and not bReadOnly;
 
 				if bReadOnly then
+					if modifierslist_iadd then
+						modifierslist_iadd.setVisible(false);
+					end
 					if modifierslist_iedit then
 						modifierslist_iedit.setValue(0);
 						modifierslist_iedit.setVisible(false);
 					end
 				else
+					if modifierslist_iadd then
+						modifierslist_iadd.setVisible(vModifiers);
+					end
 					if modifierslist_iedit then
 						modifierslist_iedit.setVisible(vModifiers);
 					end
@@ -72,7 +78,7 @@
 			function setModifiersVisible()
 				local v = (activatemodifiers.getValue() == 1);
 				
-				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode().getParent().getParent().getParent());
+				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode().getChild("...."));
 
 				modifiersicon.setVisible(v);
 				modifiers_label.setVisible(v);

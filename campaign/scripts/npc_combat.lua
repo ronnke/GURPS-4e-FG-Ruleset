@@ -18,7 +18,7 @@ function updateControl(sControl, bReadOnly, bForceHide)
 end
 
 function update()
-	local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
+  local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
 
   updateControl("dodge", bReadOnly, false);
   updateControl("parry", bReadOnly, false);

@@ -18,10 +18,13 @@ function updateControl(sControl, bReadOnly, bForceHide)
 end
 
 function update()
-	local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
+  local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
 
   updateControl("abilities", bReadOnly, false);
   if bReadOnly then
+	if abilities_iadd then
+	  abilities_iadd.setVisible(false);
+	end
     if abilities_iedit then
       abilities_iedit.setValue(0);
       abilities_iedit.setVisible(false);
@@ -31,6 +34,9 @@ function update()
     header_abilities.setVisible(bShow);
     abilities.setVisible(bShow);
   else
+	if abilities_iadd then
+      abilities_iadd.setVisible(true);
+	end
     if abilities_iedit then
       abilities_iedit.setVisible(true);
     end
@@ -42,7 +48,6 @@ function update()
     w.level.setReadOnly(bReadOnly);
     w.update(bReadOnly);
   end
-	
 end
 
 function addAbilities(sName, sDesc)
