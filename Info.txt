@@ -3,29 +3,28 @@ This unofficial GURPS Ruleset for Fantasy Grounds is developed with the permissi
 [SIZE=3][B]Latest Release Downloads[/B][/SIZE]
 
 [B]GURPS 4E Core Ruleset[/B]
-Download latest release from here: [URL="http://bit.ly/GURPS4ECore"]http://bit.ly/GURPS4ECore[/URL] 
+Download latest release from here: [URL="https://bit.ly/GURPS4ECore"]https://bit.ly/GURPS4ECore[/URL] 
 [I](Updated: 10th Jan 2022)[/I]
 [B][COLOR="#FF0000"](This update v3.6.x will make irreversible changes to the campaign database. As a precaution, backup your campaign folder before applying)[/COLOR][/B]
 
 * Here is a video demonstrating some of the features of the GURPS ruleset (it will be updated some day): [URL="https://youtu.be/pSm-9Trzd5w"]https://youtu.be/pSm-9Trzd5w[/URL]
 
-[B]GURPS Core Theme[/B]
-Download the latest release of the GURPS Core theme from here: [URL="http://bit.ly/GURPSCoreTheme"]http://bit.ly/GURPSCoreTheme[/URL]
-[I](Updated: 20th Mar 2020)[/I]
-[I](Courtesy of Gigermann)[/I]
+[B]GURPS Assets (For FGU)[/B]
+Download the latest release of the GURPS Assets from here: [URL="https://bit.ly/GURPSFGUAssets"]https://bit.ly/GURPSFGUAssets[/URL]
+[I](Updated: 10th Jan 2022)[/I]
 
 [B]GURPS Core Theme for Unity[/B]
-Download the latest release of the GURPS Core theme from here: [URL="http://bit.ly/GURPSCoreUTheme"]http://bit.ly/GURPSCoreUTheme[/URL]
+Download the latest release of the GURPS Core theme from here: [URL="https://bit.ly/GURPSCoreUTheme"]https://bit.ly/GURPSCoreUTheme[/URL]
 [I](Updated: 4th Dec 2020)[/I]
 [I](Courtesy of Gigermann)[/I]
 
 [B]GCA Exporter Files[/B]
-Download the GCA exporter files from here: [URL="http://bit.ly/GCAtoFGExport"]http://bit.ly/GCAtoFGExport[/URL] 
+Download the GCA exporter files from here: [URL="https://bit.ly/GCAtoFGExport"]https://bit.ly/GCAtoFGExport[/URL] 
 [I](Updated: 21st Aug 2018)[/I]
 [I](Courtesy of Andraax)[/I]
 
 [B]GURPS No Dice Extension[/B]
-Download an extension to remove non-GURPS dice from the Fantasy Grounds desktop: [URL="http://bit.ly/GURPSNoDiceExt"]http://bit.ly/GURPSNoDiceExt[/URL] 
+Download an extension to remove non-GURPS dice from the Fantasy Grounds desktop: [URL="https://bit.ly/GURPSNoDiceExt"]https://bit.ly/GURPSNoDiceExt[/URL] 
 [I](Updated: 16th Mar 2020)[/I]
 [I](Courtesy of Ronnke)[/I]
 
