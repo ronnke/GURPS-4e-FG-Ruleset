@@ -36,10 +36,6 @@
 				<icon>charlist_base</icon>
 				<disabled />
 			</genericcontrol>
-			<portrait_charlocal name="localportrait">
-				<bounds>15,21,45,45</bounds>
-				<invisible />
-			</portrait_charlocal>
 			<portrait_char name="portrait">
 				<bounds>15,21,45,45</bounds>
 			</portrait_char>

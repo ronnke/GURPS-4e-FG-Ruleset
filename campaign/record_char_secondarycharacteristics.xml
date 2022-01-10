@@ -33,7 +33,7 @@
 			</string_labeled>
       <button_charroll name="thrust_btn">
         <rollable_button_thrust />
-        <anchored to="basiclift" position="right" offset="10,0" />
+        <anchored to="basiclift" position="righthigh" offset="10,0" />
       </button_charroll>
       <string_labeled name="thrust" source="attributes.thrust">
         <anchored to="thrust_btn" position="right" offset="5,0" width="50" />
@@ -42,7 +42,7 @@
 			</string_labeled>
       <button_charroll name="swing_btn">
         <rollable_button_swing />
-        <anchored to="thrust" position="right" offset="10,0" />
+        <anchored to="thrust" position="righthigh" offset="10,0" />
       </button_charroll>
       <string_labeled name="swing" source="attributes.swing">
         <anchored to="swing_btn" position="right" offset="5,0" width="45" />
