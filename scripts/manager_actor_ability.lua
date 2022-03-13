@@ -249,8 +249,9 @@ function calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, defau
 				end
 			end
 
-		level = level + level_adj;
-		relativelevel = makeRelativeLevelString(typeInfo.basis, level - baseStat.level);
+			level = level + level_adj;
+			relativelevel = makeRelativeLevelString(typeInfo.basis, level - baseStat.level);
+		end
 	end
 
 	result = {};

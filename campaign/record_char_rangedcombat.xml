@@ -8,11 +8,14 @@
 <root>
 	<windowclass name="charsheet_rangedcombat">
 		<script>
-      function onDrop(x, y, draginfo)
-        if draginfo.isType("shortcut") then
-          return ItemManager2.AddItemToCombat(getDatabaseNode(), draginfo.getDatabaseNode(), false);
-        end
-      end
+			function onDrop(x, y, draginfo)
+				if draginfo.isType("shortcut") then
+					local sClass, sRecord = draginfo.getShortcutData();
+					if LibraryDataGURPS4e.isRangedWeapon(sRecord) then
+						return ItemManager.handleAnyDrop(getDatabaseNode(), draginfo);
+					end
+				end      
+			end      
     </script>
 		<sheetdata>
 
@@ -277,16 +280,14 @@
 					end
 				</script>
 			</buttoncontrol>
-			<linkcontrol name="shortcut">
-				<anchored width="20" height="20">
-					<top offset="2" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
-				</anchored>
-				<class>charnote</class>
-				<readonly />
-			</linkcontrol>
-			
-			<string_textlistitem name="name">
+      <linkfield name="shortcut">
+        <anchored to="rightanchor" width="20" height="20">
+          <top offset="2" />
+          <right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+        </anchored>
+      </linkfield>
+
+      <string_textlistitem name="name">
 				<anchored height="20">
 					<top offset="2" />
 					<left offset="5" />

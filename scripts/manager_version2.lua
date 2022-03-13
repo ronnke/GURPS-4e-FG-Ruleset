@@ -651,7 +651,6 @@ end
 
 function migrateChar9(nodeChar)
   -- adjust existing skills and spells to take into accunt the existance of the new bonus levels feature.
-  local characterName = DB.getValue(nodeChar, "name", "");
   if DB.getChild(nodeChar, "abilities.skilllist") then
     for _,nodeOld in pairs(DB.getChildren(nodeChar, "abilities.skilllist")) do
       local totalCP = DB.getValue(nodeOld, "points", 0);
@@ -664,7 +663,6 @@ function migrateChar9(nodeChar)
       if abilityInfo then
         DB.setValue(nodeOld, "basis", "string", abilityInfo.basis);
         if abilityInfo.level ~= desiredLevel then
-          print("Adjusting level for '" .. abilityInfo.name .. "' skill on '" .. characterName .. "'. Old level is '" .. desiredLevel .. "' but calculated level was '" .. abilityInfo.level .. "'.");
           DB.setValue(nodeOld, "level_adj", "number", desiredLevel - abilityInfo.level);
         end
       end
@@ -681,7 +679,6 @@ function migrateChar9(nodeChar)
       local level_adjust = DB.getValue(nodeOld, "level_adj", 0);
       local abilityInfo = ActorAbilityManager.calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, "", level_adjust);
       if abilityInfo and abilityInfo.level ~= desiredLevel then
-        print("Adjusting level for '" .. abilityInfo.name .. "' spell on '" .. characterName .. "'. Old level is '" .. desiredLevel .. "' but calculated level was '" .. abilityInfo.level .. "'.");
         DB.setValue(nodeOld, "level_adj", "number", desiredLevel - abilityInfo.level);
       end
     end

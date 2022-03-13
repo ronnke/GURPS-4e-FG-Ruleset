@@ -39,14 +39,14 @@
 				<target>noteslist</target>
 			</scrollbar_list>
 
-			<button_iedit name="noteslist_iedit">
-				<anchored to="noteslist" position="aboveright" offset="5,10" />
+      <button_iadd name="noteslist_iadd">
+        <anchored to="notesframe" position="insidetopright" offset="40,10" />
+        <target>noteslist</target>
+      </button_iadd>
+      <button_iedit name="noteslist_iedit">
+				<anchored to="notesframe" position="insidetopright" offset="15,10" />
 				<target>noteslist</target>
 			</button_iedit>
-			<button_iadd name="noteslist_iadd">
-				<anchored to="noteslist_iedit" position="lefthigh" offset="5,0" />
-				<target>noteslist</target>
-			</button_iadd>
 
 			<!-- POINT SUMMARY -->			
 			<frame_char name="summaryframe">

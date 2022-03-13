@@ -30,7 +30,9 @@ targetactions = {
   "reaction",
 };
 
-currencies = { "$" };
+currencies = { 
+	{ name = "$", weight = 0.0, value = 1 },
+};
 currencyDefault = "$";
 
 function getCharSelectDetailHost(nodeChar)

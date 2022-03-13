@@ -159,8 +159,10 @@
 	<string name="char_pointtotal_unspent">Unspent</string>
 	<string name="char_label_description">Description</string>
 
-	
-	<!-- NPCs -->
+  <string name="char_label_inventory">INVENTORY</string>
+  <string name="char_label_money">CURRENCY</string>
+
+  <!-- NPCs -->
 	<string name="npc_button_letter">By Letter</string>
 	<string name="npc_button_type">By Type</string>
 

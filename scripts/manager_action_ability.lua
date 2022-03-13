@@ -47,19 +47,19 @@ end
 
 function performAbilityRoll(draginfo, rActor, sTargetDesc, nTarget)
     rRoll = { sType = "ability", sDesc = "[ABILITY]", aDice = { "d6","d6","d6" }, nMod = 0, sTargetDesc = sTargetDesc, nTarget = nTarget };
-    
+
     ActionsManager.performAction(draginfo, rActor, rRoll);
 end
 
 function performAttributeRoll(draginfo, rActor, sTargetDesc, nTarget)
     rRoll = { sType = "ability", sDesc = "[ATTRIBUTE]", aDice = { "d6","d6","d6" }, nMod = 0, sTargetDesc = sTargetDesc, nTarget = nTarget };
-    
+
     ActionsManager.performAction(draginfo, rActor, rRoll);
 end
 
 function performSkillRoll(draginfo, rActor, sTargetDesc, nTarget)
     rRoll = { sType = "ability", sDesc = "[SKILL]", aDice = { "d6","d6","d6" }, nMod = 0, sTargetDesc = sTargetDesc, nTarget = nTarget };
-    
+
     ActionsManager.performAction(draginfo, rActor, rRoll);
 end
 

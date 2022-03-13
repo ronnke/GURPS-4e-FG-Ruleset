@@ -30,22 +30,22 @@ end
 function update()
 	local nodeRecord = getDatabaseNode();
 	local bReadOnly = WindowManager.getReadOnlyState(nodeRecord);
-	local bID, bOptionID = LibraryData.getIDState("item", nodeRecord);
+	local bID = LibraryData.getIDState("item", nodeRecord);
 	
 	local bDefense = LibraryDataGURPS4e.isDefense(nodeRecord);
 	local bMeleeWeapon = LibraryDataGURPS4e.isMeleeWeapon(nodeRecord);
 	local bRangedWeapon = LibraryDataGURPS4e.isRangedWeapon(nodeRecord);
 	
 	local bSection1 = false;
-	if bOptionID and User.isHost() then
+	if Session.IsHost then
 		if updateControl("nonid_name", bReadOnly, true) then bSection1 = true; end;
 	else
-    updateControl("nonid_name", bReadOnly, false);
+		updateControl("nonid_name", false);
 	end
-	if bOptionID and (User.isHost() or not bID) then
+	if (Session.IsHost or not bID) then
 		if updateControl("nonid_notes", bReadOnly, true) then bSection1 = true; end;
 	else
-		updateControl("nonid_notes", bReadOnly, false);
+		updateControl("nonid_notes", false);
 	end
 	
 	local bSection2 = false;

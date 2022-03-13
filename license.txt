@@ -1,0 +1,7 @@
+GURPS 4e RULESET LICENSE
+
+GURPS is a trademark of Steve Jackson Games, and its rules and art are copyrighted by Steve Jackson Games. All rights are reserved by Steve Jackson Games. This game aid is the original creation of the Fantasy Grounds GURPS community and is released for free distribution, and not for resale, under the permissions granted in the Steve Jackson Games Online Policy (http://www.sjgames.com/general/online_policy.html).
+
+'Fantasy Grounds' is a trademark of SmiteWorks USA, LLC. 'Fantasy Grounds' is Copyright 2004-2015 SmiteWorks USA LLC.
+
+Any copyright or licensing of data modules distributed by Smiteworks for use with this ruleset are addressed within the data modules themselves.
