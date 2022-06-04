@@ -64,22 +64,24 @@ function calcSizeModifierGridUnits(nSM)
  if nSizeModifier == nil or nSizeModifier <= 0 then
     nSize = 1;
   elseif nSizeModifier == 1 then
-    nSize = 3
+    nSize = 2
   elseif nSizeModifier == 2 then
-    nSize = 5
+    nSize = 3
   elseif nSizeModifier == 3 then
-    nSize = 7
+    nSize = 5
   elseif nSizeModifier == 4 then
-    nSize = 10
+    nSize = 7
   elseif nSizeModifier == 5 then
-    nSize = 15
+    nSize = 10
   elseif nSizeModifier == 6 then
-    nSize = 20
+    nSize = 15
   elseif nSizeModifier == 7 then
-    nSize = 30
+    nSize = 20
   elseif nSizeModifier == 8 then
-    nSize = 50
+    nSize = 30
   elseif nSizeModifier == 9 then
+    nSize = 50
+  elseif nSizeModifier == 10 then
     nSize = 70
   else
     nSize = 100 -- Stop at 100 so the token scale doesn't become extreme
@@ -95,22 +97,24 @@ function calcRangeModifier(length,unit)
   
   if unit == "ft" then
     scale = 0.333333333;
-  elseif unit == "yd" then
+  elseif unit == "yd" or unit == "yds" then
     scale = 1;
   elseif unit == "mi" then
     scale = 1760;
   elseif unit == "m" then
     scale = 1.0936133;
   elseif unit == "km" then
-    scale = 1093.6133
+    scale = 1093.6133;
   elseif unit == "nmi" then
     scale = 2025.37;
   elseif unit == "AU" then
-    scale = 0
+    scale = 0;
   elseif unit == "ly" then
-    scale = 0
+    scale = 0;
   elseif unit == "pc" then
-    scale = 0
+    scale = 0;
+  else
+    scale = 0;
   end
 
   factor = math.log10((length * scale));

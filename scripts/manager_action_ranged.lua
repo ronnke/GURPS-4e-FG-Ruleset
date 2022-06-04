@@ -24,9 +24,10 @@ function onRanged(rSource, rTarget, rRoll)
   local sWeapon = DB.getValue(node.getChild("..."), "name", "");
   local sMode = DB.getValue(node, "name", "");
 
-  local nRoF = tonumber(string.match(DB.getValue(node, "rof", ""), "%d+"));
-  nRoF = ((nRoF == nil or nRoF < 0) and 0 or nRoF);
-  
+  local nRoF, nRoFMultiplier = string.match(DB.getValue(node, "rof", ""), "(%d+)%s*[x]?%s*(%d*)");
+  nRoF = tonumber(((nRoF == nil or nRoF == "" or tonumber(nRoF) < 0) and 0 or nRoF));
+  nRoFMultiplier = tonumber(((nRoFMultiplier == nil or nRoFMultiplier == "") and 1 or nRoFMultiplier));
+
   local nAmmo = DB.getValue(node.getChild("..."), "ammo", 0) - nRoF;
   nAmmo = ((nAmmo < 0) and 0 or nAmmo);
   
@@ -46,7 +47,7 @@ function onRanged(rSource, rTarget, rRoll)
     nRcl = ((nRcl == nil or nRcl < 1) and 1 or nRcl);
 
     local nHits = 1 + math.floor((nTarget + rRoll.nMod - nTotal) / nRcl);
-    nHits = (nHits > nRoF and nRoF or nHits);
+    nHits = (nHits > (nRoF*nRoFMultiplier) and (nRoF*nRoFMultiplier) or nHits);
     
     rMessage.text = string.format("%s\n%s%s%s %s(%d)\n%s%s",
         (string.format("%s%s",(rTarget and string.format("%s || ",rTarget.sName) or ""), rMessage.text)),

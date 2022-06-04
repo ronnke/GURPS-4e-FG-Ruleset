@@ -1,1 +1,2 @@
-Add 12 point token rotation to the Maps
+Add 12 point token rotation to the Maps (done)
+Add handling for shotgun RoF (eg 2x9) (done)
