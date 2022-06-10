@@ -4,6 +4,7 @@
 --
 
 OOB_MSGTYPE_LANGCHAT = "languagechat";
+OOB_MSGTYPE_LANGCHAT_RESULT = "languagechatresult";
 
 CAMPAIGN_LANGUAGE_LIST = "languages";
 CAMPAIGN_LANGUAGE_LIST_NAME = "name";
@@ -34,6 +35,7 @@ function onInit()
 		User.onIdentityActivation = onIdentityActivation;
 		User.onIdentityStateChange = onIdentityStateChange;
 	end
+	OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_LANGCHAT_RESULT, handleLangChatResult);
 
 	Interface.onDesktopInit = onDesktopInit;
 end
@@ -273,6 +275,7 @@ end
 function deliverLanguageMessagesToUser(sUser, msg, sLang, aUnderstood)
 	-- Make a copy of the message object, so we can change it
 	local msgCopy = UtilityManager.copyDeep(msg);
+	msgCopy.type = LanguageManager.OOB_MSGTYPE_LANGCHAT_RESULT;
 	
 	-- Determine the alternate font to use, if any
 	local sFont = aCampaignLang[sLang];
@@ -283,18 +286,18 @@ function deliverLanguageMessagesToUser(sUser, msg, sLang, aUnderstood)
 		if (sFont or "") ~= "" then
 			msgCopy.sender = (msg.sender or "") .. " [" .. sLang .. "]";
 			msgCopy.text = Interface.getString("tag_chathandlelang_translation") .. " " .. msgCopy.text;
-			Comm.deliverChatMessage(msgCopy, sUser);
+			Comm.deliverOOBMessage(msgCopy, sUser);
 
 			msgCopy.mode = "chat";
 			msgCopy.sender = nil;
 			msgCopy.icon = nil;
 			msgCopy.font = sFont;
 			msgCopy.text = msg.text;
-			Comm.deliverChatMessage(msgCopy, sUser);
+			Comm.deliverOOBMessage(msgCopy, sUser);
 		else
 			msgCopy.mode = "chat";
 			msgCopy.sender = (msgCopy.sender or "") .. " [" .. sLang .. "]";
-			Comm.deliverChatMessage(msgCopy, sUser);
+			Comm.deliverOOBMessage(msgCopy, sUser);
 		end
 		
 		bDisplayUsers = true;
@@ -311,18 +314,18 @@ function deliverLanguageMessagesToUser(sUser, msg, sLang, aUnderstood)
 			if (sFont or "") ~= "" then
 				msgCopy.sender = (msg.sender or "") .. " [" .. sLang .. "]";
 				msgCopy.text = Interface.getString("tag_chathandlelang_translation") .. " " .. msgCopy.text;
-				Comm.deliverChatMessage(msgCopy, sUser);
+				Comm.deliverOOBMessage(msgCopy, sUser);
 
 				msgCopy.mode = "chat";
 				msgCopy.sender = nil;
 				msgCopy.icon = nil;
 				msgCopy.font = sFont;
 				msgCopy.text = msg.text;
-				Comm.deliverChatMessage(msgCopy, sUser);
+				Comm.deliverOOBMessage(msgCopy, sUser);
 			else
 				msgCopy.mode = "chat";
 				msgCopy.sender = (msgCopy.sender or "") .. " [" .. sLang .. "]";
-				Comm.deliverChatMessage(msgCopy, sUser);
+				Comm.deliverOOBMessage(msgCopy, sUser);
 			end
 			
 			if nUnderstoodMin < 100 then
@@ -343,19 +346,19 @@ function deliverLanguageMessagesToUser(sUser, msg, sLang, aUnderstood)
 				else
 					msgCopy.text = "";
 				end
-				Comm.deliverChatMessage(msgCopy, sUser);
+				Comm.deliverOOBMessage(msgCopy, sUser);
 				
 				msgCopy.mode = "chat";
 				msgCopy.sender = nil;
 				msgCopy.icon = nil;
 				msgCopy.font = sFont;
 				msgCopy.text = sGibberish;
-				Comm.deliverChatMessage(msgCopy, sUser);
+				Comm.deliverOOBMessage(msgCopy, sUser);
 			else
 				msgCopy.mode = "chat";
 				msgCopy.sender = sSender;
 				msgCopy.text = sGibberish;
-				Comm.deliverChatMessage(msgCopy, sUser);
+				Comm.deliverOOBMessage(msgCopy, sUser);
 			end
 			
 			if nUnderstoodMax > 0 then
@@ -378,8 +381,12 @@ function deliverLanguageMessagesToUser(sUser, msg, sLang, aUnderstood)
 		end
 		local msgUnderstood = {font = "systemfont"};
 		msgUnderstood.text = "[" .. Interface.getString("message_chathandlelang_understood") .. ": " .. table.concat(aPCKnownLanguage, ", ") .. "]";
-		Comm.deliverChatMessage(msgUnderstood, sUser);
+		Comm.deliverOOBMessage(msgUnderstood, sUser);
 	end
+end
+
+function handleLangChatResult(msgOOB)
+	Comm.addChatMessage(msgOOB);
 end
 
 function setCurrentLanguage(sLang)

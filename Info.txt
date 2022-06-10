@@ -2,16 +2,15 @@ This unofficial GURPS Ruleset for Fantasy Grounds is developed with the permissi
 
 [SIZE=3][B]Latest Release Downloads[/B][/SIZE]
 
-[B]GURPS 4E Core Ruleset[/B]
+[B]GURPS 4E Core Ruleset - FG Unity [COLOR="#FF0000"](FG Unity only)[/COLOR][/B]
 FG Forge shop [I](FG Unity users only)[/I]: [URL="https://forge.fantasygrounds.com/shop/items/454/view"]FG Forge Shop[/URL]
+[I](Updated: 10th Jun 2022)[/I]
+
+[B]GURPS 4E Core Ruleset - FG Classic [COLOR="#FF0000"](FG Classic only. The ruleset for FG Classic is no longer being updated[/COLOR])[/B]
 Download latest release from here: [URL="https://bit.ly/GURPS4ECore"]https://bit.ly/GURPS4ECore[/URL] 
-[I](Updated: 10th Jan 2022)[/I]
+[I](Updated: 14th Mar 2022)[/I]
 
 * Here is a video demonstrating some of the features of the GURPS ruleset (it will be updated some day): [URL="https://youtu.be/pSm-9Trzd5w"]https://youtu.be/pSm-9Trzd5w[/URL]
-
-[B]GURPS Assets (For FGU)[/B]
-Download the latest release of the GURPS Assets from here: [URL="https://bit.ly/GURPSFGUAssets"]https://bit.ly/GURPSFGUAssets[/URL]
-[I](Updated: 10th Jan 2022)[/I]
 
 [B]GURPS Core Theme for Unity[/B]
 Download the latest release of the GURPS Core theme from here: [URL="https://bit.ly/GURPSCoreUTheme"]https://bit.ly/GURPSCoreUTheme[/URL]
@@ -56,6 +55,34 @@ Click the following link to have your input on future ruleset development/improv
 
 [SIZE=4][B]Version Information[/B][/SIZE]
 
+[LIST]
+[*][B]GURPS 4e Ruleset v3.9.1[/B] - 10th Jun 2022 (FG Unity Only)
+- Fixed: Language script error issue.
+- Added: Toolbar controls to enable/disable range modifiers on map pointers.
+[/LIST]
+[LIST]
+[*][B]GURPS 4e Ruleset v3.9.0[/B] - 5th Jun 2022 (FG Unity Only)
+- Fixed: 12 point token facing on hex maps.
+- Added: Range modifier to map pointers.
+- Added: RoF changes to handle shotguns. (eg RoF 3x9)
+[/LIST]
+[LIST]
+[*][B]GURPS 4e Ruleset v3.8.2[/B] - 18th Mar 2022 (FG Unity Only)
+- Fixed: a minor script warning.
+[/LIST]
+[LIST]
+[*][B]GURPS 4e Ruleset v3.8.1[/B] - 14th Mar 2022 (FG Unity Only)
+- Fixed: issue with languages.
+[/LIST]
+[LIST]
+[*][B]GURPS 4e Ruleset v3.8.0[/B] - 10th Mar 2022 (FG Unity Only)
+- Fixed: issue with inventory and encumbrance.
+- Other: refactored some code.
+[/LIST]
+[LIST]
+[*][B]GURPS 4e Ruleset v3.7.2[/B] - 14th Mar 2022 (FG Classic Only)
+- Fixed: issue with languages.
+[/LIST]
 [LIST]
 [*][B]GURPS 4e Ruleset v3.7.1[/B] - 10th Jan 2022 
 - Fixed: issue with abilities and weapons were not rollable.
@@ -182,15 +209,4 @@ Click the following link to have your input on future ruleset development/improv
 - Changed. Combat tracker will not display the (melee/ranged) combat sections if no weapons are configured.
 - Changed. Protection tab of the PC character sheet renamed to Defenses, to conform to standard GURPS terminology.
 - Several code optimisations and minor bug fixes.
-[/LIST]
-[LIST]
-[*][B]GURPS 4e Ruleset v3.1.0[/B] - 20th Oct 2017 
-- Added Map Scales and Range Modifier calculation to pointers (Access via scale icon in the image toolbar). 
-- Fixed bug with effects (post CoreRPG 3.3.3 effect changes. Players can add, remove and target their own effects).
-- Cleaned up combat tracker (editing NPC attack modes now done via linked NPC sheet).
-- Fixed issue with hex row and hex column (can now use both options with no problems).
-- Set the default grid type to hex (because GURPS!!!).
-- Token facing increased from 6 to 12 positions.
-- Added GURPS and Dungeon Fantasy RPG decal options.
-- Code optimisations and minor bug fixes.
 [/LIST]
