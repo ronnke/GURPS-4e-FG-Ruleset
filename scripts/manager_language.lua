@@ -3,25 +3,24 @@
 -- attribution and copyright information.
 --
 
-OOB_MSGTYPE_LANGCHAT = "languagechat"
+OOB_MSGTYPE_LANGCHAT = "languagechat";
 
-CAMPAIGN_LANGUAGE_LIST = "languages"
-CAMPAIGN_LANGUAGE_LIST_NAME = "name"
-CAMPAIGN_LANGUAGE_FONT_NAME = "font"
+CAMPAIGN_LANGUAGE_LIST = "languages";
+CAMPAIGN_LANGUAGE_LIST_NAME = "name";
+CAMPAIGN_LANGUAGE_FONT_NAME = "font";
 
-CHAR_LANGUAGE_LIST = "traits.languagelist"
-CHAR_LANGUAGE_LIST_NAME = "name"
+CHAR_LANGUAGE_LIST = "traits.languagelist";
+CHAR_LANGUAGE_LIST_NAME = "name";
 
-local sActiveIdentity = ""
-local bCampaignHandlers = false
-local bNewCampaign = false
+local sActiveIdentity = "";
+local bCampaignHandlers = false;
 
 aCampaignLang = {};
 aCampaignLangLower = {};
 
-aLanguageSpeaksAll = {}
-aLanguagesUnderstandsAll = {}
-aLanguagesTongues = {}
+aLanguageSpeaksAll = {};
+aLanguagesUnderstandsAll = {};
+aLanguagesTongues = {};
 
 function onInit()
 	aLanguageSpeaksAll[Interface.getString("lang_val_speaksall"):lower()] = true;
@@ -29,57 +28,88 @@ function onInit()
 	aLanguagesUnderstandsAll[Interface.getString("lang_val_comprehendlanguages"):lower()] = true;
 	aLanguagesTongues[Interface.getString("lang_val_tongues"):lower()] = true;
 
-	if User.isHost() then
-		if not DB.findNode("languages") then
-			bNewCampaign = true;
-		end
-		DB.createNode("languages").setPublic(true);
-
-		Interface.onDesktopInit = onDesktopInit;
+	if Session.IsHost then
 		OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_LANGCHAT, handleLangChat);
 	else
 		User.onIdentityActivation = onIdentityActivation;
 		User.onIdentityStateChange = onIdentityStateChange;
 	end
+
+	Interface.onDesktopInit = onDesktopInit;
 end
 
 function onDesktopInit()
-	if GameSystem.languages then
-		if bNewCampaign then
-			-- If new campaign, set up language records
-			for kLang,vLang in pairs(GameSystem.languages) do
-				local nodeLang = DB.createChild("languages");
-				DB.setValue(nodeLang, "name", "string", kLang);
-				DB.setValue(nodeLang, "font", "string", vLang);
-			end
-		else
-			-- If existing campaign and records partially set up (from beta), then fill in record with font data
-			for kLang,vLang in pairs(GameSystem.languages) do
-				for _,vNode in pairs(DB.getChildren("languages")) do
-					if DB.getValue(vNode, "name", "") == kLang then
-						if not DB.getChild(vNode, "font") then
-							DB.setValue(vNode, "font", "string", vLang);
-						end
-					end
-				end
-			end
+	if Session.IsHost then
+		DB.createNode(CAMPAIGN_LANGUAGE_LIST).setPublic(true);
+		if DB.getChildCount(CAMPAIGN_LANGUAGE_LIST) == 0 then
+			populateCampaignLanguages();
 		end
+		
+		LanguageManager.addCampaignLanguageHandlers();
+		LanguageManager.refreshCampaignLanguages();
 	end
-	
-	addCampaignLanguageHandlers();
-end
 
+	ChatManager.registerDropCallback("language", LanguageManager.onChatDrop);
+	ChatManager.registerDeliverMessageCallback(LanguageManager.onChatDeliverMessage);
+end
+function populateCampaignLanguages()
+	if not GameSystem.languages then
+		return;
+	end
+
+	for kLang,vLang in pairs(GameSystem.languages) do
+		local nodeLang = DB.createChild(CAMPAIGN_LANGUAGE_LIST);
+		DB.setValue(nodeLang, "name", "string", kLang);
+		DB.setValue(nodeLang, "font", "string", vLang);
+	end
+end
 function addCampaignLanguageHandlers()
 	bCampaignHandlers = true;
-	refreshCampaignLanguages();
 	DB.addHandler(CAMPAIGN_LANGUAGE_LIST, "onChildDeleted", refreshCampaignLanguages);
 	DB.addHandler(CAMPAIGN_LANGUAGE_LIST .. ".*." .. CAMPAIGN_LANGUAGE_LIST_NAME, "onUpdate", refreshCampaignLanguages);
 	DB.addHandler(CAMPAIGN_LANGUAGE_LIST .. ".*." .. CAMPAIGN_LANGUAGE_FONT_NAME, "onUpdate", refreshCampaignLanguages);
 end
 
+function onIdentityActivation(sIdentity, sUser, bActive)
+	if User.getUsername() == sUser and not bActive then
+		if sActiveIdentity == sIdentity then
+			LanguageManager.setSpeakerIdentity("");
+		end
+	end
+end
+function onIdentityStateChange(sIdentity, sUser, sState, bState)
+	if User.getUsername() == sUser and sState == 'current' and bState then
+		LanguageManager.setSpeakerIdentity(sIdentity);
+	end
+end
+
+function onChatDrop(draginfo)
+	LanguageManager.setCurrentLanguage(draginfo.getStringData());
+	return true;
+end
+function onChatDeliverMessage(msg, sMode)
+	if sMode ~= "chat" then
+		return false;
+	end
+	local w = ChatManager.getChatWindow();
+	if not w or not w.language then
+		return false;
+	end
+	local sLang = w.language.getValue();
+	if (sLang or "") == "" then
+		return false;
+	end
+
+	msg.type = LanguageManager.OOB_MSGTYPE_LANGCHAT;
+	msg.mode = mode;
+	msg.language = sLang;
+	Comm.deliverOOBMessage(msg, "");
+	return true;
+end
+
 function setSpeakerIdentity(sIdentity)
 	if not bCampaignHandlers then
-		addCampaignLanguageHandlers();
+		LanguageManager.refreshCampaignLanguages();
 	end
 	
 	if (sActiveIdentity or "") == (sIdentity or "") then
@@ -98,21 +128,7 @@ function setSpeakerIdentity(sIdentity)
 	
 	sActiveIdentity = sIdentity or "";
 	
-	refreshChatLanguages();
-end
-
-function onIdentityActivation(sIdentity, sUser, bActive)
-	if User.getUsername() == sUser and not bActive then
-		if sActiveIdentity == sIdentity then
-			setSpeakerIdentity("");
-		end
-	end
-end
-
-function onIdentityStateChange(sIdentity, sUser, sState, bState)
-	if User.getUsername() == sUser and sState == 'current' and bState then
-		setSpeakerIdentity(sIdentity);
-	end
+	LanguageManager.refreshChatLanguages();
 end
 
 function refreshCampaignLanguages()
@@ -132,7 +148,7 @@ function refreshCampaignLanguages()
 	end
 	
 	-- Refresh the chat window, since the campaign languages have changed
-	refreshChatLanguages();
+	LanguageManager.refreshChatLanguages();
 end
 
 function getKnownLanguages(sIdentity, bHost)
@@ -186,13 +202,13 @@ end
 
 function refreshChatLanguages()
 	-- If no chat window, then we don't need to refresh anything
-	local w = Interface.findWindow("chat", "")
+	local w = ChatManager.getChatWindow();
 	if not w then
 		return;
 	end
 	
 	-- Determine which languages are valid for the active identity/user
-	local aSpokenLang = getKnownLanguages(sActiveIdentity, User.isHost());
+	local aSpokenLang = LanguageManager.getKnownLanguages(sActiveIdentity, Session.IsHost);
 	local aSorted = {};
 	for kLang,_ in pairs(aSpokenLang) do
 		table.insert(aSorted, kLang);
@@ -209,17 +225,6 @@ function refreshChatLanguages()
 	w.language.clear();
 	w.language.add("");
 	w.language.addItems(aSorted);
-end
-
-function checkLangChat(msg, sLang)
-	if (sLang or "") ~= "" then
-		msg.type = LanguageManager.OOB_MSGTYPE_LANGCHAT;
-		msg.mode = mode;
-		msg.language = sLang;
-		Comm.deliverOOBMessage(msg, "");
-		return true;
-	end
-	return false;
 end
 
 function handleLangChat(msgOOB)
@@ -243,7 +248,7 @@ function handleLangChat(msgOOB)
 		local aUserPCUnknownLanguage = {};
 		for _,vIdentity in ipairs(User.getActiveIdentities(vUser)) do
 			local sCharName = DB.getValue("charsheet." .. vIdentity .. ".name", "");
-			local _,aUnderstoodLang = getKnownLanguages(vIdentity);
+			local _,aUnderstoodLang = LanguageManager.getKnownLanguages(vIdentity);
 			if aUnderstoodLang[sLang] and aUnderstoodLang[sLang] > 0 then
 				if aUnderstoodLang[sLang] >= 100 then
 					table.insert(aGMUnderstood, { sName = sCharName, nPercent = 100 });
@@ -258,11 +263,11 @@ function handleLangChat(msgOOB)
 			end
 		end
 		
-		deliverLanguageMessagesToUser(vUser, msgOOB, sLang, aPlayerUnderstood);
+		LanguageManager.deliverLanguageMessagesToUser(vUser, msgOOB, sLang, aPlayerUnderstood);
 	end
 	
 	-- Deliver translated message to GM
-	deliverLanguageMessagesToUser("", msgOOB, sLang, aGMUnderstood);
+	LanguageManager.deliverLanguageMessagesToUser("", msgOOB, sLang, aGMUnderstood);
 end
 
 function deliverLanguageMessagesToUser(sUser, msg, sLang, aUnderstood)
@@ -324,7 +329,7 @@ function deliverLanguageMessagesToUser(sUser, msg, sLang, aUnderstood)
 				bDisplayUsers = true;
 			end
 		else
-			local sGibberish = convertStringToGibberish(msgCopy.text, sLang, nUnderstoodMax);
+			local sGibberish = LanguageManager.convertStringToGibberish(msgCopy.text, sLang, nUnderstoodMax);
 			local sSender = (msg.sender or "") .. " ";
 			if nUnderstoodMax > 0 then
 				sSender = sSender .. Interface.getString("tag_chathandlelang_partial");
@@ -383,7 +388,7 @@ function setCurrentLanguage(sLang)
 	end
 	
 	-- If no chat window, then we don't need to refresh anything
-	local w = Interface.findWindow("chat", "")
+	local w = ChatManager.getChatWindow();
 	if not w then
 		return;
 	end
@@ -450,7 +455,7 @@ function convertStringToGibberish(sInput, sLang, nUnderstood)
 		else
 			-- Set random seed based off the current word and the language name 
 			-- Note: This returns the same gibberish for the same text in the same language
-			calcRandomSeedFromString(vWordSansPunctuation, sLang);
+			LanguageManager.calcRandomSeedFromString(vWordSansPunctuation, sLang);
 
 			-- nRandomLength will be added to the current length of the word - gives a different number of letters to original word.
 			local nRandomLength = math.random(0,2);
