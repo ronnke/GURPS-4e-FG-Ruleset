@@ -57,6 +57,7 @@ Click the following link to have your input on future ruleset development/improv
 
 [LIST]
 [*][B]GURPS 4e Ruleset v3.9.1[/B] - 10th Jun 2022 (FG Unity Only)
+- Fixed: Language script error issue.
 - Added: Toolbar controls to enable/disable range modifiers on map pointers.
 [/LIST]
 [LIST]

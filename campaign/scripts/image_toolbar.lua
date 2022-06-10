@@ -46,6 +46,7 @@ function onRangeModifierButtonPressed()
 		rangescale_h1.setVisible(bRangeModifierOn);
 
 		if bRangeModifierOn then
+			super.getImage().setDistanceSuffix(scaleunits.getStringValue());
 			scaleunits.setStringValue("yd");
 		end
 	end
