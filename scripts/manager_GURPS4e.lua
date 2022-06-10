@@ -97,7 +97,7 @@ function calcRangeModifier(length,unit)
   
   if unit == "ft" then
     scale = 0.333333333;
-  elseif unit == "yd" or unit == "yds" then
+  elseif unit == "yd" then
     scale = 1;
   elseif unit == "mi" then
     scale = 1760;

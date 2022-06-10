@@ -9,8 +9,17 @@
 	<template name="image_record" merge="join">
 		<image_record_step>
 			<bounds>21,57,-27,-29</bounds>
-			<script file="campaign/scripts/image_GURPS4e.lua" />
+			<script file="campaign/scripts/image_record.lua" />
 		</image_record_step>
 	</template>
-</root>
 
+  <windowclass name="imagewindow_toolbar" merge="join">
+    <script file="campaign/scripts/image_toolbar.lua" />
+    <sheetdata>
+      <image_tool_scaleunits name="scaleunits" />
+      <image_toolbar_separator name="rangescale_h2" />
+      <image_tool_rangemodifer name="rangemodifer" />
+      <image_toolbar_separator name="rangescale_h1" />
+    </sheetdata>
+  </windowclass>
+</root>

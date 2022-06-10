@@ -800,12 +800,6 @@ function onInit()
 	LibraryData.setCustomFilterHandler("item_ismeleeweapon", isMeleeWeapon);
 	LibraryData.setCustomFilterHandler("item_israngedweapon", isRangedWeapon);
 
-    if not UtilityManager.isClientFGU() then
-	    for kDefSidebar,vDefSidebar in pairs(aDefaultSidebarState) do
-		    DesktopManager.setDefaultSidebarState(kDefSidebar, vDefSidebar);
-	    end
-    end
-
 	for kRecordType,vRecordType in pairs(aRecordOverrides) do
 		LibraryData.overrideRecordTypeInfo(kRecordType, vRecordType);
 	end
