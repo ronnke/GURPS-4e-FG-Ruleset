@@ -100,7 +100,7 @@
 
   <script name="ManagerGURPS4e" file="scripts/manager_GURPS4e.lua" />
 	<script name="EffectManagerGURPS4e" file="scripts/manager_effect_GURPS4e.lua" />
-	<script name="LanguageManager" file="scripts/manager_language.lua" />
+	<script name="LanguageManager2" file="scripts/manager_language2.lua" />
 	<script name="ActionsManager2" file="scripts/manager_actions2.lua" />
 	<script name="ActorManager2" file="scripts/manager_actor2.lua" />
 	<script name="ActorAbilityManager" file="scripts/manager_actor_ability.lua" />
