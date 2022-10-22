@@ -52,6 +52,10 @@
       function updateShowOrder()
         local bShowSpeed = not OptionsManager.isOption("CTSI", "off");
         label_speed.setVisible(bShowSpeed);
+        
+        for _,w in pairs(list.getWindows()) do
+          w.updateShowOrder();
+        end
       end
     </script>
 		<sheetdata>
