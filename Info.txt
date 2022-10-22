@@ -59,6 +59,7 @@ Click the following link to have your input on future ruleset development/improv
 [*][B]GURPS 4e Ruleset v3.9.2[/B] - 22nd Oct 2022 (FG Unity Only)
 - Fixed: Client Combat Tracker script error issue.
 - Fixed: Dice placement issue.
+- Fixed: NPC tab order.
 - Added: GURPS No Dice optional extension to the ruleset forge update.
 [/LIST]
 [LIST]
