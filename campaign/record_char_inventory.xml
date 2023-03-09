@@ -12,8 +12,8 @@
         <bounds>15,0,-29,-205</bounds>
       </frame_char>
 
-      <label_frametop>
-        <anchored to="inventoryframe" />
+      <label_frametop name="inventory_label" insertbefore="rightanchor">
+        <anchored to="inventoryframe" width="40" />
         <static textres="char_label_inventory" />
       </label_frametop>
 
