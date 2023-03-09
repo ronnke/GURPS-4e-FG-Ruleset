@@ -20,7 +20,7 @@
 		<playercontrol />
 		<sharable />
 		<tooltip field="name" />
-		<script file="campaign/scripts/item.lua" />
+    <script file="common/scripts/record_window.lua" />
 		<sheetdata>
 			<sub_record_header name="header">
 				<class>item_header</class>
@@ -41,8 +41,12 @@
 			<close_recordsheet />
 		</sheetdata>
 	</windowclass>
-	
-	<windowclass name="item_main">
+
+  <windowclass name="item_header" merge="join">
+    <margins control="0,0,0,2" />
+  </windowclass>
+
+  <windowclass name="item_main">
 		<margins control="0,0,0,2" />
 		<script file="campaign/scripts/item_main.lua" />
 		<sheetdata>

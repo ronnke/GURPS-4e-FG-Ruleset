@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <!-- 
   Please see the license.html file included with this distribution for 
@@ -17,8 +17,8 @@
 		</sizelimits>
 		<minimize>minimized_npc</minimize>
 		<tooltip field="name" />
-		<nodelete />
-		<script file="campaign/scripts/npc.lua" />
+    <gmexport>npc</gmexport>
+    <script file="campaign/scripts/npc.lua" />
 		<sheetdata>
 			<sub_record_header name="header">
 				<class>npc_header</class>
@@ -77,4 +77,9 @@
 			<close_recordsheet />
 		</sheetdata>
 	</windowclass>
-  </root>
+
+  <windowclass name="npc_header" merge="join">
+    <margins control="0,0,0,2" />
+  </windowclass>
+
+</root>
