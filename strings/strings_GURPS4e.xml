@@ -16,15 +16,23 @@
   <string name="ct_menu_resetmenu">Reset</string>
   <string name="ct_menu_itemdeleteall">Delete All</string>
 
-  <string name="ct_label_speed">Speed</string>
+  <string name="ct_label_speed">Spd</string>
 	<string name="ct_label_hps">HP</string>
 	<string name="ct_label_fps">FP</string>
-  <string name="ct_label_condition">Cond.</string>
+  <string name="ct_label_condition">Cnd.</string>
   <string name="ct_label_injury">Inj.</string>
   <string name="ct_label_fatigue">Fat.</string>
   <string name="ct_label_status">Status</string>
 
-	<string name="ct_label_strength">ST</string>
+  <string name="ct_tooltip_speed">Basic Speed</string>
+  <string name="ct_tooltip_hps">Hit Points</string>
+  <string name="ct_tooltip_fps">Fatigue Points</string>
+  <string name="ct_tooltip_condition">Condition</string>
+  <string name="ct_tooltip_injury">Injury</string>
+  <string name="ct_tooltip_fatigue">Fatigue</string>
+  <string name="ct_tooltip_status">Status</string>
+
+  <string name="ct_label_strength">ST</string>
 	<string name="ct_label_dexterity">DX</string>
 	<string name="ct_label_intelligence">IQ</string>
 	<string name="ct_label_health">HT</string>
@@ -163,9 +171,6 @@
   <string name="char_label_money">CURRENCY</string>
 
   <!-- NPCs -->
-	<string name="npc_button_letter">By Letter</string>
-	<string name="npc_button_type">By Type</string>
-
 	<string name="npc_label_type">Type</string>
 	<string name="npc_label_pts">Points</string>
 	<string name="npc_label_basicspeed">Basic Speed</string>
@@ -185,10 +190,11 @@
 	<string name="npc_label_weight">Weight</string>
 	<string name="npc_label_bulk">Bulk</string>
 	<string name="npc_label_ammo">Ammo</string>
-	
-	<string name="npc_grouped_title_byletter">NPCs By Letter</string>
-	<string name="npc_grouped_title_bytype">NPCs By Type</string>
-	<string name="npc_grouped_label_name">Name</string>
+
+  <string name="library_recordview_label_npc_byletter">By Letter</string>
+  <string name="library_recordview_label_npc_bytype">By Type</string>
+
+  <string name="npc_grouped_label_name">Name</string>
 	<string name="npc_grouped_label_pts">Pts</string>
 	
 	<string name="npc_grouped_tooltip_pts">Points</string>
@@ -196,12 +202,7 @@
 	<!-- Encounters -->
 	
 	<!-- Items -->
-	<string name="item_button_bytype">By Type</string>
-	<string name="item_button_defenses">Defenses</string>
-	<string name="item_button_meleeweapons">Melee Weapons</string>
-	<string name="item_button_rangedweapons">Ranged Weapons</string>
-
-	<string name="item_label_type">Type</string>
+  <string name="item_label_type">Type</string>
 	<string name="item_label_subtype">Subtype</string>
 
 	<string name="item_label_tl">Tech Level</string>
@@ -226,13 +227,14 @@
 	<string name="item_label_shots">Shots</string>
 	<string name="item_label_bulk">Bulk Penalty</string>
 	<string name="item_label_rcl">Recoil Modifier</string>
-	
-	<string name="item_grouped_title_bytype">By Type</string>
-	<string name="item_grouped_title_defenses">Defenses</string>
-	<string name="item_grouped_title_meleeweapons">Melee Weapons</string>
-	<string name="item_grouped_title_rangedweapons">Ranged Weapons</string>
-	
-	<string name="item_grouped_label_name">Name</string>
+
+
+  <string name="library_recordview_label_item_bytype">By Type</string>
+  <string name="library_recordview_label_item_defense">Defenses</string>
+  <string name="library_recordview_label_item_meleeweapon">Melee Weapons</string>
+  <string name="library_recordview_label_item_rangedweapon">Ranged Weapons</string>
+
+  <string name="item_grouped_label_name">Name</string>
 	<string name="item_grouped_label_tl">TL</string>
 	<string name="item_grouped_label_lc">LC</string>
 	<string name="item_grouped_label_cost">Cost</string>
@@ -265,11 +267,6 @@
 	<string name="item_grouped_tooltip_rcl">Recoil Modifier</string>
 
 	<!-- Vehicles -->
-	<string name="vehicle_button_groundvehicle">Ground Vehicle</string>
-	<string name="vehicle_button_watercraft">Watercraft</string>
-	<string name="vehicle_button_aircraft">Aircraft</string>
-	<string name="vehicle_button_spacecraft">Spacecraft</string>
-
 	<string name="vehicle_label_type">Type</string>
 	<string name="vehicle_label_subtype">Subtype</string>
 
@@ -290,13 +287,13 @@
 	<string name="vehicle_label_locations">Locations</string>
 	<string name="vehicle_label_draft">Draft</string>
 	<string name="vehicle_label_stall">Stall</string>
-	
-	<string name="vehicle_grouped_title_groundvehicle">Ground Vehicle</string>
-	<string name="vehicle_grouped_title_watercraft">Watercraft</string>
-	<string name="vehicle_grouped_title_aircraft">Aircraft</string>
-	<string name="vehicle_grouped_title_spacecraft">Spacecraft</string>
 
-	<string name="vehicle_grouped_label_tl">TL</string>
+  <string name="library_recordview_label_vehicle_groundvehicle">Ground Vehicle</string>
+  <string name="library_recordview_label_vehicle_watercraft">Watercraft</string>
+  <string name="library_recordview_label_vehicle_aircraft">Aircraft</string>
+  <string name="library_recordview_label_vehicle_spacecraft">Spacecraft</string>
+
+  <string name="vehicle_grouped_label_tl">TL</string>
 	<string name="vehicle_grouped_label_lc">LC</string>
 	<string name="vehicle_grouped_label_cost">Cost</string>
 	<string name="vehicle_grouped_label_sthp">ST/HP</string>
@@ -346,6 +343,8 @@
   <!-- Abilities -->
   <string name="ability_type_label">Type</string>
   <string name="ability_subtype_label">Subtype</string>
+  <string name="ability_points_label">Points</string>
+  <string name="ability_level_label">Level</string>
   <string name="ability_page_label">Page</string>
   <string name="ability_relativelevel">Relative Level</string>
   <string name="ability_level_adjustment_label">Level Bonus</string>
@@ -368,18 +367,15 @@
   <string name="ability_powerskill_label">Power Skill</string>
   <string name="ability_powerdefault_label">Skill Default</string>
 
-  <string name="ability_otherlevel_label">Level</string>
   <string name="ability_otherpoints_label">Points</string>
+  <string name="ability_otherlevel_label">Base Level</string>
+  <string name="ability_otherdefault_label">Default</string>
 
-  <string name="ability_button_skills">Skills</string>
-  <string name="ability_button_spells">Spells</string>
-  <string name="ability_button_powers">Powers</string>
-  <string name="ability_button_others">Others</string>
+  <string name="library_recordview_label_ability_skill">Skills</string>
+  <string name="library_recordview_label_ability_spell">Spells</string>
+  <string name="library_recordview_label_ability_power">Powers</string>
+  <string name="library_recordview_label_ability_other">Others</string>
 
-  <string name="ability_grouped_title_skilllist">Skill List</string>
-  <string name="ability_grouped_title_spelllist">Spell List</string>
-  <string name="ability_grouped_title_powerlist">Power List</string>
-  <string name="ability_grouped_title_otherlist">Other List</string>
   <string name="ability_grouped_label_name">Name</string>
   <string name="ability_grouped_label_type">Type</string>
   <string name="ability_grouped_label_default">Defaults</string>
@@ -398,15 +394,11 @@
   <string name="trait_page_label">Page</string>
   <string name="trait_points_label">Points</string>
 
-  <string name="trait_button_advantages">Advantages</string>
-  <string name="trait_button_disadvantages">Disadvantages</string>
-  <string name="trait_button_perks">Perks</string>
-  <string name="trait_button_quirks">Quirks</string>
+  <string name="library_recordview_label_trait_advantage">Advantages</string>
+  <string name="library_recordview_label_trait_disadvantage">Disadvantages</string>
+  <string name="library_recordview_label_trait_perk">Perks</string>
+  <string name="library_recordview_label_trait_quirk">Quirks</string>
 
-  <string name="trait_grouped_title_advantagelist">Advantage List</string>
-  <string name="trait_grouped_title_disadvantagelist">Disadvantage List</string>
-  <string name="trait_grouped_title_perklist">Perk List</string>
-  <string name="trait_grouped_title_quirklist">Quirk List</string>
   <string name="trait_grouped_label_name">Name</string>
   <string name="trait_grouped_label_points">Points</string>
   <string name="trait_grouped_label_page">Page</string>

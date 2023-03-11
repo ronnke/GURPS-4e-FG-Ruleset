@@ -69,7 +69,10 @@ function update()
 end
 
 function onDrop(x, y, draginfo)
-	local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
+	if WindowManager.getReadOnlyState(getDatabaseNode()) then
+    	return true;
+	end
+
 	if draginfo.isType("shortcut") and not bReadOnly then
 		return ActorManager2.addTrait(getDatabaseNode(), draginfo.getDatabaseNode());
 	end

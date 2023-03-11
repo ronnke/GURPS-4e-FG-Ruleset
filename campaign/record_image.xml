@@ -6,7 +6,45 @@
 -->
 
 <root>
-	<template name="image_record" merge="join">
+  <template name="image_tool_rangemodifer">
+    <buttonfield>
+      <anchored to="toolbar_anchor" width="34" height="34">
+        <top />
+        <right anchor="left" relation="relative" />
+      </anchored>
+      <frame name="toolbar_30" />
+      <state icon="tool_mapscale_30" color="55FFFFFF" tooltipres="image_tooltip_rangemodifier" />
+      <state icon="tool_mapscale_30" color="CCFFFFFF" tooltipres="image_tooltip_rangemodifier" />
+      <invisible />
+      <script>
+        function onButtonPress()
+          window.onRangeModifierButtonPressed();
+        end
+      </script>
+    </buttonfield>
+  </template>
+  <template name="image_tool_scaleunits">
+    <button_stringcycler name="scaleunits">
+      <anchored to="toolbar_anchor" width="80" height="20">
+        <top offset="7"/>
+        <right anchor="left" relation="relative" offset="-10" />
+      </anchored>
+      <gmeditonly />
+      <parameters>
+        <defaultlabelres>no_units</defaultlabelres>
+        <labelsres>feet|yards|miles|meters|kilometers|nautical miles|au|lightyears|parsecs</labelsres>
+        <values>ft|yd|mi|m|km|nmi|AU|ly|pc</values>
+      </parameters>
+      <invisible />
+      <script>
+        function onValueChanged()
+          window.onScaleUnitsValueChanged();
+        end
+      </script>
+    </button_stringcycler>
+  </template>
+
+  <template name="image_record" merge="join">
 		<image_record_step>
 			<bounds>21,57,-27,-29</bounds>
 			<script file="campaign/scripts/image_record.lua" />
@@ -22,4 +60,5 @@
       <image_toolbar_separator name="rangescale_h1" />
     </sheetdata>
   </windowclass>
+
 </root>

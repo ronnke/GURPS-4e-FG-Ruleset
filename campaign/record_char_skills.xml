@@ -146,14 +146,14 @@
 				<static textres="char_label_points" />
 			</label_columntop>
 			<label_columntop name="relative_level_label">
-				<anchored to="rightanchor" width="35">
+				<anchored to="rightanchor" width="40">
 					<top />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
 				<static textres="char_label_relativelevel" />
 			</label_columntop>
 			<label_columntop name="type_label">
-				<anchored to="rightanchor" width="35">
+				<anchored to="rightanchor" width="40">
 					<top />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
@@ -211,7 +211,7 @@
 		<margins control="0,0,0,2" />
 		<script>
       function onInit()
-      setModifiersVisible();
+	      setModifiersVisible();
       end
 
       function setModifiersVisible()
@@ -263,7 +263,7 @@
 				<tabtarget prev="relativelevel" />
 			</number_charpointfield>
 			<stringfield name="relativelevel">
-				<anchored to="rightanchor" width="35" height="20">
+				<anchored to="rightanchor" width="40" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
@@ -273,7 +273,7 @@
 				<tabtarget next="points" prev="type" />
 			</stringfield>
 			<stringfield name="type">
-				<anchored to="rightanchor" width="35" height="20">
+				<anchored to="rightanchor" width="40" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
@@ -384,7 +384,7 @@
 		<playercontrol />
 		<sharable />
 		<tooltip field="name" />
-		<script file="campaign/scripts/charsheet/skill_instance_popup.lua" />
+		<script file="campaign/scripts/charsheet/reference_popup.lua" />
 		<sheetdata>
 			<sub_record_header name="header">
 				<class>skill_instance_header</class>
@@ -408,7 +408,7 @@
 
 	<windowclass name="skill_instance_details">
 		<margins control="0,0,0,2" />
-		<script file="campaign/scripts/charsheet/skill_instance_details.lua" />
+		<script file="campaign/scripts/charsheet/reference_skill_details.lua" />
 		<sheetdata>
 			<anchor_column name="columnanchor" />
 
@@ -462,14 +462,25 @@
 			</label_column>
 			<number_columnh name="points_adj" />
 
-			<line_column name="textdivider" />
+      <label_column name="level_label">
+        <static textres="ability_level_label" />
+      </label_column>
+      <simplenumber name="level">
+        <anchored width="40" height="20">
+          <top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
+          <left offset="97" />
+        </anchored>
+        <readonly/>
+      </simplenumber>
+
+      <line_column name="textdivider" />
 			<ft_columnh name="text" />
 		</sheetdata>
 	</windowclass>
 
 	<windowclass name="skill_instance_header">
 		<margins control="0,0,0,7" />
-		<script  file="campaign/scripts/charsheet/ability_header.lua" />
+		<script  file="campaign/scripts/charsheet/reference_header.lua" />
 		<sheetdata>
 			<linkcontrol name="link">
 				<bounds>5,5,20,20</bounds>

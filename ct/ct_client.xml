@@ -52,6 +52,10 @@
       function updateShowOrder()
         local bShowSpeed = not OptionsManager.isOption("CTSI", "off");
         label_speed.setVisible(bShowSpeed);
+        
+        for _,w in pairs(list.getWindows()) do
+          w.updateShowOrder();
+        end
       end
     </script>
 		<sheetdata>
@@ -154,7 +158,6 @@
       
       <string_clientct_name name="name" />
       <string_clientct_name name="nonid_name">
-        <empty textres="library_recordtype_empty_nonid_npc" />
         <invisible />
       </string_clientct_name>
 
@@ -162,29 +165,12 @@
       <spacer_clientctsection_effect name="effectspacer" />
       <list_clientct_effect name="effects" />
 
-      <string_ctentry_targets name="target_summary" />
-      <string_ctentry_effects name="effect_summary" />
+      <string_ct_entry_targets name="summary_targets" />
+      <string_ct_entry_effects name="effect_summary" />
 
       <spacer_ctentry_middle name="spacer" />
       <spacer_ctentry_active_bottom name="active_spacer_bottom" />
     </sheetdata>
 	</windowclass>
 
-  <windowclass name="clientct_effect">
-    <frame>cteffect</frame>
-    <margins control="0,0,0,3" />
-    <script file="ct/scripts/ct_effect.lua" />
-    <sheetdata>
-      <anchor_clientct_effect_left name="leftanchor" />
-      <button_clientct_effect_isactive name="isactive" />
-
-      <anchor_clientct_effect_right name="rightanchor" />
-      <button_clientct_effect_idelete name="idelete" />
-      <button_ct_effect_targetadd name="targeting_add_button" />
-
-      <string_clientct_effect name="label" />
-
-      <string_ct_effect_targets name="target_summary" />
-    </sheetdata>
-  </windowclass>
 </root>

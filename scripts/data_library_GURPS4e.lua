@@ -7,54 +7,6 @@ function getItemIsIdentified(vRecord, vDefault)
 	return LibraryData.getIDState("item", vRecord, true);
 end
 
-function getTypeValue(vNode)
-	local v = StringManager.trim(DB.getValue(vNode, "type", ""));
-  local sType = v:match("^[^(%s]+");
-	if sType then
---    v = StringManager.trim(sType);
-    v = StringManager.trim(v);
-	end
-	v = StringManager.capitalize(v);
-	return v;
-end
-
-
-function getItemRecordDisplayClass(vNode)
-  local sRecordDisplayClass = "item"
-  if vNode then
-    local sBasePath, sSecondPath = UtilityManager.getDataBaseNodePathSplit(vNode)
-    if sBasePath == "reference" then
-      if string.find(sSecondPath, "defense") then
-        sRecordDisplayClass = "defense"
-      elseif string.find(sSecondPath, "meleeweapon") then
-        sRecordDisplayClass = "meleeweapon"
-      elseif string.find(sSecondPath, "rangedweapon") then
-        sRecordDisplayClass = "rangedweapon"
-      end
-    end
-  end
-  return sRecordDisplayClass
-end
-
-function getVehicleRecordDisplayClass(vNode)
-  local sRecordDisplayClass = "vehicle"
-  if vNode then
-    local sBasePath, sSecondPath = UtilityManager.getDataBaseNodePathSplit(vNode)
-    if sBasePath == "reference" then
-      if string.find(sSecondPath, "groundvehicle") then
-        sRecordDisplayClass = "groundvehicle"
-      elseif string.find(sSecondPath, "watercraft") then
-        sRecordDisplayClass = "watercraft"
-      elseif string.find(sSecondPath, "aircraft") then
-        sRecordDisplayClass = "aircraft"
-      elseif string.find(sSecondPath, "spacecraft") then
-        sRecordDisplayClass = "spacecraft"
-      end
-    end
-  end
-  return sRecordDisplayClass
-end
-
 function isDefense(vRecord)
   local bIsDefense = false;
 
@@ -268,7 +220,7 @@ function isPower(vRecord)
   end
   
   local sTypeLower = StringManager.trim(DB.getValue(nodeItem, "type", "")):lower();
-
+  
   if string.find(sTypeLower, "power") then    
     return true;
   end
@@ -377,53 +329,55 @@ function isQuirk(vRecord)
 end
 
 aRecordOverrides = {
+-- Core Overrides
     ["npc"] = { 
-        aGMListButtons = { "button_npc_letter", "button_npc_type" };
+		aDataMap = { "npc", "reference.npcs", "reference.npc", "reference.npcdata" }, 
+        aGMListButtons = { "button_npc_byletter", "button_npc_bytype" };
 	    aCustomFilters = {
             ["Type"] = { sField = "type" },
 	    },
     },
     ["item"] = { 
-	    fRecordDisplayClass = getItemRecordDisplayClass,
-	    aRecordDisplayClasses = { "item", "reference.defenses", "reference.meleeweapons", "reference.rangedweapons" },
-	    aGMListButtons = { "button_item_bytype", "button_item_defenses", "button_item_meleeweapons", "button_item_rangedweapons" };
-	    aPlayerListButtons = { "button_item_bytype", "button_item_defenses", "button_item_meleeweapons", "button_item_rangedweapons" };
+		aDataMap = { "item", "reference.items", "reference.item", "reference.itemdata" }, 
+	    aGMListButtons = { "button_item_bytype", "button_item_defense", "button_item_meleeweapon", "button_item_rangedweapon" };
+	    aPlayerListButtons = { "button_item_bytype", "button_item_defense", "button_item_meleeweapon", "button_item_rangedweapon" };
 	    aCustomFilters = {
-		    ["Type"] = { sField = "type"  },
+		    ["Type"] = { sField = "type" },
+		    ["Sub Type"] = { sField = "subtype" },
 	    },
     },
     ["vehicle"] = { 
-        fRecordDisplayClass = getVehicleRecordDisplayClass,
-        aRecordDisplayClasses = { "vehicle", "reference.groundvehicle", "reference.watercraft", "reference.aircraft", "reference.spacecraft" },
+		aDataMap = { "vehicle", "reference.vehicles", "reference.vehicle", "reference.vehicledata" }, 
         aGMListButtons = { "button_vehicle_groundvehicle", "button_vehicle_watercraft", "button_vehicle_aircraft", "button_vehicle_spacecraft" };
         aPlayerListButtons = { "button_vehicle_groundvehicle", "button_vehicle_watercraft", "button_vehicle_aircraft", "button_vehicle_spacecraft" };
         aCustomFilters = {
-            ["Type"] = { sField = "type"  },
+            ["Type"] = { sField = "type" },
+		    ["Sub Type"] = { sField = "subtype" },
         },
     },
 
--- New Items
+    -- New Record Types
 
 	["ability"] = {
 		bExport = true, 
-		aDataMap = { "ability", "reference.abilities" }, 
-		aDisplayIcon = { "button_abilities", "button_abilities_down" },
-	    aGMListButtons = { "button_ability_skills", "button_ability_spells", "button_ability_powers", "button_ability_others" };
-	    aPlayerListButtons = { "button_ability_skills", "button_ability_spells", "button_ability_powers", "button_ability_others" };
+		aDataMap = { "ability", "reference.abilities", "reference.ability", "reference.abilitydata" }, 
+	    aGMListButtons = { "button_ability_skill", "button_ability_spell", "button_ability_power", "button_ability_other" };
+	    aPlayerListButtons = { "button_ability_skill", "button_ability_spell", "button_ability_power", "button_ability_other" };
         sSidebarCategory = "create",
 	    aCustomFilters = {
-		    ["Type"] = { sField = "type"  },
+		    ["Type"] = { sField = "type" },
+		    ["Sub Type"] = { sField = "subtype" },
 	    },
 	},
 	["trait"] = {
 		bExport = true, 
-		aDataMap = { "trait", "reference.traits" }, 
-		aDisplayIcon = { "button_traits", "button_traits_down" },
-	    aGMListButtons = { "button_trait_advantages", "button_trait_disadvantages", "button_trait_perks", "button_trait_quirks" };
-	    aPlayerListButtons = { "button_trait_advantages", "button_trait_disadvantages", "button_trait_perks", "button_trait_quirks" };
+		aDataMap = { "trait", "reference.traits", "reference.trait", "reference.traitdata" }, 
+	    aGMListButtons = { "button_trait_advantage", "button_trait_disadvantage", "button_trait_perk", "button_trait_quirk" };
+	    aPlayerListButtons = { "button_trait_advantage", "button_trait_disadvantage", "button_trait_perk", "button_trait_quirk" };
         sSidebarCategory = "create",
 	    aCustomFilters = {
-		    ["Type"] = { sField = "type"  },
+		    ["Type"] = { sField = "type" },
+		    ["Sub Type"] = { sField = "subtype" },
 	    },
 	}
 };
@@ -431,7 +385,6 @@ aRecordOverrides = {
 aListViews = {
     ["npc"] = {
         ["byletter"] = {
-            sTitleRes = "npc_grouped_title_byletter",
             aColumns = {
 	            { sName = "name", sType = "string", sHeadingRes = "npc_grouped_label_name", nWidth=250 },
 	            { sName = "pts", sType = "number", sHeadingRes = "npc_grouped_label_pts", sTooltipRe = "npc_grouped_tooltip_pts", bCentered=true },
@@ -443,7 +396,6 @@ aListViews = {
             aGroupValueOrder = { },
         },
         ["bytype"] = {
-            sTitleRes = "npc_grouped_title_bytype",
             aColumns = {
 	            { sName = "name", sType = "string", sHeadingRes = "npc_grouped_label_name", nWidth=250 },
 	            { sName = "pts", sType = "number", sHeadingRes = "npc_grouped_label_pts", sTooltipRe = "npc_grouped_tooltip_pts", bCentered=true },
@@ -458,13 +410,12 @@ aListViews = {
 
     ["ability"] = {
         ["skill"] = {
-            sTitleRes = "ability_grouped_title_skilllist",
             aColumns = {
                 { sName = "name", sType = "string", sHeadingRes = "ability_grouped_label_name", nWidth=140 },
                 { sName = "skilltype", sType = "string", sHeadingRes = "ability_grouped_label_type", nWidth=80 },
                 { sName = "skilldefault", sType = "string", sHeadingRes = "ability_grouped_label_default", nWidth=100 },
                 { sName = "skillprerequisite", sType = "string", sHeadingRes = "ability_grouped_label_prerequisite", nWidth=120 },
-                { sName = "page", sType = "string", sHeadingRes = "ability_grouped_label_page", bCentered=true },
+                { sName = "page", sType = "string", sHeadingRes = "ability_grouped_label_page", nWidth=60, bCentered=true },
             },
             aFilters = { 
                 { sDBField = "type", vFilterValue = "Skill" }, 
@@ -475,7 +426,6 @@ aListViews = {
             aGroupValueOrder = {},
         },
         ["spell"] = {
-            sTitleRes = "ability_grouped_title_spelllist",
             aColumns = {
                 { sName = "name", sType = "string", sHeadingRes = "ability_grouped_label_name", nWidth=140 },
                 { sName = "spellclass", sType = "string", sHeadingRes = "ability_grouped_label_class", nWidth=100 },
@@ -483,7 +433,7 @@ aListViews = {
                 { sName = "spellcost", sType = "string", sHeadingRes = "ability_grouped_label_cost", nWidth=80, bCentered=true },
                 { sName = "spelltimetocast", sType = "string", sHeadingRes = "ability_grouped_label_timetocast", nWidth=70, bCentered=true },
                 { sName = "spellprerequisite", sType = "string", sHeadingRes = "ability_grouped_label_prerequisite", nWidth=120 },
-                { sName = "page", sType = "string", sHeadingRes = "ability_grouped_label_page", bCentered=true },
+                { sName = "page", sType = "string", sHeadingRes = "ability_grouped_label_page", nWidth=60, bCentered=true },
             },
             aFilters = { 
                 { sDBField = "type", vFilterValue = "Spell" }, 
@@ -495,12 +445,11 @@ aListViews = {
             aGroupValueOrder = {},
         },
         ["power"] = {
-            sTitleRes = "ability_grouped_title_powerlist",
             aColumns = {
                 { sName = "name", sType = "string", sHeadingRes = "ability_grouped_label_name", nWidth=140 },
                 { sName = "powertype", sType = "string", sHeadingRes = "ability_grouped_label_type", nWidth=80 },
                 { sName = "powerdefault", sType = "string", sHeadingRes = "ability_grouped_label_default", nWidth=100 },
-                { sName = "page", sType = "string", sHeadingRes = "ability_grouped_label_page", bCentered=true },
+                { sName = "page", sType = "string", sHeadingRes = "ability_grouped_label_page", nWidth=60, bCentered=true },
             },
             aFilters = { 
                 { sDBField = "type", vFilterValue = "Power" }, 
@@ -511,12 +460,11 @@ aListViews = {
             aGroupValueOrder = {},
         },
         ["other"] = {
-            sTitleRes = "ability_grouped_title_otherlist",
             aColumns = {
                 { sName = "name", sType = "string", sHeadingRes = "ability_grouped_label_name", nWidth=140 },
                 { sName = "otherlevel", sType = "number", sHeadingRes = "ability_grouped_label_level", nWidth=80, bCentered=true },
                 { sName = "otherpoints", sType = "number", sHeadingRes = "ability_grouped_label_points", nWidth=100, bCentered=true },
-                { sName = "page", sType = "string", sHeadingRes = "ability_grouped_label_page", bCentered=true },
+                { sName = "page", sType = "string", sHeadingRes = "ability_grouped_label_page", nWidth=60, bCentered=true },
             },
             aFilters = { 
                 { sDBField = "type", vFilterValue = "Other" }, 
@@ -530,11 +478,10 @@ aListViews = {
 
     ["trait"] = {
         ["advantage"] = {
-            sTitleRes = "trait_grouped_title_advantagelist",
             aColumns = {
                 { sName = "name", sType = "string", sHeadingRes = "trait_grouped_label_name", nWidth=160 },
                 { sName = "points", sType = "number", sHeadingRes = "trait_grouped_label_points", nWidth=80, bCentered=true },
-                { sName = "page", sType = "string", sHeadingRes = "trait_grouped_label_page", bCentered=true },
+                { sName = "page", sType = "string", sHeadingRes = "trait_grouped_label_page", nWidth=60, bCentered=true },
             },
             aFilters = { 
                 { sDBField = "type", vFilterValue = "Advantage" }, 
@@ -545,11 +492,10 @@ aListViews = {
             aGroupValueOrder = {},
         },
         ["disadvantage"] = {
-            sTitleRes = "trait_grouped_title_disadvantagelist",
             aColumns = {
                 { sName = "name", sType = "string", sHeadingRes = "trait_grouped_label_name", nWidth=160 },
                 { sName = "points", sType = "number", sHeadingRes = "trait_grouped_label_points", nWidth=80, bCentered=true },
-                { sName = "page", sType = "string", sHeadingRes = "trait_grouped_label_page", bCentered=true },
+                { sName = "page", sType = "string", sHeadingRes = "trait_grouped_label_page", nWidth=60, bCentered=true },
             },
             aFilters = { 
                 { sDBField = "type", vFilterValue = "Disadvantage" }, 
@@ -560,11 +506,10 @@ aListViews = {
             aGroupValueOrder = {},
         },
         ["perk"] = {
-            sTitleRes = "trait_grouped_title_perklist",
             aColumns = {
                 { sName = "name", sType = "string", sHeadingRes = "trait_grouped_label_name", nWidth=160 },
                 { sName = "points", sType = "number", sHeadingRes = "trait_grouped_label_points", nWidth=80, bCentered=true },
-                { sName = "page", sType = "string", sHeadingRes = "trait_grouped_label_page", bCentered=true },
+                { sName = "page", sType = "string", sHeadingRes = "trait_grouped_label_page", nWidth=60, bCentered=true },
             },
             aFilters = { 
                 { sDBField = "type", vFilterValue = "Perk" }, 
@@ -575,11 +520,10 @@ aListViews = {
             aGroupValueOrder = {},
         },
         ["quirk"] = {
-            sTitleRes = "trait_grouped_title_quirklist",
             aColumns = {
                 { sName = "name", sType = "string", sHeadingRes = "trait_grouped_label_name", nWidth=160 },
                 { sName = "points", sType = "number", sHeadingRes = "trait_grouped_label_points", nWidth=80, bCentered=true },
-                { sName = "page", sType = "string", sHeadingRes = "trait_grouped_label_page", bCentered=true },
+                { sName = "page", sType = "string", sHeadingRes = "trait_grouped_label_page", nWidth=60, bCentered=true },
             },
             aFilters = { 
                 { sDBField = "type", vFilterValue = "Quirk" }, 
@@ -593,7 +537,6 @@ aListViews = {
 
     ["item"] = {
         ["bytype"] = {
-            sTitleRes = "item_grouped_title_bytype",
             aColumns = {
                 { sName = "tl", sType = "string", sHeadingRes = "item_grouped_label_tl", sTooltipRes = "item_grouped_tooltip_tl", nWidth=30, bCentered=true },
                 { sName = "name", sType = "string", sHeadingRes = "item_grouped_label_name", nWidth=140 },
@@ -606,10 +549,9 @@ aListViews = {
                 { sDBField = "type" },
                 { sDBField = "subtype" } 
             },
-            aGroupValueOrder = {},
+			aGroupValueOrder = { },
         },
         ["defense"] = {
-            sTitleRes = "item_grouped_title_defenses",
             aColumns = {
                 { sName = "tl", sType = "string", sHeadingRes = "item_grouped_label_tl", sTooltipRes = "item_grouped_tooltip_tl", nWidth=30, bCentered=true },
                 { sName = "name", sType = "string", sHeadingRes = "item_grouped_label_name", nWidth=140 },
@@ -631,7 +573,6 @@ aListViews = {
             aGroupValueOrder = {},
         },
         ["meleeweapon"] = {
-            sTitleRes = "item_grouped_title_meleeweapons",
             aColumns = {
                 { sName = "tl", sType = "string", sHeadingRes = "item_grouped_label_tl", sTooltipRes = "item_grouped_tooltip_tl", nWidth=30, bCentered=true },
 	            { sName = "name", sType = "string", sHeadingRes = "item_grouped_label_name", nWidth=140 },
@@ -652,7 +593,6 @@ aListViews = {
             aGroupValueOrder = {},
         },
         ["rangedweapon"] = {
-            sTitleRes = "item_grouped_title_rangedweapons",
             aColumns = {
                 { sName = "tl", sType = "string", sHeadingRes = "item_grouped_label_tl", sTooltipRes = "item_grouped_tooltip_tl", nWidth=30, bCentered=true },
 	            { sName = "name", sType = "string", sHeadingRes = "item_grouped_label_name", nWidth=140 },
@@ -680,7 +620,6 @@ aListViews = {
 
     ["vehicle"] = {
         ["groundvehicle"] = {
-            sTitleRes = "vehicle_grouped_title_groundvehicle",
             aColumns = {
                 { sName = "tl", sType = "string", sHeadingRes = "vehicle_grouped_label_tl", sTooltipRes = "vehicle_grouped_tooltip_tl", nWidth=30, bCentered=true },
                 { sName = "name", sType = "string", sHeadingRes = "vehicle_grouped_label_name", nWidth=140 },
@@ -706,7 +645,6 @@ aListViews = {
             aGroupValueOrder = {},
         },
         ["watercraft"] = {
-            sTitleRes = "vehicle_grouped_title_watercraft",
             aColumns = {
                 { sName = "tl", sType = "string", sHeadingRes = "vehicle_grouped_label_tl", sTooltipRes = "vehicle_grouped_tooltip_tl", nWidth=30, bCentered=true },
                 { sName = "name", sType = "string", sHeadingRes = "vehicle_grouped_label_name", nWidth=120 },
@@ -733,7 +671,6 @@ aListViews = {
             aGroupValueOrder = {},
         },
         ["aircraft"] = {
-            sTitleRes = "vehicle_grouped_title_aircraft",
             aColumns = {
                 { sName = "tl", sType = "string", sHeadingRes = "vehicle_grouped_label_tl", sTooltipRes = "vehicle_grouped_tooltip_tl", nWidth=30, bCentered=true },
                 { sName = "name", sType = "string", sHeadingRes = "vehicle_grouped_label_name", nWidth=120 },
@@ -760,7 +697,6 @@ aListViews = {
             aGroupValueOrder = {},
         },
         ["spacecraft"] = {
-            sTitleRes = "vehicle_grouped_title_spacecraft",
             aColumns = {
                 { sName = "tl", sType = "string", sHeadingRes = "vehicle_grouped_label_tl", sTooltipRes = "vehicle_grouped_tooltip_tl", nWidth=30, bCentered=true },
                 { sName = "name", sType = "string", sHeadingRes = "vehicle_grouped_label_name", nWidth=120 },
@@ -787,12 +723,6 @@ aListViews = {
     },
 };
 
-aDefaultSidebarState = {
-  ["gm"] = "charsheet,note,image,story,table,npc,battle,item,treasureparcel,vehicle",
-  ["play"] = "charsheet,note,image,story,table,npc,item",
-  ["create"] = "charsheet,item,ability,trait",
-};
-
 function onInit()
 	LibraryData.setCustomFilterHandler("item_isidentified", getItemIsIdentified);
 	
@@ -800,12 +730,6 @@ function onInit()
 	LibraryData.setCustomFilterHandler("item_ismeleeweapon", isMeleeWeapon);
 	LibraryData.setCustomFilterHandler("item_israngedweapon", isRangedWeapon);
 
-	for kRecordType,vRecordType in pairs(aRecordOverrides) do
-		LibraryData.overrideRecordTypeInfo(kRecordType, vRecordType);
-	end
-	for kRecordType,vRecordListViews in pairs(aListViews) do
-		for kListView, vListView in pairs(vRecordListViews) do
-			LibraryData.setListView(kRecordType, kListView, vListView);
-		end
-	end
+	LibraryData.overrideRecordTypes(aRecordOverrides);
+	LibraryData.setRecordViews(aListViews);
 end

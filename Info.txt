@@ -4,7 +4,7 @@ This unofficial GURPS Ruleset for Fantasy Grounds is developed with the permissi
 
 [B]GURPS 4E Core Ruleset - FG Unity [COLOR="#FF0000"](FG Unity only)[/COLOR][/B]
 FG Forge shop [I](FG Unity users only)[/I]: [URL="https://forge.fantasygrounds.com/shop/items/454/view"]FG Forge Shop[/URL]
-[I](Updated: 10th Jun 2022)[/I]
+[I](Updated: 11th Mar 2023)[/I]
 
 [B]GURPS 4E Core Ruleset - FG Classic [COLOR="#FF0000"](FG Classic only. The ruleset for FG Classic is no longer being updated[/COLOR])[/B]
 Download latest release from here: [URL="https://bit.ly/GURPS4ECore"]https://bit.ly/GURPS4ECore[/URL] 
@@ -24,7 +24,7 @@ Download the GCA exporter files from here: [URL="https://bit.ly/GCAtoFGExport"]h
 
 [B]GURPS No Dice Extension[/B]
 Download an extension to remove non-GURPS dice from the Fantasy Grounds desktop: [URL="https://bit.ly/GURPSNoDiceExt"]https://bit.ly/GURPSNoDiceExt[/URL] 
-[I](Updated: 16th Mar 2020)[/I]
+[I](Updated: 22nd Oct 2022)[/I]
 [I](Courtesy of Ronnke)[/I]
 
 * A video tutorial demonstrating the process of exporting and importing characters from GCA: [url]https://youtu.be/CHn7jkM0UFQ[/url]
@@ -55,6 +55,21 @@ Click the following link to have your input on future ruleset development/improv
 
 [SIZE=4][B]Version Information[/B][/SIZE]
 
+[LIST]
+[*][B]GURPS 4e Ruleset v3.10.0[/B] - 11th Mar 2023 (FG Unity Only)
+[B][COLOR="#FF0000"](This update will make changes to the campaign database. If concerned, backup your campaign folder before applying)[/COLOR][/B]
+- Fixed: Several compatability issues with CoreRPG.
+- Fixed: Chat Window default position.
+- Fixed: Skill, Spell ability auto level calculations.
+- Added: Power, Other ability auto level calculations. (Accessible via the "Info/Detail" section icon)
+[/LIST]
+[LIST]
+[*][B]GURPS 4e Ruleset v3.9.2[/B] - 22nd Oct 2022 (FG Unity Only)
+- Fixed: Client Combat Tracker script error issue.
+- Fixed: Dice placement issue.
+- Fixed: NPC tab order.
+- Added: GURPS No Dice optional extension to the ruleset forge update.
+[/LIST]
 [LIST]
 [*][B]GURPS 4e Ruleset v3.9.1[/B] - 10th Jun 2022 (FG Unity Only)
 - Fixed: Language script error issue.

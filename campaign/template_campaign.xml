@@ -6,404 +6,152 @@
 -->
 
 <root>
-  <template name="button_ability_skills">
-    <button_text_sm>
-      <anchored to="buttonanchor" width="100">
-        <top />
-        <left anchor="right" relation="relative" offset="5" />
-      </anchored>
-      <state textres="ability_button_skills" />
-      <script>
-        function onButtonPress()
-        local w = Interface.findWindow("reference_groupedlist", "reference.skill");
-        if w then
-        Interface.toggleWindow("reference_groupedlist", "reference.skill");
-        else
-        w = Interface.openWindow("reference_groupedlist", "reference.skill");
-        w.init({ sRecordType = "ability", sListView = "skill" });
-        end
-        end
-      </script>
-    </button_text_sm>
-  </template>
-  <template name="button_ability_spells">
-    <button_text_sm>
-      <anchored to="buttonanchor" width="100">
-        <top />
-        <left anchor="right" relation="relative" offset="5" />
-      </anchored>
-      <state textres="ability_button_spells" />
-      <script>
-        function onButtonPress()
-        local w = Interface.findWindow("reference_groupedlist", "reference.spell");
-        if w then
-        Interface.toggleWindow("reference_groupedlist", "reference.spell");
-        else
-        w = Interface.openWindow("reference_groupedlist", "reference.spell");
-        w.init({ sRecordType = "ability", sListView = "spell" });
-        end
-        end
-      </script>
-    </button_text_sm>
-  </template>
-  <template name="button_ability_powers">
-    <button_text_sm>
-      <anchored to="buttonanchor" width="100">
-        <top />
-        <left anchor="right" relation="relative" offset="5" />
-      </anchored>
-      <state textres="ability_button_powers" />
-      <script>
-        function onButtonPress()
-        local w = Interface.findWindow("reference_groupedlist", "reference.power");
-        if w then
-        Interface.toggleWindow("reference_groupedlist", "reference.power");
-        else
-        w = Interface.openWindow("reference_groupedlist", "reference.power");
-        w.init({ sRecordType = "ability", sListView = "power" });
-        end
-        end
-      </script>
-    </button_text_sm>
-  </template>
-  <template name="button_ability_others">
-    <button_text_sm>
-      <anchored to="buttonanchor" width="100">
-        <top />
-        <left anchor="right" relation="relative" offset="5" />
-      </anchored>
-      <state textres="ability_button_others" />
-      <script>
-        function onButtonPress()
-        local w = Interface.findWindow("reference_groupedlist", "reference.other");
-        if w then
-        Interface.toggleWindow("reference_groupedlist", "reference.other");
-        else
-        w = Interface.openWindow("reference_groupedlist", "reference.other");
-        w.init({ sRecordType = "ability", sListView = "other" });
-        end
-        end
-      </script>
-    </button_text_sm>
+  <template name="button_npc_byletter">
+    <button_masterindex_option_view>
+      <recordtype>npc</recordtype>
+      <recordview>byletter</recordview>
+      <recordpath>reference.npcbyletter</recordpath>
+    </button_masterindex_option_view>
   </template>
 
-  <template name="button_trait_advantages">
-    <button_text_sm>
-      <anchored to="buttonanchor" width="100">
-        <top />
-        <left anchor="right" relation="relative" offset="5" />
-      </anchored>
-      <state textres="trait_button_advantages" />
-      <script>
-        function onButtonPress()
-        local w = Interface.findWindow("reference_groupedlist", "reference.trait");
-        if w then
-        Interface.toggleWindow("reference_groupedlist", "reference.trait");
-        else
-        w = Interface.openWindow("reference_groupedlist", "reference.trait");
-        w.init({ sRecordType = "trait", sListView = "advantage" });
-        end
-        end
-      </script>
-    </button_text_sm>
+  <template name="button_npc_type">
+    <button_masterindex_option_view>
+      <recordtype>npc</recordtype>
+      <recordview>bytype</recordview>
+      <recordpath>reference.npcbytype</recordpath>
+    </button_masterindex_option_view>
   </template>
-  <template name="button_trait_disadvantages">
-    <button_text_sm>
-      <anchored to="buttonanchor" width="100">
-        <top />
-        <left anchor="right" relation="relative" offset="5" />
-      </anchored>
-      <state textres="trait_button_disadvantages" />
-      <script>
-        function onButtonPress()
-        local w = Interface.findWindow("reference_groupedlist", "reference.disadvantage");
-        if w then
-        Interface.toggleWindow("reference_groupedlist", "reference.disadvantage");
-        else
-        w = Interface.openWindow("reference_groupedlist", "reference.disadvantage");
-        w.init({ sRecordType = "trait", sListView = "disadvantage" });
-        end
-        end
-      </script>
-    </button_text_sm>
-  </template>
-  <template name="button_trait_perks">
-    <button_text_sm>
-      <anchored to="buttonanchor" width="100">
-        <top />
-        <left anchor="right" relation="relative" offset="5" />
-      </anchored>
-      <state textres="trait_button_perks" />
-      <script>
-        function onButtonPress()
-        local w = Interface.findWindow("reference_groupedlist", "reference.perk");
-        if w then
-        Interface.toggleWindow("reference_groupedlist", "reference.perk");
-        else
-        w = Interface.openWindow("reference_groupedlist", "reference.perk");
-        w.init({ sRecordType = "trait", sListView = "perk" });
-        end
-        end
-      </script>
-    </button_text_sm>
-  </template>
-  <template name="button_trait_quirks">
-    <button_text_sm>
-      <anchored to="buttonanchor" width="100">
-        <top />
-        <left anchor="right" relation="relative" offset="5" />
-      </anchored>
-      <state textres="trait_button_quirks" />
-      <script>
-        function onButtonPress()
-          local w = Interface.findWindow("reference_groupedlist", "reference.quirk");
-          if w then
-            Interface.toggleWindow("reference_groupedlist", "reference.quirk");
-          else
-            w = Interface.openWindow("reference_groupedlist", "reference.quirk");
-            w.init({ sRecordType = "trait", sListView = "quirk" });
-          end
-        end
-      </script>
-    </button_text_sm>
+  
+  <template name="button_ability_skill">
+    <button_masterindex_option_view>
+      <recordtype>ability</recordtype>
+      <recordview>skill</recordview>
+      <recordpath>reference.skill</recordpath>
+    </button_masterindex_option_view>
   </template>
 
-  <template name="image_tool_rangemodifer">
-    <buttonfield>
-      <anchored to="toolbar_anchor" width="34" height="34">
-        <top />
-        <right anchor="left" relation="relative" />
-      </anchored>
-      <frame name="toolbar_30" />
-      <state icon="tool_mapscale_30" color="55FFFFFF" tooltipres="image_tooltip_rangemodifier" />
-      <state icon="tool_mapscale_30" color="CCFFFFFF" tooltipres="image_tooltip_rangemodifier" />
-      <invisible />
-      <script>
-        function onButtonPress()
-          window.onRangeModifierButtonPressed();
-        end
-      </script>
-    </buttonfield>
+  <template name="button_ability_spell">
+    <button_masterindex_option_view>
+      <recordtype>ability</recordtype>
+      <recordview>spell</recordview>
+      <recordpath>reference.spell</recordpath>
+    </button_masterindex_option_view>
   </template>
-  <template name="image_tool_scaleunits">
-    <button_stringcycler name="scaleunits">
-      <anchored to="toolbar_anchor" width="80" height="20">
-        <top offset="7"/>
-        <right anchor="left" relation="relative" offset="-10" />
-      </anchored>
-      <gmeditonly />
-      <parameters>
-        <defaultlabelres>no_units</defaultlabelres>
-        <labelsres>feet|yards|miles|meters|kilometers|nautical miles|au|lightyears|parsecs</labelsres>
-        <values>ft|yd|mi|m|km|nmi|AU|ly|pc</values>
-      </parameters>
-      <invisible />
-      <script>
-        function onValueChanged()
-          window.onScaleUnitsValueChanged();
-        end
-      </script>
-    </button_stringcycler>
+
+  <template name="button_ability_power">
+    <button_masterindex_option_view>
+      <recordtype>ability</recordtype>
+      <recordview>power</recordview>
+      <recordpath>reference.power</recordpath>
+    </button_masterindex_option_view>
+  </template>
+
+  <template name="button_ability_other">
+    <button_masterindex_option_view>
+      <recordtype>ability</recordtype>
+      <recordview>other</recordview>
+      <recordpath>reference.other</recordpath>
+    </button_masterindex_option_view>
+  </template>
+
+  <template name="button_trait_advantage">
+    <button_masterindex_option_view>
+      <anchored width="100" />
+      <recordtype>trait</recordtype>
+      <recordview>advantage</recordview>
+      <recordpath>reference.advantage</recordpath>
+    </button_masterindex_option_view>
+  </template>
+
+  <template name="button_trait_disadvantage">
+    <button_masterindex_option_view>
+      <anchored width="100" />
+      <recordtype>trait</recordtype>
+      <recordview>disadvantage</recordview>
+      <recordpath>reference.disadvantage</recordpath>
+    </button_masterindex_option_view>
+  </template>
+
+  <template name="button_trait_perk">
+    <button_masterindex_option_view>
+      <recordtype>trait</recordtype>
+      <recordview>perk</recordview>
+      <recordpath>reference.perk</recordpath>
+    </button_masterindex_option_view>
+  </template>
+
+  <template name="button_trait_quirk">
+    <button_masterindex_option_view>
+      <recordtype>trait</recordtype>
+      <recordview>quirk</recordview>
+      <recordpath>reference.quirk</recordpath>
+    </button_masterindex_option_view>
   </template>
 
   <template name="button_item_bytype">
-    <button_text_sm>
-      <anchored to="buttonanchor" width="80">
-        <top />
-        <left anchor="right" relation="relative" offset="5" />
-      </anchored>
-      <state textres="item_button_bytype" />
-      <script>
-        function onButtonPress()
-        local w = Interface.findWindow("reference_groupedlist", "reference.itembytype");
-        if w then
-        Interface.toggleWindow("reference_groupedlist", "reference.itembytype");
-        else
-        w = Interface.openWindow("reference_groupedlist", "reference.itembytype");
-        w.init({ sRecordType = "item", sListView = "bytype" });
-        end
-        end
-      </script>
-    </button_text_sm>
+    <button_masterindex_option_view>
+      <recordtype>item</recordtype>
+      <recordview>bytype</recordview>
+    </button_masterindex_option_view>
   </template>
-  <template name="button_item_defenses">
-    <button_text_sm>
-      <anchored to="buttonanchor" width="80">
-        <top />
-        <left anchor="right" relation="relative" offset="5" />
-      </anchored>
-      <state textres="item_button_defenses" />
-      <script>
-        function onButtonPress()
-        local w = Interface.findWindow("reference_groupedlist", "reference.defense");
-        if w then
-        Interface.toggleWindow("reference_groupedlist", "reference.defense");
-        else
-        w = Interface.openWindow("reference_groupedlist", "reference.defense");
-        w.init({ sRecordType = "item", sListView = "defense" });
-        end
-        end
-      </script>
-    </button_text_sm>
+
+  <template name="button_item_defense">
+    <button_masterindex_option_view>
+      <recordtype>item</recordtype>
+      <recordview>defense</recordview>
+      <recordpath>reference.defense</recordpath>
+    </button_masterindex_option_view>
   </template>
-  <template name="button_item_meleeweapons">
-    <button_text_sm>
-      <anchored to="buttonanchor" width="120">
-        <top />
-        <left anchor="right" relation="relative" offset="5" />
-      </anchored>
-      <state textres="item_button_meleeweapons" />
-      <script>
-        function onButtonPress()
-        local w = Interface.findWindow("reference_groupedlist", "reference.meleeweapon");
-        if w then
-        Interface.toggleWindow("reference_groupedlist", "reference.meleeweapon");
-        else
-        w = Interface.openWindow("reference_groupedlist", "reference.meleeweapon");
-        w.init({ sRecordType = "item", sListView = "meleeweapon" });
-        end
-        end
-      </script>
-    </button_text_sm>
+
+  <template name="button_item_meleeweapon">
+    <button_masterindex_option_view>
+      <anchored width="120" />
+      <recordtype>item</recordtype>
+      <recordview>meleeweapon</recordview>
+      <recordpath>reference.meleeweapon</recordpath>
+    </button_masterindex_option_view>
   </template>
-  <template name="button_item_rangedweapons">
-    <button_text_sm>
-      <anchored to="buttonanchor" width="120">
-        <top />
-        <left anchor="right" relation="relative" offset="5" />
-      </anchored>
-      <state textres="item_button_rangedweapons" />
-      <script>
-        function onButtonPress()
-        local w = Interface.findWindow("reference_groupedlist", "reference.rangedweapon");
-        if w then
-        Interface.toggleWindow("reference_groupedlist", "reference.rangedweapon");
-        else
-        w = Interface.openWindow("reference_groupedlist", "reference.rangedweapon");
-        w.init({ sRecordType = "item", sListView = "rangedweapon" });
-        end
-        end
-      </script>
-    </button_text_sm>
+
+  <template name="button_item_rangedweapon">
+    <button_masterindex_option_view>
+      <anchored width="120" />
+      <recordtype>item</recordtype>
+      <recordview>rangedweapon</recordview>
+      <recordpath>reference.rangedweapon</recordpath>
+    </button_masterindex_option_view>
   </template>
-  <template name="button_npc_letter">
-    <button_text_sm>
-      <anchored to="buttonanchor" width="80">
-        <top />
-        <left anchor="right" relation="relative" offset="5" />
-      </anchored>
-      <state textres="npc_button_letter" />
-      <script>
-        function onButtonPress()
-        local w = Interface.findWindow("reference_groupedlist", "reference.npcbyletter");
-        if w then
-        Interface.toggleWindow("reference_groupedlist", "reference.npcbyletter");
-        else
-        w = Interface.openWindow("reference_groupedlist", "reference.npcbyletter");
-        w.init({ sRecordType = "npc", sListView = "byletter" });
-        end
-        end
-      </script>
-    </button_text_sm>
-  </template>
-  <template name="button_npc_type">
-    <button_text_sm>
-      <anchored to="buttonanchor" width="80">
-        <top />
-        <left anchor="right" relation="relative" offset="5" />
-      </anchored>
-      <state textres="npc_button_type" />
-      <script>
-        function onButtonPress()
-        local w = Interface.findWindow("reference_groupedlist", "reference.npcbytype");
-        if w then
-        Interface.toggleWindow("reference_groupedlist", "reference.npcbytype");
-        else
-        w = Interface.openWindow("reference_groupedlist", "reference.npcbytype");
-        w.init({ sRecordType = "npc", sListView = "bytype" });
-        end
-        end
-      </script>
-    </button_text_sm>
-  </template>
+
   <template name="button_vehicle_groundvehicle">
-    <button_text_sm>
-      <anchored to="buttonanchor" width="100">
-        <top />
-        <left anchor="right" relation="relative" offset="5" />
-      </anchored>
-      <state textres="vehicle_button_groundvehicle" />
-      <script>
-        function onButtonPress()
-        local w = Interface.findWindow("reference_groupedlist", "reference.groundvehicle");
-        if w then
-        Interface.toggleWindow("reference_groupedlist", "reference.groundvehicle");
-        else
-        w = Interface.openWindow("reference_groupedlist", "reference.groundvehicle");
-        w.init({ sRecordType = "vehicle", sListView = "groundvehicle" });
-        end
-        end
-      </script>
-    </button_text_sm>
+    <button_masterindex_option_view>
+      <anchored width="100" />
+      <recordtype>vehicle</recordtype>
+      <recordview>groundvehicle</recordview>
+      <recordpath>reference.groundvehicle</recordpath>
+    </button_masterindex_option_view>
   </template>
+
   <template name="button_vehicle_watercraft">
-    <button_text_sm>
-      <anchored to="buttonanchor" width="80">
-        <top />
-        <left anchor="right" relation="relative" offset="5" />
-      </anchored>
-      <state textres="vehicle_button_watercraft" />
-      <script>
-        function onButtonPress()
-        local w = Interface.findWindow("reference_groupedlist", "reference.watercraft");
-        if w then
-        Interface.toggleWindow("reference_groupedlist", "reference.watercraft");
-        else
-        w = Interface.openWindow("reference_groupedlist", "reference.watercraft");
-        w.init({ sRecordType = "vehicle", sListView = "watercraft" });
-        end
-        end
-      </script>
-    </button_text_sm>
+    <button_masterindex_option_view>
+      <recordtype>vehicle</recordtype>
+      <recordview>watercraft</recordview>
+      <recordpath>reference.watercraft</recordpath>
+    </button_masterindex_option_view>
   </template>
+
   <template name="button_vehicle_aircraft">
-    <button_text_sm>
-      <anchored to="buttonanchor" width="80">
-        <top />
-        <left anchor="right" relation="relative" offset="5" />
-      </anchored>
-      <state textres="vehicle_button_aircraft" />
-      <script>
-        function onButtonPress()
-        local w = Interface.findWindow("reference_groupedlist", "reference.aircraft");
-        if w then
-        Interface.toggleWindow("reference_groupedlist", "reference.aircraft");
-        else
-        w = Interface.openWindow("reference_groupedlist", "reference.aircraft");
-        w.init({ sRecordType = "vehicle", sListView = "aircraft" });
-        end
-        end
-      </script>
-    </button_text_sm>
+    <button_masterindex_option_view>
+      <recordtype>vehicle</recordtype>
+      <recordview>aircraft</recordview>
+      <recordpath>reference.aircraft</recordpath>
+    </button_masterindex_option_view>
   </template>
+
   <template name="button_vehicle_spacecraft">
-    <button_text_sm>
-      <anchored to="buttonanchor" width="80">
-        <top />
-        <left anchor="right" relation="relative" offset="5" />
-      </anchored>
-      <state textres="vehicle_button_spacecraft" />
-      <script>
-        function onButtonPress()
-        local w = Interface.findWindow("reference_groupedlist", "reference.spacecraft");
-        if w then
-        Interface.toggleWindow("reference_groupedlist", "reference.spacecraft");
-        else
-        w = Interface.openWindow("reference_groupedlist", "reference.spacecraft");
-        w.init({ sRecordType = "vehicle", sListView = "spacecraft" });
-        end
-        end
-      </script>
-    </button_text_sm>
+    <button_masterindex_option_view>
+      <recordtype>vehicle</recordtype>
+      <recordview>spacecraft</recordview>
+      <recordpath>reference.spacecraft</recordpath>
+    </button_masterindex_option_view>
   </template>
+ 
 </root>

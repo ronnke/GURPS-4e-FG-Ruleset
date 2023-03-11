@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <!-- 
   Please see the license.html file included with this distribution for 
@@ -6,14 +6,14 @@
 -->
 
 <root>
-  <windowclass name="charsheet_inventory">
+  <windowclass name="charsheet_inventory" merge="join">
     <sheetdata>
       <frame_char name="inventoryframe">
-        <bounds>15,0,-29,-219</bounds>
+        <bounds>15,0,-29,-205</bounds>
       </frame_char>
 
-      <label_frametop>
-        <anchored to="inventoryframe" />
+      <label_frametop name="inventory_label">
+        <anchored to="inventoryframe" width="40" />
         <static textres="char_label_inventory" />
       </label_frametop>
 
@@ -22,6 +22,7 @@
         <center />
         <static>#</static>
       </label>
+      
       <genericcontrol name="rightanchor">
         <anchored to="inventoryframe" width="0" height="0">
           <top offset="30" />
@@ -29,54 +30,6 @@
         </anchored>
         <invisible />
       </genericcontrol>
-      <genericcontrol name="idelete_header">
-        <anchored to="rightanchor" width="20" height="20">
-          <top />
-          <right anchor="left" relation="relative" offset="-5" />
-        </anchored>
-        <disabled />
-      </genericcontrol>
-      <genericcontrol name="shortcut_header">
-        <anchored to="rightanchor" width="20" height="20">
-          <top />
-          <right anchor="left" relation="relative" offset="-5" />
-        </anchored>
-        <disabled />
-      </genericcontrol>
-      <genericcontrol name="carried_header">
-        <anchored to="rightanchor" width="20" height="20">
-          <top />
-          <right anchor="left" relation="relative" offset="-5" />
-        </anchored>
-        <icon>char_inv_carried_header</icon>
-        <tooltip textres="char_tooltip_itemcarried" />
-      </genericcontrol>
-      <label name="weight_label">
-        <anchored to="rightanchor" width="30">
-          <top />
-          <right anchor="left" relation="relative" offset="-10" />
-        </anchored>
-        <center />
-        <static textres="char_label_itemweight" />
-        <tooltip textres="char_tooltip_itemweight" />
-      </label>
-      <label name="location_label">
-        <anchored to="rightanchor" width="80">
-          <top />
-          <right anchor="left" relation="relative" offset="-10" />
-        </anchored>
-        <center />
-        <static textres="char_label_itemlocation" />
-      </label>
-      <label name="name_label">
-        <anchored to="rightanchor">
-          <top />
-          <left parent="inventoryframe" offset="55" />
-          <right anchor="left" relation="relative" offset="-5" />
-        </anchored>
-        <static textres="char_label_itemname" />
-        <center />
-      </label>
 
       <list_charinv name="inventorylist">
         <anchored to="inventoryframe">
@@ -91,17 +44,19 @@
         <target>inventorylist</target>
       </scrollbar>
 
+      <button_iadd name="inventorylist_iadd" merge="delete" />
       <button_iadd name="inventorylist_iadd">
         <anchored to="inventoryframe" position="insidetopright" offset="40,10" />
         <target>inventorylist</target>
       </button_iadd>
+      <button_iedit name="inventorylist_iedit" merge="delete" />
       <button_iedit name="inventorylist_iedit">
         <anchored to="inventoryframe" position="insidetopright" offset="15,10" />
         <target>inventorylist</target>
       </button_iedit>
 
       <frame_char name="encumbranceframe">
-        <bounds>15,-219,240,-15</bounds>
+        <bounds>15,-205,240,-15</bounds>
       </frame_char>
       <simplenumber name="encumbranceload" source="encumbrance.load">
         <anchored to="encumbranceframe" position="insidetopleft" offset="150,30" width="70" height="20" />
@@ -125,153 +80,22 @@
       </label>
 
       <frame_char name="coinframe">
-        <bounds>255,-219,-29,-15</bounds>
+        <bounds>255,-205,-29,-15</bounds>
       </frame_char>
-      <label_frametop name="coin_label">
-        <anchored to="coinframe" />
-        <static textres="char_label_money" />
-      </label_frametop>
 
-      <sub_charcurrency name="sub_currency" />
-      <scrollbar_sub_charcurrency name="scrollbar_currency" />
+      <button_iadd_sub_charcurrency name="currency_iadd" merge="delete" />
       <button_iadd_sub_charcurrency name="currency_iadd">
         <anchored to="coinframe" position="insidetopright" offset="40,10" />
       </button_iadd_sub_charcurrency>
+      <button_iedit_sub_charcurrency name="currency_iedit" merge="delete" />
       <button_iedit_sub_charcurrency name="currency_iedit">
-        <anchored to="coinframe" position="insidetopright" offset="15,10" />
+          <anchored to="coinframe" position="insidetopright" offset="15,10" />
       </button_iedit_sub_charcurrency>
       </sheetdata>
   </windowclass>
 
-  <windowclass name="char_invitem">
-    <margins control="0,0,0,2" />
-    <script>
-      function onInit()
-        getDatabaseNode().onDelete = onDelete;
-      end
-      function onDelete(node)
-        ItemManager.onCharRemoveEvent(node);
-      end
-    </script>
-    <sheetdata>
-      <hidden_record_isidentified name="isidentified">
-        <class>item</class>
-        <ignorehost />
-      </hidden_record_isidentified>
-
-      <number_charinv name="count">
-        <bounds>5,2,20,20</bounds>
-        <tabtarget next="name" />
-      </number_charinv>
-
-      <genericcontrol name="rightanchor">
-        <anchored width="0" height="0">
-          <top />
-          <right />
-        </anchored>
-        <invisible />
-      </genericcontrol>
-      <button_idelete name="idelete">
-        <anchored width="20" height="20">
-          <top offset="2" />
-          <right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
-        </anchored>
-      </button_idelete>
-      <linkcontrol_id name="shortcut">
-        <anchored width="20" height="20">
-          <top offset="2" />
-          <right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
-        </anchored>
-        <class>item</class>
-        <readonly />
-      </linkcontrol_id>
-      <button_char_inv_carried name="carried">
-        <anchored width="20" height="20">
-          <top offset="2" />
-          <right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
-        </anchored>
-      </button_char_inv_carried>
-      <number_charinv name="weight">
-        <anchored width="30" height="20">
-          <top offset="2" />
-          <right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
-        </anchored>
-        <delaykeyupdate />
-        <tabtarget prev="location" />
-      </number_charinv>
-      <string_charinvloc name="location">
-        <anchored width="80" height="20">
-          <top offset="2" />
-          <right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
-        </anchored>
-        <tabtarget next="weight" prev="nonid_name" />
-      </string_charinvloc>
-
-      <string_charinvname name="name">
-        <anchored position="insidetopleft" offset="35,2" height="20">
-          <right parent="rightanchor" anchor="left" relation="current" offset="-5" />
-        </anchored>
-        <tabtarget next="nonid_name" prev="count" />
-      </string_charinvname>
-      <string_charinvname name="nonid_name">
-        <anchored position="insidetopleft" offset="35,2" height="20">
-          <right parent="rightanchor" anchor="left" relation="current" offset="-5" />
-        </anchored>
-        <empty textres="library_recordtype_empty_nonid_item" />
-        <invisible />
-        <tabtarget next="location" prev="name" />
-      </string_charinvname>
-    </sheetdata>
+  <windowclass name="char_invitem" merge="join">
+    <script file="campaign/scripts/char_invitem.lua" />
   </windowclass>
-
-  <windowclass name="char_currency">
-    <margins control="0,0,0,5"/>
-    <sheetdata>
-      <list_sub_charcurrency name="list">
-        <anchored position="insidetop" offset="-5,0" />
-      </list_sub_charcurrency>
-
-      <basicstring name="coinother">
-        <anchored to="list" position="below" offset="0,5" />
-        <multilinespacing>20</multilinespacing>
-      </basicstring>
-    </sheetdata>
-  </windowclass>
-
-  <windowclass name="char_currencyitem">
-    <margins control="0,0,0,2" />
-    <sheetdata>
-      <genericcontrol name="rightanchor">
-        <anchored height="0" width="0">
-          <top offset="2" />
-          <right />
-        </anchored>
-      </genericcontrol>
-      <button_idelete name="idelete">
-        <anchored to="rightanchor">
-          <top />
-          <right anchor="left" relation="relative" offset="0" />
-        </anchored>
-      </button_idelete>
-
-      <number_dropadd name="amount">
-        <anchored to="rightanchor" width="50" height="20">
-          <top />
-          <left parent="" offset="5" />
-        </anchored>
-        <description field="name" />
-        <delaykeyupdate />
-      </number_dropadd>
-
-      <string_textlistitem name="name">
-        <anchored to="rightanchor">
-          <top />
-          <left parent="amount" anchor="right" offset="10" />
-          <right anchor="left" relation="relative" offset="-5" />
-        </anchored>
-        <delaykeyupdate />
-        <nodrag />
-      </string_textlistitem>
-    </sheetdata>
-  </windowclass>
+  
 </root>

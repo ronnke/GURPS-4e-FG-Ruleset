@@ -6,36 +6,8 @@
 -->
 
 <root>
-	<template name="button_iedit">
-		<buttoncontrol>
-			<anchored width="20" height="20" />
-			<state icon="button_edit" tooltipres="button_editon" />
-			<state icon="button_edit_down" tooltipres="button_editoff" />
-			<script>
-				function onInit()
-					if visible then
-						return;
-					end
-					local node = window.getDatabaseNode();
-					if node and node.isReadOnly() then
-						setVisible(false);
-					end
-				end
-				function onValueChanged()
-					local sSpacer = target[1] .. "_ispacer";
-					if window[sSpacer] then
-						window[sSpacer].setVisible(getValue() == 1);
-					end
-					if window.onEditModeChanged then
-						window.onEditModeChanged(getValue() == 1);
-					end
-					window[target[1]].update();
-				end
-			</script>
-		</buttoncontrol>
-	</template>
   
-	<template name="sub_charsheet">
+  <template name="sub_charsheet">
 		<subwindow>
 			<bounds>0,65,-1,-1</bounds>
 		</subwindow>
@@ -455,7 +427,7 @@
   <template name="list_charadperk">
 		<list_text>
 			<datasource>.traits.adslist</datasource>
-			<class>char_trait</class>
+			<class>char_trait_advantage</class>
 			<sortby><control>name</control></sortby>
 			<newfocus>name</newfocus>
 		</list_text>
@@ -464,7 +436,7 @@
 	<template name="list_chardisadquirk">
 		<list_text>
 			<datasource>.traits.disadslist</datasource>
-			<class>char_trait</class>
+			<class>char_trait_disadvantage</class>
 			<sortby><control>name</control></sortby>
 			<newfocus>name</newfocus>
 		</list_text>

@@ -44,7 +44,7 @@
 
 	<windowclass name="ability_header">
 		<margins control="0,0,0,7" />
-		<script file="campaign/scripts/charsheet/ability_header.lua" />
+		<script file="campaign/scripts/charsheet/reference_header.lua" />
 		<sheetdata>
 			<link_record_header name="link">
 				<class>ability</class>
@@ -201,14 +201,6 @@
       <line_column name="divider4" />
 
 			<!--Other-->
-			<label_column name="otherlevel_label">
-				<static textres="ability_otherlevel_label" />
-			</label_column>
-			<number_columnh name="otherlevel">
-        <min value="0"/>
-        <hideonvalue value="0" />
-      </number_columnh>
-
       <label_column name="otherpoints_label">
         <static textres="ability_otherpoints_label" />
       </label_column>
@@ -216,6 +208,19 @@
 	      <min value="0"/>
         <hideonvalue value="0" />
       </number_columnh>
+
+      <label_column name="otherlevel_label">
+        <static textres="ability_otherlevel_label" />
+      </label_column>
+      <number_columnh name="otherlevel">
+        <min value="0"/>
+        <hideonvalue value="0" />
+      </number_columnh>
+
+      <label_column name="otherdefault_label">
+        <static textres="ability_otherdefault_label" />
+      </label_column>
+      <string_columnh name="otherdefault" />
 
       <line_column name="divider5" />
 			

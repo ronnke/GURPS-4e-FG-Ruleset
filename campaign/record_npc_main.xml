@@ -170,7 +170,7 @@
 			<string_labeled name="reach" source="traits.reach">
 				<anchored to="sizemodifier" position="right" relation="relative" offset="10,0" width="40" />
 				<labelres>npc_label_reach</labelres>
-				<tabtarget prev="sizemodifier" next="swing" />
+				<tabtarget prev="sizemodifier" next="thrust" />
 			</string_labeled>
 
       <button_charroll name="thrust_btn">
@@ -180,7 +180,7 @@
       <string_labeled name="thrust" source="attributes.thrust">
         <anchored to="thrust_btn" position="right" relation="relative" offset="5,0" width="50" />
         <labelres>npc_label_thrust</labelres>
-        <tabtarget prev="swing" next="reactionmodifiers" />
+        <tabtarget prev="reach" next="swing" />
       </string_labeled>
 
       <button_charroll name="swing_btn">
@@ -190,7 +190,7 @@
       <string_labeled name="swing" source="attributes.swing">
 				<anchored to="swing_btn" position="right" relation="relative" offset="5,0" width="45" />
 				<labelres>npc_label_swing</labelres>
-				<tabtarget prev="sizemodifier" next="thrust" />
+				<tabtarget prev="thrust" next="reactionmodifiers" />
 			</string_labeled>
 
 			<string_labeled name="reactionmodifiers" source="traits.reactionmodifiers">

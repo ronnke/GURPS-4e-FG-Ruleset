@@ -7,13 +7,7 @@
 
 <root>
 	<windowclass name="charsheet_traits">
-    <script>
-      function onDrop(x, y, draginfo)
-				if draginfo.isType("shortcut") then
-					return ActorManager2.addTrait(getDatabaseNode(), draginfo.getDatabaseNode());
-				end
-      end
-    </script>
+    <script file="campaign/scripts/char_traits.lua" />
     <sheetdata>
 			<!-- ADVANTAGES / PERKS -->
 			<frame_char name="adsperksframe">
@@ -182,49 +176,93 @@
 		</sheetdata>
 	</windowclass>
 
-	<windowclass name="char_trait">
-		<margins control="0,0,0,2" />
-		<sheetdata>
-			<genericcontrol name="rightanchor">
-				<anchored height="0" width="0">
-					<top />
-					<right />
-				</anchored>
-			</genericcontrol>
-			<button_idelete name="idelete">
-				<anchored>
-					<top offset="2" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
-				</anchored>
-			</button_idelete>
+	<windowclass name="char_trait_advantage">
+    <margins control="0,0,0,2" />
+    <sheetdata>
+      <genericcontrol name="rightanchor">
+        <anchored height="0" width="0">
+          <top />
+          <right />
+        </anchored>
+      </genericcontrol>
+      <button_idelete name="idelete">
+        <anchored>
+          <top offset="2" />
+          <right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+        </anchored>
+      </button_idelete>
 
-			<number_charpointfield name="points">
-				<anchored width="30" height="20">
-					<top offset="2" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<tabtarget next="name" />
-			</number_charpointfield>
-			<linkcontrol name="shortcut">
-				<anchored width="20" height="20">
-					<top offset="2" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<class>trait_instance_popup</class>
-				<readonly />
-			</linkcontrol>
-			<string_textlistitem name="name">
-				<anchored height="20">
-					<top offset="2" />
-					<left offset="5" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
-				</anchored>
-				<tabtarget next="points" />
-			</string_textlistitem>
-		</sheetdata>
-	</windowclass>
+      <number_charpointfield name="points">
+        <anchored width="30" height="20">
+          <top offset="2" />
+          <right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
+        </anchored>
+        <tabtarget next="name" />
+        <min>0</min>
+      </number_charpointfield>
+      <linkcontrol name="shortcut">
+        <anchored width="20" height="20">
+          <top offset="2" />
+          <right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
+        </anchored>
+        <class>trait_instance_popup</class>
+        <readonly />
+      </linkcontrol>
+      <string_textlistitem name="name">
+        <anchored height="20">
+          <top offset="2" />
+          <left offset="5" />
+          <right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+        </anchored>
+        <tabtarget next="points" />
+      </string_textlistitem>
+    </sheetdata>
+  </windowclass>
 
-	<windowclass name="trait_instance_popup">
+  <windowclass name="char_trait_disadvantage">
+    <margins control="0,0,0,2" />
+    <sheetdata>
+      <genericcontrol name="rightanchor">
+        <anchored height="0" width="0">
+          <top />
+          <right />
+        </anchored>
+      </genericcontrol>
+      <button_idelete name="idelete">
+        <anchored>
+          <top offset="2" />
+          <right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+        </anchored>
+      </button_idelete>
+
+      <number_charpointfield name="points">
+        <anchored width="30" height="20">
+          <top offset="2" />
+          <right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
+        </anchored>
+        <tabtarget next="name" />
+        <max>0</max>
+      </number_charpointfield>
+      <linkcontrol name="shortcut">
+        <anchored width="20" height="20">
+          <top offset="2" />
+          <right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
+        </anchored>
+        <class>trait_instance_popup</class>
+        <readonly />
+      </linkcontrol>
+      <string_textlistitem name="name">
+        <anchored height="20">
+          <top offset="2" />
+          <left offset="5" />
+          <right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+        </anchored>
+        <tabtarget next="points" />
+      </string_textlistitem>
+    </sheetdata>
+  </windowclass>
+
+  <windowclass name="trait_instance_popup">
 		<frame>recordsheet</frame>
 		<placement>
 			<size width="400" height="350" />
@@ -238,7 +276,7 @@
 		<playercontrol />
 		<sharable />
 		<tooltip field="name" />
-		<script file="campaign/scripts/charsheet/trait_instance_popup.lua" />
+		<script file="campaign/scripts/charsheet/reference_popup.lua" />
 		<sheetdata>
 			<sub_record_header name="header">
 				<class>trait_instance_popup_header</class>
@@ -258,7 +296,7 @@
 	
 	<windowclass name="trait_instance_popup_header">
 		<margins control="0,0,0,7" />
-		<script file="campaign/scripts/charsheet/trait_instance_popup_header.lua" />
+		<script file="campaign/scripts/charsheet/reference_header.lua" />
 		<sheetdata>
 			<link_record_header name="link">
 				<class>trait_instance_popup</class>
@@ -274,7 +312,7 @@
 
 	<windowclass name="trait_instance_details">
 		<margins control="0,0,0,2" />
-		<script file="campaign/scripts/charsheet/trait_instance_details.lua" />
+		<script file="campaign/scripts/charsheet/reference_trait_details.lua" />
 		<sheetdata>
 			<anchor_column name="columnanchor" />
 

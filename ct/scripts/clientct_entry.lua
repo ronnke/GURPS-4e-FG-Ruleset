@@ -10,10 +10,9 @@ end
 
 function updateDisplay()
 	local sFaction = friendfoe.getStringValue();
-
 	local sOptCTSI = OptionsManager.getOption("CTSI");
-	local bShowInit = ((sOptCTSI == "friend") and (sFaction == "friend")) or (sOptCTSI == "on");
-    speed.setVisible(bShowInit);
+	local bShowSpeed = ((sOptCTSI == "friend") and (sFaction == "friend")) or (sOptCTSI == "on");
+    speed.setVisible(bShowSpeed);
 	
 	if active.getValue() == 1 then
 		name.setFont("sheetlabel");
@@ -79,6 +78,13 @@ function updateHealthDisplay()
 		fatigue.setVisible(false);
 		status.setVisible(false);
 	end
+end
+
+function updateShowOrder()
+	local sFaction = friendfoe.getStringValue();
+	local sOptCTSI = OptionsManager.getOption("CTSI");
+	local bShowSpeed = ((sOptCTSI == "friend") and (sFaction == "friend")) or (sOptCTSI == "on");
+    speed.setVisible(bShowSpeed);
 end
 
 function onActiveChanged()

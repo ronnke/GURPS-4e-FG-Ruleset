@@ -103,6 +103,10 @@ function addRangedCombat(sName, sDesc)
 end
 
 function onDrop(x, y, draginfo)
+	if WindowManager.getReadOnlyState(getDatabaseNode()) then
+    	return true;
+	end
+
 	if draginfo.isType("shortcut") then
 		local nodeItem = draginfo.getDatabaseNode();
         local nodeNPC = getDatabaseNode();
