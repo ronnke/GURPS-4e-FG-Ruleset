@@ -7,54 +7,6 @@ function getItemIsIdentified(vRecord, vDefault)
 	return LibraryData.getIDState("item", vRecord, true);
 end
 
-function getTypeValue(vNode)
-	local v = StringManager.trim(DB.getValue(vNode, "type", ""));
-  local sType = v:match("^[^(%s]+");
-	if sType then
---    v = StringManager.trim(sType);
-    v = StringManager.trim(v);
-	end
-	v = StringManager.capitalize(v);
-	return v;
-end
-
-
-function getItemRecordDisplayClass(vNode)
-  local sRecordDisplayClass = "item"
-  if vNode then
-    local sBasePath, sSecondPath = UtilityManager.getDataBaseNodePathSplit(vNode)
-    if sBasePath == "reference" then
-      if string.find(sSecondPath, "defense") then
-        sRecordDisplayClass = "defense"
-      elseif string.find(sSecondPath, "meleeweapon") then
-        sRecordDisplayClass = "meleeweapon"
-      elseif string.find(sSecondPath, "rangedweapon") then
-        sRecordDisplayClass = "rangedweapon"
-      end
-    end
-  end
-  return sRecordDisplayClass
-end
-
-function getVehicleRecordDisplayClass(vNode)
-  local sRecordDisplayClass = "vehicle"
-  if vNode then
-    local sBasePath, sSecondPath = UtilityManager.getDataBaseNodePathSplit(vNode)
-    if sBasePath == "reference" then
-      if string.find(sSecondPath, "groundvehicle") then
-        sRecordDisplayClass = "groundvehicle"
-      elseif string.find(sSecondPath, "watercraft") then
-        sRecordDisplayClass = "watercraft"
-      elseif string.find(sSecondPath, "aircraft") then
-        sRecordDisplayClass = "aircraft"
-      elseif string.find(sSecondPath, "spacecraft") then
-        sRecordDisplayClass = "spacecraft"
-      end
-    end
-  end
-  return sRecordDisplayClass
-end
-
 function isDefense(vRecord)
   local bIsDefense = false;
 
@@ -268,7 +220,7 @@ function isPower(vRecord)
   end
   
   local sTypeLower = StringManager.trim(DB.getValue(nodeItem, "type", "")):lower();
-
+  
   if string.find(sTypeLower, "power") then    
     return true;
   end
@@ -379,29 +331,28 @@ end
 aRecordOverrides = {
 -- Core Overrides
     ["npc"] = { 
-		aDataMap = { "npc", "reference.npcdata" }, 
+		aDataMap = { "npc", "reference.npcs", "reference.npc", "reference.npcdata" }, 
         aGMListButtons = { "button_npc_byletter", "button_npc_bytype" };
 	    aCustomFilters = {
             ["Type"] = { sField = "type" },
 	    },
     },
     ["item"] = { 
-		aDataMap = { "item", "reference.itemdata" }, 
-	    aRecordDisplayClasses = { "item", "reference.defense", "reference.meleeweapon", "reference.rangedweapon" },
+		aDataMap = { "item", "reference.items", "reference.item", "reference.itemdata" }, 
 	    aGMListButtons = { "button_item_bytype", "button_item_defense", "button_item_meleeweapon", "button_item_rangedweapon" };
 	    aPlayerListButtons = { "button_item_bytype", "button_item_defense", "button_item_meleeweapon", "button_item_rangedweapon" };
 	    aCustomFilters = {
-		    ["Type"] = { sField = "type"  },
-		    ["Sub Type"] = { sField = "subtype"  },
+		    ["Type"] = { sField = "type" },
+		    ["Sub Type"] = { sField = "subtype" },
 	    },
     },
     ["vehicle"] = { 
-		aDataMap = { "vehicle", "reference.vehicledata" }, 
-        aRecordDisplayClasses = { "vehicle", "reference.groundvehicle", "reference.watercraft", "reference.aircraft", "reference.spacecraft" },
+		aDataMap = { "vehicle", "reference.vehicles", "reference.vehicle", "reference.vehicledata" }, 
         aGMListButtons = { "button_vehicle_groundvehicle", "button_vehicle_watercraft", "button_vehicle_aircraft", "button_vehicle_spacecraft" };
         aPlayerListButtons = { "button_vehicle_groundvehicle", "button_vehicle_watercraft", "button_vehicle_aircraft", "button_vehicle_spacecraft" };
         aCustomFilters = {
-            ["Type"] = { sField = "type"  },
+            ["Type"] = { sField = "type" },
+		    ["Sub Type"] = { sField = "subtype" },
         },
     },
 
@@ -409,23 +360,24 @@ aRecordOverrides = {
 
 	["ability"] = {
 		bExport = true, 
-		aDataMap = { "ability", "reference.abilitydata" }, 
+		aDataMap = { "ability", "reference.abilities", "reference.ability", "reference.abilitydata" }, 
 	    aGMListButtons = { "button_ability_skill", "button_ability_spell", "button_ability_power", "button_ability_other" };
 	    aPlayerListButtons = { "button_ability_skill", "button_ability_spell", "button_ability_power", "button_ability_other" };
         sSidebarCategory = "create",
 	    aCustomFilters = {
-		    ["Type"] = { sField = "type"  },
+		    ["Type"] = { sField = "type" },
+		    ["Sub Type"] = { sField = "subtype" },
 	    },
 	},
 	["trait"] = {
 		bExport = true, 
-		aDataMap = { "trait", "reference.traitdata" }, 
+		aDataMap = { "trait", "reference.traits", "reference.trait", "reference.traitdata" }, 
 	    aGMListButtons = { "button_trait_advantage", "button_trait_disadvantage", "button_trait_perk", "button_trait_quirk" };
 	    aPlayerListButtons = { "button_trait_advantage", "button_trait_disadvantage", "button_trait_perk", "button_trait_quirk" };
         sSidebarCategory = "create",
 	    aCustomFilters = {
-		    ["Type"] = { sField = "type"  },
-		    ["Sub Type"] = { sField = "subtype"  },
+		    ["Type"] = { sField = "type" },
+		    ["Sub Type"] = { sField = "subtype" },
 	    },
 	}
 };

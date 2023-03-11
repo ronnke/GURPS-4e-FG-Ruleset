@@ -5,20 +5,7 @@
 
 <root>
 	<windowclass name="charsheet_main">
-		<script>
-			function onHealthChanged()
-				local rActor = ActorManager.resolveActor(getDatabaseNode());
-				ActionDamage.updateDamage(rActor);
-			end
-			function onFatigueChanged()
-				local rActor = ActorManager.resolveActor(getDatabaseNode());
-				ActionFatigue.updateFatigue(rActor);
-			end
-      function onEncumbranceChanged()
-				local rActor = ActorManager.resolveActor(getDatabaseNode());
-				ActorManager2.updateEncumbrance(rActor);
-      end
-		</script>
+    <script file="campaign/scripts/char_main.lua" />
     <sheetdata>
 
 <!-- Character Details -->

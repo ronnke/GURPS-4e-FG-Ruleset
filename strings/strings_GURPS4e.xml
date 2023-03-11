@@ -343,6 +343,8 @@
   <!-- Abilities -->
   <string name="ability_type_label">Type</string>
   <string name="ability_subtype_label">Subtype</string>
+  <string name="ability_points_label">Points</string>
+  <string name="ability_level_label">Level</string>
   <string name="ability_page_label">Page</string>
   <string name="ability_relativelevel">Relative Level</string>
   <string name="ability_level_adjustment_label">Level Bonus</string>
@@ -365,8 +367,9 @@
   <string name="ability_powerskill_label">Power Skill</string>
   <string name="ability_powerdefault_label">Skill Default</string>
 
-  <string name="ability_otherlevel_label">Level</string>
   <string name="ability_otherpoints_label">Points</string>
+  <string name="ability_otherlevel_label">Base Level</string>
+  <string name="ability_otherdefault_label">Default</string>
 
   <string name="library_recordview_label_ability_skill">Skills</string>
   <string name="library_recordview_label_ability_spell">Spells</string>

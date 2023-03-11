@@ -423,3 +423,28 @@ function strsplit(delimiter, text)
   end
   return list;
 end
+
+function getSkillType(sType)
+	if not sType then return end
+
+	local sAttribute, sDifficulty = sType:match("^(%a+)[/]([%a%s]+)");
+	if not sAttribute or not sDifficulty then
+		return;
+	end
+
+	local sResult = "";
+	sAttribute = StringManager.trim(sAttribute):upper();
+	sDifficulty = StringManager.trim(sDifficulty):lower();
+
+	if sDifficulty == "easy" or sDifficulty == "e" then
+		sResult = sAttribute.."/".."E";
+	elseif sDifficulty == "average" or sDifficulty == "a" then
+		sResult = sAttribute.."/".."A";
+	elseif sDifficulty == "hard" or sDifficulty == "h" then
+		sResult = sAttribute.."/".."H";
+	elseif sDifficulty == "very hard" or sDifficulty == "vh" then
+		sResult = sAttribute.."/".."VH";
+	end
+
+	return sResult;
+end

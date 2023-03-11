@@ -12,7 +12,7 @@
         <bounds>15,0,-29,-205</bounds>
       </frame_char>
 
-      <label_frametop name="inventory_label" insertbefore="rightanchor">
+      <label_frametop name="inventory_label">
         <anchored to="inventoryframe" width="40" />
         <static textres="char_label_inventory" />
       </label_frametop>
@@ -44,10 +44,12 @@
         <target>inventorylist</target>
       </scrollbar>
 
+      <button_iadd name="inventorylist_iadd" merge="delete" />
       <button_iadd name="inventorylist_iadd">
         <anchored to="inventoryframe" position="insidetopright" offset="40,10" />
         <target>inventorylist</target>
       </button_iadd>
+      <button_iedit name="inventorylist_iedit" merge="delete" />
       <button_iedit name="inventorylist_iedit">
         <anchored to="inventoryframe" position="insidetopright" offset="15,10" />
         <target>inventorylist</target>
@@ -81,11 +83,13 @@
         <bounds>255,-205,-29,-15</bounds>
       </frame_char>
 
+      <button_iadd_sub_charcurrency name="currency_iadd" merge="delete" />
       <button_iadd_sub_charcurrency name="currency_iadd">
         <anchored to="coinframe" position="insidetopright" offset="40,10" />
       </button_iadd_sub_charcurrency>
+      <button_iedit_sub_charcurrency name="currency_iedit" merge="delete" />
       <button_iedit_sub_charcurrency name="currency_iedit">
-        <anchored to="coinframe" position="insidetopright" offset="15,10" />
+          <anchored to="coinframe" position="insidetopright" offset="15,10" />
       </button_iedit_sub_charcurrency>
       </sheetdata>
   </windowclass>

@@ -51,7 +51,10 @@ function updateChar(nodePC, nVersion)
     end
     if nVersion < 9 then
         migrateChar9(nodePC);
-  end
+    end
+    if nVersion < 10 then
+        migrateChar10(nodePC);
+    end
 end
 
 function updateCampaign()
@@ -60,7 +63,7 @@ function updateCampaign()
 	if not major then
 		return;
 	end
-	if major > 0 and major < 9 then
+	if major > 0 and major < 10 then
 		print("Migrating campaign database to latest data version. (" .. rsname ..")");
 		DB.backup();
 		
@@ -84,6 +87,9 @@ function updateCampaign()
         end
         if major < 9 then
           convertChars9();
+        end
+        if major < 10 then
+          convertChars10();
         end
 	end
 end
@@ -127,6 +133,12 @@ end
 function convertChars9()
   for _,nodeChar in pairs(DB.getChildren("charsheet")) do
     migrateChar9(nodeChar);
+  end
+end
+
+function convertChars10()
+  for _,nodeChar in pairs(DB.getChildren("charsheet")) do
+    migrateChar10(nodeChar);
   end
 end
 
@@ -681,6 +693,22 @@ function migrateChar9(nodeChar)
       if abilityInfo and abilityInfo.level ~= desiredLevel then
         DB.setValue(nodeOld, "level_adj", "number", desiredLevel - abilityInfo.level);
       end
+    end
+  end
+end
+
+function migrateChar10(nodeChar)
+  -- Convert Powers
+  if DB.getChild(nodeChar, "abilities.powerlist") then
+    for _,nodeOld in pairs(DB.getChildren(nodeChar, "abilities.powerlist")) do
+        DB.setValue(nodeOld, "level_adj", "number", DB.getValue(nodeOld, "level", 0));
+    end
+  end
+
+  -- Convert Others
+  if DB.getChild(nodeChar, "abilities.otherlist") then
+    for _,nodeOld in pairs(DB.getChildren(nodeChar, "abilities.otherlist")) do
+        DB.setValue(nodeOld, "otherlevel", "number", DB.getValue(nodeOld, "level", 0));
     end
   end
 end

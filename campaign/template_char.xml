@@ -427,7 +427,7 @@
   <template name="list_charadperk">
 		<list_text>
 			<datasource>.traits.adslist</datasource>
-			<class>char_trait</class>
+			<class>char_trait_advantage</class>
 			<sortby><control>name</control></sortby>
 			<newfocus>name</newfocus>
 		</list_text>
@@ -436,7 +436,7 @@
 	<template name="list_chardisadquirk">
 		<list_text>
 			<datasource>.traits.disadslist</datasource>
-			<class>char_trait</class>
+			<class>char_trait_disadvantage</class>
 			<sortby><control>name</control></sortby>
 			<newfocus>name</newfocus>
 		</list_text>

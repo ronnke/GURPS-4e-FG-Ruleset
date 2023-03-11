@@ -61,8 +61,9 @@ function update()
 	if updateControl("powerdefault", bReadOnly, not bPower) then bSection4 = true; end
 
 	local bSection5 = false;
-	if updateControl("otherlevel", bReadOnly, not bOther) then bSection5 = true; end
 	if updateControl("otherpoints", bReadOnly, not bOther) then bSection5 = true; end
+	if updateControl("otherlevel", bReadOnly, not bOther) then bSection5 = true; end
+	if updateControl("otherdefault", bReadOnly, not bOther) then bSection5 = true; end
 
 	local bSection6 = false;
 	if updateControl("text", bReadOnly) then bSection6 = true; end

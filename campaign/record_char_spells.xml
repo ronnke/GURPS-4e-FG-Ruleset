@@ -407,7 +407,7 @@
 		<playercontrol />
 		<sharable />
 		<tooltip field="name" />
-		<script file="campaign/scripts/charsheet/spell_instance_popup.lua" />
+		<script file="campaign/scripts/charsheet/reference_popup.lua" />
 		<sheetdata>
 			<sub_record_header name="header">
 				<class>spell_instance_header</class>
@@ -431,7 +431,7 @@
 
 	<windowclass name="spell_instance_details">
 		<margins control="0,0,0,2" />
-		<script file="campaign/scripts/charsheet/spell_instance_details.lua" />
+		<script file="campaign/scripts/charsheet/reference_spell_details.lua" />
 		<sheetdata>
 			<anchor_column name="columnanchor" />
 
@@ -471,7 +471,7 @@
 				<unsorted />
 			</combobox_column>
 
-			<label_column name="resist_label">
+      <label_column name="resist_label">
 				<static textres="ability_spellresist_label" />
 			</label_column>
 			<string_columnh name="resist" />
@@ -511,14 +511,25 @@
 			</label_column>
 			<number_columnh name="points_adj" />
 
-			<line_column name="textdivider" />
+      <label_column name="level_label">
+        <static textres="ability_level_label" />
+      </label_column>
+      <simplenumber name="level">
+        <anchored width="40" height="20">
+          <top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
+          <left offset="97" />
+        </anchored>
+        <readonly/>
+      </simplenumber>
+
+      <line_column name="textdivider" />
 			<ft_columnh name="text" />
 		</sheetdata>
 	</windowclass>
 
 	<windowclass name="spell_instance_header">
 		<margins control="0,0,0,7" />
-		<script file="campaign/scripts/charsheet/ability_header.lua" />
+		<script file="campaign/scripts/charsheet/reference_header.lua" />
 		<sheetdata>
 			<linkcontrol name="link">
 				<bounds>5,5,20,20</bounds>
