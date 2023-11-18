@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <!-- 
   Please see the license.html file included with this distribution for 
@@ -10,16 +10,14 @@
 	<windowclass name="npcsheet_combat">
 		<script file="campaign/scripts/npc_combat.lua" />
 		<sheetdata>
-			<anchor_column name="contentanchor">
-				<bounds>1,0,-1,0</bounds>
-			</anchor_column>
+      <anchor_column name="columnanchor" />
 
 			<number_attribute name="dodge" source="combat.dodge">
 				<rollable_dodge />
-				<anchored to="contentanchor" >
-					<top offset="10" />
-					<left anchor="center" offset="-100"/>
-				</anchored>
+        <anchored>
+          <top parent="columnanchor" anchor="bottom" relation="relative" offset="15" />
+          <left anchor="center" offset="-100" />
+        </anchored>
 				<tabtarget next="parry" />
         <default>0</default>
       </number_attribute>
@@ -30,11 +28,11 @@
 
 			<number_attribute name="parry" source="combat.parry">
 				<rollable_parry />
-				<anchored to="contentanchor" >
-					<top offset="10" />
-					<left anchor="center" offset="-45"/>
-				</anchored>
-				<tabtarget prev="dodge" next="block" />
+        <anchored to="dodge">
+          <top />
+          <left anchor="right" relation="relative" offset="15" />
+        </anchored>
+        <tabtarget prev="dodge" next="block" />
         <default>0</default>
       </number_attribute>
 			<label_attribute>
@@ -44,11 +42,11 @@
 
 			<number_attribute name="block" source="combat.block">
 				<rollable_block />
-				<anchored to="contentanchor" >
-					<top offset="10" />
-					<left anchor="center" offset="10"/>
-				</anchored>
-				<tabtarget prev="parry" next="dr" />
+        <anchored to="parry">
+          <top />
+          <left anchor="right" relation="relative" offset="15" />
+        </anchored>
+        <tabtarget prev="parry" next="dr" />
         <default>0</default>
       </number_attribute>
 			<label_attribute>
@@ -57,25 +55,20 @@
 			</label_attribute>
 
 			<string_attribute name="dr" source="combat.dr">
-				<anchored to="contentanchor" >
-					<top offset="10" />
-					<left anchor="center" offset="65"/>
-				</anchored>
-				<tabtarget prev="block" />
+        <anchored to="block">
+          <top />
+          <left anchor="right" relation="relative" offset="15" />
+        </anchored>
+        <tabtarget prev="block" />
 			</string_attribute>
 			<label_attribute>
 				<anchored to="dr" />
 				<static textres="char_label_dr" />
 			</label_attribute>
 
-
-			<anchor_column name="columnanchor">
-				<anchored to="dr" />
-			</anchor_column>
-
 			<header_column name="header_meleecombat">
 				<anchored>
-					<top parent="columnanchor" anchor="bottom" relation="relative" offset="50" />
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="20" />
 				</anchored>
 				<static textres="npc_label_melee" />
 				<center />
@@ -92,8 +85,8 @@
 			<list_npcmeleecombat name="meleecombat">
 				<anchored>
 					<top parent="header_meleecombat" anchor="bottom" relation="relative" offset="7" />
-					<left offset="0" />
-					<right offset="-5" />
+					<left />
+					<right />
 				</anchored>
 				<class>npc_meleecombat</class>
 			</list_npcmeleecombat>
@@ -101,7 +94,7 @@
 
 			<header_column name="header_rangedcombat">
 				<anchored>
-					<top parent="header_meleecombat" anchor="bottom" relation="relative" offset="15" />
+					<top parent="header_meleecombat" anchor="bottom" relation="relative" offset="20" />
 				</anchored>
 				<static textres="npc_label_ranged" />
 				<color>#808080</color>
@@ -117,8 +110,8 @@
 			<list_npcrangedcombat name="rangedcombat">
 				<anchored>
 					<top parent="header_rangedcombat" anchor="bottom" relation="relative" offset="7" />
-					<left offset="0" />
-					<right offset="-5" />
+					<left />
+					<right />
 				</anchored>
 				<class>npc_rangedcombat</class>
 			</list_npcrangedcombat>
@@ -305,7 +298,7 @@
 			<string_textlistitem name="name">
 				<anchored height="20">
 					<top offset="2" />
-					<left offset="20" />
+					<left offset="5" />
 					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
 				</anchored>
 				<tabtarget next="st" />
@@ -717,7 +710,7 @@
 			<string_textlistitem name="name">
 				<anchored height="20">
 					<top offset="2" />
-					<left offset="20" />
+					<left offset="5" />
 					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
 				</anchored>
 				<tabtarget next="st" />

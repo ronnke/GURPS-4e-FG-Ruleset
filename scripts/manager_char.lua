@@ -6,6 +6,14 @@
 function onInit()
 	ItemManager.setCustomCharAdd(onCharItemAdd);
 	ItemManager.setCustomCharRemove(onCharItemDelete);
+
+	if Session.IsHost then
+--		CharInventoryManager.enableInventoryUpdates();
+		CharInventoryManager.enableSimpleLocationHandling();
+
+--		CharInventoryManager.registerFieldUpdateCallback("carried", CharManager.onCharInventoryArmorCalc);
+--		CharInventoryManager.registerFieldUpdateCallback("isidentified", CharManager.onCharInventoryArmorCalcIfCarried);
+	end
 end
 
 function onCharItemAdd(nodeItem)
