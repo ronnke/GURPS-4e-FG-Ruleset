@@ -408,7 +408,7 @@
   <template name="icon_ctsubsection">
 		<genericcontrol>
 			<anchored width="20" height="20">
-				<left offset="0" />
+				<left />
 				<top parent="active_spacer_top" anchor="bottom" relation="current" offset="25" />
 			</anchored>
 		</genericcontrol>

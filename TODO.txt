@@ -1,0 +1,6 @@
+- Add default to resources.
+- Make Vehicle HT Rollable.
+- Making PC SM and Reach updates synced in the combat tracker/character sheet
+- Adjust combat tracker reach based on weapon reach.
+- When draging weapon items to the inventory/combat list, the name is not added.
+- Allow PCs to remove friendly effect from the combat tracker.

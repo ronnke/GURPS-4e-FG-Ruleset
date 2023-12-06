@@ -33,8 +33,8 @@
 			<list_npcabilities name="abilities">
 				<anchored>
 					<top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
-					<left offset="0" />
-					<right offset="-5" />
+					<left />
+					<right />
 				</anchored>
 				<class>npc_abilities</class>
 			</list_npcabilities>
@@ -135,7 +135,7 @@
 			<string_textlistitem name="name">
 				<anchored height="20">
 					<top offset="2" />
-					<left offset="45" />
+					<left offset="30" />
 					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
 				</anchored>
 				<nodrag />
@@ -145,7 +145,7 @@
 				<rollable_button_ability />
 				<anchored>
 					<top offset="2" />
-					<left offset="20" />
+					<left offset="5" />
 				</anchored>
 			</button_charroll>
 

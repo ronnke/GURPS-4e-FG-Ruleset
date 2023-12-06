@@ -4,7 +4,7 @@ This unofficial GURPS Ruleset for Fantasy Grounds is developed with the permissi
 
 [B]GURPS 4E Core Ruleset - FG Unity [COLOR="#FF0000"](FG Unity only)[/COLOR][/B]
 FG Forge shop [I](FG Unity users only)[/I]: [URL="https://forge.fantasygrounds.com/shop/items/454/view"]FG Forge Shop[/URL]
-[I](Updated: 11th Mar 2023)[/I]
+[I](Updated: 19th Nov 2023)[/I]
 
 [B]GURPS 4E Core Ruleset - FG Classic [COLOR="#FF0000"](FG Classic only. The ruleset for FG Classic is no longer being updated[/COLOR])[/B]
 Download latest release from here: [URL="https://bit.ly/GURPS4ECore"]https://bit.ly/GURPS4ECore[/URL] 
@@ -14,7 +14,7 @@ Download latest release from here: [URL="https://bit.ly/GURPS4ECore"]https://bit
 
 [B]GURPS Core Theme for Unity[/B]
 Download the latest release of the GURPS Core theme from here: [URL="https://bit.ly/GURPSCoreUTheme"]https://bit.ly/GURPSCoreUTheme[/URL]
-[I](Updated: 4th Dec 2020)[/I]
+[I](Updated: 20th Mar 2023)[/I]
 [I](Courtesy of Gigermann)[/I]
 
 [B]GCA Exporter Files[/B]
@@ -55,6 +55,19 @@ Click the following link to have your input on future ruleset development/improv
 
 [SIZE=4][B]Version Information[/B][/SIZE]
 
+[LIST]
+[*][B]GURPS 4e Ruleset v3.10.3[/B] - 19th Nov 2023 (FG Unity Only)
+- Fixed: FG/CoreRPG breaking changes.
+- Fixed: Inventory location equip/unequip.
+[/LIST]
+[LIST]
+[*][B]GURPS 4e Ruleset v3.10.2[/B] - 19th Jun 2023 (FG Unity Only)
+- Fixed: Formatting issue with effects window.
+[/LIST]
+[LIST]
+[*][B]GURPS 4e Ruleset v3.10.1[/B] - 15th Jun 2023 (FG Unity Only)
+- Fixed: Script errors following the FG4.4 release.
+[/LIST]
 [LIST]
 [*][B]GURPS 4e Ruleset v3.10.0[/B] - 11th Mar 2023 (FG Unity Only)
 [B][COLOR="#FF0000"](This update will make changes to the campaign database. If concerned, backup your campaign folder before applying)[/COLOR][/B]

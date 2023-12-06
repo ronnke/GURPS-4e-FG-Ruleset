@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <!-- 
   Please see the license.html file included with this distribution for 
@@ -8,12 +8,9 @@
 <root>
 	
 	<windowclass name="npcsheet_main">
+		<margins control="0,0,0,2" />
 		<script file="campaign/scripts/npc_main.lua" />
 		<sheetdata>
-			<anchor_column name="contentanchor">
-				<bounds>1,0,-1,0</bounds>
-			</anchor_column>
-
 			<anchor_column name="columnanchor" />
 
 			<label_column name="nonid_name_label">
@@ -26,9 +23,7 @@
 			<label_column name="type_label">
 				<static textres="npc_label_type" />
 			</label_column>
-			<string_columnh name="type">
-				<delaykeyupdate />
-			</string_columnh>
+			<string_columnh name="type" />
 
 			<label_column name="pts_label">
 				<static textres="npc_label_pts" />
@@ -41,8 +36,8 @@
 				<rollable_attribute />
 				<stat>ST</stat>
 				<anchored>
-					<top parent="columnanchor" anchor="bottom" relation="current" offset="15" />
-					<left anchor="center" offset="-210"/>
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="15" />
+					<left anchor="center" offset="-210" />
 				</anchored>
 				<tabtarget prev="pts" next="dexterity" />
 			</number_attribute>
@@ -54,9 +49,9 @@
 			<number_attribute name="dexterity" source="attributes.dexterity">
 				<rollable_attribute />
 				<stat>DX</stat>
-				<anchored>
-					<top parent="columnanchor" anchor="bottom" relation="current" offset="15" />
-					<left anchor="center" offset="-155"/>
+				<anchored to="strength">
+					<top />
+					<left anchor="right" relation="relative" offset="15" />
 				</anchored>
 				<tabtarget prev="strength" next="intelligence" />
 			</number_attribute>
@@ -68,9 +63,9 @@
 			<number_attribute name="intelligence" source="attributes.intelligence">
 				<rollable_attribute />
 				<stat>IQ</stat>
-				<anchored>
-					<top parent="columnanchor" anchor="bottom" relation="current" offset="15" />
-					<left anchor="center" offset="-100"/>
+				<anchored to="dexterity">
+					<top />
+					<left anchor="right" relation="relative" offset="15" />
 				</anchored>
 				<tabtarget prev="dexterity" next="health" />
 			</number_attribute>
@@ -82,9 +77,9 @@
 			<number_attribute name="health"	source="attributes.health">
 				<rollable_attribute />
 				<stat>HT</stat>
-				<anchored>
-					<top parent="columnanchor" anchor="bottom" relation="current" offset="15" />
-					<left anchor="center" offset="-45"/>
+				<anchored to="intelligence">
+					<top />
+					<left anchor="right" relation="relative" offset="15" />
 				</anchored>
 				<tabtarget prev="intelligence" next="will" />
 			</number_attribute>
@@ -96,9 +91,9 @@
 			<number_attribute name="will" source="attributes.will">
 				<rollable_attribute />
 				<stat>WILL</stat>
-				<anchored>
-					<top parent="columnanchor" anchor="bottom" relation="current" offset="15" />
-					<left anchor="center" offset="10"/>
+				<anchored to="health">
+					<top />
+					<left anchor="right" relation="relative" offset="15" />
 				</anchored>
 				<tabtarget prev="health" next="perception" />
 			</number_attribute>
@@ -110,9 +105,9 @@
 			<number_attribute name="perception" source="attributes.perception">
 				<rollable_attribute />
 				<stat>PER</stat>
-				<anchored>
-					<top parent="columnanchor" anchor="bottom" relation="current" offset="15" />
-					<left anchor="center" offset="65"/>
+				<anchored to="will">
+					<top />
+					<left anchor="right" relation="relative" offset="15" />
 				</anchored>
 				<tabtarget prev="will" next="hitpoints" />
 			</number_attribute>
@@ -122,9 +117,9 @@
 			</label_attribute>
 
 			<number_attribute name="hitpoints" source="attributes.hitpoints">
-				<anchored>
-					<top parent="columnanchor" anchor="bottom" relation="current" offset="15" />
-					<left anchor="center" offset="120"/>
+				<anchored to="perception">
+					<top />
+					<left anchor="right" relation="relative" offset="15" />
 				</anchored>
 				<tabtarget prev="perception" next="fatiguepoints" />
 			</number_attribute>
@@ -134,9 +129,9 @@
 			</label_attribute>
 
 			<number_attribute name="fatiguepoints" source="attributes.fatiguepoints">
-				<anchored>
-					<top parent="columnanchor" anchor="bottom" relation="current" offset="15" />
-					<left anchor="center" offset="175"/>
+				<anchored to="hitpoints">
+					<top />
+					<left anchor="right" relation="relative" offset="15" />
 				</anchored>
 				<tabtarget prev="hitpoints" next="basicspeed" />
 			</number_attribute>
@@ -145,10 +140,9 @@
 				<static>FP</static>
 			</label_attribute>
 
-
 			<string_labeled name="basicspeed" source="attributes.basicspeed">
-				<anchored to="contentanchor" width="60" height="20">
-					<top parent="strength" anchor="below" offset="10" />
+				<anchored width="70" height="20">
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="10" />
 					<left />
 				</anchored>
 				<labelres>npc_label_basicspeed</labelres>
@@ -156,7 +150,7 @@
 			</string_labeled>
 
 			<string_labeled name="move" source="attributes.move">
-				<anchored to="basicspeed" position="right" relation="relative" offset="10,0" width="100" />
+				<anchored to="basicspeed" position="right" relation="relative" offset="10,0" width="115" />
 				<labelres>npc_label_move</labelres>
 				<tabtarget prev="basicspeed" next="sizemodifier" />
 			</string_labeled>
@@ -188,14 +182,14 @@
         <anchored to="thrust" position="righthigh" offset="10,0" />
       </button_charroll>
       <string_labeled name="swing" source="attributes.swing">
-				<anchored to="swing_btn" position="right" relation="relative" offset="5,0" width="45" />
+				<anchored to="swing_btn" position="right" relation="relative" offset="5,0" width="50" />
 				<labelres>npc_label_swing</labelres>
 				<tabtarget prev="thrust" next="reactionmodifiers" />
 			</string_labeled>
 
 			<string_labeled name="reactionmodifiers" source="traits.reactionmodifiers">
-				<anchored to="contentanchor" height="20">
-					<top parent="basicspeed" anchor="below" offset="10" />
+				<anchored width="70" height="20">
+					<top parent="basicspeed" anchor="bottom" relation="relative" offset="10" />
 					<left />
 					<right />
 				</anchored>
@@ -204,9 +198,9 @@
 			</string_labeled>
 
 
-			<label_charsheet name="label_traits">
-				<anchored to="contentanchor" height="20">
-					<top parent="reactionmodifiers" anchor="below" offset="5" />
+			<label_charsheet name="traits_label">
+				<anchored width="70" height="20">
+					<top parent="reactionmodifiers" anchor="bottom" relation="relative" offset="10" />
 					<left />
 					<right />
 				</anchored>
@@ -215,8 +209,8 @@
 				<color>#808080</color>
 			</label_charsheet>
 			<basicstring name="traits" source="traits.description">
-				<anchored to="contentanchor">
-					<top parent="label_traits" anchor="below" />
+				<anchored>
+					<top parent="reactionmodifiers" anchor="bottom" relation="relative" />
 					<left offset="5" />
 					<right offset="-5" />
 				</anchored>

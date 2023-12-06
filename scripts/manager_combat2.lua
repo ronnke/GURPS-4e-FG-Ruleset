@@ -3,15 +3,13 @@
 -- attribution and copyright information.
 --
 
-CT_LIST = "combattracker.list"
-
 function onInit()
 	CombatManager.setCustomSort(sortfuncGURPS);
 
-	CombatManager.setCustomAddPC(addPC);
-	CombatManager.setCustomAddNPC(addNPC);
-
-	CombatManager.setCustomNPCSpaceReach(npcSpaceReach);
+	ActorCommonManager.setRecordTypeSpaceReachCallback("charsheet", npcSpaceReach);
+	ActorCommonManager.setRecordTypeSpaceReachCallback("npc", npcSpaceReach);
+	CombatRecordManager.setRecordTypePostAddCallback("charsheet", onPCPostAdd);
+	CombatRecordManager.setRecordTypePostAddCallback("npc", onNPCPostAdd);
 
 	CombatManager.setCustomCombatReset(resetCombat);
 
@@ -119,92 +117,91 @@ end
 -- ADD FUNCTIONS
 --
 
-function addPC(nodePC)
-    if not nodePC then
-        return;
-    end
-  
-    -- Create a new combat tracker window
-    local nodeEntry = DB.createChild(CT_LIST);
-    if not nodeEntry then
-        return;
-    end
-  
-    -- Set up the CT specific information
-    DB.setValue(nodeEntry, "link", "windowreference", "charsheet", nodePC.getNodeName());
-    DB.setValue(nodeEntry, "friendfoe", "string", "friend");
-    DB.setValue(nodeEntry, "skip", "number", 0);
+function onPCPostAdd(tCustom)
+	-- Parameter validation
+	if not tCustom.nodeRecord or not tCustom.nodeCT then
+		return;
+	end
+    
+    -- Setup
+    DB.setValue(tCustom.nodeCT, "skip", "number", 0);
 
-    local sToken = DB.getValue(nodePC, "token", nil);
-    if not sToken or sToken == "" then
-        sToken = "portrait_" .. nodePC.getName() .. "_token"
-    end
-    DB.setValue(nodeEntry, "token", "token", sToken);
+    DB.setValue(tCustom.nodeCT, "speed", "number", tonumber(DB.getValue(tCustom.nodeRecord, "attributes.basicspeed", "0")));
+    DB.setValue(tCustom.nodeCT, "hps", "number", DB.getValue(tCustom.nodeRecord, "attributes.hps", 0));
+    DB.setValue(tCustom.nodeCT, "fps", "number", DB.getValue(tCustom.nodeRecord, "attributes.fps", 0));
+
+    DB.setValue(tCustom.nodeCT, "traits.sizemodifier", "string", DB.getValue(tCustom.nodeRecord, "traits.sizemodifier", "0"));
+    DB.setValue(tCustom.nodeCT, "traits.reach", "string", DB.getValue(tCustom.nodeRecord, "traits.reach", "0"));
+    DB.setValue(tCustom.nodeCT, "space", "number", ManagerGURPS4e.calcSizeModifierGridUnits(DB.getValue(tCustom.nodeRecord, "traits.sizemodifier", "0")));
+    DB.setValue(tCustom.nodeCT, "reach", "number", tonumber(DB.getValue(tCustom.nodeRecord, "traits.reach", "0")));
+  
+    DB.setValue(tCustom.nodeCT, "attributes.strength", "number", DB.getValue(tCustom.nodeRecord, "attributes.strength", 0));
+    DB.setValue(tCustom.nodeCT, "attributes.dexterity", "number", DB.getValue(tCustom.nodeRecord, "attributes.dexterity", 0));
+    DB.setValue(tCustom.nodeCT, "attributes.intelligence", "number", DB.getValue(tCustom.nodeRecord, "attributes.intelligence", 0));
+    DB.setValue(tCustom.nodeCT, "attributes.health", "number", DB.getValue(tCustom.nodeRecord, "attributes.health", 0));
+    DB.setValue(tCustom.nodeCT, "attributes.hitpoints", "number", DB.getValue(tCustom.nodeRecord, "attributes.hitpoints", 0));
+    DB.setValue(tCustom.nodeCT, "attributes.will", "number", DB.getValue(tCustom.nodeRecord, "attributes.will", 0));
+    DB.setValue(tCustom.nodeCT, "attributes.perception", "number", DB.getValue(tCustom.nodeRecord, "attributes.perception", 0));
+    DB.setValue(tCustom.nodeCT, "attributes.fatiguepoints", "number", DB.getValue(tCustom.nodeRecord, "attributes.fatiguepoints", 0));
+
+    DB.setValue(tCustom.nodeCT, "combat.dodge", "number", DB.getValue(tCustom.nodeRecord, "combat.dodge", 0));
+    DB.setValue(tCustom.nodeCT, "combat.parry", "number", DB.getValue(tCustom.nodeRecord, "combat.parry", 0));
+    DB.setValue(tCustom.nodeCT, "combat.block", "number", DB.getValue(tCustom.nodeRecord, "combat.block", 0));
+    DB.setValue(tCustom.nodeCT, "combat.dr", "string", DB.getValue(tCustom.nodeRecord, "combat.dr", "0"));
+
+    DB.setValue(tCustom.nodeCT, "attributes.move", "string", DB.getValue(tCustom.nodeRecord, "attributes.move", "0"));
+end
+
+function onNPCPostAdd(tCustom)
+	-- Parameter validation
+	if not tCustom.nodeRecord or not tCustom.nodeCT then
+		return;
+	end
+
+    DB.setValue(tCustom.nodeCT, "skip", "number", 0);
+
+    DB.setValue(tCustom.nodeCT, "traits.sizemodifier", "string", DB.getValue(tCustom.nodeRecord, "traits.sizemodifier", "0"));
+    DB.setValue(tCustom.nodeCT, "traits.reach", "string", DB.getValue(tCustom.nodeRecord, "traits.reach", "0"));
+    DB.setValue(tCustom.nodeCT, "space", "number", ManagerGURPS4e.calcSizeModifierGridUnits(DB.getValue(tCustom.nodeRecord, "traits.sizemodifier", "0")));
+    DB.setValue(tCustom.nodeCT, "reach", "number", tonumber(DB.getValue(tCustom.nodeRecord, "traits.reach", "0")));
 
     -- Setup
-    DB.setValue(nodeEntry, "speed", "number", tonumber(DB.getValue(nodePC, "attributes.basicspeed", "0")));
-    DB.setValue(nodeEntry, "hps", "number", DB.getValue(nodePC, "attributes.hps", 0));
-    DB.setValue(nodeEntry, "fps", "number", DB.getValue(nodePC, "attributes.fps", 0));
+    DB.setValue(tCustom.nodeCT, "basemove", "string", DB.getValue(tCustom.nodeRecord, "attributes.move", "0"));
+    DB.setValue(tCustom.nodeCT, "basedodge", "number", DB.getValue(tCustom.nodeRecord, "combat.dodge", 0));
+    DB.setValue(tCustom.nodeCT, "attributes.move", "string", DB.getValue(tCustom.nodeRecord, "attributes.move", "0"));
+    DB.setValue(tCustom.nodeCT, "speed", "number", tonumber(DB.getValue(tCustom.nodeRecord, "attributes.basicspeed", "0")));
+    DB.setValue(tCustom.nodeCT, "hps", "number", DB.getValue(tCustom.nodeRecord, "attributes.hitpoints", 0));
+    DB.setValue(tCustom.nodeCT, "fps", "number", DB.getValue(tCustom.nodeRecord, "attributes.fatiguepoints", 0));
 
-    DB.setValue(nodeEntry, "traits.sizemodifier", "string", DB.getValue(nodePC, "traits.sizemodifier", "0"));
-    DB.setValue(nodeEntry, "traits.reach", "string", DB.getValue(nodePC, "traits.reach", "0"));
-    DB.setValue(nodeEntry, "space", "number", ManagerGURPS4e.calcSizeModifierGridUnits(DB.getValue(nodePC, "traits.sizemodifier", "0")));
-    DB.setValue(nodeEntry, "reach", "number", tonumber(DB.getValue(nodePC, "traits.reach", "0")));
-  
-    DB.setValue(nodeEntry, "attributes.strength", "number", DB.getValue(nodePC, "attributes.strength", 0));
-    DB.setValue(nodeEntry, "attributes.dexterity", "number", DB.getValue(nodePC, "attributes.dexterity", 0));
-    DB.setValue(nodeEntry, "attributes.intelligence", "number", DB.getValue(nodePC, "attributes.intelligence", 0));
-    DB.setValue(nodeEntry, "attributes.health", "number", DB.getValue(nodePC, "attributes.health", 0));
-    DB.setValue(nodeEntry, "attributes.hitpoints", "number", DB.getValue(nodePC, "attributes.hitpoints", 0));
-    DB.setValue(nodeEntry, "attributes.will", "number", DB.getValue(nodePC, "attributes.will", 0));
-    DB.setValue(nodeEntry, "attributes.perception", "number", DB.getValue(nodePC, "attributes.perception", 0));
-    DB.setValue(nodeEntry, "attributes.fatiguepoints", "number", DB.getValue(nodePC, "attributes.fatiguepoints", 0));
-
-    DB.setValue(nodeEntry, "combat.dodge", "number", DB.getValue(nodePC, "combat.dodge", 0));
-    DB.setValue(nodeEntry, "combat.parry", "number", DB.getValue(nodePC, "combat.parry", 0));
-    DB.setValue(nodeEntry, "combat.block", "number", DB.getValue(nodePC, "combat.block", 0));
-    DB.setValue(nodeEntry, "combat.dr", "string", DB.getValue(nodePC, "combat.dr", "0"));
-
-    DB.setValue(nodeEntry, "attributes.move", "string", DB.getValue(nodePC, "attributes.move", "0"));
+    ActionDamage.updateDamage(tCustom.nodeCT);
+    ActionFatigue.updateFatigue(tCustom.nodeCT);
 
     return nodeEntry;
 end
 
-function addNPC(sClass, nodeNPC, sName)
-    local nodeEntry, nodeLastMatch = CombatManager.addNPCHelper(nodeNPC, sName);
+function npcSpaceReach(rActor)
+	local nodeActor = ActorManager.getCreatureNode(rActor);
+	if not nodeActor then
+		return 0;
+	end
 
-    DB.setValue(nodeEntry, "skip", "number", 0);
+   local nSpace = ManagerGURPS4e.calcSizeModifierGridUnits(DB.getValue(nodeActor, "traits.sizemodifier", "0"));
+   local nReach = tonumber(DB.getValue(nodeActor, "traits.reach", "0"));
 
-    DB.setValue(nodeEntry, "traits.sizemodifier", "string", DB.getValue(nodeNPC, "traits.sizemodifier", "0"));
-    DB.setValue(nodeEntry, "traits.reach", "string", DB.getValue(nodeNPC, "traits.reach", "0"));
-    DB.setValue(nodeEntry, "space", "number", ManagerGURPS4e.calcSizeModifierGridUnits(DB.getValue(nodeNPC, "traits.sizemodifier", "0")));
-    DB.setValue(nodeEntry, "reach", "number", tonumber(DB.getValue(nodeNPC, "traits.reach", "0")));
-
-    -- Setup
-    DB.setValue(nodeEntry, "basemove", "string", DB.getValue(nodeNPC, "attributes.move", "0"));
-    DB.setValue(nodeEntry, "basedodge", "number", DB.getValue(nodeNPC, "combat.dodge", 0));
-    DB.setValue(nodeEntry, "attributes.move", "string", DB.getValue(nodeNPC, "attributes.move", "0"));
-    DB.setValue(nodeEntry, "speed", "number", tonumber(DB.getValue(nodeNPC, "attributes.basicspeed", "0")));
-    DB.setValue(nodeEntry, "hps", "number", DB.getValue(nodeNPC, "attributes.hitpoints", 0));
-    DB.setValue(nodeEntry, "fps", "number", DB.getValue(nodeNPC, "attributes.fatiguepoints", 0));
-
-    ActionDamage.updateDamage(nodeEntry);
-    ActionFatigue.updateFatigue(nodeEntry);
-
-    return nodeEntry;
-end
-
-function npcSpaceReach(nodeNPC)
-   local nSpace = ManagerGURPS4e.calcSizeModifierGridUnits(DB.getValue(nodeNPC, "traits.sizemodifier", "0"));
-   local nReach = tonumber(DB.getValue(nodeNPC, "traits.reach", "0"));
    return nSpace, nReach;
 end
 
-function updateSpaceReach(node)
-    local nSpace = ManagerGURPS4e.calcSizeModifierGridUnits(DB.getValue(node, "traits.sizemodifier", "0"));
-	local nReach = tonumber(DB.getValue(node, "traits.reach", "0"));
-	DB.setValue(node, "space", "number", nSpace);
-    DB.setValue(node, "reach", "number", nReach);
+function updateSpaceReach(rActor)
+	local nodeActor = ActorManager.getCreatureNode(rActor);
+	if not nodeActor then
+		return 0;
+	end
+
+    local nSpace = ManagerGURPS4e.calcSizeModifierGridUnits(DB.getValue(nodeActor, "traits.sizemodifier", "0"));
+	local nReach = tonumber(DB.getValue(nodeActor, "traits.reach", "0"));
+
+	DB.setValue(nodeActor, "space", "number", nSpace);
+    DB.setValue(nodeActor, "reach", "number", nReach);
 end
 
 --

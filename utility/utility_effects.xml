@@ -6,20 +6,9 @@
 -->
 
 <root>
-  <windowclass name="effectsmall">
-    <margins control="0,0,0,2" />
-    <script file="utility/scripts/effect.lua" />
+  <windowclass name="effectsmall" merge="join">
     <sheetdata>
-      <anchor_effect_left name="leftanchor" />
-      <button_effect_activate name="activate" />
-
-      <anchor_effect_right name="rightanchor" />
-      <button_effect_idelete name="idelete" />
-      <button_effect_isgmonly name="isgmonly" />
-      <button_effect_units name="units" />
-      <number_effect_duration name="duration" />
-
-      <string_effect name="label" />
+      <button_effect_units name="units" insertbefore="duration"/>
     </sheetdata>
   </windowclass>
 </root>

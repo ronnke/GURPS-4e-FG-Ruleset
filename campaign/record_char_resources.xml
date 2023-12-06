@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <!-- 
   Please see the license.html file included with this distribution for 
@@ -20,7 +20,7 @@
 
       <list_charresource name="resourceslist">
 				<anchored to="resourcesframe">
-					<left offset="0" />
+					<left offset="10" />
 					<top offset="35" />
 					<right offset="-30" />
 					<bottom offset="-15" />
@@ -92,7 +92,7 @@
       <string_textlistitem name="name">
 				<anchored height="20">
 					<top offset="2" />
-					<left offset="30" />
+					<left offset="5" />
 					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
 				</anchored>
 				<nodrag />

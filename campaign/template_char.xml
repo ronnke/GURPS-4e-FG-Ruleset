@@ -37,7 +37,7 @@
 	<template name="icon_detailsection">
 		<genericcontrol>
 			<anchored width="20" height="20">
-				<left offset="10" />
+				<left />
 				<top parent="bottomanchor" anchor="bottom" relation="current" offset="10" />
 			</anchored>
 		</genericcontrol>

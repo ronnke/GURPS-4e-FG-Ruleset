@@ -7,65 +7,44 @@ function onInit()
 	update();
 end
 
-function VisDataCleared()
-	update();
-end
-
-function InvisDataAdded()
-	update();
-end
-
-function updateControl(sControl, bReadOnly, bForceHide)
-	if not self[sControl] then
-		return false;
-	end
-		
-	return self[sControl].update(bReadOnly, bForceHide);
-end
-
-function updateReadOnly(sControl, bReadOnly, bHide)
-  if not self[sControl] then
-    return;
-  end
-  
-  self[sControl].setReadOnly(bReadOnly);
-  self[sControl].setVisible(not bHide);
-end
-
 function update()
 	local nodeRecord = getDatabaseNode();
 	local bReadOnly = WindowManager.getReadOnlyState(nodeRecord);
 	local bID = LibraryData.getIDState("npc", nodeRecord);
 
 	local bSection1 = false;
-	if User.isHost() then
-		if updateControl("nonid_name", bReadOnly) then bSection1 = true; end;
+	if Session.IsHost then
+		if WindowManager.callSafeControlUpdate(self, "nonid_name", bReadOnly) then bSection1 = true; end;
 	else
-		updateControl("nonid_name", bReadOnly, true);
+		WindowManager.callSafeControlUpdate(self, "nonid_name", bReadOnly, true);
 	end
-	if updateControl("type", bReadOnly, bReadOnly and type.isEmpty()) then bSection1 = true; end;
-	if updateControl("pts", bReadOnly, bReadOnly and pts.getValue() == 0) then bSection1 = true; end;
 	divider.setVisible(bSection1);
-	
-	updateReadOnly("strength", bReadOnly, false);
-	updateReadOnly("dexterity", bReadOnly, false);
-	updateReadOnly("intelligence", bReadOnly, false);
-	updateReadOnly("health", bReadOnly, false);
-	updateReadOnly("hitpoints", bReadOnly, false);
-	updateReadOnly("will", bReadOnly, false);
-	updateReadOnly("perception", bReadOnly, false);
-	updateReadOnly("fatiguepoints", bReadOnly, false);
+
+	local bSection2 = false;
+	if WindowManager.callSafeControlUpdate(self, "type", bReadOnly) then bSection2 = true; end;
+	if WindowManager.callSafeControlUpdate(self, "pts", bReadOnly) then bSection2 = true; end;
+	divider1.setVisible(bSection2);
+
+	WindowManager.callSafeControlUpdate(self, "strength", bReadOnly);
+	WindowManager.callSafeControlUpdate(self, "dexterity", bReadOnly);
+	WindowManager.callSafeControlUpdate(self, "intelligence", bReadOnly, false);
+	WindowManager.callSafeControlUpdate(self, "health", bReadOnly, false);
+	WindowManager.callSafeControlUpdate(self, "hitpoints", bReadOnly, false);
+	WindowManager.callSafeControlUpdate(self, "will", bReadOnly, false);
+	WindowManager.callSafeControlUpdate(self, "perception", bReadOnly, false);
+	WindowManager.callSafeControlUpdate(self, "fatiguepoints", bReadOnly, false);
   
-	updateReadOnly("basicspeed", bReadOnly, false);
-	updateReadOnly("move", bReadOnly, false);
-	updateReadOnly("sizemodifier", bReadOnly, false);
-	updateReadOnly("swing", bReadOnly, false);
-	updateReadOnly("thrust", bReadOnly, false);
+	WindowManager.callSafeControlUpdate(self, "basicspeed", bReadOnly, false);
+	WindowManager.callSafeControlUpdate(self, "move", bReadOnly, false);
+	WindowManager.callSafeControlUpdate(self, "sizemodifier", bReadOnly, false);
+	WindowManager.callSafeControlUpdate(self, "reach", bReadOnly, false);
+	WindowManager.callSafeControlUpdate(self, "swing", bReadOnly, false);
+	WindowManager.callSafeControlUpdate(self, "thrust", bReadOnly, false);
 
-	updateReadOnly("reactionmodifiers", bReadOnly, false);
+	WindowManager.callSafeControlUpdate(self, "reactionmodifiers", bReadOnly, false);
 
-	updateReadOnly("label_traits", bReadOnly, bReadOnly and traits.isEmpty());
-	updateReadOnly("traits", bReadOnly, bReadOnly and traits.isEmpty());
+	traits_label.setVisible(not bReadOnly or not traits.isEmpty());
+	WindowManager.callSafeControlUpdate(self, "traits", bReadOnly, false);
 end
 
 function onDrop(x, y, draginfo)
@@ -74,6 +53,12 @@ function onDrop(x, y, draginfo)
 	end
 
 	if draginfo.isType("shortcut") and not bReadOnly then
-		return ActorManager2.addTrait(getDatabaseNode(), draginfo.getDatabaseNode());
+		local sClass = draginfo.getShortcutData();
+		local nodeSource = draginfo.getDatabaseNode();
+
+		if sClass == "reference_trait" or sClass == "trait" then
+			ActorManager2.addTrait(getDatabaseNode(), nodeSource);
+		end;
+		return true;
 	end
 end

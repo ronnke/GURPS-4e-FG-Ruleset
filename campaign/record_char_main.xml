@@ -276,7 +276,7 @@
 			<label_columntop name="languages_points_label">
 				<anchored to="languages_rightanchor" width="20">
 					<top />
-					<right anchor="left" relation="relative" offset="0" />
+					<right anchor="left" relation="relative" />
 				</anchored>
 				<static textres="char_label_points" />
 			</label_columntop>
