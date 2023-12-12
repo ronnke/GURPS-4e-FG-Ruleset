@@ -6,12 +6,13 @@
 local rsname = "GURPS";
 
 function onInit()
-	if User.isHost() or User.isLocal() then
+	if Session.IsHost then
 		updateCampaign();
 	end
 
-	DB.onAuxCharLoad = onCharImport;
-	DB.onImport = onImport;
+	DB.addEventHandler("onAuxCharLoad", onCharImport);
+	DB.addEventHandler("onImport", onImport);
+--	Module.addEventHandler("onModuleLoad", onModuleLoad);
 end
 
 function onCharImport(nodePC)
@@ -27,10 +28,16 @@ function onImport(node)
 	end
 end
 
+--function onModuleLoad(sModule)
+--	local _, _, aMajor, _ = DB.getRulesetVersion(sModule);
+--	updateModule(sModule, aMajor[rsname]);
+--end
+
 function updateChar(nodePC, nVersion)
 	if not nVersion then
 		nVersion = 0;
 	end
+
 	if nVersion < 3 then
 		migrateChar3(nodePC);
 	end
@@ -94,53 +101,70 @@ function updateCampaign()
 	end
 end
 
+--function updateModule(sModule, nVersion)
+--	if not nVersion then
+--		nVersion = 0;
+--	end
+--	
+--	local nodeRoot = DB.getRoot(sModule);
+--	if nVersion < 10 then
+--		convertPregenCharacters10(nodeRoot);
+--	end
+--end
+
 function convertChars3()
-  for _,nodeChar in pairs(DB.getChildren("charsheet")) do
+  for _,nodeChar in ipairs(DB.getChildList("charsheet")) do
     migrateChar3(nodeChar);
   end
 end
 
 function convertChars4()
-  for _,nodeChar in pairs(DB.getChildren("charsheet")) do
+  for _,nodeChar in ipairs(DB.getChildList("charsheet")) do
     migrateChar4(nodeChar);
   end
 end
 
 function convertChars5()
-  for _,nodeChar in pairs(DB.getChildren("charsheet")) do
+  for _,nodeChar in ipairs(DB.getChildList("charsheet")) do
     migrateChar5(nodeChar);
   end
 end
 
 function convertChars6()
-  for _,nodeChar in pairs(DB.getChildren("charsheet")) do
+  for _,nodeChar in ipairs(DB.getChildList("charsheet")) do
     migrateChar6(nodeChar);
   end
 end
 
 function convertChars7()
-  for _,nodeChar in pairs(DB.getChildren("charsheet")) do
+  for _,nodeChar in ipairs(DB.getChildList("charsheet")) do
     migrateChar7(nodeChar);
   end
 end
 
 function convertChars8()
-  for _,nodeChar in pairs(DB.getChildren("charsheet")) do
+  for _,nodeChar in ipairs(DB.getChildList("charsheet")) do
     migrateChar8(nodeChar);
   end
 end
 
 function convertChars9()
-  for _,nodeChar in pairs(DB.getChildren("charsheet")) do
+  for _,nodeChar in ipairs(DB.getChildList("charsheet")) do
     migrateChar9(nodeChar);
   end
 end
 
 function convertChars10()
-  for _,nodeChar in pairs(DB.getChildren("charsheet")) do
+  for _,nodeChar in ipairs(DB.getChildList("charsheet")) do
     migrateChar10(nodeChar);
   end
 end
+
+--function convertPregenCharacters10(nodeRoot)
+--	for _,nodeChar in ipairs(DB.getChildList(nodeRoot, "pregencharsheet")) do
+--		migrateChar10(nodeChar);
+--	end
+--end
 
 function migrateChar3(nodeChar)
   if DB.getChild(nodeChar, "stats") then
@@ -623,7 +647,6 @@ function migrateChar5(nodeChar)
       DB.setValue(nodeOld, "text", "formattedtext", nodeValue);
     end
   end
-
 end
 
 function migrateChar6(nodeChar)
@@ -671,7 +694,7 @@ function migrateChar9(nodeChar)
       local desiredLevel = DB.getValue(nodeOld, "level", 0);
       local defaultsLine = DB.getValue(nodeOld, "defaults", "");
       local level_adjust = DB.getValue(nodeOld, "level_adj", 0);
-      local abilityInfo = ActorAbilityManager.calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, defaultsLine, level_adjust);
+      local abilityInfo = CharAbilityManager.calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, defaultsLine, level_adjust);
       if abilityInfo then
         DB.setValue(nodeOld, "basis", "string", abilityInfo.basis);
         if abilityInfo.level ~= desiredLevel then
@@ -689,7 +712,7 @@ function migrateChar9(nodeChar)
       local abilityType = DB.getValue(nodeOld, "type", "");
       local desiredLevel = DB.getValue(nodeOld, "level", 0);
       local level_adjust = DB.getValue(nodeOld, "level_adj", 0);
-      local abilityInfo = ActorAbilityManager.calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, "", level_adjust);
+      local abilityInfo = CharAbilityManager.calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, "", level_adjust);
       if abilityInfo and abilityInfo.level ~= desiredLevel then
         DB.setValue(nodeOld, "level_adj", "number", desiredLevel - abilityInfo.level);
       end

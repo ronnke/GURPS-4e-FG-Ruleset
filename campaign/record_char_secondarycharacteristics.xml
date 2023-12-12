@@ -7,12 +7,6 @@
 
 <root>
 	<windowclass name="charsheet_secondarycharacteristics">
-    <script>
-      function onEncumbranceChanged()
-				local rActor = ActorManager.resolveActor(getDatabaseNode());
-				ActorManager2.updateEncumbrance(rActor);
-      end
-    </script>
     <sheetdata>
 		
 <!-- Secondary Characteristics -->
@@ -150,11 +144,6 @@
 				<anchored to="secondarycharacteristicsframe" position="insidetopright" offset="25,145" width="35" height="20" />
 				<center />
 				<tabtarget prev="enc_hvy" next="enc_move_none" />
-        <script>
-          function onValueChanged()
-						window.onEncumbranceChanged();
-          end
-        </script>
 			</stringu_charfield>
 			<stringu_charfield name="enc_hvy" source="encumbrance.enc3_weight">
 				<anchored to="enc_xhvy" width="35" height="20">
@@ -163,11 +152,6 @@
 				</anchored>
 				<center />
 				<tabtarget prev="enc_medium" next="enc_xhvy" />
-        <script>
-          function onValueChanged()
-						window.onEncumbranceChanged();
-          end
-        </script>
 			</stringu_charfield>
 			<stringu_charfield name="enc_medium" source="encumbrance.enc2_weight">
 				<anchored to="enc_xhvy" width="35" height="20">
@@ -176,11 +160,6 @@
 				</anchored>
 				<center />
 				<tabtarget prev="enc_light" next="enc_hvy" />
-        <script>
-          function onValueChanged()
-						window.onEncumbranceChanged();
-          end
-        </script>
 			</stringu_charfield>
 			<stringu_charfield name="enc_light" source="encumbrance.enc1_weight">
 				<anchored to="enc_xhvy" width="35" height="20">
@@ -189,11 +168,6 @@
 				</anchored>
 				<center />
 				<tabtarget prev="enc_none" next="enc_medium" />
-        <script>
-          function onValueChanged()
-						window.onEncumbranceChanged();
-          end
-        </script>
 			</stringu_charfield>
 			<stringu_charfield name="enc_none" source="encumbrance.enc0_weight">
 				<anchored to="enc_xhvy" width="35" height="20">
@@ -202,11 +176,6 @@
 				</anchored>
 				<center />
 				<tabtarget prev="enc_dodge_xhvy" next="enc_light" />
-        <script>
-          function onValueChanged()
-						window.onEncumbranceChanged();
-          end
-        </script>
 			</stringu_charfield>
 			<stringcontrol>
 				<anchored to="enc_xhvy" width="60" height="20">
@@ -222,11 +191,6 @@
 				<anchored to="secondarycharacteristicsframe" position="insidetopright" offset="25,165" width="35" height="20" />
 				<center />
 				<tabtarget prev="enc_move_hvy" next="enc_dodge_none" />
-        <script>
-          function onValueChanged()
-						window.onEncumbranceChanged();
-          end
-        </script>
       </stringu_charfield>
 			<stringu_charfield name="enc_move_hvy" source="encumbrance.enc3_move">
 				<anchored to="enc_move_xhvy" width="35" height="20">
@@ -235,11 +199,6 @@
 				</anchored>
 				<center />
 				<tabtarget prev="enc_move_medium" next="enc_move_xhvy" />
-        <script>
-          function onValueChanged()
-						window.onEncumbranceChanged();
-          end
-        </script>
 			</stringu_charfield>
 			<stringu_charfield name="enc_move_medium" source="encumbrance.enc2_move">
 				<anchored to="enc_move_xhvy" width="35" height="20">
@@ -248,11 +207,6 @@
 				</anchored>
 				<center />
 				<tabtarget prev="enc_move_light" next="enc_move_hvy" />
-        <script>
-          function onValueChanged()
-						window.onEncumbranceChanged();
-          end
-        </script>
 			</stringu_charfield>
 			<stringu_charfield name="enc_move_light" source="encumbrance.enc1_move">
 				<anchored to="enc_move_xhvy" width="35" height="20">
@@ -261,11 +215,6 @@
 				</anchored>
 				<center />
 				<tabtarget prev="enc_move_none" next="enc_move_medium" />
-        <script>
-          function onValueChanged()
-						window.onEncumbranceChanged();
-          end
-        </script>
 			</stringu_charfield>
 			<stringu_charfield name="enc_move_none" source="encumbrance.enc0_move">
 				<anchored to="enc_move_xhvy" width="35" height="20">
@@ -274,11 +223,6 @@
 				</anchored>
 				<center />
 				<tabtarget prev="enc_xhvy" next="enc_move_light" />
-        <script>
-          function onValueChanged()
-						window.onEncumbranceChanged();
-          end
-        </script>
 			</stringu_charfield>
 			<stringcontrol>
 				<anchored to="enc_move_xhvy" width="60" height="20">
@@ -295,11 +239,6 @@
 				<anchored to="secondarycharacteristicsframe" position="insidetopright" offset="30,185" width="25" height="20" />
 				<center />
 				<tabtarget prev="enc_dodge_hvy" next="enc_none" />
-        <script>
-          function onValueChanged()
-						window.onEncumbranceChanged();
-          end
-        </script>
 			</number_charfield>
 			<number_charfield name="enc_dodge_hvy" source="encumbrance.enc3_dodge">
 				<rollable_dodge />
@@ -309,11 +248,6 @@
 				</anchored>
 				<center />
 				<tabtarget prev="enc_dodge_medium" next="enc_dodge_xhvy" />
-        <script>
-          function onValueChanged()
-						window.onEncumbranceChanged();
-          end
-        </script>
 			</number_charfield>
 			<number_charfield name="enc_dodge_medium" source="encumbrance.enc2_dodge">
 				<rollable_dodge />
@@ -323,11 +257,6 @@
 				</anchored>
 				<center />
 				<tabtarget prev="enc_dodge_light" next="enc_dodge_hvy" />
-        <script>
-          function onValueChanged()
-						window.onEncumbranceChanged();
-          end
-        </script>
 			</number_charfield>
 			<number_charfield name="enc_dodge_light" source="encumbrance.enc1_dodge">
 				<rollable_dodge />
@@ -337,11 +266,6 @@
 				</anchored>
 				<center />
 				<tabtarget prev="enc_dodge_none" next="enc_dodge_medium" />
-        <script>
-          function onValueChanged()
-						window.onEncumbranceChanged();
-          end
-        </script>
 			</number_charfield>
 			<number_charfield name="enc_dodge_none" source="encumbrance.enc0_dodge">
 				<rollable_dodge />
@@ -351,11 +275,6 @@
 				</anchored>
 				<center />
 				<tabtarget prev="enc_move_xhvy" next="enc_dodge_light" />
-        <script>
-          function onValueChanged()
-						window.onEncumbranceChanged();
-          end
-        </script>
 			</number_charfield>
 			<stringcontrol>
 				<anchored to="enc_dodge_xhvy" width="60" height="20">

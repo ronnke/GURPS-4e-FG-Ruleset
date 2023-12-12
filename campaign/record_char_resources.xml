@@ -44,15 +44,6 @@
 	</windowclass>
 	
 	<windowclass name="char_resource">
-    <script>
-      function onInit()
-				onResourceChanged();
-      end
-      
-      function onResourceChanged()
-        resource_level.setColor(ActorManager2.onResourceUpdated(getDatabaseNode()));
-      end
-    </script>
     <margins control="0,0,0,2" />
 		<sheetdata>
 			<genericcontrol name="rightanchor">
@@ -76,7 +67,8 @@
 				</anchored>
         <script>
           function onValueChanged()
-						window.onResourceChanged();
+						local nodeResource = DB.getChild(getDatabaseNode(), "..");
+						setColor(CharManager.getResourceColor(nodeResource));
           end
         </script>
         <tabtarget prev="name" />

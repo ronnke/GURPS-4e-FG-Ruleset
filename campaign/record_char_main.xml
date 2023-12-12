@@ -5,7 +5,6 @@
 
 <root>
 	<windowclass name="charsheet_main">
-    <script file="campaign/scripts/char_main.lua" />
     <sheetdata>
 
 <!-- Character Details -->
@@ -117,11 +116,6 @@
 			<number_attribute name="hitpoints" source="attributes.hitpoints">
 				<anchored to="basicattributesframe" position="insidetopleft" offset="100,40" />
         <tabtarget prev="health_points" next="hitpoints_points" />
-        <script>
-          function onValueChanged()
-	          window.onHealthChanged();
-          end
-        </script>
       </number_attribute>
 			<label_attribute>
 				<anchored to="hitpoints" />
@@ -165,11 +159,6 @@
 			<number_attribute name="fatiguepoints" source="attributes.fatiguepoints">
 				<anchored to="perception" position="belowleft" offset="0,15" />
         <tabtarget prev="perception_points" next="fatiguepoints_points" />
-        <script>
-          function onValueChanged()
-	          window.onFatigueChanged();
-          end
-        </script>
       </number_attribute>
 			<label_attribute>
 				<anchored to="fatiguepoints" />
@@ -221,17 +210,11 @@
 
       <button_checkbox name="halfmovedodge" source="attributes.halfmovedodge">
         <anchored to="currentattributesframe" position="insidetopleft" offset="20,72" width="20" height="20" />
-        <script>
-          function onValueChanged()
-	          window.onEncumbranceChanged();
-          end
-        </script>
       </button_checkbox>
       <label name="halfmovedodge_label">
         <anchored to="currentattributesframe" position="insidetopleft" offset="40,72" />
         <static textres="char_label_halfmovedodge" />
       </label>
-
 
       <!-- Languages -->
 

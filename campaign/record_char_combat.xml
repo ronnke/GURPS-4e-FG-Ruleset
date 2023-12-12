@@ -16,10 +16,6 @@
 				local rActor = ActorManager.resolveActor(getDatabaseNode());
 				ActionFatigue.updateFatigue(rActor);
 			end
-      function onEncumbranceChanged()
-				local rActor = ActorManager.resolveActor(getDatabaseNode());
-				ActorManager2.updateEncumbrance(rActor);
-      end
 		</script>
 		<sheetdata>
 		

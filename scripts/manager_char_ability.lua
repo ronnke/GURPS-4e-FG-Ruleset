@@ -3,11 +3,205 @@
 -- attribution and copyright information.
 --
 
+local MIN_ABILITY_NAME_LENGTH = 3;
+local DEFAULT_BASIS_NAME = "Attribute";
+local DEFAULT_NEW_ABILITY_POINTS = 1;
+
 function onInit()
 end
 
-local MIN_ABILITY_NAME_LENGTH = 3;
-local DEFAULT_BASIS_NAME = "Attribute";
+function onTabletopInit()
+	DB.addHandler("charsheet.*.abilities.skilllist.*.type", "onUpdate", CharAbilityManager.onSkillDataChanged);
+	DB.addHandler("charsheet.*.abilities.skilllist.*.points", "onUpdate", CharAbilityManager.onSkillDataChanged);
+	DB.addHandler("charsheet.*.abilities.skilllist.*.defaults", "onUpdate", CharAbilityManager.onSkillDataChanged);
+	DB.addHandler("charsheet.*.abilities.skilllist.*.level_adj", "onUpdate", CharAbilityManager.onSkillDataChanged);
+	DB.addHandler("charsheet.*.abilities.skilllist.*.points_adj", "onUpdate", CharAbilityManager.onSkillDataChanged);
+	DB.addHandler("charsheet.*.abilities.skilllist.*.name", "onUpdate", CharAbilityManager.onSkillNameChanged);
+	DB.addHandler("charsheet.*.abilities.skilllist.*.level", "onUpdate", CharAbilityManager.onSkillLevelChanged);
+
+	DB.addHandler("charsheet.*.abilities.spelllist.*.type", "onUpdate", CharAbilityManager.onSpellDataChanged);
+	DB.addHandler("charsheet.*.abilities.spelllist.*.points", "onUpdate", CharAbilityManager.onSpellDataChanged);
+	DB.addHandler("charsheet.*.abilities.spelllist.*.level_adj", "onUpdate", CharAbilityManager.onSpellDataChanged);
+	DB.addHandler("charsheet.*.abilities.spelllist.*.points_adj", "onUpdate", CharAbilityManager.onSpellDataChanged);
+
+	DB.addHandler("charsheet.*.abilities.powerlist.*.type", "onUpdate", CharAbilityManager.onPowerDataChanged);
+	DB.addHandler("charsheet.*.abilities.powerlist.*.points", "onUpdate", CharAbilityManager.onPowerDataChanged);
+	DB.addHandler("charsheet.*.abilities.powerlist.*.defaults", "onUpdate", CharAbilityManager.onPowerDataChanged);
+	DB.addHandler("charsheet.*.abilities.powerlist.*.level_adj", "onUpdate", CharAbilityManager.onPowerDataChanged);
+	DB.addHandler("charsheet.*.abilities.powerlist.*.points_adj", "onUpdate", CharAbilityManager.onPowerDataChanged);
+
+	DB.addHandler("charsheet.*.abilities.otherlist.*.otherlevel", "onUpdate", CharAbilityManager.onOtherDataChanged);
+	DB.addHandler("charsheet.*.abilities.otherlist.*.points", "onUpdate", CharAbilityManager.onOtherDataChanged);
+	DB.addHandler("charsheet.*.abilities.otherlist.*.defaults", "onUpdate", CharAbilityManager.onOtherDataChanged);
+end
+
+function onSkillDataChanged(nodeField)
+	local nodeSkill = DB.getChild(nodeField, "..");
+	CharAbilityManager.reconcileSkill(nodeSkill);
+	CharManager.updatePointsTotal(DB.getChild(nodeField, "....."));
+end
+
+function onSkillNameChanged(nodeField)
+	local nodeSkill = DB.getChild(nodeField, "..");
+	CharAbilityManager.reconcileSkill(nodeSkill);
+	CharAbilityManager.reconcileDependentSkills(nodeSkill);
+end
+
+function onSkillLevelChanged(nodeField)
+	local nodeSkill = DB.getChild(nodeField, "..");
+	CharAbilityManager.reconcileDependentSkills(nodeSkill);
+end
+
+function onSpellDataChanged(nodeField)
+	local nodeSpell = DB.getChild(nodeField, "..");
+	CharAbilityManager.reconcileSpell(nodeSpell);
+	CharManager.updatePointsTotal(DB.getChild(nodeField, "....."));
+end
+
+function onPowerDataChanged(nodeField)
+	local nodePower = DB.getChild(nodeField, "..");
+	CharAbilityManager.reconcileSkill(nodePower);
+	CharManager.updatePointsTotal(DB.getChild(nodeField, "....."));
+end
+
+function onOtherDataChanged(nodeField)
+	local nodeOther = DB.getChild(nodeField, "..");
+	CharAbilityManager.reconcileOther(nodeOther);
+	CharManager.updatePointsTotal(DB.getChild(nodeField, "....."));
+end
+
+function reconcileSkill(nodeSkill)
+	-- we can skip skills that don't have complete data.
+	if not nodeSkill then return end;
+
+	local totalCP = 0; -- contains the points spent on this skill.
+	if DB.getValue(nodeSkill, "points", 0) < 0 then
+		DB.setValue(nodeSkill, "points", "number", 0);
+		return;
+	else
+		totalCP = DB.getValue(nodeSkill, "points") + DB.getValue(nodeSkill, "points_adj", 0);
+	end
+
+	if totalCP < 0 then
+		totalCP = 0;
+	end
+
+	local abilityType = DB.getValue(nodeSkill, "type", "");
+	if (StringManager.trim(abilityType) or "") == "" then
+		local defaultsLine = DB.getValue(nodeSkill, "defaults", "");
+		local defaultlevel = DB.getValue(nodeSkill, "level_adj", 0);
+		if not ((StringManager.trim(defaultsLine) or "") == "") then
+			local nodeChar = nodeSkill.getParent().getParent().getParent();
+			defaultlevel = defaultlevel + CharManager.getBestDefaultLevel(nodeChar, defaultsLine);
+		end
+
+		DB.setValue(nodeSkill, "basis", "string", "");
+		DB.setValue(nodeSkill, "relativelevel", "string", "");
+		DB.setValue(nodeSkill, "level", "number", defaultlevel);
+		return;
+	end;
+
+	local abilityName = DB.getValue(nodeSkill, "name", "");
+	local nodeChar = nodeSkill.getParent().getParent().getParent();
+	local abilityInfo = calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, DB.getValue(nodeSkill, "defaults", ""), DB.getValue(nodeSkill, "level_adj", 0));
+	if abilityInfo then
+		DB.setValue(nodeSkill, "basis", "string", abilityInfo.basis);
+		DB.setValue(nodeSkill, "relativelevel", "string", abilityInfo.relativelevel);
+		DB.setValue(nodeSkill, "level", "number", abilityInfo.level);
+		return;
+	end
+
+	DB.setValue(nodeSkill, "basis", "string", "");
+	DB.setValue(nodeSkill, "relativelevel", "string", "");
+	DB.setValue(nodeSkill, "level", "number", DB.getValue(nodeSkill, "level_adj", 0));
+end
+
+function reconcileSpell(nodeSpell)
+	-- we can skip spells that don't have complete data.
+	if not nodeSpell then return end;
+
+	local totalCP = 0; -- contains the points spent on this skill.
+	if DB.getValue(nodeSpell, "points", 0) < 0 then
+		DB.setValue(nodeSpell, "points", "number", 0);
+		return;
+	end
+
+	totalCP = DB.getValue(nodeSpell, "points") + DB.getValue(nodeSpell, "points_adj", 0);
+	if totalCP < 0 then
+		totalCP = 0;
+	end
+
+	local abilityType = DB.getValue(nodeSpell, "type", "");
+	if (StringManager.trim(abilityType) or "") == "" or totalCP == 0 then
+		DB.setValue(nodeSpell, "level", "number", DB.getValue(nodeSpell, "level_adj", 0));
+		return;
+	end;
+
+	local abilityName = DB.getValue(nodeSpell, "name", "");
+	local nodeChar = nodeSpell.getParent().getParent().getParent();
+	local abilityInfo = calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, "", DB.getValue(nodeSpell, "level_adj", 0));
+	if abilityInfo then
+		DB.setValue(nodeSpell, "level", "number", abilityInfo.level);
+		return;
+	end
+
+	DB.setValue(nodeSpell, "level", "number", DB.getValue(nodeSpell, "level_adj", 0));
+end
+
+function reconcileOther(nodeOther)
+	if not nodeOther then return end;
+
+	local level = DB.getValue(nodeOther, "level", 0);
+	local otherLevel = DB.getValue(nodeOther, "otherlevel", 0);
+	local defaultsLine = DB.getValue(nodeOther, "defaults", "");
+	
+	if not ((StringManager.trim(defaultsLine) or "") == "") then
+		local nodeChar = DB.getChild(nodeOther, "....");
+		local defaultLevel = CharAbilityManager.getBestDefaultLevel(nodeChar, defaultsLine)
+		if (defaultLevel > otherLevel) then
+			DB.setValue(nodeOther, "level", "number", defaultLevel);
+			return;
+		end
+	end
+
+	if (level ~= otherLevel) then
+		DB.setValue(nodeOther, "level", "number", otherLevel);
+	end
+end
+
+function reconcileDependentSkills(changedSkill)
+	local list = changedSkill.getParent();
+	local changedName = DB.getValue(changedSkill, "name", "");
+	if changedName:len() < MIN_ABILITY_NAME_LENGTH then
+		return;
+	end
+
+	for _,skill in pairs(list.getChildren()) do
+		if changedSkill ~= skill then
+			for _, defaultName in ipairs(parseAbilityDefaultNames(DB.getValue(skill, "defaults", ""))) do
+				if defaultName == changedName then
+					CharAbilityManager.reconcileSkill(skill);
+				end
+			end
+		end
+	end
+end
+
+function getBestDefaultLevel(nodeChar, defaults)
+	local result = 0;
+	if not nodeChar or not defaults then
+		return 0;
+	end
+
+	local defaultsInfo = CharAbilityManager.parseAbilityDefaults(nodeChar, defaults)
+	for expr, statInfo in pairs(defaultsInfo) do
+		if statInfo.defaultInfo.level > result then
+			result = statInfo.defaultInfo.level;
+		end
+	end
+
+	return result;
+end
 
 function parseAbilityExpression(sAbilityExpression)
     local result = {};
@@ -279,7 +473,7 @@ function reconcileAbilitiesBasedOn(nodeActor, sBasis)
 		for _,nodeSkill in pairs(list.getChildren()) do
 			local typeInfo = getBasisAndDiffFromType(DB.getValue(nodeSkill, "type", ""));
 			if typeInfo.basis == sBasis then
-				reconcilePCSkill(nodeSkill);
+				CharAbilityManager.reconcileSkill(nodeSkill);
 			end
 		end
 	end
@@ -289,7 +483,7 @@ function reconcileAbilitiesBasedOn(nodeActor, sBasis)
 		for _,nodeSpell in pairs(list.getChildren()) do
 			local typeInfo = getBasisAndDiffFromType(DB.getValue(nodeSpell, "type", ""));
 			if typeInfo.basis == sBasis then
-				reconcilePCSpell(nodeSpell);
+				CharAbilityManager.reconcileSpell(nodeSpell);
 			end
 		end
 	end
@@ -299,7 +493,7 @@ function reconcileAbilitiesBasedOn(nodeActor, sBasis)
 		for _,nodePower in pairs(list.getChildren()) do
 			local typeInfo = getBasisAndDiffFromType(DB.getValue(nodePower, "type", ""));
 			if typeInfo.basis == sBasis then
-				reconcilePCSpell(nodePower);
+				CharAbilityManager.reconcileSpell(nodePower);
 			end
 		end
 	end
@@ -307,83 +501,7 @@ function reconcileAbilitiesBasedOn(nodeActor, sBasis)
 	list = nodeActor.getChild("abilities.otherlist");
 	if list then
 		for _,nodeOther in pairs(list.getChildren()) do
-			reconcilePCOther(nodeOther);
-		end
-	end
-
-end
-
--- the purpose of this function is to take a PC's skill node and calculate the
--- level it should have, based on the points spent and the defaults available.
-function reconcilePCSkill(nodeSkill)
-	-- we can skip skills that don't have complete data.
-	if not nodeSkill then return end;
-
-	local totalCP = 0; -- contains the points spent on this skill.
-	if DB.getValue(nodeSkill, "points", 0) < 0 then
-		DB.setValue(nodeSkill, "points", "number", 0);
-		return;
-	else
-		totalCP = DB.getValue(nodeSkill, "points") + DB.getValue(nodeSkill, "points_adj", 0);
-	end
-
-	if totalCP < 0 then
-		totalCP = 0;
-	end
-
-	local abilityType = DB.getValue(nodeSkill, "type", "");
-	if (StringManager.trim(abilityType) or "") == "" then
-		local defaultsLine = DB.getValue(nodeSkill, "defaults", "");
-		local defaultlevel = DB.getValue(nodeSkill, "level_adj", 0);
-		if not ((StringManager.trim(defaultsLine) or "") == "") then
-			local nodeChar = nodeSkill.getParent().getParent().getParent();
-			defaultlevel = defaultlevel + CharManager.getBestDefaultLevel(nodeChar, defaultsLine);
-		end
-
-		DB.setValue(nodeSkill, "basis", "string", "");
-		DB.setValue(nodeSkill, "relativelevel", "string", "");
-		DB.setValue(nodeSkill, "level", "number", defaultlevel);
-		return;
-	end;
-
-	local abilityName = DB.getValue(nodeSkill, "name", "");
-	local nodeChar = nodeSkill.getParent().getParent().getParent();
-	local abilityInfo = calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, DB.getValue(nodeSkill, "defaults", ""), DB.getValue(nodeSkill, "level_adj", 0));
-	if abilityInfo then
-		DB.setValue(nodeSkill, "basis", "string", abilityInfo.basis);
-		DB.setValue(nodeSkill, "relativelevel", "string", abilityInfo.relativelevel);
-		DB.setValue(nodeSkill, "level", "number", abilityInfo.level);
-		return;
-	end
-
-	DB.setValue(nodeSkill, "basis", "string", "");
-	DB.setValue(nodeSkill, "relativelevel", "string", "");
-	DB.setValue(nodeSkill, "level", "number", DB.getValue(nodeSkill, "level_adj", 0));
-end
-
-function onPCSkillLevelChanged(nodeSkill)
-	reconcileDependentSkills(nodeSkill);
-end
-
-function onPCSkillNameChanged(nodeSkill)
-	reconcilePCSkill(nodeSkill);
-	reconcileDependentSkills(nodeSkill);
-end
-
-function reconcileDependentSkills(changedSkill)
-	local list = changedSkill.getParent();
-	local changedName = DB.getValue(changedSkill, "name", "");
-	if changedName:len() < MIN_ABILITY_NAME_LENGTH then
-		return;
-	end
-
-	for _,skill in pairs(list.getChildren()) do
-		if changedSkill ~= skill then
-			for _, defaultName in ipairs(parseAbilityDefaultNames(DB.getValue(skill, "defaults", ""))) do
-				if defaultName == changedName then
-					reconcilePCSkill(skill);
-				end
-			end
+			CharAbilityManager.reconcileOther(nodeOther);
 		end
 	end
 end
@@ -447,54 +565,4 @@ function isBasedOnAbility(abilityName, nodeCharacter, abilityNameToFind)
 	end
 
 	return isBasedOnAbility(statInfo.basis, nodeCharacter, abilityNameToFind);
-end
-
-function reconcilePCSpell(nodeSpell)
-	-- we can skip spells that don't have complete data.
-	if not nodeSpell then return end;
-
-	local totalCP = 0; -- contains the points spent on this skill.
-	if DB.getValue(nodeSpell, "points", 0) < 0 then
-		DB.setValue(nodeSpell, "points", "number", 0);
-		return;
-	else
-		totalCP = DB.getValue(nodeSpell, "points") + DB.getValue(nodeSpell, "points_adj", 0);
-	end
-
-	if totalCP < 0 then
-		totalCP = 0;
-	end
-
-	local abilityType = DB.getValue(nodeSpell, "type", "");
-	if (StringManager.trim(abilityType) or "") == "" or totalCP == 0 then
-		DB.setValue(nodeSpell, "level", "number", DB.getValue(nodeSpell, "level_adj", 0));
-		return;
-	end;
-
-	local abilityName = DB.getValue(nodeSpell, "name", "");
-	local nodeChar = nodeSpell.getParent().getParent().getParent();
-	local abilityInfo = calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, "", DB.getValue(nodeSpell, "level_adj", 0));
-	if abilityInfo then
-		DB.setValue(nodeSpell, "level", "number", abilityInfo.level);
-		return;
-	end
-
-	DB.setValue(nodeSpell, "level", "number", DB.getValue(nodeSpell, "level_adj", 0));
-end
-
-function reconcilePCOther(nodeAbility)
-	if not nodeAbility then return end;
-
-	local level = DB.getValue(nodeAbility, "otherlevel", 0);
-	local defaultsLine = DB.getValue(nodeAbility, "defaults", "");
-
-	if not ((StringManager.trim(defaultsLine) or "") == "") then
-		local nodeChar = nodeAbility.getParent().getParent().getParent();
-		local defaultlevel = CharManager.getBestDefaultLevel(nodeChar, defaultsLine)
-		if (defaultlevel > level) then
-			level = defaultlevel;
-		end
-	end
-
-	DB.setValue(nodeAbility, "level", "number", level);
 end
