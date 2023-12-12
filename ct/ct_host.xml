@@ -443,12 +443,6 @@
 
       <button_ct_checkbox name="halfmovedodge" source="attributes.halfmovedodge">
         <anchored to="dr" position="righthigh" offset="10,-10" width="20" height="20" />
-        <script>
-          function onValueChanged()
-						local rActor = ActorManager.resolveActor(window.getDatabaseNode());
-						ActorManager2.updateEncumbrance(rActor);
-          end
-        </script>
       </button_ct_checkbox>
       <label name="halfmovedodge_label">
         <anchored to="dr" position="righthigh" offset="30,-10" />

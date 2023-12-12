@@ -7,7 +7,6 @@
 
 <root>
 	<windowclass name="charsheet_abilities">
-    <script file="campaign/scripts/char_abilities.lua" />
     <sheetdata>
 		
 			<subwindow name="skills">

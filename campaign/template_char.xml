@@ -278,12 +278,6 @@
 		<number_charfield>
 			<frame merge="replace" name="textline" />
 			<color>#808080</color>
-      <script>
-        function onValueChanged()
-					node = window.getDatabaseNode();
-					ActorManager2.updatePointsTotal(node);
-				end
-      </script>
 		</number_charfield>
 	</template>
 

@@ -4,13 +4,10 @@
 --
 
 function onInit()
-  if User.isLocal() then
-    speak.setVisible(false);
-    portrait.setVisible(false);
-    localportrait.setVisible(true);
-  end
+	if Session.IsHost then
+	end
 
-  local node = getDatabaseNode();
-  ActorManager2.updatePointsTotal(node);
-  ActorManager2.updateEncumbrance(node);
+	local nodeChar = getDatabaseNode();
+	CharManager.updatePointsTotal(nodeChar);
+	CharEncumbranceManagerGURPS.updateEncumbranceLevel(nodeChar);
 end
