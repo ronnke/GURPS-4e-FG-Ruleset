@@ -274,7 +274,7 @@ function parseAbilityDefaults(nodeActor, sCommaSeparatedDefaultsLine)
 				return {};
 			end
 
-			local stat = ActorManager2.getStat(nodeActor, defInfo.name);
+			local stat = ActorManagerGURPS4e.getStat(nodeActor, defInfo.name);
 			if stat and stat.level then
 				if stat.statType ~= "attribute" and (stat.points > 0 or stat.points_adj > 0) then
 					defInfo.level = stat.level;
@@ -390,7 +390,7 @@ function calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, defau
 			relativelevel = makeRelativeLevelString("Unk", level - 10);
 		end
 	elseif nameInfo.wild then -- this is a wildcard ability.
-		local baseStat = ActorManager2.getStat(nodeChar, typeInfo.basis);
+		local baseStat = ActorManagerGURPS4e.getStat(nodeChar, typeInfo.basis);
 		if baseStat and baseStat.statType == "attribute" then -- wildcards can only be based on attributes.
 			if totalCP >= 6 then
 				level = baseStat.level + math.floor(totalCP/12) - 2;
@@ -406,7 +406,7 @@ function calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, defau
 			relativelevel = makeRelativeLevelString("Unk", level - 10);
 		end
 	else -- this is a typical ability.
-		local baseStat = ActorManager2.getStat(nodeChar, typeInfo.basis);
+		local baseStat = ActorManagerGURPS4e.getStat(nodeChar, typeInfo.basis);
 		if baseStat then
 			if totalCP <= 0 then -- this skill is based on a default.
 				if bestDefault then
@@ -553,7 +553,7 @@ function isBasedOnAbility(abilityName, nodeCharacter, abilityNameToFind)
 		return true;
 	end
 
-	local statInfo = ActorManager2.getStat(nodeCharacter, abilityName);
+	local statInfo = ActorManagerGURPS4e.getStat(nodeCharacter, abilityName);
 	if not statInfo then
 		return false;
 	elseif statInfo.statType == "attribute" then
@@ -565,4 +565,143 @@ function isBasedOnAbility(abilityName, nodeCharacter, abilityNameToFind)
 	end
 
 	return isBasedOnAbility(statInfo.basis, nodeCharacter, abilityNameToFind);
+end
+
+function addAbility(nodeChar, nodeAbility)
+	if not nodeChar or not nodeAbility then  
+		return false;
+	end
+
+	local bSkill = LibraryDataGURPS4e.isSkill(nodeAbility);
+	local bSpell = LibraryDataGURPS4e.isSpell(nodeAbility);
+	local bPower = LibraryDataGURPS4e.isPower(nodeAbility);
+	local bOther = LibraryDataGURPS4e.isOther(nodeAbility);
+ 
+	if not (bSkill or bSpell or bPower or bOther) then
+		return false;
+	end
+
+	local sActorType, nodeActor = ActorManager.getTypeAndNode(nodeChar);
+	local abilityName = DB.getValue(nodeAbility, "name", "");
+	local defaultsLine = DB.getValue(nodeAbility, "defaults", "");
+	if sActorType ~= "pc" then
+		local nodeAbilitiesList = DB.getChild(nodeChar, "abilities.abilitieslist")
+		if not nodeAbilitiesList then
+			nodeAbilitiesList = DB.createChild(nodeChar, "abilities.abilitieslist");
+		end
+
+		local nodeNPCAbility = DB.createChild(nodeAbilitiesList);
+		DB.setValue(nodeNPCAbility, "name", "string", abilityName);  
+		DB.setValue(nodeNPCAbility, "level", "number", DB.getValue(nodeAbility, "otherlevel", 0));
+
+		local typeNodeTarget;
+		if bSkill then
+			typeNodeTarget = "skilltype";
+		elseif bSpell then
+			typeNodeTarget = "spelltype";
+		elseif bPower then
+			typeNodeTarget = "powerskill";
+		else
+			return true;
+		end
+
+		local abilityInfo = CharAbilityManager.calculateAbilityInfo(nodeChar, DB.getValue(nodeAbility, typeNodeTarget, ""), DEFAULT_NEW_ABILITY_POINTS, abilityName, defaultsLine, 0);
+		if abilityInfo then
+			DB.setValue(nodeNPCAbility, "level", "number", abilityInfo.level);
+		end
+
+		return true;
+	end
+
+	if bSkill then
+		local nodeSkillsList = DB.getChild(nodeChar, "abilities.skilllist");
+		if not nodeSkillsList then
+			nodeSkillsList = DB.createChild(nodeChar, "abilities.skilllist");
+		end
+
+		local nodeSkill = DB.createChild(nodeSkillsList);
+		DB.setValue(nodeSkill, "name", "string", abilityName);
+		DB.setValue(nodeSkill, "prereqs", "string", DB.getValue(nodeAbility, "skillprerequisite", ""));
+		DB.setValue(nodeSkill, "page", "string", DB.getValue(nodeAbility, "page", ""));
+		DB.setValue(nodeSkill, "text", "formattedtext", DB.getValue(nodeAbility, "text", ""));
+
+		--Will trigger reconcile
+		DB.setValue(nodeSkill, "type", "string", ManagerGURPS4e.getSkillType(DB.getValue(nodeAbility, "skilltype", "")));
+		DB.setValue(nodeSkill, "points", "number", DEFAULT_NEW_ABILITY_POINTS);
+		DB.setValue(nodeSkill, "defaults", "string", DB.getValue(nodeAbility, "skilldefault", ""));
+		DB.setValue(nodeSkill, "level_adj", "number", 0);
+		DB.setValue(nodeSkill, "points_adj", "number", 0);
+
+		return true;
+	end
+
+	if bSpell then
+		local nodeSpellsList = DB.getChild(nodeChar, "abilities.spelllist");
+		if not nodeSpellsList then
+			nodeSpellsList = DB.createChild(nodeChar, "abilities.spelllist");
+		end
+	  
+		local nodeSpell = DB.createChild(nodeSpellsList);
+		DB.setValue(nodeSpell, "name", "string", abilityName);
+		DB.setValue(nodeSpell, "class", "string", DB.getValue(nodeAbility, "spellclass", ""));
+		DB.setValue(nodeSpell, "time", "string", DB.getValue(nodeAbility, "spelltimetocast", ""));
+		DB.setValue(nodeSpell, "duration", "string", DB.getValue(nodeAbility, "spellduration", ""));
+		DB.setValue(nodeSpell, "costmaintain", "string", DB.getValue(nodeAbility, "spellcost", ""));
+		DB.setValue(nodeSpell, "resist", "string", DB.getValue(nodeAbility, "spellresist", ""));
+		DB.setValue(nodeSpell, "college", "string", DB.getValue(nodeAbility, "spellcollege", ""));
+		DB.setValue(nodeSpell, "prereqs", "string", DB.getValue(nodeAbility, "spellprerequisite", ""));
+		DB.setValue(nodeSpell, "page", "string", DB.getValue(nodeAbility, "page", ""));
+		DB.setValue(nodeSpell, "text", "formattedtext", DB.getValue(nodeAbility, "text", ""));
+
+		--Will trigger reconcile
+		DB.setValue(nodeSpell, "type", "string", ManagerGURPS4e.getSkillType(DB.getValue(nodeAbility, "spelltype", "")));
+		DB.setValue(nodeSpell, "points", "number", DEFAULT_NEW_ABILITY_POINTS);
+		DB.setValue(nodeSpell, "level_adj", "number", 0);
+		DB.setValue(nodeSpell, "points_adj", "number", 0);
+
+		return true;
+	end
+
+	if bPower then
+		local nodePowersList = DB.getChild(nodeChar, "abilities.powerlist");
+		if not nodePowersList then
+			nodePowersList = DB.createChild(nodeChar, "abilities.powerlist");
+		end
+
+		local nodePower = DB.createChild(nodePowersList);
+		DB.setValue(nodePower, "name", "string", abilityName);  
+		DB.setValue(nodePower, "page", "string", DB.getValue(nodeAbility, "page", ""));
+		DB.setValue(nodePower, "text", "formattedtext", DB.getValue(nodeAbility, "text", ""));
+
+		--Will trigger reconcile
+		DB.setValue(nodePower, "type", "string", ManagerGURPS4e.getSkillType(DB.getValue(nodeAbility, "powerskill", "")));
+		DB.setValue(nodePower, "points", "number", DEFAULT_NEW_ABILITY_POINTS);
+		DB.setValue(nodePower, "defaults", "string", DB.getValue(nodeAbility, "powerdefault", ""));
+		DB.setValue(nodePower, "level_adj", "number", 0);
+		DB.setValue(nodePower, "points_adj", "number", 0);
+
+		return true;
+	end
+
+	if bOther then
+		local nodeOtherList = DB.getChild(nodeChar, "abilities.otherlist");
+		if not nodeOthersList then
+			nodeOthersList = DB.createChild(nodeChar, "abilities.otherlist");
+		end
+
+		local nodeOther = DB.createChild(nodeOtherList);
+		DB.setValue(nodeOther, "name", "string", abilityName);  
+		DB.setValue(nodeOther, "points", "number", DB.getValue(nodeAbility, "otherpoints", 0));
+		DB.setValue(nodeOther, "level", "number", DB.getValue(nodeAbility, "otherlevel", 0));
+		DB.setValue(nodeOther, "page", "string", DB.getValue(nodeAbility, "page", ""));
+		DB.setValue(nodeOther, "text", "formattedtext", DB.getValue(nodeAbility, "text", ""));
+		
+		--Will trigger reconcile
+		DB.setValue(nodeOther, "otherlevel", "number", DB.getValue(nodeAbility, "otherlevel", 0));
+		DB.setValue(nodeOther, "defaults", "string", DB.getValue(nodeAbility, "otherdefault", ""));
+
+		return true;
+	end
+
+	return false;
 end

@@ -16,15 +16,15 @@ function onClose()
 end
 
 function onAdvantageUpdated(node)
-	ActorManager2.onAdvantageUpdated(node);
+	ActorManagerGURPS4e.onAdvantageUpdated(node);
 end
 
 function onDisadvantageUpdated(node)
-	ActorManager2.onDisadvantageUpdated(node);
+	ActorManagerGURPS4e.onDisadvantageUpdated(node);
 end
 
 function onDrop(x, y, draginfo)
 	if draginfo.isType("shortcut") then
-		return ActorManager2.addTrait(getDatabaseNode(), draginfo.getDatabaseNode());
+		return ActorManagerGURPS4e.addTrait(getDatabaseNode(), draginfo.getDatabaseNode());
 	end
 end

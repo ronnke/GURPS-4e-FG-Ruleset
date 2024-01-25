@@ -23,10 +23,18 @@
 	<icon name="button_section_combat" file="graphics/buttons/button_combat.png" />
 	<icon name="button_section_combat_down" file="graphics/buttons/button_combat_down.png" />
 
-	<icon name="weapon_modes" file="graphics/buttons/button_modes.png" />
-	<icon name="weapon_modes_down" file="graphics/buttons/button_modes_down.png" />
+  <icon name="button_section_modes" file="graphics/buttons/button_modes.png" />
+  <icon name="button_section_modes_down" file="graphics/buttons/button_modes_down.png" />
 
-	<icon name="modifiers" file="graphics/buttons/button_modifiers.png" />
+  <icon name="button_section_modifiers" file="graphics/buttons/button_modifiers.png" />
+  <icon name="button_section_modifiers_down" file="graphics/buttons/button_modifiers_down.png" />
+
+  <icon name="weapon_modes" file="graphics/buttons/button_modes.png" />
+	<icon name="weapon_modes_down" file="graphics/buttons/button_modes_down.png" />
+  <icon name="weapon_modifiers" file="graphics/buttons/button_modifiers.png" />
+  <icon name="weapon_modifiers_down" file="graphics/buttons/button_modifiers_down.png" />
+
+  <icon name="modifiers" file="graphics/buttons/button_modifiers.png" />
 	<icon name="modifiers_down" file="graphics/buttons/button_modifiers_down.png" />
 
   <!-- Sidebar -->

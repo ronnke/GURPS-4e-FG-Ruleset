@@ -9,5 +9,5 @@ function onInit()
 
 	local nodeChar = getDatabaseNode();
 	CharManager.updatePointsTotal(nodeChar);
-	CharEncumbranceManagerGURPS.updateEncumbranceLevel(nodeChar);
+	CharEncumbranceManagerGURPS4e.updateEncumbranceLevel(nodeChar);
 end

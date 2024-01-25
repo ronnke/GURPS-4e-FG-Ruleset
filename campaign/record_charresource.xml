@@ -38,8 +38,8 @@
         <target>details</target>
       </scrollbar_record>
 
-      <resize_referencepage />
-      <close_referencepage />
+      <resize_recordsheet />
+      <close_recordsheet />
     </sheetdata>
   </windowclass>
 	

@@ -70,7 +70,7 @@ function action(draginfo)
         return;
     end
 
-    local rActor = ActorManager2.resolveActor(node);
+    local rActor = ActorManagerGURPS4e.resolveActor(node);
     local sType = "dice";
     local sDesc = "[ROLL]";
     local sTargetDesc = ""
@@ -173,8 +173,8 @@ end
 function onDrop(x, y, draginfo)
   if draginfo.getDescription() == "[SKILL]" and rollable_attribute then
       local node = draginfo.getDatabaseNode();
-      local sOperator, nNum = StringManager2.convertRelativeLevel(DB.getValue(node, "relativelevel", ""));
-      local rActor = ActorManager2.resolveActor(node);
+      local sOperator, nNum = StringManagerGURPS4e.convertRelativeLevel(DB.getValue(node, "relativelevel", ""));
+      local rActor = ActorManagerGURPS4e.resolveActor(node);
       local sTargetDesc = string.format("%s [%s%s%s]", DB.getValue(node, "name", ""), stat[1], sOperator, nNum);
       local nTarget = getValue() + tonumber(string.format("%s%s", sOperator, nNum));
 

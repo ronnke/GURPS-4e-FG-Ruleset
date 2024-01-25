@@ -63,7 +63,7 @@ function onDrop(x, y, draginfo)
 	end
 
 	if draginfo.isType("shortcut") and not bReadOnly then
-		return ActorManager2.addAbility(getDatabaseNode(), draginfo.getDatabaseNode());
+		return CharManager.addAbility(getDatabaseNode(), draginfo.getDatabaseNode());
 	end
 end
 

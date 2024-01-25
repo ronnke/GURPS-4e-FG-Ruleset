@@ -7,11 +7,6 @@
 
 <root>
   
-  <template name="sub_charsheet">
-		<subwindow>
-			<bounds>0,65,-1,-1</bounds>
-		</subwindow>
-	</template>
 
 	<template name="frame_chardetail">
 		<genericcontrol>
@@ -300,31 +295,6 @@
 		</button_roll>
 	</template>
 	
-	<template name="button_modifier">
-		<buttoncontrol>
-			<anchored width="20" height="20" />
-			<icon normal="button_action_modifier" pressed="button_action_modifier_down" />
-		</buttoncontrol>
-		<script>
-			function actionDrag(draginfo, desc, value)
-				if (desc and value) then 
-					draginfo.setType("number");
-					draginfo.setDescription(desc);
-					draginfo.setStringData(desc);
-					draginfo.setNumberData(value);
-				end
-				return true;
-			end
-			
-			function action(desc, value)
-				if (desc and value) then 
-					ModifierStack.addSlot(desc, value);
-				end
-				return true;
-			end
-		</script>
-	</template>
-
 	<template name="button_toggledetail">
 		<buttoncontrol>
 			<anchored width="20" height="20" />

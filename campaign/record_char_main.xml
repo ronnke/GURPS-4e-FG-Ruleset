@@ -5,12 +5,13 @@
 
 <root>
 	<windowclass name="charsheet_main">
+    <margins control="0,0,0,2" />
     <sheetdata>
 
 <!-- Character Details -->
 
 			<frame_char name="detailframe">
-				<bounds>15,0,480,80</bounds>
+				<bounds>0,0,480,80</bounds>
 			</frame_char>
 			<string_labeled name="race" source="traits.race">
 				<anchored to="detailframe" position="insidetopleft" offset="15,10" width="150" height="20" />
@@ -45,7 +46,7 @@
 <!-- Attributes -->
 
 			<frame_char name="basicattributesframe">
-				<bounds>15,80,180,225</bounds>
+				<bounds>0,80,180,225</bounds>
 			</frame_char>
 			
 			<label_frametop>
@@ -173,7 +174,7 @@
 <!-- Current Attributes -->
 
 			<frame_char name="currentattributesframe">
-				<bounds>15,305,180,100</bounds>
+				<bounds>0,305,180,100</bounds>
 			</frame_char>
 			
 			<label_frametop>
@@ -222,7 +223,7 @@
 				<anchored>
 					<top offset="405"/>
 					<bottom offset="-15"/>
-					<left offset="15"/>
+					<left offset="0"/>
 					<right anchor="center" offset="40"/>
 				</anchored>
 			</frame_char>
@@ -356,7 +357,7 @@
 <!-- Tabs-->
 
 			<subwindow name="secondarycharacteristics">
-				<bounds>195,80,-1,315</bounds>
+				<bounds>180,80,-1,315</bounds>
 				<class>charsheet_secondarycharacteristics</class>
 			</subwindow>
 

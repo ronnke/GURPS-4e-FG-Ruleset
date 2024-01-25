@@ -49,7 +49,10 @@
 	<string name="ct_label_block">Block</string>
 	<string name="ct_label_dr">DR</string>
 
-	<string name="ct_label_st">ST</string>
+  <string name="ct_label_meleecombat">Melee</string>
+  <string name="ct_label_rangedcombat">Ranged</string>
+
+  <string name="ct_label_st">ST</string>
 	<string name="ct_label_weight">Weight</string>
 	<string name="ct_label_bulk">Bulk</string>
 	<string name="ct_label_ammo">Ammo</string>
@@ -58,9 +61,14 @@
 	<string name="ct_tooltip_stats">Stats</string>
 	<string name="ct_tooltip_combat">Combat</string>
 	<string name="ct_tooltip_effectunit">Unit</string>
+  <string name="ct_tooltip_modes">Modes</string>
+  <string name="ct_tooltip_modifiers">Modifiers</string>
+  <string name="ct_toolip_damage_apply">Apply Damage</string>
+  <string name="ct_toolip_damage_clear">Remove</string>
 
+  <string name="button_apply">Apply</string>
 
-	<!-- Party Sheet -->
+  <!-- Party Sheet -->
 
 	<!-- Character - General -->
 	<string name="char_label_points">Pts</string>

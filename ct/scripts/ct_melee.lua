@@ -1,0 +1,36 @@
+-- 
+-- Please see the license.html file included with this distribution for 
+-- attribution and copyright information.
+--
+
+--
+--	SECTION HANDLING
+--
+
+function getSectionToggle(sKey)
+	local bResult = false;
+
+	local sButtonName = "button_section_" .. sKey;
+	local cButton = self[sButtonName];
+	if cButton then
+		bResult = (cButton.getValue() == 1);
+	end
+
+	return bResult;
+end
+
+function onSectionChanged(sKey)
+	local bShow = self.getSectionToggle(sKey);
+
+	local sSectionName = "sub_" .. sKey;
+	local cSection = self[sSectionName];
+	if cSection then
+		if bShow then
+			local sSectionClass = "ct_section_" .. sKey;
+			cSection.setValue(sSectionClass, getDatabaseNode());
+		else
+			cSection.setValue("", "");
+		end
+		cSection.setVisible(bShow);
+	end
+end

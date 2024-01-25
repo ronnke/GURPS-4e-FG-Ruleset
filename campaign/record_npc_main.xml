@@ -188,7 +188,7 @@
 			</string_labeled>
 
 			<string_labeled name="reactionmodifiers" source="traits.reactionmodifiers">
-				<anchored width="70" height="20">
+				<anchored height="20">
 					<top parent="basicspeed" anchor="bottom" relation="relative" offset="10" />
 					<left />
 					<right />
@@ -199,7 +199,7 @@
 
 
 			<label_charsheet name="traits_label">
-				<anchored width="70" height="20">
+				<anchored height="20">
 					<top parent="reactionmodifiers" anchor="bottom" relation="relative" offset="10" />
 					<left />
 					<right />

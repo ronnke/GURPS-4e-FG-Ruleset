@@ -7,49 +7,24 @@
 
 <root>
 	<windowclass name="charsheet">
+    <frame>charsheet</frame>
+    <placement>
+      <size width="525" height="630" />
+    </placement>
+    <sizelimits>
+      <minimum width="625" height="630" />
+      <dynamic />
+    </sizelimits>
+    <minimize>minimized_npc</minimize>
+    <tooltip field="name" />
+    <softclose />
+    <export>character</export>
 
-		<frame>charsheet</frame>
-		<placement>
-			<size width="525" height="630" />
-		</placement>
-		<sizelimits>
-			<dynamic />
-			<minimum width="525" height="630" />
-		</sizelimits>
-		<softclose />
-		<nodelete />
-		<playercontrol />
-		<tooltip field="name" />
 		<script file="campaign/scripts/char.lua" />
 		
 		<sheetdata>
-			<button_charactivate name="speak">
-				<bounds>-41,30,23,22</bounds>
-			</button_charactivate>
-		
-			<token_char name="token">
-				<bounds>-86,23,40,40</bounds>
-			</token_char>
-		
-			<genericcontrol>
-				<bounds>15,21,45,45</bounds>
-				<icon>charlist_base</icon>
-				<disabled />
-			</genericcontrol>
-			<portrait_char name="portrait">
-				<bounds>15,21,45,45</bounds>
-			</portrait_char>
+      <sub_charsheet_overview name="overview" />
 
-			<frame_char name="overviewframe">
-				<bounds>60,20,-80,45</bounds>
-			</frame_char>
-			<string_labeled name="name">
-				<anchored to="overviewframe" position="insidetopleft" offset="15,10" height="20">
-					<right offset="-15" />
-				</anchored>
-				<labelres>char_label_charactername</labelres>
-			</string_labeled>
-			
 			<sub_charsheet name="main">
 				<class>charsheet_main</class>
 			</sub_charsheet>

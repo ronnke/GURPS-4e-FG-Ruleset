@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+  <template name="button_ct_checkbox">
+    <button_checkbox>
+      <script file="common/scripts/button_crosslink.lua" />
+    </button_checkbox>
+  </template>
+
+  <template name="number_ct_ability">
+    <number_ct>
+      <anchored width="40" height="20" />
+      <default>0</default>
+      <script file="campaign/scripts/campaign_rollable.lua" />
+    </number_ct>
+  </template>
+  <template name="string_ct_ability">
+    <basicstring>
+      <anchored width="40" height="20" />
+      <frame mergerule="replace" name="fielddark" offset="7,5,7,5" />
+      <script file="common/scripts/string_crosslink.lua" />
+      <script file="campaign/scripts/campaign_rollable.lua" />
+      <center />
+    </basicstring>
+  </template>
+  
+  <template name="number_ct_effect_units">
+    <button_stringcycler name="units">
+      <anchored to="rightanchor" height="20" width="30">
+        <top />
+        <right anchor="left" relation="relative" offset="-10" />
+      </anchored>
+      <parameters>
+        <labelsres>effect_label_durunitsec+|effect_label_durunitsec|effect_label_durunitmin|effect_label_durunithr|effect_label_durunitday</labelsres>
+        <values>sec+|sec|min|hr|day</values>
+      </parameters>
+      <tooltip textres="ct_tooltip_effectunit" />
+    </button_stringcycler>
+  </template>
+
+  <!-- Section - Stats -->
+  <template name="button_ct_section_stats">
+    <button_ct_section>
+      <tooltip textres="ct_tooltip_stats" />
+      <state icon="button_section_stats" merge="add" />
+      <state icon="button_section_stats_down" merge="add" />
+      <target>stats</target>
+    </button_ct_section>
+  </template>
+
+  <!-- Section - Combat -->
+  <template name="button_ct_section_combat">
+    <button_ct_section>
+      <tooltip textres="ct_tooltip_combat" />
+      <state icon="button_section_combat" merge="add" />
+      <state icon="button_section_combat_down" merge="add" />
+      <target>combat</target>
+    </button_ct_section>
+  </template>
+
+  <template name="list_ct_section_melee">
+    <list_ct_section_labeled>
+			<anchored to="anchor_section">
+				<top anchor="bottom" relation="relative" offset="5" />
+				<left offset="55" />
+				<right />
+				<sizelimits><minimum height="24" /></sizelimits>
+			</anchored>
+      <class>ct_melee</class>
+      <sortby><control>name</control></sortby>
+      <hideonempty />
+    </list_ct_section_labeled>
+  </template>
+
+  <template name="list_ct_section_ranged">
+    <list_ct_section_labeled>
+			<anchored to="anchor_section">
+				<top anchor="bottom" relation="relative" offset="5" />
+				<left offset="55" />
+				<right />
+				<sizelimits><minimum height="24" /></sizelimits>
+			</anchored>
+      <class>ct_ranged</class>
+      <sortby><control>name</control></sortby>
+      <hideonempty />
+    </list_ct_section_labeled>
+  </template>
+
+  <!-- Section - Modes -->
+  <template name="button_ct_section_meleemodes">
+    <button_ct_section>
+      <tooltip textres="ct_tooltip_modes" />
+      <state icon="button_section_modes" merge="add" />
+      <state icon="button_section_modes_down" merge="add" />
+      <target>meleemodes</target>
+    </button_ct_section>
+  </template>
+
+  <template name="button_ct_section_rangedmodes">
+    <button_ct_section>
+      <tooltip textres="ct_tooltip_modes" />
+      <state icon="button_section_modes" merge="add" />
+      <state icon="button_section_modes_down" merge="add" />
+      <target>rangedmodes</target>
+    </button_ct_section>
+  </template>
+  
+  <template name="button_ct_section_modifiers">
+    <button_ct_section>
+      <tooltip textres="ct_tooltip_modifiers" />
+      <state icon="button_section_modifiers" merge="add" />
+      <state icon="button_section_modifiers_down" merge="add" />
+      <target>modifiers</target>
+    </button_ct_section>
+  </template>
+
+  <template name="sub_ct_section_meleemodes">
+		<subwindow>
+			<anchored position="insidetopleft" />
+		  <class>ct_section_meleemodes</class>
+		</subwindow>
+  </template>
+  
+  <template name="sub_ct_section_rangedmodes">
+		<subwindow>
+			<anchored position="insidetopleft" />
+		  <class>ct_section_rangedmodes</class>
+		</subwindow>
+  </template>
+
+  <template name="list_ct_section_meleemodes">
+    <windowlist name="meleemodeslist">
+      <datasource>.meleemodelist</datasource>
+      <sortby><control>name</control></sortby>
+      <class>ct_meleemode</class>
+      <hideonempty />
+    </windowlist>
+  </template>
+
+  <template name="list_ct_section_rangedmodes">
+    <windowlist name="rangedmodeslist">
+      <datasource>.rangedmodelist</datasource>
+      <sortby><control>name</control></sortby>
+      <class>ct_rangedmode</class>
+      <hideonempty />
+    </windowlist>
+  </template>
+  
+  <!-- Section - Modifiers -->
+  <template name="sub_ct_section_modifiers">
+	  <subwindow>
+			<anchored position="insidetopleft" />
+		  <class>ct_section_modifiers</class>
+	  </subwindow>
+  </template>
+
+  <template name="list_ct_section_modifiers">
+    <windowlist name="rangedmodeslist">
+      <datasource>.modifierlist</datasource>
+      <sortby><control>name</control></sortby>
+      <class>ct_modifier</class>
+      <hideonempty />
+    </windowlist>
+  </template>
+  
+  <!-- Section - Damage -->
+	<template name="sub_ct_section_damage">
+		<windowlist name="damage">
+			<anchored>
+				<top parent="active_spacer_top" anchor="bottom" relation="relative" />
+				<left offset="70" />
+				<right offset="-5" />
+			</anchored>
+			<datasource>.damage</datasource>
+      <class>ct_section_damage</class>
+		</windowlist>
+	</template>
+
+</root>

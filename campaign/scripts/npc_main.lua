@@ -57,7 +57,7 @@ function onDrop(x, y, draginfo)
 		local nodeSource = draginfo.getDatabaseNode();
 
 		if sClass == "reference_trait" or sClass == "trait" then
-			ActorManager2.addTrait(getDatabaseNode(), nodeSource);
+			CharManager.addTrait(getDatabaseNode(), nodeSource);
 		end;
 		return true;
 	end

@@ -86,8 +86,12 @@
 
   <!-- Combat tracker -->
 	<includefile source="ct/template_ct.xml" />
-	<includefile source="ct/ct_host.xml" />
-	<includefile source="ct/ct_client.xml" />
+  <includefile source="ct/template_ct_entry.xml" />
+  <includefile source="ct/template_ct_entry_section.xml" />
+  <includefile source="ct/ct_host.xml" />
+  <includefile source="ct/ct_host_entry.xml" />
+  <includefile source="ct/ct_host_entry_section.xml" />
+  <includefile source="ct/ct_client.xml" />
 
 	<!-- Utilities -->
   <includefile source="utility/utility_effects.xml" />
@@ -102,15 +106,15 @@
 
   <script name="ManagerGURPS4e" file="scripts/manager_GURPS4e.lua" />
 	<script name="EffectManagerGURPS4e" file="scripts/manager_effect_GURPS4e.lua" />
-	<script name="LanguageManager2" file="scripts/manager_language2.lua" />
-	<script name="ActionsManager2" file="scripts/manager_actions2.lua" />
-	<script name="ActorManager2" file="scripts/manager_actor2.lua" />
-	<script name="CampaignDataManager2" file="scripts/manager_campaigndata2.lua" />
-	<script name="CombatManager2" file="scripts/manager_combat2.lua" />
-	<script name="StringManager2" file="scripts/manager_string2.lua" />
-	<script name="VersionManager2" file="scripts/manager_version2.lua" />
+	<script name="LanguageManager2" file="scripts/manager_language_GURPS4e.lua" />
+	<script name="ActionsManagerGURPS4e" file="scripts/manager_actions_GURPS4e.lua" />
+	<script name="ActorManagerGURPS4e" file="scripts/manager_actor_GURPS4e.lua" />
+	<script name="CampaignDataManagerGURPS4e" file="scripts/manager_campaigndata_GURPS4e.lua" />
+	<script name="CombatManagerGURPS4e" file="scripts/manager_combat_GURPS4e.lua" />
+	<script name="StringManagerGURPS4e" file="scripts/manager_string_GURPS4e.lua" />
+	<script name="VersionManagerGURPS4e" file="scripts/manager_version_GURPS4e.lua" />
 	<script name="ImageManagerGURPS4e" file="scripts/manager_image_GURPS4e.lua" />
-  <script name="CharEncumbranceManagerGURPS" file="scripts/manager_encumbrance_GURPS4e.lua" />
+  <script name="CharEncumbranceManagerGURPS4e" file="scripts/manager_encumbrance_GURPS4e.lua" />
 
   <script name="CharManager" file="scripts/manager_char.lua" />
   <script name="CharTraitManager" file="scripts/manager_char_trait.lua" />

@@ -14,7 +14,7 @@
 				<anchored>
 					<top />
 					<bottom anchor="center" offset="-15"/>
-					<left offset="15"/>
+					<left />
 					<right offset="-29"/>
 				</anchored>
 			</frame_char>
@@ -289,8 +289,8 @@
 			<scrollbar_record>
 				<target>details</target>
 			</scrollbar_record>
-			<resize_referencepage />
-			<close_referencepage />
+			<resize_recordsheet />
+			<close_recordsheet />
 		</sheetdata>
 	</windowclass>
 	

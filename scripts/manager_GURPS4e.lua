@@ -448,3 +448,49 @@ function getSkillType(sType)
 
 	return sResult;
 end
+
+function getVehicleST(nodeVehicle)
+    if not nodeVehicle then
+		return 0;
+	end
+
+	local sST,sHP = DB.getValue(nodeVehicle, "sthp", "0/0"):match("^\s*([0-9]+)[\s\\\/|,]*([0-9]*)");
+
+	if StringManager.isNumberString(sST) then
+		return tonumber(sST);
+	end
+
+	return 0;
+end
+
+function getVehicleHP(nodeVehicle)
+    if not nodeVehicle then
+		return 0;
+	end
+
+	local sST,sHP = DB.getValue(nodeVehicle, "sthp", "0/0"):match("^\s*([0-9]+)[\s\\\/|,]*([0-9]*)");
+
+	if StringManager.isNumberString(sHP) then
+		return tonumber(sHP);
+	end
+
+	if StringManager.isNumberString(sST) then
+		return tonumber(sST);
+	end
+
+	return 0;
+end
+
+function getVehicleHT(nodeVehicle)
+    if not nodeVehicle then
+		return 0;
+	end
+
+	local sHT = DB.getValue(nodeVehicle, "ht", "0");
+
+	if StringManager.isNumberString(sHT) then
+		return tonumber(sHT);
+	end
+
+	return 0;
+end

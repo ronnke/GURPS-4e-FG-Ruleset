@@ -4,33 +4,33 @@
 --
 
 function onInit()
-	CharEncumbranceManager.addCustomCalc(CharEncumbranceManagerGURPS.calcEncumbrance);
+	CharEncumbranceManager.addCustomCalc(CharEncumbranceManagerGURPS4e.calcEncumbrance);
 end
 
 function onTabletopInit()
-	DB.addHandler("charsheet.*.attributes.basiclift", "onUpdate", CharEncumbranceManagerGURPS.onBasicLiftChange);
-	DB.addHandler("charsheet.*.attributes.halfmovedodge", "onUpdate", CharEncumbranceManagerGURPS.onHalfMoveDodgeChange);
+	DB.addHandler("charsheet.*.attributes.basiclift", "onUpdate", CharEncumbranceManagerGURPS4e.onBasicLiftChange);
+	DB.addHandler("charsheet.*.attributes.halfmovedodge", "onUpdate", CharEncumbranceManagerGURPS4e.onHalfMoveDodgeChange);
 
-	DB.addHandler("charsheet.*.encumbrance.enc0_weight", "onUpdate", CharEncumbranceManagerGURPS.onEncumbranceFieldChange);
-	DB.addHandler("charsheet.*.encumbrance.enc1_weight", "onUpdate", CharEncumbranceManagerGURPS.onEncumbranceFieldChange);
-	DB.addHandler("charsheet.*.encumbrance.enc2_weight", "onUpdate", CharEncumbranceManagerGURPS.onEncumbranceFieldChange);
-	DB.addHandler("charsheet.*.encumbrance.enc3_weight", "onUpdate", CharEncumbranceManagerGURPS.onEncumbranceFieldChange);
-	DB.addHandler("charsheet.*.encumbrance.enc4_weight", "onUpdate", CharEncumbranceManagerGURPS.onEncumbranceFieldChange);
+	DB.addHandler("charsheet.*.encumbrance.enc0_weight", "onUpdate", CharEncumbranceManagerGURPS4e.onEncumbranceFieldChange);
+	DB.addHandler("charsheet.*.encumbrance.enc1_weight", "onUpdate", CharEncumbranceManagerGURPS4e.onEncumbranceFieldChange);
+	DB.addHandler("charsheet.*.encumbrance.enc2_weight", "onUpdate", CharEncumbranceManagerGURPS4e.onEncumbranceFieldChange);
+	DB.addHandler("charsheet.*.encumbrance.enc3_weight", "onUpdate", CharEncumbranceManagerGURPS4e.onEncumbranceFieldChange);
+	DB.addHandler("charsheet.*.encumbrance.enc4_weight", "onUpdate", CharEncumbranceManagerGURPS4e.onEncumbranceFieldChange);
 end
 
 function onHalfMoveDodgeChange(nodeField)
 	local nodeChar = DB.getChild(nodeField, "...");
-	CharEncumbranceManagerGURPS.updateEncumbranceLevel(nodeChar);
+	CharEncumbranceManagerGURPS4e.updateEncumbranceLevel(nodeChar);
 end
 
 function onBasicLiftChange(nodeField)
 	local nodeChar = DB.getChild(nodeField, "...");
-	CharEncumbranceManagerGURPS.updateEncumbranceLevel(nodeChar);
+	CharEncumbranceManagerGURPS4e.updateEncumbranceLevel(nodeChar);
 end
 
 function onEncumbranceFieldChange(nodeField)
 	local nodeChar = DB.getChild(nodeField, "...");
-	CharEncumbranceManagerGURPS.updateEncumbranceLevel(nodeChar);
+	CharEncumbranceManagerGURPS4e.updateEncumbranceLevel(nodeChar);
 end
 
 function calcEncumbrance(nodeChar)
@@ -38,7 +38,7 @@ function calcEncumbrance(nodeChar)
 	nEncumbrance = nEncumbrance + CharEncumbranceManager.calcDefaultCurrencyEncumbrance(nodeChar);
 	CharEncumbranceManager.setDefaultEncumbranceValue(nodeChar, nEncumbrance);
 
-	CharEncumbranceManagerGURPS.updateEncumbranceLevel(nodeChar);
+	CharEncumbranceManagerGURPS4e.updateEncumbranceLevel(nodeChar);
 end
 
 function updateEncumbranceLevel(nodeChar)

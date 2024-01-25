@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="ct_entry" merge="join">
+		<sizelimits>
+			<minimum height="40" />
+		</sizelimits>
+		<script file="ct/scripts/ct_entry.lua" />
+		<sheetdata>
+			<hs name="status" />
+
+      <hnx name="strength" source="attributes.strength" />
+      <hnx name="dexterity" source="attributes.dexterity" />
+      <hnx name="intelligence" source="attributes.intelligence" />
+      <hnx name="health" source="attributes.health" />
+      <hnx name="hitpoints" source="attributes.hitpoints" />
+      <hnx name="will" source="attributes.will" />
+      <hnx name="perception" source="attributes.perception" />
+      <hnx name="fatiguepoints" source="attributes.fatiguepoints" />
+
+      <hsx name="sizemodifier" source="traits.sizemodifier" />
+      <hsx name="reach" source="traits.reach" />
+
+      <hnx name="dodge" source="combat.dodge" />
+      <hnx name="parry" source="combat.parry" />
+      <hnx name="block" source="combat.block" />
+      <hsx name="dr" source="combat.dr" />
+      <hsx name="move" source="attributes.move" />
+      <hnx name="halfmovedodge" source="attributes.halfmovedodge" />
+
+      <hsx name="hpstatus" />
+      <hsx name="fpstatus" />
+
+      <number_ctentry_initresult name="initresult" merge="delete" />
+      <button_ct_section_space name="button_section_space" merge="delete" />
+      <sub_ct_section name="sub_space" merge="delete" />
+
+      <button_ct_section_combat name="button_section_combat" insertbefore="friendfoe" />
+      <button_ct_section_stats name="button_section_stats" insertbefore="friendfoe" />
+      
+   		<button_ctentry_skip name="skip" insertbefore="name" />
+
+      <number_ctentry_fatigue name="fatigue" insertbefore="name" />
+      <number_ctentry_injury name="injury" insertbefore="name" />
+      <custom_ctentry_status name="ctstatus" insertbefore="name" />
+      <number_ctentry_fps name="fps" insertbefore="name" />
+      <number_ctentry_hps name="hps" insertbefore="name" />
+      
+      <number_ctentry_speed name="speed" insertbefore="name" />
+
+      <sub_ct_section name="sub_stats" insertbefore="sub_targets" />
+      <sub_ct_section name="sub_combat" insertbefore="sub_targets" />
+
+      <sub_ct_section_damage name="sub_damage" insertbefore="summary_targets" />
+      
+    </sheetdata>
+	</windowclass>
+</root>

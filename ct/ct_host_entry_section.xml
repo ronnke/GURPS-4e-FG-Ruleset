@@ -1,0 +1,1398 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="ct_effect" merge="join">
+		<sheetdata>
+      <number_ct_effect_init name="init" merge="delete" />
+      <number_ct_effect_units name="units" insertbefore="duration" />
+		</sheetdata>
+	</windowclass>
+
+  <windowclass name="ct_section_stats">
+    <sheetdata>
+      <icon_ct_section name="icon_section">
+        <icon>button_section_stats_down</icon>
+      </icon_ct_section>
+
+      <anchor_ct_section name="anchor_section" />
+
+      <number_ct_ability name="strength" source="attributes.strength">
+        <rollable_attribute />
+        <stat>ST</stat>
+        <anchored to="anchor_section">
+          <top anchor="bottom" relation="relative" offset="15" />
+          <left offset="5" />
+        </anchored>
+        <description textres="ct_label_strength" />
+        <default>0</default>
+        <readonly />
+      </number_ct_ability>
+      <label_ct_ability name="label_strength">
+        <anchored to="strength" />
+        <static textres="ct_label_strength" />
+      </label_ct_ability>
+
+      <number_ct_ability name="dexterity" source="attributes.dexterity">
+        <rollable_attribute />
+        <stat>DX</stat>
+        <anchored to="strength" position="righthigh" offset="15,0" />
+        <description textres="ct_label_dexterity" />
+        <default>0</default>
+        <readonly />
+      </number_ct_ability>
+      <label_ct_ability name="label_dexterity">
+        <anchored to="dexterity" />
+        <static textres="ct_label_dexterity" />
+      </label_ct_ability>
+
+      <number_ct_ability name="intelligence" source="attributes.intelligence">
+        <rollable_attribute />
+        <stat>IQ</stat>
+        <anchored to="dexterity" position="righthigh" offset="15,0" />
+        <description textres="ct_label_intelligence" />
+        <default>0</default>
+        <readonly />
+      </number_ct_ability>
+      <label_ct_ability name="label_intelligence">
+        <anchored to="intelligence" />
+        <static textres="ct_label_intelligence" />
+      </label_ct_ability>
+
+      <number_ct_ability name="health" source="attributes.health">
+        <rollable_attribute />
+        <stat>HT</stat>
+        <anchored to="intelligence" position="righthigh" offset="15,0" />
+        <description textres="ct_label_health" />
+        <default>0</default>
+        <readonly />
+      </number_ct_ability>
+      <label_ct_ability name="label_health">
+        <anchored to="health" />
+        <static textres="ct_label_health" />
+      </label_ct_ability>
+
+      <number_ct_ability name="will" source="attributes.will">
+        <rollable_attribute />
+        <stat>WILL</stat>
+        <anchored to="health" position="righthigh" offset="15,0" />
+        <description textres="ct_label_will" />
+        <default>0</default>
+        <readonly />
+      </number_ct_ability>
+      <label_ct_ability name="label_will">
+        <anchored to="will" />
+        <static textres="ct_label_will" />
+      </label_ct_ability>
+
+      <number_ct_ability name="perception" source="attributes.perception">
+        <rollable_attribute />
+        <stat>PER</stat>
+        <anchored to="will" position="righthigh" offset="15,0" />
+        <description textres="ct_label_perception" />
+        <default>0</default>
+        <readonly />
+      </number_ct_ability>
+      <label_ct_ability name="label_perception">
+        <anchored to="perception" />
+        <static textres="ct_label_perception" />
+      </label_ct_ability>
+
+      <number_ct_ability name="hitpoints" source="attributes.hitpoints">
+        <anchored to="perception" position="righthigh" offset="15,0" />
+        <description textres="ct_label_hitpoints" />
+        <hideonvalue value="0" />
+        <default>0</default>
+        <readonly />
+      </number_ct_ability>
+      <label_ct_ability name="label_hitpoints">
+        <anchored to="hitpoints" />
+        <static textres="ct_label_hitpoints" />
+      </label_ct_ability>
+
+      <number_ct_ability name="fatiguepoints" source="attributes.fatiguepoints">
+        <anchored to="hitpoints" position="righthigh" offset="15,0" />
+        <description textres="ct_label_fatiguepoints" />
+        <hideonvalue value="0" />
+        <default>0</default>
+        <readonly />
+      </number_ct_ability>
+      <label_ct_ability name="label_fatiguepoints">
+        <anchored to="fatiguepoints" />
+        <static textres="ct_label_fatiguepoints" />
+      </label_ct_ability>
+
+			<genericcontrol name="spacer">
+				<anchored to="anchor_section" height="10">
+					<top anchor="bottom" relation="relative" />
+					<left />
+					<right />
+				</anchored>
+				<disabled />
+			</genericcontrol>
+      
+      <frame_ct_section name="frame_section">
+				<anchored>
+					<left parent="icon_section" anchor="right" offset="0" />
+					<bottom parent="spacer" />
+				</anchored>
+			</frame_ct_section>
+    </sheetdata>
+  </windowclass>
+  <windowclass name="ct_section_stats_npc">
+    <sheetdata>
+      <icon_ct_section name="icon_section">
+        <icon>button_section_stats_down</icon>
+      </icon_ct_section>
+
+      <anchor_ct_section name="anchor_section" />
+
+      <number_ct_ability name="strength" source="attributes.strength">
+        <rollable_attribute />
+        <stat>ST</stat>
+        <anchored to="anchor_section">
+          <top anchor="bottom" relation="relative" offset="15" />
+          <left offset="5" />
+        </anchored>
+        <description textres="ct_label_strength" />
+        <default>0</default>
+      </number_ct_ability>
+      <label_ct_ability name="label_strength">
+        <anchored to="strength" />
+        <static textres="ct_label_strength" />
+      </label_ct_ability>
+
+      <number_ct_ability name="dexterity" source="attributes.dexterity">
+        <rollable_attribute />
+        <stat>DX</stat>
+        <anchored to="strength" position="righthigh" offset="15,0" />
+        <description textres="ct_label_dexterity" />
+        <default>0</default>
+      </number_ct_ability>
+      <label_ct_ability name="label_dexterity">
+        <anchored to="dexterity" />
+        <static textres="ct_label_dexterity" />
+      </label_ct_ability>
+
+      <number_ct_ability name="intelligence" source="attributes.intelligence">
+        <rollable_attribute />
+        <stat>IQ</stat>
+        <anchored to="dexterity" position="righthigh" offset="15,0" />
+        <description textres="ct_label_intelligence" />
+        <default>0</default>
+      </number_ct_ability>
+      <label_ct_ability name="label_intelligence">
+        <anchored to="intelligence" />
+        <static textres="ct_label_intelligence" />
+      </label_ct_ability>
+
+      <number_ct_ability name="health" source="attributes.health">
+        <rollable_attribute />
+        <stat>HT</stat>
+        <anchored to="intelligence" position="righthigh" offset="15,0" />
+        <description textres="ct_label_health" />
+        <default>0</default>
+      </number_ct_ability>
+      <label_ct_ability name="label_health">
+        <anchored to="health" />
+        <static textres="ct_label_health" />
+      </label_ct_ability>
+
+      <number_ct_ability name="will" source="attributes.will">
+        <rollable_attribute />
+        <stat>WILL</stat>
+        <anchored to="health" position="righthigh" offset="15,0" />
+        <description textres="ct_label_will" />
+        <default>0</default>
+      </number_ct_ability>
+      <label_ct_ability name="label_will">
+        <anchored to="will" />
+        <static textres="ct_label_will" />
+      </label_ct_ability>
+
+      <number_ct_ability name="perception" source="attributes.perception">
+        <rollable_attribute />
+        <stat>PER</stat>
+        <anchored to="will" position="righthigh" offset="15,0" />
+        <description textres="ct_label_perception" />
+        <default>0</default>
+      </number_ct_ability>
+      <label_ct_ability name="label_perception">
+        <anchored to="perception" />
+        <static textres="ct_label_perception" />
+      </label_ct_ability>
+
+      <number_ct_ability name="hitpoints" source="attributes.hitpoints">
+        <anchored to="perception" position="righthigh" offset="15,0" />
+        <description textres="ct_label_hitpoints" />
+        <hideonvalue value="0" />
+        <default>0</default>
+      </number_ct_ability>
+      <label_ct_ability name="label_hitpoints">
+        <anchored to="hitpoints" />
+        <static textres="ct_label_hitpoints" />
+      </label_ct_ability>
+
+      <number_ct_ability name="fatiguepoints" source="attributes.fatiguepoints">
+        <anchored to="hitpoints" position="righthigh" offset="15,0" />
+        <description textres="ct_label_fatiguepoints" />
+        <hideonvalue value="0" />
+        <default>0</default>
+      </number_ct_ability>
+      <label_ct_ability name="label_fatiguepoints">
+        <anchored to="fatiguepoints" />
+        <static textres="ct_label_fatiguepoints" />
+      </label_ct_ability>
+
+			<genericcontrol name="spacer">
+				<anchored to="anchor_section" height="10">
+					<top anchor="bottom" relation="relative" />
+					<left />
+					<right />
+				</anchored>
+				<disabled />
+			</genericcontrol>
+      
+      <frame_ct_section name="frame_section">
+				<anchored>
+					<left parent="icon_section" anchor="right" offset="0" />
+					<bottom parent="spacer" />
+				</anchored>
+			</frame_ct_section>
+    </sheetdata>
+  </windowclass>
+  <windowclass name="ct_section_stats_vehicle">
+    <sheetdata>
+      <icon_ct_section name="icon_section">
+        <icon>button_section_stats_down</icon>
+      </icon_ct_section>
+
+      <anchor_ct_section name="anchor_section" />
+
+      <number_ct_ability name="strength" source="attributes.strength">
+        <rollable_attribute />
+        <stat>ST</stat>
+        <anchored to="anchor_section">
+          <top anchor="bottom" relation="relative" offset="15" />
+          <left offset="5" />
+        </anchored>
+        <description textres="ct_label_strength" />
+        <default>0</default>
+      </number_ct_ability>
+      <label_ct_ability name="label_strength">
+        <anchored to="strength" />
+        <static textres="ct_label_strength" />
+      </label_ct_ability>
+
+      <number_ct_ability name="health" source="attributes.health">
+        <rollable_attribute />
+        <stat>HT</stat>
+        <anchored to="strength" position="righthigh" offset="15,0" />
+        <description textres="ct_label_health" />
+        <default>0</default>
+      </number_ct_ability>
+      <label_ct_ability name="label_health">
+        <anchored to="health" />
+        <static textres="ct_label_health" />
+      </label_ct_ability>
+
+      <number_ct_ability name="hitpoints" source="attributes.hitpoints">
+        <anchored to="health" position="righthigh" offset="15,0" />
+        <description textres="ct_label_hitpoints" />
+        <hideonvalue value="0" />
+        <default>0</default>
+      </number_ct_ability>
+      <label_ct_ability name="label_hitpoints">
+        <anchored to="hitpoints" />
+        <static textres="ct_label_hitpoints" />
+      </label_ct_ability>
+
+			<genericcontrol name="spacer">
+				<anchored to="anchor_section" height="10">
+					<top anchor="bottom" relation="relative" />
+					<left />
+					<right />
+				</anchored>
+				<disabled />
+			</genericcontrol>
+      
+      <frame_ct_section name="frame_section">
+				<anchored>
+					<left parent="icon_section" anchor="right" offset="0" />
+					<bottom parent="spacer" />
+				</anchored>
+			</frame_ct_section>
+    </sheetdata>
+  </windowclass>
+
+  <windowclass name="ct_section_combat">
+    <sheetdata>
+      <icon_ct_section name="icon_section">
+        <icon>button_section_combat_down</icon>
+      </icon_ct_section>
+
+      <anchor_ct_section name="anchor_section" />
+
+      <label name="label_sizemodifier">
+        <anchored to="anchor_section">
+          <top anchor="bottom" relation="relative" offset="5" />
+          <left offset="5" />
+        </anchored>
+        <static textres="ct_label_sizemodifier" />
+      </label>
+      <string_ct name="sizemodifier" source="traits.sizemodifier">
+        <anchored to="label_sizemodifier" position="right" offset="10" width="30" />
+        <description textres="ct_label_sizemodifier" />
+        <default>0</default>
+        <readonly />
+        <center />
+      </string_ct>
+
+      <label name="label_reach">
+        <anchored to="sizemodifier" position="righthigh" offset="20" />
+        <static textres="ct_label_reach" />
+      </label>
+      <string_ct name="reach" source="traits.reach">
+        <anchored to="label_reach" position="right" offset="10" width="30"/>
+        <description textres="ct_label_reach" />
+        <default>0</default>
+        <readonly />
+        <center />
+      </string_ct>
+
+      <label name="label_move">
+        <anchored to="reach" top="0" position="righthigh" offset="20" />
+        <static textres="ct_label_move" />
+      </label>
+      <string_ct name="move" source="attributes.move">
+        <anchored to="label_move" position="right" offset="10">
+          <right parent="anchor_section" anchor="right" offset="-5" />
+        </anchored>
+        <readonly />
+      </string_ct>
+
+      <number_ct_ability name="dodge" source="combat.dodge">
+        <rollable_dodge />
+        <anchored to="anchor_section">
+          <top anchor="bottom" relation="relative" offset="10" />
+          <left offset="5" />
+        </anchored>
+        <description textres="ct_label_dodge" />
+        <hideonvalue value="0" />
+        <default>0</default>
+        <readonly />
+      </number_ct_ability>
+      <label_ct_ability name="label_dodge">
+        <anchored to="dodge" />
+        <static textres="ct_label_dodge" />
+      </label_ct_ability>
+
+      <number_ct_ability name="parry" source="combat.parry">
+        <rollable_parry />
+        <anchored to="dodge" position="righthigh" offset="15,0" />
+        <description textres="ct_label_parry" />
+        <hideonvalue value="0" />
+        <default>0</default>
+        <readonly />
+      </number_ct_ability>
+      <label_ct_ability name="label_parry">
+        <anchored to="parry" />
+        <static textres="ct_label_parry" />
+      </label_ct_ability>
+
+      <number_ct_ability name="block" source="combat.block">
+        <rollable_block />
+        <anchored to="parry" position="righthigh" offset="15,0" />
+        <description textres="ct_label_block" />
+        <hideonvalue value="0" />
+        <default>0</default>
+        <readonly />
+      </number_ct_ability>
+      <label_ct_ability name="label_block">
+        <anchored to="block" />
+        <static textres="ct_label_block" />
+      </label_ct_ability>
+
+      <string_ct_ability name="dr" source="combat.dr">
+        <anchored to="block" position="righthigh" offset="25,0" />
+        <description textres="ct_label_dr" />
+        <default>0</default>
+        <readonly />
+      </string_ct_ability>
+      <label_ct_ability name="label_dr">
+        <anchored to="dr" />
+        <static textres="ct_label_dr" />
+      </label_ct_ability>
+
+      <button_ct_checkbox name="halfmovedodge" source="attributes.halfmovedodge">
+        <anchored to="dr" position="righthigh" offset="15,0" width="20" height="20" />
+      </button_ct_checkbox>
+      <label name="halfmovedodge_label">
+        <anchored to="halfmovedodge" position="righthigh" />
+        <static textres="char_label_halfmovedodge" />
+      </label>
+
+			<genericcontrol name="spacer">
+				<anchored to="anchor_section" height="10">
+					<top anchor="bottom" relation="relative" />
+					<left />
+					<right />
+				</anchored>
+				<disabled />
+			</genericcontrol>
+      
+      <frame_ct_section name="frame_section">
+				<anchored>
+					<left parent="icon_section" anchor="right" offset="0" />
+					<bottom parent="spacer" />
+				</anchored>
+			</frame_ct_section>
+    </sheetdata>
+  </windowclass>
+  <windowclass name="ct_section_combat_npc">
+    <sheetdata>
+      <icon_ct_section name="icon_section">
+        <icon>button_section_combat_down</icon>
+      </icon_ct_section>
+
+      <anchor_ct_section name="anchor_section" />
+
+      <label name="label_sizemodifier">
+        <anchored to="anchor_section">
+          <top anchor="bottom" relation="relative" offset="5" />
+          <left offset="5" />
+        </anchored>
+        <static textres="ct_label_sizemodifier" />
+      </label>
+      <string_ct name="sizemodifier" source="traits.sizemodifier">
+        <anchored to="label_sizemodifier" position="right" offset="10" width="30" />
+        <description textres="ct_label_sizemodifier" />
+        <default>0</default>
+        <center />
+      </string_ct>
+
+      <label name="label_reach">
+        <anchored to="sizemodifier" position="righthigh" offset="20" />
+        <static textres="ct_label_reach" />
+      </label>
+      <string_ct name="reach" source="traits.reach">
+        <anchored to="label_reach" position="right" offset="10" width="30"/>
+        <description textres="ct_label_reach" />
+        <default>0</default>
+        <center />
+      </string_ct>
+
+      <label name="label_move">
+        <anchored to="reach" top="0" position="righthigh" offset="20" />
+        <static textres="ct_label_move" />
+      </label>
+      <string_ct name="move" source="attributes.move">
+        <anchored to="label_move" position="right" offset="10">
+          <right parent="anchor_section" anchor="right" offset="-5" />
+        </anchored>
+      </string_ct>
+
+      <number_ct_ability name="dodge" source="combat.dodge">
+        <rollable_dodge />
+        <anchored to="anchor_section">
+          <top anchor="bottom" relation="relative" offset="10" />
+          <left offset="5" />
+        </anchored>
+        <description textres="ct_label_dodge" />
+        <hideonvalue value="0" />
+        <default>0</default>
+      </number_ct_ability>
+      <label_ct_ability name="label_dodge">
+        <anchored to="dodge" />
+        <static textres="ct_label_dodge" />
+      </label_ct_ability>
+
+      <number_ct_ability name="parry" source="combat.parry">
+        <rollable_parry />
+        <anchored to="dodge" position="righthigh" offset="15,0" />
+        <description textres="ct_label_parry" />
+        <hideonvalue value="0" />
+        <default>0</default>
+      </number_ct_ability>
+      <label_ct_ability name="label_parry">
+        <anchored to="parry" />
+        <static textres="ct_label_parry" />
+      </label_ct_ability>
+
+      <number_ct_ability name="block" source="combat.block">
+        <rollable_block />
+        <anchored to="parry" position="righthigh" offset="15,0" />
+        <description textres="ct_label_block" />
+        <hideonvalue value="0" />
+        <default>0</default>
+      </number_ct_ability>
+      <label_ct_ability name="label_block">
+        <anchored to="block" />
+        <static textres="ct_label_block" />
+      </label_ct_ability>
+
+      <string_ct_ability name="dr" source="combat.dr">
+        <anchored to="block" position="righthigh" offset="25,0" />
+        <description textres="ct_label_dr" />
+      </string_ct_ability>
+      <label_ct_ability name="label_dr">
+        <anchored to="dr" />
+        <static textres="ct_label_dr" />
+      </label_ct_ability>
+
+      <button_ct_checkbox name="halfmovedodge" source="attributes.halfmovedodge">
+        <anchored to="dr" position="righthigh" offset="15,0" width="20" height="20" />
+      </button_ct_checkbox>
+      <label name="halfmovedodge_label">
+        <anchored to="halfmovedodge" position="righthigh" />
+        <static textres="char_label_halfmovedodge" />
+      </label>
+
+			<list_ct_section_melee name="meleecombat">
+        <datasource>.combat.meleecombatlist</datasource>
+			</list_ct_section_melee>
+			<label_ct_section name="meleecombat_label">
+        <anchored to="meleecombat" position="lefthigh" offset="5,0" width="45" />
+				<static textres="ct_label_meleecombat" />
+			</label_ct_section>
+
+			<list_ct_section_ranged name="rangedcombat">
+        <datasource>.combat.rangedcombatlist</datasource>
+			</list_ct_section_ranged>
+			<label_ct_section name="rangedcombat_label">
+        <anchored to="rangedcombat" position="lefthigh" offset="5,0" width="45" />
+				<static textres="ct_label_rangedcombat" />
+			</label_ct_section>
+      
+			<genericcontrol name="spacer">
+				<anchored to="anchor_section" height="10">
+					<top anchor="bottom" relation="relative" />
+					<left />
+					<right />
+				</anchored>
+				<disabled />
+			</genericcontrol>
+      
+      <frame_ct_section name="frame_section">
+				<anchored>
+					<left parent="icon_section" anchor="right" offset="0" />
+					<bottom parent="spacer" />
+				</anchored>
+			</frame_ct_section>
+    </sheetdata>
+  </windowclass>
+  <windowclass name="ct_section_combat_vehicle">
+    <sheetdata>
+      <icon_ct_section name="icon_section">
+        <icon>button_section_combat_down</icon>
+      </icon_ct_section>
+
+      <anchor_ct_section name="anchor_section" />
+
+      <label name="label_sizemodifier">
+        <anchored to="anchor_section">
+          <top anchor="bottom" relation="relative" offset="5" />
+          <left offset="5" />
+        </anchored>
+        <static textres="ct_label_sizemodifier" />
+      </label>
+      <string_ct name="sizemodifier" source="traits.sizemodifier">
+        <anchored to="label_sizemodifier" position="right" offset="10" width="30" />
+        <description textres="ct_label_sizemodifier" />
+        <default>0</default>
+        <center />
+      </string_ct>
+
+      <label name="label_move">
+        <anchored to="sizemodifier" top="0" position="righthigh" offset="20" />
+        <static textres="ct_label_move" />
+      </label>
+      <string_ct name="move" source="attributes.move">
+        <anchored to="label_move" position="right" offset="10">
+          <right parent="anchor_section" anchor="right" offset="-5" />
+        </anchored>
+      </string_ct>
+
+      <number_ct_ability name="dodge" source="combat.dodge">
+        <rollable_dodge />
+        <anchored to="anchor_section">
+          <top anchor="bottom" relation="relative" offset="10" />
+          <left offset="5" />
+        </anchored>
+        <description textres="ct_label_dodge" />
+        <hideonvalue value="0" />
+        <default>0</default>
+      </number_ct_ability>
+      <label_ct_ability name="label_dodge">
+        <anchored to="dodge" />
+        <static textres="ct_label_dodge" />
+      </label_ct_ability>
+
+      <string_ct_ability name="dr" source="combat.dr">
+        <anchored to="dodge" position="righthigh" offset="25,0" />
+        <description textres="ct_label_dr" />
+      </string_ct_ability>
+      <label_ct_ability name="label_dr">
+        <anchored to="dr" />
+        <static textres="ct_label_dr" />
+      </label_ct_ability>
+
+      <button_ct_checkbox name="halfmovedodge" source="attributes.halfmovedodge">
+        <anchored to="dr" position="righthigh" offset="15,0" width="20" height="20" />
+      </button_ct_checkbox>
+      <label name="halfmovedodge_label">
+        <anchored to="halfmovedodge" position="righthigh" />
+        <static textres="char_label_halfmovedodge" />
+      </label>
+
+			<genericcontrol name="spacer">
+				<anchored to="anchor_section" height="10">
+					<top anchor="bottom" relation="relative" />
+					<left />
+					<right />
+				</anchored>
+				<disabled />
+			</genericcontrol>
+      
+      <frame_ct_section name="frame_section">
+				<anchored>
+					<left parent="icon_section" anchor="right" offset="0" />
+					<bottom parent="spacer" />
+				</anchored>
+			</frame_ct_section>
+    </sheetdata>
+  </windowclass>
+
+	<windowclass name="ct_melee">
+    <margins control="0,0,0,2" />
+    <script file="ct/scripts/ct_melee.lua" />
+		<sheetdata>
+
+      <anchor_listitem_right name="rightanchor" />
+      
+      <string_charfield name="weight">
+        <anchored to="rightanchor" width="40" height="20">
+          <top relation="relative" />
+          <right anchor="left" relation="relative" offset="-10" />
+        </anchored>
+				<tabtarget prev="st" next="cost" />
+			</string_charfield>
+			<label name="label_weight">
+        <anchored to="rightanchor" width="45" height="20">
+          <top />
+          <right anchor="left" relation="relative" offset="-10" />
+        </anchored>
+				<static textres="ct_label_weight" />
+			</label>
+			<string_charfield name="st">
+        <anchored to="rightanchor" width="30" height="20">
+          <top />
+          <right anchor="left" relation="relative" offset="-10" />
+        </anchored>
+        <tabtarget prev="name" next="weight" />
+			</string_charfield>
+			<label name="label_st">
+        <anchored to="rightanchor" width="15" height="20">
+          <top />
+          <right anchor="left" relation="relative" offset="-10" />
+        </anchored>
+				<static textres="ct_label_st" />
+			</label>
+      <button_ct_section_modifiers name="button_section_modifiers">
+        <anchored to="rightanchor" width="20" height="20">
+          <top />
+          <right anchor="left" relation="relative" offset="-10" />
+        </anchored>
+      </button_ct_section_modifiers>
+      <button_ct_section_meleemodes name="button_section_meleemodes">
+        <anchored to="rightanchor" width="20" height="20">
+          <top />
+          <right anchor="left" relation="relative" offset="-5" />
+        </anchored>
+      </button_ct_section_meleemodes>
+
+      <string_textlistitem name="name">
+        <anchored to="rightanchor" height="20">
+          <top />
+          <left parent="" offset="5"/>
+          <right anchor="left" relation="relative" offset="-5" />
+        </anchored>
+				<tabtarget next="st" />
+				<nodrag />
+			</string_textlistitem>
+
+      <sub_ct_section_meleemodes name="sub_meleemodes">
+        <anchored position="insidetopleft">
+          <top parent="rightanchor" anchor="bottom" relation="relative" />
+          <left />
+          <right />
+        </anchored>
+      </sub_ct_section_meleemodes>
+      <sub_ct_section_modifiers name="sub_modifiers">
+        <anchored position="insidetopleft">
+          <top parent="rightanchor" anchor="bottom" relation="relative" />
+          <left />
+          <right />
+        </anchored>
+      </sub_ct_section_modifiers>
+      </sheetdata>
+	</windowclass>
+
+	<windowclass name="ct_section_meleemodes">
+    <margins control="0,0,0,2" />
+    <sheetdata>
+      <icon_ct_section name="icon_section">
+        <icon>button_section_modes_down</icon>
+      </icon_ct_section>
+
+      <anchor_listitem_right name="rightanchor" />
+
+      <label_columntop name="modes_parry_label">
+        <anchored to="rightanchor" width="30">
+          <top relation="relative" />
+          <right anchor="left" relation="relative" offset="-15" />
+        </anchored>
+				<static textres="char_label_parry" />
+			</label_columntop>
+			<label_columntop name="modes_reach_label">
+				<anchored to="rightanchor" width="40">
+          <top />
+          <right anchor="left" relation="relative" offset="-10" />
+        </anchored>
+				<static textres="char_label_reach" />
+			</label_columntop>
+			<label_columntop name="modes_damage_label">
+        <anchored to="rightanchor" width="70">
+          <top />
+          <right anchor="left" relation="relative" offset="-10" />
+        </anchored>
+				<static textres="char_label_damage" />
+			</label_columntop>
+			<label_columntop name="modes_level_label">
+        <anchored to="rightanchor" width="20">
+          <top />
+          <right anchor="left" relation="relative" offset="-10" />
+        </anchored>
+				<static textres="char_label_level" />
+			</label_columntop>
+			<label_columntop name="modes_label">
+				<anchored to="rightanchor">
+          <top />
+          <left parent="" offset="5"/>
+          <right anchor="left" relation="relative" offset="-5" />
+        </anchored>
+				<static textres="char_label_mode" />
+			</label_columntop>
+
+      <list_ct_section_meleemodes name="modeslist">
+        <anchored position="insidetopleft">
+          <top parent="rightanchor" anchor="bottom" relation="relative" />
+          <left offset="25" />
+          <right offset="-10" />
+        </anchored>
+      </list_ct_section_meleemodes>
+      
+			<genericcontrol name="spacer">
+				<anchored to="rightanchor" height="10">
+					<top anchor="bottom" relation="relative" />
+					<left />
+          <right />
+        </anchored>
+				<disabled />
+			</genericcontrol>
+
+      <frame_ct_section name="frame_section">
+        <anchored>
+          <left parent="icon_section" anchor="right" offset="0" />
+          <bottom parent="spacer" />
+        </anchored>
+      </frame_ct_section>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="ct_meleemode">
+		<margins control="0,0,0,2" />
+		<sheetdata>
+      
+      <anchor_listitem_column_right name="rightanchor" />
+
+      <string_chardefensefield name="parry">
+				<rollable_weaponparry />
+				<anchored to="rightanchor" width="30" height="20">
+          <top />
+          <right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<tabtarget prev="reach" />
+			</string_chardefensefield>
+			<string_charfield name="reach">
+				<anchored to="rightanchor" width="40" height="20">
+          <top />
+          <right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget next="parry" prev="damage" />
+			</string_charfield>
+			<string_charfield name="damage">
+				<rollable_damage />
+				<anchored to="rightanchor" width="70" height="20">
+          <top />
+          <right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget next="reach" prev="name" />
+			</string_charfield>
+			<number_charfield name="level">
+				<rollable_melee />
+				<anchored to="rightanchor" width="20" height="20">
+          <top />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget next="damage" prev="name" />
+			</number_charfield>
+			<string_textlistitem name="name">
+				<anchored height="20">
+          <top />
+          <left offset="5" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<nodrag />
+				<tabtarget next="level" />
+			</string_textlistitem>
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="ct_ranged">
+		<margins control="0,0,0,2" />
+		<script file="ct/scripts/ct_ranged.lua" />
+		<sheetdata>
+      
+      <anchor_listitem_right name="rightanchor" />
+
+      <number_charfield name="ammo">
+        <anchored to="rightanchor" width="35" height="20">
+          <top relation="relative" />
+          <right anchor="left" relation="relative" offset="-10" />
+        </anchored>
+				<tabtarget prev="bulk"/>
+			</number_charfield>
+			<label name="label_ammo">
+				<anchored to="rightanchor" width="40" height="20">
+          <top />
+          <right anchor="left" relation="relative" offset="-10" />
+        </anchored>
+				<static textres="ct_label_ammo" />
+			</label>
+			
+			<number_charmodfield name="bulk">
+				<anchored to="rightanchor" width="20" height="20">
+          <top />
+          <right anchor="left" relation="relative" offset="-10" />
+        </anchored>
+				<tabtarget prev="st"/>
+				<script>
+					function onDragStart(button, x, y, draginfo)
+						return actionDrag(draginfo, "Bulk");
+					end
+
+					function onDoubleClick(x, y)
+						return action("Bulk");
+					end
+				</script>
+			</number_charmodfield>
+			
+			<label name="label_bulk">
+				<anchored to="rightanchor" width="25" height="20">
+          <top />
+          <right anchor="left" relation="relative" offset="-10" />
+        </anchored>
+				<static textres="ct_label_bulk" />
+			</label>
+			<string_charfield name="st">
+				<anchored to="rightanchor" width="30" height="20">
+          <top />
+          <right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget prev="name" next="bulk" />
+			</string_charfield>
+			<label name="label_st">
+				<anchored to="rightanchor" width="15" height="20">
+          <top />
+          <right anchor="left" relation="relative" offset="-10" />
+        </anchored>
+				<static textres="ct_label_st" />
+			</label>
+
+      <button_ct_section_modifiers name="button_section_modifiers">
+        <anchored to="rightanchor" width="20" height="20">
+          <top />
+          <right anchor="left" relation="relative" offset="-10" />
+        </anchored>
+      </button_ct_section_modifiers>
+      <button_ct_section_rangedmodes name="button_section_rangedmodes">
+        <anchored to="rightanchor" width="20" height="20">
+          <top />
+          <right anchor="left" relation="relative" offset="-5" />
+        </anchored>
+      </button_ct_section_rangedmodes>
+
+      <string_textlistitem name="name">
+        <anchored to="rightanchor" height="20">
+          <top />
+          <left parent="" offset="5"/>
+          <right anchor="left" relation="relative" offset="-5" />
+        </anchored>
+        <tabtarget next="st" />
+        <nodrag />
+      </string_textlistitem>
+
+      <sub_ct_section_rangedmodes name="sub_rangedmodes">
+        <anchored position="insidetopleft">
+          <top parent="rightanchor" anchor="bottom" relation="relative" />
+          <left />
+          <right />
+        </anchored>
+      </sub_ct_section_rangedmodes>
+      <sub_ct_section_modifiers name="sub_modifiers">
+        <anchored position="insidetopleft">
+          <top parent="rightanchor" anchor="bottom" relation="relative" />
+          <left />
+          <right />
+        </anchored>
+      </sub_ct_section_modifiers>
+  </sheetdata>
+	</windowclass>
+
+	<windowclass name="ct_section_rangedmodes">
+    <margins control="0,0,0,2" />
+    <sheetdata>
+      <icon_ct_section name="icon_section">
+        <icon>button_section_modes_down</icon>
+      </icon_ct_section>
+
+      <anchor_listitem_right name="rightanchor" />
+
+      <label_columntop name="modes_rcl_label">
+        <anchored to="rightanchor" width="20">
+          <top relation="relative" />
+          <right anchor="left" relation="relative" offset="-15" />
+        </anchored>
+        <static textres="char_label_rcl" />
+			</label_columntop>
+			<label_columntop name="modes_shots_label">
+        <anchored to="rightanchor" width="40">
+          <top />
+          <right anchor="left" relation="relative" offset="-10" />
+        </anchored>
+        <static textres="char_label_shots" />
+			</label_columntop>
+			<label_columntop name="modes_rof_label">
+        <anchored to="rightanchor" width="20">
+          <top />
+          <right anchor="left" relation="relative" offset="-10" />
+        </anchored>
+        <static textres="char_label_rof" />
+			</label_columntop>
+			<label_columntop name="modes_range_label">
+        <anchored to="rightanchor" width="60">
+          <top />
+          <right anchor="left" relation="relative" offset="-10" />
+        </anchored>
+        <static textres="char_label_range" />
+			</label_columntop>
+			<label_columntop name="modes_acc_label">
+        <anchored to="rightanchor" width="20">
+          <top />
+          <right anchor="left" relation="relative" offset="-10" />
+        </anchored>
+        <static textres="char_label_acc" />
+			</label_columntop>
+			<label_columntop name="modes_damage_label">
+        <anchored to="rightanchor" width="60">
+          <top />
+          <right anchor="left" relation="relative" offset="-10" />
+        </anchored>
+        <static textres="char_label_damage" />
+			</label_columntop>
+			<label_columntop name="modes_level_label">
+        <anchored to="rightanchor" width="20">
+          <top />
+          <right anchor="left" relation="relative" offset="-10" />
+        </anchored>
+        <static textres="char_label_level" />
+			</label_columntop>
+			<label_columntop name="modes_label">
+        <anchored to="rightanchor">
+          <top />
+          <left parent="" offset="5"/>
+          <right anchor="left" relation="relative" offset="-5" />
+        </anchored>
+        <static textres="char_label_mode" />
+			</label_columntop>
+
+      <list_ct_section_rangedmodes name="modeslist">
+        <anchored position="insidetopleft">
+          <top parent="rightanchor" anchor="bottom" relation="relative" />
+          <left offset="25" />
+          <right offset="-10" />
+        </anchored>
+      </list_ct_section_rangedmodes>
+
+      <genericcontrol name="spacer">
+        <anchored to="rightanchor" height="10">
+          <top anchor="bottom" relation="relative" />
+          <left />
+          <right />
+        </anchored>
+        <disabled />
+      </genericcontrol>
+
+      <frame_ct_section name="frame_section">
+        <anchored>
+          <left parent="icon_section" anchor="right" offset="0" />
+          <bottom parent="spacer" />
+        </anchored>
+      </frame_ct_section>
+    </sheetdata>
+	</windowclass>
+
+	<windowclass name="ct_rangedmode">
+		<margins control="0,0,0,2" />
+		<sheetdata>
+      
+      <anchor_listitem_column_right name="rightanchor" />
+
+      <number_charfield name="rcl">
+        <anchored to="rightanchor" width="20" height="20">
+          <top />
+          <right anchor="left" relation="relative" offset="-5" />
+        </anchored>
+				<tabtarget prev="shots" />
+			</number_charfield>
+			<string_charfield name="shots">
+        <anchored to="rightanchor" width="40" height="20">
+          <top />
+          <right anchor="left" relation="relative" offset="-10" />
+        </anchored>
+        <tabtarget next="rcl" prev="rof" />
+			</string_charfield>
+			<string_charfield name="rof">
+        <anchored to="rightanchor" width="20" height="20">
+          <top />
+          <right anchor="left" relation="relative" offset="-10" />
+        </anchored>
+        <tabtarget next="shots" prev="range" />
+			</string_charfield>
+			<string_charfield name="range">
+        <anchored to="rightanchor" width="60" height="20">
+          <top />
+          <right anchor="left" relation="relative" offset="-10" />
+        </anchored>
+        <tabtarget next="rof" prev="acc" />
+			</string_charfield>
+			<number_charmodfield name="acc">
+        <anchored to="rightanchor" width="20" height="20">
+          <top />
+          <right anchor="left" relation="relative" offset="-10" />
+        </anchored>
+        <tabtarget next="range" prev="damage" />
+				<script>
+					function onDragStart(button, x, y, draginfo)
+						return actionDrag(draginfo, "Acc");
+					end
+
+					function onDoubleClick(x, y)
+						return action("Acc");
+					end
+				</script>
+			</number_charmodfield>
+			<string_charfield name="damage">
+				<rollable_damage />
+        <anchored to="rightanchor" width="60" height="20">
+          <top />
+          <right anchor="left" relation="relative" offset="-10" />
+        </anchored>
+        <tabtarget next="acc" prev="level" />
+			</string_charfield>
+			<number_charfield name="level">
+				<rollable_ranged />
+        <anchored to="rightanchor" width="20" height="20">
+          <top />
+          <right anchor="left" relation="relative" offset="-10" />
+        </anchored>
+        <tabtarget next="damage" prev="name" />
+			</number_charfield>
+			<string_textlistitem name="name">
+        <anchored height="20">
+          <top />
+          <left offset="5" />
+          <right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
+        </anchored>
+        <nodrag />
+        <tabtarget next="level" />
+			</string_textlistitem>
+		</sheetdata>
+	</windowclass>
+
+  <windowclass name="ct_section_modifiers">
+    <margins control="0,0,0,2" />
+    <sheetdata>
+      <icon_ct_section name="icon_section">
+        <icon>modifiers_down</icon>
+      </icon_ct_section>
+
+      <anchor_listitem_right name="rightanchor" />
+
+      <label_columntop name="modifiers_label">
+        <anchored to="rightanchor" height="20">
+          <top relation="relative" />
+          <left parent="" offset="5"/>
+          <right anchor="left" relation="relative" offset="-5" />
+        </anchored>
+				<static textres="char_label_modifier" />
+			</label_columntop>
+
+      <list_ct_section_modifiers name="modifierslist">
+        <anchored position="insidetopleft">
+          <top parent="rightanchor" anchor="bottom" relation="relative" />
+          <left offset="25" />
+          <right offset="-10" />
+        </anchored>
+      </list_ct_section_modifiers>
+
+      <genericcontrol name="spacer">
+        <anchored to="rightanchor" height="10">
+          <top anchor="bottom" relation="relative" />
+          <left />
+          <right />
+        </anchored>
+        <disabled />
+      </genericcontrol>
+
+      <frame_ct_section name="frame_section">
+        <anchored>
+          <left parent="icon_section" anchor="right" offset="0" />
+          <bottom parent="spacer" />
+        </anchored>
+      </frame_ct_section>
+		</sheetdata>
+	</windowclass>
+
+  <windowclass name="ct_modifier">
+    <margins control="0,0,0,2" />
+    <script>
+      function actionDrag(draginfo)
+				if not name.isEmpty() then
+					draginfo.setType("number");
+					draginfo.setDescription(name.getValue());
+					draginfo.setStringData(name.getValue());
+					draginfo.setNumberData(modifier.getValue());
+				end
+				return true;
+      end
+
+      function action()
+				ModifierStack.addSlot(name.getValue(), modifier.getValue());
+				return true;
+      end
+
+      function onDrop(x, y, draginfo)
+				return windowlist.onDrop(x, y, draginfo);
+      end
+    </script>
+    <sheetdata>
+      <anchor_listitem_column_right name="rightanchor" />
+
+      <button_modifier>
+        <anchored>
+          <top offset="2" />
+          <left offset="5" />
+        </anchored>
+        <script>
+          function onDragStart(button, x, y, draginfo)
+						return window.actionDrag(draginfo);
+          end
+
+          function onButtonPress(x, y)
+						return window.action();
+          end
+        </script>
+      </button_modifier>
+
+      <number_charmodfield name="modifier">
+        <anchored to="rightanchor" width="30" height="20">
+          <top offset="2" />
+          <right anchor="left" relation="relative" offset="-10" />
+        </anchored>
+        <script>
+          function onDragStart(button, x, y, draginfo)
+						return actionDrag(draginfo, window.name.getValue());
+          end
+
+          function onDoubleClick(x, y)
+						return action(window.name.getValue());
+          end
+        </script>
+        <tabtarget prev="name" />
+      </number_charmodfield>
+      <string_textlistitem name="name">
+        <anchored height="20">
+          <top offset="2" />
+          <left offset="30" />
+          <right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
+        </anchored>
+        <nodrag />
+        <tabtarget next="modifier" />
+      </string_textlistitem>
+    </sheetdata>
+  </windowclass>
+  
+  <windowclass name="ct_section_damage">
+    <script file="ct/scripts/ct_damage.lua" />
+    <sheetdata>
+      <icon_ct_section name="icon_section">
+        <icon>roll_damage</icon>
+      </icon_ct_section>
+
+      <anchor_ct_section name="anchor_section" />
+
+      <label name="label_damage">
+        <anchored to="anchor_section">
+          <top anchor="bottom" relation="relative" offset="10" />
+          <left offset="5" />
+        </anchored>
+        <static>Damage</static>
+      </label>
+      <number_ct name="damage">
+        <anchored to="label_damage" position="righthigh" offset="10" width="40" height="20" />
+        <description textres="ct_label_damage" />
+        <default>0</default>
+        <center />
+      </number_ct>
+
+      <label name="label_type">
+        <anchored to="damage" position="righthigh" offset="20" />
+        <static>Type</static>
+      </label>
+      <comboboxc name="type">
+        <anchored to="label_type" position="righthigh" offset="10" width="50" height="20" />
+        <listdirection>down</listdirection>
+				<script>
+					function onInit()
+						super.onInit();
+						addItems(DataCommonGURPS.aDamageTypeData);
+					end
+				</script>
+        <center />
+      </comboboxc>
+
+      <label name="label_hitlocation">
+        <anchored to="type" position="righthigh" offset="20" />
+        <static>Hit Location</static>
+      </label>
+      <comboboxc name="hitlocation">
+        <anchored to="label_hitlocation" position="righthigh" offset="10" width="80" height="20" />
+        <listdirection>down</listdirection>
+				<script>
+					function onInit()
+						super.onInit();
+						addItems(DataCommonGURPS.aHitLocationData);
+					end
+				</script>
+        <center />
+      </comboboxc>
+
+      <label name="label_injurytolerance">
+        <anchored to="anchor_section">
+          <top anchor="bottom" relation="relative" offset="5" />
+          <left offset="5" />
+        </anchored>
+        <static>Injury Tolerance</static>
+      </label>
+      <comboboxc name="injurytolerance">
+        <anchored to="label_injurytolerance" position="righthigh" offset="10" width="120" height="20" />
+        <listdirection>down</listdirection>
+				<script>
+					function onInit()
+						super.onInit();
+						addItems(DataCommonGURPS.aInjuryToleranceData);
+					end
+				</script>
+        <center />
+      </comboboxc>
+
+      <label name="label_dr">
+        <anchored to="injurytolerance" position="righthigh" offset="20" />
+        <static>DR</static>
+      </label>
+      <comboboxc name="dr">
+        <anchored to="label_dr" position="righthigh" offset="10" width="50" height="20" />
+        <listdirection>down</listdirection>
+				<script>
+					function onInit()
+						super.onInit();
+						addItems({"0","3"});
+					end
+				</script>
+        <center />
+        <default>0</default>
+      </comboboxc>
+
+      <label name="label_injury">
+        <anchored to="anchor_section">
+          <top anchor="bottom" relation="relative" offset="5" />
+          <left offset="5" />
+        </anchored>
+        <static>Injury</static>
+      </label>
+      <number_ct name="injury">
+        <anchored to="label_injury" position="righthigh" offset="10" width="40" height="20" />
+        <description textres="ct_label_damage" />
+        <default>0</default>
+        <center />
+      </number_ct>
+
+      <button_text name="apply">
+        <anchored to="injury" position="righthigh" offset="20" width="50" height="20" />
+        <tooltip textres="ct_toolip_damage_apply" />
+        <state textres="button_apply" />
+				<script>
+          function onButtonPress()
+            window.applyDamage();
+          end
+        </script>
+			</button_text>
+
+			<buttoncontrol>
+				<anchored width="19" height="20">
+          <right parent="anchor_section" anchor="right" offset="-10" />
+          <bottom parent="label_injurytolerance" anchor="bottom" />
+        </anchored>
+				<icon normal="button_clear" pressed="button_clear_down" />
+				<tooltip textres="ct_toolip_damage_clear" />
+				<script>
+					function onButtonPress()
+						window.removeEntry();
+					end
+				</script>
+			</buttoncontrol>
+      
+      <genericcontrol name="spacer">
+        <anchored to="anchor_section" height="10">
+          <top anchor="bottom" relation="relative" />
+          <left />
+          <right />
+        </anchored>
+        <disabled />
+      </genericcontrol>
+
+      <frame_ct_section name="frame_section">
+        <anchored>
+          <left parent="icon_section" anchor="right" offset="0" />
+          <bottom parent="spacer" />
+        </anchored>
+      </frame_ct_section>
+    </sheetdata>
+  </windowclass>
+</root>

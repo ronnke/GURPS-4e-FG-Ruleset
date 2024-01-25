@@ -10,7 +10,7 @@
     <script>
       function onDrop(x, y, draginfo)
 				if draginfo.isType("shortcut") and LibraryDataGURPS4e.isOther(draginfo.getDatabaseNode()) then
-					return ActorManager2.addAbility(getDatabaseNode(), draginfo.getDatabaseNode());
+					return CharManager.addAbility(getDatabaseNode(), draginfo.getDatabaseNode());
 				end
       end
     </script>
@@ -276,8 +276,8 @@
         <target>details</target>
       </scrollbar_record>
 
-      <resize_referencepage />
-      <close_referencepage />
+      <resize_recordsheet />
+      <close_recordsheet />
     </sheetdata>
   </windowclass>
 
