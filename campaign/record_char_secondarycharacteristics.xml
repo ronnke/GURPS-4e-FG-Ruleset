@@ -11,9 +11,12 @@
 		
 <!-- Secondary Characteristics -->
 
-			<frame_char name="secondarycharacteristicsframe"> 
-				<bounds>0,0,-28,315</bounds>
-			</frame_char>
+			<frame_char name="secondarycharacteristicsframe">
+        <anchored position="insidetopleft">
+          <right />
+          <bottom />
+        </anchored>
+      </frame_char>
 
 			<label_frametop>
 				<anchored to="secondarycharacteristicsframe" />

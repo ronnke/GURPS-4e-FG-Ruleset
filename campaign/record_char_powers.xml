@@ -16,8 +16,11 @@
     </script>
 		<sheetdata>
 			<frame_char name="powersframe">
-				<bounds>15,0,-28,-13</bounds>
-			</frame_char>
+        <anchored position="insidetopleft">
+          <right />
+          <bottom />
+        </anchored>
+      </frame_char>
 			<label_frametop>
 				<anchored to="powersframe" />
 				<static textres="char_label_powers" />
@@ -155,7 +158,8 @@
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
 				<tabtarget prev="level" />
-			</number_charpointfield>
+        <min>0</min>
+      </number_charpointfield>
 			<number_charlevelfield name="level">
 				<rollable_power />
 				<anchored to="rightanchor" width="20" height="20">
@@ -303,7 +307,9 @@
       <label_column name="points_label">
         <static textres="ability_grouped_label_points" />
       </label_column>
-      <number_columnh name="points" />
+      <number_columnh name="points">
+        <min>0</min>
+      </number_columnh>
 
       <label_column name="defaults_label">
         <static textres="ability_powerdefault_label" />

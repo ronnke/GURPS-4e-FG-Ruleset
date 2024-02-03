@@ -11,28 +11,30 @@ function onInit()
 end
 
 function onTabletopInit()
-	DB.addHandler("charsheet.*.abilities.skilllist.*.type", "onUpdate", CharAbilityManager.onSkillDataChanged);
-	DB.addHandler("charsheet.*.abilities.skilllist.*.points", "onUpdate", CharAbilityManager.onSkillDataChanged);
-	DB.addHandler("charsheet.*.abilities.skilllist.*.defaults", "onUpdate", CharAbilityManager.onSkillDataChanged);
-	DB.addHandler("charsheet.*.abilities.skilllist.*.level_adj", "onUpdate", CharAbilityManager.onSkillDataChanged);
-	DB.addHandler("charsheet.*.abilities.skilllist.*.points_adj", "onUpdate", CharAbilityManager.onSkillDataChanged);
-	DB.addHandler("charsheet.*.abilities.skilllist.*.name", "onUpdate", CharAbilityManager.onSkillNameChanged);
-	DB.addHandler("charsheet.*.abilities.skilllist.*.level", "onUpdate", CharAbilityManager.onSkillLevelChanged);
+	if Session.IsHost then
+		DB.addHandler("charsheet.*.abilities.skilllist.*.type", "onUpdate", CharAbilityManager.onSkillDataChanged);
+		DB.addHandler("charsheet.*.abilities.skilllist.*.points", "onUpdate", CharAbilityManager.onSkillDataChanged);
+		DB.addHandler("charsheet.*.abilities.skilllist.*.defaults", "onUpdate", CharAbilityManager.onSkillDataChanged);
+		DB.addHandler("charsheet.*.abilities.skilllist.*.level_adj", "onUpdate", CharAbilityManager.onSkillDataChanged);
+		DB.addHandler("charsheet.*.abilities.skilllist.*.points_adj", "onUpdate", CharAbilityManager.onSkillDataChanged);
+		DB.addHandler("charsheet.*.abilities.skilllist.*.name", "onUpdate", CharAbilityManager.onSkillNameChanged);
+		DB.addHandler("charsheet.*.abilities.skilllist.*.level", "onUpdate", CharAbilityManager.onSkillLevelChanged);
 
-	DB.addHandler("charsheet.*.abilities.spelllist.*.type", "onUpdate", CharAbilityManager.onSpellDataChanged);
-	DB.addHandler("charsheet.*.abilities.spelllist.*.points", "onUpdate", CharAbilityManager.onSpellDataChanged);
-	DB.addHandler("charsheet.*.abilities.spelllist.*.level_adj", "onUpdate", CharAbilityManager.onSpellDataChanged);
-	DB.addHandler("charsheet.*.abilities.spelllist.*.points_adj", "onUpdate", CharAbilityManager.onSpellDataChanged);
+		DB.addHandler("charsheet.*.abilities.spelllist.*.type", "onUpdate", CharAbilityManager.onSpellDataChanged);
+		DB.addHandler("charsheet.*.abilities.spelllist.*.points", "onUpdate", CharAbilityManager.onSpellDataChanged);
+		DB.addHandler("charsheet.*.abilities.spelllist.*.level_adj", "onUpdate", CharAbilityManager.onSpellDataChanged);
+		DB.addHandler("charsheet.*.abilities.spelllist.*.points_adj", "onUpdate", CharAbilityManager.onSpellDataChanged);
 
-	DB.addHandler("charsheet.*.abilities.powerlist.*.type", "onUpdate", CharAbilityManager.onPowerDataChanged);
-	DB.addHandler("charsheet.*.abilities.powerlist.*.points", "onUpdate", CharAbilityManager.onPowerDataChanged);
-	DB.addHandler("charsheet.*.abilities.powerlist.*.defaults", "onUpdate", CharAbilityManager.onPowerDataChanged);
-	DB.addHandler("charsheet.*.abilities.powerlist.*.level_adj", "onUpdate", CharAbilityManager.onPowerDataChanged);
-	DB.addHandler("charsheet.*.abilities.powerlist.*.points_adj", "onUpdate", CharAbilityManager.onPowerDataChanged);
+		DB.addHandler("charsheet.*.abilities.powerlist.*.type", "onUpdate", CharAbilityManager.onPowerDataChanged);
+		DB.addHandler("charsheet.*.abilities.powerlist.*.points", "onUpdate", CharAbilityManager.onPowerDataChanged);
+		DB.addHandler("charsheet.*.abilities.powerlist.*.defaults", "onUpdate", CharAbilityManager.onPowerDataChanged);
+		DB.addHandler("charsheet.*.abilities.powerlist.*.level_adj", "onUpdate", CharAbilityManager.onPowerDataChanged);
+		DB.addHandler("charsheet.*.abilities.powerlist.*.points_adj", "onUpdate", CharAbilityManager.onPowerDataChanged);
 
-	DB.addHandler("charsheet.*.abilities.otherlist.*.otherlevel", "onUpdate", CharAbilityManager.onOtherDataChanged);
-	DB.addHandler("charsheet.*.abilities.otherlist.*.points", "onUpdate", CharAbilityManager.onOtherDataChanged);
-	DB.addHandler("charsheet.*.abilities.otherlist.*.defaults", "onUpdate", CharAbilityManager.onOtherDataChanged);
+		DB.addHandler("charsheet.*.abilities.otherlist.*.otherlevel", "onUpdate", CharAbilityManager.onOtherDataChanged);
+		DB.addHandler("charsheet.*.abilities.otherlist.*.points", "onUpdate", CharAbilityManager.onOtherDataChanged);
+		DB.addHandler("charsheet.*.abilities.otherlist.*.defaults", "onUpdate", CharAbilityManager.onOtherDataChanged);
+	end
 end
 
 function onSkillDataChanged(nodeField)
@@ -72,105 +74,106 @@ end
 
 function reconcileSkill(nodeSkill)
 	-- we can skip skills that don't have complete data.
-	if not nodeSkill then return end;
-
-	local totalCP = 0; -- contains the points spent on this skill.
-	if DB.getValue(nodeSkill, "points", 0) < 0 then
-		DB.setValue(nodeSkill, "points", "number", 0);
-		return;
-	else
-		totalCP = DB.getValue(nodeSkill, "points") + DB.getValue(nodeSkill, "points_adj", 0);
+	if not nodeSkill then 
+		return; 
 	end
 
+	local nodeChar = DB.getChild(nodeSkill, "....");
+	local abilityType = DB.getValue(nodeSkill, "type", "");
+	local abilityName = DB.getValue(nodeSkill, "name", "");
+	local defaultsLine = DB.getValue(nodeSkill, "defaults", "");
+	local adjustmentLevel = DB.getValue(nodeSkill, "level_adj", 0);
+	local currentLevel = DB.getValue(nodeSkill, "level", 0);
+
+	-- get total points spent on this skill.
+	local totalCP = DB.getValue(nodeSkill, "points", 0) + DB.getValue(nodeSkill, "points_adj", 0);
 	if totalCP < 0 then
 		totalCP = 0;
 	end
 
-	local abilityType = DB.getValue(nodeSkill, "type", "");
-	if (StringManager.trim(abilityType) or "") == "" then
-		local defaultsLine = DB.getValue(nodeSkill, "defaults", "");
-		local defaultlevel = DB.getValue(nodeSkill, "level_adj", 0);
-		if not ((StringManager.trim(defaultsLine) or "") == "") then
-			local nodeChar = nodeSkill.getParent().getParent().getParent();
-			defaultlevel = defaultlevel + CharManager.getBestDefaultLevel(nodeChar, defaultsLine);
-		end
-
-		DB.setValue(nodeSkill, "basis", "string", "");
-		DB.setValue(nodeSkill, "relativelevel", "string", "");
-		DB.setValue(nodeSkill, "level", "number", defaultlevel);
-		return;
-	end;
-
-	local abilityName = DB.getValue(nodeSkill, "name", "");
-	local nodeChar = nodeSkill.getParent().getParent().getParent();
-	local abilityInfo = calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, DB.getValue(nodeSkill, "defaults", ""), DB.getValue(nodeSkill, "level_adj", 0));
+	local abilityInfo = CharAbilityManager.calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, defaultsLine, adjustmentLevel);
 	if abilityInfo then
-		DB.setValue(nodeSkill, "basis", "string", abilityInfo.basis);
-		DB.setValue(nodeSkill, "relativelevel", "string", abilityInfo.relativelevel);
-		DB.setValue(nodeSkill, "level", "number", abilityInfo.level);
+		if abilityInfo.level ~= currentLevel then
+			DB.setValue(nodeSkill, "basis", "string", abilityInfo.basis);
+			DB.setValue(nodeSkill, "relativelevel", "string", abilityInfo.relativelevel);
+			DB.setValue(nodeSkill, "level", "number", abilityInfo.level);
+		end
 		return;
 	end
 
-	DB.setValue(nodeSkill, "basis", "string", "");
-	DB.setValue(nodeSkill, "relativelevel", "string", "");
-	DB.setValue(nodeSkill, "level", "number", DB.getValue(nodeSkill, "level_adj", 0));
+	local bestDefaultLevel = CharAbilityManager.getBestDefaultLevel(nodeChar, defaultsLine);
+	if bestDefaultLevel > 0 then
+		local level = bestDefaultLevel + adjustmentLevel;
+		if level ~= currentLevel then
+			DB.setValue(nodeSkill, "basis", "string", "");
+			DB.setValue(nodeSkill, "relativelevel", "string", makeRelativeLevelString("Def", level - bestDefaultLevel));
+			DB.setValue(nodeSkill, "level", "number", level);
+		end 
+		return;
+	end
+
+	if adjustmentLevel ~= currentLevel then
+		DB.setValue(nodeSkill, "basis", "string", "");
+		DB.setValue(nodeSkill, "relativelevel", "string", "");
+		DB.setValue(nodeSkill, "level", "number", adjustmentLevel);
+	end
 end
 
 function reconcileSpell(nodeSpell)
 	-- we can skip spells that don't have complete data.
-	if not nodeSpell then return end;
-
-	local totalCP = 0; -- contains the points spent on this skill.
-	if DB.getValue(nodeSpell, "points", 0) < 0 then
-		DB.setValue(nodeSpell, "points", "number", 0);
-		return;
+	if not nodeSpell then 
+		return; 
 	end
 
-	totalCP = DB.getValue(nodeSpell, "points") + DB.getValue(nodeSpell, "points_adj", 0);
+	local totalCP = DB.getValue(nodeSpell, "points", 0) + DB.getValue(nodeSpell, "points_adj", 0);
 	if totalCP < 0 then
 		totalCP = 0;
 	end
 
+	local nodeChar = DB.getChild(nodeSpell, "....");
 	local abilityType = DB.getValue(nodeSpell, "type", "");
-	if (StringManager.trim(abilityType) or "") == "" or totalCP == 0 then
-		DB.setValue(nodeSpell, "level", "number", DB.getValue(nodeSpell, "level_adj", 0));
-		return;
-	end;
-
 	local abilityName = DB.getValue(nodeSpell, "name", "");
-	local nodeChar = nodeSpell.getParent().getParent().getParent();
-	local abilityInfo = calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, "", DB.getValue(nodeSpell, "level_adj", 0));
+	local adjustmentLevel = DB.getValue(nodeSpell, "level_adj", 0);
+	local currentLevel = DB.getValue(nodeSpell, "level", 0);
+
+	local abilityInfo = CharAbilityManager.calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, "", adjustmentLevel);
 	if abilityInfo then
-		DB.setValue(nodeSpell, "level", "number", abilityInfo.level);
+		if abilityInfo.level ~= currentLevel then
+			DB.setValue(nodeSpell, "level", "number", abilityInfo.level);
+		end
 		return;
 	end
 
-	DB.setValue(nodeSpell, "level", "number", DB.getValue(nodeSpell, "level_adj", 0));
+	if adjustmentLevel ~= currentLevel then
+		DB.setValue(nodeSpell, "level", "number", adjustmentLevel);
+	end
 end
 
 function reconcileOther(nodeOther)
-	if not nodeOther then return end;
-
-	local level = DB.getValue(nodeOther, "level", 0);
-	local otherLevel = DB.getValue(nodeOther, "otherlevel", 0);
-	local defaultsLine = DB.getValue(nodeOther, "defaults", "");
-	
-	if not ((StringManager.trim(defaultsLine) or "") == "") then
-		local nodeChar = DB.getChild(nodeOther, "....");
-		local defaultLevel = CharAbilityManager.getBestDefaultLevel(nodeChar, defaultsLine)
-		if (defaultLevel > otherLevel) then
-			DB.setValue(nodeOther, "level", "number", defaultLevel);
-			return;
-		end
+	if not nodeOther then 
+		return; 
 	end
 
-	if (level ~= otherLevel) then
+	local nodeChar = DB.getChild(nodeOther, "....");
+	local otherLevel = DB.getValue(nodeOther, "otherlevel", 0);
+	local defaultsLine = DB.getValue(nodeOther, "defaults", "");
+	local currentLevel = DB.getValue(nodeOther, "level", 0);
+
+	local bestDefaultLevel = CharAbilityManager.getBestDefaultLevel(nodeChar, defaultsLine)
+	if (bestDefaultLevel > otherLevel) then
+		if (bestDefaultLevel ~= currentLevel) then
+			DB.setValue(nodeOther, "level", "number", bestDefaultLevel);
+		end
+		return;
+	end
+
+	if (otherLevel ~= currentLevel) then
 		DB.setValue(nodeOther, "level", "number", otherLevel);
 	end
 end
 
 function reconcileDependentSkills(changedSkill)
-	local list = changedSkill.getParent();
+	local list = DB.getChild(changedSkill, "..");
 	local changedName = DB.getValue(changedSkill, "name", "");
 	if changedName:len() < MIN_ABILITY_NAME_LENGTH then
 		return;
@@ -188,11 +191,11 @@ function reconcileDependentSkills(changedSkill)
 end
 
 function getBestDefaultLevel(nodeChar, defaults)
-	local result = 0;
 	if not nodeChar or not defaults then
 		return 0;
 	end
 
+	local result = 0;
 	local defaultsInfo = CharAbilityManager.parseAbilityDefaults(nodeChar, defaults)
 	for expr, statInfo in pairs(defaultsInfo) do
 		if statInfo.defaultInfo.level > result then
@@ -204,6 +207,10 @@ function getBestDefaultLevel(nodeChar, defaults)
 end
 
 function parseAbilityExpression(sAbilityExpression)
+	if not sAbilityExpression or sAbilityExpression == '' then 
+		return; 
+	end
+
     local result = {};
     local sRemainder = StringManager.trim(sAbilityExpression);
     local lhs, rhs = sRemainder:match("(.+)([+-].*)$");
@@ -306,61 +313,62 @@ function parseAbilityDefaults(nodeActor, sCommaSeparatedDefaultsLine)
 end
 
 function getBasisAndDiffFromType(sAbilityType)
-	if not sAbilityType then return {}; end
-	local result = {};
-	local basis, difficulty = sAbilityType:match("^(%a+)[/]([%a%s]+)");
-	if not basis or not difficulty then
-		return result;
+	if not sAbilityType or sAbilityType == '' then 
+		return; 
 	end
 
+	local basis, difficulty = sAbilityType:match("^(%a+)[/]([%a%s]+)");
+	if not basis or not difficulty then
+		return;
+	end
+
+	local result = {};
 	result.basis = basis;
 	result.difficulty = difficulty;
-	if difficulty:len() > 2 then
-		difficulty = difficulty:lower();
-		if difficulty == "easy" then
-			result.difficulty = "E";
-		elseif difficulty == "average" then
-			result.difficulty = "A";
-		elseif difficulty == "hard" then
-			result.difficulty = "H";
-		elseif difficulty == "very hard" then
-			result.difficulty = "VH";
-		else
-			return result;
-		end
+
+	if difficulty:lower() == "easy" then
+		result.difficulty = "E";
+	elseif difficulty:lower() == "average" then
+		result.difficulty = "A";
+	elseif difficulty:lower() == "hard" then
+		result.difficulty = "H";
+	elseif difficulty:lower() == "very hard" then
+		result.difficulty = "VH";
 	end
 
 	return result;
 end
 
 function calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, defaultsLine, level_adj)
-	if not nodeChar then 
-		return; 
-	end
+	if not nodeChar then return end
 
 	local typeInfo = getBasisAndDiffFromType(abilityType);
-	if not typeInfo.basis or not typeInfo.difficulty then
+	if not typeInfo then
 		return;
 	end
 
 	local nameInfo = parseAbilityExpression(abilityName);
-	if not nameInfo or nameInfo.name == "" then
+	if not nameInfo then
 		return;
 	end
 
-	local type = typeInfo.basis .. "/" .. typeInfo.difficulty;
-	local name = nameInfo.name;
-	local basis = DEFAULT_BASIS_NAME;
-	local level = 0;
-	local relativelevel = "";
 	local defaultsInfo = parseAbilityDefaults(nodeChar, defaultsLine);
+
+	type = typeInfo.basis .. "/" .. typeInfo.difficulty;
+	name = nameInfo.name;
+	local basis = DEFAULT_BASIS_NAME;
+	local level = level_adj;
+	local relativelevel = "";
+
+--	basis = "Unknown";
+--	relativelevel = makeRelativeLevelString("Unk", level - 10);
 
 	-- figure out the best default in the table.
 	local bestDefaultExpression = "";
-	local bestDefaultLevel = -999;
+	local bestDefaultLevel = 0;
 	local bestDefault = nil;
 	for expr, statInfo in pairs(defaultsInfo) do
-		if statInfo.defaultInfo.level > bestDefaultLevel and not isBasedOnAbility(statInfo.name, nodeChar, name) then
+		if statInfo.defaultInfo.level > bestDefaultLevel and not isBasedOnAbility(nodeChar, statInfo.name, name) then
 			bestDefaultLevel = statInfo.defaultInfo.level;
 			bestDefaultExpression = expr;
 			bestDefault = statInfo;
@@ -369,7 +377,7 @@ function calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, defau
 
 	if typeInfo.basis == "Tech" then -- this is a technique.
 		if bestDefault then
-			level = bestDefaultLevel;
+			level = level + bestDefaultLevel;
 			if bestDefault.statType ~= "attribute" then
 				basis = bestDefault.name;
 			end
@@ -382,39 +390,31 @@ function calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, defau
 				end
 			end
 
-			level = level + level_adj;
 			relativelevel = makeRelativeLevelString("Def", level - bestDefaultLevel);
-		else
-			basis = "Unknown";
-			level = level_adj;
-			relativelevel = makeRelativeLevelString("Unk", level - 10);
 		end
 	elseif nameInfo.wild then -- this is a wildcard ability.
 		local baseStat = ActorManagerGURPS4e.getStat(nodeChar, typeInfo.basis);
 		if baseStat and baseStat.statType == "attribute" then -- wildcards can only be based on attributes.
 			if totalCP >= 6 then
-				level = baseStat.level + math.floor(totalCP/12) - 2;
+				level = level + baseStat.level + math.floor(totalCP/12) - 2;
 			elseif totalCP >= 3 then
-				level = baseStat.level - 3;
+				level = level + baseStat.level - 3;
 			end
 
-			level = level + level_adj;
 			relativelevel = makeRelativeLevelString(typeInfo.basis, level - baseStat.level);
-		else
-			basis = "Unknown";
-			level = level_adj;
-			relativelevel = makeRelativeLevelString("Unk", level - 10);
 		end
 	else -- this is a typical ability.
 		local baseStat = ActorManagerGURPS4e.getStat(nodeChar, typeInfo.basis);
 		if baseStat then
 			if totalCP <= 0 then -- this skill is based on a default.
 				if bestDefault then
-					level = bestDefaultLevel;
+					level = level + bestDefaultLevel;
 					if bestDefault.statType ~= "attribute" then
 						basis = bestDefault.name;
 					end
 				end
+
+				relativelevel = makeRelativeLevelString("Def", level - baseStat.level);
 			else -- we spent points on this.
 				if bestDefault then -- Improving Skills from Default (B:173)
 					if bestDefault.statType ~= "attribute" then
@@ -427,9 +427,9 @@ function calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, defau
 				end
 
 				if totalCP >= 2 then
-					level = baseStat.level + math.floor(totalCP/4) - 2;
+					level = level + baseStat.level + math.floor(totalCP/4) - 2;
 				else
-					level = baseStat.level - 3;
+					level = level + baseStat.level - 3;
 				end
 
 				if typeInfo.difficulty == "E" then
@@ -439,26 +439,20 @@ function calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, defau
 				elseif typeInfo.difficulty == "H" then
 					level = level + 1;
 				end
-			end
 
-			level = level + level_adj;
-			relativelevel = makeRelativeLevelString(typeInfo.basis, level - baseStat.level);
+				relativelevel = makeRelativeLevelString(typeInfo.basis, level - baseStat.level);
+				if bestDefaultLevel == level then
+					relativelevel = makeRelativeLevelString("Def", level - baseStat.level);
+				end
+			end
 		end
 	end
 
 	result = {};
-	result.typeInfo = typeInfo;
-	result.type = type;
-	result.nameInfo = nameInfo;
-	result.name = name;
 	result.basis = basis;
 	result.level = level;
-	result.defaultsInfo = defaultsInfo;
-	result.defaults = defaultsLine;
-	result.bestDefault = bestDefault;
-	result.bestDefaultLevel = bestDefaultLevel;
-	result.bestDefaultExpression = bestDefaultExpression;
 	result.relativelevel = relativelevel;
+	
 	return result;
 end
 
@@ -472,7 +466,7 @@ function reconcileAbilitiesBasedOn(nodeActor, sBasis)
 	if list then
 		for _,nodeSkill in pairs(list.getChildren()) do
 			local typeInfo = getBasisAndDiffFromType(DB.getValue(nodeSkill, "type", ""));
-			if typeInfo.basis == sBasis then
+			if typeInfo and typeInfo.basis == sBasis then
 				CharAbilityManager.reconcileSkill(nodeSkill);
 			end
 		end
@@ -482,7 +476,7 @@ function reconcileAbilitiesBasedOn(nodeActor, sBasis)
 	if list then
 		for _,nodeSpell in pairs(list.getChildren()) do
 			local typeInfo = getBasisAndDiffFromType(DB.getValue(nodeSpell, "type", ""));
-			if typeInfo.basis == sBasis then
+			if typeInfo and typeInfo.basis == sBasis then
 				CharAbilityManager.reconcileSpell(nodeSpell);
 			end
 		end
@@ -492,7 +486,7 @@ function reconcileAbilitiesBasedOn(nodeActor, sBasis)
 	if list then
 		for _,nodePower in pairs(list.getChildren()) do
 			local typeInfo = getBasisAndDiffFromType(DB.getValue(nodePower, "type", ""));
-			if typeInfo.basis == sBasis then
+			if typeInfo and typeInfo.basis == sBasis then
 				CharAbilityManager.reconcileSpell(nodePower);
 			end
 		end
@@ -540,12 +534,12 @@ function makeRelativeLevelString(sBasis, numRelative)
 	return basis .. tostring(numRelative);
 end
 
-function isBasedOnAbility(abilityName, nodeCharacter, abilityNameToFind)
-	if not nodeCharacter then
+function isBasedOnAbility(nodeChar, abilityName, abilityNameToFind)
+	if not nodeChar then
 		return false;
-	elseif not abilityName then
+	elseif not abilityName or abilityName == '' then
 		return false;
-	elseif not abilityNameToFind then
+	elseif not abilityNameToFind or abilityNameToFind == ''  then
 		return false;
 	end
 
@@ -553,7 +547,7 @@ function isBasedOnAbility(abilityName, nodeCharacter, abilityNameToFind)
 		return true;
 	end
 
-	local statInfo = ActorManagerGURPS4e.getStat(nodeCharacter, abilityName);
+	local statInfo = ActorManagerGURPS4e.getStat(nodeChar, abilityName);
 	if not statInfo then
 		return false;
 	elseif statInfo.statType == "attribute" then
@@ -564,7 +558,7 @@ function isBasedOnAbility(abilityName, nodeCharacter, abilityNameToFind)
 		return false;
 	end
 
-	return isBasedOnAbility(statInfo.basis, nodeCharacter, abilityNameToFind);
+	return isBasedOnAbility(nodeChar, statInfo.basis, abilityNameToFind);
 end
 
 function addAbility(nodeChar, nodeAbility)

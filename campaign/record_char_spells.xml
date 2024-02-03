@@ -15,10 +15,12 @@
       end
     </script>
 		<sheetdata>
-		
 			<frame_char name="spellsframe">
-				<bounds>15,0,-28,-13</bounds>
-			</frame_char>
+        <anchored position="insidetopleft">
+          <right />
+          <bottom />
+        </anchored>
+      </frame_char>
 			<label_frametop>
 				<anchored to="spellsframe" />
 				<static textres="char_label_spells" />
@@ -197,7 +199,8 @@
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
 				<tabtarget prev="type" next="time" />
-			</number_charpointfield>
+        <min>0</min>
+      </number_charpointfield>
 			<stringfield name="type">
 				<anchored to="rightanchor" width="35" height="20">
 					<top offset="2" />
@@ -451,9 +454,11 @@
 			<label_column name="points_label">
 				<static textres="ability_grouped_label_points" />
 			</label_column>
-			<number_columnh name="points" />
+      <number_columnh name="points">
+        <min>0</min>
+      </number_columnh>
 
-			<label_column name="college_label">
+      <label_column name="college_label">
 				<static textres="ability_spellcollege_label" />
 			</label_column>
 			<string_columnh name="college" />

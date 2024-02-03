@@ -25,12 +25,6 @@ function onSectionChanged(sKey)
 	local sSectionName = "sub_" .. sKey;
 	local cSection = self[sSectionName];
 	if cSection then
-		if bShow then
-			local sSectionClass = "ct_section_" .. sKey;
-			cSection.setValue(sSectionClass, getDatabaseNode());
-		else
-			cSection.setValue("", "");
-		end
 		cSection.setVisible(bShow);
 	end
 end

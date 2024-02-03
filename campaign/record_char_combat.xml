@@ -22,7 +22,7 @@
 			<!-- CURRENT STATS -->
 			
 			<frame_char name="currentattributesframe">
-				<bounds>15,0,210,100</bounds>
+        <anchored position="insidetopleft" offset="0,0" width="210" height="100" />
 			</frame_char>
 			<label_frametop>
 				<anchored to="currentattributesframe" />
@@ -107,7 +107,7 @@
 
       <!-- DEFENSES -->
 			<frame_char name="defensesframe">
-				<bounds>225,0,270,100</bounds>
+        <anchored position="insidetopleft" offset="210,0" width="270" height="100" />
 			</frame_char>
 			<label_frametop>
 				<anchored to="defensesframe" />
@@ -159,18 +159,27 @@
 
 
 			<subwindow name="meleecombat">
-				<bounds>0,100,-1,-2</bounds>
+        <anchored position="insidetopleft" offset="0,100">
+          <bottom />
+          <right />
+        </anchored>
 				<class>charsheet_meleecombat</class>
 			</subwindow>
 
 			<subwindow name="rangedcombat">
-				<bounds>0,100,-1,-2</bounds>
-				<class>charsheet_rangedcombat</class>
+        <anchored position="insidetopleft" offset="0,100">
+          <bottom />
+          <right />
+        </anchored>
+        <class>charsheet_rangedcombat</class>
 			</subwindow>
 
 			<subwindow name="defenses">
-				<bounds>0,100,-1,-2</bounds>
-				<class>charsheet_defenses</class>
+        <anchored position="insidetopleft" offset="0,100">
+          <bottom />
+          <right />
+        </anchored>
+        <class>charsheet_defenses</class>
 			</subwindow>
 
 			<tabs_charcombat>
@@ -190,5 +199,4 @@
 			</tabs_charcombat>
 		</sheetdata>
 	</windowclass>
-
 </root>

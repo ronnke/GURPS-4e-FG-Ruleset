@@ -21,18 +21,23 @@ function onInit()
 end
 
 function onTabletopInit()
-	DB.addHandler("charsheet.*.attributes.strength", "onUpdate", CharManager.onStrengthChanged);
-	DB.addHandler("charsheet.*.attributes.dexterity", "onUpdate", CharManager.onDexterityChanged);
-	DB.addHandler("charsheet.*.attributes.intelligence", "onUpdate", CharManager.onIntelligenceChanged);
-	DB.addHandler("charsheet.*.attributes.health", "onUpdate", CharManager.onHealthChanged);
-	DB.addHandler("charsheet.*.attributes.hitpoints", "onUpdate", CharManager.onHitPointsChanged);
-	DB.addHandler("charsheet.*.attributes.will", "onUpdate", CharManager.onWillChanged);
-	DB.addHandler("charsheet.*.attributes.perception", "onUpdate", CharManager.onPerceptionChanged);
-	DB.addHandler("charsheet.*.attributes.fatiguepoints", "onUpdate", CharManager.onFatiguePointsChanged);
+	if Session.IsHost then
+		DB.addHandler("charsheet.*.attributes.strength", "onUpdate", CharManager.onStrengthChanged);
+		DB.addHandler("charsheet.*.attributes.dexterity", "onUpdate", CharManager.onDexterityChanged);
+		DB.addHandler("charsheet.*.attributes.intelligence", "onUpdate", CharManager.onIntelligenceChanged);
+		DB.addHandler("charsheet.*.attributes.health", "onUpdate", CharManager.onHealthChanged);
+		DB.addHandler("charsheet.*.attributes.hitpoints", "onUpdate", CharManager.onHitPointsChanged);
+		DB.addHandler("charsheet.*.attributes.will", "onUpdate", CharManager.onWillChanged);
+		DB.addHandler("charsheet.*.attributes.perception", "onUpdate", CharManager.onPerceptionChanged);
+		DB.addHandler("charsheet.*.attributes.fatiguepoints", "onUpdate", CharManager.onFatiguePointsChanged);
 
-	DB.addHandler("charsheet.*.traits.resourcelist.*.min_level", "onUpdate", CharManager.onResourceChanged);
-	DB.addHandler("charsheet.*.traits.resourcelist.*.max_level", "onUpdate", CharManager.onResourceChanged);
-	DB.addHandler("charsheet.*.traits.resourcelist.*.resource_level", "onUpdate", CharManager.onResourceChanged);
+		DB.addHandler("charsheet.*.traits.resourcelist.*.min_level", "onUpdate", CharManager.onResourceChanged);
+		DB.addHandler("charsheet.*.traits.resourcelist.*.max_level", "onUpdate", CharManager.onResourceChanged);
+		DB.addHandler("charsheet.*.traits.resourcelist.*.resource_level", "onUpdate", CharManager.onResourceChanged);
+
+		DB.addHandler("charsheet.*.attributes.injury", "onUpdate", CharManager.onInjuryChanged);
+		DB.addHandler("charsheet.*.attributes.fatigue", "onUpdate", CharManager.onFatigueChanged);
+	end
 end
 
 function onCharItemAdd(nodeItem)
@@ -93,19 +98,29 @@ end
 
 function onResourceChanged(nodeField)
 	local nodeResource = DB.getChild(nodeField, "..");
-	local resourceLevel = DB.getValue(nodeResource, "resource_level");
+	local resourceLevel = DB.getValue(nodeResource, "resource_level", 0);
 
-	local min = DB.getValue(nodeResource, "min_level");
+	local min = DB.getValue(nodeResource, "min_level", 0);
 	if min and resourceLevel < min then
 		DB.setValue(nodeResource, "resource_level", "number", min);
 		return;
 	end
 
-	local max = DB.getValue(nodeResource, "max_level");
+	local max = DB.getValue(nodeResource, "max_level", 0);
 	if max and resourceLevel > max then
 		DB.setValue(nodeResource, "resource_level", "number", max);
 		return;
 	end
+end
+
+function onInjuryChanged(nodeField)
+	local nodeChar = DB.getChild(nodeField, "...");
+	ActionDamage.updateDamage(nodeChar);
+end
+
+function onFatigueChanged(nodeField)
+	local nodeChar = DB.getChild(nodeField, "...");
+	ActionFatigue.updateFatigue(nodeChar);
 end
 
 function getResourceColor(nodeResource)
@@ -124,34 +139,6 @@ function getResourceColor(nodeResource)
 	end
 
 	return COLOR_RESOURCE_USED;
-end
-
-function onAdvantageUpdated(nodeField)
-	local advantageName = nodeField.getName();
-	local advantage = nodeField.getParent();
-	if advantageName == "points" then
-		local points = DB.getValue(advantage, "points", 0);
-		if points < 0 then
-			-- Note: This can cause a recursion warning. Since we are terminating the function
-			-- right now anyway, this is okay.
-			DB.setValue(advantage, "points", "number", 0);
-			return;
-		end
-	end
-end
-
-function onDisadvantageUpdated(nodeField)
-	local disadvantageName = nodeField.getName();
-	local disadvantage = nodeField.getParent();
-	if disadvantageName == "points" then
-		local points = DB.getValue(disadvantage, "points", 0);
-		if points > 0 then
-			-- Note: This can cause a recursion warning. Since we are terminating the function
-			-- right now anyway, this is okay.
-			DB.setValue(disadvantage, "points", "number", 0);
-			return;
-		end
-	end
 end
 
 function updatePointsTotal(nodeChar)

@@ -8,10 +8,10 @@
     <margins control="0,0,0,2" />
     <sheetdata>
 
-<!-- Character Details -->
+      <!-- Character Details -->
 
 			<frame_char name="detailframe">
-				<bounds>0,0,480,80</bounds>
+        <anchored position="insidetopleft" offset="0,0" width="480" height="80" />
 			</frame_char>
 			<string_labeled name="race" source="traits.race">
 				<anchored to="detailframe" position="insidetopleft" offset="15,10" width="150" height="20" />
@@ -46,7 +46,7 @@
 <!-- Attributes -->
 
 			<frame_char name="basicattributesframe">
-				<bounds>0,80,180,225</bounds>
+        <anchored position="insidetopleft" offset="0,80" width="180" height="225" />
 			</frame_char>
 			
 			<label_frametop>
@@ -174,7 +174,7 @@
 <!-- Current Attributes -->
 
 			<frame_char name="currentattributesframe">
-				<bounds>0,305,180,100</bounds>
+        <anchored position="insidetopleft" offset="0,305" width="180" height="100" />
 			</frame_char>
 			
 			<label_frametop>
@@ -220,10 +220,8 @@
       <!-- Languages -->
 
 			<frame_char name="languagesframe">
-				<anchored>
-					<top offset="405"/>
-					<bottom offset="-15"/>
-					<left offset="0"/>
+        <anchored position="insidetopleft" offset="0,405">
+					<bottom />
 					<right anchor="center" offset="40"/>
 				</anchored>
 			</frame_char>
@@ -305,11 +303,10 @@
 <!-- Cultural Familiarity-->
 
 			<frame_char name="culturalfamiliarityframe">
-				<anchored>
-					<top offset="395"/>
-					<bottom offset="-15"/>
+        <anchored position="insidetopleft" offset="0,405">
+					<bottom />
 					<left anchor="center" offset="40"/>
-					<right offset="-29"/>
+					<right />
 				</anchored>
 			</frame_char>
 			
@@ -357,17 +354,23 @@
 <!-- Tabs-->
 
 			<subwindow name="secondarycharacteristics">
-				<bounds>180,80,-1,315</bounds>
+        <anchored position="insidetopleft" offset="180,80" height="325">
+          <right />
+        </anchored>
 				<class>charsheet_secondarycharacteristics</class>
 			</subwindow>
 
 			<subwindow name="reactionmodifiers">
-				<bounds>195,80,-1,315</bounds>
-				<class>charsheet_reactionmodifiers</class>
+        <anchored position="insidetopleft" offset="180,80" height="325">
+          <right />
+        </anchored>
+        <class>charsheet_reactionmodifiers</class>
 			</subwindow>
 
       <subwindow name="resources">
-        <bounds>195,80,-1,315</bounds>
+        <anchored position="insidetopleft" offset="180,80" height="325">
+          <right />
+        </anchored>
         <class>charsheet_resources</class>
       </subwindow>
 

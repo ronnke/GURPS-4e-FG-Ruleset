@@ -8,25 +8,36 @@
 <root>
 	<windowclass name="charsheet_abilities">
     <sheetdata>
-		
 			<subwindow name="skills">
-				<bounds>0,0,-1,-2</bounds>
+        <anchored position="insidetopleft" offset="0,0">
+          <bottom />
+          <right />
+        </anchored>
 				<class>charsheet_skills</class>
 			</subwindow>
 
 			<subwindow name="spells">
-				<bounds>0,0,-1,-2</bounds>
-				<class>charsheet_spells</class>
+        <anchored position="insidetopleft" offset="0,0">
+          <bottom />
+          <right />
+        </anchored>
+        <class>charsheet_spells</class>
 			</subwindow>
 
 			<subwindow name="powers">
-				<bounds>0,0,-1,-2</bounds>
-				<class>charsheet_powers</class>
+        <anchored position="insidetopleft" offset="0,0">
+          <bottom />
+          <right />
+        </anchored>
+        <class>charsheet_powers</class>
 			</subwindow>
 
 			<subwindow name="other">
-				<bounds>0,0,-1,-2</bounds>
-				<class>charsheet_other</class>
+        <anchored position="insidetopleft" offset="0,0">
+          <bottom />
+          <right />
+        </anchored>
+        <class>charsheet_other</class>
 			</subwindow>
 
 			<tabs_charabilities>
@@ -51,5 +62,4 @@
 		
 		</sheetdata>
 	</windowclass>
-
 </root>

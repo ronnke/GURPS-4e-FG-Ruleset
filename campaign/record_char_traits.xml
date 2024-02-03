@@ -11,12 +11,10 @@
     <sheetdata>
 			<!-- ADVANTAGES / PERKS -->
 			<frame_char name="adsperksframe">
-				<anchored>
-					<top />
-					<bottom anchor="center" offset="-15"/>
-					<left />
-					<right offset="-29"/>
-				</anchored>
+        <anchored position="insidetopleft">
+          <bottom anchor="center" offset="-15" />
+          <right />
+        </anchored>
 			</frame_char>
 			<label_frametop>
 				<anchored to="adsperksframe" />
@@ -94,12 +92,11 @@
 
 			<!-- DISADVANTAGES / QUIRKS -->
 			<frame_char name="disadsquirksframe">
-				<anchored>
-					<top anchor="center" offset="-15"/>
-					<bottom offset="-15"/>
-					<left offset="15"/>
-					<right offset="-29"/>
-				</anchored>
+        <anchored position="insidetopleft">
+          <top anchor="center" offset="-15"/>
+          <bottom />
+          <right />
+        </anchored>
 			</frame_char>
 			<label_frametop>
 				<anchored to="disadsquirksframe" />

@@ -15,10 +15,12 @@
       end
     </script>
 		<sheetdata>
-		
 			<frame_char name="otherframe">
-				<bounds>15,0,-28,-13</bounds>
-			</frame_char>
+        <anchored position="insidetopleft">
+          <right />
+          <bottom />
+        </anchored>
+      </frame_char>
 			<label_frametop>
 				<anchored to="otherframe" />
 				<static textres="char_label_other" />
@@ -156,7 +158,8 @@
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
 				<tabtarget prev="level" />
-			</number_charpointfield>
+        <min>0</min>
+      </number_charpointfield>
 			<number_charlevelfield name="level">
 				<rollable_other />
 				<anchored to="rightanchor" width="20" height="20">
@@ -290,7 +293,9 @@
       <label_column name="points_label">
         <static textres="ability_points_label" />
       </label_column>
-      <number_columnh name="points" />
+      <number_columnh name="points">
+        <min>0</min>
+      </number_columnh>
 
       <label_column name="otherlevel_label">
         <static textres="ability_otherlevel_label" />

@@ -11,25 +11,17 @@ function onInit()
 
 	self.onSkipChanged();
     
-    DB.addHandler(DB.getPath(getDatabaseNode(), "attributes.hitpoints"), "onUpdate", self.onHitPointsChanged);
-    DB.addHandler(DB.getPath(getDatabaseNode(), "attributes.fatiguepoints"), "onUpdate", self.onFatiguePointsChanged);
     DB.addHandler(DB.getPath(getDatabaseNode(), "injury"), "onUpdate", self.onInjuryChanged);
     DB.addHandler(DB.getPath(getDatabaseNode(), "fatigue"), "onUpdate", self.onFatigueChanged);
-    DB.addHandler(DB.getPath(getDatabaseNode(), "sizemodifier"), "onUpdate", self.onSMReachChanged);
-    DB.addHandler(DB.getPath(getDatabaseNode(), "reach"), "onUpdate", self.onSMReachChanged);
---    DB.addHandler(DB.getPath(getDatabaseNode(), "hps"), "onUpdate", self.onHPSChanged);
---    DB.addHandler(DB.getPath(getDatabaseNode(), "fps"), "onUpdate", self.onFPSChanged);
+    DB.addHandler(DB.getPath(getDatabaseNode(), "traits.sizemodifier"), "onUpdate", self.onSMReachChanged);
+    DB.addHandler(DB.getPath(getDatabaseNode(), "traits.reach"), "onUpdate", self.onSMReachChanged);
 end
 
 function onClose()
-    DB.removeHandler(DB.getPath(getDatabaseNode(), "attributes.hitpoints"), "onUpdate", self.onHitPointsChanged);
-    DB.removeHandler(DB.getPath(getDatabaseNode(), "attributes.fatiguepoints"), "onUpdate", self.onFatiguePointsChanged);
     DB.removeHandler(DB.getPath(getDatabaseNode(), "injury"), "onUpdate", self.onInjuryChanged);
     DB.removeHandler(DB.getPath(getDatabaseNode(), "fatigue"), "onUpdate", self.onFatigueChanged);
-    DB.removeHandler(DB.getPath(getDatabaseNode(), "sizemodifier"), "onUpdate", self.onSMReachChanged);
-    DB.removeHandler(DB.getPath(getDatabaseNode(), "reach"), "onUpdate", self.onSMReachChanged);
---    DB.removeHandler(DB.getPath(getDatabaseNode(), "hps"), "onUpdate", self.onHPSChanged);
---    DB.removeHandler(DB.getPath(getDatabaseNode(), "fps"), "onUpdate", self.onFPSChanged);
+    DB.removeHandler(DB.getPath(getDatabaseNode(), "traits.sizemodifier"), "onUpdate", self.onSMReachChanged);
+    DB.removeHandler(DB.getPath(getDatabaseNode(), "traits.reach"), "onUpdate", self.onSMReachChanged);
 end
 
 function onActiveChanged()
@@ -52,13 +44,13 @@ function getSectionToggle(sKey)
 	return bResult;
 end
 
-function onHitPointsChanged(nodeField)
-    hitpoints.setValue(nodeField.getValue());
+function onHitPointsChanged(nValue)
+    hitpoints.setValue(nValue);
 	self.onInjuryChanged();
 end
 
-function onFatiguePointsChanged(nodeField)
-    fatiguepoints.setValue(nodeField.getValue());
+function onFatiguePointsChanged(nValue)
+    fatiguepoints.setValue(nValue);
 	self.onFatigueChanged();
 end
 

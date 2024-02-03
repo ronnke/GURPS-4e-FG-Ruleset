@@ -8,14 +8,16 @@ function onInit()
 end
 
 function onTabletopInit()
-	DB.addHandler("charsheet.*.attributes.basiclift", "onUpdate", CharEncumbranceManagerGURPS4e.onBasicLiftChange);
-	DB.addHandler("charsheet.*.attributes.halfmovedodge", "onUpdate", CharEncumbranceManagerGURPS4e.onHalfMoveDodgeChange);
+	if Session.IsHost then
+		DB.addHandler("charsheet.*.attributes.basiclift", "onUpdate", CharEncumbranceManagerGURPS4e.onBasicLiftChange);
+		DB.addHandler("charsheet.*.attributes.halfmovedodge", "onUpdate", CharEncumbranceManagerGURPS4e.onHalfMoveDodgeChange);
 
-	DB.addHandler("charsheet.*.encumbrance.enc0_weight", "onUpdate", CharEncumbranceManagerGURPS4e.onEncumbranceFieldChange);
-	DB.addHandler("charsheet.*.encumbrance.enc1_weight", "onUpdate", CharEncumbranceManagerGURPS4e.onEncumbranceFieldChange);
-	DB.addHandler("charsheet.*.encumbrance.enc2_weight", "onUpdate", CharEncumbranceManagerGURPS4e.onEncumbranceFieldChange);
-	DB.addHandler("charsheet.*.encumbrance.enc3_weight", "onUpdate", CharEncumbranceManagerGURPS4e.onEncumbranceFieldChange);
-	DB.addHandler("charsheet.*.encumbrance.enc4_weight", "onUpdate", CharEncumbranceManagerGURPS4e.onEncumbranceFieldChange);
+		DB.addHandler("charsheet.*.encumbrance.enc0_weight", "onUpdate", CharEncumbranceManagerGURPS4e.onEncumbranceFieldChange);
+		DB.addHandler("charsheet.*.encumbrance.enc1_weight", "onUpdate", CharEncumbranceManagerGURPS4e.onEncumbranceFieldChange);
+		DB.addHandler("charsheet.*.encumbrance.enc2_weight", "onUpdate", CharEncumbranceManagerGURPS4e.onEncumbranceFieldChange);
+		DB.addHandler("charsheet.*.encumbrance.enc3_weight", "onUpdate", CharEncumbranceManagerGURPS4e.onEncumbranceFieldChange);
+		DB.addHandler("charsheet.*.encumbrance.enc4_weight", "onUpdate", CharEncumbranceManagerGURPS4e.onEncumbranceFieldChange);
+	end
 end
 
 function onHalfMoveDodgeChange(nodeField)

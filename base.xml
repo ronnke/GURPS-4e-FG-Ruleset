@@ -81,7 +81,6 @@
 
   <!-- Desktop -->
 	<includefile source="desktop/desktop_classes.xml" />
-	<includefile source="desktop/desktop_panels.xml" />
   <script name="CharacterListManager2" file="desktop/scripts/manager_characterlist2.lua" />
 
   <!-- Combat tracker -->
@@ -92,8 +91,9 @@
   <includefile source="ct/ct_host_entry.xml" />
   <includefile source="ct/ct_host_entry_section.xml" />
   <includefile source="ct/ct_client.xml" />
+  <includefile source="ct/ct_client_entry.xml" />
 
-	<!-- Utilities -->
+  <!-- Utilities -->
   <includefile source="utility/utility_effects.xml" />
   <includefile source="utility/templates_GURPS4e.xml" />
 
@@ -130,6 +130,6 @@
   <script name="ActionFatigue" file="scripts/manager_action_fatigue.lua" />
   <script name="ActionReaction" file="scripts/manager_action_reaction.lua" />
 
-	<script name="ModifierStack" file="desktop/scripts/modifierstack.lua" />		
+	<script name="ModifierStack" file="scripts/manager_modifierstack.lua" />		
 
 </root>

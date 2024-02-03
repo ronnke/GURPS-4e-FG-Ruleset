@@ -47,7 +47,9 @@
 	<string name="ct_label_dodge">Dodge</string>
 	<string name="ct_label_parry">Parry</string>
 	<string name="ct_label_block">Block</string>
-	<string name="ct_label_dr">DR</string>
+  <string name="ct_label_dr">DR</string>
+  <string name="ct_label_sthp">ST/HP</string>
+  <string name="ct_label_hndsr">Hnd/SR</string>
 
   <string name="ct_label_meleecombat">Melee</string>
   <string name="ct_label_rangedcombat">Ranged</string>

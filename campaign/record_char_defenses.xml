@@ -20,8 +20,11 @@
 		<sheetdata>
 
 			<frame_char name="defensesframe">
-				<bounds>15,0,-28,-13</bounds>
-			</frame_char>
+        <anchored position="insidetopleft">
+          <right />
+          <bottom />
+        </anchored>
+      </frame_char>
 			<label_frametop>
 				<anchored to="defensesframe" />
 				<static textres="char_label_defenses" />

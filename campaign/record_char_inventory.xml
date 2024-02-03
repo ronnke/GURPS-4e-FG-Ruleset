@@ -9,11 +9,11 @@
   <windowclass name="charsheet_inventory" merge="join">
     <sheetdata>
       <frame_char name="inventoryframe">
-        <bounds>15,0,-29,-205</bounds>
+        <bounds>0,0,-1,-205</bounds>
       </frame_char>
 
       <label_frametop name="inventory_label">
-        <anchored to="inventoryframe" width="40" />
+        <anchored to="inventoryframe" />
         <static textres="char_label_inventory" />
       </label_frametop>
 
@@ -56,7 +56,7 @@
       </button_iedit>
 
       <frame_char name="encumbranceframe">
-        <bounds>15,-205,240,-15</bounds>
+        <bounds>0,-205,240,-1</bounds>
       </frame_char>
       <simplenumber name="encumbranceload" source="encumbrance.load">
         <anchored to="encumbranceframe" position="insidetopleft" offset="150,30" width="70" height="20" />
@@ -80,7 +80,7 @@
       </label>
 
       <frame_char name="coinframe">
-        <bounds>255,-205,-29,-15</bounds>
+        <bounds>240,-205,-1,-1</bounds>
       </frame_char>
 
       <button_iadd_sub_charcurrency name="currency_iadd" merge="delete" />

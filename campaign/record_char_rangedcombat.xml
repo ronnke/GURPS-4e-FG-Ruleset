@@ -21,8 +21,11 @@
 
 			<!-- RANGED COMBAT -->
 			<frame_char name="rangedcombatframe">
-				<bounds>15,0,-28,-13</bounds>
-			</frame_char>
+        <anchored position="insidetopleft">
+          <right />
+          <bottom />
+        </anchored>
+      </frame_char>
 			<label_frametop>
 				<anchored to="rangedcombatframe" />
 				<static textres="char_label_rangedcombat" />

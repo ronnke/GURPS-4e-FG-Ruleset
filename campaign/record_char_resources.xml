@@ -8,10 +8,15 @@
 <root>
 	<windowclass name="charsheet_resources">
 		<sheetdata>
-		
-			<frame_char name="resourcesframe">
-				<bounds>0,0,-28,315</bounds>
-			</frame_char>
+
+<!-- Resources -->
+
+      <frame_char name="resourcesframe">
+        <anchored position="insidetopleft">
+          <right />
+          <bottom />
+        </anchored>
+      </frame_char>
 			
 			<label_frametop>
 				<anchored to="resourcesframe" />

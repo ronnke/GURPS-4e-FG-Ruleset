@@ -6,8 +6,7 @@
 -->
 
 <root>
-	<windowclass name="combattracker_client">
-		<frame>ctbox</frame>
+	<windowclass name="combattracker_client" merge="join">
 		<placement>
 			<size width="500" height="500" />
 		</placement>
@@ -15,8 +14,6 @@
 			<minimum width="450" height="350" />
 			<dynamic />
 		</sizelimits>
-		<softclose />
-		<nodelete />
 		<script>
       function onInit()
         OptionsManager.registerCallback("SHPC", updateHealthDisplay);
@@ -59,118 +56,37 @@
       end
     </script>
 		<sheetdata>
-			<windowtitlebar name="title">
-				<resource>ct_window_title</resource>
-			</windowtitlebar>
-			<anchor_title_ctbox name="contentanchor" />
+      <label_ct_header_init name="label_init" merge="delete" />
 
-			<anchor_ctbox_client_header />
-			<anchor_ct_label_right />
+      <label_ct_right name="label_status" insertbefore="label_name">
+        <anchored width="150" />
+        <static textres="ct_label_status" />
+      </label_ct_right>
 
-			<label_ct name="label_name">
-				<anchored>
-					<left parent="headeranchor" offset="-167" />
-					<top parent="rightanchor" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<static textres="ct_label_name" />
-				<center />
-			</label_ct>
-			
-			<label_ct name="label_speed">
-				<anchored to="headeranchor" position="insidetopright" offset="207,0" width="40" />
-				<static textres="ct_label_speed" />
-				<center />
-			</label_ct>
-	
-			<label_ct name="label_hps">
-				<anchored to="headeranchor" position="insidetopright" offset="167,0" width="40" />
-				<static textres="ct_label_hps" />
-				<center />
-			</label_ct>
-	
-			<label_ct name="label_fps">
-				<anchored to="headeranchor" position="insidetopright" offset="127,0" width="40" />
-				<static textres="ct_label_fps" />
-				<center />
-			</label_ct>
-
-      <label_ct name="label_injury">
-        <anchored to="headeranchor" position="insidetopright" offset="87,0" width="40" />
-        <static textres="ct_label_injury" />
-        <center />
-      </label_ct>
-
-      <label_ct name="label_fatigue">
-        <anchored to="headeranchor" position="insidetopright" offset="47,0" width="40" />
+      <label_ct_right name="label_fatigue" insertbefore="label_name">
+        <anchored width="30" />
         <static textres="ct_label_fatigue" />
-        <center />
-      </label_ct>
+      </label_ct_right>
 
-      <label_ct name="label_status">
-				<anchored to="headeranchor" position="insidetopright" offset="52,0" width="90" />
-				<static textres="ct_label_status" />
-				<center />
-			</label_ct>
-			
-			<list_ctbox_client />
-			<scrollbar_list />
-			
-			<button_ct_endturn name="turn_complete" />
-			
-			<label_ct_client_rounds />
-			<number_ct_client_rounds />
+      <label_ct_right name="label_injury" insertbefore="label_name">
+        <anchored width="30" />
+        <static textres="ct_label_injury" />
+      </label_ct_right>
 
-			<resize_ctbox />
-			<helper_ct />
-			<close_ctbox />
+      <label_ct_right name="label_fps" insertbefore="label_name">
+        <anchored width="30" />
+        <static textres="ct_label_fps" />
+      </label_ct_right>
+
+      <label_ct_right name="label_hps" insertbefore="label_name">
+        <anchored width="30" />
+        <static textres="ct_label_hps" />
+      </label_ct_right>
+
+      <label_ct_right name="label_speed" insertbefore="label_name">
+				<anchored width="40" />
+				<static textres="ct_label_speed" />
+			</label_ct_right>
 		</sheetdata>
 	</windowclass>
-
-	<windowclass name="client_ct_entry">
-		<margins control="0,0,0,2" />
-		<frame>ctentrybox</frame>
-		<script file="ct/scripts/clientct_entry.lua" />
-		<sheetdata>
-      <hidden_record_isidentified name="isidentified" />
-      <hlink_clientct name="link" />
-      <hs name="tokenrefid" />
-      <hs name="tokenrefnode" />
-      <hn name="tokenvis" />
-
-      <spacer_ctentry_active_top name="active_spacer_top" />
-
-      <button_clientct_active name="active" />
-      <token_clientct name="token" />
-
-      <anchor_ctentry_right name="rightanchor" />
-      <button_clientct_activateeffects name="activateeffects" />
-      <button_ctentry_friendfoe name="friendfoe" />
-
-      <base_clientct_health name="healthbase" />
-      <string_clientct_status name="status" />
-
-      <number_clientct_fatigue name="fatigue" />
-      <number_clientct_injury name="injury" />
-      <number_clientct_fps name="fps" />
-			<number_clientct_hps name="hps" />
-			<number_clientct_speed name="speed" />
-      
-      <string_clientct_name name="name" />
-      <string_clientct_name name="nonid_name">
-        <invisible />
-      </string_clientct_name>
-
-      <icon_clientctsection_effect name="effecticon" />
-      <spacer_clientctsection_effect name="effectspacer" />
-      <list_clientct_effect name="effects" />
-
-      <string_ct_entry_targets name="summary_targets" />
-      <string_ct_entry_effects name="effect_summary" />
-
-      <spacer_ctentry_middle name="spacer" />
-      <spacer_ctentry_active_bottom name="active_spacer_bottom" />
-    </sheetdata>
-	</windowclass>
-
 </root>

@@ -11,7 +11,9 @@
 
 			<!-- NOTES -->			
 			<frame_char name="notesframe">
-				<bounds>15,0,-190,240</bounds>
+        <anchored position="insidetopleft" offset="0,0" height="245">
+          <right offset="-160" />
+        </anchored>
 			</frame_char>
 			<label_frametop>
 				<anchored to="notesframe" />
@@ -50,7 +52,8 @@
 
 			<!-- POINT SUMMARY -->			
 			<frame_char name="summaryframe">
-				<bounds>-190,0,-29,240</bounds>
+        <anchored position="insidetopright" offset="0,0" width="160" height="245">
+        </anchored>
 			</frame_char>
 			<label_frametop>
 				<anchored to="summaryframe" />
@@ -148,7 +151,10 @@
       </label_charsheet>
 
 			<frame_char name="descriptionframe">
-				<bounds>15,240,-29,-15</bounds>
+        <anchored position="insidetopleft" offset="0,245">
+          <bottom />
+          <right />
+        </anchored>
 			</frame_char>
 			<label_frametop>
 				<anchored to="descriptionframe" />

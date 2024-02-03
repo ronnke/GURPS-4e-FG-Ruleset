@@ -12,6 +12,14 @@
     </button_checkbox>
   </template>
 
+  <template name="label_ct_ability">
+    <label_fieldtop>
+      <anchored offset="0,-5" height="13"/>
+      <frame name="attributelabel" />
+      <color>#000000</color>
+    </label_fieldtop>
+  </template>
+
   <template name="number_ct_ability">
     <number_ct>
       <anchored width="40" height="20" />

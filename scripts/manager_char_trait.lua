@@ -7,6 +7,19 @@ function onInit()
 -- TODO: Implement Trait Management
 end
 
+function onTabletopInit()
+	if Session.IsHost then
+--		DB.addHandler(DB.getPath("charsheet.*.traits.adslist.*.*"), "onUpdate", self.onAdvantageUpdated);
+--		DB.addHandler(DB.getPath("charsheet.*.traits.disadslist.*.*"), "onUpdate", self.onDisadvantageUpdated);
+	end
+end
+
+function onAdvantageUpdated(nodeField)
+end
+
+function onDisadvantageUpdated(nodeField)
+end
+
 function addTrait(nodeChar, nodeTrait)
 	if not nodeChar or not nodeTrait then  
 		return false;

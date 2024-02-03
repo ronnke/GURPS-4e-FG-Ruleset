@@ -4,8 +4,13 @@
 --
 
 function onInit()
-	DB.addHandler("charsheet.*.inventorylist.*.isidentified", "onUpdate", onItemIDChanged);
-	DB.addHandler("charsheet.*.inventorylist.*.carried", "onUpdate", onCarriedChanged);
+end
+
+function onTabletopInit()
+	if Session.IsHost then
+		DB.addHandler("charsheet.*.inventorylist.*.isidentified", "onUpdate", onItemIDChanged);
+		DB.addHandler("charsheet.*.inventorylist.*.carried", "onUpdate", onCarriedChanged);
+	end
 end
 
 function addItem(nodeItem)
@@ -94,7 +99,7 @@ end
 function onCarriedChanged(nodeField)
 	local nodeItem = nodeField.getChild("..");
 	local sItemNode = nodeItem.getPath();
-
+	
 	for _,v in pairs(DB.getChildren(nodeItem, "...combat.defenseslist")) do
 		local sClass, sRecord = DB.getValue(v, "shortcut", "", "");
 		if sRecord == sItemNode then

@@ -146,6 +146,8 @@ function onNPCPostAdd(tCustom)
     DB.setValue(tCustom.nodeCT, "skip", "number", 0);
 
     -- Setup
+    DB.setValue(tCustom.nodeCT, "basemove", "string", DB.getValue(tCustom.nodeRecord, "attributes.move", "0"));
+    DB.setValue(tCustom.nodeCT, "basedodge", "number", DB.getValue(tCustom.nodeRecord, "combat.dodge", 0));
     DB.setValue(tCustom.nodeCT, "speed", "number", tonumber(DB.getValue(tCustom.nodeRecord, "attributes.basicspeed", "0")));
     DB.setValue(tCustom.nodeCT, "hps", "number", DB.getValue(tCustom.nodeRecord, "attributes.hitpoints", 0));
     DB.setValue(tCustom.nodeCT, "fps", "number", DB.getValue(tCustom.nodeRecord, "attributes.fatiguepoints", 0));
@@ -163,28 +165,38 @@ function onVehiclePostAdd(tCustom)
     DB.setValue(tCustom.nodeCT, "skip", "number", 0);
     
     -- Setup
-    DB.createChild(tCustom.nodeCT, "attributes.strength", "number");
-    DB.createChild(tCustom.nodeCT, "attributes.health", "number");
-    DB.createChild(tCustom.nodeCT, "attributes.hitpoints", "number");
-    DB.createChild(tCustom.nodeCT, "attributes.fatiguepoints", "number");
-    DB.createChild(tCustom.nodeCT, "traits.sizemodifier", "string");
-    DB.createChild(tCustom.nodeCT, "attributes.move", "string");
-    DB.createChild(tCustom.nodeCT, "combat.dr", "string");
-
+    DB.setValue(tCustom.nodeCT, "basemove", "string", DB.getValue(tCustom.nodeRecord, "attributes.move", "0"));
+    DB.setValue(tCustom.nodeCT, "basedodge", "number", DB.getValue(tCustom.nodeRecord, "combat.dodge", 0));
     DB.setValue(tCustom.nodeCT, "speed", "number", 0);
     DB.setValue(tCustom.nodeCT, "hps", "number", ManagerGURPS4e.getVehicleHP(tCustom.nodeRecord));
     DB.setValue(tCustom.nodeCT, "fps", "number", 0);
     DB.setValue(tCustom.nodeCT, "attributes.hitpoints", "number", ManagerGURPS4e.getVehicleHP(tCustom.nodeRecord));
     DB.setValue(tCustom.nodeCT, "attributes.fatiguepoints", "number", 0);
-
-    DB.setValue(tCustom.nodeCT, "attributes.strength", "number", ManagerGURPS4e.getVehicleST(tCustom.nodeRecord));
-    DB.setValue(tCustom.nodeCT, "attributes.health", "number", ManagerGURPS4e.getVehicleHT(tCustom.nodeRecord));
     DB.setValue(tCustom.nodeCT, "traits.sizemodifier", "string", DB.getValue(tCustom.nodeRecord, "sm", 0));
-    DB.setValue(tCustom.nodeCT, "attributes.move", "string", DB.getValue(tCustom.nodeRecord, "move", 0));
+    DB.setValue(tCustom.nodeCT, "traits.reach", "string", 0);
     DB.setValue(tCustom.nodeCT, "combat.dr", "string", DB.getValue(tCustom.nodeRecord, "dr", 0));
 
     ActionDamage.updateDamage(tCustom.nodeCT);
     ActionFatigue.updateFatigue(tCustom.nodeCT);
+end
+
+function updateMoveDodge(nodeActor)
+	if not nodeActor then
+		return;
+	end
+
+	local move = tonumber(string.match(DB.getValue(nodeActor, "basemove", "0"), "%d+") or 0);
+	local dodge = DB.getValue(nodeActor, "basedodge", 0);
+
+	DB.setValue(nodeActor, "attributes.move", "string", move);  
+	DB.setValue(nodeActor, "combat.dodge", "number", dodge);  
+
+	if DB.getValue(nodeActor, "attributes.halfmovedodge", 0) == 1 then 
+		local halfMove = math.ceil(tonumber(string.match(DB.getValue(nodeActor, "attributes.move", "0"), "%d+") or 0) / 2);
+		local halfDodge = math.ceil(DB.getValue(nodeActor, "combat.dodge", 0) / 2);
+		DB.setValue(nodeActor, "attributes.move", "string", halfMove);  
+		DB.setValue(nodeActor, "combat.dodge", "number", halfDodge);  
+	end
 end
 
 function getSpaceReachFromActor(rActor)

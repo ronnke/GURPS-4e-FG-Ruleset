@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="client_ct_entry" merge="join">
+    <sizelimits>
+      <minimum height="40" />
+    </sizelimits>
+    <script file="ct/scripts/clientct_entry.lua" />
+		<sheetdata>
+
+      <number_clientct_init name="initresult" merge="delete" />
+
+      <base_clientct_health name="healthbase" insertbefore="name">
+        <anchored width="150" />
+      </base_clientct_health>
+      <string_clientct_status name="status" insertbefore="name" />
+
+      <number_clientct_fatigue name="fatigue" insertbefore="name" />
+      <number_clientct_injury name="injury" insertbefore="name" />
+      <number_clientct_fps name="fps" insertbefore="name" />
+			<number_clientct_hps name="hps" insertbefore="name" />
+			<number_clientct_speed name="speed" insertbefore="name" />
+      
+    </sheetdata>
+	</windowclass>
+
+</root>
