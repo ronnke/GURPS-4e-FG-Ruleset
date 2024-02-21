@@ -4,3 +4,5 @@
 - Adjust combat tracker reach based on weapon reach.
 - When draging weapon items to the inventory/combat list, the name is not added.
 - Allow PCs to remove friendly effect from the combat tracker.
+- Fix Point calculation, specifically disadvantages.
+- Look at the hidden, hard to see description edit box in skill/advantage note window.
