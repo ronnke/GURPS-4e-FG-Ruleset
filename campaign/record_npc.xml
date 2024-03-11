@@ -6,76 +6,48 @@
 -->
 
 <root>
-	<windowclass name="npc">
-		<frame>recordsheet</frame>
-		<placement>
-			<size width="525" height="405" />
-		</placement>
-		<sizelimits>
-			<minimum width="525" height="335" />
-			<dynamic />
-		</sizelimits>
-		<minimize>minimized_npc</minimize>
-		<tooltip field="name" />
+  <windowclass name="npc" copy="record_window_tabbed">
+    <sizelimits>
+      <minimum width="525" height="400" />
+    </sizelimits>
+    <minimize>minimized_npc</minimize>
     <gmexport>npc</gmexport>
-    <script file="campaign/scripts/npc.lua" />
-		<sheetdata>
-			<sub_record_header name="header">
-				<class>npc_header</class>
-			</sub_record_header>
-
-			<frame_record_content_tabbed name="contentframe" />
-
-			<subwindow_record name="main">
-				<class>npcsheet_main</class>
-			</subwindow_record>
-			<subwindow_record name="combat">
-				<class>npcsheet_combat</class>
-			</subwindow_record>
-			<subwindow_record name="abilities">
-				<class>npcsheet_abilities</class>
-			</subwindow_record>
-			<ft_record name="notes">
-				<anchored to="contentframe" position="over" />
-				<empty textres="ft_empty" />
-				<invisible />
-			</ft_record>
-
-			<scrollbar_record>
-				<target>main</target>
-			</scrollbar_record>
-			<scrollbar_record>
-				<target>combat</target>
-			</scrollbar_record>
-			<scrollbar_record>
-				<target>abilities</target>
-			</scrollbar_record>
-			<scrollbar_record>
-				<target>notes</target>
-			</scrollbar_record>
-
-			<tabs_recordsheet name="tabs" merge="join">
-				<tab>
-					<icon>tab_main</icon>
-					<subwindow>main</subwindow>
-				</tab>
-				<tab>
-					<icon>tab_combat</icon>
-					<subwindow>combat</subwindow>
-				</tab>
-				<tab>
-					<icon>tab_abilities</icon>
-					<subwindow>abilities</subwindow>
-				</tab>
-				<tab>
-					<icon>tab_notes</icon>
-					<subwindow>notes</subwindow>
-				</tab>
-			</tabs_recordsheet>
-			
-			<resize_recordsheet />
-			<close_recordsheet />
-		</sheetdata>
+    <tab>
+      <name>main</name>
+      <resource>tab_main</resource>
+      <class>npc_main</class>
+      <embed />
+    </tab>
+    <tab merge="add">
+      <name>combat</name>
+      <resource>tab_combat</resource>
+      <class>npc_combat</class>
+      <embed />
+    </tab>
+    <tab merge="add">
+      <name>abilities</name>
+      <resource>tab_abilities</resource>
+      <class>npc_abilities</class>
+      <embed />
+    </tab>
+    <tab merge="add">
+      <name>notes</name>
+      <resource>tab_notes</resource>
+      <class>record_content_text</class>
+      <embed />
+    </tab>
+		<script>
+			function onInit()
+				super.onInit();
+				self.onIDChanged();
+			end
+			function onIDChanged()
+				super.onLockChanged();
+				if not Session.IsHost then
+					local bID = LibraryData.getIDState("npc", getDatabaseNode(), true);
+					tabs.setVisibility(bID);
+				end
+			end
+		</script>
 	</windowclass>
-
 </root>

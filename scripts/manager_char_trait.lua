@@ -59,6 +59,8 @@ function addTrait(nodeChar, nodeTrait)
 		end
 
 		local nodeAdvantage = DB.createChild(nodeAdvantageList);
+		DB.setValue(nodeAdvantage, "type", "string", DB.getValue(nodeTrait,"type",""));  
+		DB.setValue(nodeAdvantage, "subtype", "string", DB.getValue(nodeTrait,"subtype",""));  
 		DB.setValue(nodeAdvantage, "name", "string", DB.getValue(nodeTrait,"name",""));  
 		DB.setValue(nodeAdvantage, "points", "number", DB.getValue(nodeTrait,"points",0));
 		DB.setValue(nodeAdvantage, "page", "string", DB.getValue(nodeTrait, "page", ""));
@@ -74,6 +76,8 @@ function addTrait(nodeChar, nodeTrait)
 		end
 
 		local nodeDisadvantage = DB.createChild(nodeDisadvantageList);
+		DB.setValue(nodeDisadvantage, "type", "string", DB.getValue(nodeTrait,"type",""));  
+		DB.setValue(nodeDisadvantage, "subtype", "string", DB.getValue(nodeTrait,"subtype",""));  
 		DB.setValue(nodeDisadvantage, "name", "string", DB.getValue(nodeTrait,"name",""));  
 		DB.setValue(nodeDisadvantage, "points", "number", DB.getValue(nodeTrait,"points",0));
 		DB.setValue(nodeDisadvantage, "page", "string", DB.getValue(nodeTrait, "page", ""));

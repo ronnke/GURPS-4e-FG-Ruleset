@@ -77,7 +77,8 @@
 	<icon name="tab_rangedcombat" file="graphics/tabs/tab_ranged.png" />
 	<icon name="tab_defenses" file="graphics/tabs/tab_defenses.png" />
 	<icon name="tab_inventory" file="graphics/tabs/tab_inventory.png" />
-	<icon name="tab_notes" file="graphics/tabs/tab_notes.png" />
+  <icon name="tab_systems" file="graphics/tabs/tab_systems.png" />
+  <icon name="tab_notes" file="graphics/tabs/tab_notes.png" />
 	
 	<!-- Fonts -->
 	<includefile source="graphics/graphics_fonts.xml" />

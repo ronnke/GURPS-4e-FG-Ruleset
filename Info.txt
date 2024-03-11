@@ -4,7 +4,7 @@ This unofficial GURPS Ruleset for Fantasy Grounds is developed with the permissi
 
 [B]GURPS 4E Core Ruleset - FG Unity [COLOR="#FF0000"](FG Unity only)[/COLOR][/B]
 FG Forge shop [I](FG Unity users only)[/I]: [URL="https://forge.fantasygrounds.com/shop/items/454/view"]FG Forge Shop[/URL]
-[I](Updated: 19th Nov 2023)[/I]
+[I](Updated: 12th Mar 2024)[/I]
 
 [B]GURPS 4E Core Ruleset - FG Classic [COLOR="#FF0000"](FG Classic only. The ruleset for FG Classic is no longer being updated[/COLOR])[/B]
 Download latest release from here: [URL="https://bit.ly/GURPS4ECore"]https://bit.ly/GURPS4ECore[/URL] 
@@ -14,7 +14,7 @@ Download latest release from here: [URL="https://bit.ly/GURPS4ECore"]https://bit
 
 [B]GURPS Core Theme for Unity[/B]
 Download the latest release of the GURPS Core theme from here: [URL="https://bit.ly/GURPSCoreUTheme"]https://bit.ly/GURPSCoreUTheme[/URL]
-[I](Updated: 20th Mar 2023)[/I]
+[I](Updated: 10th Mar 2024)[/I]
 [I](Courtesy of Gigermann)[/I]
 
 [B]GCA Exporter Files[/B]
@@ -47,7 +47,6 @@ Click the following link to have your input on future ruleset development/improv
 [LIST]
 [*]Add GURPS Character and Racial templates
 [*]Mini Sheets
-[*]Allow the adding of vehicles/mounts to the Combat Tracker
 [*]Hit Points by location (torso, arms, legs, shield, etc)
 [*]Heath status and effects to show in token mouseover(tooltip).
 [/LIST]
@@ -55,6 +54,16 @@ Click the following link to have your input on future ruleset development/improv
 
 [SIZE=4][B]Version Information[/B][/SIZE]
 
+[LIST]
+[*][B]GURPS 4e Ruleset v3.12.0[/B] - 12th Mar 2024 (FG Unity Only)
+- Fixed: Minor FG/CoreRPG (Ver 4.5) breaking changes.
+- Added: Ability to output Traits, Abilities, Items, Vehicles, and Notes to the chat window.
+- Other: Refactored ruleset code bring it inline with FG/CoreRPG changes.
+[/LIST]
+[LIST]
+[*][B]GURPS 4e Ruleset v3.11.1[/B] - 9th Mar 2024 (FG Unity Only)
+- Fixed: FG/CoreRPG (Ver 4.5) breaking changes.
+[/LIST]
 [LIST]
 [*][B]GURPS 4e Ruleset v3.10.3[/B] - 19th Nov 2023 (FG Unity Only)
 - Fixed: FG/CoreRPG breaking changes.

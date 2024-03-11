@@ -16,16 +16,16 @@ end
 function update()
 	local nodeRecord = getDatabaseNode();
 	local bReadOnly = WindowManager.getReadOnlyState(nodeRecord);
-
+	
 	local bSection1 = false;
 	if WindowManager.callSafeControlUpdate(self, "type", bReadOnly) then bSection1 = true; end;
 	if WindowManager.callSafeControlUpdate(self, "subtype", bReadOnly) then bSection1 = true; end;
+	if WindowManager.callSafeControlUpdate(self, "points", bReadOnly) then bSection1 = true; end;
+	if WindowManager.callSafeControlUpdate(self, "defaults", bReadOnly) then bSection1 = true; end;
 	if WindowManager.callSafeControlUpdate(self, "page", bReadOnly) then bSection1 = true; end;
+	if WindowManager.callSafeControlUpdate(self, "level_adj", bReadOnly) then bSection1 = true; end;
+	if WindowManager.callSafeControlUpdate(self, "points_adj", bReadOnly) then bSection1 = true; end;
 	divider1.setVisible(bSection1);
-	
-	local bSection2 = false;
-	if WindowManager.callSafeControlUpdate(self, "points", bReadOnly) then bSection2 = true; end;
-	divider2.setVisible(bSection2);
-	
-	text.setReadOnly(bReadOnly);
+
+	text.setReadOnly(bReadOnly)
 end

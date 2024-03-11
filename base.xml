@@ -6,7 +6,7 @@
 -->
 
 <root version="3.0" release="10" logo="logo.png">
-	<announcement text="GURPS 4E core ruleset v3.11.0 for Fantasy Grounds." font="emotefont" />
+	<announcement text="GURPS 4E core ruleset v3.12.0 for Fantasy Grounds." font="emotefont" />
 	<announcement text="Produced with the permission of Steve Jackson Games." font="emotefont" />
 	<announcement text="This work is based on GURPS 4E System and is the accumulated effort of several members of the Fantasy Grounds community. This release was authored by Brian Ronnle, building on previous releases by Eric Hilerio and Graham Brand. Contributors: Jesse Meigs (Jaxilon), Charles Durham (Baoghal)" font="emotefont" />
 	<announcement text="GURPS is a trademark of Steve Jackson Games, and its rules and art are copyrighted by Steve Jackson Games. All rights are reserved by Steve Jackson Games. This game aid is the original creation of the Fantasy Grounds GURPS community and is released for free distribution and not for resale under the permissions granted in the Steve Jackson Games Online Policy" font="emotefont" />
@@ -36,7 +36,6 @@
   <includefile source="common/template_GURPS4e.xml" />
 
   <!-- Campaign Records -->
-  <includefile source="campaign/campaign_masterindex.xml" />
   <includefile source="campaign/template_campaign.xml" />
 	<includefile source="campaign/template_char.xml" />
 	<includefile source="campaign/campaign_classes.xml" />
@@ -61,7 +60,7 @@
 	<includefile source="campaign/record_char_rangedcombat.xml" />
 	<includefile source="campaign/record_char_defenses.xml" />
 
-  <includefile source="campaign/record_charresource.xml" />
+  <includefile source="campaign/record_resource.xml" />
   <includefile source="campaign/record_charnote.xml" />
 
 	<includefile source="campaign/record_npc.xml" />
@@ -76,8 +75,16 @@
 	<includefile source="campaign/record_vehicle.xml" />
 
 	<includefile source="campaign/record_ability.xml" />
+  <includefile source="campaign/record_ability_skill.xml" />
+  <includefile source="campaign/record_ability_spell.xml" />
+  <includefile source="campaign/record_ability_power.xml" />
+  <includefile source="campaign/record_ability_other.xml" />
 
   <includefile source="campaign/record_trait.xml" />
+  <includefile source="campaign/record_trait_advantage.xml" />
+  <includefile source="campaign/record_trait_disadvantage.xml" />
+  <includefile source="campaign/record_trait_perk.xml" />
+  <includefile source="campaign/record_trait_quirk.xml" />
 
   <!-- Desktop -->
 	<includefile source="desktop/desktop_classes.xml" />
@@ -114,6 +121,7 @@
 	<script name="StringManagerGURPS4e" file="scripts/manager_string_GURPS4e.lua" />
 	<script name="VersionManagerGURPS4e" file="scripts/manager_version_GURPS4e.lua" />
 	<script name="ImageManagerGURPS4e" file="scripts/manager_image_GURPS4e.lua" />
+  <script name="RecordShareManagerGURPS4e" file="scripts/manager_record_share_GURPS4e.lua" />
   <script name="CharEncumbranceManagerGURPS4e" file="scripts/manager_encumbrance_GURPS4e.lua" />
 
   <script name="CharManager" file="scripts/manager_char.lua" />

@@ -6,26 +6,23 @@
 function onInit()
 	update();
 end
-
-function updateControl(sControl, bReadOnly, bForceHide)
-	if not self[sControl] then
-		return false;
-	end
-	
-  self[sControl].setReadOnly(bReadOnly);
-  self[sControl].setVisible(not bForceHide);
-  return true;
+function VisDataCleared()
+	update();
+end
+function InvisDataAdded()
+	update();
 end
 
 function update()
-  local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
+	local nodeRecord = getDatabaseNode();
+	local bReadOnly = WindowManager.getReadOnlyState(nodeRecord);
 
-  updateControl("dodge", bReadOnly, false);
-  updateControl("parry", bReadOnly, false);
-  updateControl("block", bReadOnly, false);
-  updateControl("dr", bReadOnly, false);
-  
-  updateControl("meleecombat", bReadOnly, false);
+	WindowManager.callSafeControlUpdate(self, "dodge", bReadOnly);
+	WindowManager.callSafeControlUpdate(self, "parry", bReadOnly);
+	WindowManager.callSafeControlUpdate(self, "block", bReadOnly);
+	WindowManager.callSafeControlUpdate(self, "dr", bReadOnly);
+
+	WindowManager.callSafeControlUpdate(self, "meleecombat", bReadOnly);
 	if bReadOnly then
 		if meleecombat_iadd then
 		  meleecombat_iadd.setVisible(false);
@@ -49,43 +46,42 @@ function update()
 		meleecombat.setVisible(true);
 	end
 	for _,w in ipairs(meleecombat.getWindows()) do
-    w.name.setReadOnly(bReadOnly);
-    w.st.setReadOnly(bReadOnly);
-    w.weight.setReadOnly(bReadOnly);
-    w.update(bReadOnly);
+		w.name.setReadOnly(bReadOnly);
+		w.st.setReadOnly(bReadOnly);
+		w.weight.setReadOnly(bReadOnly);
+		w.update(bReadOnly);
 	end
 
-  updateControl("rangedcombat", bReadOnly, false);
-  if bReadOnly then
-	if rangedcombat_iadd then
-	  rangedcombat_iadd.setVisible(false);
-	end
-    if rangedcombat_iedit then
-      rangedcombat_iedit.setValue(0);
-      rangedcombat_iedit.setVisible(false);
-    end
+	WindowManager.callSafeControlUpdate(self, "rangedcombat", bReadOnly);
+	if bReadOnly then
+		if rangedcombat_iadd then
+			rangedcombat_iadd.setVisible(false);
+		end
+		if rangedcombat_iedit then
+			rangedcombat_iedit.setValue(0);
+			rangedcombat_iedit.setVisible(false);
+		end
     
-    local bShow = (rangedcombat.getWindowCount() ~= 0);
-    header_rangedcombat.setVisible(bShow);
-    rangedcombat.setVisible(bShow);
-  else
-	if rangedcombat_iadd then
-	  rangedcombat_iadd.setVisible(true);
+		local bShow = (rangedcombat.getWindowCount() ~= 0);
+		header_rangedcombat.setVisible(bShow);
+		rangedcombat.setVisible(bShow);
+	else
+		if rangedcombat_iadd then
+			rangedcombat_iadd.setVisible(true);
+		end
+		if rangedcombat_iedit then
+			rangedcombat_iedit.setVisible(true);
+		end
+		header_rangedcombat.setVisible(true);
+		rangedcombat.setVisible(true);
 	end
-    if rangedcombat_iedit then
-      rangedcombat_iedit.setVisible(true);
-    end
-    header_rangedcombat.setVisible(true);
-    rangedcombat.setVisible(true);
-  end
-  for _,w in ipairs(rangedcombat.getWindows()) do
-    w.name.setReadOnly(bReadOnly);
-    w.st.setReadOnly(bReadOnly);
-    w.bulk.setReadOnly(bReadOnly);
-    w.ammo.setReadOnly(bReadOnly);
-    w.update(bReadOnly);
-  end
-	
+	for _,w in ipairs(rangedcombat.getWindows()) do
+		w.name.setReadOnly(bReadOnly);
+		w.st.setReadOnly(bReadOnly);
+		w.bulk.setReadOnly(bReadOnly);
+		w.ammo.setReadOnly(bReadOnly);
+		w.update(bReadOnly);
+	end
 end
 
 function addMeleeCombat(sName, sDesc)

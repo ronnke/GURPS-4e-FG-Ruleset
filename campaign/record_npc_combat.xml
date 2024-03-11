@@ -7,7 +7,7 @@
 
 <root>
 	
-	<windowclass name="npcsheet_combat">
+	<windowclass name="npc_combat">
 		<script file="campaign/scripts/npc_combat.lua" />
 		<sheetdata>
       <anchor_column name="columnanchor" />
@@ -71,7 +71,6 @@
 					<top parent="columnanchor" anchor="bottom" relation="relative" offset="20" />
 				</anchored>
 				<static textres="npc_label_melee" />
-				<center />
 				<color>#808080</color>
 			</header_column>
 			<button_iedit name="meleecombat_iedit">

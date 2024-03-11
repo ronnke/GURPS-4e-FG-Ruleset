@@ -7,7 +7,7 @@
 
 <root>
 	
-	<windowclass name="npcsheet_main">
+	<windowclass name="npc_main">
 		<margins control="0,0,0,2" />
 		<script file="campaign/scripts/npc_main.lua" />
 		<sheetdata>
@@ -18,7 +18,7 @@
 			</label_column>
 			<string_columnh name="nonid_name" />
 
-			<line_column name="divider" />
+			<line_column name="divider1" />
 
 			<label_column name="type_label">
 				<static textres="npc_label_type" />
@@ -30,7 +30,7 @@
 			</label_column>
 			<number_columnh name="pts" />
 
-			<line_column name="divider1" />
+			<line_column name="divider2" />
 
 			<number_attribute name="strength" source="attributes.strength">
 				<rollable_attribute />
@@ -197,7 +197,6 @@
 				<tabtarget prev="thrust" next="traits" />
 			</string_labeled>
 
-
 			<label_charsheet name="traits_label">
 				<anchored height="20">
 					<top parent="reactionmodifiers" anchor="bottom" relation="relative" offset="10" />
@@ -216,8 +215,8 @@
 				</anchored>
         <tabtarget prev="reactionmodifiers" />
         <multilinespacing>15</multilinespacing>
-			</basicstring>
-			
+        <empty textres="ft_empty" hidereadonly="true" />
+      </basicstring>
 		</sheetdata>
 	</windowclass>
 	

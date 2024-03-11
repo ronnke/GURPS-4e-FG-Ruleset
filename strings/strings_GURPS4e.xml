@@ -157,7 +157,7 @@
 
 	<string name="char_label_class">Class</string>
 	<string name="char_label_college">College</string>
-	<string name="char_label_costmaintain">Cost / Maintain</string>
+	<string name="char_label_costmaintain">Cost/Maintain</string>
 	<string name="char_label_time">Time</string>
 	<string name="char_label_duration">Duration</string>
 	<string name="char_label_resist">Resist</string>
@@ -323,8 +323,8 @@
 
 	<string name="vehicle_grouped_tooltip_tl">Tech Level</string>
 	<string name="vehicle_grouped_tooltip_lc">Legality Class</string>
-	<string name="vehicle_grouped_tooltip_sthp">Strength / Hit Points</string>
-	<string name="vehicle_grouped_tooltip_hndsr">Handling / Stability Rating </string>
+	<string name="vehicle_grouped_tooltip_sthp">Strength/Hit Points</string>
+	<string name="vehicle_grouped_tooltip_hndsr">Handling/Stability Rating</string>
 	<string name="vehicle_grouped_tooltip_ht">Health</string>
 	<string name="vehicle_grouped_tooltip_lwt">Loaded Weight</string>
 	<string name="vehicle_grouped_tooltip_occ">Occupants</string>
@@ -346,8 +346,8 @@
   
   <!-- Resources -->
   <string name="resource_level_label">Resource Level</string>
-  <string name="resource_min_label">Minimum Value</string>
-  <string name="resource_max_label">Maximum Value</string>
+  <string name="resource_min_label">Minimum</string>
+  <string name="resource_max_label">Maximum</string>
   <string name="resource_defaults_label">Default Value</string>
   
   <!-- Abilities -->
@@ -360,7 +360,9 @@
   <string name="ability_level_adjustment_label">Level Bonus</string>
   <string name="ability_points_adjustment_label">Point Bonus</string>
   <string name="ability_basis_label">Basis</string>
-  
+  <string name="ability_default_label">Defaults</string>
+  <string name="ability_prerequisite_label">Prerequisites</string>
+
   <string name="ability_skilltype_label">Skill Type</string>
   <string name="ability_skilldefault_label">Skill Default</string>
   <string name="ability_skillprerequisite_label">Prerequisites</string>
@@ -438,5 +440,32 @@
   <string name="library_recordtype_empty_ability">&#171; New Ability &#187;</string>
   <string name="library_recordtype_label_trait">Traits</string>
   <string name="library_recordtype_empty_trait">&#171; New Trait &#187;</string>
-  
+
+  <string name="library_recordtype_label_advantage">Advantages</string>
+  <string name="library_recordtype_single_advantage">Advantage</string>
+
+  <string name="library_recordtype_label_disadvantage">Disadvantages</string>
+  <string name="library_recordtype_single_disadvantage">Disadvantage</string>
+
+  <string name="library_recordtype_label_perk">Perks</string>
+  <string name="library_recordtype_single_perk">Perk</string>
+
+  <string name="library_recordtype_label_quirk">Quirks</string>
+  <string name="library_recordtype_single_quirk">Quirk</string>
+
+  <string name="library_recordtype_label_ability">Abilities</string>
+  <string name="library_recordtype_single_ability">Ability</string>
+
+  <string name="library_recordtype_label_skill">Skills</string>
+  <string name="library_recordtype_single_skill">Skill</string>
+
+  <string name="library_recordtype_label_spell">Spells</string>
+  <string name="library_recordtype_single_spell">Spell</string>
+
+  <string name="library_recordtype_label_power">Powers</string>
+  <string name="library_recordtype_single_power">Power</string>
+
+  <string name="library_recordtype_label_other">Others</string>
+  <string name="library_recordtype_single_other">Other</string>
+
 </root>

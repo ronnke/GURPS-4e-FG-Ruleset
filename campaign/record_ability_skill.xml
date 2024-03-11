@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+  <windowclass name="ability_skill" copy="record_window">
+    <windowmenu>
+      <showlock />
+      <right>chat_output</right>
+    </windowmenu>
+  </windowclass>
+  <windowclass name="ability_skill_header" copy="record_header" />
+
+	<windowclass name="ability_skill_main">
+		<margins control="0,0,0,2" />
+		<script file="campaign/scripts/ability_skill_main.lua" />
+		<sheetdata>
+			<anchor_column name="columnanchor" />
+
+      <label_column name="type_label">
+        <static textres="ability_skilltype_label" />
+      </label_column>
+      <combobox_column name="type">
+        <script>
+          function onInit()
+            super.onInit();
+            addItems(DataCommonGURPS.aSkillTypeAbbrData);
+          end
+        </script>
+        <unsorted />
+      </combobox_column>
+
+      <label_column name="points_label">
+        <static textres="ability_grouped_label_points" />
+      </label_column>
+      <number_columnh name="points">
+        <min>0</min>
+      </number_columnh>
+
+      <label_column name="defaults_label">
+        <static textres="ability_skilldefault_label" />
+      </label_column>
+      <string_columnh name="defaults" />
+
+      <label_column name="prereqs_label">
+        <static textres="ability_skillprerequisite_label" />
+      </label_column>
+      <string_columnh name="prereqs" />
+
+      <label_column name="page_label">
+        <static textres="ability_page_label" />
+      </label_column>
+      <string_columnh name="page" />
+
+      <label_column name="basis_label">
+        <static textres="ability_basis_label" />
+      </label_column>
+      <string_columnh name="basis">
+        <readonly/>
+      </string_columnh>
+
+      <label_column name="level_adj_label">
+        <static textres="ability_level_adjustment_label" />
+      </label_column>
+      <number_columnh name="level_adj" />
+
+      <label_column name="points_adj_label">
+        <static textres="ability_points_adjustment_label" />
+      </label_column>
+      <number_columnh name="points_adj" />
+
+      <label_column name="level_label">
+        <static textres="ability_level_label" />
+      </label_column>
+      <simplenumber name="level">
+        <anchored width="40" height="20">
+          <top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
+          <left offset="97" />
+        </anchored>
+        <readonly/>
+      </simplenumber>
+
+      <line_column name="divider1" />
+      
+      <ft_columnh name="text">
+        <empty textres="ft_empty" hidereadonly="true" />
+      </ft_columnh>
+    </sheetdata>
+	</windowclass>
+</root>

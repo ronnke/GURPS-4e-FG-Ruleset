@@ -15,7 +15,8 @@ end
 
 function updateRangeScale()
 	if Session.IsHost then
-		local bHasGrid = super.getImage().hasGrid();
+		local cImage = WindowManager.callOuterWindowFunction(self, "getImage");
+		local bHasGrid = cImage.hasGrid();
 		local bRangeModifierOn = (rangemodifer.getValue() ~= 0);
 			    
 		rangemodifer.setVisible(bHasGrid)
@@ -24,29 +25,31 @@ function updateRangeScale()
         rangescale_h1.setVisible(bRangeModifierOn);
 
 		if bRangeModifierOn then
-			super.getImage().setDistanceSuffix(scaleunits.getStringValue());
+			cImage.setDistanceSuffix(scaleunits.getStringValue());
 		end
 	end
 end
 
 function onScaleUnitsValueChanged()
 	if Session.IsHost then
+		local cImage = WindowManager.callOuterWindowFunction(self, "getImage");
 		local bRangeModifierOn = (rangemodifer.getValue() ~= 0);
 		if bRangeModifierOn then
-			super.getImage().setDistanceSuffix(scaleunits.getStringValue());
+			cImage.setDistanceSuffix(scaleunits.getStringValue());
 		end
 	end
 end
 
 function onRangeModifierButtonPressed()
 	if Session.IsHost then
+		local cImage = WindowManager.callOuterWindowFunction(self, "getImage");
 		local bRangeModifierOn = (rangemodifer.getValue() ~= 0);
 			    
 		scaleunits.setVisible(bRangeModifierOn)
 		rangescale_h1.setVisible(bRangeModifierOn);
 
 		if bRangeModifierOn then
-			super.getImage().setDistanceSuffix(scaleunits.getStringValue());
+			cImage.setDistanceSuffix(scaleunits.getStringValue());
 			scaleunits.setStringValue("yd");
 		end
 	end

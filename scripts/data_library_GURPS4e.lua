@@ -345,7 +345,15 @@ aRecordOverrides = {
 		    ["Type"] = { sField = "type" },
 		    ["Sub Type"] = { sField = "subtype" },
 	    },
+		aCustom = {
+			tWindowMenu = { ["right"] = { "chat_output" } },
+		},
     },
+	["note"] = { 
+		aCustom = {
+			tWindowMenu = { ["right"] = { "chat_output" } },
+		},
+	},
     ["vehicle"] = { 
 		aDataMap = { "vehicle", "reference.vehicles", "reference.vehicle", "reference.vehicledata" }, 
         aGMListButtons = { "button_vehicle_groundvehicle", "button_vehicle_watercraft", "button_vehicle_aircraft", "button_vehicle_spacecraft" };
@@ -354,6 +362,9 @@ aRecordOverrides = {
             ["Type"] = { sField = "type" },
 		    ["Sub Type"] = { sField = "subtype" },
         },
+		aCustom = {
+			tWindowMenu = { ["right"] = { "chat_output" } },
+		},
     },
 
     -- New Record Types
@@ -368,6 +379,9 @@ aRecordOverrides = {
 		    ["Type"] = { sField = "type" },
 		    ["Sub Type"] = { sField = "subtype" },
 	    },
+		aCustom = {
+			tWindowMenu = { ["right"] = { "chat_output" } },
+		},
 	},
 	["trait"] = {
 		bExport = true, 
@@ -379,7 +393,10 @@ aRecordOverrides = {
 		    ["Type"] = { sField = "type" },
 		    ["Sub Type"] = { sField = "subtype" },
 	    },
-	}
+		aCustom = {
+			tWindowMenu = { ["right"] = { "chat_output" } },
+		},
+	},
 };
 
 aListViews = {

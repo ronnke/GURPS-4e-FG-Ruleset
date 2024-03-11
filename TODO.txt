@@ -6,3 +6,7 @@
 - Allow PCs to remove friendly effect from the combat tracker.
 - Fix Point calculation, specifically disadvantages.
 - Look at the hidden, hard to see description edit box in skill/advantage note window.
+- Fix the Charsheet Resource Record
+- Fix the Charsheet Advantage/Disadvantage Record
+- Fix the Charsheet Notes Record
+

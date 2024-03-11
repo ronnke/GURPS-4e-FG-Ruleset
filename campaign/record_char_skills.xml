@@ -313,7 +313,7 @@
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-5" />
 				</anchored>
-				<class>skill_instance_popup</class>
+				<class>ability_skill</class>
 				<readonly />
 			</linkcontrol>
 			<string_textlistitem name="name">
@@ -370,137 +370,6 @@
 				</anchored>
 			</frame_detailsub>
 			
-		</sheetdata>
-	</windowclass>
-
-	<!-- Similar to the library ability window -->
-	<windowclass name="skill_instance_popup">
-		<frame>recordsheet</frame>
-		<placement>
-			<size width="400" height="350" />
-		</placement>
-		<sizelimits>
-			<minimum width="350" height="400" />
-			<dynamic />
-		</sizelimits>
-		<minimize>minimized_reference</minimize>
-		<nodelete />
-		<playercontrol />
-		<sharable />
-		<tooltip field="name" />
-		<script file="campaign/scripts/charsheet/reference_popup.lua" />
-		<sheetdata>
-			<sub_record_header name="header">
-				<class>skill_instance_header</class>
-			</sub_record_header>
-
-			<frame_record_content name="contentframe" />
-
-			<subwindow_record name="details">
-				<class>skill_instance_details</class>
-				<activate />
-			</subwindow_record>
-
-			<scrollbar_record>
-				<target>details</target>
-			</scrollbar_record>
-
-			<resize_recordsheet />
-			<close_recordsheet />
-		</sheetdata>
-	</windowclass>
-
-	<windowclass name="skill_instance_details">
-		<margins control="0,0,0,2" />
-		<script file="campaign/scripts/charsheet/reference_skill_details.lua" />
-		<sheetdata>
-			<anchor_column name="columnanchor" />
-
-			<label_column name="type_label">
-				<static textres="ability_skilltype_label" />
-			</label_column>
-			<combobox_column name="type">
-				<script>
-					function onInit()
-						super.onInit();
-						addItems(DataCommonGURPS.aSkillTypeAbbrData);
-					end
-				</script>
-				<unsorted />
-			</combobox_column>
-
-			<label_column name="points_label">
-				<static textres="ability_grouped_label_points" />
-			</label_column>
-      <number_columnh name="points">
-        <min>0</min>
-      </number_columnh>
-
-			<label_column name="defaults_label">
-				<static textres="ability_skilldefault_label" />
-			</label_column>
-			<string_columnh name="defaults" />
-			
-			<label_column name="prereqs_label">
-				<static textres="ability_skillprerequisite_label" />
-			</label_column>
-			<string_columnh name="prereqs" />
-
-			<label_column name="page_label">
-				<static textres="ability_page_label" />
-			</label_column>
-			<string_columnh name="page" />
-
-			<label_column name="basis_label">
-				<static textres="ability_basis_label" />
-			</label_column>
-			<string_columnh name="basis">
-				<readonly/>
-			</string_columnh>
-
-			<label_column name="level_adj_label">
-				<static textres="ability_level_adjustment_label" />
-			</label_column>
-			<number_columnh name="level_adj" />
-
-			<label_column name="points_adj_label">
-				<static textres="ability_points_adjustment_label" />
-			</label_column>
-			<number_columnh name="points_adj" />
-
-      <label_column name="level_label">
-        <static textres="ability_level_label" />
-      </label_column>
-      <simplenumber name="level">
-        <anchored width="40" height="20">
-          <top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
-          <left offset="97" />
-        </anchored>
-        <readonly/>
-      </simplenumber>
-
-      <line_column name="textdivider" />
-			<ft_columnh name="text" />
-		</sheetdata>
-	</windowclass>
-
-	<windowclass name="skill_instance_header">
-		<margins control="0,0,0,7" />
-		<script  file="campaign/scripts/charsheet/reference_header.lua" />
-		<sheetdata>
-			<linkcontrol name="link">
-				<bounds>5,5,20,20</bounds>
-				<class>skill_instance_popup</class>
-				<readonly />
-			</linkcontrol>
-
-			<anchor_record_header_right name="rightanchor" />
-			<icon_record_locked />
-			<button_record_locked />
-
-			<string_record_name name="name">
-				<empty textres="library_recordtype_empty_item" />
-			</string_record_name>
 		</sheetdata>
 	</windowclass>
 </root>

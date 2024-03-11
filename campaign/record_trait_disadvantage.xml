@@ -6,41 +6,24 @@
 -->
 
 <root>
-  <windowclass name="trait" copy="record_window">
+  <windowclass name="trait_disadvantage" copy="record_window">
     <windowmenu>
       <showlock />
       <right>chat_output</right>
     </windowmenu>
   </windowclass>
-  <windowclass name="trait_header" copy="record_header" />
+  <windowclass name="trait_disadvantage_header" copy="record_header" />
 
-  <windowclass name="trait_main">
+  <windowclass name="trait_disadvantage_main">
     <margins control="0,0,0,2" />
-    <script file="campaign/scripts/trait_main.lua" />
+    <script file="campaign/scripts/trait_disadvantage_main.lua" />
     <sheetdata>
       <anchor_column name="columnanchor" />
 
       <label_column name="type_label">
         <static textres="trait_type_label" />
       </label_column>
-      <combobox_column name="type">
-        <delaykeyupdate />
-        <script>
-          function onInit()
-            super.onInit();
-            addItems(DataCommonGURPS.aTraitTypeData);
-          end
-          function onValueChanged()
-            window.update();
-          end
-        </script>
-        <unsorted />
-      </combobox_column>
-
-      <label_column name="subtype_label">
-        <static textres="trait_subtype_label" />
-      </label_column>
-      <string_columnh name="subtype" />
+      <string_columnh name="type" />
 
       <label_column name="page_label">
         <static textres="trait_page_label" />

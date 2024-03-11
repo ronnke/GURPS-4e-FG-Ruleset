@@ -83,7 +83,7 @@
           <top offset="2" />
           <right anchor="left" relation="relative" offset="-5" />
         </anchored>
-        <class>charresource</class>
+        <class>resource</class>
         <readonly />
       </linkcontrol>
       <string_textlistitem name="name">

@@ -6,56 +6,12 @@
 -->
 
 <root>
-	<windowclass name="charnote">
-		<frame>storybox</frame>
-		<placement>
-			<size width="300" height="300" />
-		</placement>
-		<sizelimits>
-			<minimum width="300" height="300" />
-			<dynamic />
-		</sizelimits>
-		<minimize>minimized_note</minimize>
-		<playercontrol />
-		<nodelete />
-		<tooltip field="name" />
-		<sheetdata>
-			
-			<link_story>
-				<class>charnote</class>
-			</link_story>
-			
-			<genericcontrol name="rightanchor">
-				<anchored height="0" width="0">
-					<top offset="28" />
-					<right offset="-14" />
-				</anchored>
-			</genericcontrol>
-			
-			<stringfield name="name">
-				<anchored to="rightanchor" height="24">
-					<top offset="-4" />
-					<left parent="" offset="45" />
-					<right anchor="left" relation="relative" offset="-5" />
-				</anchored>
-				<font>reference-h</font>
-				<nodrag />
-			</stringfield>
-			
-			<ft_record name="text">
-				<bounds>25,85,-25,-15</bounds>
-				<multilinespacing>16</multilinespacing>
-				<font>reference-r</font>
-				<selectioncolor>#FFD296</selectioncolor>
-			</ft_record>
-			<scrollbar>
-				<anchored to="text" />
-				<target>text</target>
-			</scrollbar>
-
-			<resize_storybox />
-			<close_storybox />
-		</sheetdata>
-	</windowclass>
-	
+  <windowclass name="charnote" copy="record_window_text">
+    <windowmenu>
+      <showlock />
+      <right>chat_output</right>
+    </windowmenu>
+  </windowclass>
+  
+  <windowclass name="charnote_header" copy="record_header" />
 </root>

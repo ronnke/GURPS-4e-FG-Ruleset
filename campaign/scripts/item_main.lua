@@ -6,25 +6,11 @@
 function onInit()
 	update();
 end
-
 function VisDataCleared()
 	update();
 end
-
 function InvisDataAdded()
 	update();
-end
-
-function updateControl(sControl, bReadOnly, bID)
-	if not self[sControl] then
-		return false;
-	end
-		
-	if not bID then
-		return self[sControl].update(bReadOnly, true);
-	end
-	
-	return self[sControl].update(bReadOnly);
 end
 
 function update()
@@ -38,49 +24,53 @@ function update()
 	
 	local bSection1 = false;
 	if Session.IsHost then
-		if updateControl("nonid_name", bReadOnly, true) then bSection1 = true; end;
+		if WindowManager.callSafeControlUpdate(self, "nonid_name", bReadOnly) then bSection1 = true; end;
 	else
-		updateControl("nonid_name", false);
+		WindowManager.callSafeControlUpdate(self, "nonid_name", bReadOnly, true);
 	end
 	if (Session.IsHost or not bID) then
-		if updateControl("nonid_notes", bReadOnly, true) then bSection1 = true; end;
+		if WindowManager.callSafeControlUpdate(self, "nonid_notes", bReadOnly) then bSection1 = true; end;
 	else
-		updateControl("nonid_notes", false);
+		WindowManager.callSafeControlUpdate(self, "nonid_notes", bReadOnly, true);
 	end
+	divider1.setVisible(bSection1);
 	
 	local bSection2 = false;
-	if updateControl("type", bReadOnly, true) then bSection2 = true; end;
-	if updateControl("subtype", bReadOnly, true) then bSection2 = true; end;
+	if WindowManager.callSafeControlUpdate(self, "type", bReadOnly) then bSection2 = true; end;
+	if WindowManager.callSafeControlUpdate(self, "subtype", bReadOnly) then bSection2 = true; end;
+	divider2.setVisible(bSection2);
 
 	local bSection3 = false;
-	if updateControl("tl", bReadOnly, bID) then bSection3 = true; end
-	if updateControl("cost", bReadOnly, bID) then bSection3 = true; end
-	if updateControl("weight", bReadOnly, bID) then bSection3 = true; end
-	if updateControl("lc", bReadOnly, bID) then bSection3 = true; end
+	if WindowManager.callSafeControlUpdate(self, "tl", bReadOnly, not bID) then bSection3 = true; end
+	if WindowManager.callSafeControlUpdate(self, "cost", bReadOnly, not bID) then bSection3 = true; end
+	if WindowManager.callSafeControlUpdate(self, "weight", bReadOnly, not bID) then bSection3 = true; end
+	if WindowManager.callSafeControlUpdate(self, "lc", bReadOnly, not bID) then bSection3 = true; end
+	divider3.setVisible(bSection3);
 
 	local bSection4 = false;
-	if updateControl("locations", bReadOnly, bID and bDefense) then bSection4 = true; end
-	if updateControl("db", bReadOnly, bID and bDefense) then bSection4 = true; end
-	if updateControl("dr", bReadOnly, bID and bDefense) then bSection4 = true; end
-	if updateControl("don", bReadOnly, bID and bDefense) then bSection4 = true; end
-	if updateControl("holdout", bReadOnly, bID and bDefense) then bSection4 = true; end
+	if WindowManager.callSafeControlUpdate(self, "locations", bReadOnly, not bID or not bDefense) then bSection4 = true; end
+	if WindowManager.callSafeControlUpdate(self, "db", bReadOnly, not bID or not bDefense) then bSection4 = true; end
+	if WindowManager.callSafeControlUpdate(self, "dr", bReadOnly, not bID or not bDefense) then bSection4 = true; end
+	if WindowManager.callSafeControlUpdate(self, "don", bReadOnly, not bID or not bDefense) then bSection4 = true; end
+	if WindowManager.callSafeControlUpdate(self, "holdout", bReadOnly, not bID or not bDefense) then bSection4 = true; end
 
-	if updateControl("damage", bReadOnly, bID and (bMeleeWeapon or bRangedWeapon)) then bSection4 = true; end
-	if updateControl("reach", bReadOnly, bID and bMeleeWeapon) then bSection4 = true; end
-	if updateControl("parry", bReadOnly, bID and bMeleeWeapon) then bSection4 = true; end
-	if updateControl("acc", bReadOnly, bID and bRangedWeapon) then bSection4 = true; end
-	if updateControl("range", bReadOnly, bID and bRangedWeapon) then bSection4 = true; end
-	if updateControl("rof", bReadOnly, bID and bRangedWeapon) then bSection4 = true; end
-	if updateControl("shots", bReadOnly, bID and bRangedWeapon) then bSection4 = true; end
-	if updateControl("st", bReadOnly, bID and (bMeleeWeapon or bRangedWeapon)) then bSection4 = true; end
-	if updateControl("bulk", bReadOnly, bID and bRangedWeapon) then bSection4 = true; end
-	if updateControl("rcl", bReadOnly, bID and bRangedWeapon) then bSection4 = true; end
+	if WindowManager.callSafeControlUpdate(self, "damage", bReadOnly, not bID or (not bMeleeWeapon and not bRangedWeapon)) then bSection4 = true; end
+	if WindowManager.callSafeControlUpdate(self, "reach", bReadOnly, not bID or not bMeleeWeapon) then bSection4 = true; end
+	if WindowManager.callSafeControlUpdate(self, "parry", bReadOnly, not bID or not bMeleeWeapon) then bSection4 = true; end
+	if WindowManager.callSafeControlUpdate(self, "acc", bReadOnly, not bID or not bRangedWeapon) then bSection4 = true; end
+	if WindowManager.callSafeControlUpdate(self, "range", bReadOnly, not bID or not bRangedWeapon) then bSection4 = true; end
+	if WindowManager.callSafeControlUpdate(self, "rof", bReadOnly, not bID or not bRangedWeapon) then bSection4 = true; end
+	if WindowManager.callSafeControlUpdate(self, "shots", bReadOnly, not bID or not bRangedWeapon) then bSection4 = true; end
+	if WindowManager.callSafeControlUpdate(self, "st", bReadOnly, not bID or (not bMeleeWeapon and not bRangedWeapon)) then bSection4 = true; end
+	if WindowManager.callSafeControlUpdate(self, "bulk", bReadOnly, not bID or not bRangedWeapon) then bSection4 = true; end
+	if WindowManager.callSafeControlUpdate(self, "rcl", bReadOnly, not bID or not bRangedWeapon) then bSection4 = true; end
+	divider4.setVisible(bSection4);
 
 	local bSection5 = bID;
 	notes.setVisible(bID);
 	notes.setReadOnly(bReadOnly);
 		
-	divider1.setVisible(bSection1 and bSection2);
-	divider2.setVisible((bSection1 or bSection2) and bSection3);
-	divider3.setVisible((bSection1 or bSection2 or bSection3) and bSection4);
+--	divider1.setVisible(bSection1 and bSection2);
+--	divider2.setVisible((bSection1 or bSection2) and bSection3);
+--	divider3.setVisible((bSection1 or bSection2 or bSection3) and bSection4);
 end

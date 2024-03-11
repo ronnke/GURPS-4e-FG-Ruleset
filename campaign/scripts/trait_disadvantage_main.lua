@@ -18,8 +18,7 @@ function update()
 	local bReadOnly = WindowManager.getReadOnlyState(nodeRecord);
 
 	local bSection1 = false;
-	if WindowManager.callSafeControlUpdate(self, "type", bReadOnly) then bSection1 = true; end;
-	if WindowManager.callSafeControlUpdate(self, "subtype", bReadOnly) then bSection1 = true; end;
+	if WindowManager.callSafeControlUpdate(self, "type", true) then bSection1 = true; end;
 	if WindowManager.callSafeControlUpdate(self, "page", bReadOnly) then bSection1 = true; end;
 	divider1.setVisible(bSection1);
 	

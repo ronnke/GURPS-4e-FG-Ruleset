@@ -6,6 +6,12 @@
 function onInit()
 	update();
 end
+function VisDataCleared()
+	update();
+end
+function InvisDataAdded()
+	update();
+end
 
 function update()
 	local nodeRecord = getDatabaseNode();
@@ -18,33 +24,33 @@ function update()
 	else
 		WindowManager.callSafeControlUpdate(self, "nonid_name", bReadOnly, true);
 	end
-	divider.setVisible(bSection1);
+	divider1.setVisible(bSection1);
 
 	local bSection2 = false;
 	if WindowManager.callSafeControlUpdate(self, "type", bReadOnly) then bSection2 = true; end;
 	if WindowManager.callSafeControlUpdate(self, "pts", bReadOnly) then bSection2 = true; end;
-	divider1.setVisible(bSection2);
+	divider2.setVisible(bSection2);
 
 	WindowManager.callSafeControlUpdate(self, "strength", bReadOnly);
 	WindowManager.callSafeControlUpdate(self, "dexterity", bReadOnly);
-	WindowManager.callSafeControlUpdate(self, "intelligence", bReadOnly, false);
-	WindowManager.callSafeControlUpdate(self, "health", bReadOnly, false);
-	WindowManager.callSafeControlUpdate(self, "hitpoints", bReadOnly, false);
-	WindowManager.callSafeControlUpdate(self, "will", bReadOnly, false);
-	WindowManager.callSafeControlUpdate(self, "perception", bReadOnly, false);
-	WindowManager.callSafeControlUpdate(self, "fatiguepoints", bReadOnly, false);
+	WindowManager.callSafeControlUpdate(self, "intelligence", bReadOnly);
+	WindowManager.callSafeControlUpdate(self, "health", bReadOnly);
+	WindowManager.callSafeControlUpdate(self, "hitpoints", bReadOnly);
+	WindowManager.callSafeControlUpdate(self, "will", bReadOnly);
+	WindowManager.callSafeControlUpdate(self, "perception", bReadOnly);
+	WindowManager.callSafeControlUpdate(self, "fatiguepoints", bReadOnly);
   
-	WindowManager.callSafeControlUpdate(self, "basicspeed", bReadOnly, false);
-	WindowManager.callSafeControlUpdate(self, "move", bReadOnly, false);
-	WindowManager.callSafeControlUpdate(self, "sizemodifier", bReadOnly, false);
-	WindowManager.callSafeControlUpdate(self, "reach", bReadOnly, false);
-	WindowManager.callSafeControlUpdate(self, "swing", bReadOnly, false);
-	WindowManager.callSafeControlUpdate(self, "thrust", bReadOnly, false);
+	WindowManager.callSafeControlUpdate(self, "basicspeed", bReadOnly);
+	WindowManager.callSafeControlUpdate(self, "move", bReadOnly);
+	WindowManager.callSafeControlUpdate(self, "sizemodifier", bReadOnly);
+	WindowManager.callSafeControlUpdate(self, "reach", bReadOnly);
+	WindowManager.callSafeControlUpdate(self, "swing", bReadOnly);
+	WindowManager.callSafeControlUpdate(self, "thrust", bReadOnly);
 
-	WindowManager.callSafeControlUpdate(self, "reactionmodifiers", bReadOnly, false);
+	WindowManager.callSafeControlUpdate(self, "reactionmodifiers", bReadOnly);
 
-	traits_label.setVisible(not bReadOnly or not traits.isEmpty());
-	WindowManager.callSafeControlUpdate(self, "traits", bReadOnly, false);
+	traits_label.setVisible(not bReadOnly or not traits.isEmpty())
+	WindowManager.callSafeControlUpdate(self, "traits", bReadOnly);
 end
 
 function onDrop(x, y, draginfo)
