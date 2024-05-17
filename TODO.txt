@@ -9,4 +9,4 @@
 - Fix the Charsheet Resource Record
 - Fix the Charsheet Advantage/Disadvantage Record
 - Fix the Charsheet Notes Record
-
+- Add skills/defaults to weapon sheets so skill levels can be automatically calculated
