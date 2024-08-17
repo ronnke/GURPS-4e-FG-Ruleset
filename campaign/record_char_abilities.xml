@@ -42,19 +42,19 @@
 
 			<tabs_charabilities>
 				<tab>
-					<icon>tab_skills</icon>
+          <tabres>tab_skills</tabres>
 					<subwindow>skills</subwindow>
 				</tab>
 				<tab>
-					<icon>tab_spells</icon>
+          <tabres>tab_spells</tabres>
 					<subwindow>spells</subwindow>
 				</tab>
 				<tab>
-					<icon>tab_powers</icon>
+          <tabres>tab_powers</tabres>
 					<subwindow>powers</subwindow>
 				</tab>
 				<tab>
-					<icon>tab_other</icon>
+					<tabres>tab_other</tabres>
 					<subwindow>other</subwindow>
 				</tab>
 				<activate>1</activate>

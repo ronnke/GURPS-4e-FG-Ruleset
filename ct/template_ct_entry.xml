@@ -10,7 +10,7 @@
 
   <template name="number_ctentry_speed">
     <number_ct_crosslink name="speed">
-      <anchored to="rightanchor" width="30" height="20">
+      <anchored to="rightanchor" width="40" height="20">
         <top />
         <right anchor="left" relation="relative" offset="-10" />
       </anchored>

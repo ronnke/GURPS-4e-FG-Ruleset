@@ -14,79 +14,21 @@
 			<minimum width="450" height="350" />
 			<dynamic />
 		</sizelimits>
-		<script>
-      function onInit()
-        OptionsManager.registerCallback("SHPC", updateHealthDisplay);
-        OptionsManager.registerCallback("SHNPC", updateHealthDisplay);
-        updateHealthDisplay();
-        OptionsManager.registerCallback("CTSI", updateShowOrder);
-        updateShowOrder();
-      end
-
-      function onClose()
-        OptionsManager.unregisterCallback("SHPC", updateHealthDisplay);
-        OptionsManager.unregisterCallback("SHNPC", updateHealthDisplay);
-        OptionsManager.unregisterCallback("CTSI", updateShowOrder);
-      end
-
-      function updateHealthDisplay()
-        local sOptSHPC = OptionsManager.getOption("SHPC");
-        local sOptSHNPC = OptionsManager.getOption("SHNPC");
-        local bShowDetail = (sOptSHPC == "detailed") or (sOptSHNPC == "detailed");
-
-        label_hps.setVisible(bShowDetail);
-        label_fps.setVisible(bShowDetail);
-        label_injury.setVisible(bShowDetail);
-        label_fatigue.setVisible(bShowDetail);
-
-        label_status.setVisible(not bShowDetail);
-
-        for _,w in pairs(list.getWindows()) do
-          w.updateHealthDisplay();
-        end
-      end
-
-      function updateShowOrder()
-        local bShowSpeed = not OptionsManager.isOption("CTSI", "off");
-        label_speed.setVisible(bShowSpeed);
-        
-        for _,w in pairs(list.getWindows()) do
-          w.updateShowOrder();
-        end
-      end
-    </script>
-		<sheetdata>
+    <script file="ct/scripts/clientct_window.lua" />
+  </windowclass>
+  
+  <windowclass name="sub_ct_header_client" merge="join">
+    <script file="ct/scripts/clientct_header.lua" />
+    <sheetdata>
       <label_ct_header_init name="label_init" merge="delete" />
 
-      <label_ct_right name="label_status" insertbefore="label_name">
-        <anchored width="150" />
-        <static textres="ct_label_status" />
-      </label_ct_right>
-
-      <label_ct_right name="label_fatigue" insertbefore="label_name">
-        <anchored width="30" />
-        <static textres="ct_label_fatigue" />
-      </label_ct_right>
-
-      <label_ct_right name="label_injury" insertbefore="label_name">
-        <anchored width="30" />
-        <static textres="ct_label_injury" />
-      </label_ct_right>
-
-      <label_ct_right name="label_fps" insertbefore="label_name">
-        <anchored width="30" />
-        <static textres="ct_label_fps" />
-      </label_ct_right>
-
-      <label_ct_right name="label_hps" insertbefore="label_name">
-        <anchored width="30" />
-        <static textres="ct_label_hps" />
-      </label_ct_right>
-
-      <label_ct_right name="label_speed" insertbefore="label_name">
-				<anchored width="40" />
-				<static textres="ct_label_speed" />
-			</label_ct_right>
-		</sheetdata>
-	</windowclass>
+      <spacer_ct_header_status name="label_status_spacer" insertbefore="label_name" />
+      <label_ct_header_status name="label_status" insertbefore="label_name" />
+      <label_ct_header_fatigue name="label_fatigue" insertbefore="label_name" />
+      <label_ct_header_injury name="label_injury" insertbefore="label_name" />
+      <label_ct_header_fps name="label_fps" insertbefore="label_name" />
+      <label_ct_header_hps name="label_hps" insertbefore="label_name" />
+      <label_ct_header_speed name="label_speed" insertbefore="label_name" />
+    </sheetdata>
+  </windowclass>
 </root>

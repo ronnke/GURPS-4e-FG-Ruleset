@@ -17,7 +17,7 @@
 		<sheetdata>
 			<frame_char name="otherframe">
         <anchored position="insidetopleft">
-          <right />
+          <right offset="-5" />
           <bottom />
         </anchored>
       </frame_char>
@@ -83,7 +83,7 @@
 				<anchored to="otherframe">
 					<left offset="15" />
 					<top offset="50" />
-					<right offset="-30" />
+					<right offset="-35" />
 					<bottom offset="-20" />
 				</anchored>
 			</list_charother>

@@ -44,29 +44,29 @@
 				<class>charsheet_notes</class>
 			</sub_charsheet>
 
-			<tabs_charsheet>
+      <tabs_charsheet name="tabs">
 				<tab>
-					<icon>tab_main</icon>
-					<subwindow>main</subwindow>
+          <tabres>tab_main</tabres>
+          <subwindow>main</subwindow>
 				</tab>
 				<tab>
-					<icon>tab_traits</icon>
+          <tabres>tab_traits</tabres>
 					<subwindow>traits</subwindow>
 				</tab>
 				<tab>
-					<icon>tab_abilities</icon>
+          <tabres>tab_abilities</tabres>
 					<subwindow>abilities</subwindow>
 				</tab>
 				<tab>
-					<icon>tab_combat</icon>
+          <tabres>tab_combat</tabres>
 					<subwindow>combat</subwindow>
 				</tab>
 				<tab>
-					<icon>tab_inventory</icon>
+          <tabres>tab_inventory</tabres>
 					<subwindow>inventory</subwindow>
 				</tab>
 				<tab>
-					<icon>tab_notes</icon>
+          <tabres>tab_notes</tabres>
 					<subwindow>notes</subwindow>
 				</tab>
 				<activate>1</activate>

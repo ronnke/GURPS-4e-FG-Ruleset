@@ -184,15 +184,15 @@
 
 			<tabs_charcombat>
 				<tab>
-					<icon>tab_meleecombat</icon>
+          <tabres>tab_meleecombat</tabres>
 					<subwindow>meleecombat</subwindow>
 				</tab>
 				<tab>
-					<icon>tab_rangedcombat</icon>
+          <tabres>tab_rangedcombat</tabres>
 					<subwindow>rangedcombat</subwindow>
 				</tab>
 				<tab>
-					<icon>tab_defenses</icon>
+          <tabres>tab_defenses</tabres>
 					<subwindow>defenses</subwindow>
 				</tab>
 				<activate>1</activate>

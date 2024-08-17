@@ -14,44 +14,29 @@ function onFactionChanged()
 	updateHealthDisplay();
 end
 function onHealthChanged()
-  local sColor = ActorManagerGURPS4e.getInjuryStatusColor("ct", getDatabaseNode());
+	local sColor = ActorManagerGURPS4e.getInjuryStatusColor("ct", getDatabaseNode());
 
-  hps.setColor(sColor);
-  status.setColor(sColor);
+	hps.setColor(sColor);
+	status.setColor(sColor);
 end
 function onFatigueChanged()
-  local sColor, sStatus, nStatus = ActorManagerGURPS4e.getFatigueStatusColor("ct", getDatabaseNode());
+	local sColor, sStatus, nStatus = ActorManagerGURPS4e.getFatigueStatusColor("ct", getDatabaseNode());
 
-  fps.setColor(sColor);
+	fps.setColor(sColor);
 end
 
 function updateHealthDisplay()
-	local sOption;
-	if friendfoe.getStringValue() == "friend" then
-		sOption = OptionsManager.getOption("SHPC");
-	else
-		sOption = OptionsManager.getOption("SHNPC");
-	end
-  
-	if sOption == "detailed" then
-		hps.setVisible(true);
-		fps.setVisible(true);
-		injury.setVisible(true);
-		fatigue.setVisible(true);
-		status.setVisible(false);
-	elseif sOption == "status" then
-		hps.setVisible(false);
-		fps.setVisible(false);
-		injury.setVisible(false);
-		fatigue.setVisible(false);
-		status.setVisible(true);
-	else
-		hps.setVisible(false);
-		fps.setVisible(false);
-		injury.setVisible(false);
-		fatigue.setVisible(false);
-		status.setVisible(false);
-	end
+	local sFaction = friendfoe.getStringValue();
+    local sOptSHPC = OptionsManager.getOption("SHPC");
+    local sOptSHNPC = OptionsManager.getOption("SHNPC");
+    local bShowDetail = (sFaction == "friend" and sOptSHPC == "detailed") or (sFaction ~= "friend" and sOptSHNPC == "detailed");
+    local bStatusOff = (sFaction == "friend" and sOptSHPC == "off") or (sFaction ~= "friend" and sOptSHNPC == "off") or bShowDetail;
+
+	hps.setVisible(bShowDetail);
+	fps.setVisible(bShowDetail);
+	injury.setVisible(bShowDetail);
+	fatigue.setVisible(bShowDetail);
+	status.setVisible(not bStatusOff);
 end
 
 function updateShowOrder()

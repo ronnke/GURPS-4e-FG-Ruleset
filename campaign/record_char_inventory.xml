@@ -9,7 +9,7 @@
   <windowclass name="charsheet_inventory" merge="join">
     <sheetdata>
       <frame_char name="inventoryframe">
-        <bounds>0,0,-1,-205</bounds>
+        <bounds>0,0,-5,-205</bounds>
       </frame_char>
 
       <label_frametop name="inventory_label">
@@ -80,7 +80,7 @@
       </label>
 
       <frame_char name="coinframe">
-        <bounds>240,-205,-1,-1</bounds>
+        <bounds>240,-205,-5,-5</bounds>
       </frame_char>
 
       <button_iadd_sub_charcurrency name="currency_iadd" merge="delete" />

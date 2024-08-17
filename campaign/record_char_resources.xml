@@ -13,7 +13,7 @@
 
       <frame_char name="resourcesframe">
         <anchored position="insidetopleft">
-          <right />
+          <right offset="-5"/>
           <bottom />
         </anchored>
       </frame_char>
@@ -27,7 +27,7 @@
 				<anchored to="resourcesframe">
 					<left offset="10" />
 					<top offset="35" />
-					<right offset="-30" />
+					<right offset="-35" />
 					<bottom offset="-15" />
 				</anchored>
 			</list_charresource>

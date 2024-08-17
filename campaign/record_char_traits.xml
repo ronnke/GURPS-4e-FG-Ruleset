@@ -12,8 +12,8 @@
 			<!-- ADVANTAGES / PERKS -->
 			<frame_char name="adsperksframe">
         <anchored position="insidetopleft">
+          <right offset="-5" />
           <bottom anchor="center" offset="-15" />
-          <right />
         </anchored>
 			</frame_char>
 			<label_frametop>
@@ -94,8 +94,8 @@
 			<frame_char name="disadsquirksframe">
         <anchored position="insidetopleft">
           <top anchor="center" offset="-15"/>
+          <right offset="-5" />
           <bottom />
-          <right />
         </anchored>
 			</frame_char>
 			<label_frametop>

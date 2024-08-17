@@ -14,12 +14,11 @@
 		<sheetdata>
 
       <number_clientct_init name="initresult" merge="delete" />
-
+      
       <base_clientct_health name="healthbase" insertbefore="name">
         <anchored width="150" />
       </base_clientct_health>
       <string_clientct_status name="status" insertbefore="name" />
-
       <number_clientct_fatigue name="fatigue" insertbefore="name" />
       <number_clientct_injury name="injury" insertbefore="name" />
       <number_clientct_fps name="fps" insertbefore="name" />

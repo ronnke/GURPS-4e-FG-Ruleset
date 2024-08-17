@@ -17,7 +17,7 @@
     <sheetdata>
 			<frame_char name="skillsframe">
         <anchored position="insidetopleft">
-          <right />
+          <right offset="-5"/>
           <bottom />
         </anchored>
       </frame_char>
@@ -189,7 +189,7 @@
 				<anchored to="skillsframe">
 					<left offset="15" />
 					<top offset="95" />
-					<right offset="-30" />
+					<right offset="-35" />
 					<bottom offset="-20" />
 				</anchored>
 			</list_charskill>

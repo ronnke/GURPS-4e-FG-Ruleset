@@ -21,7 +21,7 @@
 
 			<frame_char name="defensesframe">
         <anchored position="insidetopleft">
-          <right />
+          <right offset="-5"/>
           <bottom />
         </anchored>
       </frame_char>
@@ -56,7 +56,7 @@
 			<label_columntop name="dr_label">
 				<anchored to="rightanchor" width="50">
 					<top />
-					<right anchor="left" relation="relative" offset="-20" />
+					<right anchor="left" relation="relative" offset="-30" />
 				</anchored>
 				<static textres="char_label_dr" />
 			</label_columntop>
@@ -94,7 +94,7 @@
 				<anchored to="defensesframe">
 					<left offset="15" />
 					<top offset="50" />
-					<right offset="-25" />
+					<right offset="-35" />
 					<bottom offset="-20" />
 				</anchored>
         <script>

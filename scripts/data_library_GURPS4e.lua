@@ -370,12 +370,14 @@ aRecordOverrides = {
     -- New Record Types
 
 	["ability"] = {
-		bExport = true, 
 		aDataMap = { "ability", "reference.abilities", "reference.ability", "reference.abilitydata" }, 
 	    aGMListButtons = { "button_ability_skill", "button_ability_spell", "button_ability_power", "button_ability_other" };
 	    aPlayerListButtons = { "button_ability_skill", "button_ability_spell", "button_ability_power", "button_ability_other" };
         sSidebarCategory = "create",
-	    aCustomFilters = {
+		tOptions = {
+			bExport = true,
+		},
+        aCustomFilters = {
 		    ["Type"] = { sField = "type" },
 		    ["Sub Type"] = { sField = "subtype" },
 	    },
@@ -384,11 +386,13 @@ aRecordOverrides = {
 		},
 	},
 	["trait"] = {
-		bExport = true, 
 		aDataMap = { "trait", "reference.traits", "reference.trait", "reference.traitdata" }, 
 	    aGMListButtons = { "button_trait_advantage", "button_trait_disadvantage", "button_trait_perk", "button_trait_quirk" };
 	    aPlayerListButtons = { "button_trait_advantage", "button_trait_disadvantage", "button_trait_perk", "button_trait_quirk" };
         sSidebarCategory = "create",
+		tOptions = {
+			bExport = true,
+		},
 	    aCustomFilters = {
 		    ["Type"] = { sField = "type" },
 		    ["Sub Type"] = { sField = "subtype" },
