@@ -13,7 +13,7 @@ end
 
 function onMelee(rSource, rTarget, rRoll)
   local rMessage = ActionsManager.createActionMessage(rSource, rRoll);
-  local nTotal = ActionsManager2.total(rRoll);
+  local nTotal = ActionsManagerGURPS4e.total(rRoll);
 
   local bAddMod = false;
   if GameSystem.actions[rRoll.sType] then

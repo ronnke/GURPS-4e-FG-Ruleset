@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+  <windowclass name="resource" copy="record_window">
+    <windowmenu>
+      <showlock />
+    </windowmenu>
+  </windowclass>
+  <windowclass name="resource_header" copy="record_header" />
+
+  <windowclass name="resource_main">
+    <margins control="0,0,0,2" />
+    <script file="campaign/scripts/resource_main.lua" />
+    <sheetdata>
+      <anchor_column name="columnanchor" />
+
+      <label_column name="level_label">
+        <static textres="resource_level_label" />
+      </label_column>
+      <number_columnh name="resource_level" />
+
+      <line_column name="divider1" />
+
+      <label_column name="minlevel_label">
+        <static textres="resource_min_label" />
+      </label_column>
+      <number_column name="min_level" />
+
+      <label_column name="maxlevel_label">
+        <static textres="resource_max_label" />
+      </label_column>
+      <number_column name="max_level" />
+
+      <!-- To be developed
+      <label_column name="defaults_label">
+        <static textres="resource_defaults_label" />
+      </label_column>
+      <string_columnh name="defaults" />
+      -->
+
+      <line_column name="divider2" />
+
+      <ft_columnh name="text">
+        <empty textres="ft_empty" hidereadonly="true" />
+      </ft_columnh>
+    </sheetdata>
+  </windowclass>
+</root>

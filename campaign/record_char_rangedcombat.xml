@@ -21,8 +21,11 @@
 
 			<!-- RANGED COMBAT -->
 			<frame_char name="rangedcombatframe">
-				<bounds>15,0,-28,-13</bounds>
-			</frame_char>
+        <anchored position="insidetopleft">
+          <right offset="-5"/>
+          <bottom />
+        </anchored>
+      </frame_char>
 			<label_frametop>
 				<anchored to="rangedcombatframe" />
 				<static textres="char_label_rangedcombat" />
@@ -55,7 +58,7 @@
 			<label_columntop name="ammo_label">
 				<anchored to="rightanchor" width="35">
 					<top />
-					<right anchor="left" relation="relative" offset="-20" />
+					<right anchor="left" relation="relative" offset="-30" />
 				</anchored>
 				<static textres="char_label_ammo" />
 			</label_columntop>
@@ -121,7 +124,7 @@
 				<anchored to="rangedcombatframe">
 					<left offset="15" />
 					<top offset="50" />
-					<right offset="-25" />
+					<right offset="-35" />
 					<bottom offset="-20" />
 				</anchored>
         <script>

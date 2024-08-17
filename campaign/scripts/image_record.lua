@@ -5,8 +5,6 @@
 
 
 function onInit()
-  super.onInit();
-  
   onGridStateChanged(getGridType());
 end
 

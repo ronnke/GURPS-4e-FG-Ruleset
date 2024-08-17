@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+  <windowclass name="ability_other" copy="record_window">
+    <windowmenu>
+      <showlock />
+      <right>chat_output</right>
+    </windowmenu>
+  </windowclass>
+  <windowclass name="ability_other_header" copy="record_header" />
+
+	<windowclass name="ability_other_main">
+		<margins control="0,0,0,2" />
+		<script file="campaign/scripts/ability_other_main.lua" />
+		<sheetdata>
+			<anchor_column name="columnanchor" />
+
+      <label_column name="points_label">
+        <static textres="ability_points_label" />
+      </label_column>
+      <number_columnh name="points">
+        <min>0</min>
+      </number_columnh>
+
+      <label_column name="otherlevel_label">
+        <static textres="ability_otherlevel_label" />
+      </label_column>
+      <number_columnh name="otherlevel" />
+
+      <label_column name="defaults_label">
+        <static textres="ability_otherdefault_label" />
+      </label_column>
+      <string_columnh name="defaults" />
+
+      <label_column name="page_label">
+        <static textres="ability_page_label" />
+      </label_column>
+      <string_columnh name="page" />
+
+      <label_column name="level_label">
+        <static textres="ability_level_label" />
+      </label_column>
+      <simplenumber name="level">
+        <anchored width="40" height="20">
+          <top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
+          <left offset="97" />
+        </anchored>
+        <readonly/>
+      </simplenumber>
+
+      <line_column name="divider1" />
+
+      <ft_columnh name="text">
+        <empty textres="ft_empty" hidereadonly="true" />
+      </ft_columnh>
+		</sheetdata>
+	</windowclass>
+</root>

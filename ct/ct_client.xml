@@ -6,8 +6,7 @@
 -->
 
 <root>
-	<windowclass name="combattracker_client">
-		<frame>ctbox</frame>
+	<windowclass name="combattracker_client" merge="join">
 		<placement>
 			<size width="500" height="500" />
 		</placement>
@@ -15,162 +14,21 @@
 			<minimum width="450" height="350" />
 			<dynamic />
 		</sizelimits>
-		<softclose />
-		<nodelete />
-		<script>
-      function onInit()
-        OptionsManager.registerCallback("SHPC", updateHealthDisplay);
-        OptionsManager.registerCallback("SHNPC", updateHealthDisplay);
-        updateHealthDisplay();
-        OptionsManager.registerCallback("CTSI", updateShowOrder);
-        updateShowOrder();
-      end
+    <script file="ct/scripts/clientct_window.lua" />
+  </windowclass>
+  
+  <windowclass name="sub_ct_header_client" merge="join">
+    <script file="ct/scripts/clientct_header.lua" />
+    <sheetdata>
+      <label_ct_header_init name="label_init" merge="delete" />
 
-      function onClose()
-        OptionsManager.unregisterCallback("SHPC", updateHealthDisplay);
-        OptionsManager.unregisterCallback("SHNPC", updateHealthDisplay);
-        OptionsManager.unregisterCallback("CTSI", updateShowOrder);
-      end
-
-      function updateHealthDisplay()
-        local sOptSHPC = OptionsManager.getOption("SHPC");
-        local sOptSHNPC = OptionsManager.getOption("SHNPC");
-        local bShowDetail = (sOptSHPC == "detailed") or (sOptSHNPC == "detailed");
-
-        label_hps.setVisible(bShowDetail);
-        label_fps.setVisible(bShowDetail);
-        label_injury.setVisible(bShowDetail);
-        label_fatigue.setVisible(bShowDetail);
-
-        label_status.setVisible(not bShowDetail);
-
-        for _,w in pairs(list.getWindows()) do
-          w.updateHealthDisplay();
-        end
-      end
-
-      function updateShowOrder()
-        local bShowSpeed = not OptionsManager.isOption("CTSI", "off");
-        label_speed.setVisible(bShowSpeed);
-        
-        for _,w in pairs(list.getWindows()) do
-          w.updateShowOrder();
-        end
-      end
-    </script>
-		<sheetdata>
-			<windowtitlebar name="title">
-				<resource>ct_window_title</resource>
-			</windowtitlebar>
-			<anchor_title_ctbox name="contentanchor" />
-
-			<anchor_ctbox_client_header />
-			<anchor_ct_label_right />
-
-			<label_ct name="label_name">
-				<anchored>
-					<left parent="headeranchor" offset="-167" />
-					<top parent="rightanchor" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<static textres="ct_label_name" />
-				<center />
-			</label_ct>
-			
-			<label_ct name="label_speed">
-				<anchored to="headeranchor" position="insidetopright" offset="207,0" width="40" />
-				<static textres="ct_label_speed" />
-				<center />
-			</label_ct>
-	
-			<label_ct name="label_hps">
-				<anchored to="headeranchor" position="insidetopright" offset="167,0" width="40" />
-				<static textres="ct_label_hps" />
-				<center />
-			</label_ct>
-	
-			<label_ct name="label_fps">
-				<anchored to="headeranchor" position="insidetopright" offset="127,0" width="40" />
-				<static textres="ct_label_fps" />
-				<center />
-			</label_ct>
-
-      <label_ct name="label_injury">
-        <anchored to="headeranchor" position="insidetopright" offset="87,0" width="40" />
-        <static textres="ct_label_injury" />
-        <center />
-      </label_ct>
-
-      <label_ct name="label_fatigue">
-        <anchored to="headeranchor" position="insidetopright" offset="47,0" width="40" />
-        <static textres="ct_label_fatigue" />
-        <center />
-      </label_ct>
-
-      <label_ct name="label_status">
-				<anchored to="headeranchor" position="insidetopright" offset="52,0" width="90" />
-				<static textres="ct_label_status" />
-				<center />
-			</label_ct>
-			
-			<list_ctbox_client />
-			<scrollbar_list />
-			
-			<button_ct_endturn name="turn_complete" />
-			
-			<label_ct_client_rounds />
-			<number_ct_client_rounds />
-
-			<resize_ctbox />
-			<helper_ct />
-			<close_ctbox />
-		</sheetdata>
-	</windowclass>
-
-	<windowclass name="client_ct_entry">
-		<margins control="0,0,0,2" />
-		<frame>ctentrybox</frame>
-		<script file="ct/scripts/clientct_entry.lua" />
-		<sheetdata>
-      <hidden_record_isidentified name="isidentified" />
-      <hlink_clientct name="link" />
-      <hs name="tokenrefid" />
-      <hs name="tokenrefnode" />
-      <hn name="tokenvis" />
-
-      <spacer_ctentry_active_top name="active_spacer_top" />
-
-      <button_clientct_active name="active" />
-      <token_clientct name="token" />
-
-      <anchor_ctentry_right name="rightanchor" />
-      <button_clientct_activateeffects name="activateeffects" />
-      <button_ctentry_friendfoe name="friendfoe" />
-
-      <base_clientct_health name="healthbase" />
-      <string_clientct_status name="status" />
-
-      <number_clientct_fatigue name="fatigue" />
-      <number_clientct_injury name="injury" />
-      <number_clientct_fps name="fps" />
-			<number_clientct_hps name="hps" />
-			<number_clientct_speed name="speed" />
-      
-      <string_clientct_name name="name" />
-      <string_clientct_name name="nonid_name">
-        <invisible />
-      </string_clientct_name>
-
-      <icon_clientctsection_effect name="effecticon" />
-      <spacer_clientctsection_effect name="effectspacer" />
-      <list_clientct_effect name="effects" />
-
-      <string_ct_entry_targets name="summary_targets" />
-      <string_ct_entry_effects name="effect_summary" />
-
-      <spacer_ctentry_middle name="spacer" />
-      <spacer_ctentry_active_bottom name="active_spacer_bottom" />
+      <spacer_ct_header_status name="label_status_spacer" insertbefore="label_name" />
+      <label_ct_header_status name="label_status" insertbefore="label_name" />
+      <label_ct_header_fatigue name="label_fatigue" insertbefore="label_name" />
+      <label_ct_header_injury name="label_injury" insertbefore="label_name" />
+      <label_ct_header_fps name="label_fps" insertbefore="label_name" />
+      <label_ct_header_hps name="label_hps" insertbefore="label_name" />
+      <label_ct_header_speed name="label_speed" insertbefore="label_name" />
     </sheetdata>
-	</windowclass>
-
+  </windowclass>
 </root>

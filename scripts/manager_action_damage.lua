@@ -93,13 +93,13 @@ function applyDamage(rSource, rTarget, bSecret, sDamage, nTotal)
     nInjury = DB.getValue(nodeTarget, "attributes.injury", 0) + nTotal;
     DB.setValue(nodeTarget, "attributes.hps", "number", nHP - (nInjury < 0 and 0 or nInjury));
     DB.setValue(nodeTarget, "attributes.injury", "number", (nInjury < 0 and 0 or nInjury));
-    DB.setValue(nodeTarget, "attributes.hpstatus", "string", ActorManager2.getHPStatus(sTargetType, nodeTarget));
+    DB.setValue(nodeTarget, "attributes.hpstatus", "string", ActorManagerGURPS4e.getHPStatus(sTargetType, nodeTarget));
   else
     nHP = DB.getValue(nodeTarget, "attributes.hitpoints", 0);
     nInjury = DB.getValue(nodeTarget, "injury", 0) + nTotal;
     DB.setValue(nodeTarget, "hps", "number", nHP - (nInjury < 0 and 0 or nInjury));
     DB.setValue(nodeTarget, "injury", "number", (nInjury < 0 and 0 or nInjury));
-    DB.setValue(nodeTarget, "hpstatus", "string", ActorManager2.getHPStatus(sTargetType, nodeTarget));
+    DB.setValue(nodeTarget, "hpstatus", "string", ActorManagerGURPS4e.getHPStatus(sTargetType, nodeTarget));
   end
 end
 
@@ -115,12 +115,12 @@ function updateDamage(rActor)
     nHP = DB.getValue(nodeActor, "attributes.hitpoints", 0);
     nInjury = DB.getValue(nodeActor, "attributes.injury", 0);
     DB.setValue(nodeActor, "attributes.hps", "number", nHP - (nInjury < 0 and 0 or nInjury));
-    DB.setValue(nodeActor, "attributes.hpstatus", "string", ActorManager2.getHPStatus(sActorType, nodeActor));
+    DB.setValue(nodeActor, "attributes.hpstatus", "string", ActorManagerGURPS4e.getHPStatus(sActorType, nodeActor));
   else
     nHP = DB.getValue(nodeActor, "attributes.hitpoints", 0);
     nInjury = DB.getValue(nodeActor, "injury", 0);
     DB.setValue(nodeActor, "hps", "number", nHP - (nInjury < 0 and 0 or nInjury));
-    DB.setValue(nodeActor, "hpstatus", "string", ActorManager2.getHPStatus(sActorType, nodeActor));
+    DB.setValue(nodeActor, "hpstatus", "string", ActorManagerGURPS4e.getHPStatus(sActorType, nodeActor));
   end
 end
 
@@ -155,14 +155,14 @@ function parseDamage(s)
 end
 
 function performRoll(draginfo, rActor, sWeapon, sMode, sDamage)
-    local aDice  = StringManager2.convertStringToDice(sDamage);
+    local aDice  = StringManagerGURPS4e.convertStringToDice(sDamage);
     rRoll = { sType = "damage", sDesc = "[DAMAGE]", aDice = aDice, nMod = 0, sWeapon = sWeapon, sMode = sMode, sDamage = sDamage };
     
     ActionsManager.performAction(draginfo, rActor, rRoll);
 end
 
 function performThrustRoll(draginfo, rActor, sDamage)
-    local aDice  = StringManager2.convertStringToDice(sDamage);
+    local aDice  = StringManagerGURPS4e.convertStringToDice(sDamage);
     local sWeapon = "Basic Thrust";
     local sMode = "";
     rRoll = { sType = "damage", sDesc = "[DAMAGE]", aDice = aDice, nMod = 0, sWeapon = sWeapon, sMode = sMode, sDamage = sDamage };
@@ -171,7 +171,7 @@ function performThrustRoll(draginfo, rActor, sDamage)
 end
 
 function performSwingRoll(draginfo, rActor, sDamage)
-    local aDice  = StringManager2.convertStringToDice(sDamage);
+    local aDice  = StringManagerGURPS4e.convertStringToDice(sDamage);
     local sWeapon = "Basic Swing";
     local sMode = "";
     rRoll = { sType = "damage", sDesc = "[DAMAGE]", aDice = aDice, nMod = 0, sWeapon = sWeapon, sMode = sMode, sDamage = sDamage };

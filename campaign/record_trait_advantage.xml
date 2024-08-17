@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+  <windowclass name="trait_advantage" copy="record_window">
+    <windowmenu>
+      <showlock />
+      <right>chat_output</right>
+    </windowmenu>
+  </windowclass>
+  <windowclass name="trait_advantage_header" copy="record_header" />
+
+  <windowclass name="trait_advantage_main">
+    <margins control="0,0,0,2" />
+    <script file="campaign/scripts/trait_disadvantage_main.lua" />
+    <sheetdata>
+      <anchor_column name="columnanchor" />
+
+      <label_column name="type_label">
+        <static textres="trait_type_label" />
+      </label_column>
+      <string_columnh name="type" />
+
+      <label_column name="page_label">
+        <static textres="trait_page_label" />
+      </label_column>
+      <string_columnh name="page" />
+
+      <line_column name="divider1" />
+
+      <label_column name="points_label">
+        <static textres="trait_points_label" />
+      </label_column>
+      <number_columnh name="points" min="0"/>
+
+      <line_column name="divider2" />
+
+      <ft_columnh name="text">
+        <empty textres="ft_empty" />
+      </ft_columnh>
+    </sheetdata>
+  </windowclass>
+</root>

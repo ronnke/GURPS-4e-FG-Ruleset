@@ -7,19 +7,12 @@
 
 <root>
   
-  <template name="sub_charsheet">
-		<subwindow>
-			<bounds>0,65,-1,-1</bounds>
-		</subwindow>
-	</template>
-
 	<template name="frame_chardetail">
 		<genericcontrol>
 			<frame name="ct_subgroupbox" />
 			<disabled />
 		</genericcontrol>
 	</template>
-
 
 	<!-- List Item Sub-sections -->	
 	<template name="frame_detailsub">
@@ -47,7 +40,7 @@
 		<buttongroup_tabs name="tabs">
 			<anchored width="18" height="92">
 				<top offset="130" />
-				<right offset="-31" />
+				<right offset="-10"/>
 			</anchored>
 		</buttongroup_tabs>
 	</template>
@@ -56,8 +49,8 @@
 		<buttongroup_tabs name="tabs">
 			<anchored width="18" height="92">
 				<top offset="50" />
-				<right offset="-31" />
-			</anchored>
+        <right offset="-10"/>
+      </anchored>
 		</buttongroup_tabs>
 	</template>
 
@@ -65,8 +58,8 @@
 		<buttongroup_tabs name="tabs">
 			<anchored width="18" height="92">
 				<top offset="140" />
-				<right offset="-31" />
-			</anchored>
+        <right offset="-10"/>
+      </anchored>
 		</buttongroup_tabs>
 	</template>
 
@@ -278,12 +271,6 @@
 		<number_charfield>
 			<frame merge="replace" name="textline" />
 			<color>#808080</color>
-      <script>
-        function onValueChanged()
-					node = window.getDatabaseNode();
-					ActorManager2.updatePointsTotal(node);
-				end
-      </script>
 		</number_charfield>
 	</template>
 
@@ -306,31 +293,6 @@
 		</button_roll>
 	</template>
 	
-	<template name="button_modifier">
-		<buttoncontrol>
-			<anchored width="20" height="20" />
-			<icon normal="button_action_modifier" pressed="button_action_modifier_down" />
-		</buttoncontrol>
-		<script>
-			function actionDrag(draginfo, desc, value)
-				if (desc and value) then 
-					draginfo.setType("number");
-					draginfo.setDescription(desc);
-					draginfo.setStringData(desc);
-					draginfo.setNumberData(value);
-				end
-				return true;
-			end
-			
-			function action(desc, value)
-				if (desc and value) then 
-					ModifierStack.addSlot(desc, value);
-				end
-				return true;
-			end
-		</script>
-	</template>
-
 	<template name="button_toggledetail">
 		<buttoncontrol>
 			<anchored width="20" height="20" />

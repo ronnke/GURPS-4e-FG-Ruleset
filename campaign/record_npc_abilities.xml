@@ -7,21 +7,15 @@
 
 <root>
 	
-	<windowclass name="npcsheet_abilities">
+	<windowclass name="npc_abilities">
 		<script file="campaign/scripts/npc_abilities.lua" />
 		<sheetdata>
-			<anchor_column name="contentanchor">
-				<bounds>1,0,-1,0</bounds>
-			</anchor_column>
+      <anchor_column name="columnanchor" />
 
-			<anchor_column name="columnanchor">
-				<anchored to="contentanchor" />
-			</anchor_column>
-
-			<header_column name="header_abilities">
-				<static textres="npc_label_abilities" />
-				<color>#808080</color>
-			</header_column>
+      <header_column name="header_abilities">
+        <static textres="npc_label_abilities" />
+        <color>#808080</color>
+      </header_column>
 			<button_iedit name="abilities_iedit">
 				<anchored to="header_abilities" position="righthigh" offset="-20,0" />
 				<target>abilities</target>
@@ -36,14 +30,14 @@
 					<left />
 					<right />
 				</anchored>
-				<class>npc_abilities</class>
+				<class>npc_ability</class>
 			</list_npcabilities>
 
 		</sheetdata>
 	</windowclass>
 
 
-	<windowclass name="npc_abilities">
+	<windowclass name="npc_ability">
 		<margins control="0,0,0,2" />
 		<script>
 			function onInit()

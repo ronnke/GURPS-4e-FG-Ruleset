@@ -8,7 +8,7 @@
 <root>
   <template name="image_tool_rangemodifer">
     <buttonfield>
-      <anchored to="toolbar_anchor" width="34" height="34">
+      <anchored to="rightanchor" width="20" height="20">
         <top />
         <right anchor="left" relation="relative" />
       </anchored>
@@ -25,8 +25,8 @@
   </template>
   <template name="image_tool_scaleunits">
     <button_stringcycler name="scaleunits">
-      <anchored to="toolbar_anchor" width="80" height="20">
-        <top offset="7"/>
+      <anchored to="rightanchor" width="80" height="20">
+        <top />
         <right anchor="left" relation="relative" offset="-10" />
       </anchored>
       <gmeditonly />
@@ -44,21 +44,20 @@
     </button_stringcycler>
   </template>
 
-  <template name="image_record" merge="join">
-		<image_record_step>
-			<bounds>21,57,-27,-29</bounds>
+	<template name="image_record_step" merge="join">
+		<imagecontrol name="image">
 			<script file="campaign/scripts/image_record.lua" />
-		</image_record_step>
+		</imagecontrol>
 	</template>
-
+  
   <windowclass name="imagewindow_toolbar" merge="join">
     <script file="campaign/scripts/image_toolbar.lua" />
     <sheetdata>
       <image_tool_scaleunits name="scaleunits" />
-      <image_toolbar_separator name="rangescale_h2" />
+      <toolbar_separator_right name="rangescale_h2" />
+
       <image_tool_rangemodifer name="rangemodifer" />
-      <image_toolbar_separator name="rangescale_h1" />
+      <toolbar_separator_right name="rangescale_h1" />
     </sheetdata>
   </windowclass>
-
 </root>

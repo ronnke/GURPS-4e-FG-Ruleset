@@ -12,8 +12,11 @@
 <!-- Reaction Modifiers-->
 
 			<frame_char name="reactionmodifiersframe">
-				<bounds>0,0,-28,315</bounds>
-			</frame_char>
+        <anchored position="insidetopleft">
+          <right offset="-5"/>
+          <bottom />
+        </anchored>
+      </frame_char>
 			
 			<label_frametop>
 				<anchored to="reactionmodifiersframe" />
@@ -42,7 +45,7 @@
 				<anchored to="reactionmodifiersframe">
 					<left offset="10" />
 					<top offset="105" />
-					<right offset="-30" />
+					<right offset="-35" />
 					<bottom offset="-15" />
 				</anchored>
 			</list_charreactionmodifier>

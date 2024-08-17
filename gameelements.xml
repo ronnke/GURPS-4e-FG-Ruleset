@@ -17,40 +17,23 @@
 		<pointer defaultconeangle="60" />
   </imagesettings>
 
-  <panel name="dicepanel" merge="join" version="&gt;=4.3">
-    <anchored>
-      <left offset="210" />
+  <panel name="chat" merge="join">
+    <anchored width="400">
+      <bottom offset="-150" />
     </anchored>
   </panel>
 
-  <die name="d6" version="&lt;4.3">
-    <icon>d6icon</icon>
-    <position>270,-68</position>
-  </die>
-
-  <die name="d20" version="&lt;4.3">
-    <icon>d20icon</icon>
-    <position>370,-68</position>
-  </die>
-  <die name="d12" version="&lt;4.3">
-    <icon>d12icon</icon>
-    <position>420,-68</position>
-  </die>
-  <die name="d10" version="&lt;4.3">
-    <icon>d10icon</icon>
-    <position>470,-68</position>
-  </die>
-  <die name="d8" version="&lt;4.3">
-    <icon>d8icon</icon>
-    <position>520,-68</position>
-  </die>
-  <die name="d4" version="&lt;4.3">
-    <icon>d4icon</icon>
-    <position>570,-68</position>
-  </die>
-  <die name="dF" version="&lt;4.3">
-    <icon>d6icon</icon>
-    <position>620,-68</position>
-  </die>
-
+  <panel name="dicetower" merge="join">
+    <anchored>
+      <left offset="140" />
+      <right merge="delete" />
+    </anchored>
+  </panel>
+  
+  <panel name="dicepanel" merge="join">
+    <anchored>
+      <left offset="250" />
+    </anchored>
+  </panel>
+  
 </root>

@@ -6,45 +6,10 @@
 -->
 
 <root>
-	<windowclass name="item">
-		<frame>recordsheet</frame>
-		<placement>
-			<size width="350" height="400" />
-		</placement>
-		<sizelimits>
-			<minimum width="350" height="400" />
-			<dynamic />
-		</sizelimits>
-		<minimize>minimized_item</minimize>
-		<nodelete />
-		<playercontrol />
-		<sharable />
-		<tooltip field="name" />
-    <script file="common/scripts/record_window.lua" />
-		<sheetdata>
-			<sub_record_header name="header">
-				<class>item_header</class>
-			</sub_record_header>
-
-			<frame_record_content name="contentframe" />
-
-			<subwindow_record name="main">
-				<class>item_main</class>
-				<activate />
-			</subwindow_record>
-
-			<scrollbar_record>
-				<target>main</target>
-			</scrollbar_record>
-
-			<resize_recordsheet />
-			<close_recordsheet />
-		</sheetdata>
-	</windowclass>
-
-  <windowclass name="item_header" merge="join">
-    <margins control="0,0,0,2" />
+  <windowclass name="item" copy="record_window">
+    <minimize>minimized_item</minimize>
   </windowclass>
+  <windowclass name="item_header" copy="record_header_id" />
 
   <windowclass name="item_main">
 		<margins control="0,0,0,2" />
@@ -52,16 +17,16 @@
 		<sheetdata>
 			<anchor_column name="columnanchor" />
 
-			<label_column name="nonid_name_label">
-				<static textres="item_label_unidentified" />
-			</label_column>
-			<string_columnh name="nonid_name" />
-			
-			<label_column name="nonid_notes_label">
-				<static textres="item_label_unidentifiednotes" />
-			</label_column>
-			<string_columnh name="nonid_notes" />
+      <label_column name="nonid_name_label">
+        <static textres="item_label_unidentified" />
+      </label_column>
+      <string_columnh name="nonid_name" />
 
+      <label_column name="nonid_notes_label">
+        <static textres="item_label_unidentifiednotes" />
+      </label_column>
+      <string_columnh name="nonid_notes" />
+      
 			<line_column name="divider1" />
 
 			<label_column name="type_label">
@@ -84,16 +49,9 @@
 			<label_column name="subtype_label">
 				<static textres="item_label_subtype" />
 			</label_column>
-			<string_columnh name="subtype">
-				<delaykeyupdate />
-				<script>
-					function onValueChanged()
-						window.update();
-					end
-				</script>
-			</string_columnh>
+      <string_columnh name="subtype" />
 
-			<line_column name="divider2" />
+      <line_column name="divider2" />
 
 			<label_column name="tl_label">
 				<static textres="item_label_tl" />
@@ -194,7 +152,9 @@
 
 			<line_column name="divider4" />
 
-			<ft_columnh name="notes" />
+			<ft_columnh name="notes">
+        <empty textres="ft_empty" hidereadonly="true" />
+      </ft_columnh>
 		</sheetdata>
 	</windowclass>
 </root>

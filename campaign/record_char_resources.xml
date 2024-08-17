@@ -8,10 +8,15 @@
 <root>
 	<windowclass name="charsheet_resources">
 		<sheetdata>
-		
-			<frame_char name="resourcesframe">
-				<bounds>0,0,-28,315</bounds>
-			</frame_char>
+
+<!-- Resources -->
+
+      <frame_char name="resourcesframe">
+        <anchored position="insidetopleft">
+          <right offset="-5"/>
+          <bottom />
+        </anchored>
+      </frame_char>
 			
 			<label_frametop>
 				<anchored to="resourcesframe" />
@@ -22,7 +27,7 @@
 				<anchored to="resourcesframe">
 					<left offset="10" />
 					<top offset="35" />
-					<right offset="-30" />
+					<right offset="-35" />
 					<bottom offset="-15" />
 				</anchored>
 			</list_charresource>
@@ -44,15 +49,6 @@
 	</windowclass>
 	
 	<windowclass name="char_resource">
-    <script>
-      function onInit()
-				onResourceChanged();
-      end
-      
-      function onResourceChanged()
-        resource_level.setColor(ActorManager2.onResourceUpdated(getDatabaseNode()));
-      end
-    </script>
     <margins control="0,0,0,2" />
 		<sheetdata>
 			<genericcontrol name="rightanchor">
@@ -76,7 +72,8 @@
 				</anchored>
         <script>
           function onValueChanged()
-						window.onResourceChanged();
+						local nodeResource = DB.getChild(getDatabaseNode(), "..");
+						setColor(CharManager.getResourceColor(nodeResource));
           end
         </script>
         <tabtarget prev="name" />
@@ -86,7 +83,7 @@
           <top offset="2" />
           <right anchor="left" relation="relative" offset="-5" />
         </anchored>
-        <class>charresource</class>
+        <class>resource</class>
         <readonly />
       </linkcontrol>
       <string_textlistitem name="name">

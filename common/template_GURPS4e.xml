@@ -6,6 +6,31 @@
 -->
 
 <root>
+  <template name="button_modifier">
+		<buttoncontrol>
+			<anchored width="20" height="20" />
+			<icon normal="button_action_modifier" pressed="button_action_modifier_down" />
+		</buttoncontrol>
+		<script>
+			function actionDrag(draginfo, desc, value)
+				if (desc and value) then 
+					draginfo.setType("number");
+					draginfo.setDescription(desc);
+					draginfo.setStringData(desc);
+					draginfo.setNumberData(value);
+				end
+				return true;
+			end
+			
+			function action(desc, value)
+				if (desc and value) then 
+					ModifierStack.addSlot(desc, value);
+				end
+				return true;
+			end
+		</script>
+	</template>
+
   <template name="combobox_column">
     <combobox>
       <frame mergerule="replace" name="fielddark" offset="7,5,7,5" hidereadonly="true" />

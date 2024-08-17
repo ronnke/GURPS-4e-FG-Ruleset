@@ -6,87 +6,51 @@
 -->
 
 <root>
-	<windowclass name="vehicle">
-		<frame>recordsheet</frame>
-		<placement>
-			<size width="350" height="400" />
-		</placement>
-		<sizelimits>
-			<minimum width="350" height="400" />
-			<dynamic />
-		</sizelimits>
-		<minimize>minimized_item</minimize>
-		<nodelete />
-		<tooltip field="name" />
-		<sharable />
-		<script>
-			function onLockChanged()
-				if header.subwindow then
-					header.subwindow.update();
-				end
-				if content and content.subwindow then
-					content.subwindow.update();
-				end
-			end
-		</script>
-		<sheetdata>
-			<sub_record_header name="header">
-				<class>vehicle_header</class>
-			</sub_record_header>
-
-			<frame_record_content name="contentframe" />
-			<subwindow_record name="content">
-				<class>vehicle_main</class>
-				<activate />
-			</subwindow_record>
-			<scrollbar_record>
-				<target>main</target>
-			</scrollbar_record>
-
-			<resize_recordsheet />
-			<close_recordsheet />
-		</sheetdata>
-	</windowclass>
-	
-	<windowclass name="vehicle_header">
-		<margins control="0,0,0,7" />
-		<script>
-			function onInit()
-				update();
-			end
-			function update()
-				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
-				name.setReadOnly(bReadOnly);
-			end
-		</script>
-		<sheetdata>
-			<link_record_header>
-				<class>vehicle</class>
-			</link_record_header>
-
-			<anchor_record_header_right name="rightanchor" />
-			<tokenfield name="token">
-				<anchored to="rightanchor" width="25" height="25">
-					<top offset="-2" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-3" />
-				</anchored>
-				<empty>token_empty</empty>
-			</tokenfield>
-			<icon_record_locked />
-			<button_record_locked />
-
-			<string_record_name name="name">
-				<empty textres="library_recordtype_empty_vehicle" />
-			</string_record_name>
-		</sheetdata>
-	</windowclass>
+  <windowclass name="vehicle" copy="record_window_tabbed">
+    <sizelimits>
+      <minimum width="350" height="400" />
+    </sizelimits>
+    <minimize>minimized_item</minimize>
+    <tab>
+      <name>main</name>
+      <resource>tab_main</resource>
+      <class>vehicle_main</class>
+      <embed />
+    </tab>
+    <tab merge="add">
+      <name>systems</name>
+      <resource>tab_systems</resource>
+      <class>vehicle_systems</class>
+      <embed />
+    </tab>
+    <tab merge="add">
+      <name>combat</name>
+      <resource>tab_combat</resource>
+      <class>vehicle_combat</class>
+      <embed />
+    </tab>
+    <tab merge="add">
+      <name>notes</name>
+      <resource>tab_notes</resource>
+      <class>record_content_text</class>
+      <embed />
+    </tab>
+  </windowclass>
 	
 	<windowclass name="vehicle_main">
-		<script file="campaign/scripts/vehicle_main.lua" />
+    <margins control="0,0,0,2" />
+    <script file="campaign/scripts/vehicle_main.lua" />
 		<sheetdata>
 			<anchor_column name="columnanchor" />
-			
-			<label_column name="type_label">
+
+      <label_column name="nonid_name_label">
+        <static textres="npc_label_unidentified" />
+      </label_column>
+      <string_columnh name="nonid_name" />
+
+      <line_column name="divider1" />
+
+      <label_column name="type_label">
 				<static textres="item_label_type" />
 			</label_column>
 			<combobox_column name="type">
@@ -106,17 +70,9 @@
 			<label_column name="subtype_label">
 				<static textres="vehicle_label_subtype" />
 			</label_column>
-			<string_columnh name="subtype">
-				<nohide />
-				<delaykeyupdate />
-				<script>
-					function onValueChanged()
-						window.update();
-					end
-				</script>
-			</string_columnh>
-			
-			<line_column name="divider1" />
+      <string_columnh name="subtype" />
+
+      <line_column name="divider2" />
 
 			<label_column name="tl_label">
 				<static textres="vehicle_label_tl" />
@@ -198,9 +154,48 @@
 			</label_column>
 			<string_columnh name="stall" />
 
-			<line_column name="divider2" />
+			<line_column name="divider3" />
 
-			<ft_columnh name="notes" />
+			<ft_columnh name="notes">
+        <empty textres="ft_empty" hidereadonly="true" />
+      </ft_columnh>
 		</sheetdata>
 	</windowclass>
+
+  <windowclass name="vehicle_systems">
+    <script file="campaign/scripts/vehicle_systems.lua" />
+    <sheetdata>
+      <anchor_column name="columnanchor" />
+
+      <label_charsheet name="TBA">
+        <anchored height="20">
+          <top parent="columnanchor" anchor="bottom" relation="relative" offset="10" />
+          <left />
+          <right />
+        </anchored>
+        <static text="IN DEVELOPMENT" />
+        <center />
+        <color>#808080</color>
+      </label_charsheet>
+    </sheetdata>
+  </windowclass>
+
+  <windowclass name="vehicle_combat">
+    <script file="campaign/scripts/vehicle_combat.lua" />
+    <sheetdata>
+      <anchor_column name="columnanchor" />
+
+      <label_charsheet name="TBA">
+        <anchored height="20">
+          <top parent="columnanchor" anchor="bottom" relation="relative" offset="10" />
+          <left />
+          <right />
+        </anchored>
+        <static text="IN DEVELOPMENT" />
+        <center />
+        <color>#808080</color>
+      </label_charsheet>
+    </sheetdata>
+  </windowclass>
+
 </root>

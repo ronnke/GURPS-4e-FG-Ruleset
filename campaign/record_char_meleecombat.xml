@@ -20,8 +20,11 @@
 		<sheetdata>
 
 			<frame_char name="meleecombatframe">
-				<bounds>15,0,-28,-13</bounds>
-			</frame_char>
+        <anchored position="insidetopleft">
+          <right offset="-5"/>
+          <bottom />
+        </anchored>
+      </frame_char>
 			<label_frametop>
 				<anchored to="meleecombatframe" />
 				<static textres="char_label_meleecombat" />
@@ -51,9 +54,9 @@
 				<invisible />
 			</label_columntop>
 			<label_columntop name="tl_label">
-				<anchored to="rightanchor" width="20">
+				<anchored to="rightanchor" width="30">
 					<top />
-					<right anchor="left" relation="relative" offset="-20" />
+					<right anchor="left" relation="relative" offset="-25" />
 				</anchored>
 				<static textres="char_label_tl" />
 			</label_columntop>
@@ -112,7 +115,7 @@
 				<anchored to="meleecombatframe">
 					<left offset="15" />
 					<top offset="50" />
-					<right offset="-25" />
+					<right offset="-35" />
 					<bottom offset="-20" />
 				</anchored>
         <script>

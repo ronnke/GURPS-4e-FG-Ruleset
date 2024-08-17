@@ -5,16 +5,16 @@
 
 <root>
 	<windowclass name="charsheet_main">
-    <script file="campaign/scripts/char_main.lua" />
+    <margins control="0,0,0,2" />
     <sheetdata>
 
-<!-- Character Details -->
+      <!-- Character Details -->
 
 			<frame_char name="detailframe">
-				<bounds>15,0,480,80</bounds>
+        <anchored position="insidetopleft" offset="0,0" width="490" height="80" />
 			</frame_char>
 			<string_labeled name="race" source="traits.race">
-				<anchored to="detailframe" position="insidetopleft" offset="15,10" width="150" height="20" />
+				<anchored to="detailframe" position="insidetopleft" offset="15,10" width="160" height="20" />
 				<labelres>char_label_race</labelres>
 			</string_labeled>
 			<string_labeled name="age" source="traits.age">
@@ -38,7 +38,7 @@
 				<labelres>char_label_reach</labelres>
 			</string_labeled>
 			<string_labeled name="appearance" source="traits.appearance">
-				<anchored to="detailframe" position="insidetopleft" offset="15,40" width="450" height="20" />
+				<anchored to="detailframe" position="insidetopleft" offset="15,40" width="460" height="20" />
 				<labelres>char_label_appearance</labelres>
 			</string_labeled>
 
@@ -46,7 +46,7 @@
 <!-- Attributes -->
 
 			<frame_char name="basicattributesframe">
-				<bounds>15,80,180,225</bounds>
+        <anchored position="insidetopleft" offset="0,80" width="180" height="225" />
 			</frame_char>
 			
 			<label_frametop>
@@ -117,11 +117,6 @@
 			<number_attribute name="hitpoints" source="attributes.hitpoints">
 				<anchored to="basicattributesframe" position="insidetopleft" offset="100,40" />
         <tabtarget prev="health_points" next="hitpoints_points" />
-        <script>
-          function onValueChanged()
-	          window.onHealthChanged();
-          end
-        </script>
       </number_attribute>
 			<label_attribute>
 				<anchored to="hitpoints" />
@@ -165,11 +160,6 @@
 			<number_attribute name="fatiguepoints" source="attributes.fatiguepoints">
 				<anchored to="perception" position="belowleft" offset="0,15" />
         <tabtarget prev="perception_points" next="fatiguepoints_points" />
-        <script>
-          function onValueChanged()
-	          window.onFatigueChanged();
-          end
-        </script>
       </number_attribute>
 			<label_attribute>
 				<anchored to="fatiguepoints" />
@@ -184,7 +174,7 @@
 <!-- Current Attributes -->
 
 			<frame_char name="currentattributesframe">
-				<bounds>15,305,180,100</bounds>
+        <anchored position="insidetopleft" offset="0,305" width="180" height="100" />
 			</frame_char>
 			
 			<label_frametop>
@@ -221,25 +211,17 @@
 
       <button_checkbox name="halfmovedodge" source="attributes.halfmovedodge">
         <anchored to="currentattributesframe" position="insidetopleft" offset="20,72" width="20" height="20" />
-        <script>
-          function onValueChanged()
-	          window.onEncumbranceChanged();
-          end
-        </script>
       </button_checkbox>
       <label name="halfmovedodge_label">
         <anchored to="currentattributesframe" position="insidetopleft" offset="40,72" />
         <static textres="char_label_halfmovedodge" />
       </label>
 
-
       <!-- Languages -->
 
 			<frame_char name="languagesframe">
-				<anchored>
-					<top offset="405"/>
-					<bottom offset="-15"/>
-					<left offset="15"/>
+        <anchored position="insidetopleft" offset="0,405">
+					<bottom />
 					<right anchor="center" offset="40"/>
 				</anchored>
 			</frame_char>
@@ -297,9 +279,9 @@
 			
 			<list_charlanguage name="languageslist">
 				<anchored to="languagesframe">
-					<left offset="10" />
-					<top offset="50" />
-					<right offset="-10" />
+          <top offset="50" />
+          <left offset="10" />
+					<right offset="-15" />
 					<bottom offset="-15" />
 				</anchored>
 			</list_charlanguage>
@@ -321,12 +303,11 @@
 <!-- Cultural Familiarity-->
 
 			<frame_char name="culturalfamiliarityframe">
-				<anchored>
-					<top offset="395"/>
-					<bottom offset="-15"/>
-					<left anchor="center" offset="40"/>
-					<right offset="-29"/>
-				</anchored>
+        <anchored position="insidetopleft" offset="0,405">
+					<left anchor="center" offset="40" />
+					<right offset="-5" />
+          <bottom />
+        </anchored>
 			</frame_char>
 			
 			<label_frametop>
@@ -349,9 +330,9 @@
 
 			<list_charculturalfamiliarity name="culturalfamiliaritieslist">
 				<anchored to="culturalfamiliarityframe">
-					<left offset="10" />
-					<top offset="50" />
-					<right offset="-10" />
+          <top offset="50" />
+          <left offset="10" />
+					<right offset="-15" />
 					<bottom offset="-15" />
 				</anchored>
 			</list_charculturalfamiliarity>
@@ -373,31 +354,37 @@
 <!-- Tabs-->
 
 			<subwindow name="secondarycharacteristics">
-				<bounds>195,80,-1,315</bounds>
+        <anchored position="insidetopleft" offset="180,80" height="325">
+          <right />
+        </anchored>
 				<class>charsheet_secondarycharacteristics</class>
 			</subwindow>
 
 			<subwindow name="reactionmodifiers">
-				<bounds>195,80,-1,315</bounds>
-				<class>charsheet_reactionmodifiers</class>
+        <anchored position="insidetopleft" offset="180,80" height="325">
+          <right />
+        </anchored>
+        <class>charsheet_reactionmodifiers</class>
 			</subwindow>
 
       <subwindow name="resources">
-        <bounds>195,80,-1,315</bounds>
+        <anchored position="insidetopleft" offset="180,80" height="325">
+          <right />
+        </anchored>
         <class>charsheet_resources</class>
       </subwindow>
 
       <tabs_charmain>
 				<tab>
-					<icon>tab_secondarycharacteristics</icon>
+          <tabres>tab_secondarycharacteristics</tabres>
 					<subwindow>secondarycharacteristics</subwindow>
 				</tab>
 				<tab>
-					<icon>tab_reactionmodifiers</icon>
+          <tabres>tab_reactionmodifiers</tabres>
 					<subwindow>reactionmodifiers</subwindow>
 				</tab>
         <tab>
-          <icon>tab_resources</icon>
+          <tabres>tab_resources</tabres>
           <subwindow>resources</subwindow>
         </tab>
         <activate>1</activate>

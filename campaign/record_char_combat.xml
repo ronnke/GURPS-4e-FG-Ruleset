@@ -16,17 +16,13 @@
 				local rActor = ActorManager.resolveActor(getDatabaseNode());
 				ActionFatigue.updateFatigue(rActor);
 			end
-      function onEncumbranceChanged()
-				local rActor = ActorManager.resolveActor(getDatabaseNode());
-				ActorManager2.updateEncumbrance(rActor);
-      end
 		</script>
 		<sheetdata>
 		
 			<!-- CURRENT STATS -->
 			
 			<frame_char name="currentattributesframe">
-				<bounds>15,0,210,100</bounds>
+        <anchored position="insidetopleft" offset="0,0" width="210" height="100" />
 			</frame_char>
 			<label_frametop>
 				<anchored to="currentattributesframe" />
@@ -111,7 +107,7 @@
 
       <!-- DEFENSES -->
 			<frame_char name="defensesframe">
-				<bounds>225,0,270,100</bounds>
+        <anchored position="insidetopleft" offset="210,0" width="270" height="100" />
 			</frame_char>
 			<label_frametop>
 				<anchored to="defensesframe" />
@@ -163,36 +159,44 @@
 
 
 			<subwindow name="meleecombat">
-				<bounds>0,100,-1,-2</bounds>
+        <anchored position="insidetopleft" offset="0,100">
+          <bottom />
+          <right />
+        </anchored>
 				<class>charsheet_meleecombat</class>
 			</subwindow>
 
 			<subwindow name="rangedcombat">
-				<bounds>0,100,-1,-2</bounds>
-				<class>charsheet_rangedcombat</class>
+        <anchored position="insidetopleft" offset="0,100">
+          <bottom />
+          <right />
+        </anchored>
+        <class>charsheet_rangedcombat</class>
 			</subwindow>
 
 			<subwindow name="defenses">
-				<bounds>0,100,-1,-2</bounds>
-				<class>charsheet_defenses</class>
+        <anchored position="insidetopleft" offset="0,100">
+          <bottom />
+          <right />
+        </anchored>
+        <class>charsheet_defenses</class>
 			</subwindow>
 
 			<tabs_charcombat>
 				<tab>
-					<icon>tab_meleecombat</icon>
+          <tabres>tab_meleecombat</tabres>
 					<subwindow>meleecombat</subwindow>
 				</tab>
 				<tab>
-					<icon>tab_rangedcombat</icon>
+          <tabres>tab_rangedcombat</tabres>
 					<subwindow>rangedcombat</subwindow>
 				</tab>
 				<tab>
-					<icon>tab_defenses</icon>
+          <tabres>tab_defenses</tabres>
 					<subwindow>defenses</subwindow>
 				</tab>
 				<activate>1</activate>
 			</tabs_charcombat>
 		</sheetdata>
 	</windowclass>
-
 </root>

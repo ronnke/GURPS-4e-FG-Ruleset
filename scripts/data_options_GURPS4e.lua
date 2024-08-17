@@ -4,23 +4,7 @@
 --
 
 function onInit()
-	registerDiceRolls();
 	registerOptions();
-end
-
-function registerDiceRolls()
-	DiceRollManager.registerDamageKey();
-	DiceRollManager.registerDamageTypeKey("cr");
-	DiceRollManager.registerDamageTypeKey("cut");
-	DiceRollManager.registerDamageTypeKey("imp");
-	DiceRollManager.registerDamageTypeKey("pi-");
-	DiceRollManager.registerDamageTypeKey("pi");
-	DiceRollManager.registerDamageTypeKey("pi+");
-	DiceRollManager.registerDamageTypeKey("pi++");
-	DiceRollManager.registerDamageTypeKey("burn");
-	DiceRollManager.registerDamageTypeKey("cor");
-	DiceRollManager.registerDamageTypeKey("tox");
-	DiceRollManager.registerDamageTypeKey("fat");
 end
 
 function registerOptions()

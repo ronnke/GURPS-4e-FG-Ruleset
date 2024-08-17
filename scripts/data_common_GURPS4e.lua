@@ -116,8 +116,8 @@ aVehicleTypeData = {
 	"Spacecraft",
 };
 
--- Damage types 
-dmgtypes = {
+-- Damage types
+aDamageTypeData = {
 	"burn",
 	"cor",
 	"cut",
@@ -128,5 +128,28 @@ dmgtypes = {
 	"pi",
 	"pi+",
 	"pi++",
-	"tox",
+	"tox"
+};
+
+-- Hit Locations 
+aHitLocationData = {
+	"Eye",
+	"Skull",
+	"Face",
+	"Arm",
+	"Leg",
+	"Torso",
+	"Groin",
+	"Hand",
+	"Foot",
+	"Neck",
+	"Vitals"
+};
+
+-- Injury Tolerance 
+aInjuryToleranceData = {
+	"None",
+	"Unliving",
+	"Homogenous",
+	"Diffuse"
 };
