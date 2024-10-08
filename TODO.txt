@@ -10,3 +10,4 @@
 - Pointer range not correct for SM. Computed to edge not center
 - Add a GM only page in the Party Sheet to track notes for characters and secret "resources"
 - Damage roll minimums for damage type
+- Add: Hold ctrl or shift to make any roll a hidden (box roll)
