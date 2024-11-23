@@ -63,9 +63,14 @@
 
 	<!-- Fonts -->
 	<includefile source="graphics/graphics_fonts.xml" />
-	
+
 	<!-- Modifier stack -->
 	<icon name="modcollector" file="graphics/icons/modcollector.png" />
 	<icon name="modcollector_counter" file="graphics/icons/modcollector_counter.png" />
+	
+	<!-- Dice tower -->
+	<icon name="dicetower_icon" file="graphics/icons/dicetower_icon.png" />
+	<icon name="dicetower_normal" file="graphics/icons/dicetower_normal.png" />
+	<icon name="dicetower_drop" file="graphics/icons/dicetower_drop.png" />
 	
 </root>

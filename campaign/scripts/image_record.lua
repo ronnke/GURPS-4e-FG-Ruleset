@@ -33,7 +33,7 @@ function onMeasurePointer(nLength, sPointerType, nStartX, nStartY, nEndX, nEndY)
 		local node = getDatabaseNode().getChild("..");
 		if (DB.getValue(node, "rangemodifer", 0) ~= 0) then
 			if sUnits == "ft" or sUnits == "yd" or sUnits == "mi" or sUnits == "m" or sUnits == "km" or sUnits == "nmi" then
-				return nDistance .. sUnits .. "\n(" .. ManagerGURPS4e.calcRangeModifier(nDistance, sUnits) .. ")";
+				return nDistance .. sUnits .. " (" .. ManagerGURPS4e.calcRangeModifier(nDistance, sUnits) .. ")";
 			end
 		end
 		return nDistance .. sUnits;

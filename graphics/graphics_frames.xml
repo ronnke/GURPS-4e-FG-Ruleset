@@ -22,5 +22,11 @@
 		<bitmap file="graphics/frames/textline.png"/>
 		<middle rect="0,2,100,14"/>
 	</framedef>
+	
+	<!-- Modifier Stack -->
+	<framedef name="modstackfocus">
+		<bitmap file="graphics/frames/modstackfocus.png" />
+		<offset>9,9,9,9</offset>
+	</framedef>
 
 </root>
