@@ -9,8 +9,18 @@ end
 
 function registerOptions()
 -- GURPS Options  
-	OptionsManager.registerOption2("SHPC", false, "option_header_combat", "option_label_SHPC", "option_entry_cycler", 
-			{ labels = "option_val_detailed|option_val_status", values = "detailed|status", baselabel = "option_val_off", baseval = "off", default = "detailed" });
-	OptionsManager.registerOption2("SHNPC", false, "option_header_combat", "option_label_SHNPC", "option_entry_cycler", 
-			{ labels = "option_val_detailed|option_val_status", values = "detailed|status", baselabel = "option_val_off", baseval = "off", default = "status" });
+	OptionsManager.registerOptionData({
+		sKey = "SHPC", sGroupRes = "option_header_combat",
+		tCustom = { labelsres = "option_val_detailed|option_val_status", values = "detailed|status", baselabelres = "option_val_off", baseval = "off", default = "detailed", },
+	});
+			
+	OptionsManager.registerOptionData({	
+		sKey = "SHNPC", sGroupRes = "option_header_combat",
+		tCustom = { labelsres = "option_val_detailed|option_val_status", values = "detailed|status", baselabelres = "option_val_off", baseval = "off", default = "status", },
+	});
+
+	OptionsManager.registerOptionData({	
+		sKey = "RNDINIT", sGroupRes = "option_header_houserule",
+		tCustom = { labelsraw = "+d4|+d6", values = "d4|d6", baselabelres = "option_val_default", baseval = "", default = "", },
+	});
 end

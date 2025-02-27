@@ -33,3 +33,12 @@ function total(rRoll)
 
   return nTotal;
 end
+
+function performAction(draginfo, rActor, rRoll)
+	if Input.isControlPressed() then
+	    rRoll.bSecret = true;
+	    rRoll.bTower = true;
+	end 
+
+	ActionsManager.performAction(draginfo, rActor, rRoll);
+end

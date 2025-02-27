@@ -57,5 +57,5 @@ end
 function performRoll(draginfo, rActor)
     rRoll = { sType = "reaction", sDesc = "[REACTION]", aDice = { "d6","d6","d6" }, nMod = 0 };
     
-    ActionsManager.performAction(draginfo, rActor, rRoll);
+    ActionsManagerGURPS4e.performAction(draginfo, rActor, rRoll);
 end

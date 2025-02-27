@@ -55,23 +55,23 @@ end
 function performDodgeRoll(draginfo, rActor, nTarget)
     rRoll = { sType = "dodge", sDesc = "[DODGE]", aDice = { "d6","d6","d6" }, nMod = 0, sTargetDesc = "Dodge", nTarget = nTarget };
     
-    ActionsManager.performAction(draginfo, rActor, rRoll);
+    ActionsManagerGURPS4e.performAction(draginfo, rActor, rRoll);
 end
 
 function performBlockRoll(draginfo, rActor, nTarget)
     rRoll = { sType = "block", sDesc = "[BLOCK]", aDice = { "d6","d6","d6" }, nMod = 0, sTargetDesc = "Block", nTarget = nTarget };
     
-    ActionsManager.performAction(draginfo, rActor, rRoll);
+    ActionsManagerGURPS4e.performAction(draginfo, rActor, rRoll);
 end
 
 function performParryRoll(draginfo, rActor, nTarget)
     rRoll = { sType = "parry", sDesc = "[PARRY]", aDice = { "d6","d6","d6" }, nMod = 0, sTargetDesc = "Parry", nTarget = nTarget };
     
-    ActionsManager.performAction(draginfo, rActor, rRoll);
+    ActionsManagerGURPS4e.performAction(draginfo, rActor, rRoll);
 end
 
 function performWeaponParryRoll(draginfo, rActor, sWeapon, sMode, sTargetDesc, nTarget)
     rRoll = { sType = "parry", sDesc = "[PARRY]", aDice = { "d6","d6","d6" }, nMod = 0, sWeapon = sWeapon, sMode = sMode, sTargetDesc = sTargetDesc, nTarget = nTarget };
     
-    ActionsManager.performAction(draginfo, rActor, rRoll);
+    ActionsManagerGURPS4e.performAction(draginfo, rActor, rRoll);
 end

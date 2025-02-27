@@ -53,5 +53,5 @@ end
 function performRoll(draginfo, rActor, sNode)
     rRoll = { sType = "melee", sDesc = "[MELEE]", aDice = { "d6","d6","d6" }, nMod = 0, sNode = sNode };
     
-    ActionsManager.performAction(draginfo, rActor, rRoll);
+    ActionsManagerGURPS4e.performAction(draginfo, rActor, rRoll);
 end

@@ -158,7 +158,7 @@ function performRoll(draginfo, rActor, sWeapon, sMode, sDamage)
     local aDice  = StringManagerGURPS4e.convertStringToDice(sDamage);
     rRoll = { sType = "damage", sDesc = "[DAMAGE]", aDice = aDice, nMod = 0, sWeapon = sWeapon, sMode = sMode, sDamage = sDamage };
     
-    ActionsManager.performAction(draginfo, rActor, rRoll);
+    ActionsManagerGURPS4e.performAction(draginfo, rActor, rRoll);
 end
 
 function performThrustRoll(draginfo, rActor, sDamage)
@@ -167,7 +167,7 @@ function performThrustRoll(draginfo, rActor, sDamage)
     local sMode = "";
     rRoll = { sType = "damage", sDesc = "[DAMAGE]", aDice = aDice, nMod = 0, sWeapon = sWeapon, sMode = sMode, sDamage = sDamage };
     
-    ActionsManager.performAction(draginfo, rActor, rRoll);
+    ActionsManagerGURPS4e.performAction(draginfo, rActor, rRoll);
 end
 
 function performSwingRoll(draginfo, rActor, sDamage)
@@ -176,5 +176,5 @@ function performSwingRoll(draginfo, rActor, sDamage)
     local sMode = "";
     rRoll = { sType = "damage", sDesc = "[DAMAGE]", aDice = aDice, nMod = 0, sWeapon = sWeapon, sMode = sMode, sDamage = sDamage };
     
-    ActionsManager.performAction(draginfo, rActor, rRoll);
+    ActionsManagerGURPS4e.performAction(draginfo, rActor, rRoll);
 end

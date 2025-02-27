@@ -32,7 +32,9 @@
   <!-- Options -->
 	<string name="option_val_DDCL_gurps">GURPS</string>
 	<string name="option_val_DDCL_dfrpg">DFRPG</string>
-
+  
+  <string name="option_label_RNDINIT">Combat: Randomize Initiative</string>
+  
 	<!-- Combat Tracker -->
   <string name="ct_menu_resetmenu">Reset</string>
   <string name="ct_menu_itemdeleteall">Delete All</string>
