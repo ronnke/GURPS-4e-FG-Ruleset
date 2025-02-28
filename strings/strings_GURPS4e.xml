@@ -16,7 +16,7 @@
 
   <string name="tab_secondarycharacteristics">Move/Enc</string>
   <string name="tab_reactionmodifiers">Reaction</string>
-  <string name="tab_resources">Resourses</string>
+  <string name="tab_resources">Resources</string>
 
   <string name="tab_skills">Skills</string>
   <string name="tab_spells">Spells</string>
@@ -32,7 +32,9 @@
   <!-- Options -->
 	<string name="option_val_DDCL_gurps">GURPS</string>
 	<string name="option_val_DDCL_dfrpg">DFRPG</string>
-
+  
+  <string name="option_label_RNDINIT">Combat: Randomize Turn/Initiative order</string>
+  
 	<!-- Combat Tracker -->
   <string name="ct_menu_resetmenu">Reset</string>
   <string name="ct_menu_itemdeleteall">Delete All</string>

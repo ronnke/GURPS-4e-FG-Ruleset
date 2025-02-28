@@ -129,7 +129,16 @@ function onPCPostAdd(tCustom)
 	end
     
     -- Setup
-    DB.setValue(tCustom.nodeCT, "speed", "number", tonumber(DB.getValue(tCustom.nodeRecord, "attributes.basicspeed", "0")));
+    local sOptRNDINIT = OptionsManager.getOption("RNDINIT");
+
+    local nSpeed = tonumber(DB.getValue(tCustom.nodeRecord, "attributes.basicspeed", "0"));
+    if sOptRNDINIT == "d4" then
+        nSpeed = nSpeed + math.random(1, 4);
+    elseif sOptRNDINIT == "d6" then
+        nSpeed = nSpeed + math.random(1, 6);
+    end
+
+    DB.setValue(tCustom.nodeCT, "speed", "number", nSpeed);
     DB.setValue(tCustom.nodeCT, "hps", "number", DB.getValue(tCustom.nodeRecord, "attributes.hps", 0));
     DB.setValue(tCustom.nodeCT, "fps", "number", DB.getValue(tCustom.nodeRecord, "attributes.fps", 0));
 
@@ -146,9 +155,18 @@ function onNPCPostAdd(tCustom)
     DB.setValue(tCustom.nodeCT, "skip", "number", 0);
 
     -- Setup
+    local sOptRNDINIT = OptionsManager.getOption("RNDINIT");
+
+    local nSpeed = tonumber(DB.getValue(tCustom.nodeRecord, "attributes.basicspeed", "0"));
+    if sOptRNDINIT == "d4" then
+        nSpeed = nSpeed + math.random(1, 4);
+    elseif sOptRNDINIT == "d6" then
+        nSpeed = nSpeed + math.random(1, 6);
+    end
+
+    DB.setValue(tCustom.nodeCT, "speed", "number", nSpeed);
     DB.setValue(tCustom.nodeCT, "basemove", "string", DB.getValue(tCustom.nodeRecord, "attributes.move", "0"));
     DB.setValue(tCustom.nodeCT, "basedodge", "number", DB.getValue(tCustom.nodeRecord, "combat.dodge", 0));
-    DB.setValue(tCustom.nodeCT, "speed", "number", tonumber(DB.getValue(tCustom.nodeRecord, "attributes.basicspeed", "0")));
     DB.setValue(tCustom.nodeCT, "hps", "number", DB.getValue(tCustom.nodeRecord, "attributes.hitpoints", 0));
     DB.setValue(tCustom.nodeCT, "fps", "number", DB.getValue(tCustom.nodeRecord, "attributes.fatiguepoints", 0));
 
@@ -165,9 +183,9 @@ function onVehiclePostAdd(tCustom)
     DB.setValue(tCustom.nodeCT, "skip", "number", 0);
     
     -- Setup
+    DB.setValue(tCustom.nodeCT, "speed", "number", 0);
     DB.setValue(tCustom.nodeCT, "basemove", "string", DB.getValue(tCustom.nodeRecord, "attributes.move", "0"));
     DB.setValue(tCustom.nodeCT, "basedodge", "number", DB.getValue(tCustom.nodeRecord, "combat.dodge", 0));
-    DB.setValue(tCustom.nodeCT, "speed", "number", 0);
     DB.setValue(tCustom.nodeCT, "hps", "number", ManagerGURPS4e.getVehicleHP(tCustom.nodeRecord));
     DB.setValue(tCustom.nodeCT, "fps", "number", 0);
     DB.setValue(tCustom.nodeCT, "attributes.hitpoints", "number", ManagerGURPS4e.getVehicleHP(tCustom.nodeRecord));

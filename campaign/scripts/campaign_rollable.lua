@@ -150,7 +150,7 @@ function action(draginfo)
     elseif rollable_reaction or rollable_button_reaction then
       ActionReaction.performRoll(draginfo, rActor);
     else
-      ActionsManager.performAction(draginfo, rActor, rRoll);
+      ActionsManagerGURPS4e.performAction(draginfo, rActor, rRoll);
     end  
 end
 

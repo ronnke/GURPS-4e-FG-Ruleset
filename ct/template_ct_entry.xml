@@ -186,6 +186,7 @@
 					window.onHealthChanged();
         end
       </script>
+      <hideonvalue merge="delete" />
     </number_ct_static>
   </template>
   <template name="number_clientct_fps">
@@ -199,6 +200,7 @@
 					window.onFatigueChanged();
         end
       </script>
+      <hideonvalue merge="delete" />
     </number_ct_static>
   </template>
   <template name="number_clientct_injury">
