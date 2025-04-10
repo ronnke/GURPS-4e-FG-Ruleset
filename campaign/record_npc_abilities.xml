@@ -141,7 +141,8 @@
 					<top offset="2" />
 					<left offset="5" />
 				</anchored>
-			</button_charroll>
+        <tooltip textres="npc_tooltip_ability" />
+      </button_charroll>
 
 
 			<!-- OTHER MODIFIERS SECTION --> 			

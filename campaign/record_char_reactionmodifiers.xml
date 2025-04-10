@@ -29,7 +29,8 @@
 					<top offset="10" />
 					<left offset="50" />
 				</anchored>
-			</button_charroll>
+        <tooltip textres="char_tooltip_reaction" />
+      </button_charroll>
 
 			<basicstring name="reactionmodifiers" source="traits.reactionmodifiers">
 				<anchored to="reactionmodifiersframe" height="60">

@@ -34,9 +34,14 @@
 	<string name="option_val_DDCL_dfrpg">DFRPG</string>
   
   <string name="option_label_RNDINIT">Combat: Randomize Turn/Initiative order</string>
-  
-	<!-- Combat Tracker -->
+
+  <!-- Combat Tracker -->
   <string name="ct_menu_resetmenu">Reset</string>
+  <string name="ct_menu_resetcombat">Combat</string>
+  <string name="ct_menu_initall">Roll All Initiatives</string>
+  <string name="ct_menu_initnpc">Roll NPC Initiatives</string>
+  <string name="ct_menu_initpc">Roll PC Initiatives</string>
+  <string name="ct_menu_initclear">Clear All Initiatives</string>
   <string name="ct_menu_itemdeleteall">Delete All</string>
 
   <string name="ct_label_speed">Spd</string>
@@ -111,15 +116,23 @@
 	<string name="char_label_swing">Swing</string>
 	<string name="char_label_basicspeed">Basic Speed</string>
 	<string name="char_label_basicmove">Basic Move</string>
+  <string name="char_tooltip_swing">Roll Swing</string>
+  <string name="char_tooltip_thrust">Roll Thrust</string>
+  <string name="char_tooltip_initiative">Roll Initiative</string>
 
-	<string name="char_label_encumbrance">ENCUMBRANCE</string>
+  <string name="char_label_encumbrance">ENCUMBRANCE</string>
 	<string name="char_label_encumbrancenone">None</string>
 	<string name="char_label_encumbrancelight">Light</string>
 	<string name="char_label_encumbrancemedium">Med</string>
 	<string name="char_label_encumbranceheavy">Hvy</string>
 	<string name="char_label_encumbrancexheavy">X-Hvy</string>
   <string name="char_label_encumbrancelevel">Encumbrance Level</string>
-  
+
+  <string name="char_label_reactionmodifiers">REACTION MODIFIERS</string>
+  <string name="char_tooltip_reaction">Roll Reaction</string>
+
+  <string name="char_label_resources">RESOURCES</string>
+
   <string name="char_label_currentattributes">CURRENT ATTRIBUTES</string>
   <string name="char_label_injuryandfatigure">INJURY &amp; FATIGUE</string>
   <string name="char_label_halfmovedodge">Half Move &amp; Dodge</string>
@@ -128,9 +141,7 @@
 	<string name="char_label_spoken">Spoken</string>
 	<string name="char_label_written">Written</string>
 
-	<string name="char_label_culturalfamiliarities">CULTURAL FAMILIARITIES</string>
-  <string name="char_label_reactionmodifiers">REACTION MODIFIERS</string>
-  <string name="char_label_resources">RESOURCES</string>
+  <string name="char_label_culturalfamiliarities">CULTURAL FAMILIARITIES</string>
 
   <string name="char_label_adsperks">ADVANTAGES &amp; PERKS</string>
 	<string name="char_label_disadsquirks">DISADVANTAGES &amp; QUIRKS</string>
@@ -173,8 +184,12 @@
 	<string name="char_label_spells">SPELLS</string>
 	<string name="char_label_powers">POWERS</string>
 	<string name="char_label_other">OTHER ABILITIES</string>
-	
-	<string name="char_label_level">Lvl</string>
+  <string name="char_tooltip_skill">Roll Skill</string>
+  <string name="char_tooltip_spell">Roll Spell</string>
+  <string name="char_tooltip_power">Roll Power</string>
+  <string name="char_tooltip_other">Roll Other</string>
+
+  <string name="char_label_level">Lvl</string>
 	<string name="char_label_type">Type</string>
 	<string name="char_label_relativelevel">Rel Lvl</string>
 
@@ -218,8 +233,11 @@
 	<string name="npc_label_melee">MELEE COMBAT</string>
 	<string name="npc_label_ranged">RANGED COMBAT</string>
 	<string name="npc_label_abilities">ABILITIES</string>
-
-	<string name="npc_label_st">ST</string>
+  <string name="npc_tooltip_swing">Roll Swing</string>
+  <string name="npc_tooltip_thrust">Roll Thrust</string>
+  <string name="npc_tooltip_ability">Roll Ability</string>
+  
+  <string name="npc_label_st">ST</string>
 	<string name="npc_label_weight">Weight</string>
 	<string name="npc_label_bulk">Bulk</string>
 	<string name="npc_label_ammo">Ammo</string>

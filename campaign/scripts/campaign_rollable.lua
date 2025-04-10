@@ -32,7 +32,8 @@ function isRollable()
      rollable_damage or 
      rollable_reaction or 
      rollable_thrust or 
-     rollable_swing then
+     rollable_swing or 
+     rollable_initiative then
 
     return true;
   end
@@ -56,7 +57,8 @@ function isRollableButton()
      rollable_button_damage or
      rollable_button_reaction or
      rollable_button_thrust or 
-     rollable_button_swing then
+     rollable_button_swing or 
+     rollable_button_initiative then
 
     return true;
   end
@@ -149,6 +151,8 @@ function action(draginfo)
       ActionDamage.performSwingRoll(draginfo, rActor, sDamage);
     elseif rollable_reaction or rollable_button_reaction then
       ActionReaction.performRoll(draginfo, rActor);
+    elseif rollable_initiative or rollable_button_initiative then
+      ActionInitiative.performRoll(draginfo, rActor);
     else
       ActionsManagerGURPS4e.performAction(draginfo, rActor, rRoll);
     end  
