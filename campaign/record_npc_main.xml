@@ -170,6 +170,7 @@
       <button_charroll name="thrust_btn">
         <rollable_button_thrust />
         <anchored to="reach" position="righthigh" offset="10,0" />
+        <tooltip textres="npc_tooltip_thrust" />
       </button_charroll>
       <string_labeled name="thrust" source="attributes.thrust">
         <anchored to="thrust_btn" position="right" relation="relative" offset="5,0" width="50" />
@@ -180,6 +181,7 @@
       <button_charroll name="swing_btn">
         <rollable_button_swing />
         <anchored to="thrust" position="righthigh" offset="10,0" />
+        <tooltip textres="npc_tooltip_swing" />
       </button_charroll>
       <string_labeled name="swing" source="attributes.swing">
 				<anchored to="swing_btn" position="right" relation="relative" offset="5,0" width="50" />

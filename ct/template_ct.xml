@@ -7,13 +7,10 @@
 
 <root>
 	<!-- GURPS combat tracker templates -->
-  <template name="button_ct_menu">
-    <metalplate>
-      <bounds>120,-45,50,26</bounds>
-      <tooltip textres="ct_tooltip_menu" />
-      <static textres="ct_label_menu" />
+  <template name="button_ct_controls_menu" merge="join">
+    <button_listitem_text_left_sm>
       <script file="ct/scripts/ct_menu.lua" />
-    </metalplate>
+    </button_listitem_text_left_sm>
   </template>
 
   <template name="spacer_ct_header_status">

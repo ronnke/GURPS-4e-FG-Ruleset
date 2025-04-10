@@ -130,7 +130,8 @@
 					<top offset="2" />
 					<left offset="5" />
 				</anchored>
-			</button_charroll>
+        <tooltip textres="char_tooltip_other" />
+      </button_charroll>
 		
 			<genericcontrol name="rightanchor">
 				<anchored height="0" width="0">

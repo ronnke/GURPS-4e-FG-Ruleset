@@ -132,10 +132,8 @@ function onPCPostAdd(tCustom)
     local sOptRNDINIT = OptionsManager.getOption("RNDINIT");
 
     local nSpeed = tonumber(DB.getValue(tCustom.nodeRecord, "attributes.basicspeed", "0"));
-    if sOptRNDINIT == "d4" then
-        nSpeed = nSpeed + math.random(1, 4);
-    elseif sOptRNDINIT == "d6" then
-        nSpeed = nSpeed + math.random(1, 6);
+    if sOptRNDINIT ~= "" then
+        nSpeed = 0;
     end
 
     DB.setValue(tCustom.nodeCT, "speed", "number", nSpeed);
@@ -158,10 +156,35 @@ function onNPCPostAdd(tCustom)
     local sOptRNDINIT = OptionsManager.getOption("RNDINIT");
 
     local nSpeed = tonumber(DB.getValue(tCustom.nodeRecord, "attributes.basicspeed", "0"));
-    if sOptRNDINIT == "d4" then
-        nSpeed = nSpeed + math.random(1, 4);
-    elseif sOptRNDINIT == "d6" then
-        nSpeed = nSpeed + math.random(1, 6);
+    if sOptRNDINIT ~= "" then
+		local sOptINIT = OptionsManager.getOption("INIT");
+		if sOptINIT == "group" then
+			if tCustom.nodeCTLastMatch then
+				nSpeed = DB.getValue(tCustom.nodeCTLastMatch, "speed", 0);
+			else
+				if sOptRNDINIT == "d4" then
+					nSpeed = nSpeed + math.random(4);
+				elseif sOptRNDINIT == "d6" then
+					nSpeed = nSpeed + math.random(6);
+				elseif sOptRNDINIT == "d4x" then
+					nSpeed = nSpeed + math.random(4) * 0.25
+				elseif sOptRNDINIT == "d6x" then
+					nSpeed = nSpeed + math.random(6) * 0.25
+				end
+			end
+		elseif sOptINIT == "on" then
+			if sOptRNDINIT == "d4" then
+				nSpeed = nSpeed + math.random(4);
+			elseif sOptRNDINIT == "d6" then
+				nSpeed = nSpeed + math.random(6);
+			elseif sOptRNDINIT == "d4x" then
+				nSpeed = nSpeed + math.random(4) * 0.25
+			elseif sOptRNDINIT == "d6x" then
+				nSpeed = nSpeed + math.random(6) * 0.25
+			end
+		else
+			nSpeed = 0;
+		end
     end
 
     DB.setValue(tCustom.nodeCT, "speed", "number", nSpeed);
@@ -261,9 +284,168 @@ end
 --
 
 function resetCombat()
-	function resetCombatant(nodeCT)
+    local sOptRNDINIT = OptionsManager.getOption("RNDINIT");
+	function resetCombat(nodeCT)
+		if sOptRNDINIT ~= "" then
+		    DB.setValue(nodeCT, "speed", "number", 0);
+		end
 	end
-	CombatManager.callForEachCombatant(resetCombatant);
+	CombatManager.callForEachCombatant(resetCombat);
+
+    CombatManagerGURPS4e.clearExpiringEffects();
+end
+
+function rollInit(sType)
+	CombatManagerGURPS4e.rollTypeInit(sType, CombatManagerGURPS4e.rollEntryInit);
+end
+function rollEntryInit(nodeEntry)
+	CombatManagerGURPS4e.rollStandardEntryInit(CombatManagerGURPS4e.getEntryInitRecord(nodeEntry));
+end
+function getEntryInitRecord(nodeEntry)
+	if not nodeEntry then
+		return nil;
+	end
+
+	local tInit = { nodeEntry = nodeEntry };
+	tInit.nBasicSpeed = tonumber(DB.getValue(nodeEntry, "attributes.basicspeed", "0"));
+	tInit.nBonus = 0;
+    tInit.fnRollRandom = CombatManagerGURPS4e.rollRandomInit;
+
+	return tInit;
+end
+function rollRandomInit(tInit)
+	local tSuffix = {};
+--	table.insert(tSuffix, string.format("(Spd %d)", tInit.nBasicSpeed));
+
+	local sOptRNDINIT = OptionsManager.getOption("RNDINIT");
+
+	local nInitResult = 0;
+    if sOptRNDINIT == "d4" then
+        nInitResult = math.random(4);
+		tInit.nBonus = nInitResult
+    elseif sOptRNDINIT == "d6" then
+        nInitResult = math.random(6);
+		tInit.nBonus = nInitResult
+    elseif sOptRNDINIT == "d4x" then
+        nInitResult = math.random(4);
+		tInit.nBonus = nInitResult * 0.25
+    elseif sOptRNDINIT == "d6x" then
+        nInitResult = math.random(6);
+		tInit.nBonus = nInitResult * 0.25
+    end
+	table.insert(tSuffix, string.format("[ %+g ]", tInit.nBonus));
+	tInit.sSuffix = table.concat(tSuffix, " ");
+
+	return nInitResult;
+end
+
+-- Override the default rollTypeInit function to support the GURPS4e system
+function rollTypeInit(sType, fRollCombatantEntryInit, ...)
+	local tCombatantNodesToRoll = {};
+
+	-- Calculate which combatants to roll initiative for
+	for _,nodeCT in pairs(CombatManager.getCombatantNodes()) do
+		local bRoll = true;
+		if sType then
+			local rActor = ActorManager.resolveActor(nodeCT);
+			if sType == "pc" then
+				if not ActorManager.isPC(rActor) then
+					bRoll = false;
+				end
+			elseif not ActorManager.isRecordType(rActor, sType) then
+				bRoll = false;
+			end
+		end
+		if bRoll then
+			table.insert(tCombatantNodesToRoll, nodeCT);
+		end
+	end
+
+	-- Reset all entries to default "empty" value for initiative
+	-- Must reset all before rolling to support initiative grouping
+	for _,nodeCT in ipairs(tCombatantNodesToRoll) do
+		DB.setValue(nodeCT, "speed", "number", -10000);
+	end
+	-- Then, roll all initiatives
+	for _,nodeCT in ipairs(tCombatantNodesToRoll) do
+		fRollCombatantEntryInit(nodeCT, ...);
+	end
+end
+function rollStandardEntryInit(tInit)
+	if not tInit or not tInit.nodeEntry then
+		return;
+	end
+	
+	-- For PCs, we always roll unique initiative
+	if CombatManager.isPlayerCT(tInit.nodeEntry) then
+		local rActor = ActorManager.resolveActor(tInit.nodeEntry);
+		local nodeActor = ActorManager.getCreatureNode(rActor);
+		tInit.nBasicSpeed = tonumber(DB.getValue(nodeActor, "attributes.basicspeed", "0"));
+		CombatManagerGURPS4e.helperRollEntryInit(tInit);
+		return;
+	end
+	
+	-- For NPCs, if NPC init option is not group, then roll unique initiative
+	local sOptINIT = OptionsManager.getOption("INIT");
+	if sOptINIT ~= "group" then
+		CombatManagerGURPS4e.helperRollEntryInit(tInit);
+		return;
+	end
+
+	-- For NPCs with group option enabled
+	
+	-- Get the entry's database node name and creature name
+	local sStripName = CombatManager.stripCreatureNumber(DB.getValue(tInit.nodeEntry, "name", ""));
+	if sStripName == "" then
+		CombatManagerGURPS4e.helperRollEntryInit(tInit);
+		return;
+	end
+		
+	-- Iterate through list looking for other creatures with same name
+	tInit.nInitMatch = nil;
+	local sEntryFaction = DB.getValue(tInit.nodeEntry, "friendfoe", "");
+	for _,nodeCT in pairs(CombatManager.getCombatantNodes()) do
+		if DB.getName(nodeCT) ~= DB.getName(tInit.nodeEntry) then
+			if DB.getValue(nodeCT, "friendfoe", "") == sEntryFaction then
+				local sTemp = CombatManager.stripCreatureNumber(DB.getValue(nodeCT, "name", ""));
+				if sTemp == sStripName then
+					local nChildInit = DB.getValue(nodeCT, "speed", 0);
+					if nChildInit ~= -10000 then
+						tInit.nInitMatch = nChildInit;
+					end
+				end
+			end
+		end
+	end
+	
+	-- If we found similar creatures, then match the initiative of the last one found; otherwise, roll
+	CombatManagerGURPS4e.helperRollEntryInit(tInit);
+end
+function helperRollEntryInit(tInit)
+	if not tInit or not tInit.nodeEntry then
+		return;
+	end
+	if tInit.nInitMatch then
+		DB.setValue(tInit.nodeEntry, "speed", "number", tInit.nInitMatch);
+		return;
+	end
+
+	tInit.nTotal = CombatManager.helperRollRandomInit(tInit);
+	DB.setValue(tInit.nodeEntry, "speed", "number", tInit.nBasicSpeed + tInit.nBonus);
+
+	local rMessage = {
+		font = "systemfont",
+		icon = "portrait_gm_token",
+		type = "init",
+		text = string.format("%s: [INIT]", DB.getValue(tInit.nodeEntry, "name", "")),
+		diemodifier = tInit.nTotal,
+		diceskipexpr = true,
+		secret = true,
+	};
+	if (tInit.sSuffix or "") ~= "" then
+		rMessage.text = string.format("%s %s", rMessage.text, tInit.sSuffix);
+	end
+	Comm.addChatMessage(rMessage);
 end
 
 function resetEffects()
@@ -275,11 +457,9 @@ end
 
 function clearExpiringEffects()
 	function checkEffectExpire(nodeEffect)
-		local sLabel = DB.getValue(nodeEffect, "label", "");
-		local nDuration = DB.getValue(nodeEffect, "duration", 0);
-		local sApply = DB.getValue(nodeEffect, "apply", "");
-		
-		if nDuration ~= 0 or sApply ~= "" or sLabel == "" then
+		local sUnits = DB.getValue(nodeEffect, "units", "");
+
+		if sUnits == "sec" or sUnits == "min" or sUnits == "hr" or sUnits == "day" then
 			nodeEffect.delete();
 		end
 	end
