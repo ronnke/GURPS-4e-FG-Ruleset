@@ -4,7 +4,7 @@ This unofficial GURPS Ruleset for Fantasy Grounds is developed with the permissi
 
 [B]GURPS 4E Core Ruleset - FG Unity [COLOR="#FF0000"](FG Unity only)[/COLOR][/B]
 FG Forge shop [I](FG Unity users only)[/I]: [URL="https://forge.fantasygrounds.com/shop/items/454/view"]FG Forge Shop[/URL]
-[I](Updated: 28th Feb 2025)[/I]
+[I](Updated: 11th Apr 2025)[/I]
 
 [B]GURPS 4E Core Ruleset - FG Classic [COLOR="#FF0000"](FG Classic only. The ruleset for FG Classic is no longer being updated[/COLOR])[/B]
 Download latest release from here: [URL="https://bit.ly/GURPS4ECore"]https://bit.ly/GURPS4ECore[/URL] 
@@ -44,6 +44,12 @@ Click the following link to have your input on future ruleset development/improv
 
 [SIZE=4][B]Version Information[/B][/SIZE]
 
+[LIST]
+[*][B]GURPS 4e Ruleset v3.15.1[/B] - 11th Apr 2025 (FG Unity Only)
+- Fixed: Combat Tracker menu options.
+- Reworked: The House rule option to randomize turn/initiative order. Added more initiative types. Players can roll their own Initiative from a button next to Basic Speed on the Main tab of the character sheet. GM can roll Initiatives from the Combat Tracker menu.
+- Added: House rule option to automatically roll and/or group NPC initiatives when they are added to the combat tracker.
+[/LIST]
 [LIST]
 [*][B]GURPS 4e Ruleset v3.15.0[/B] - 28th Feb 2025 (FG Unity Only)
 - Added: Holding CTRL while making a dice roll, that roll will be a secret/tower roll.
