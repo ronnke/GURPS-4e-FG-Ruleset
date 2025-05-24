@@ -32,7 +32,8 @@
   <!-- Options -->
 	<string name="option_val_DDCL_gurps">GURPS</string>
 	<string name="option_val_DDCL_dfrpg">DFRPG</string>
-  
+
+  <string name="option_label_AUTORANGE">Combat: Apply Range Penalties</string>
   <string name="option_label_RNDINIT">Combat: Randomize Turn/Initiative order</string>
 
   <!-- Combat Tracker -->

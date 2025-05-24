@@ -34,8 +34,12 @@ function addTrait(nodeChar, nodeTrait)
 		return false;
 	end
 
-	local sActorType, nodeActor = ActorManager.getTypeAndNode(nodeChar);
-	if sActorType ~= "pc" then
+	local nodeActor = ActorManager.getCreatureNode(nodeChar);
+	if not nodeActor then
+		return false;
+	end
+
+	if ActorManager.isRecordType(nodeChar, "npc") then
 		local nodeNPCTraits = DB.getChild(nodeChar, "traits");
 		if not nodeNPCTraits then
 			nodeNPCTraits = DB.createChild(nodeChar, "traits");
@@ -52,7 +56,7 @@ function addTrait(nodeChar, nodeTrait)
 		return true;
 	end
 
-	if bAdvantage or bPerk then
+	if (bAdvantage or bPerk) and ActorManager.isPC(nodeChar) then
 		local nodeAdvantageList = DB.getChild(nodeChar, "traits.adslist");
 		if not nodeAdvantageList then
 			nodeAdvantageList = DB.createChild(nodeChar, "traits.adslist");
@@ -69,7 +73,7 @@ function addTrait(nodeChar, nodeTrait)
 		return true;
 	end
 
-	if bDisadvantage or bQuirk then
+	if (bDisadvantage or bQuirk) and ActorManager.isPC(nodeChar) then
 		local nodeDisadvantageList = DB.getChild(nodeChar, "traits.disadslist")
 		if not nodeDisadvantageList then
 			nodeDisadvantageList = DB.createChild(nodeChar, "traits.disadslist");

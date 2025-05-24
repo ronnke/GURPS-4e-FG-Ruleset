@@ -17,11 +17,23 @@ COLOR_FATIGUE_UNCONSCIOUS = "C11B17";
 function onInit()
 end
 
-function getInjuryStatus(sNodeType, node)
-	local rActor = ActorManager.resolveActor(node);
+function getInjuryStatus(nodeChar)
+	local rActor = ActorManager.resolveActor(nodeChar);
+
+	local nHP = 0;
+	local nCHP = 0;
 	
-	local nHP = DB.getValue(node, "attributes.hitpoints", 0);
-	local nCHP = DB.getValue(node, "hps", 0);
+	local nodeCT = ActorManager.getCTNode(rActor);
+	if nodeCT then
+		nHP = DB.getValue(nodeCT, "attributes.hitpoints", 0);
+		nCHP = DB.getValue(nodeCT, "hps", 0);
+	elseif ActorManager.isPC(rActor) then
+		local nodePC = ActorManager.getCreatureNode(rActor);
+		if nodePC then
+			nHP = DB.getValue(nodePC, "attributes.hitpoints", 0);
+			nCHP = DB.getValue(nodePC, "hps", 0);
+		end
+	end
 
 	local sStatus, nStatus;
 	if nCHP >= nHP then
@@ -41,12 +53,12 @@ function getInjuryStatus(sNodeType, node)
 	    nStatus = 4;
 	end
 
-	return sStatus, nStatus, rActor;
+	return sStatus, nStatus;
 end
 
-function getInjuryStatusColor(sNodeType, node)
-	local sStatus, nStatus, rActor = getInjuryStatus(sNodeType, node);
-	if not rActor then
+function getInjuryStatusColor(nodeChar)
+	local sStatus, nStatus = getInjuryStatus(nodeChar);
+	if not nodeChar then
 		return COLOR_HEALTH_UNWOUNDED, nStatus, sStatus;
 	end
 
@@ -66,11 +78,23 @@ function getInjuryStatusColor(sNodeType, node)
 	return sColor, sStatus, nStatus;
 end
 
-function getFatigueStatus(sNodeType, node)
-	local rActor = ActorManager.resolveActor(node);
+function getFatigueStatus(nodeChar)
+	local rActor = ActorManager.resolveActor(nodeChar);
 	
-	local nFP = DB.getValue(node, "attributes.fatiguepoints", 0);
-	local nCFP = DB.getValue(node, "fps", 0);
+	local nFP = 0;
+	local nCFP = 0;
+	
+	local nodeCT = ActorManager.getCTNode(rActor);
+	if nodeCT then
+		nFP = DB.getValue(nodeCT, "attributes.fatiguepoints", 0);
+		nCFP = DB.getValue(nodeCT, "fps", 0);
+	elseif ActorManager.isPC(rActor) then
+		local nodePC = ActorManager.getCreatureNode(rActor);
+		if nodePC then
+			nFP = DB.getValue(nodePC, "attributes.fatiguepoints", 0);
+			nCFP = DB.getValue(nodePC, "fps", 0);
+		end
+	end
 
 	local sStatus, nStatus;
 	if nCFP >= nFP/3 then
@@ -87,12 +111,12 @@ function getFatigueStatus(sNodeType, node)
 	    nStatus = 3;
 	end
 
-	return sStatus, nStatus, rActor;
+	return sStatus, nStatus;
 end
 
-function getFatigueStatusColor(sNodeType, node)
-	local sStatus, nStatus, rActor = getFatigueStatus(sNodeType, node);
-	if not rActor then
+function getFatigueStatusColor(nodeChar)
+	local sStatus, nStatus = getFatigueStatus(nodeChar);
+	if not nodeChar then
 		return COLOR_FATIGUE_NORMAL, nStatus, sStatus;
 	end
 
@@ -110,18 +134,26 @@ function getFatigueStatusColor(sNodeType, node)
 	return sColor, sStatus, nStatus;
 end
 
-function getHPStatus(sNodeType, node)
-	if sNodeType ~= "pc" and sNodeType ~= "ct" then
-		return "";
+function getHPStatus(rActor)
+	local nodeActor;
+	if ActorManager.isPC(rActor) then
+		nodeActor = ActorManager.getCreatureNode(rActor);
+	else
+		nodeActor = ActorManager.getCTNode(rActor);
+	end
+	if not nodeActor then
+		return;
 	end
 	
-	local nHP, nInjury;
-	if sNodeType == "pc" then
-		nHP = DB.getValue(node, "attributes.hitpoints", 0);
-		nInjury = DB.getValue(node, "attributes.injury", 0);
-	else
-		nHP = DB.getValue(node, "attributes.hitpoints", 0);
-		nInjury = DB.getValue(node, "injury", 0);
+	local nHP = 0;
+	local nInjury = 0;
+
+	if ActorManager.isPC(rActor) then
+		nHP = DB.getValue(nodeActor, "attributes.hitpoints", 0);
+		nInjury = DB.getValue(nodeActor, "attributes.injury", 0);
+	elseif ActorManager.isRecordType(rActor, "npc") then 
+		nHP = DB.getValue(nodeActor, "attributes.hitpoints", 0);
+		nInjury = DB.getValue(nodeActor, "injury", 0);
 	end
 
 	if nHP == 0 then return "N/A"; end;
@@ -136,18 +168,26 @@ function getHPStatus(sNodeType, node)
 	return "";
 end
 
-function getFPStatus(sNodeType, node)
-	if sNodeType ~= "pc" and sNodeType ~= "ct" then
-		return "";
+function getFPStatus(rActor)
+	local nodeActor;
+	if ActorManager.isPC(rActor) then
+		nodeActor = ActorManager.getCreatureNode(rActor);
+	else
+		nodeActor = ActorManager.getCTNode(rActor);
+	end
+	if not nodeActor then
+		return;
 	end
 	
-	local nFP, nFatigue;
-	if sNodeType == "pc" then
-		nFP = DB.getValue(node, "attributes.fatiguepoints", 0);
-		nFatigue = DB.getValue(node, "attributes.fatigue", 0);
-	else
-		nFP = DB.getValue(node, "attributes.fatiguepoints", 0);
-		nFatigue = DB.getValue(node, "fatigue", 0);
+	local nFP = 0;
+	local nFatigue = 0;
+
+	if ActorManager.isPC(rActor) then
+		nFP = DB.getValue(nodeActor, "attributes.fatiguepoints", 0);
+		nFatigue = DB.getValue(nodeActor, "attributes.fatigue", 0);
+	elseif ActorManager.isRecordType(rActor, "npc") then
+		nFP = DB.getValue(nodeActor, "attributes.fatiguepoints", 0);
+		nFatigue = DB.getValue(nodeActor, "fatigue", 0);
 	end
 
 	if nFP == 0 then return "N/A"; end;
@@ -162,24 +202,43 @@ function getFPStatus(sNodeType, node)
 	return "";
 end
 
-function hasMeleeWeapons(node)
-  local nCount = DB.getChildCount(node, "combat.meleecombatlist");
-  if nCount > 0 then
-    return true;
-  end
+function hasMeleeWeapons(rActor)
+	local nodeActor;
+	if ActorManager.isPC(rActor) then
+		nodeActor = ActorManager.getCreatureNode(rActor);
+	else
+		nodeActor = ActorManager.getCTNode(rActor);
+	end
+	if not nodeActor then
+		return;
+	end
+
+	local nCount = DB.getChildCount(nodeActor, "combat.meleecombatlist");
+	if nCount > 0 then
+		return true;
+	end
   
-  return false
+	return false
 end
 
-function hasRangedWeapons(node)
-  local nCount = DB.getChildCount(node, "combat.rangedcombatlist");
-  if nCount > 0 then
-    return true;
-  end
-  
-  return false
-end
+function hasRangedWeapons(rActor)
+	local nodeActor;
+	if ActorManager.isPC(rActor) then
+		nodeActor = ActorManager.getCreatureNode(rActor);
+	else
+		nodeActor = ActorManager.getCTNode(rActor);
+	end
+	if not nodeActor then
+		return;
+	end
 
+	local nCount = DB.getChildCount(nodeActor, "combat.rangedcombatlist");
+	if nCount > 0 then
+		return true;
+	end
+  
+	return false
+end
 
 function resolveActor(node)
 	while node.getParent() ~= nil and node.getParent().getNodeName() ~= "charsheet" and node.getParent().getNodeName() ~= "npc" and node.getParent().getPath() ~= "combattracker.list" do
@@ -189,56 +248,56 @@ function resolveActor(node)
 	return ActorManager.resolveActor(node);
 end
 
-function getTypeAndRootNode(node)
-	while node.getParent() ~= nil and node.getParent().getNodeName() ~= "charsheet" and node.getParent().getNodeName() ~= "npc" and node.getParent().getPath() ~= "combattracker.list" do
-		node = node.getParent();
-	end
-
-	return ActorManager.getTypeAndNode(node);
-end
-
 -- Given an actor and the name of an attribute or ability, this will return a table with
 -- current information about that stat.
-function getStat(nodeActor, sName)
-	if not nodeActor or not sName or sName:len() < 2 then
+function getStat(rActor, sName)
+	local nodeActor;
+	if ActorManager.isPC(rActor) then
+		nodeActor = ActorManager.getCreatureNode(rActor);
+	else
+		nodeActor = ActorManager.getCTNode(rActor);
+	end
+	if not nodeActor then
 		return;
 	end
 
-	local nodeChar = nodeActor;
+	if not sName or sName:len() < 2 then
+		return;
+	end
+
 	local stat;
-	if ActorManager.isPC(nodeChar) then
-		stat = getAttributeStatFromList(nodeChar.getChild("attributes"), sName, "pc");
+	if ActorManager.isPC(rActor) then
+		stat = getAttributeStatFromList(nodeActor.getChild("attributes"), sName, "pc");
 		if stat then 
 			return stat;
 		end
 
-		stat = getAbilityStatFromList(nodeChar.getChild("abilities.skilllist"), sName, "skill", "pc");
+		stat = getAbilityStatFromList(nodeActor.getChild("abilities.skilllist"), sName, "skill", "pc");
 		if stat then 
 			return stat;
 		end
 
-		stat = getAbilityStatFromList(nodeChar.getChild("abilities.spelllist"), sName, "spell", "pc");
+		stat = getAbilityStatFromList(nodeActor.getChild("abilities.spelllist"), sName, "spell", "pc");
 		if stat then 
 			return stat;
 		end
 
-		stat = getAbilityStatFromList(nodeChar.getChild("abilities.powerlist"), sName, "power", "pc");
+		stat = getAbilityStatFromList(nodeActor.getChild("abilities.powerlist"), sName, "power", "pc");
 		if stat then 
 			return stat;
 		end
 
-		stat = getAbilityStatFromList(nodeChar.getChild("abilities.otherlist"), sName, "ability", "pc");
+		stat = getAbilityStatFromList(nodeActor.getChild("abilities.otherlist"), sName, "ability", "pc");
+		if stat then 
+			return stat;
+		end
+	elseif ActorManager.isRecordType(rActor, "npc") then
+		stat = getAttributeStatFromList(nodeActor.getChild("attributes"), sName, "npc");
 		if stat then 
 			return stat;
 		end
 
-	else
-		stat = getAttributeStatFromList(nodeChar.getChild("attributes"), sName, "npc");
-		if stat then 
-			return stat;
-		end
-
-		stat = getAbilityStatFromList(nodeChar.getChild("abilites.abilitieslist"), sName, "ability", "npc");
+		stat = getAbilityStatFromList(nodeActor.getChild("abilites.abilitieslist"), sName, "ability", "npc");
 		if stat then 
 			return stat;
 		end

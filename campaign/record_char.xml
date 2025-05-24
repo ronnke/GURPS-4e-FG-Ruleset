@@ -6,7 +6,7 @@
 -->
 
 <root>
-	<windowclass name="charsheet">
+	<windowclass name="charsheet" copy="charsheet_base">
     <frame>charsheet</frame>
     <placement>
       <size width="525" height="630" />
@@ -15,65 +15,38 @@
       <minimum width="525" height="630" />
       <dynamic />
     </sizelimits>
-    <minimize>minimized_npc</minimize>
-    <tooltip field="name" />
-    <softclose />
-    <export>character</export>
 
-		<script file="campaign/scripts/char.lua" />
-		
-		<sheetdata>
-      <sub_charsheet_overview name="overview" />
+    <tab>
+      <name>main</name>
+      <resource>tab_main</resource>
+      <class>charsheet_main</class>
+    </tab>
+    <tab merge="add">
+      <name>traits</name>
+      <resource>tab_traits</resource>
+      <class>charsheet_traits</class>
+    </tab>
+    <tab merge="add">
+      <name>abilities</name>
+      <resource>tab_abilities</resource>
+      <class>charsheet_abilities</class>
+		</tab>
+    <tab merge="add">
+      <name>combat</name>
+      <resource>tab_combat</resource>
+      <class>charsheet_combat</class>
+    </tab>
+    <tab merge="add">
+      <name>inventory</name>
+      <resource>tab_inventory</resource>
+      <class>charsheet_inventory</class>
+		</tab>
+    <tab merge="add">
+      <name>notes</name>
+      <resource>tab_notes</resource>
+      <class>charsheet_notes</class>
+    </tab>
 
-			<sub_charsheet name="main">
-				<class>charsheet_main</class>
-			</sub_charsheet>
-			<sub_charsheet name="traits">
-				<class>charsheet_traits</class>
-			</sub_charsheet>
-			<sub_charsheet name="abilities">
-				<class>charsheet_abilities</class>
-			</sub_charsheet>
-			<sub_charsheet name="combat">
-				<class>charsheet_combat</class>
-			</sub_charsheet>
-			<sub_charsheet name="inventory">
-				<class>charsheet_inventory</class>
-			</sub_charsheet>
-			<sub_charsheet name="notes">
-				<class>charsheet_notes</class>
-			</sub_charsheet>
-
-      <tabs_charsheet name="tabs">
-				<tab>
-          <tabres>tab_main</tabres>
-          <subwindow>main</subwindow>
-				</tab>
-				<tab>
-          <tabres>tab_traits</tabres>
-					<subwindow>traits</subwindow>
-				</tab>
-				<tab>
-          <tabres>tab_abilities</tabres>
-					<subwindow>abilities</subwindow>
-				</tab>
-				<tab>
-          <tabres>tab_combat</tabres>
-					<subwindow>combat</subwindow>
-				</tab>
-				<tab>
-          <tabres>tab_inventory</tabres>
-					<subwindow>inventory</subwindow>
-				</tab>
-				<tab>
-          <tabres>tab_notes</tabres>
-					<subwindow>notes</subwindow>
-				</tab>
-				<activate>1</activate>
-			</tabs_charsheet>
-		
-			<resize_charsheet />
-			<close_charsheet />
-		</sheetdata>
-	</windowclass>
+    <script file="campaign/scripts/char.lua" />
+  </windowclass>
 </root>

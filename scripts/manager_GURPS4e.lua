@@ -30,7 +30,7 @@ end
 function calcRangeMod(nRange)
   local rangeMod = -1;
   local factor = 0;
-  local scale = getDistanceUnitsPerGrid();
+  local scale = GameSystem.getDistanceUnitsPerGrid();
   
   if nRange == nil then 
     nRange = 0;
@@ -140,66 +140,25 @@ function calcRangeModifier(length,unit)
   return (rangeMod <= 0 and 0 or -rangeMod);
 end
 
-function parseBasicDamage(s)
-  -- SETUP
-  local aDice = {};
-  local nMod = 0;
-  
-  local nDieCount = 0;
-  local nDice = 0;
-  local sOperator = "";
-  local nNum = 0
-  
-  -- PARSING
-  if s then
-    nDieCount, nDice, sOperator, nNum = s:match("^(%d*)[dD]([%dF]*)%s*([+-x]?)%s*([%dF]*)");
-    
-    if nDieCount then
-      local sDie = string.format("d%d", (tonumber(nDice) or DICE_DEFAULT));
-      
-      for i = 1, nDieCount do
-        table.insert(aDice, sDie);
-      end
-    end
-    
-    if sOperator and nNum then
-      nNum = (tonumber(nNum) or 0);
-    end
-  end
-  
-  -- RESULTS
-  return aDice, nMod, sOperator, nNum;
-end
+function normalizeGURPSDice(s)
+    -- Remove all whitespace and convert 'x' to '*'
+    s = s:gsub("%s+", ""):gsub("x", "*")
 
-function parseDamage(s)
-  -- SETUP
-  local aDice = {};
-  local nMod = 0;
-  
-  local nDieCount = 0;
-  local nDice = 0;
-  local sOperator = "";
-  local nNum = 0
-  
-  -- PARSING
-  if s then
-    nDieCount, nDice, sOperator, nNum = s:match("^(%d*)[dD]([%dF]*)%s*([+-x]?)%s*([%dF]*)");
-    
-    if nDieCount then
-      local sDie = string.format("d%d", (tonumber(nDice) or DICE_DEFAULT));
-      
-      for i = 1, nDieCount do
-        table.insert(aDice, sDie);
-      end
-    end
-    
-    if sOperator and nNum then
-      nNum = (tonumber(nNum) or 0);
-    end
-  end
-  
-  -- RESULTS
-  return aDice, nMod, sOperator, nNum;
+    -- Replace shorthand 'd' not followed by a digit (e.g., 'd+1', '2d+1') with 'd6'
+    s = s:gsub("(%d*)d([^%d])", function(count, tail)
+        if count == "" then
+            return "d6" .. tail
+        else
+            return count .. "d6" .. tail
+        end
+    end)
+
+    -- Replace terminal 'd' (e.g., 'd', '2d') with 'd6'
+    s = s:gsub("(%d*)d$", function(count)
+        return (count == "" and "d6" or count .. "d6")
+    end)
+
+    return s
 end
 
 local thrustDmg = {

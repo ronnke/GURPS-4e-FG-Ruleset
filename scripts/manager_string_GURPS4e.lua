@@ -8,6 +8,20 @@
 -----------------------
 
 -- NOTE: Ignores negative dice references
+
+function containsAny(a, s)
+  for _, word in ipairs(a) do
+    -- Inline escape of Lua pattern magic characters
+    local escaped = word:gsub("([^%w])", "%%%1")
+    local pattern = "%f[%w%p]" .. escaped .. "%f[^%w%p]"
+    if string.find(s, pattern) then
+      return true
+    end
+  end
+  return false
+end
+
+
 function convertStringToDice(s)
 	-- SETUP
 	local aDice = {};

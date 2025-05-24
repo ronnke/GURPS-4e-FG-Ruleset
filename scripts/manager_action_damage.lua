@@ -1,180 +1,276 @@
--- 
+﻿-- 
 -- Please see the license.html file included with this distribution for 
 -- attribution and copyright information.
 --
 
 
-DICE_DEFAULT = 6;
+OOB_MSGTYPE_APPLYDMG = "applydmg";
 
 function onInit()
-	ActionsManager.registerModHandler("damage", modRoll);
-	ActionsManager.registerResultHandler("damage", onDamage);
+	OOBManager.registerOOBMsgHandler(ActionDamage.OOB_MSGTYPE_APPLYDMG, ActionDamage.handleApplyDamage);
+
+--	ActionsManager.registerModHandler("damage", ActionDamage.modRoll); -- If Enabled Rolling does not work due to dice expression formulas being used
+	ActionsManager.registerPostRollHandler("damage", ActionDamage.onPostRoll);
+	ActionsManager.registerResultHandler("damage", ActionDamage.onRoll);
 end
 
+function handleApplyDamage(msgOOB)
+	local rSource = ActorManager.resolveActor(msgOOB.sSourceNode);
+	local rTarget = ActorManager.resolveActor(msgOOB.sTargetNode);
+	if not rTarget then
+        return;
+	end
+
+	local rRoll = UtilityManager.decodeRollFromOOB(msgOOB);
+    ActionDamage.applyDamage(rSource, rTarget, rRoll);
+end
+
+-- If Enabled Rolling does not work due to dice expression formulas being used
 function modRoll(rSource, rTarget, rRoll)
+    if rSource and rTarget then
+        rRoll.nMod = rRoll.nMod + 0;
+        rRoll.sDesc = rRoll.sDesc .. "";
+    end
 end
 
-function onDamage(rSource, rTarget, rRoll)
-  local rMessage = ActionsManager.createActionMessage(rSource, rRoll);
-  local nTotal = 0;
-
-  local bAddMod = false;
-  if GameSystem.actions[rRoll.sType] then
-    bAddMod = GameSystem.actions[rRoll.sType].bAddMod;
-  end
-
-  -- Send the chat message
-  local bShowMsg = true;
-  if not rSource then
-    bShowMsg = false;
-  end
-  
-  if bShowMsg then
-    local _, _, sOperator, nNum, xMult = parseDamage(rRoll.sDamage);	--MOD by Jaxilon
-    
-    rMessage.text = string.format("%s\n%s%s%s %s",
-        (string.format("%s%s",(rTarget and string.format("%s || ",rTarget.sName) or ""), rMessage.text)),
-        (rRoll.sWeapon or ""), 
-        ((rRoll.sWeapon and rRoll.sWeapon ~= '' and rRoll.sMode and rRoll.sMode ~= '') and "\n" or ""), 
-        (rRoll.sMode or ""), 
-        (string.format("[%s]%s", (rRoll.sDamage or ""), (rRoll.nMod ~= 0 and string.format("(%s%d)",(rRoll.nMod > 0 and "+" or ""),rRoll.nMod) or "")) or "")
-    );	
-
-    rMessage.diemodifier = 0;
-    
-    -- Calculate Damage 
-    for _,v in ipairs(rRoll.aDice) do
-      nTotal = nTotal + v.result;
-    end
-
-    local nMod = (bAddMod and rRoll.nMod or 0);	
-    if sOperator then 
-      if (sOperator == "+") then
-        nTotal = nTotal + (nNum or 0);		
-        rMessage.diemodifier = (nNum or 0) + nMod;				
-      elseif (sOperator == "-") then
-        nTotal = nTotal - (nNum or 0);		
-        rMessage.diemodifier = -(nNum or 0) + nMod;		
-      elseif (sOperator == "x") then
-        nTotal = nTotal * (nNum or 1);		
-        rMessage.diemodifier = 0;		
-      elseif (sOperator == "/") then
-        nTotal = nTotal / (nNum or 1);		
-        rMessage.diemodifier = 0;		
-      end
-    end
-	if (sOperator ~= "x" and xMult) then	--MOD by Jaxilon
-		nTotal = nTotal * xMult;			--MOD by Jaxilon
-	end										--MOD by Jaxilon
-    nTotal = nTotal + nMod;		
-    Comm.deliverChatMessage(rMessage);
-	
-    -- Deliver Total Damage
-    rMessage.type = "number";
-    rMessage.icon = "action_damage";
-    rMessage.text = string.format("Total [%s]%s", (rRoll.sDamage or ""), (rRoll.nMod ~= 0 and string.format("(%s%d)",(rRoll.nMod > 0 and "+" or ""),rRoll.nMod) or ""));
-    rMessage.dice = {};
-    rMessage.diemodifier = (nTotal > 0 and nTotal or 0);
-
-    Comm.deliverChatMessage(rMessage);
-  end
+function onPostRoll(_, rRoll)
 end
 
-function applyDamage(rSource, rTarget, bSecret, sDamage, nTotal)
-  -- Get health fields
-  local sTargetType, nodeTarget = ActorManager.getTypeAndNode(rTarget);
-  if sTargetType ~= "pc" and sTargetType ~= "ct" then
-    return;
-  end
+function onRoll(rSource, rTarget, rRoll)
+    local rMessage = ActionsManagerGURPS4e.createActionMessage(rSource, rRoll);
+    rRoll.nTotal = ActionsManagerGURPS4e.total(rRoll);
 
-  local nHP, nInjury;
-  if sTargetType == "pc" then
-    nHP = DB.getValue(nodeTarget, "attributes.hitpoints", 0);
-    nInjury = DB.getValue(nodeTarget, "attributes.injury", 0) + nTotal;
-    DB.setValue(nodeTarget, "attributes.hps", "number", nHP - (nInjury < 0 and 0 or nInjury));
-    DB.setValue(nodeTarget, "attributes.injury", "number", (nInjury < 0 and 0 or nInjury));
-    DB.setValue(nodeTarget, "attributes.hpstatus", "string", ActorManagerGURPS4e.getHPStatus(sTargetType, nodeTarget));
-  else
-    nHP = DB.getValue(nodeTarget, "attributes.hitpoints", 0);
-    nInjury = DB.getValue(nodeTarget, "injury", 0) + nTotal;
-    DB.setValue(nodeTarget, "hps", "number", nHP - (nInjury < 0 and 0 or nInjury));
-    DB.setValue(nodeTarget, "injury", "number", (nInjury < 0 and 0 or nInjury));
-    DB.setValue(nodeTarget, "hpstatus", "string", ActorManagerGURPS4e.getHPStatus(sTargetType, nodeTarget));
-  end
+    rMessage.text = string.format("%s%s\n%s%s: %s%s",
+        rTarget and rTarget.sName and rTarget.sName .. ", " or "",
+        rMessage.text,
+        rRoll.sWeapon or "",
+        rRoll.sMode and rRoll.sMode ~= "" and ((rRoll.sWeapon and rRoll.sWeapon ~= "") and " (" .. rRoll.sMode .. ")" or rRoll.sMode) or "",
+        rRoll.sDamage or "",
+        rRoll.nMod ~= 0 and string.format(" (%+d)", rRoll.nMod) or ""
+    );
+    rMessage.nTotal = rRoll.nTotal;
+
+    -- Send the chat message
+	local bShowMsg = true;
+	if rTarget and rTarget.nOrder and rTarget.nOrder ~= 1 then
+		bShowMsg = false;
+	end
+	if bShowMsg then
+		Comm.deliverChatMessage(rMessage);
+	end
+
+    if not rTarget then
+	    return;
+    end
+
+    local msgOOB = UtilityManager.encodeRollToOOB(rRoll);
+    msgOOB.type = ActionDamage.OOB_MSGTYPE_APPLYDMG;
+    msgOOB.sSourceNode = ActorManager.getCreatureNodeName(rSource);
+    msgOOB.sTargetNode = ActorManager.getCreatureNodeName(rTarget);
+
+    Comm.deliverOOBMessage(msgOOB, "");
+end
+
+function applyDamage(rSource, rTarget, rRoll)
+	nodeCT = ActorManager.getCTNode(rTarget)
+	if not nodeCT then
+		return
+	end
+
+    local sDR = string.match(DB.getValue(nodeCT, "combat.dr", "0"), "%-?%d+%.?%d*")
+
+    nodeDamage = DB.createChild(DB.createChild(nodeCT, "damage"))
+    DB.setValue(nodeDamage, "damage", "number", rRoll.nTotal);
+    DB.setValue(nodeDamage, "armordivisor", "number", rRoll.nDivisor);
+    DB.setValue(nodeDamage, "damagetype", "string", rRoll.sDamageType);
+    DB.setValue(nodeDamage, "dr", "number", tonumber(sDR) or 0);
+end
+
+function applyInjury(rActor, nHPInjury, nFPInjury)
+	local nodeTarget;
+	if ActorManager.isPC(rActor) then
+		nodeTarget = ActorManager.getCreatureNode(rActor);
+	else
+		nodeTarget = ActorManager.getCTNode(rActor);
+	end
+	if not nodeTarget then
+		return;
+	end
+
+    local nHP, nFP;
+	if ActorManager.isPC(rActor) then
+        nHP = DB.getValue(nodeTarget, "attributes.injury", 0) + nHPInjury;
+        nFP = DB.getValue(nodeTarget, "attributes.fatigue", 0) + nFPInjury;
+        DB.setValue(nodeTarget, "attributes.injury", "number", (nHP < 0 and 0 or nHP));
+        DB.setValue(nodeTarget, "attributes.fatigue", "number", (nFP < 0 and 0 or nFP));
+	elseif ActorManager.isRecordType(rActor, "npc") then
+        nHP = DB.getValue(nodeTarget, "injury", 0) + nHPInjury;
+        nFP = DB.getValue(nodeTarget, "fatigue", 0) + nFPInjury;
+        DB.setValue(nodeTarget, "injury", "number", (nHP < 0 and 0 or nHP));
+        DB.setValue(nodeTarget, "fatigue", "number", (nFP < 0 and 0 or nFP));
+	elseif ActorManager.isRecordType(rActor, "vehicle") then
+        -- TODO: Vehicle Damage
+	else
+		return;
+    end
+
+
+    local rMessage = ChatManager.createBaseMessage(rSource, "");
+	rMessage.text = string.format("Injury applied to: %s", ActorManager.resolveDisplayName(rActor));
+    
+    Comm.deliverChatMessage(rMessage);
 end
 
 function updateDamage(rActor)
-  -- Get health fields
-  local sActorType, nodeActor = ActorManager.getTypeAndNode(rActor);
-  if sActorType ~= "pc" and sActorType ~= "ct" then
-    return;
-  end
+	local nodeActor;
+	if ActorManager.isPC(rActor) then
+		nodeActor = ActorManager.getCreatureNode(rActor);
+	else
+		nodeActor = ActorManager.getCTNode(rActor);
+	end
+	if not nodeActor then
+		return;
+	end
 
-  local nHP, nInjury;
-  if sActorType == "pc" then
-    nHP = DB.getValue(nodeActor, "attributes.hitpoints", 0);
-    nInjury = DB.getValue(nodeActor, "attributes.injury", 0);
-    DB.setValue(nodeActor, "attributes.hps", "number", nHP - (nInjury < 0 and 0 or nInjury));
-    DB.setValue(nodeActor, "attributes.hpstatus", "string", ActorManagerGURPS4e.getHPStatus(sActorType, nodeActor));
-  else
-    nHP = DB.getValue(nodeActor, "attributes.hitpoints", 0);
-    nInjury = DB.getValue(nodeActor, "injury", 0);
-    DB.setValue(nodeActor, "hps", "number", nHP - (nInjury < 0 and 0 or nInjury));
-    DB.setValue(nodeActor, "hpstatus", "string", ActorManagerGURPS4e.getHPStatus(sActorType, nodeActor));
-  end
+    local nHP, nInjury;
+    if ActorManager.isPC(rActor) then
+        nHP = DB.getValue(nodeActor, "attributes.hitpoints", 0);
+        nInjury = DB.getValue(nodeActor, "attributes.injury", 0);
+        DB.setValue(nodeActor, "attributes.hps", "number", nHP - (nInjury < 0 and 0 or nInjury));
+        DB.setValue(nodeActor, "attributes.hpstatus", "string", ActorManagerGURPS4e.getHPStatus(rActor));
+    elseif ActorManager.isRecordType(rActor, "npc") then
+        nHP = DB.getValue(nodeActor, "attributes.hitpoints", 0);
+        nInjury = DB.getValue(nodeActor, "injury", 0);
+        DB.setValue(nodeActor, "hps", "number", nHP - (nInjury < 0 and 0 or nInjury));
+        DB.setValue(nodeActor, "hpstatus", "string", ActorManagerGURPS4e.getHPStatus(rActor));
+    elseif ActorManager.isRecordType(rActor, "vehicle") then
+    -- TODO: Vehicle Damage
+	else
+		return;
+    end
 end
 
-function parseDamage(s)
-  -- SETUP
-  local aDice = {};
-  local nMod = 0;
-  
-  local nDieCount = 0;
-  local nDice = 0;
-  local sOperator = "";
-  local nNum = 0
-  local xMult = 0;
-  -- PARSING
-  if s then
-	xMultiply = s:match("x(%d+)");		--MOD by Jaxilon
-    nDieCount, nDice, sOperator, nNum = s:match("^(%d*)[dD]([%dF]*)%s*([+-x]?)%s*([%dF]*)");
-    if nDieCount then
-      local sDie = string.format("d%d", (tonumber(nDice) or DICE_DEFAULT));
-      for i = 1, nDieCount do
-        table.insert(aDice, sDie);
-      end
+function parseDamageString(s)
+    -- Initialize return values
+    local damage, divisor, fragmentation, damageType = "", nil, "", ""
+
+    -- Handle nil or empty input
+    if not s or s:match("^%s*$") then
+        return "", { sDamage = "", nDivisor = nil, sFragmentation = "", sDamageType = "" }
+    end
+
+    -- Normalize whitespace: collapse multiple spaces, trim edges
+    s = s:gsub("%s+", "")
+    s = s:gsub("([%(%[])", " %1")
+    s = s:gsub("([%)%]])", "%1 ")
+
+    for _, dtype in ipairs(DataCommonGURPS.aDamageTypeData) do
+      local escaped = dtype:gsub("([%%%^%$%(%)%.%[%]%*%+%-%?])", "%%%1")
+      s = s:gsub(escaped, " " .. dtype)
+    end
+
+    s = s:gsub("%s+", " "):gsub("^%s+", ""):gsub("%s+$", "")
+
+    -- Extract fragmentation (e.g., "[2d]", "[1d+1]")
+    local fragInner = s:match("%[(.-)%]")
+    if fragInner then
+        fragmentation = fragInner:gsub("%s+", "")
+        s = s:gsub("%[" .. fragInner .. "%]", "", 1)
     end
     
-    if sOperator and nNum then
-      nNum = (tonumber(nNum) or 0);
-    end
-  end
+    -- Extract divisor (e.g., "(5)", "(0.5)", "(1/2)", "(∞)", "(inf.)")
+    local divisorInner = s:match("%(%s*([%.%d/]+)%s*%)")
+    if divisorInner then
+        local clean = divisorInner:gsub("%s+", "")
+        divisor = tonumber(clean)
 
-  -- RESULTS
-  return aDice, nMod, sOperator, nNum, xMultiply;	--MOD by Jaxilon
+        -- Handle fractions
+        if not divisor and clean:match("^%d+/%d+$") then
+            local num, denom = clean:match("^(%d+)/(%d+)$")
+            if denom and tonumber(denom) > 0 then
+                divisor = tonumber(num) / tonumber(denom)
+            end
+        end
+        if not divisor or divisor == 1 or divisor <= 0 then
+            divisor = nil -- Set to nil if divisor is 0
+        end
+        s = s:gsub("%(%s*" .. divisorInner .. "%s*%)", "", 1)
+    end
+
+    -- Extract Damage and Damage Types
+    local tDamageTypeSet = {}
+    for _, v in ipairs(DataCommonGURPS.aDamageTypeData) do 
+      tDamageTypeSet[v] = true
+    end
+
+    -- Tokenize first
+    local tTokens = {}
+    for word in s:gmatch("%S+") do
+        table.insert(tTokens, word)
+    end
+
+    -- Process and rebuild string
+    local tRemaining = {}
+    local tDamageTypes = {}
+    for _, word in ipairs(tTokens) do
+        if tDamageTypeSet[word] then
+            table.insert(tDamageTypes, word)
+        else
+            table.insert(tRemaining, word)
+        end
+    end
+
+    damage = table.concat(tRemaining, " ")
+    damageType = table.concat(tDamageTypes, " ")
+
+    -- Construct sResult
+    local sResult = damage
+    if divisor then
+        sResult = sResult .. "(" .. tostring(divisor) .. ")"
+    end
+    if fragmentation ~= "" then
+        sResult = sResult .. " [" .. fragmentation .. "]"
+    end
+    if damageType ~= "" then
+        sResult = sResult .. " " .. damageType
+    end
+
+    -- Construct tResult
+    local tResult = {
+        sDamage = damage,
+        nDivisor = divisor,
+        sFragmentation = fragmentation,
+        sDamageType = damageType
+    }
+
+    return sResult, tResult
 end
 
 function performRoll(draginfo, rActor, sWeapon, sMode, sDamage)
-    local aDice  = StringManagerGURPS4e.convertStringToDice(sDamage);
-    rRoll = { sType = "damage", sDesc = "[DAMAGE]", aDice = aDice, nMod = 0, sWeapon = sWeapon, sMode = sMode, sDamage = sDamage };
+    local sResult, tResult = ActionDamage.parseDamageString(sDamage)
     
+    local rRoll = {
+        sType = "damage",
+        sDesc = "[DAMAGE]",
+        aDice = { expr = ManagerGURPS4e.normalizeGURPSDice(tResult.sDamage) },
+        nMod = 0,
+
+        sWeapon = sWeapon,
+        sMode = sMode,
+        
+        sDamage = sResult,
+        nDivisor = tResult.nDivisor,
+        sFragmentation = tResult.sFragmentation,
+        sDamageType = tResult.sDamageType,
+    };
+
     ActionsManagerGURPS4e.performAction(draginfo, rActor, rRoll);
 end
 
 function performThrustRoll(draginfo, rActor, sDamage)
-    local aDice  = StringManagerGURPS4e.convertStringToDice(sDamage);
-    local sWeapon = "Basic Thrust";
-    local sMode = "";
-    rRoll = { sType = "damage", sDesc = "[DAMAGE]", aDice = aDice, nMod = 0, sWeapon = sWeapon, sMode = sMode, sDamage = sDamage };
-    
-    ActionsManagerGURPS4e.performAction(draginfo, rActor, rRoll);
+    ActionDamage.performRoll(draginfo, rActor, "Basic Thrust", "", sDamage);
 end
 
 function performSwingRoll(draginfo, rActor, sDamage)
-    local aDice  = StringManagerGURPS4e.convertStringToDice(sDamage);
-    local sWeapon = "Basic Swing";
-    local sMode = "";
-    rRoll = { sType = "damage", sDesc = "[DAMAGE]", aDice = aDice, nMod = 0, sWeapon = sWeapon, sMode = sMode, sDamage = sDamage };
-    
-    ActionsManagerGURPS4e.performAction(draginfo, rActor, rRoll);
+    ActionDamage.performRoll(draginfo, rActor, "Basic Swing", "", sDamage);
 end

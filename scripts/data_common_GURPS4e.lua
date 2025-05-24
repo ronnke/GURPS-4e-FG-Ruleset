@@ -118,16 +118,25 @@ aVehicleTypeData = {
 
 -- Damage types
 aDamageTypeData = {
+	"aff",
 	"burn",
 	"cor",
-	"cut",
 	"cr",
+	"cut",
+	"dbk",
+	"dbt",
+	"ex",
+	"exp",
 	"fat",
+	"frag",
 	"imp",
+	"inc",
 	"pi-",
 	"pi",
 	"pi+",
 	"pi++",
+	"rad",
+	"sur",
 	"tox"
 };
 

@@ -6,10 +6,10 @@
 OOB_MSGTYPE_APPLYINIT = "applyinit";
 
 function onInit()
-	OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_APPLYINIT, handleApplyInit);
+	OOBManager.registerOOBMsgHandler(OOB_MSGTYPE_APPLYINIT, ActionInitiative.handleApplyInit);
 
-	ActionsManager.registerModHandler("initiative", modRoll);
-	ActionsManager.registerResultHandler("initiative", onRoll);
+	ActionsManager.registerModHandler("initiative", ActionInitiative.modRoll);
+	ActionsManager.registerResultHandler("initiative", ActionInitiative.onRoll);
 end
 
 function handleApplyInit(msgOOB)
@@ -38,7 +38,7 @@ function modRoll(rSource, rTarget, rRoll)
 end
 
 function onRoll(rSource, rTarget, rRoll)
-	local rMessage = ActionsManager.createActionMessage(rSource, rRoll);
+	local rMessage = ActionsManagerGURPS4e.createActionMessage(rSource, rRoll);
 	local nTotal = ActionsManagerGURPS4e.total(rRoll);
     
     local sOptRNDINIT = OptionsManager.getOption("RNDINIT");
@@ -46,30 +46,21 @@ function onRoll(rSource, rTarget, rRoll)
         nTotal = nTotal * 0.25;
     end
 
-    local bAddMod = false;
-    if GameSystem.actions[rRoll.sType] then
-        bAddMod = GameSystem.actions[rRoll.sType].bAddMod;
-    end
-
-	local msgOOB = {};
-	msgOOB.type = OOB_MSGTYPE_APPLYINIT;
+    local msgOOB = UtilityManager.encodeRollToOOB(rRoll);
+	msgOOB.type = ActionInitiative.OOB_MSGTYPE_APPLYINIT;
+    msgOOB.sSourceNode = ActorManager.getCreatureNodeName(rSource);
 	msgOOB.nTotal = nTotal;
-	msgOOB.sSourceNode = ActorManager.getCreatureNodeName(rSource);
+
 	Comm.deliverOOBMessage(msgOOB, "");
 
-    -- Send the chat message
-    local bShowMsg = true;
     if not rSource then
-        bShowMsg = false;
+        return;
     end
-  
-    if bShowMsg then
-        rMessage.text = string.format("%s %s", rMessage.text, string.format("[ %+g ]", nTotal));
 
-        rMessage.diemodifier = (bAddMod and rRoll.nMod or 0);
-  	
-        Comm.deliverChatMessage(rMessage);
-    end
+    -- Send the chat message
+    rMessage.text = string.format("%s %s", rMessage.text, string.format("[ %+g ]", nTotal));
+
+    Comm.deliverChatMessage(rMessage);
 end
 
 function performRoll(draginfo, rActor)
@@ -84,7 +75,7 @@ function performRoll(draginfo, rActor)
         return;
     end
 
-    rRoll = { sType = "initiative", sDesc = "[INIT]", aDice = aDice, nMod = 0 };
+    local rRoll = { sType = "initiative", sDesc = "[INIT]", aDice = aDice, nMod = 0 };
 
     ActionsManagerGURPS4e.performAction(draginfo, rActor, rRoll);
 end

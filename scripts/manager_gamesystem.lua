@@ -15,7 +15,7 @@ actions = {
   ["parry"] = { sIcon = "action_defense", bUseModStack = true, bAddMod = false },
   ["block"] = { sIcon = "action_defense", bUseModStack = true, bAddMod = false },
   ["damage"] = { sIcon = "action_damage", bUseModStack = true, bAddMod = true, sTargeting = "each"},
-  ["reaction"] = { sIcon = "action_roll", bUseModStack = true, bAddMod = true },
+  ["reaction"] = { sIcon = "action_roll", bUseModStack = true, bAddMod = false },
   ["initiative"] = { bUseModStack = true, bAddMod = true },
 };
 
