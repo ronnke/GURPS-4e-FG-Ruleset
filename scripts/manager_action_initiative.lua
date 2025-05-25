@@ -38,6 +38,10 @@ function modRoll(rSource, rTarget, rRoll)
 end
 
 function onRoll(rSource, rTarget, rRoll)
+    if not rSource then
+        return;
+    end
+
 	local rMessage = ActionsManagerGURPS4e.createActionMessage(rSource, rRoll);
 	local nTotal = ActionsManagerGURPS4e.total(rRoll);
     

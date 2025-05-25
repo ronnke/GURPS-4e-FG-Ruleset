@@ -22,6 +22,7 @@ function handleApplyDamage(msgOOB)
 	end
 
 	local rRoll = UtilityManager.decodeRollFromOOB(msgOOB);
+
     ActionDamage.applyDamage(rSource, rTarget, rRoll);
 end
 
@@ -37,38 +38,72 @@ function onPostRoll(_, rRoll)
 end
 
 function onRoll(rSource, rTarget, rRoll)
-    local rMessage = ActionsManagerGURPS4e.createActionMessage(rSource, rRoll);
-    rRoll.nTotal = ActionsManagerGURPS4e.total(rRoll);
-
-    rMessage.text = string.format("%s%s\n%s%s: %s%s",
-        rTarget and rTarget.sName and rTarget.sName .. ", " or "",
-        rMessage.text,
-        rRoll.sWeapon or "",
-        rRoll.sMode and rRoll.sMode ~= "" and ((rRoll.sWeapon and rRoll.sWeapon ~= "") and " (" .. rRoll.sMode .. ")" or rRoll.sMode) or "",
-        rRoll.sDamage or "",
-        rRoll.nMod ~= 0 and string.format(" (%+d)", rRoll.nMod) or ""
-    );
-    rMessage.nTotal = rRoll.nTotal;
-
-    -- Send the chat message
-	local bShowMsg = true;
-	if rTarget and rTarget.nOrder and rTarget.nOrder ~= 1 then
-		bShowMsg = false;
-	end
-	if bShowMsg then
-		Comm.deliverChatMessage(rMessage);
-	end
-
-    if not rTarget then
-	    return;
+    if not rSource and not rTarget then
+        return;
     end
 
-    local msgOOB = UtilityManager.encodeRollToOOB(rRoll);
-    msgOOB.type = ActionDamage.OOB_MSGTYPE_APPLYDMG;
-    msgOOB.sSourceNode = ActorManager.getCreatureNodeName(rSource);
-    msgOOB.sTargetNode = ActorManager.getCreatureNodeName(rTarget);
+    local sDamage = rRoll.sDamage or "";
+    if not sDamage or sDamage == "" then
+        if rRoll.sDesc and rRoll.sDesc ~= "" then
+            sDamage = string.match(rRoll.sDesc, ":%s*([%d%a%+%-]+%s+%a+)%s*:?.*")
+        end
+    end
 
-    Comm.deliverOOBMessage(msgOOB, "");
+    if not sDamage or sDamage == "" then
+        return;
+    end
+
+    local sResult, tResult = ActionDamage.parseDamageString(sDamage)
+
+    -- Add damage details
+    rRoll.sDamage = sResult;
+    rRoll.nDivisor = tResult.nDivisor;
+    rRoll.sFragmentation = tResult.sFragmentation;
+    rRoll.sDamageType = tResult.sDamageType;
+
+    if rSource then
+        local rMessage = ActionsManagerGURPS4e.createActionMessage(rSource, rRoll);
+        rRoll.nTotal = ActionsManagerGURPS4e.total(rRoll);
+
+        rMessage.text = string.format("%s%s\n%s%s: %s%s",
+            rTarget and rTarget.sName and rTarget.sName .. ", " or "",
+            rMessage.text,
+            rRoll.sWeapon or "",
+            rRoll.sMode and rRoll.sMode ~= "" and ((rRoll.sWeapon and rRoll.sWeapon ~= "") and " (" .. rRoll.sMode .. ")" or rRoll.sMode) or "",
+            rRoll.sDamage or "",
+            rRoll.nMod ~= 0 and string.format(" : [%+d]", rRoll.nMod) or ""
+        );
+        rMessage.nTotal = rRoll.nTotal;
+
+        -- Send the chat message
+		Comm.deliverChatMessage(rMessage);
+    end
+
+
+    if rTarget then
+        if not rSource then
+            local rMessage = ActionsManagerGURPS4e.createActionMessage(nil, rRoll);
+            rRoll.nTotal = ActionsManagerGURPS4e.total(rRoll);
+    
+            rMessage.sender = nil; -- No sender for target-only messages
+            rMessage.text = string.format("[DAMAGE] %s%s",
+                rTarget and rTarget.sName or "",
+                string.format(" : %s", rRoll.sDamage or "")
+            );
+            rMessage.nTotal = rRoll.nTotal;
+            -- Send the chat message
+		    Comm.deliverChatMessage(rMessage);
+        end
+
+        local msgOOB = UtilityManager.encodeRollToOOB(rRoll);
+        msgOOB.type = ActionDamage.OOB_MSGTYPE_APPLYDMG;
+        msgOOB.sSourceNode = ActorManager.getCreatureNodeName(rSource);
+        msgOOB.sTargetNode = ActorManager.getCreatureNodeName(rTarget);
+
+        -- Send the OOB message
+        Comm.deliverOOBMessage(msgOOB, "");
+    end
+
 end
 
 function applyDamage(rSource, rTarget, rRoll)
@@ -115,8 +150,9 @@ function applyInjury(rActor, nHPInjury, nFPInjury)
     end
 
 
-    local rMessage = ChatManager.createBaseMessage(rSource, "");
-	rMessage.text = string.format("Injury applied to: %s", ActorManager.resolveDisplayName(rActor));
+    local rMessage = ChatManager.createBaseMessage(nil, nil);
+    rMessage.sender = nil; -- No sender for target-only messages
+	rMessage.text = string.format("[INJURY] Applied to: %s", ActorManager.resolveDisplayName(rActor));
     
     Comm.deliverChatMessage(rMessage);
 end
@@ -257,13 +293,9 @@ function performRoll(draginfo, rActor, sWeapon, sMode, sDamage)
 
         sWeapon = sWeapon,
         sMode = sMode,
-        
         sDamage = sResult,
-        nDivisor = tResult.nDivisor,
-        sFragmentation = tResult.sFragmentation,
-        sDamageType = tResult.sDamageType,
     };
-
+    
     ActionsManagerGURPS4e.performAction(draginfo, rActor, rRoll);
 end
 

@@ -1257,10 +1257,10 @@
           <top anchor="bottom" relation="relative" offset="10" />
           <left offset="5" />
         </anchored>
-        <static>Damage</static>
+        <static>Damage:</static>
       </label>
       <number_ct name="damage">
-        <anchored to="label_damage" position="righthigh" offset="10" width="40" height="20" />
+        <anchored to="label_damage" position="right" offset="5" width="40" height="20" />
         <description textres="ct_label_damage" />
         <script>
           function onValueChanged()
@@ -1273,21 +1273,19 @@
       </number_ct>
 
       <label name="label_type">
-        <anchored to="damage" position="righthigh" offset="20" />
-        <static>Type</static>
+        <anchored to="damage" position="right" offset="20" />
+        <static>Type:</static>
       </label>
-      <string_ct name="damagetype">
-        <anchored to="label_type" position="righthigh" offset="10" width="50" height="20" />
-        <center />
-        <readonly />
-      </string_ct>
+      <simplestring name="damagetype">
+        <anchored to="label_type" position="right" offset="5" width="70" height="20" />
+      </simplestring>
 
       <label name="label_hitlocation">
-        <anchored to="damagetype" position="righthigh" offset="20" />
-        <static>Hit Location</static>
+        <anchored to="damagetype" position="right" offset="20" />
+        <static>Hit Location:</static>
       </label>
       <comboboxc name="hitlocation">
-        <anchored to="label_hitlocation" position="righthigh" offset="10" width="80" height="20" />
+        <anchored to="label_hitlocation" position="right" offset="5" width="80" height="20" />
         <listdirection>down</listdirection>
         <default>Torso</default>
         <script>
@@ -1307,10 +1305,10 @@
           <top anchor="bottom" relation="relative" offset="5" />
           <left offset="5" />
         </anchored>
-        <static>Injury Tolerance</static>
+        <static>Injury Tolerance:</static>
       </label>
       <comboboxc name="injurytolerance">
-        <anchored to="label_injurytolerance" position="righthigh" offset="10" width="120" height="20" />
+        <anchored to="label_injurytolerance" position="right" offset="5" width="120" height="20" />
         <listdirection>down</listdirection>
         <default>None</default>
         <script>
@@ -1326,11 +1324,11 @@
       </comboboxc>
 
       <label name="label_dr">
-        <anchored to="injurytolerance" position="righthigh" offset="20" />
-        <static>DR</static>
+        <anchored to="injurytolerance" position="right" offset="20" />
+        <static>DR:</static>
       </label>
       <number_ct name="dr">
-        <anchored to="label_dr" position="righthigh" offset="10" width="50" height="20" />
+        <anchored to="label_dr" position="right" offset="5" width="50" height="20" />
         <script>
           function onValueChanged()
             window.updateInjury();
@@ -1342,18 +1340,12 @@
       </number_ct>
 
       <label name="label_armordivisor">
-        <anchored to="dr" position="righthigh" offset="20" />
-        <static>Armor Divisor</static>
+        <anchored to="dr" position="right" offset="20" />
+        <static>Armor Divisor:</static>
       </label>
-      <number_ct name="armordivisor">
-        <anchored to="label_armordivisor" position="righthigh" offset="10" width="30" height="20" />
-        <description textres="ct_label_armordivisor" />
-        <default>0</default>
-        <hideonvalue>0</hideonvalue>
-        <min>0</min>
-        <readonly />
-        <center />
-      </number_ct>
+      <simplestring name="armordivisortext">
+        <anchored to="label_armordivisor" position="right" offset="5" width="40" height="20" />
+      </simplestring>
 
       <label name="label_injury">
         <anchored to="anchor_section">
@@ -1363,7 +1355,7 @@
         <static>Injury</static>
       </label>
       <number_ct name="injury">
-        <anchored to="label_injury" position="righthigh" offset="10" width="40" height="20" />
+        <anchored to="label_injury" position="right" offset="10" width="40" height="20" />
         <description textres="ct_label_injury" />
         <default>0</default>
         <min>0</min>
@@ -1371,7 +1363,7 @@
       </number_ct>
 
       <button_text name="apply">
-        <anchored to="injury" position="righthigh" offset="20" width="50" height="20" />
+        <anchored to="injury" position="right" offset="20" width="50" height="20" />
         <tooltip textres="ct_toolip_damage_apply" />
         <state textres="button_apply" />
 				<script>
@@ -1380,8 +1372,11 @@
           end
         </script>
 			</button_text>
+      <simplestring name="messagetext">
+        <anchored to="apply" position="right" offset="20" width="300" height="20" />
+      </simplestring>
 
-			<buttoncontrol>
+      <buttoncontrol>
         <anchored to="anchor_section" position="righthigh" offset="-15,5" width="20" height="20" />
 				<icon normal="button_clear" pressed="button_clear_down" />
 				<tooltip textres="ct_toolip_damage_clear" />
