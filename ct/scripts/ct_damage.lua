@@ -181,7 +181,12 @@ function updateInjury()
 		nInjury = 0;
 	end
 
-	nInjury = math.floor(nInjury * nDamageMultiplier)
+	nInjury = nInjury * nDamageMultiplier;
+	if nInjury > 0 and nInjury <= 1 then
+		nInjury = 1;
+	else 
+		nInjury = math.floor(nInjury);
+	end
 
 	if nInjury > 0 and StringManagerGURPS4e.containsAny({ "inc" }, sDamageType) then
 		nInjury = nInjury + 1;
