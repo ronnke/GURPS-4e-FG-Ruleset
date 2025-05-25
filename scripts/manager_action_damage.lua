@@ -79,7 +79,6 @@ function onRoll(rSource, rTarget, rRoll)
 		Comm.deliverChatMessage(rMessage);
     end
 
-
     if rTarget then
         if not rSource then
             local rMessage = ActionsManagerGURPS4e.createActionMessage(nil, rRoll);
@@ -112,10 +111,18 @@ function applyDamage(rSource, rTarget, rRoll)
 		return
 	end
 
+    -- Ensure minimum damage rules are respected
+    local nTotal = rRoll.nTotal;
+    if nTotal <= 0 and StringManagerGURPS4e.containsAny({ "cr" }, rRoll.sDamageType) then
+        nTotal = 0;
+    elseif nTotal < 1 then
+        nTotal = 1;
+    end
+
     local sDR = string.match(DB.getValue(nodeCT, "combat.dr", "0"), "%-?%d+%.?%d*")
 
     nodeDamage = DB.createChild(DB.createChild(nodeCT, "damage"))
-    DB.setValue(nodeDamage, "damage", "number", rRoll.nTotal);
+    DB.setValue(nodeDamage, "damage", "number", nTotal);
     DB.setValue(nodeDamage, "armordivisor", "number", rRoll.nDivisor);
     DB.setValue(nodeDamage, "damagetype", "string", rRoll.sDamageType);
     DB.setValue(nodeDamage, "dr", "number", tonumber(sDR) or 0);

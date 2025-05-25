@@ -4,7 +4,7 @@ This unofficial GURPS Ruleset for Fantasy Grounds is developed with the permissi
 
 [B]GURPS 4E Core Ruleset - FG Unity [COLOR="#FF0000"](FG Unity only)[/COLOR][/B]
 FG Forge shop [I](FG Unity users only)[/I]: [URL="https://forge.fantasygrounds.com/shop/items/454/view"]FG Forge Shop[/URL]
-[I](Updated: 11th Apr 2025)[/I]
+[I](Updated: 26th May 2025)[/I]
 
 [B]GURPS 4E Core Ruleset - FG Classic [COLOR="#FF0000"](FG Classic only. The ruleset for FG Classic is no longer being updated[/COLOR])[/B]
 Download latest release from here: [URL="https://bit.ly/GURPS4ECore"]https://bit.ly/GURPS4ECore[/URL] 
@@ -44,6 +44,24 @@ Click the following link to have your input on future ruleset development/improv
 
 [SIZE=4][B]Version Information[/B][/SIZE]
 
+[LIST]
+[*][B]GURPS 4e Ruleset v3.16.2[/B] - 25th May 2025 (FG Unity Only)
+- Fixed: Bug with drag and drop of damage. Armor divisor and damage types were not applied.
+- Reworked: Damage application helper to display important information.
+- Added: Minimum damage on damage rolls for damage types.
+[/LIST]
+[LIST]
+[*][B]GURPS 4e Ruleset v3.16.1[/B] - 25th May 2025 (FG Unity Only)
+- Fixed: Bug with Reaction rolls. Modifiers were not being applied correctly.
+[/LIST]
+[LIST]
+[*][B]GURPS 4e Ruleset v3.16.0[/B] - 25th May 2025 (FG Unity Only)
+- Fixed: Code compatibility with CoreRPG.
+- Added: Damage application helper in Combat Tracker. Roll damge with a target, or drag and drop damage to a target, to display the helper in the combat tracker.
+- Added: Complex dice expressions/formulas for damage rolls. eg ((2d+1)x3)-(1d/2)+6 cut.
+- Added: Apply Range Modifier option. Enable the option to automatically apply range modifiers on Ranged Attack rolls.
+- Many other minor changes and fixes.
+[/LIST]
 [LIST]
 [*][B]GURPS 4e Ruleset v3.15.1[/B] - 11th Apr 2025 (FG Unity Only)
 - Fixed: Combat Tracker menu options.
