@@ -4,6 +4,10 @@
 --
 
 function onInit()
+	if super and super.onInit then
+		super.onInit();
+	end
+
 	if Session.IsHost then
 	end
 

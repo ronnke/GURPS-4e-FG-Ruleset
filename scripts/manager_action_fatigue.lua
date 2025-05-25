@@ -7,45 +7,57 @@ function onInit()
 end
 
 function applyFatigue(rSource, rTarget, bSecret, sDamage, nTotal)
-  -- Get fatigue fields
-  local sTargetType, nodeTarget = ActorManager.getTypeAndNode(rTarget);
-  if sTargetType ~= "pc" and sTargetType ~= "ct" then
-    return;
-  end
+	local nodeTarget;
+	if ActorManager.isPC(rTarget) then
+		nodeTarget = ActorManager.getCreatureNode(rTarget);
+	else
+		nodeTarget = ActorManager.getCTNode(rTarget);
+	end
+	if not nodeTarget then
+		return;
+	end
 
-  local nFP, nFatigue;
-  if sTargetType == "pc" then
-    nFP = DB.getValue(nodeTarget, "attributes.fatiguepoints", 0);
-    nFatigue = DB.getValue(nodeTarget, "attributes.fatigue", 0) + nTotal;
-    DB.setValue(nodeTarget, "attributes.fps", "number", nFP - (nFatigue < 0 and 0 or nFatigue));
-    DB.setValue(nodeTarget, "attributes.fatigue", "number", (nFatigue < 0 and 0 or nFatigue));
-    DB.setValue(nodeTarget, "attributes.fpstatus", "string", ActorManagerGURPS4e.getFPStatus(sTargetType, nodeTarget));
-  else
-    nFP = DB.getValue(nodeTarget, "attributes.fatiguepoints", 0);
-    nFatigue = DB.getValue(nodeTarget, "fatigue", 0) + nTotal;
-    DB.setValue(nodeTarget, "fps", "number", nFP - (nFatigue < 0 and 0 or nFatigue));
-    DB.setValue(nodeTarget, "fatigue", "number", (nFatigue < 0 and 0 or nFatigue));
-    DB.setValue(nodeTarget, "fpstatus", "string", ActorManagerGURPS4e.getFPStatus(sTargetType, nodeTarget));
-  end
+	local nFP, nFatigue;
+	if ActorManager.isPC(rTarget) then
+		nFP = DB.getValue(nodeTarget, "attributes.fatiguepoints", 0);
+		nFatigue = DB.getValue(nodeTarget, "attributes.fatigue", 0) + nTotal;
+		DB.setValue(nodeTarget, "attributes.fps", "number", nFP - (nFatigue < 0 and 0 or nFatigue));
+		DB.setValue(nodeTarget, "attributes.fatigue", "number", (nFatigue < 0 and 0 or nFatigue));
+		DB.setValue(nodeTarget, "attributes.fpstatus", "string", ActorManagerGURPS4e.getFPStatus(rTarget));
+	elseif ActorManager.isRecordType(rTarget, "npc") then
+		nFP = DB.getValue(nodeTarget, "attributes.fatiguepoints", 0);
+		nFatigue = DB.getValue(nodeTarget, "fatigue", 0) + nTotal;
+		DB.setValue(nodeTarget, "fps", "number", nFP - (nFatigue < 0 and 0 or nFatigue));
+		DB.setValue(nodeTarget, "fatigue", "number", (nFatigue < 0 and 0 or nFatigue));
+		DB.setValue(nodeTarget, "fpstatus", "string", ActorManagerGURPS4e.getFPStatus(rTarget));
+	else
+		return;
+	end
 end
 
 function updateFatigue(rActor)
-  -- Get fatigue fields
-  local sActorType, nodeActor = ActorManager.getTypeAndNode(rActor);
-  if sActorType ~= "pc" and sActorType ~= "ct" then
-    return;
-  end
+	local nodeActor;
+	if ActorManager.isPC(rActor) then
+		nodeActor = ActorManager.getCreatureNode(rActor);
+	else
+		nodeActor = ActorManager.getCTNode(rActor);
+	end
+	if not nodeActor then
+		return;
+	end
 
-  local nFP, nFatigue;
-  if sActorType == "pc" then
-    nFP = DB.getValue(nodeActor, "attributes.fatiguepoints", 0);
-    nFatigue = DB.getValue(nodeActor, "attributes.fatigue", 0);
-    DB.setValue(nodeActor, "attributes.fps", "number", nFP - (nFatigue < 0 and 0 or nFatigue));
-    DB.setValue(nodeActor, "attributes.fpstatus", "string", ActorManagerGURPS4e.getFPStatus(sActorType, nodeActor));
-  else
-    nFP = DB.getValue(nodeActor, "attributes.fatiguepoints", 0);
-    nFatigue = DB.getValue(nodeActor, "fatigue", 0);
-    DB.setValue(nodeActor, "fps", "number", nFP - (nFatigue < 0 and 0 or nFatigue));
-    DB.setValue(nodeActor, "fpstatus", "string", ActorManagerGURPS4e.getFPStatus(sActorType, nodeActor));
-  end
+	local nFP, nFatigue;
+	if ActorManager.isPC(rActor) then
+		nFP = DB.getValue(nodeActor, "attributes.fatiguepoints", 0);
+		nFatigue = DB.getValue(nodeActor, "attributes.fatigue", 0);
+		DB.setValue(nodeActor, "attributes.fps", "number", nFP - (nFatigue < 0 and 0 or nFatigue));
+		DB.setValue(nodeActor, "attributes.fpstatus", "string", ActorManagerGURPS4e.getFPStatus(rActor));
+    elseif ActorManager.isRecordType(rActor, "npc") then
+		nFP = DB.getValue(nodeActor, "attributes.fatiguepoints", 0);
+		nFatigue = DB.getValue(nodeActor, "fatigue", 0);
+		DB.setValue(nodeActor, "fps", "number", nFP - (nFatigue < 0 and 0 or nFatigue));
+		DB.setValue(nodeActor, "fpstatus", "string", ActorManagerGURPS4e.getFPStatus(rActor));
+	else
+		return;
+	end
 end

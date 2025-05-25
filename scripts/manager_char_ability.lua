@@ -575,10 +575,14 @@ function addAbility(nodeChar, nodeAbility)
 		return false;
 	end
 
-	local sActorType, nodeActor = ActorManager.getTypeAndNode(nodeChar);
+	local nodeActor = ActorManager.getCreatureNode(nodeChar);
+	if not nodeActor then
+		return false;
+	end
+
 	local abilityName = DB.getValue(nodeAbility, "name", "");
 	local defaultsLine = DB.getValue(nodeAbility, "defaults", "");
-	if sActorType ~= "pc" then
+	if ActorManager.isRecordType(nodeChar, "npc") then
 		local nodeAbilitiesList = DB.getChild(nodeChar, "abilities.abilitieslist")
 		if not nodeAbilitiesList then
 			nodeAbilitiesList = DB.createChild(nodeChar, "abilities.abilitieslist");
@@ -607,7 +611,7 @@ function addAbility(nodeChar, nodeAbility)
 		return true;
 	end
 
-	if bSkill then
+	if bSkill and ActorManager.isPC(nodeChar) then
 		local nodeSkillsList = DB.getChild(nodeChar, "abilities.skilllist");
 		if not nodeSkillsList then
 			nodeSkillsList = DB.createChild(nodeChar, "abilities.skilllist");
@@ -629,7 +633,7 @@ function addAbility(nodeChar, nodeAbility)
 		return true;
 	end
 
-	if bSpell then
+	if bSpell and ActorManager.isPC(nodeChar) then
 		local nodeSpellsList = DB.getChild(nodeChar, "abilities.spelllist");
 		if not nodeSpellsList then
 			nodeSpellsList = DB.createChild(nodeChar, "abilities.spelllist");
@@ -656,7 +660,7 @@ function addAbility(nodeChar, nodeAbility)
 		return true;
 	end
 
-	if bPower then
+	if bPower and ActorManager.isPC(nodeChar) then
 		local nodePowersList = DB.getChild(nodeChar, "abilities.powerlist");
 		if not nodePowersList then
 			nodePowersList = DB.createChild(nodeChar, "abilities.powerlist");
@@ -677,7 +681,7 @@ function addAbility(nodeChar, nodeAbility)
 		return true;
 	end
 
-	if bOther then
+	if bOther and ActorManager.isPC(nodeChar) then
 		local nodeOtherList = DB.getChild(nodeChar, "abilities.otherlist");
 		if not nodeOthersList then
 			nodeOthersList = DB.createChild(nodeChar, "abilities.otherlist");

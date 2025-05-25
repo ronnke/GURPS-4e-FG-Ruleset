@@ -1262,7 +1262,13 @@
       <number_ct name="damage">
         <anchored to="label_damage" position="righthigh" offset="10" width="40" height="20" />
         <description textres="ct_label_damage" />
+        <script>
+          function onValueChanged()
+            window.updateInjury();
+          end
+        </script>
         <default>0</default>
+        <min>0</min>
         <center />
       </number_ct>
 
@@ -1270,30 +1276,28 @@
         <anchored to="damage" position="righthigh" offset="20" />
         <static>Type</static>
       </label>
-      <comboboxc name="type">
+      <string_ct name="damagetype">
         <anchored to="label_type" position="righthigh" offset="10" width="50" height="20" />
-        <listdirection>down</listdirection>
-				<script>
-					function onInit()
-						super.onInit();
-						addItems(DataCommonGURPS.aDamageTypeData);
-					end
-				</script>
         <center />
-      </comboboxc>
+        <readonly />
+      </string_ct>
 
       <label name="label_hitlocation">
-        <anchored to="type" position="righthigh" offset="20" />
+        <anchored to="damagetype" position="righthigh" offset="20" />
         <static>Hit Location</static>
       </label>
       <comboboxc name="hitlocation">
         <anchored to="label_hitlocation" position="righthigh" offset="10" width="80" height="20" />
         <listdirection>down</listdirection>
-				<script>
+        <default>Torso</default>
+        <script>
 					function onInit()
-						super.onInit();
 						addItems(DataCommonGURPS.aHitLocationData);
-					end
+          end
+
+          function onValueChanged()
+            window.updateInjury();
+          end
 				</script>
         <center />
       </comboboxc>
@@ -1308,12 +1312,16 @@
       <comboboxc name="injurytolerance">
         <anchored to="label_injurytolerance" position="righthigh" offset="10" width="120" height="20" />
         <listdirection>down</listdirection>
-				<script>
+        <default>None</default>
+        <script>
 					function onInit()
-						super.onInit();
 						addItems(DataCommonGURPS.aInjuryToleranceData);
 					end
-				</script>
+
+          function onValueChanged()
+            window.updateInjury();
+          end
+        </script>
         <center />
       </comboboxc>
 
@@ -1321,18 +1329,31 @@
         <anchored to="injurytolerance" position="righthigh" offset="20" />
         <static>DR</static>
       </label>
-      <comboboxc name="dr">
+      <number_ct name="dr">
         <anchored to="label_dr" position="righthigh" offset="10" width="50" height="20" />
-        <listdirection>down</listdirection>
-				<script>
-					function onInit()
-						super.onInit();
-						addItems({"0","3"});
-					end
-				</script>
+        <script>
+          function onValueChanged()
+            window.updateInjury();
+          end
+        </script>
         <center />
         <default>0</default>
-      </comboboxc>
+        <min>0</min>
+      </number_ct>
+
+      <label name="label_armordivisor">
+        <anchored to="dr" position="righthigh" offset="20" />
+        <static>Armor Divisor</static>
+      </label>
+      <number_ct name="armordivisor">
+        <anchored to="label_armordivisor" position="righthigh" offset="10" width="30" height="20" />
+        <description textres="ct_label_armordivisor" />
+        <default>0</default>
+        <hideonvalue>0</hideonvalue>
+        <min>0</min>
+        <readonly />
+        <center />
+      </number_ct>
 
       <label name="label_injury">
         <anchored to="anchor_section">
@@ -1343,8 +1364,9 @@
       </label>
       <number_ct name="injury">
         <anchored to="label_injury" position="righthigh" offset="10" width="40" height="20" />
-        <description textres="ct_label_damage" />
+        <description textres="ct_label_injury" />
         <default>0</default>
+        <min>0</min>
         <center />
       </number_ct>
 
@@ -1360,10 +1382,7 @@
 			</button_text>
 
 			<buttoncontrol>
-				<anchored width="19" height="20">
-          <right parent="anchor_section" anchor="right" offset="-10" />
-          <bottom parent="label_injurytolerance" anchor="bottom" />
-        </anchored>
+        <anchored to="anchor_section" position="righthigh" offset="-15,5" width="20" height="20" />
 				<icon normal="button_clear" pressed="button_clear_down" />
 				<tooltip textres="ct_toolip_damage_clear" />
 				<script>

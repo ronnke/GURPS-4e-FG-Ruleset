@@ -4,14 +4,14 @@
 --
 
 function onInit()
-	ActionsManager.registerModHandler("dice", modRoll);
-	ActionsManager.registerResultHandler("dice", onRoll);
+	ActionsManager.registerModHandler("dice", ActionGeneral.modRoll);
+	ActionsManager.registerResultHandler("dice", ActionGeneral.onRoll);
 end
 
 function modRoll(rSource, rTarget, rRoll)
 end
 
 function onRoll(rSource, rTarget, rRoll)
-	local rMessage = ActionsManager.createActionMessage(rSource, rRoll);
+	local rMessage = ActionsManagerGURPS4e.createActionMessage(rSource, rRoll);
 	Comm.deliverChatMessage(rMessage);
 end

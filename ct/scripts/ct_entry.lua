@@ -58,7 +58,7 @@ function onInjuryChanged()
     local rActor = ActorManager.resolveActor(getDatabaseNode());
     ActionDamage.updateDamage(rActor);
 
-    local sColor, sStatus, nStatus = ActorManagerGURPS4e.getInjuryStatusColor("ct", getDatabaseNode());
+    local sColor, sStatus, nStatus = ActorManagerGURPS4e.getInjuryStatusColor(getDatabaseNode());
 
     hps.setColor(sColor);
     status.setValue(sStatus);
@@ -69,7 +69,7 @@ function onFatigueChanged()
     local rActor = ActorManager.resolveActor(getDatabaseNode());
     ActionFatigue.updateFatigue(rActor);
 
-    local sColor, sStatus, nStatus = ActorManagerGURPS4e.getFatigueStatusColor("ct", getDatabaseNode());
+    local sColor, sStatus, nStatus = ActorManagerGURPS4e.getFatigueStatusColor(getDatabaseNode());
 
     fps.setColor(sColor);
     ctstatus.subwindow.fpstatus.setColor(sColor);

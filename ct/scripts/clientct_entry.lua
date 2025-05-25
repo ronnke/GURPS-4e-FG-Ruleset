@@ -14,13 +14,13 @@ function onFactionChanged()
 	updateHealthDisplay();
 end
 function onHealthChanged()
-	local sColor = ActorManagerGURPS4e.getInjuryStatusColor("ct", getDatabaseNode());
+	local sColor = ActorManagerGURPS4e.getInjuryStatusColor(getDatabaseNode());
 
 	hps.setColor(sColor);
 	status.setColor(sColor);
 end
 function onFatigueChanged()
-	local sColor, sStatus, nStatus = ActorManagerGURPS4e.getFatigueStatusColor("ct", getDatabaseNode());
+	local sColor, sStatus, nStatus = ActorManagerGURPS4e.getFatigueStatusColor(getDatabaseNode());
 
 	fps.setColor(sColor);
 end

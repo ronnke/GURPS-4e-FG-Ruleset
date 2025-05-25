@@ -4,29 +4,22 @@
 --
 
 function onInit()
-  ActionsManager.registerModHandler("reaction", modRoll);
-  ActionsManager.registerResultHandler("reaction", onReaction);
+  ActionsManager.registerModHandler("reaction", ActionReaction.modRoll);
+  ActionsManager.registerResultHandler("reaction", ActionReaction.onRoll);
 end
 
 function modRoll(rSource, rTarget, rRoll)
 end
 
-function onReaction(rSource, rTarget, rRoll)
-	local rMessage = ActionsManager.createActionMessage(rSource, rRoll);
+function onRoll(rSource, rTarget, rRoll)
+    if not rSource then
+        return;
+    end
+
+    -- Send the chat message
+	local rMessage = ActionsManagerGURPS4e.createActionMessage(rSource, rRoll);
 	local nTotal = ActionsManagerGURPS4e.total(rRoll);
 
-  local bAddMod = false;
-  if GameSystem.actions[rRoll.sType] then
-    bAddMod = GameSystem.actions[rRoll.sType].bAddMod;
-  end
-
-  -- Send the chat message
-  local bShowMsg = true;
-  if not rSource then
-    bShowMsg = false;
-  end
-  
-  if bShowMsg then
     local sResult = "";
     if nTotal <= 0 then
         sResult = "[ Disastrous! ]";
@@ -48,14 +41,11 @@ function onReaction(rSource, rTarget, rRoll)
     
     rMessage.text = string.format("%s\n%s", string.format("%s%s",(rTarget and string.format("%s || ",rTarget.sName) or ""), rMessage.text), sResult);
   	
-    rMessage.diemodifier = (bAddMod and rRoll.nMod or 0);
-  	
-  	Comm.deliverChatMessage(rMessage);
-  end
+    Comm.deliverChatMessage(rMessage);
 end
 
 function performRoll(draginfo, rActor)
-    rRoll = { sType = "reaction", sDesc = "[REACTION]", aDice = { "d6","d6","d6" }, nMod = 0 };
+    local rRoll = { sType = "reaction", sDesc = "[REACTION]", aDice = { "d6","d6","d6" }, nMod = 0 };
     
     ActionsManagerGURPS4e.performAction(draginfo, rActor, rRoll);
 end

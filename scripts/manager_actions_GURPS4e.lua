@@ -19,19 +19,21 @@
 --		(Any other fields added as string -> string map, if possible)
 
 function total(rRoll)
-  local nTotal = 0;
-  for _,v in ipairs(rRoll.aDice) do
-    nTotal = nTotal + v.result;
-  end
+	local nTotal = rRoll and rRoll.nTotal or 0;
+	
+	if GameSystem.actions[rRoll.sType] and GameSystem.actions[rRoll.sType].bAddMod then
+		nTotal = nTotal + rRoll.nMod;
+	end
 
-  local bAddMod = false;
-  if GameSystem.actions[rRoll.sType] then
-    bAddMod = GameSystem.actions[rRoll.sType].bAddMod;
-  end
+	return nTotal;
+end
 
-  nTotal = nTotal + (bAddMod and rRoll.nMod or 0);
+function actionIcon(rRoll)
+	if not rRoll or not rRoll.sType then
+		return "action_roll";
+	end
 
-  return nTotal;
+	return GameSystem.actions[rRoll.sType] and GameSystem.actions[rRoll.sType].sIcon or "action_roll";
 end
 
 function performAction(draginfo, rActor, rRoll)
@@ -39,6 +41,12 @@ function performAction(draginfo, rActor, rRoll)
 	    rRoll.bSecret = true;
 	    rRoll.bTower = true;
 	end 
-
 	ActionsManager.performAction(draginfo, rActor, rRoll);
+end
+
+function createActionMessage(rSource, rRoll)
+	local rMessage = ActionsManager.createActionMessage(rSource, rRoll);
+	rMessage.icon = ActionsManagerGURPS4e.actionIcon(rRoll);
+	rMessage.diemodifier = GameSystem.actions[rRoll.sType] and not GameSystem.actions[rRoll.sType].bAddMod and 0 or rMessage.diemodifier
+	return rMessage;
 end

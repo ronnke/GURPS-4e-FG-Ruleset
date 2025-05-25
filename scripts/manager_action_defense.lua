@@ -4,34 +4,28 @@
 --
 
 function onInit()
-  ActionsManager.registerModHandler("dodge", modRoll);
-  ActionsManager.registerModHandler("parry", modRoll);
-  ActionsManager.registerModHandler("block", modRoll);
+  ActionsManager.registerModHandler("dodge", ActionDefense.modRoll);
+  ActionsManager.registerResultHandler("dodge", ActionDefense.onRoll);
 
-  ActionsManager.registerResultHandler("dodge", onDefense);
-  ActionsManager.registerResultHandler("parry", onDefense);
-  ActionsManager.registerResultHandler("block", onDefense);
+  ActionsManager.registerModHandler("parry", ActionDefense.modRoll);
+  ActionsManager.registerResultHandler("parry", ActionDefense.onRoll);
+
+  ActionsManager.registerModHandler("block", ActionDefense.modRoll);
+  ActionsManager.registerResultHandler("block", ActionDefense.onRoll);
 end
 
 function modRoll(rSource, rTarget, rRoll)
 end
 
-function onDefense(rSource, rTarget, rRoll)
-  local rMessage = ActionsManager.createActionMessage(rSource, rRoll);
-	local nTotal = ActionsManagerGURPS4e.total(rRoll);
+function onRoll(rSource, rTarget, rRoll)
+    if not rSource then
+        return;
+    end
 
-  local bAddMod = false;
-  if GameSystem.actions[rRoll.sType] then
-    bAddMod = GameSystem.actions[rRoll.sType].bAddMod;
-  end
+    -- Send the chat message
+    local rMessage = ActionsManagerGURPS4e.createActionMessage(rSource, rRoll);
+    local nTotal = ActionsManagerGURPS4e.total(rRoll);
 
-  -- Send the chat message
-  local bShowMsg = true;
-  if not rSource then
-    bShowMsg = false;
-  end
-  
-  if bShowMsg then
     local nTarget = tonumber((string.match(rRoll.nTarget, "%d+") or "0"));
     local sExtra = (string.match(rRoll.nTarget, "[uUfF]") or "");
   
@@ -46,32 +40,29 @@ function onDefense(rSource, rTarget, rRoll)
         ManagerGURPS4e.rollResult(nTotal, nTarget + rRoll.nMod)
     );
   
-    rMessage.diemodifier = (bAddMod and rRoll.nMod or 0);
-  	
-  	Comm.deliverChatMessage(rMessage);
-  end
+    Comm.deliverChatMessage(rMessage);
 end
 
 function performDodgeRoll(draginfo, rActor, nTarget)
-    rRoll = { sType = "dodge", sDesc = "[DODGE]", aDice = { "d6","d6","d6" }, nMod = 0, sTargetDesc = "Dodge", nTarget = nTarget };
+    local rRoll = { sType = "dodge", sDesc = "[DODGE]", aDice = { "d6","d6","d6" }, nMod = 0, sTargetDesc = "Dodge", nTarget = nTarget };
     
     ActionsManagerGURPS4e.performAction(draginfo, rActor, rRoll);
 end
 
 function performBlockRoll(draginfo, rActor, nTarget)
-    rRoll = { sType = "block", sDesc = "[BLOCK]", aDice = { "d6","d6","d6" }, nMod = 0, sTargetDesc = "Block", nTarget = nTarget };
+    local rRoll = { sType = "block", sDesc = "[BLOCK]", aDice = { "d6","d6","d6" }, nMod = 0, sTargetDesc = "Block", nTarget = nTarget };
     
     ActionsManagerGURPS4e.performAction(draginfo, rActor, rRoll);
 end
 
 function performParryRoll(draginfo, rActor, nTarget)
-    rRoll = { sType = "parry", sDesc = "[PARRY]", aDice = { "d6","d6","d6" }, nMod = 0, sTargetDesc = "Parry", nTarget = nTarget };
+    local rRoll = { sType = "parry", sDesc = "[PARRY]", aDice = { "d6","d6","d6" }, nMod = 0, sTargetDesc = "Parry", nTarget = nTarget };
     
     ActionsManagerGURPS4e.performAction(draginfo, rActor, rRoll);
 end
 
 function performWeaponParryRoll(draginfo, rActor, sWeapon, sMode, sTargetDesc, nTarget)
-    rRoll = { sType = "parry", sDesc = "[PARRY]", aDice = { "d6","d6","d6" }, nMod = 0, sWeapon = sWeapon, sMode = sMode, sTargetDesc = sTargetDesc, nTarget = nTarget };
+    local rRoll = { sType = "parry", sDesc = "[PARRY]", aDice = { "d6","d6","d6" }, nMod = 0, sWeapon = sWeapon, sMode = sMode, sTargetDesc = sTargetDesc, nTarget = nTarget };
     
     ActionsManagerGURPS4e.performAction(draginfo, rActor, rRoll);
 end
