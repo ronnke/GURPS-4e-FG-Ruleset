@@ -45,7 +45,7 @@ Click the following link to have your input on future ruleset development/improv
 [SIZE=4][B]Version Information[/B][/SIZE]
 
 [LIST]
-[*][B]GURPS 4e Ruleset v3.16.2[/B] - 25th May 2025 (FG Unity Only)
+[*][B]GURPS 4e Ruleset v3.16.2[/B] - 26th May 2025 (FG Unity Only)
 - Fixed: Bug with drag and drop of damage. Armor divisor and damage types were not applied.
 - Reworked: Damage application helper to display important information.
 - Added: Minimum damage on damage rolls for damage types.
