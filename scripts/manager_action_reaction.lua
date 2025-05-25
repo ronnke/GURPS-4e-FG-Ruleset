@@ -39,7 +39,7 @@ function onRoll(rSource, rTarget, rRoll)
         sResult = "[ Excellent! ]";
     end
     
-    rMessage.text = string.format("%s\n%s", string.format("%s%s",(rTarget and string.format("%s || ",rTarget.sName) or ""), rMessage.text), sResult);
+    rMessage.text = string.format("%s\n%s", string.format("%s%s",(rTarget and string.format("%s, ",rTarget.sName) or ""), rMessage.text), sResult);
   	
     Comm.deliverChatMessage(rMessage);
 end

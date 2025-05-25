@@ -22,11 +22,11 @@ function updateInjury()
 
 	local nHP = DB.getValue(nodeCT, "attributes.hitpoints", 0);
 
-	local nDamage = damage.getValue();
-	local nDivisor = armordivisor.getValue();
-	local sDamageType = damagetype.getValue();
+	local nDamage = DB.getValue(node, "damage", 0);
+	local sDamageType = DB.getValue(node, "damagetype", "");
+	local nDR = DB.getValue(node, "dr", 0);
+	local nDivisor = DB.getValue(node, "armordivisor", 1);
 
-	local nDR = dr.getValue();
 	local sHitLocation = hitlocation.getValue();
 	local sInjuryTolerance = injurytolerance.getValue();
 
@@ -41,6 +41,7 @@ function updateInjury()
 	local nMaxDamage = 0.0;
 	local nDamageMultiplier = 1.0;
 	local nDRModifier = 0;
+	local sMessageText = "";
 
 	if sInjuryTolerance == "None" then
 		if StringManagerGURPS4e.containsAny({ "imp" }, sDamageType) then
@@ -90,12 +91,12 @@ function updateInjury()
 			if StringManagerGURPS4e.containsAny({ "imp", "pi+", "pi++" }, sDamageType) then
 				nDamageMultiplier = 1;
 			end
-			nMaxDamage = math.ceil(nHP / 2);
+			nMaxDamage = math.floor(nHP / 2) + 1;
 		elseif sHitLocation == "Hand" or sHitLocation == "Foot" then
 			if StringManagerGURPS4e.containsAny({ "imp", "pi+", "pi++" }, sDamageType) then
 				nDamageMultiplier = 1;
 			end
-			nMaxDamage = math.ceil(nHP / 3);
+			nMaxDamage = math.floor(nHP / 3) + 1;
 		end
 	elseif sInjuryTolerance == "Unliving" then
 		if StringManagerGURPS4e.containsAny({ "cut" }, sDamageType) then
@@ -171,7 +172,6 @@ function updateInjury()
 				nMaxDamage = 2;
 			end	
 		end
-
 	end
 
 	nDR = math.floor((nDR + nDRModifier) / nDivisor);
@@ -183,13 +183,38 @@ function updateInjury()
 
 	nInjury = math.floor(nInjury * nDamageMultiplier)
 
-	if nMaxDamage ~= 0 and nInjury > nMaxDamage then
-		nInjury = nMaxDamage;
-	end
-
 	if nInjury > 0 and StringManagerGURPS4e.containsAny({ "inc" }, sDamageType) then
 		nInjury = nInjury + 1;
 	end
+
+	if nMaxDamage ~= 0 and nInjury >= nMaxDamage then
+		nInjury = nMaxDamage;
+	end
+
+	-- Output message
+	if sHitLocation == "Skull" then
+		sMessageText = sMessageText .. "Skull DR +2; ";
+	end
+
+	if nInjury > 0 and StringManagerGURPS4e.containsAny({ "inc" }, sDamageType) then
+		sMessageText = sMessageText .. "+1 Incendiary damage; ";
+	end
+
+	if sHitLocation == "Arm" or sHitLocation == "Leg" then
+		if nInjury >= (math.floor(nHP / 2) + 1) then
+			sMessageText = sMessageText .. string.format("Major Wound; Crippled (%s); ", sHitLocation);
+		end
+	elseif sHitLocation == "Hand" or sHitLocation == "Foot" then
+		if nInjury >= (math.floor(nHP / 3) + 1) then
+			sMessageText = sMessageText .. string.format("Major Wound; Crippled (%s); ", sHitLocation);
+		end
+	elseif nInjury >= (math.floor(nHP / 2) + 1) then
+		sMessageText = sMessageText .. "Major Wound; ";
+	end
+
+	damagetype.setValue(sDamageType);
+	armordivisortext.setValue(string.format("(%s)", nDivisor ~= 1 and nDivisor or "none"));
+	messagetext.setValue(sMessageText);
 
 	DB.setValue(node, "injury", "number", nInjury);
 end

@@ -30,7 +30,7 @@ function onRoll(rSource, rTarget, rRoll)
     local sExtra = (string.match(rRoll.nTarget, "[uUfF]") or "");
   
     rMessage.text = string.format("%s\n%s%s%s %s(%d%s)\n%s",
-        (string.format("%s%s",(rTarget and string.format("%s || ",rTarget.sName) or ""), rMessage.text)),
+        (string.format("%s%s",(rTarget and string.format("%s, ",rTarget.sName) or ""), rMessage.text)),
         (rRoll.sWeapon or ""), 
         ((rRoll.sWeapon and rRoll.sWeapon ~= '' and rRoll.sTargetDesc and rRoll.sTargetDesc ~= '') and "\n" or ""), 
         (rRoll.sTargetDesc or ""), 
