@@ -42,12 +42,8 @@ function onRoll(rSource, rTarget, rRoll)
         return;
     end
 
-    local sDamage = rRoll.sDamage or "";
-    if not sDamage or sDamage == "" then
-        if rRoll.sDesc and rRoll.sDesc ~= "" then
-            sDamage = string.match(rRoll.sDesc, ":%s*([%d%a%+%-]+%s+%a+)%s*:?.*")
-        end
-    end
+    local _, _, sDamage = ActionDamage.decodeDamageRoll(rRoll.sDesc or "");
+    sDamage = rRoll.sDamage or sDamage;
 
     if not sDamage or sDamage == "" then
         return;
@@ -312,4 +308,27 @@ end
 
 function performSwingRoll(draginfo, rActor, sDamage)
     ActionDamage.performRoll(draginfo, rActor, "Basic Swing", "", sDamage);
+end
+
+-- Helper functions
+function decodeDamageRoll(s)
+    if type(s) ~= "string" then
+        return nil, nil, nil
+    end
+
+    local line = s:match("^(.-):%s*%[%s*[%+%-]?%d+%s*%]%s*$") or s;
+
+    local core, damage = line:match("^(.-):%s*(.-)%s*$");
+    if not core or not damage then return nil, nil, nil end
+
+    local name, afterDamage = core:match("^(.-)%s*,%s*%[DAMAGE%]%s*(.*)$");
+    if not afterDamage then
+        name = "";
+        afterDamage = core:match("^%[DAMAGE%]%s*(.*)$");
+        if not afterDamage then return nil, nil, nil end
+    end
+
+    local mode = afterDamage:match("^%[.-%]%s*(.-)%s*$") or afterDamage:match("^(.-)%s*$") or "";
+
+    return name, mode, damage;
 end
