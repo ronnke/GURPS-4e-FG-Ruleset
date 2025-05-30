@@ -1,4 +1,4 @@
--- 
+﻿-- 
 -- Please see the license.html file included with this distribution for 
 -- attribution and copyright information.
 --
@@ -32,10 +32,6 @@ function updateInjury()
 
 	if not nDamage or nDamage < 1 then
 		nDamage = 0;
-	end
-
-	if not nDivisor or nDivisor < 1 then
-		nDivisor = 1;
 	end
 
 	local nMaxDamage = 0.0;
@@ -174,7 +170,11 @@ function updateInjury()
 		end
 	end
 
-	nDR = math.floor((nDR + nDRModifier) / nDivisor);
+	if nDivisor ~= 0 then
+		nDR = math.floor((nDR + nDRModifier) / nDivisor);
+	else
+		nDR = 0;
+	end
 
 	local nInjury = nDamage - nDR;
 	if nInjury < 0 then
@@ -218,7 +218,17 @@ function updateInjury()
 	end
 
 	damagetype.setValue(sDamageType);
-	armordivisortext.setValue(string.format("(%s)", nDivisor ~= 1 and nDivisor or "none"));
+
+	if nDivisor then
+		if nDivisor == 0 then
+			armordivisortext.setValue("(∞)");
+		elseif nDivisor == 1 then
+			armordivisortext.setValue("(none)");
+		else
+			armordivisortext.setValue(string.format("(%s)", nDivisor));
+		end
+	end
+
 	messagetext.setValue(sMessageText);
 
 	DB.setValue(node, "injury", "number", nInjury);
