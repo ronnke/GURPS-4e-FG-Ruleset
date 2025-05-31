@@ -4,7 +4,9 @@
 --
 
 function onInit()
-	super.onInit();
+	if super and super.onInit then
+		super.onInit();
+	end
 	self.onHealthChanged();
 	self.onFatigueChanged();
 end

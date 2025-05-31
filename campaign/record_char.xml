@@ -7,7 +7,6 @@
 
 <root>
 	<windowclass name="charsheet" copy="charsheet_base">
-    <frame>charsheet</frame>
     <placement>
       <size width="525" height="630" />
     </placement>

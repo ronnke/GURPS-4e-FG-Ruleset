@@ -235,8 +235,21 @@ function updateInjury()
 end
 
 function applyDamage()
-	local rActor = ActorManager.resolveActor(DB.getChild(getDatabaseNode(), "..."));
-	ActionDamage.applyInjury(rActor, injury.getValue(), 0);
+	local node = getDatabaseNode();
+	if not node then
+		return;
+	end
+
+	local nInjury = DB.getValue(node, "injury", 0);
+	local sDamageType = DB.getValue(node, "damagetype", "");
+
+	local rActor = ActorManager.resolveActor(DB.getChild(node, "..."));
+
+	if StringManagerGURPS4e.containsAny({ "fat" }, sDamageType) then
+		ActionDamage.applyInjury(rActor, 0, nInjury);
+	else
+		ActionDamage.applyInjury(rActor, nInjury, 0);
+	end
 
 	removeEntry()
 end

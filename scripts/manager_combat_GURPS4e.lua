@@ -8,7 +8,7 @@ function onInit()
 
 	CombatManager.setCustomRoundStart(CombatManagerGURPS4e.onRoundStart);
 	CombatManager.setCustomTurnStart(CombatManagerGURPS4e.onTurnStart);
-
+	CombatManager.setCustomTurnEnd(CombatManagerGURPS4e.onTurnEnd);
 	CombatManager.setCustomCombatReset(CombatManagerGURPS4e.resetCombat);
 
 	CombatRecordManager.addStandardVehicleCombatRecordType();
@@ -53,6 +53,12 @@ function onTurnStart(nodeEntry)
     if isCTSkipped(nodeEntry) then
         CombatManager.nextActor();
     end
+end
+
+function onTurnEnd(nodeEntry)
+	if not nodeEntry then
+		return;
+	end
 end
 
 --
@@ -127,6 +133,8 @@ function onPCPostAdd(tCustom)
 	if not tCustom.nodeRecord or not tCustom.nodeCT then
 		return;
 	end
+
+    DB.setValue(tCustom.nodeCT, "skip", "number", 0);
     
     -- Setup
     local sOptRNDINIT = OptionsManager.getOption("RNDINIT");
@@ -295,6 +303,28 @@ function resetCombat()
     CombatManagerGURPS4e.clearExpiringEffects();
 end
 
+function resetEffects()
+	function clearEffect(nodeEffect)
+		nodeEffect.delete();
+	end
+	CombatManager.callForEachCombatantEffect(clearEffect);
+end
+
+function clearExpiringEffects()
+	function checkEffectExpire(nodeEffect)
+		local sUnits = DB.getValue(nodeEffect, "units", "");
+
+		if sUnits == "sec" or sUnits == "min" or sUnits == "hr" or sUnits == "day" then
+			nodeEffect.delete();
+		end
+	end
+	CombatManager.callForEachCombatantEffect(checkEffectExpire);
+end
+
+--
+-- INIT FUNCTIONS
+--
+
 function rollInit(sType)
 	CombatManagerGURPS4e.rollTypeInit(sType, CombatManagerGURPS4e.rollEntryInit);
 end
@@ -315,7 +345,6 @@ function getEntryInitRecord(nodeEntry)
 end
 function rollRandomInit(tInit)
 	local tSuffix = {};
---	table.insert(tSuffix, string.format("(Spd %d)", tInit.nBasicSpeed));
 
 	local sOptRNDINIT = OptionsManager.getOption("RNDINIT");
 
@@ -446,22 +475,4 @@ function helperRollEntryInit(tInit)
 		rMessage.text = string.format("%s %s", rMessage.text, tInit.sSuffix);
 	end
 	Comm.addChatMessage(rMessage);
-end
-
-function resetEffects()
-	function clearEffect(nodeEffect)
-		nodeEffect.delete();
-	end
-	CombatManager.callForEachCombatantEffect(clearEffect);
-end
-
-function clearExpiringEffects()
-	function checkEffectExpire(nodeEffect)
-		local sUnits = DB.getValue(nodeEffect, "units", "");
-
-		if sUnits == "sec" or sUnits == "min" or sUnits == "hr" or sUnits == "day" then
-			nodeEffect.delete();
-		end
-	end
-	CombatManager.callForEachCombatantEffect(checkEffectExpire);
 end

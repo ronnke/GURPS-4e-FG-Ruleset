@@ -4,12 +4,16 @@
 --
 
 function onInit()
-	super.onInit();
+	if super and super.onInit then
+		super.onInit();
+	end
 	updateRangeScale();
 end
 
 function update(bInit)
-	super.update(bInit)
+	if super and super.update then
+		super.update();
+	end
 	updateRangeScale();
 end
 
