@@ -108,7 +108,7 @@ function applyDamage(rSource, rTarget, rRoll)
 	end
 
     -- Ensure minimum damage rules are respected
-    local nTotal = rRoll.nTotal;
+    local nTotal = tonumber(rRoll.nTotal) or 0;
     if nTotal <= 0 and StringManagerGURPS4e.containsAny({ "cr" }, rRoll.sDamageType) then
         nTotal = 0;
     elseif nTotal < 1 then
@@ -119,7 +119,7 @@ function applyDamage(rSource, rTarget, rRoll)
 
     nodeDamage = DB.createChild(DB.createChild(nodeCT, "damage"))
     DB.setValue(nodeDamage, "damage", "number", nTotal);
-    DB.setValue(nodeDamage, "armordivisor", "number", rRoll.nDivisor);
+    DB.setValue(nodeDamage, "armordivisor", "number", tonumber(rRoll.nDivisor) or 1);
     DB.setValue(nodeDamage, "damagetype", "string", rRoll.sDamageType);
     DB.setValue(nodeDamage, "dr", "number", tonumber(sDR) or 0);
 end
@@ -189,102 +189,6 @@ function updateDamage(rActor)
     end
 end
 
-function parseDamageString(s)
-    -- Initialize return values
-    local damage, divisor, fragmentation, damageType = "", nil, "", ""
-
-    -- Handle nil or empty input
-    if not s or s:match("^%s*$") then
-        return "", { sDamage = "", nDivisor = nil, sFragmentation = "", sDamageType = "" }
-    end
-
-    -- Normalize whitespace: collapse multiple spaces, trim edges
-    s = s:gsub("%s+", "")
-    s = s:gsub("([%(%[])", " %1")
-    s = s:gsub("([%)%]])", "%1 ")
-
-    for _, dtype in ipairs(DataCommonGURPS.aDamageTypeData) do
-      local escaped = dtype:gsub("([%%%^%$%(%)%.%[%]%*%+%-%?])", "%%%1")
-      s = s:gsub(escaped, " " .. dtype)
-    end
-
-    s = s:gsub("%s+", " "):gsub("^%s+", ""):gsub("%s+$", "")
-
-    -- Extract fragmentation (e.g., "[2d]", "[1d+1]")
-    local fragInner = s:match("%[(.-)%]")
-    if fragInner then
-        fragmentation = fragInner:gsub("%s+", "")
-        s = s:gsub("%[" .. fragInner .. "%]", "", 1)
-    end
-    
-    -- Extract divisor (e.g., "(5)", "(0.5)", "(1/2)", "(∞)", "(inf.)")
-    local divisorInner = s:match("%(%s*([%.%d/]+)%s*%)")
-    if divisorInner then
-        local clean = divisorInner:gsub("%s+", "")
-        divisor = tonumber(clean)
-
-        -- Handle fractions
-        if not divisor and clean:match("^%d+/%d+$") then
-            local num, denom = clean:match("^(%d+)/(%d+)$")
-            if denom and tonumber(denom) > 0 then
-                divisor = tonumber(num) / tonumber(denom)
-            end
-        end
-        if not divisor or divisor == 1 or divisor <= 0 then
-            divisor = nil -- Set to nil if divisor is 0
-        end
-        s = s:gsub("%(%s*" .. divisorInner .. "%s*%)", "", 1)
-    end
-
-    -- Extract Damage and Damage Types
-    local tDamageTypeSet = {}
-    for _, v in ipairs(DataCommonGURPS.aDamageTypeData) do 
-      tDamageTypeSet[v] = true
-    end
-
-    -- Tokenize first
-    local tTokens = {}
-    for word in s:gmatch("%S+") do
-        table.insert(tTokens, word)
-    end
-
-    -- Process and rebuild string
-    local tRemaining = {}
-    local tDamageTypes = {}
-    for _, word in ipairs(tTokens) do
-        if tDamageTypeSet[word] then
-            table.insert(tDamageTypes, word)
-        else
-            table.insert(tRemaining, word)
-        end
-    end
-
-    damage = table.concat(tRemaining, " ")
-    damageType = table.concat(tDamageTypes, " ")
-
-    -- Construct sResult
-    local sResult = damage
-    if divisor then
-        sResult = sResult .. "(" .. tostring(divisor) .. ")"
-    end
-    if fragmentation ~= "" then
-        sResult = sResult .. " [" .. fragmentation .. "]"
-    end
-    if damageType ~= "" then
-        sResult = sResult .. " " .. damageType
-    end
-
-    -- Construct tResult
-    local tResult = {
-        sDamage = damage,
-        nDivisor = divisor,
-        sFragmentation = fragmentation,
-        sDamageType = damageType
-    }
-
-    return sResult, tResult
-end
-
 function performRoll(draginfo, rActor, sWeapon, sMode, sDamage)
     local sResult, tResult = ActionDamage.parseDamageString(sDamage)
     
@@ -331,4 +235,113 @@ function decodeDamageRoll(s)
     local mode = afterDamage:match("^%[.-%]%s*(.-)%s*$") or afterDamage:match("^(.-)%s*$") or "";
 
     return name, mode, damage;
+end
+
+function parseDamageString(s)
+    -- Initialize return values
+    local damage, divisor, fragmentation, damageType = "", nil, "", ""
+
+    -- Handle nil or empty input
+    if not s or s:match("^%s*$") then
+        return "", { sDamage = "", nDivisor = nil, sFragmentation = "", sDamageType = "" }
+    end
+
+    -- Normalize whitespace: collapse multiple spaces, trim edges
+    s = s:gsub("%s+", "")
+    s = s:gsub("([%(%[])", " %1")
+    s = s:gsub("([%)%]])", "%1 ")
+
+    for _, dtype in ipairs(DataCommonGURPS.aDamageTypeData) do
+      local escaped = dtype:gsub("([%%%^%$%(%)%.%[%]%*%+%-%?])", "%%%1")
+      s = s:gsub(escaped, " " .. dtype)
+    end
+
+    s = s:gsub("%s+", " "):gsub("^%s+", ""):gsub("%s+$", "")
+
+    -- Extract fragmentation (e.g., "[2d]", "[1d+1]")
+    local fragInner = s:match("%[(.-)%]")
+    if fragInner then
+        fragmentation = fragInner:gsub("%s+", "")
+        s = s:gsub("%[" .. fragInner .. "%]", "", 1)
+    end
+    
+    -- Extract divisor (e.g., "(5)", "(0.5)", "(1/2)", "(∞)", "(inf)", "(inf.)")
+    local divisorInner = s:match("%(%s*([%.%d/∞inf%.]+)%s*%)")
+    if divisorInner then
+        local clean = divisorInner:gsub("%s+", "")
+        
+        -- Check for infinite cases first
+        if clean == "∞" or clean:lower() == "inf" or clean:lower() == "inf." then
+            divisor = 0  -- Set infinite divisor to 0
+        else
+            divisor = tonumber(clean)
+
+            -- Handle fractions
+            if not divisor and clean:match("^%d+/%d+$") then
+                local num, denom = clean:match("^(%d+)/(%d+)$")
+                if denom and tonumber(denom) > 0 then
+                    divisor = tonumber(num) / tonumber(denom)
+                    divisor = math.floor((divisor * 100) + 0.5) / 100
+                end
+            end
+            if divisor < 0 then
+                divisor = nil -- Set to nil if divisor is invalid
+            end
+        end
+        s = s:gsub("%(%s*" .. divisorInner:gsub("([%^%$%(%)%%%.%[%]%*%+%-%?])", "%%%1") .. "%s*%)", "", 1);
+    end
+
+    -- Extract Damage and Damage Types
+    local tDamageTypeSet = {}
+    for _, v in ipairs(DataCommonGURPS.aDamageTypeData) do 
+      tDamageTypeSet[v] = true
+    end
+
+    -- Tokenize first
+    local tTokens = {}
+    for word in s:gmatch("%S+") do
+        table.insert(tTokens, word)
+    end
+
+    -- Process and rebuild string
+    local tRemaining = {}
+    local tDamageTypes = {}
+    for _, word in ipairs(tTokens) do
+        if tDamageTypeSet[word] then
+            table.insert(tDamageTypes, word)
+        else
+            table.insert(tRemaining, word)
+        end
+    end
+
+    damage = table.concat(tRemaining, " ")
+    damageType = table.concat(tDamageTypes, " ")
+
+    -- Construct sResult (modify this section to use divisorDisplay)
+    local sResult = damage
+    if divisor then
+        if divisor == 0 then
+            sResult = sResult .. "(∞)"
+        elseif divisor == 1 then
+            sResult = sResult .. ""
+        else
+            sResult = sResult .. "(" .. tostring(divisor) .. ")"
+        end
+    end
+    if fragmentation ~= "" then
+        sResult = sResult .. " [" .. fragmentation .. "]"
+    end
+    if damageType ~= "" then
+        sResult = sResult .. " " .. damageType
+    end
+
+    -- Construct tResult
+    local tResult = {
+        sDamage = damage,
+        nDivisor = divisor,
+        sFragmentation = fragmentation,
+        sDamageType = damageType
+    }
+
+    return sResult, tResult
 end

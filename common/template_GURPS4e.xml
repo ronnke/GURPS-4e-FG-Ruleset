@@ -31,21 +31,4 @@
 		</script>
 	</template>
 
-  <template name="combobox_column">
-    <combobox>
-      <frame mergerule="replace" name="fielddark" offset="7,5,7,5" hidereadonly="true" />
-      <anchored>
-        <top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
-        <left offset="97" />
-        <right offset="-5" />
-        <size>
-          <height>20</height>
-        </size>
-      </anchored>
-      <readonly />
-      <listdirection mergerule="replace">down</listdirection>
-      <listmaxsize mergerule="replace">6</listmaxsize>
-      <script file="common/scripts/combobox_column.lua" />
-    </combobox>
-  </template>
 </root>

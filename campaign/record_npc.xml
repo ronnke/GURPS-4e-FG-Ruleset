@@ -38,7 +38,9 @@
     </tab>
 		<script>
 			function onInit()
-				super.onInit();
+	      if super and super.onInit then
+		      super.onInit();
+	      end
 				self.onIDChanged();
 			end
 			function onIDChanged()

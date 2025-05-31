@@ -4,7 +4,9 @@
 --
 
 function onInit()
-	super.onInit();
+	if super and super.onInit then
+		super.onInit();
+	end
 
     self.onInjuryChanged();
     self.onFatigueChanged();
@@ -86,9 +88,10 @@ function onSkipChanged()
 end
 
 function linkPCFields()
+  super.linkPCFields();
+
   local nodeChar = link.getTargetDatabaseNode();
   if nodeChar then
-    name.setLink(DB.createChild(nodeChar, "name", "string"), true);
 	senses.setLink(DB.createChild(nodeChar, "senses", "string"), true);
 
     strength.setLink(DB.createChild(nodeChar, "attributes.strength", "number"), true);

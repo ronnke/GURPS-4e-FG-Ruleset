@@ -5,28 +5,34 @@
 
 
 function onInit()
-  onGridStateChanged(getGridType());
+	if super and super.onInit then
+		super.onInit();
+	end
+
+	onGridStateChanged(getGridType());
 end
 
 function onGridStateChanged(sGridType)
-  if User.isHost() then
-    if sGridType == "hexcolumn" or sGridType == "hexrow" then
-      setTokenOrientationCount(12)
-    else
-      setTokenOrientationCount(8)
-    end
-  end
+	if User.isHost() then
+		if sGridType == "hexcolumn" or sGridType == "hexrow" then
+			setTokenOrientationCount(12);
+		else
+			setTokenOrientationCount(8);
+		end
+	end
 end
 
 function onMeasurePointer(nLength, sPointerType, nStartX, nStartY, nEndX, nEndY)
 	local getPositions = function(nStartX, nStartY, nEndX, nEndY)
-		return { x = nStartX, y = nStartY }, { x = nEndX, y = nEndY }
+		return { x = nStartX, y = nStartY }, { x = nEndX, y = nEndY };
 	end
-	local rStart, rEnd = getPositions(nStartX, nStartY, nEndX, nEndY)
+	local rStart, rEnd = getPositions(nStartX, nStartY, nEndX, nEndY);
+
 	if rStart and rEnd then
 		local getDistance = function(rStart, rEnd)
 			return math.floor((getDistanceBetween(rStart, rEnd) + 0.05) * 10) / 10;
 		end
+
 		local nDistance = getDistance(rStart, rEnd);
 		local sUnits = getDistanceSuffix();
 
@@ -38,5 +44,5 @@ function onMeasurePointer(nLength, sPointerType, nStartX, nStartY, nEndX, nEndY)
 		end
 		return nDistance .. sUnits;
 	end
-	return ""
+	return "";
 end

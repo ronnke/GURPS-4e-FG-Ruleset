@@ -1,21 +1,10 @@
-function onInit()
-	-- CoreRPG
-	--TokenManager.getDistance = getDistance
-end
+
 
 --
 -- Distance
 --
 
 function getDistance(tokenSource, tokenTarget)
---	if tokenSource and tokenTarget then
---		local ctrlImage, winImage, bWindowOpened = ImageManager.getImageControl(tokenSource, true)
---		if ctrlImage and winImage then
---			local nDistance, bAdjacent = getTokenDistance(ctrlImage, tokenSource, tokenTarget)
---			return nDistance, bAdjacent
---		end
---	end
-
 	if tokenSource and tokenTarget then
 		local nodeSourceContainer = tokenSource.getContainerNode()
 		local nodeTargetContainer = tokenTarget.getContainerNode()

@@ -23,11 +23,13 @@
       <label_column name="type_label">
         <static textres="trait_type_label" />
       </label_column>
-      <combobox_column name="type">
+      <combobox_columnh name="type">
         <delaykeyupdate />
         <script>
           function onInit()
-            super.onInit();
+	          if super and super.onInit then
+		          super.onInit();
+	          end
             addItems(DataCommonGURPS.aTraitTypeData);
           end
           function onValueChanged()
@@ -35,7 +37,8 @@
           end
         </script>
         <unsorted />
-      </combobox_column>
+        <listmaxsize>6</listmaxsize>
+      </combobox_columnh>
 
       <label_column name="subtype_label">
         <static textres="trait_subtype_label" />

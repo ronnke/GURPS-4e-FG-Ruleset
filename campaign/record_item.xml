@@ -32,11 +32,13 @@
 			<label_column name="type_label">
 				<static textres="item_label_type" />
 			</label_column>
-			<combobox_column name="type">
+			<combobox_columnh name="type">
 				<delaykeyupdate />
 				<script>
 					function onInit()
-						super.onInit();
+						if super and super.onInit then
+							super.onInit();
+						end
 						addItems(DataCommonGURPS.aItemTypeData);
 					end
 					function onValueChanged()
@@ -44,7 +46,8 @@
 					end
 				</script>
 				<unsorted />
-			</combobox_column>
+        <listmaxsize>6</listmaxsize>
+			</combobox_columnh>
       
 			<label_column name="subtype_label">
 				<static textres="item_label_subtype" />

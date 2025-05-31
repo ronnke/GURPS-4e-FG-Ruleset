@@ -23,15 +23,18 @@
       <label_column name="type_label">
         <static textres="ability_spelltype_label" />
       </label_column>
-      <combobox_column name="type">
+      <combobox_columnh name="type">
         <script>
           function onInit()
-            super.onInit();
+	          if super and super.onInit then
+		          super.onInit();
+	          end
             addItems(DataCommonGURPS.aSpellTypeAbbrData);
           end
         </script>
         <unsorted />
-      </combobox_column>
+        <listmaxsize>6</listmaxsize>
+      </combobox_columnh>
 
       <label_column name="points_label">
         <static textres="ability_grouped_label_points" />
@@ -48,15 +51,17 @@
       <label_column name="class_label">
         <static textres="ability_spellclass_label" />
       </label_column>
-      <combobox_column name="class">
+      <combobox_columnh name="class">
         <script>
           function onInit()
-            super.onInit();
+	          if super and super.onInit then
+		          super.onInit();
+	          end
             addItems(DataCommonGURPS.aSpellClassData);
           end
         </script>
         <unsorted />
-      </combobox_column>
+      </combobox_columnh>
 
       <label_column name="resist_label">
         <static textres="ability_spellresist_label" />

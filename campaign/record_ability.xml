@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <!-- 
   Please see the license.html file included with this distribution for 
@@ -18,11 +18,13 @@
 			<label_column name="type_label">
 				<static textres="ability_type_label" />
 			</label_column>
-			<combobox_column name="type">
+			<combobox_columnh name="type">
 				<delaykeyupdate />
 				<script>
 					function onInit()
-						super.onInit();
+						if super and super.onInit then
+							super.onInit();
+						end
 						addItems(DataCommonGURPS.aAbilityTypeData);
 					end
 					function onValueChanged()
@@ -30,7 +32,8 @@
 					end
 				</script>
 				<unsorted />
-			</combobox_column>
+        <listmaxsize>6</listmaxsize>
+      </combobox_columnh>
 
 			<label_column name="subtype_label">
 				<static textres="ability_subtype_label" />
@@ -48,15 +51,18 @@
 			<label_column name="skilltype_label">
 				<static textres="ability_skilltype_label" />
 			</label_column>
-			<combobox_column name="skilltype">
+			<combobox_columnh name="skilltype">
 				<script>
 					function onInit()
-						super.onInit();
+						if super and super.onInit then
+							super.onInit();
+						end
 						addItems(DataCommonGURPS.aSkillTypeData);
 					end
 				</script>
 				<unsorted />
-			</combobox_column>
+        <listmaxsize>6</listmaxsize>
+      </combobox_columnh>
 
 			<label_column name="skilldefault_label">
 				<static textres="ability_skilldefault_label" />
@@ -78,28 +84,34 @@
 			<label_column name="spellclass_label">
 				<static textres="ability_spellclass_label" />
 			</label_column>
-			<combobox_column name="spellclass">
+			<combobox_columnh name="spellclass">
 				<script>
 					function onInit()
-						super.onInit();
+						if super and super.onInit then
+							super.onInit();
+						end
 						addItems(DataCommonGURPS.aSpellClassData);
 					end
 				</script>
 				<unsorted />
-			</combobox_column>
+        <listmaxsize>6</listmaxsize>
+      </combobox_columnh>
 
 			<label_column name="spelltype_label">
 				<static textres="ability_spelltype_label" />
 			</label_column>
-			<combobox_column name="spelltype">
+			<combobox_columnh name="spelltype">
 				<script>
 					function onInit()
-						super.onInit();
+						if super and super.onInit then
+							super.onInit();
+						end
 						addItems(DataCommonGURPS.aSpellTypeData);
 					end
 				</script>
 				<unsorted />
-			</combobox_column>
+        <listmaxsize>6</listmaxsize>
+      </combobox_columnh>
 
 			<label_column name="spellresist_label">
 				<static textres="ability_spellresist_label" />
@@ -132,15 +144,18 @@
       <label_column name="powerskill_label">
         <static textres="ability_powerskill_label" />
       </label_column>
-      <combobox_column name="powerskill">
+      <combobox_columnh name="powerskill">
         <script>
           function onInit()
-						super.onInit();
+						if super and super.onInit then
+							super.onInit();
+						end
 						addItems(DataCommonGURPS.aSkillTypeData);
           end
         </script>
         <unsorted />
-      </combobox_column>
+        <listmaxsize>6</listmaxsize>
+      </combobox_columnh>
 
       <label_column name="powerdefault_label">
         <static textres="ability_powerdefault_label" />

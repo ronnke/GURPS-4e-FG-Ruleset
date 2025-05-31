@@ -77,7 +77,7 @@
 				<static textres="char_label_lc" />
 			</label_columntop>
 			<label_columntop name="bulk_label">
-				<anchored to="rightanchor" width="20">
+				<anchored to="rightanchor" width="25">
 					<top />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
@@ -235,7 +235,7 @@
 				<tabtarget prev="bulk" next="tl"/>
 			</string_charfield>
 			<number_charmodfield name="bulk">
-				<anchored to="rightanchor" width="20" height="20">
+				<anchored to="rightanchor" width="25" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
@@ -347,7 +347,7 @@
 				<static textres="char_label_acc" />
 			</label_columntop>
 			<label_columntop name="modes_damage_label">
-				<anchored to="modesicon" width="60">
+				<anchored to="modesicon" width="70">
 					<top />
 					<right parent="bottomanchor" anchor="left" relation="relative" offset="-10" />
 				</anchored>
@@ -510,7 +510,7 @@
 			</number_charmodfield>
 			<string_charfield name="damage">
 				<rollable_damage />
-				<anchored to="rightanchor" width="60" height="20">
+				<anchored to="rightanchor" width="70" height="20">
 					<top offset="2" />
 					<right anchor="left" relation="relative" offset="-10" />
 				</anchored>
