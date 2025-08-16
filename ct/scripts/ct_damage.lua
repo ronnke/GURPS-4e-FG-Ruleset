@@ -39,62 +39,7 @@ function updateInjury()
 	local nDRModifier = 0;
 	local sMessageText = "";
 
-	if sInjuryTolerance == "None" then
-		if StringManagerGURPS4e.containsAny({ "imp" }, sDamageType) then
-			nDamageMultiplier = 2;
-		elseif StringManagerGURPS4e.containsAny({ "pi++" }, sDamageType) then
-			nDamageMultiplier = 2;
-		elseif StringManagerGURPS4e.containsAny({ "pi+" }, sDamageType) then
-			nDamageMultiplier = 1 + 1/2;
-		elseif StringManagerGURPS4e.containsAny({ "cut" }, sDamageType) then
-			nDamageMultiplier = 1 + 1/2;
-		elseif StringManagerGURPS4e.containsAny({ "pi" }, sDamageType) then
-			nDamageMultiplier = 1;
-		elseif StringManagerGURPS4e.containsAny({ "pi-" }, sDamageType) then
-			nDamageMultiplier = 1/2;
-		else
-			nDamageMultiplier = 1;
-		end	
-
-		if sHitLocation == "Vitals" then
-			if StringManagerGURPS4e.containsAny({ "imp", "pi-", "pi", "pi+", "pi++" }, sDamageType) then
-				nDamageMultiplier = 3;
-			elseif StringManagerGURPS4e.containsAny({ "burn" }, sDamageType) then
-				nDamageMultiplier = 2;
-			end
-		elseif sHitLocation == "Skull" then
-			if StringManagerGURPS4e.containsAny({ "tox" }, sDamageType) then
-				nDamageMultiplier = 1;
-			else
-				nDRModifier = 2;
-				nDamageMultiplier = 4;
-			end
-		elseif sHitLocation == "Eye" then
-			if StringManagerGURPS4e.containsAny({ "imp", "pi-", "pi", "pi+", "pi++", "burn" }, sDamageType) then
-				nDamageMultiplier = 4;
-			end
-		elseif sHitLocation == "Face" then
-			if StringManagerGURPS4e.containsAny({ "cor" }, sDamageType) then
-				nDamageMultiplier = 1 + 1/2;
-			end
-		elseif sHitLocation == "Neck" then
-			if StringManagerGURPS4e.containsAny({ "cut" }, sDamageType) then
-				nDamageMultiplier = 2;
-			elseif StringManagerGURPS4e.containsAny({ "cr", "cor" }, sDamageType) then
-				nDamageMultiplier = 1 + 1/2;
-			end
-		elseif sHitLocation == "Arm" or sHitLocation == "Leg" then
-			if StringManagerGURPS4e.containsAny({ "imp", "pi+", "pi++" }, sDamageType) then
-				nDamageMultiplier = 1;
-			end
-			nMaxDamage = math.floor(nHP / 2) + 1;
-		elseif sHitLocation == "Hand" or sHitLocation == "Foot" then
-			if StringManagerGURPS4e.containsAny({ "imp", "pi+", "pi++" }, sDamageType) then
-				nDamageMultiplier = 1;
-			end
-			nMaxDamage = math.floor(nHP / 3) + 1;
-		end
-	elseif sInjuryTolerance == "Unliving" then
+	if sInjuryTolerance == "Unliving" then
 		if StringManagerGURPS4e.containsAny({ "cut" }, sDamageType) then
 			nDamageMultiplier = 1 + 1/2;
 		elseif StringManagerGURPS4e.containsAny({ "imp" }, sDamageType) then
@@ -167,6 +112,62 @@ function updateInjury()
 				nDamageMultiplier = 1;
 				nMaxDamage = 2;
 			end	
+		end
+	else -- No Injury Tolerance
+
+		if StringManagerGURPS4e.containsAny({ "imp" }, sDamageType) then
+			nDamageMultiplier = 2;
+		elseif StringManagerGURPS4e.containsAny({ "pi++" }, sDamageType) then
+			nDamageMultiplier = 2;
+		elseif StringManagerGURPS4e.containsAny({ "pi+" }, sDamageType) then
+			nDamageMultiplier = 1 + 1/2;
+		elseif StringManagerGURPS4e.containsAny({ "cut" }, sDamageType) then
+			nDamageMultiplier = 1 + 1/2;
+		elseif StringManagerGURPS4e.containsAny({ "pi" }, sDamageType) then
+			nDamageMultiplier = 1;
+		elseif StringManagerGURPS4e.containsAny({ "pi-" }, sDamageType) then
+			nDamageMultiplier = 1/2;
+		else
+			nDamageMultiplier = 1;
+		end	
+
+		if sHitLocation == "Vitals" then
+			if StringManagerGURPS4e.containsAny({ "imp", "pi-", "pi", "pi+", "pi++" }, sDamageType) then
+				nDamageMultiplier = 3;
+			elseif StringManagerGURPS4e.containsAny({ "burn" }, sDamageType) then
+				nDamageMultiplier = 2;
+			end
+		elseif sHitLocation == "Skull" then
+			if StringManagerGURPS4e.containsAny({ "tox" }, sDamageType) then
+				nDamageMultiplier = 1;
+			else
+				nDRModifier = 2;
+				nDamageMultiplier = 4;
+			end
+		elseif sHitLocation == "Eye" then
+			if StringManagerGURPS4e.containsAny({ "imp", "pi-", "pi", "pi+", "pi++", "burn" }, sDamageType) then
+				nDamageMultiplier = 4;
+			end
+		elseif sHitLocation == "Face" then
+			if StringManagerGURPS4e.containsAny({ "cor" }, sDamageType) then
+				nDamageMultiplier = 1 + 1/2;
+			end
+		elseif sHitLocation == "Neck" then
+			if StringManagerGURPS4e.containsAny({ "cut" }, sDamageType) then
+				nDamageMultiplier = 2;
+			elseif StringManagerGURPS4e.containsAny({ "cr", "cor" }, sDamageType) then
+				nDamageMultiplier = 1 + 1/2;
+			end
+		elseif sHitLocation == "Arm" or sHitLocation == "Leg" then
+			if StringManagerGURPS4e.containsAny({ "imp", "pi+", "pi++" }, sDamageType) then
+				nDamageMultiplier = 1;
+			end
+			nMaxDamage = math.floor(nHP / 2) + 1;
+		elseif sHitLocation == "Hand" or sHitLocation == "Foot" then
+			if StringManagerGURPS4e.containsAny({ "imp", "pi+", "pi++" }, sDamageType) then
+				nDamageMultiplier = 1;
+			end
+			nMaxDamage = math.floor(nHP / 3) + 1;
 		end
 	end
 

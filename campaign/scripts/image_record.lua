@@ -30,7 +30,7 @@ function onMeasurePointer(nLength, sPointerType, nStartX, nStartY, nEndX, nEndY)
 
 	if rStart and rEnd then
 		local getDistance = function(rStart, rEnd)
-			return math.floor((getDistanceBetween(rStart, rEnd) + 0.05) * 10) / 10;
+			return math.floor((getDistanceBetween(rStart, rEnd) * 100) + 0.5) / 100;
 		end
 
 		local nDistance = getDistance(rStart, rEnd);
