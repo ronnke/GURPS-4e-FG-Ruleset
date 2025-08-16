@@ -1285,12 +1285,15 @@
         <static>Hit Location:</static>
       </label>
       <comboboxc name="hitlocation">
-        <anchored to="label_hitlocation" position="right" offset="5" width="80" height="20" />
+        <anchored to="label_hitlocation" position="right" offset="10" width="80" height="20" />
         <listdirection>down</listdirection>
-        <default>Torso</default>
         <script>
 					function onInit()
-						addItems(DataCommonGURPS.aHitLocationData);
+	          if super and super.onInit then
+		          super.onInit();
+	          end
+            addItems(DataCommonGURPS.aHitLocationData);
+            setValue("Torso");
           end
 
           function onValueChanged()
@@ -1308,12 +1311,15 @@
         <static>Injury Tolerance:</static>
       </label>
       <comboboxc name="injurytolerance">
-        <anchored to="label_injurytolerance" position="right" offset="5" width="120" height="20" />
+        <anchored to="label_injurytolerance" position="right" offset="10" width="120" height="20" />
         <listdirection>down</listdirection>
-        <default>None</default>
         <script>
 					function onInit()
+	          if super and super.onInit then
+		          super.onInit();
+	          end
 						addItems(DataCommonGURPS.aInjuryToleranceData);
+            setValue("None");
 					end
 
           function onValueChanged()

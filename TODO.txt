@@ -9,4 +9,7 @@
 
 - Pointer range not correct for SM. Computed to edge not center
 - Add a GM only page in the Party Sheet to track notes for characters and secret "resources"
-- Fix 3d View token not being shown in 3d camera mode
+- Implement Dice effects for damage types
+- Implement Dice effects for NPCs
+- Add a way for the thr and sw to be calculated based on the current strength of the character.
+- Add a way to populate the encumbrance fields based on the current strength of the character.
