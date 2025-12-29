@@ -23,13 +23,13 @@ function applyFatigue(rSource, rTarget, bSecret, sDamage, nTotal)
 		nFatigue = DB.getValue(nodeTarget, "attributes.fatigue", 0) + nTotal;
 		DB.setValue(nodeTarget, "attributes.fps", "number", nFP - (nFatigue < 0 and 0 or nFatigue));
 		DB.setValue(nodeTarget, "attributes.fatigue", "number", (nFatigue < 0 and 0 or nFatigue));
-		DB.setValue(nodeTarget, "attributes.fpstatus", "string", ActorManagerGURPS4e.getFPStatus(rTarget));
+		DB.setValue(nodeTarget, "attributes.fpstatus", "string", ActorManagerGURPS4e.getFPStatusThreshold(rTarget));
 	elseif ActorManager.isRecordType(rTarget, "npc") then
 		nFP = DB.getValue(nodeTarget, "attributes.fatiguepoints", 0);
 		nFatigue = DB.getValue(nodeTarget, "fatigue", 0) + nTotal;
 		DB.setValue(nodeTarget, "fps", "number", nFP - (nFatigue < 0 and 0 or nFatigue));
 		DB.setValue(nodeTarget, "fatigue", "number", (nFatigue < 0 and 0 or nFatigue));
-		DB.setValue(nodeTarget, "fpstatus", "string", ActorManagerGURPS4e.getFPStatus(rTarget));
+		DB.setValue(nodeTarget, "fpstatus", "string", ActorManagerGURPS4e.getFPStatusThreshold(rTarget));
 	else
 		return;
 	end
@@ -51,12 +51,12 @@ function updateFatigue(rActor)
 		nFP = DB.getValue(nodeActor, "attributes.fatiguepoints", 0);
 		nFatigue = DB.getValue(nodeActor, "attributes.fatigue", 0);
 		DB.setValue(nodeActor, "attributes.fps", "number", nFP - (nFatigue < 0 and 0 or nFatigue));
-		DB.setValue(nodeActor, "attributes.fpstatus", "string", ActorManagerGURPS4e.getFPStatus(rActor));
+		DB.setValue(nodeActor, "attributes.fpstatus", "string", ActorManagerGURPS4e.getFPStatusThreshold(rActor));
     elseif ActorManager.isRecordType(rActor, "npc") then
 		nFP = DB.getValue(nodeActor, "attributes.fatiguepoints", 0);
 		nFatigue = DB.getValue(nodeActor, "fatigue", 0);
 		DB.setValue(nodeActor, "fps", "number", nFP - (nFatigue < 0 and 0 or nFatigue));
-		DB.setValue(nodeActor, "fpstatus", "string", ActorManagerGURPS4e.getFPStatus(rActor));
+		DB.setValue(nodeActor, "fpstatus", "string", ActorManagerGURPS4e.getFPStatusThreshold(rActor));
 	else
 		return;
 	end

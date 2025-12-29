@@ -184,6 +184,8 @@ conditions = {
 	"Surprised",
 	"Shock",
 	"Surrendered",
+	"Blinded",
+	"Bound",
 	"Unconscious",
 	"Crouched",
 	"Kneeling",
@@ -191,6 +193,7 @@ conditions = {
 	"Prone",
 	"Supine",
 	"Grappled",
+	"Pinned",
 	"Disarmed",
 	"Crippled",
 	"Cover",
@@ -204,8 +207,14 @@ conditions = {
 	"Committed",
 	"Mounted",
 	"Flying",
+	"Drunk",
 	"Sickened",
-	"On Fire"
+	"On Fire",
+	"Spell"
+};
+
+-- Bonus/penalty effect types for token widgets
+bonuscomps = {
 };
 
 -- Condition effect types for token widgets
@@ -220,6 +229,7 @@ condcomps = {
 	["Medium Cover"] = "cond_GURPS4e_cover_medium",
 	["Cover"] = "cond_GURPS4e_cover",
 	["Grappled"] = "cond_GURPS4e_grappled",
+	["Pinned"] = "cond_GURPS4e_pinned",
 	["Disarmed"] = "cond_GURPS4e_disarmed",
 	["Crippled"] = "cond_GURPS4e_crippled",
 	["Mounted"] = "cond_GURPS4e_mounted",
@@ -232,13 +242,16 @@ condcomps = {
 	["Stunned"] = "cond_GURPS4e_stunned",
 	["Surprised"] = "cond_GURPS4e_surprised",
 	["Surrendered"] = "cond_GURPS4e_surrendered",
+	["Blinded"] = "cond_GURPS4e_blinded",
+	["Bound"] = "cond_GURPS4e_bound",
+	["Drunk"] = "cond_GURPS4e_drunk",
 	["Sickened"] = "cond_GURPS4e_sickened",
 	["On Fire"] = "cond_GURPS4e_onfire",
+	["Spell"] = "cond_GURPS4e_spell",
 	["Shock"] = "cond_GURPS4e_shock",
 	["Unconscious"] = "cond_GURPS4e_unconscious"
 };
 
 -- Other visible effect types for token widgets
 othercomps = {
-	["STUNNED"] = "cond_GURPS4e_stunned",
 };

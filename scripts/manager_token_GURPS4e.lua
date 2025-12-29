@@ -1,11 +1,22 @@
 function onInit()
-	TokenManager.addDefaultHealthFeatures(nil, {"hptotal", "hptemp", "wounds", "deathsavefail"});
+	TokenManager.addDefaultHealthFeatures(TokenManagerGURPS4e.getTokenHealthInfo, {"injury", "fatigue"});
 
+	TokenManager.addEffectTagIconConditional("IF", TokenManagerGURPS4e.handleIFEffectTag);
 	TokenManager.addEffectTagIconSimple("IFT", "");
+	TokenManager.addEffectTagIconBonus(DataCommon.bonuscomps);
+	TokenManager.addEffectTagIconSimple(DataCommon.othercomps);
 	TokenManager.addEffectConditionIcon(DataCommon.condcomps);
 	TokenManager.addDefaultEffectFeatures(nil, EffectManagerGURPS4e.parseEffectComp);
 end
 
+function handleIFEffectTag(rActor, nodeEffect, vComp)
+	return EffectManagerGURPS4e.checkConditional(rActor, nodeEffect, vComp.remainder);
+end
+
+function getTokenHealthInfo(v)
+	local nPercent, sStatus, sColor = ActorManagerGURPS4e.getInjuryStatus(v);
+	return nPercent, sStatus, sColor;
+end
 
 
 --

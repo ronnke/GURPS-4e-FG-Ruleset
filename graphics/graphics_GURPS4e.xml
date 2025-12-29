@@ -83,6 +83,7 @@
   <icon name="cond_GURPS4e_cover_vlight" file="graphics/token/gurps-cond-cover-vlight.png" />
   <icon name="cond_GURPS4e_cover" file="graphics/token/gurps-cond-cover.png" />
   <icon name="cond_GURPS4e_grappled" file="graphics/token/gurps-cond-grappled.png" />
+  <icon name="cond_GURPS4e_pinned" file="graphics/token/gurps-cond-pinned.png" />
   <icon name="cond_GURPS4e_disarmed" file="graphics/token/gurps-cond-disarmed.png" />
   <icon name="cond_GURPS4e_crippled" file="graphics/token/gurps-cond-crippled.png" />
   <icon name="cond_GURPS4e_mounted" file="graphics/token/gurps-cond-mounted.png" />
@@ -95,8 +96,12 @@
   <icon name="cond_GURPS4e_stunned" file="graphics/token/gurps-cond-stunned.png" />
   <icon name="cond_GURPS4e_surprised" file="graphics/token/gurps-cond-surprised.png" />
   <icon name="cond_GURPS4e_surrendered" file="graphics/token/gurps-cond-surrendered.png" />
+  <icon name="cond_GURPS4e_blinded" file="graphics/token/gurps-cond-blinded.png" />
+  <icon name="cond_GURPS4e_bound" file="graphics/token/gurps-cond-bound.png" />
+  <icon name="cond_GURPS4e_drunk" file="graphics/token/gurps-cond-drunk.png" />
   <icon name="cond_GURPS4e_sickened" file="graphics/token/gurps-cond-sickened.png" />
   <icon name="cond_GURPS4e_onfire" file="graphics/token/gurps-cond-onfire.png" />
+  <icon name="cond_GURPS4e_spell" file="graphics/token/gurps-cond-spell.png" />
   <icon name="cond_GURPS4e_shock" file="graphics/token/gurps-cond-shock.png" />
   <icon name="cond_GURPS4e_unconscious" file="graphics/token/gurps-cond-unconscious.png" />
 

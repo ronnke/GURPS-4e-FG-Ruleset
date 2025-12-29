@@ -176,12 +176,12 @@ function updateDamage(rActor)
         nHP = DB.getValue(nodeActor, "attributes.hitpoints", 0);
         nInjury = DB.getValue(nodeActor, "attributes.injury", 0);
         DB.setValue(nodeActor, "attributes.hps", "number", nHP - (nInjury < 0 and 0 or nInjury));
-        DB.setValue(nodeActor, "attributes.hpstatus", "string", ActorManagerGURPS4e.getHPStatus(rActor));
+        DB.setValue(nodeActor, "attributes.hpstatus", "string", ActorManagerGURPS4e.getHPStatusThreshold(rActor));
     elseif ActorManager.isRecordType(rActor, "npc") then
         nHP = DB.getValue(nodeActor, "attributes.hitpoints", 0);
         nInjury = DB.getValue(nodeActor, "injury", 0);
         DB.setValue(nodeActor, "hps", "number", nHP - (nInjury < 0 and 0 or nInjury));
-        DB.setValue(nodeActor, "hpstatus", "string", ActorManagerGURPS4e.getHPStatus(rActor));
+        DB.setValue(nodeActor, "hpstatus", "string", ActorManagerGURPS4e.getHPStatusThreshold(rActor));
     elseif ActorManager.isRecordType(rActor, "vehicle") then
     -- TODO: Vehicle Damage
 	else

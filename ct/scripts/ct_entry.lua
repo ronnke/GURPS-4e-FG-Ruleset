@@ -13,17 +13,19 @@ function onInit()
 
 	self.onSkipChanged();
     
-    DB.addHandler(DB.getPath(getDatabaseNode(), "injury"), "onUpdate", self.onInjuryChanged);
-    DB.addHandler(DB.getPath(getDatabaseNode(), "fatigue"), "onUpdate", self.onFatigueChanged);
-    DB.addHandler(DB.getPath(getDatabaseNode(), "traits.sizemodifier"), "onUpdate", self.onSMReachChanged);
-    DB.addHandler(DB.getPath(getDatabaseNode(), "traits.reach"), "onUpdate", self.onSMReachChanged);
+    local node = getDatabaseNode();
+    DB.addHandler(DB.getPath(node, "injury"), "onUpdate", self.onInjuryChanged);
+    DB.addHandler(DB.getPath(node, "fatigue"), "onUpdate", self.onFatigueChanged);
+    DB.addHandler(DB.getPath(node, "traits.sizemodifier"), "onUpdate", self.onSMReachChanged);
+    DB.addHandler(DB.getPath(node, "traits.reach"), "onUpdate", self.onSMReachChanged);
 end
 
 function onClose()
-    DB.removeHandler(DB.getPath(getDatabaseNode(), "injury"), "onUpdate", self.onInjuryChanged);
-    DB.removeHandler(DB.getPath(getDatabaseNode(), "fatigue"), "onUpdate", self.onFatigueChanged);
-    DB.removeHandler(DB.getPath(getDatabaseNode(), "traits.sizemodifier"), "onUpdate", self.onSMReachChanged);
-    DB.removeHandler(DB.getPath(getDatabaseNode(), "traits.reach"), "onUpdate", self.onSMReachChanged);
+    local node = getDatabaseNode();
+    DB.removeHandler(DB.getPath(node, "injury"), "onUpdate", self.onInjuryChanged);
+    DB.removeHandler(DB.getPath(node, "fatigue"), "onUpdate", self.onFatigueChanged);
+    DB.removeHandler(DB.getPath(node, "traits.sizemodifier"), "onUpdate", self.onSMReachChanged);
+    DB.removeHandler(DB.getPath(node, "traits.reach"), "onUpdate", self.onSMReachChanged);
 end
 
 function onActiveChanged()
@@ -60,18 +62,22 @@ function onInjuryChanged()
     local rActor = ActorManager.resolveActor(getDatabaseNode());
     ActionDamage.updateDamage(rActor);
 
-    local sColor, sStatus, nStatus = ActorManagerGURPS4e.getInjuryStatusColor(getDatabaseNode());
+    local _, sStatus, sColor = ActorManagerGURPS4e.getInjuryStatus(rActor);
 
     hps.setColor(sColor);
     status.setValue(sStatus);
     ctstatus.subwindow.hpstatus.setColor(sColor);
+
+    if not self.isPC() then
+		idelete.setVisible(ActorManagerGURPS4e.isDyingOrDeadStatus(sStatus));
+	end
 end
 
 function onFatigueChanged()
     local rActor = ActorManager.resolveActor(getDatabaseNode());
     ActionFatigue.updateFatigue(rActor);
 
-    local sColor, sStatus, nStatus = ActorManagerGURPS4e.getFatigueStatusColor(getDatabaseNode());
+    local _, _, sColor = ActorManagerGURPS4e.getFatigueStatus(rActor);
 
     fps.setColor(sColor);
     ctstatus.subwindow.fpstatus.setColor(sColor);
@@ -114,8 +120,8 @@ function linkPCFields()
 	
 	halfmovedodge.setLink(DB.createChild(nodeChar, "attributes.halfmovedodge", "number"));
 
-    hps.setLink(nodeChar.createChild("attributes.hps", "number"));
-    fps.setLink(nodeChar.createChild("attributes.fps", "number"));
+    hps.setLink(nodeChar.createChild("attributes.hps", "number"), true);
+    fps.setLink(nodeChar.createChild("attributes.fps", "number"), true);
     injury.setLink(nodeChar.createChild("attributes.injury", "number"));
     fatigue.setLink(nodeChar.createChild("attributes.fatigue", "number"));
     hpstatus.setLink(nodeChar.createChild("attributes.hpstatus", "string"));
