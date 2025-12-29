@@ -21,10 +21,10 @@
   </lightingsettings>
   <visionsettings>
     <preset key="darkvision" nameres="vision_darkvision" gradcolor="FFFFFFFF" distance="12" />
-    <preset key="blindsight" nameres="vision_blindsight" gradcolor="FF00FF00" distance="12" ignoredark="true" />
+    <preset key="blindsight" nameres="vision_blindsight" gradcolor="FF7B96F9" distance="12" ignoredark="true" />
     <preset key="truesight" nameres="vision_truesight" distance="12" ignoredark="true" />
 		<preset key="infravision" nameres="vision_infravision" gradcolor="FFFFEC04" gradcolor2="FFFF0000" distance="12" />
-    <preset key="nightvision" nameres="vision_nightvision" gradcolor="FF00FF00" distance="12" ignoredark="true" />
+		<preset key="nightvision" nameres="vision_nightvision" gradcolor="FF00FF00" gradcolor2="FF000000" distance="12" />
   </visionsettings>
 
   <distance>

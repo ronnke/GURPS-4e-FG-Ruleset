@@ -125,7 +125,6 @@
   <script name="CharEncumbranceManagerGURPS4e" file="scripts/manager_encumbrance_GURPS4e.lua" />
   <script name="DiceManagerGURPS4e" file="scripts/manager_dice_GURPS4e.lua" />
   <script name="TokenManagerGURPS4e" file="scripts/manager_token_GURPS4e.lua" />
-  <script name="VisionManagerGURPS4e" file="scripts/manager_vision_GURPS4e.lua" />
 
   <script name="CharManager" file="scripts/manager_char.lua" />
   <script name="CharTraitManager" file="scripts/manager_char_trait.lua" />

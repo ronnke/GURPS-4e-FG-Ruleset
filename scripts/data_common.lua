@@ -163,6 +163,16 @@ aInjuryToleranceData = {
 	"Diffuse"
 };
 
+-- Values for creature type comparison
+creaturedefaulttype = "";
+-- NOTE: Multi-word types must come before single word types
+creaturetype = {
+};
+
+-- NOTE: Multi-word types must come before single word types
+creaturesubtype = {
+};
+
 -- Values supported in effect conditionals
 conditionaltags = {
 };
