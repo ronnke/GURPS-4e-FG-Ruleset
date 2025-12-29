@@ -29,7 +29,7 @@
 	          if super and super.onInit then
 		          super.onInit();
 	          end
-            addItems(DataCommonGURPS.aSkillTypeAbbrData);
+            addItems(DataCommon.aSkillTypeAbbrData);
           end
         </script>
         <unsorted />

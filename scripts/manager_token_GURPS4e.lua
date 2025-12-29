@@ -1,3 +1,11 @@
+function onInit()
+	TokenManager.addDefaultHealthFeatures(nil, {"hptotal", "hptemp", "wounds", "deathsavefail"});
+
+	TokenManager.addEffectTagIconSimple("IFT", "");
+	TokenManager.addEffectConditionIcon(DataCommon.condcomps);
+	TokenManager.addDefaultEffectFeatures(nil, EffectManagerGURPS4e.parseEffectComp);
+end
+
 
 
 --

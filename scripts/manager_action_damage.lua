@@ -251,7 +251,7 @@ function parseDamageString(s)
     s = s:gsub("([%(%[])", " %1")
     s = s:gsub("([%)%]])", "%1 ")
 
-    for _, dtype in ipairs(DataCommonGURPS.aDamageTypeData) do
+    for _, dtype in ipairs(DataCommon.aDamageTypeData) do
       local escaped = dtype:gsub("([%%%^%$%(%)%.%[%]%*%+%-%?])", "%%%1")
       s = s:gsub(escaped, " " .. dtype)
     end
@@ -293,7 +293,7 @@ function parseDamageString(s)
 
     -- Extract Damage and Damage Types
     local tDamageTypeSet = {}
-    for _, v in ipairs(DataCommonGURPS.aDamageTypeData) do 
+    for _, v in ipairs(DataCommon.aDamageTypeData) do 
       tDamageTypeSet[v] = true
     end
 

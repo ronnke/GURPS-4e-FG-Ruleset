@@ -39,7 +39,7 @@
 						if super and super.onInit then
 							super.onInit();
 						end
-						addItems(DataCommonGURPS.aItemTypeData);
+						addItems(DataCommon.aItemTypeData);
 					end
 					function onValueChanged()
 						window.update();
