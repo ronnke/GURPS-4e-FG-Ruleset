@@ -27,7 +27,8 @@ Download an extension to remove non-GURPS dice from the Fantasy Grounds desktop:
 [I](Updated: 22nd Oct 2022)[/I]
 [I](Courtesy of Ronnke)[/I]
 
-* A video tutorial demonstrating the process of exporting and importing characters from GCA: [url]https://youtu.be/CHn7jkM0UFQ[/url]
+* A video tutorial demonstrating the process of exporting and importing characters from GCA5: [url]https://youtu.be/rlKlGlSvayw[/url]
+* A video tutorial demonstrating the process of exporting and importing characters from GCA4: [url]https://youtu.be/CHn7jkM0UFQ[/url]
 * A video tutorial demonstrating the process of exporting and importing characters from GCS: [url]https://youtu.be/atTstjdU2_A[/url]
 
 Please report any bugs, errors.

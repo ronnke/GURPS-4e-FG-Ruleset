@@ -29,7 +29,7 @@
 	          if super and super.onInit then
 		          super.onInit();
 	          end
-            addItems(DataCommonGURPS.aSpellTypeAbbrData);
+            addItems(DataCommon.aSpellTypeAbbrData);
           end
         </script>
         <unsorted />
@@ -57,7 +57,7 @@
 	          if super and super.onInit then
 		          super.onInit();
 	          end
-            addItems(DataCommonGURPS.aSpellClassData);
+            addItems(DataCommon.aSpellClassData);
           end
         </script>
         <unsorted />

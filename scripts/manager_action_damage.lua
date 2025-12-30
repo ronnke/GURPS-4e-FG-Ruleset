@@ -176,12 +176,12 @@ function updateDamage(rActor)
         nHP = DB.getValue(nodeActor, "attributes.hitpoints", 0);
         nInjury = DB.getValue(nodeActor, "attributes.injury", 0);
         DB.setValue(nodeActor, "attributes.hps", "number", nHP - (nInjury < 0 and 0 or nInjury));
-        DB.setValue(nodeActor, "attributes.hpstatus", "string", ActorManagerGURPS4e.getHPStatus(rActor));
+        DB.setValue(nodeActor, "attributes.hpstatus", "string", ActorManagerGURPS4e.getHPStatusThreshold(rActor));
     elseif ActorManager.isRecordType(rActor, "npc") then
         nHP = DB.getValue(nodeActor, "attributes.hitpoints", 0);
         nInjury = DB.getValue(nodeActor, "injury", 0);
         DB.setValue(nodeActor, "hps", "number", nHP - (nInjury < 0 and 0 or nInjury));
-        DB.setValue(nodeActor, "hpstatus", "string", ActorManagerGURPS4e.getHPStatus(rActor));
+        DB.setValue(nodeActor, "hpstatus", "string", ActorManagerGURPS4e.getHPStatusThreshold(rActor));
     elseif ActorManager.isRecordType(rActor, "vehicle") then
     -- TODO: Vehicle Damage
 	else
@@ -251,7 +251,7 @@ function parseDamageString(s)
     s = s:gsub("([%(%[])", " %1")
     s = s:gsub("([%)%]])", "%1 ")
 
-    for _, dtype in ipairs(DataCommonGURPS.aDamageTypeData) do
+    for _, dtype in ipairs(DataCommon.aDamageTypeData) do
       local escaped = dtype:gsub("([%%%^%$%(%)%.%[%]%*%+%-%?])", "%%%1")
       s = s:gsub(escaped, " " .. dtype)
     end
@@ -293,7 +293,7 @@ function parseDamageString(s)
 
     -- Extract Damage and Damage Types
     local tDamageTypeSet = {}
-    for _, v in ipairs(DataCommonGURPS.aDamageTypeData) do 
+    for _, v in ipairs(DataCommon.aDamageTypeData) do 
       tDamageTypeSet[v] = true
     end
 

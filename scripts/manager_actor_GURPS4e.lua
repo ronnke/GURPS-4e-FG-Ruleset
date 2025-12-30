@@ -1,205 +1,205 @@
--- 
+﻿-- 
 -- Please see the license.html file included with this distribution for 
 -- attribution and copyright information.
 --
 
-COLOR_HEALTH_UNWOUNDED = "008000";
-COLOR_HEALTH_LT_WOUNDS = "408000";
-COLOR_HEALTH_MOD_WOUNDS = "AF7817";
-COLOR_HEALTH_HVY_WOUNDS = "E56717";
-COLOR_HEALTH_CRIT_WOUNDS = "C11B17";
+-- Define as module constants instead of local variables
+STATUS_HEALTH_HEALTHY = "Healthy";
+STATUS_HEALTH_GOOD = "Good";
+STATUS_HEALTH_FAIR = "Fair";
+STATUS_HEALTH_SERIOUS = "Serious";
+STATUS_HEALTH_CRITICAL = "Critical";
+STATUS_HEALTH_DEAD = "Dead";
+STATUS_HEALTH_DESTROYED = "Destroyed";
+
+COLOR_HEALTH_HEALTHY = "008000";
+COLOR_HEALTH_GOOD = "408000";
+COLOR_HEALTH_FAIR = "AF7817";
+COLOR_HEALTH_SERIOUS = "E56717";
+COLOR_HEALTH_CRITICAL = "C11B17";
+COLOR_HEALTH_DEAD = "404040";
+COLOR_HEALTH_DESTROYED = "404040";
+
+STATUS_FATIGUE_NORMAL = "Normal";
+STATUS_FATIGUE_FATIGUED = "Fatigued";
+STATUS_FATIGUE_SERIOUS = "Serious";
+STATUS_FATIGUE_UNCONSCIOUS = "Unconscious";
 
 COLOR_FATIGUE_NORMAL = "008000";
 COLOR_FATIGUE_FATIGUED = "AF7817";
-COLOR_FATIGUE_CRITICAL = "E56717";
+COLOR_FATIGUE_SERIOUS = "E56717";
 COLOR_FATIGUE_UNCONSCIOUS = "C11B17";
 
 function onInit()
+	ActorHealthManager.registerStatusHealthColor(ActorManagerGURPS4e.STATUS_HEALTH_HEALTHY, ActorManagerGURPS4e.COLOR_HEALTH_HEALTHY);
+	ActorHealthManager.registerStatusHealthColor(ActorManagerGURPS4e.STATUS_HEALTH_GOOD, ActorManagerGURPS4e.COLOR_HEALTH_GOOD);
+	ActorHealthManager.registerStatusHealthColor(ActorManagerGURPS4e.STATUS_HEALTH_FAIR, ActorManagerGURPS4e.COLOR_HEALTH_FAIR);
+	ActorHealthManager.registerStatusHealthColor(ActorManagerGURPS4e.STATUS_HEALTH_SERIOUS, ActorManagerGURPS4e.COLOR_HEALTH_SERIOUS);
+	ActorHealthManager.registerStatusHealthColor(ActorManagerGURPS4e.STATUS_HEALTH_CRITICAL, ActorManagerGURPS4e.COLOR_HEALTH_CRITICAL);
+	ActorHealthManager.registerStatusHealthColor(ActorManagerGURPS4e.STATUS_HEALTH_DEAD, ActorManagerGURPS4e.COLOR_HEALTH_DEAD);
+	ActorHealthManager.registerStatusHealthColor(ActorManagerGURPS4e.STATUS_HEALTH_DESTROYED, ActorManagerGURPS4e.COLOR_HEALTH_DESTROYED);
+
+	ActorHealthManager.getWoundPercent = ActorManagerGURPS4e.getInjuryPercent;
 end
 
-function getInjuryStatus(nodeChar)
-	local rActor = ActorManager.resolveActor(nodeChar);
+function getInjuryPercent(v)
+	local rActor = ActorManager.resolveActor(v);
 
 	local nHP = 0;
-	local nCHP = 0;
+	local nInjury = 0;
 	
 	local nodeCT = ActorManager.getCTNode(rActor);
 	if nodeCT then
 		nHP = DB.getValue(nodeCT, "attributes.hitpoints", 0);
-		nCHP = DB.getValue(nodeCT, "hps", 0);
+		nInjury = DB.getValue(nodeCT, "injury", 0);
 	elseif ActorManager.isPC(rActor) then
 		local nodePC = ActorManager.getCreatureNode(rActor);
 		if nodePC then
 			nHP = DB.getValue(nodePC, "attributes.hitpoints", 0);
-			nCHP = DB.getValue(nodePC, "hps", 0);
+			nInjury = DB.getValue(nodePC, "attributes.injury", 0);
 		end
 	end
 
-	local sStatus, nStatus;
-	if nCHP >= nHP then
-		sStatus = "Healthy";
-		nStatus = 0;
-	elseif nCHP > nHP/2 then
-		sStatus = "Good";
-		nStatus = 1;
-	elseif nCHP > 0 then
-		sStatus = "Fair";
-	    nStatus = 2;
-	elseif nCHP > -nHP then
-		sStatus = "Serious";
-	    nStatus = 3;
-	else
-		sStatus = "Critical";
-	    nStatus = 4;
+	local nPercentInjured = 0;
+	if nHP > 0 then
+		nPercentInjured = nInjury / nHP;
 	end
 
-	return sStatus, nStatus;
+	local sStatus;
+	if nPercentInjured >= 11 then
+		sStatus = ActorManagerGURPS4e.STATUS_HEALTH_DESTROYED;
+	elseif nPercentInjured >= 6 then
+		sStatus = ActorManagerGURPS4e.STATUS_HEALTH_DEAD;
+	elseif nPercentInjured >= 2 then
+		sStatus = ActorManagerGURPS4e.STATUS_HEALTH_CRITICAL;
+	elseif nPercentInjured >= 1 then
+		sStatus = ActorManagerGURPS4e.STATUS_HEALTH_SERIOUS;
+	elseif nPercentInjured >= 1/2 then
+		sStatus = ActorManagerGURPS4e.STATUS_HEALTH_FAIR;
+	elseif nPercentInjured > 0 then
+		sStatus = ActorManagerGURPS4e.STATUS_HEALTH_GOOD;
+	else
+		sStatus = ActorManagerGURPS4e.STATUS_HEALTH_HEALTHY;
+	end
+
+	return nPercentInjured, sStatus, nHP;
 end
 
-function getInjuryStatusColor(nodeChar)
-	local sStatus, nStatus = getInjuryStatus(nodeChar);
-	if not nodeChar then
-		return COLOR_HEALTH_UNWOUNDED, nStatus, sStatus;
-	end
+function getInjuryStatus(v)
+	local nPercent, sStatus = ActorManagerGURPS4e.getInjuryPercent(v);
 
-	local sColor;
-	if nStatus == 0 then
-		sColor = COLOR_HEALTH_UNWOUNDED;
-	elseif nStatus == 1 then
-	    sColor = COLOR_HEALTH_LT_WOUNDS;
-	elseif nStatus == 2 then
-	    sColor = COLOR_HEALTH_MOD_WOUNDS;
-	elseif nStatus == 3 then
-	    sColor = COLOR_HEALTH_HVY_WOUNDS;
-	else
-	    sColor = COLOR_HEALTH_CRIT_WOUNDS;
-	end
+	local aColorMap = {
+		[ActorManagerGURPS4e.STATUS_HEALTH_HEALTHY] = ActorManagerGURPS4e.COLOR_HEALTH_HEALTHY,
+		[ActorManagerGURPS4e.STATUS_HEALTH_GOOD] = ActorManagerGURPS4e.COLOR_HEALTH_GOOD,
+		[ActorManagerGURPS4e.STATUS_HEALTH_FAIR] = ActorManagerGURPS4e.COLOR_HEALTH_FAIR,
+		[ActorManagerGURPS4e.STATUS_HEALTH_SERIOUS] = ActorManagerGURPS4e.COLOR_HEALTH_SERIOUS,
+		[ActorManagerGURPS4e.STATUS_HEALTH_CRITICAL] = ActorManagerGURPS4e.COLOR_HEALTH_CRITICAL,
+		[ActorManagerGURPS4e.STATUS_HEALTH_DEAD] = ActorManagerGURPS4e.COLOR_HEALTH_DEAD,
+		[ActorManagerGURPS4e.STATUS_HEALTH_DESTROYED] = ActorManagerGURPS4e.COLOR_HEALTH_DESTROYED,
+	};
 
-	return sColor, sStatus, nStatus;
+	local sColor = aColorMap[sStatus] or ActorManagerGURPS4e.COLOR_HEALTH_HEALTHY;
+
+	return nPercent, sStatus, sColor;
 end
 
-function getFatigueStatus(nodeChar)
-	local rActor = ActorManager.resolveActor(nodeChar);
+function getFatiguePercent(v)
+	local rActor = ActorManager.resolveActor(v);
 	
 	local nFP = 0;
-	local nCFP = 0;
+	local nFatigue = 0;
 	
 	local nodeCT = ActorManager.getCTNode(rActor);
 	if nodeCT then
 		nFP = DB.getValue(nodeCT, "attributes.fatiguepoints", 0);
-		nCFP = DB.getValue(nodeCT, "fps", 0);
+		nFatigue = DB.getValue(nodeCT, "fatigue", 0);
 	elseif ActorManager.isPC(rActor) then
 		local nodePC = ActorManager.getCreatureNode(rActor);
 		if nodePC then
 			nFP = DB.getValue(nodePC, "attributes.fatiguepoints", 0);
-			nCFP = DB.getValue(nodePC, "fps", 0);
+			nFatigue = DB.getValue(nodePC, "attributes.fatigue", 0);
 		end
 	end
 
-	local sStatus, nStatus;
-	if nCFP >= nFP/3 then
-		sStatus = "Normal";
-		nStatus = 0;
-	elseif nCFP > 0 then
-		sStatus = "Fatigued";
-		nStatus = 1;
-	elseif nCFP > -nFP then
-		sStatus = "Critical";
-		nStatus = 2;
-	else
-		sStatus = "Unconscious";
-	    nStatus = 3;
+	local nPercentFatigued = 0;
+	if nFP> 0 then
+		nPercentFatigued = nFatigue / nFP;
 	end
 
-	return sStatus, nStatus;
+	local sStatus;
+	if nPercentFatigued >= 2 then
+		sStatus = ActorManagerGURPS4e.STATUS_FATIGUE_UNCONSCIOUS;
+	elseif nPercentFatigued >= 1 then
+		sStatus = ActorManagerGURPS4e.STATUS_FATIGUE_SERIOUS;
+	elseif nPercentFatigued >= 1/3 then
+		sStatus = ActorManagerGURPS4e.STATUS_FATIGUE_FATIGUED;
+	else
+		sStatus = ActorManagerGURPS4e.STATUS_FATIGUE_NORMAL;
+	end
+
+	return nPercentFatigued, sStatus, nFP;
 end
 
-function getFatigueStatusColor(nodeChar)
-	local sStatus, nStatus = getFatigueStatus(nodeChar);
-	if not nodeChar then
-		return COLOR_FATIGUE_NORMAL, nStatus, sStatus;
-	end
+function getFatigueStatus(v)
+	local nPercent, sStatus = ActorManagerGURPS4e.getFatiguePercent(v);
 
-	local sColor;
-	if nStatus == 0 then
-		sColor = COLOR_FATIGUE_NORMAL;
-	elseif nStatus == 1 then
-	    sColor = COLOR_FATIGUE_FATIGUED;
-	elseif nStatus == 2 then
-	    sColor = COLOR_FATIGUE_CRITICAL;
-	else
-	    sColor = COLOR_FATIGUE_UNCONSCIOUS;
-	end
+	local aColorMap = {
+		[ActorManagerGURPS4e.STATUS_FATIGUE_NORMAL] = ActorManagerGURPS4e.COLOR_FATIGUE_NORMAL,
+		[ActorManagerGURPS4e.STATUS_FATIGUE_FATIGUED] = ActorManagerGURPS4e.COLOR_FATIGUE_FATIGUED,
+		[ActorManagerGURPS4e.STATUS_FATIGUE_SERIOUS] = ActorManagerGURPS4e.COLOR_FATIGUE_SERIOUS,
+		[ActorManagerGURPS4e.STATUS_FATIGUE_UNCONSCIOUS] = ActorManagerGURPS4e.COLOR_FATIGUE_UNCONSCIOUS,
+	};
 
-	return sColor, sStatus, nStatus;
+	local sColor = aColorMap[sStatus] or ActorManagerGURPS4e.COLOR_FATIGUE_NORMAL;
+
+	return nPercent, sStatus, sColor;
 end
 
-function getHPStatus(rActor)
-	local nodeActor;
-	if ActorManager.isPC(rActor) then
-		nodeActor = ActorManager.getCreatureNode(rActor);
-	else
-		nodeActor = ActorManager.getCTNode(rActor);
-	end
-	if not nodeActor then
-		return;
-	end
+function getHPStatusThreshold(v)
+	local nPercent, _, nHP = ActorManagerGURPS4e.getInjuryPercent(v);
 	
-	local nHP = 0;
-	local nInjury = 0;
-
-	if ActorManager.isPC(rActor) then
-		nHP = DB.getValue(nodeActor, "attributes.hitpoints", 0);
-		nInjury = DB.getValue(nodeActor, "attributes.injury", 0);
-	elseif ActorManager.isRecordType(rActor, "npc") then 
-		nHP = DB.getValue(nodeActor, "attributes.hitpoints", 0);
-		nInjury = DB.getValue(nodeActor, "injury", 0);
+	if nHP <= 0 then
+		return "N/A";
 	end
 
-	if nHP == 0 then return "N/A"; end;
-
-	local hpLevel = math.floor(nInjury/nHP) - 1;
-	if hpLevel > 0 then return -hpLevel.."xHP"; end;
-
-	if (nHP - nInjury) <= 0 then return "0 HP"; end;
-
-	if (nHP - nInjury) < nHP/3 then return "1/3 HP"; end;
-
-	return "";
+	if nPercent >= 2 then
+		return string.format("-%dxHP", math.floor(nPercent - 1));
+	elseif nPercent >= 1 then
+		return "0 HP";
+	elseif nPercent >= 2/3 then
+		return "1/3 HP";
+	else
+		return "";
+	end
 end
 
-function getFPStatus(rActor)
-	local nodeActor;
-	if ActorManager.isPC(rActor) then
-		nodeActor = ActorManager.getCreatureNode(rActor);
-	else
-		nodeActor = ActorManager.getCTNode(rActor);
-	end
-	if not nodeActor then
-		return;
-	end
+function getFPStatusThreshold(v)
+	local nPercent, _, nFP = ActorManagerGURPS4e.getFatiguePercent(v);
 	
-	local nFP = 0;
-	local nFatigue = 0;
-
-	if ActorManager.isPC(rActor) then
-		nFP = DB.getValue(nodeActor, "attributes.fatiguepoints", 0);
-		nFatigue = DB.getValue(nodeActor, "attributes.fatigue", 0);
-	elseif ActorManager.isRecordType(rActor, "npc") then
-		nFP = DB.getValue(nodeActor, "attributes.fatiguepoints", 0);
-		nFatigue = DB.getValue(nodeActor, "fatigue", 0);
+	if nFP <= 0 then
+		return "N/A";
 	end
 
-	if nFP == 0 then return "N/A"; end;
+	if nPercent >= 2 then
+		return string.format("-%dxFP", math.floor(nPercent - 1));
+	elseif nPercent >= 1 then
+		return "0 FP";
+	elseif nPercent >= 2/3 then
+		return "1/3 FP";
+	else
+		return "";
+	end
+end
 
-	local fpLevel = math.floor(nFatigue/nFP) - 1;
-	if fpLevel > 0 then return -fpLevel.."xFP"; end;
+function isDyingOrDead(rActor)
+	local _, sStatus = ActorManagerGURPS4e.getInjuryPercent(rActor);
+	return ActorManagerGURPS4e.isDyingOrDeadStatus(sStatus);
+end
 
-	if (nFP - nFatigue) <= 0 then return "0 FP"; end;
-
-	if (nFP - nFatigue) < nFP/3 then return "1/3 FP"; end;
-
-	return "";
+function isDyingOrDeadStatus(sStatus)
+	return ((sStatus == ActorManagerGURPS4e.STATUS_HEALTH_DESTROYED) or
+			(sStatus == ActorManagerGURPS4e.STATUS_HEALTH_DEAD) or
+			(sStatus == ActorManagerGURPS4e.STATUS_HEALTH_CRITICAL));
 end
 
 function hasMeleeWeapons(rActor)

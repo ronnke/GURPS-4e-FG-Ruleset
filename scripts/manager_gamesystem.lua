@@ -36,6 +36,26 @@ currencies = {
 };
 currencyDefault = "$";
 
+function onInit()
+	CharEncumbranceManager.addStandardCalc();
+	CombatListManager.registerStandardInitSupport();
+
+	GameSystem.registerStandardDeathMarkersGURPS()
+
+	VisionManager.addVisionType(Interface.getString("vision_nightvision"), "nightvision");
+end
+
+function registerStandardDeathMarkersGURPS()
+	ImageDeathMarkerManager.setEnabled(true);
+
+	ImageDeathMarkerManager.registerGetCreatureTypeFunction(GameSystem.getCreatureTypeGURPS);
+	ImageDeathMarkerManager.registerCreatureTypes(DataCommon and DataCommon.creaturetype);
+end
+
+function getCreatureTypeGURPS(rActor)
+	return DataCommon.creaturedefaulttype;
+end
+
 function getCharSelectDetailHost(nodeChar)
   return "Points: " .. DB.getValue(nodeChar, "pointtotals.totalpoints", 0);
 end

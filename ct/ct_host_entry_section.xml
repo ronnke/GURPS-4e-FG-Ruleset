@@ -1292,7 +1292,7 @@
 	          if super and super.onInit then
 		          super.onInit();
 	          end
-            addItems(DataCommonGURPS.aHitLocationData);
+            addItems(DataCommon.aHitLocationData);
             setValue("Torso");
           end
 
@@ -1318,7 +1318,7 @@
 	          if super and super.onInit then
 		          super.onInit();
 	          end
-						addItems(DataCommonGURPS.aInjuryToleranceData);
+						addItems(DataCommon.aInjuryToleranceData);
             setValue("None");
 					end
 

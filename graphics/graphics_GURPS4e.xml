@@ -55,8 +55,7 @@
 	<icon name="field_rollable" file="graphics/icons/field_rollable.png" />
 	<icon name="field_modifier" file="graphics/icons/field_modifier.png" />
 
-	<!-- Icons -->
-	<icon name="tool_mapscale_30" file="graphics/toolbar/tool_mapscale_30.png" />
+	<!-- Icons -->ol_mapscale_30" file="graphics/toolbar/tool_mapscale_30.png" />
 
 	<!-- Graphics -->
 	<includefile source="graphics/graphics_frames.xml" />
@@ -72,5 +71,38 @@
 	<icon name="dicetower_icon" file="graphics/icons/dicetower_icon.png" />
 	<icon name="dicetower_normal" file="graphics/icons/dicetower_normal.png" />
 	<icon name="dicetower_drop" file="graphics/icons/dicetower_drop.png" />
-	
+
+  <!-- Tokens - Effects - Conditions -->
+  <icon name="cond_GURPS4e_aoa" file="graphics/token/gurps-cond-aoa.png" />
+  <icon name="cond_GURPS4e_aod" file="graphics/token/gurps-cond-aod.png" />
+  <icon name="cond_GURPS4e_committed" file="graphics/token/gurps-cond-committed.png" />
+  <icon name="cond_GURPS4e_cover_full" file="graphics/token/gurps-cond-cover-full.png" />
+  <icon name="cond_GURPS4e_cover_heavy" file="graphics/token/gurps-cond-cover-heavy.png" />
+  <icon name="cond_GURPS4e_cover_medium" file="graphics/token/gurps-cond-cover-medium.png" />
+  <icon name="cond_GURPS4e_cover_light" file="graphics/token/gurps-cond-cover-light.png" />
+  <icon name="cond_GURPS4e_cover_vlight" file="graphics/token/gurps-cond-cover-vlight.png" />
+  <icon name="cond_GURPS4e_cover" file="graphics/token/gurps-cond-cover.png" />
+  <icon name="cond_GURPS4e_grappled" file="graphics/token/gurps-cond-grappled.png" />
+  <icon name="cond_GURPS4e_pinned" file="graphics/token/gurps-cond-pinned.png" />
+  <icon name="cond_GURPS4e_disarmed" file="graphics/token/gurps-cond-disarmed.png" />
+  <icon name="cond_GURPS4e_crippled" file="graphics/token/gurps-cond-crippled.png" />
+  <icon name="cond_GURPS4e_mounted" file="graphics/token/gurps-cond-mounted.png" />
+  <icon name="cond_GURPS4e_flying" file="graphics/token/gurps-cond-flying.png" />
+  <icon name="cond_GURPS4e_posture_crouched" file="graphics/token/gurps-cond-posture-crouched.png" />
+  <icon name="cond_GURPS4e_posture_kneeling" file="graphics/token/gurps-cond-posture-kneeling.png" />
+  <icon name="cond_GURPS4e_posture_seated" file="graphics/token/gurps-cond-posture-seated.png" />
+  <icon name="cond_GURPS4e_posture_prone" file="graphics/token/gurps-cond-posture-prone.png" />
+  <icon name="cond_GURPS4e_posture_supine" file="graphics/token/gurps-cond-posture-supine.png" />
+  <icon name="cond_GURPS4e_stunned" file="graphics/token/gurps-cond-stunned.png" />
+  <icon name="cond_GURPS4e_surprised" file="graphics/token/gurps-cond-surprised.png" />
+  <icon name="cond_GURPS4e_surrendered" file="graphics/token/gurps-cond-surrendered.png" />
+  <icon name="cond_GURPS4e_blinded" file="graphics/token/gurps-cond-blinded.png" />
+  <icon name="cond_GURPS4e_bound" file="graphics/token/gurps-cond-bound.png" />
+  <icon name="cond_GURPS4e_drunk" file="graphics/token/gurps-cond-drunk.png" />
+  <icon name="cond_GURPS4e_sickened" file="graphics/token/gurps-cond-sickened.png" />
+  <icon name="cond_GURPS4e_onfire" file="graphics/token/gurps-cond-onfire.png" />
+  <icon name="cond_GURPS4e_spell" file="graphics/token/gurps-cond-spell.png" />
+  <icon name="cond_GURPS4e_shock" file="graphics/token/gurps-cond-shock.png" />
+  <icon name="cond_GURPS4e_unconscious" file="graphics/token/gurps-cond-unconscious.png" />
+
 </root>

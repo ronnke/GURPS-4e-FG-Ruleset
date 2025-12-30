@@ -6,15 +6,35 @@
 -->
 
 <root>
-	
-	<distance>
+
+  <lightingsettings>
+    <preset key="candle" nameres="lighting_candle" color="FFFFFCC3" bright="1" dim="2" animtype="flicker" animspeed="100" />
+    <preset key="lamp" nameres="lighting_lamp" color="FFFFF3E1" bright="3" dim="9" animtype="flicker" animspeed="25" />
+    <preset key="torch" nameres="lighting_torch" color="FFFFF3E1" bright="4" dim="8" animtype="flicker" animspeed="25" />
+    <preset key="lantern" nameres="lighting_lantern" color="FFF9FEFF" bright="6" dim="12" />
+    <preset key="spell_darkness" nameres="lighting_spell_darkness" color="FF000000" bright="3" dim="3" inverse="true" />
+    <preset key="spell_light" nameres="lighting_spell_light" color="FFFFF3E1" bright="4" dim="8" />
+    <ambientpreset key="dawn" nameres="ambient_lighting_dawn" color="FFFFDFBD" shadowcolor="650057BD" shadowangle="144" shadowlength="2" />
+    <ambientpreset key="sunlight" nameres="ambient_lighting_sunlight" color="FFFFF7E6" shadowcolor="9130525D" shadowangle="280" shadowlength="0.2" />
+    <ambientpreset key="dusk" nameres="ambient_lighting_dusk" color="FFFFC3A0" shadowcolor="313052BB" shadowangle="316" shadowlength="2" />
+    <ambientpreset key="moonlight" nameres="ambient_lighting_moonlight" color="91C9E7FF" shadowcolor="74195263" shadowangle="220" shadowlength="0.6" />
+  </lightingsettings>
+  <visionsettings>
+    <preset key="darkvision" nameres="vision_darkvision" gradcolor="FFFFFFFF" distance="12" />
+    <preset key="blindsight" nameres="vision_blindsight" gradcolor="FF7B96F9" distance="12" ignoredark="true" />
+    <preset key="truesight" nameres="vision_truesight" distance="12" ignoredark="true" />
+		<preset key="infravision" nameres="vision_infravision" gradcolor="FFFFEC04" gradcolor2="FFFF0000" distance="12" />
+		<preset key="nightvision" nameres="vision_nightvision" gradcolor="FF00FF00" gradcolor2="FF000000" distance="12" />
+  </visionsettings>
+
+  <distance>
 		<base>1</base>
 		<diagmult>1</diagmult>
 		<suffix>yd</suffix>
 	</distance>
 
 	<imagesettings>
-		<pointer defaultconeangle="60" />
+		<pointer defaultconeangle="30" />
   </imagesettings>
 
   <panel name="chat" merge="join">

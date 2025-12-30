@@ -60,7 +60,7 @@
 						if super and super.onInit then
 							super.onInit();
 						end
-						addItems(DataCommonGURPS.aVehicleTypeData);
+						addItems(DataCommon.aVehicleTypeData);
 					end
 					function onValueChanged()
 						window.update();

@@ -2,9 +2,9 @@
 - Make Vehicle HT Rollable.
 - Making PC SM and Reach updates synced in the combat tracker/character sheet
 - Adjust combat tracker reach based on weapon reach.
-- When draging weapon items to the inventory/combat list, the name is not added.
+- When draging weapon items to the inventory/combat list, the name is not always added.
 - Allow PCs to remove friendly effect from the combat tracker.
-- Fix Point calculation, specifically disadvantages.
+- Find and Fix Point calculation issue, specifically disadvantages.
 - Look at the hidden, hard to see description edit box in skill/advantage note window.
 
 - Pointer range not correct for SM. Computed to edge not center
@@ -13,3 +13,6 @@
 - Implement Dice effects for NPCs
 - Add a way for the thr and sw to be calculated based on the current strength of the character.
 - Add a way to populate the encumbrance fields based on the current strength of the character.
+- Fix holding control to roll in the box. Its not hiding the roll properly.
+- Add a tooltip description to indicate how SEC and SEC+ in the effects works
+- Add knock back and double knock back damage type.

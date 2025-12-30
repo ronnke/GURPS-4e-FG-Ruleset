@@ -20,6 +20,16 @@ function onInit()
 	CombatRecordManager.setRecordTypePostAddCallback("charsheet", CombatManagerGURPS4e.onPCPostAdd);
 	CombatRecordManager.setRecordTypePostAddCallback("npc", CombatManagerGURPS4e.onNPCPostAdd);
 	CombatRecordManager.setRecordTypePostAddCallback("vehicle", CombatManagerGURPS4e.onVehiclePostAdd);
+
+	if Session.IsHost and ImageDeathMarkerManager.isEnabled() then
+		CombatManager.setCustomPreDeleteCombatantHandler(CombatManagerGURPS4e.onPreCombatantDelete);
+	end
+end
+
+function onPreCombatantDelete(nodeCT)
+	if ActorManagerGURPS4e.isDyingOrDead(nodeCT) then
+		ImageDeathMarkerManager.addMarker(nodeCT);
+	end
 end
 
 function isCTSkipped(vEntry)

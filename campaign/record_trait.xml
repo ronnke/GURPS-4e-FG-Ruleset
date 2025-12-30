@@ -30,7 +30,7 @@
 	          if super and super.onInit then
 		          super.onInit();
 	          end
-            addItems(DataCommonGURPS.aTraitTypeData);
+            addItems(DataCommon.aTraitTypeData);
           end
           function onValueChanged()
             window.update();
