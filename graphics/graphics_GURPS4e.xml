@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <!-- 
   Please see the license.html file included with this distribution for 
@@ -104,5 +104,7 @@
   <icon name="cond_GURPS4e_spell" file="graphics/token/gurps-cond-spell.png" />
   <icon name="cond_GURPS4e_shock" file="graphics/token/gurps-cond-shock.png" />
   <icon name="cond_GURPS4e_unconscious" file="graphics/token/gurps-cond-unconscious.png" />
+  <icon name="cond_GURPS4e_unready" file="graphics/token/gurps-cond-unready.png" />
+  <icon name="cond_GURPS4e_reloading" file="graphics/token/gurps-cond-reloading.png" />
 
 </root>
