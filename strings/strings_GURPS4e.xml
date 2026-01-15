@@ -14,7 +14,7 @@
   <string name="tab_inventory">Inventory</string>
   <string name="tab_notes">Notes</string>
 
-  <string name="tab_secondarycharacteristics">Move/Enc</string>
+  <string name="tab_encumbrance">Move/Enc</string>
   <string name="tab_reactionmodifiers">Reaction</string>
   <string name="tab_resources">Resources</string>
 
@@ -139,15 +139,29 @@
   <string name="char_label_halfmovedodge">Half Move &amp; Dodge</string>
   
   <string name="char_label_languages">LANGUAGES</string>
-	<string name="char_label_spoken">Spoken</string>
-	<string name="char_label_written">Written</string>
+	<string name="char_label_languages_spoken">SPOKEN</string>
+	<string name="char_label_languages_written">WRITTEN</string>
+  <string name="char_label_languages_points">PTS</string>
 
   <string name="char_label_culturalfamiliarities">CULTURAL FAMILIARITIES</string>
 
+  <!--Character - Traits-->
   <string name="char_label_adsperks">ADVANTAGES &amp; PERKS</string>
 	<string name="char_label_disadsquirks">DISADVANTAGES &amp; QUIRKS</string>
 
-	<string name="char_label_defenses">DEFENSES</string>
+  <string name="char_traits_label_advantages">ADVANTAGES</string>
+  <string name="char_traits_label_perks">PERKS</string>
+  <string name="char_traits_label_disadvantages">DISADVANTAGES</string>
+  <string name="char_traits_label_quirks">QUIRKS</string>
+  <string name="char_traits_label_features">FEATURES</string>
+
+  <string name="char_traits_label_name">NAME</string>
+  <string name="char_traits_label_points">PTS</string>
+  <string name="char_traits_label_written">WRITTEN</string>
+  <string name="char_traits_label_spoken">SPOKEN</string>
+
+  <!--Character - Combat-->
+  <string name="char_label_defenses">DEFENSES</string>
 	<string name="char_label_meleecombat">MELEE COMBAT</string>
 	<string name="char_label_rangedcombat">RANGED COMBAT</string>
 

@@ -8,12 +8,14 @@
 <root>
 	<windowclass name="charsheet" copy="charsheet_base">
     <placement>
-      <size width="525" height="630" />
+      <size width="525" height="635" />
     </placement>
     <sizelimits>
-      <minimum width="525" height="630" />
+      <minimum width="525" height="635" />
       <dynamic />
     </sizelimits>
+
+    <script file="campaign/scripts/char.lua" />
 
     <tab>
       <name>main</name>
@@ -46,6 +48,5 @@
       <class>charsheet_notes</class>
     </tab>
 
-    <script file="campaign/scripts/char.lua" />
   </windowclass>
 </root>

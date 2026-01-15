@@ -330,6 +330,11 @@ end
 
 aRecordOverrides = {
 -- Core Overrides
+	["charsheet"] = {
+		tOptions = {
+			bNoLock = false,
+		},
+	},
     ["npc"] = { 
 		aDataMap = { "npc", "reference.npcs", "reference.npc", "reference.npcdata" }, 
         aGMListButtons = { "button_npc_byletter", "button_npc_bytype" };

@@ -6,7 +6,7 @@
 -->
 
 <root version="3.0" release="10" logo="logo.png">
-	<announcement text="GURPS 4E core ruleset v3.17.1 for Fantasy Grounds." font="emotefont" />
+	<announcement text="GURPS 4E core ruleset v3.18.0 for Fantasy Grounds." font="emotefont" />
 	<announcement text="Produced with the permission of Steve Jackson Games." font="emotefont" />
 	<announcement text="This work is based on GURPS 4E System and is the accumulated effort of several members of the Fantasy Grounds community. This release was authored by Brian Ronnle, building on previous releases by Eric Hilerio and Graham Brand. Contributors: Jesse Meigs (Jaxilon), Charles Durham (Baoghal), Ray Lunceford (Gigermann)" font="emotefont" />
 	<announcement text="GURPS is a trademark of Steve Jackson Games, and its rules and art are copyrighted by Steve Jackson Games. All rights are reserved by Steve Jackson Games. This game aid is the original creation of the Fantasy Grounds GURPS community and is released for free distribution and not for resale under the permissions granted in the Steve Jackson Games Online Policy" font="emotefont" />
@@ -42,16 +42,22 @@
 	
 	<includefile source="campaign/record_char.xml" />
 	<includefile source="campaign/record_char_main.xml" />
-	<includefile source="campaign/record_char_secondarycharacteristics.xml" />
-  <includefile source="campaign/record_char_reactionmodifiers.xml" />
-  <includefile source="campaign/record_char_resources.xml" />
   <includefile source="campaign/record_char_traits.xml" />
 	<includefile source="campaign/record_char_abilities.xml" />
 	<includefile source="campaign/record_char_combat.xml" />
 	<includefile source="campaign/record_char_inventory.xml" />
 	<includefile source="campaign/record_char_notes.xml" />
 
-	<includefile source="campaign/record_char_skills.xml" />
+  <includefile source="campaign/record_char_sub_attributes.xml" />
+  <includefile source="campaign/record_char_sub_currentattributes.xml" />
+  <includefile source="campaign/record_char_sub_secondarycharacteristics.xml" />
+  <includefile source="campaign/record_char_sub_languages.xml" />
+  <includefile source="campaign/record_char_sub_culturalfamiliarities.xml" />
+  <includefile source="campaign/record_char_encumbrance.xml" />
+  <includefile source="campaign/record_char_reactionmodifiers.xml" />
+  <includefile source="campaign/record_char_resources.xml" />
+
+  <includefile source="campaign/record_char_skills.xml" />
 	<includefile source="campaign/record_char_spells.xml" />
 	<includefile source="campaign/record_char_powers.xml" />
 	<includefile source="campaign/record_char_other.xml" />

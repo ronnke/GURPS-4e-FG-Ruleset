@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+
+<root>
+  <template name="charsheet_sub_attributes">
+    <subwindow>
+      <anchored position="insidetopleft" offset="0,0,0,0" />
+      <frame name="groupbox" offset="0,0,0,0" />
+      <class>char_attributes</class>
+      <activate />
+    </subwindow>
+  </template>
+
+  <!-- Attributes -->
+
+  <windowclass name="char_attributes">
+	  <script>
+			function onInit()
+        self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
+			end
+      function onLockModeChanged(bReadOnly)
+        WindowManager.callSafeControlsSetLockMode(self, { "strength", "hitpoints", "dexterity", "will", "intelligence", "perception", "health", "fatiguepoints" }, bReadOnly);
+        WindowManager.callSafeControlsSetLockMode(self, { "strength_points", "hitpoints_points", "dexterity_points", "will_points", "intelligence_points", "perception_points", "health_points", "fatiguepoints_points" }, bReadOnly);
+      end
+		</script>    
+    <sheetdata>
+      <anchor_content_top />
+
+      <label_charframetop name="header">
+        <anchored to="contentanchor" height="20">
+          <top relation="relative" offset="2" postoffset="7" />
+          <left offset="10" />
+          <right offset="-10" />
+        </anchored>
+        <static textres="char_label_basicattributes" />
+      </label_charframetop>
+
+      <number_attribute name="strength" source="attributes.strength">
+        <rollable_attribute />
+        <stat>ST</stat>
+        <anchored to="contentanchor" position="insidetopleft" offset="20,0" width="40">
+          <top relation="relative" offset="10" postoffset="5" />
+        </anchored>
+      </number_attribute>
+      <label_attribute>
+        <anchored to="strength" />
+        <static>ST</static>
+      </label_attribute>
+      <number_charpointfield name="strength_points" source="attributes.strength_points">
+        <anchored to="strength" position="right" offset="7,-5" width="20" />
+      </number_charpointfield>
+
+      <number_attribute name="hitpoints" source="attributes.hitpoints">
+        <anchored to="strength" offset="0,0" width="40">
+          <top />
+          <left relation="relative" offset="40" postoffset="-10" />
+        </anchored>
+      </number_attribute>
+      <label_attribute>
+        <anchored to="hitpoints" />
+        <static>HP</static>
+      </label_attribute>
+      <number_charpointfield name="hitpoints_points" source="attributes.hitpoints_points">
+        <anchored to="hitpoints" position="right" offset="7,-5" width="20" />
+      </number_charpointfield>
+     
+      <number_attribute name="dexterity" source="attributes.dexterity">
+        <rollable_attribute />
+        <stat>DX</stat>
+        <anchored to="contentanchor" position="insidetopleft" offset="20,0" width="40">
+          <top relation="relative" offset="10" postoffset="5" />
+        </anchored>
+      </number_attribute>
+      <label_attribute>
+        <anchored to="dexterity" />
+        <static>DX</static>
+      </label_attribute>
+      <number_charpointfield name="dexterity_points" source="attributes.dexterity_points">
+        <anchored to="dexterity" position="right" offset="7,-5" width="20" />
+      </number_charpointfield>
+
+      <number_attribute name="will" source="attributes.will">
+        <rollable_attribute />
+        <stat>WILL</stat>
+        <anchored to="dexterity" offset="0,0" width="40">
+          <top />
+          <left relation="relative" offset="40" postoffset="-10" />
+        </anchored>
+      </number_attribute>
+      <label_attribute>
+        <anchored to="will" />
+        <static>WILL</static>
+      </label_attribute>
+      <number_charpointfield name="will_points" source="attributes.will_points">
+        <anchored to="will" position="right" offset="7,-5" width="20" />
+      </number_charpointfield>
+
+      <number_attribute name="intelligence" source="attributes.intelligence">
+        <rollable_attribute />
+        <stat>IQ</stat>
+        <anchored to="contentanchor" position="insidetopleft" offset="20,0" width="40">
+          <top relation="relative" offset="10" postoffset="5" />
+        </anchored>
+      </number_attribute>
+      <label_attribute>
+        <anchored to="intelligence" />
+        <static>IQ</static>
+      </label_attribute>
+      <number_charpointfield name="intelligence_points" source="attributes.intelligence_points">
+        <anchored to="intelligence" position="right" offset="7,-5" width="20" />
+      </number_charpointfield>
+
+      <number_attribute name="perception" source="attributes.perception">
+        <rollable_attribute />
+        <stat>PER</stat>
+        <anchored to="intelligence" offset="0,0" width="40">
+          <top />
+          <left relation="relative" offset="40" postoffset="-10" />
+        </anchored>
+      </number_attribute>
+      <label_attribute>
+        <anchored to="perception" />
+        <static>PER</static>
+      </label_attribute>
+      <number_charpointfield name="perception_points" source="attributes.perception_points">
+        <anchored to="perception" position="right" offset="7,-5" width="20" />
+      </number_charpointfield>
+
+      <number_attribute name="health"	source="attributes.health">
+        <rollable_attribute />
+        <stat>HT</stat>
+        <anchored to="contentanchor" position="insidetopleft" offset="20,0" width="40">
+          <top relation="relative" offset="10" postoffset="5" />
+        </anchored>
+      </number_attribute>
+      <label_attribute>
+        <anchored to="health" />
+        <static>HT</static>
+      </label_attribute>
+      <number_charpointfield name="health_points" source="attributes.health_points">
+        <anchored to="health" position="right" offset="7,-5" width="20" />
+      </number_charpointfield>
+
+      <number_attribute name="fatiguepoints" source="attributes.fatiguepoints">
+        <anchored to="health" offset="0,0" width="40">
+          <top />
+          <left relation="relative" offset="40" postoffset="-10" />
+        </anchored>
+      </number_attribute>
+      <label_attribute>
+        <anchored to="fatiguepoints" />
+        <static>FP</static>
+      </label_attribute>
+      <number_charpointfield name="fatiguepoints_points" source="attributes.fatiguepoints_points">
+        <anchored to="fatiguepoints" position="right" offset="7,-5" width="20" />
+      </number_charpointfield>
+
+    </sheetdata>
+	</windowclass>
+	
+</root>

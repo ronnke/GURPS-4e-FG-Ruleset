@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+
+<root>
+  <template name="charsheet_sub_currentattributes">
+    <subwindow>
+      <anchored position="insidetopleft" offset="0,0,0,0" />
+      <frame name="groupbox" offset="0,0,0,0" />
+      <class>char_currentattributes</class>
+      <activate />
+    </subwindow>
+  </template>
+
+  <!-- Attributes -->
+
+  <windowclass name="char_currentattributes">
+    <sheetdata>
+      <anchor_content_top />
+
+      <label_charframetop name="header">
+        <anchored to="contentanchor" height="20">
+          <top relation="relative" offset="2" postoffset="7" />
+          <left offset="10" />
+          <right offset="-10" />
+        </anchored>
+        <static textres="char_label_currentattributes" />
+      </label_charframetop>
+
+      <number_combat_attribute name="hps" source="attributes.hps">
+        <anchored to="contentanchor" position="insidetopleft" offset="20,0" width="40">
+          <top relation="relative" offset="10" postoffset="5" />
+        </anchored>
+        <readonly />
+      </number_combat_attribute>
+      <label_attribute>
+        <anchored to="hps" />
+        <static>cHP</static>
+      </label_attribute>
+
+      <number_combat_attribute name="fps" source="attributes.fps">
+        <anchored to="hps" offset="0,0" width="40">
+          <top />
+          <left relation="relative" offset="10" postoffset="-10" />
+        </anchored>
+        <readonly />
+      </number_combat_attribute>
+      <label_attribute>
+        <anchored to="fps" />
+        <static>cFP</static>
+      </label_attribute>
+
+      <string_attribute name="move" source="attributes.move">
+        <anchored to="fps" offset="0,0" width="40">
+          <top />
+          <left relation="relative" offset="10" postoffset="-10" />
+        </anchored>
+        <readonly />
+      </string_attribute>
+      <label_attribute>
+        <anchored to="move" />
+        <static>Move</static>
+      </label_attribute>
+
+      <button_checkbox name="halfmovedodge" source="attributes.halfmovedodge">
+        <anchored to="contentanchor" position="insidetopleft" offset="20,0" width="20" height="20">
+          <top relation="relative" offset="-5" postoffset="5" />
+        </anchored>
+      </button_checkbox>
+      <label name="halfmovedodge_label">
+        <anchored to="halfmovedodge" position="righthigh" offset="5,0" />
+        <static textres="char_label_halfmovedodge" />
+      </label>
+
+    </sheetdata>
+	</windowclass>
+	
+</root>

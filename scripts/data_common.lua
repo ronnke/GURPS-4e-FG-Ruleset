@@ -202,11 +202,11 @@ conditions = {
 	"Medium Cover",
 	"Heavy Cover",
 	"Full Cover",
-	"AoA",
-	"AoD",
+	"All Out Attack",
+	"All Out Defense",
 	"Committed",
 	"Unready",
-	"Reloading"
+	"Reloading",
 	"Mounted",
 	"Flying",
 	"Drunk",
@@ -227,7 +227,7 @@ condcomps = {
 	["Surrendered"] = "cond_GURPS4e_surrendered",
 	["Blinded"] = "cond_GURPS4e_blinded",
 	["Bound"] = "cond_GURPS4e_bound",
-	["Unconscious"] = "cond_GURPS4e_unconscious"
+	["Unconscious"] = "cond_GURPS4e_unconscious",
 	["Crouched"] = "cond_GURPS4e_posture_crouched",
 	["Kneeling"] = "cond_GURPS4e_posture_kneeling",
 	["Seated"] = "cond_GURPS4e_posture_seated",

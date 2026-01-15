@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+
+<root>
+  <template name="charsheet_sub_languages">
+    <subwindow name="content">
+      <anchored position="insidetopleft" offset="0,0,0,0" />
+      <frame name="groupbox" offset="0,0,0,0" />
+      <class>charsheet_languages_list</class>
+      <activate />
+    </subwindow>
+  </template>
+
+  <!-- Languages -->
+
+  <windowclass name="charsheet_languages_list">
+    <margins control="0,0,0,2" />
+    <script>
+      function onInit()
+        self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
+      end
+      function onLockModeChanged(bReadOnly)
+        WindowManager.callSafeControlsSetLockMode(self, { "list_iadd", }, bReadOnly);
+      end
+    </script>
+    <sheetdata>
+      <anchor_content_top />
+      <anchor_content_bottom />
+
+      <label_charframetop name="header">
+        <anchored to="contentanchor" height="20">
+          <top relation="relative" offset="2" postoffset="2" />
+          <left offset="10" />
+          <right offset="-10" />
+        </anchored>
+        <static textres="char_label_languages" />
+      </label_charframetop>
+
+      <button_iadd name="list_iadd">
+        <anchored to="header" position="insidetopright" offset="5,0" />
+        <target>list</target>
+      </button_iadd>
+
+      <list_content_labeled_alternating name="list">
+        <anchored>
+          <left offset="15" />
+          <right offset="-15" />
+          <bottom offset="-10" />
+        </anchored>
+        <datasource>.traits.languagelist</datasource>
+        <class>char_language</class>
+        <sortby><control>name</control></sortby>
+        <newfocus>name</newfocus>
+      </list_content_labeled_alternating>
+      <scrollbar_list />
+        
+      <anchor_list_content_label_left />
+      <anchor_list_content_label_right />
+      <spacer_list_content_idelete_label_left name="idelete_header" />
+
+      <label_list_content_number_right name="label_points">
+        <anchored width="25" offset="5" />
+        <static textres="char_label_languages_points" />
+      </label_list_content_number_right>
+
+      <label_list_content_string_right name="label_written">
+        <anchored width="55" offset="5" />
+        <static textres="char_label_languages_written" />
+      </label_list_content_string_right>
+
+      <label_list_content_string_right name="label_spoken">
+        <anchored width="55" />
+        <static textres="char_label_languages_spoken" />
+      </label_list_content_string_right>
+
+      <label_list_content_noframe name="label_name">
+        <static textres="char_traits_label_name" />
+      </label_list_content_noframe>
+
+    </sheetdata>
+  </windowclass>
+
+  <windowclass name="char_language">
+    <margins control="0,0,0,2" />
+    <script>
+      function onInit()
+        self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
+      end
+      function onLockModeChanged(bReadOnly)
+        WindowManager.callSafeControlsSetLockMode(self, { "name", "spoken", "written", "points", "idelete" }, bReadOnly);
+      end
+    </script>
+    <sheetdata>
+      <anchor_listitem_left_sm />
+      <anchor_listitem_right_sm />
+
+      <button_listitem_idelete_left name="idelete" />
+
+      <number_listitem_right name="points">
+        <anchored width="25" />
+        <frame mergerule="replace" name="fielddark" offset="5,5,5,5" hidereadonly="true" />
+        <color>#808080</color>
+        <nodrag />
+      </number_listitem_right>
+
+      <string_listitem_right name="written">
+        <anchored width="55" offset="-5" />
+        <center />
+        <nodrag />
+      </string_listitem_right>
+
+      <string_listitem_right name="spoken">
+        <anchored width="55" offset="-5" />
+        <center />
+        <nodrag />
+      </string_listitem_right>
+
+      <string_listitem_center name="name" />
+
+    </sheetdata>
+  </windowclass>
+
+</root>

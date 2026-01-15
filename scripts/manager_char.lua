@@ -166,12 +166,10 @@ function updatePointsTotal(nodeChar)
 			tempdisadvantages = tempdisadvantages + value;
 		end
 	end
-
 	DB.setValue(nodeChar,"pointtotals.attributes","number",temp);
-
 	total = total + temp;
-	temp = 0;
 
+	temp = 0;
 	for _,node in pairs(DB.getChildren(nodeChar,"traits.culturalfamiliaritylist")) do
 		temp = temp + DB.getValue(node,"points",0);
 	end
@@ -184,53 +182,56 @@ function updatePointsTotal(nodeChar)
 		temp = temp + DB.getValue(node,"points",0);
 	end
 	DB.setValue(nodeChar,"pointtotals.ads","number",temp);
-
 	total = total + temp;
-	temp = 0;
 
+	temp = 0;
+	for _,node in pairs(DB.getChildren(nodeChar,"traits.perkslist")) do
+		temp = temp + DB.getValue(node,"points",0);
+	end
+	DB.setValue(nodeChar,"pointtotals.perks","number",temp);
+	total = total + temp;
+
+	temp = 0;
 	for _,node in pairs(DB.getChildren(nodeChar,"traits.disadslist")) do
-		if DB.getValue(node,"points",0) == -1 then
-			tempquirks = tempquirks + DB.getValue(node,"points",0);
-		else
-			temp = temp + DB.getValue(node,"points",0);
-		end
+		temp = temp + DB.getValue(node,"points",0);
 	end
 	DB.setValue(nodeChar,"pointtotals.disads","number",temp);
-	DB.setValue(nodeChar,"pointtotals.quirks","number",tempquirks);
-  	DB.setValue(nodeChar,"pointtotals.totaldisads","number",temp + tempdisadvantages + tempquirks);
+	total = total + temp;
 
-	total = total + temp + tempquirks;
 	temp = 0;
-  
+	for _,node in pairs(DB.getChildren(nodeChar,"traits.quirkslist")) do
+		temp = temp + DB.getValue(node,"points",0);
+	end
+	DB.setValue(nodeChar,"pointtotals.quirks","number",temp);
+  	DB.setValue(nodeChar,"pointtotals.totaldisads","number",temp + tempdisadvantages);
+	total = total + temp
+
+	temp = 0;
 	for _,node in pairs(DB.getChildren(nodeChar,"abilities.skilllist")) do
 		temp = temp + DB.getValue(node,"points",0);
 	end
 	DB.setValue(nodeChar,"pointtotals.skills","number",temp);
-
 	total = total + temp;
-	temp = 0;
 
+	temp = 0;
 	for _,node in pairs(DB.getChildren(nodeChar,"abilities.spelllist")) do
 		temp = temp + DB.getValue(node,"points",0);
 	end
 	DB.setValue(nodeChar,"pointtotals.spells","number",temp);
-
 	total = total + temp;
-	temp = 0;
 
+	temp = 0;
 	for _,node in pairs(DB.getChildren(nodeChar,"abilities.powerlist")) do
 		temp = temp + DB.getValue(node,"points",0);
 	end
 	DB.setValue(nodeChar,"pointtotals.powers","number",temp);
-
 	total = total + temp;
+
 	temp = 0;
- 
 	for _,node in pairs(DB.getChildren(nodeChar,"abilities.otherlist")) do
 		temp = temp + DB.getValue(node,"points",0);
 	end
 	DB.setValue(nodeChar,"pointtotals.others","number",temp);
-
 	total = total + temp;
 
 	local disads = DB.getValue(nodeChar,"pointtotals.disads",0);

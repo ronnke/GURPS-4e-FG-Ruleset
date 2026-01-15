@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+
+<root>
+  <template name="charsheet_sub_secondarycharacteristics">
+    <subwindow>
+      <anchored position="insidetopleft" offset="0,0,0,0" />
+      <frame name="groupbox" offset="0,0,0,0" />
+      <class>char_secondarycharacteristics</class>
+      <activate />
+    </subwindow>
+  </template>
+
+  <!-- Secondary Characteristics -->
+
+  <windowclass name="char_secondarycharacteristics">
+	  <script>
+			function onInit()
+        self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
+      
+				OptionsManager.registerCallback("RNDINIT", onRNDINITOptionChanged);
+				self.onRNDINITOptionChanged();
+			end
+
+			function onClose()
+				OptionsManager.unregisterCallback("RNDINIT", onRNDINITOptionChanged);
+			end
+
+			function onRNDINITOptionChanged()
+				local sOptionRNDINIT = OptionsManager.getOption("RNDINIT");
+        
+				local bShowRNDINIT = not (sOptionRNDINIT == "");
+				init_btn.setVisible(bShowRNDINIT);
+			end
+
+      function onLockModeChanged(bReadOnly)
+        WindowManager.callSafeControlsSetLockMode(self, { "basiclift", "thrust", "swing", "basicspeed", "basicmove" }, bReadOnly);
+        WindowManager.callSafeControlsSetLockMode(self, { "basicspeed_points", "basicmove_points" }, bReadOnly);
+      end
+		</script>    
+    <sheetdata>
+      <anchor_content_top />
+
+      <label_charframetop name="header">
+        <anchored to="contentanchor" height="20">
+          <top relation="relative" offset="2" postoffset="2" />
+          <left offset="10" />
+          <right offset="-10" />
+        </anchored>
+        <static textres="char_label_secondarycharacteristics" />
+      </label_charframetop>
+
+      <string_labeled name="basiclift" source="attributes.basiclift">
+        <anchored to="contentanchor" position="insidetopleft" offset="15,0" width="60" height="20">
+          <top relation="relative" offset="5" postoffset="5" />
+        </anchored>
+        <labelres>char_label_basiclift</labelres>
+      </string_labeled>
+      <button_charroll name="thrust_btn">
+        <rollable_button_thrust />
+        <anchored to="basiclift" position="righthigh" offset="10,0" />
+        <tooltip textres="char_tooltip_thrust" />
+      </button_charroll>
+      <string_labeled name="thrust" source="attributes.thrust">
+        <anchored to="thrust_btn" position="right" offset="5,0" width="50" />
+        <labelres>char_label_thrust</labelres>
+      </string_labeled>
+      <button_charroll name="swing_btn">
+        <rollable_button_swing />
+        <anchored to="thrust" position="righthigh" offset="10,0" />
+        <tooltip textres="char_tooltip_swing" />
+      </button_charroll>
+      <string_labeled name="swing" source="attributes.swing">
+        <anchored to="swing_btn" position="right" offset="5,0" width="45" />
+        <labelres>char_label_swing</labelres>
+      </string_labeled>
+
+      <button_charroll name="init_btn">
+        <rollable_button_initiative />
+        <anchored to="contentanchor" position="insidetopleft" offset="15,0" width="60" height="20">
+          <top relation="relative" offset="5" postoffset="5" />
+        </anchored>
+        <tooltip textres="char_tooltip_initiative" />
+      </button_charroll>
+      <string_labeled name="basicspeed" source="attributes.basicspeed">
+        <anchored to="init_btn" position="righthigh" offset="0,0" width="70" height="20" />
+        <labelres>char_label_basicspeed</labelres>
+      </string_labeled>
+      <number_charpointfield name="basicspeed_points" source="attributes.basicspeed_points">
+        <anchored to="basicspeed" position="right" offset="5,0" width="20" height="20" />
+      </number_charpointfield>
+      <string_labeled name="basicmove" source="attributes.basicmove">
+        <anchored to="basicspeed" position="right" offset="50,0" width="70" height="20" />
+        <labelres>char_label_basicmove</labelres>
+      </string_labeled>
+      <number_charpointfield name="basicmove_points" source="attributes.basicmove_points">
+        <anchored to="basicmove" position="right" offset="5,0" width="20" height="20" />
+      </number_charpointfield>
+
+    </sheetdata>
+	</windowclass>
+	
+</root>

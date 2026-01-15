@@ -6,7 +6,14 @@
 -->
 
 <root>
-	<!-- Decals -->
+
+  <!-- Graphics -->
+  <includefile source="graphics/graphics_frames.xml" />
+
+  <!-- Fonts -->
+  <includefile source="graphics/graphics_fonts.xml" />
+
+  <!-- Decals -->
 	<icon name="desktopdecal_gurps" file="graphics/decals/desktopdecal_gurps.png"/>
 	<icon name="desktopdecal_dfrpg" file="graphics/decals/desktopdecal_dfrpg.png"/>
 
@@ -55,13 +62,15 @@
 	<icon name="field_rollable" file="graphics/icons/field_rollable.png" />
 	<icon name="field_modifier" file="graphics/icons/field_modifier.png" />
 
-	<!-- Icons -->ol_mapscale_30" file="graphics/toolbar/tool_mapscale_30.png" />
+	<icon name="tool_mapscale_30" file="graphics/toolbar/tool_mapscale_30.png" />
 
-	<!-- Graphics -->
-	<includefile source="graphics/graphics_frames.xml" />
-
-	<!-- Fonts -->
-	<includefile source="graphics/graphics_fonts.xml" />
+  <icon name="char_attributes" file="graphics/icons/char_left_frame.png" />
+  <icon name="char_traits" file="graphics/icons/char_left_frame.png" />
+  <icon name="char_traits_advantages" file="graphics/icons/char_left_frame.png" />
+  <icon name="char_traits_disadvantages" file="graphics/icons/char_left_frame.png" />
+  <icon name="char_traits_perks" file="graphics/icons/char_left_frame.png" />
+  <icon name="char_traits_quirks" file="graphics/icons/char_left_frame.png" />
+  <icon name="char_traits_features" file="graphics/icons/char_left_frame.png" />
 
 	<!-- Modifier stack -->
 	<icon name="modcollector" file="graphics/icons/modcollector.png" />

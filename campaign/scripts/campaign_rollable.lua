@@ -4,16 +4,24 @@
 --
 
 function onInit()
-  setHoverCursor("arrow");
-  
-  if isRollable() then
-    local w = addBitmapWidget("field_rollable");
-    w.setPosition("bottomleft", -1, -4);
-  end
+    if super and super.onInit then
+	    super.onInit();
+    end
 
-  if isRollable() or isRollableButton() then
-    setHoverCursor("hand");
-  end
+    setHoverCursor("arrow");
+  
+    if isRollable() then
+        local w = addBitmapWidget("field_rollable");
+        w.setPosition("bottomleft", -1, -4);
+    end
+
+    if isRollable() or isRollableButton() then
+        setHoverCursor("hand");
+    end
+end
+
+function update(bReadOnly)
+	setReadOnly(bReadOnly);
 end
 
 function isRollable()

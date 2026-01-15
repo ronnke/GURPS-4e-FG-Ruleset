@@ -13,20 +13,22 @@
 
 			<frame_char name="reactionmodifiersframe">
         <anchored position="insidetopleft">
-          <right offset="-5"/>
+          <right />
           <bottom />
         </anchored>
       </frame_char>
 			
 			<label_frametop>
-				<anchored to="reactionmodifiersframe" />
-				<static textres="char_label_reactionmodifiers" />
+				<anchored to="reactionmodifiersframe">
+          <top offset="20" />
+        </anchored>
+        <static textres="char_label_reactionmodifiers" />
 			</label_frametop>
 
 			<button_charroll>
 				<rollable_button_reaction />
 				<anchored to="reactionmodifiersframe">
-					<top offset="10" />
+					<top offset="20" />
 					<left offset="50" />
 				</anchored>
         <tooltip textres="char_tooltip_reaction" />
@@ -34,7 +36,7 @@
 
 			<basicstring name="reactionmodifiers" source="traits.reactionmodifiers">
 				<anchored to="reactionmodifiersframe" height="60">
-					<top offset="35" />
+					<top offset="45" />
 					<left offset="20" />
 					<right offset="-30"/>
 				</anchored>
@@ -45,7 +47,7 @@
 			<list_charreactionmodifier name="reactionmodifierslist">
 				<anchored to="reactionmodifiersframe">
 					<left offset="10" />
-					<top offset="105" />
+					<top offset="115" />
 					<right offset="-35" />
 					<bottom offset="-15" />
 				</anchored>

@@ -13,20 +13,22 @@
 
       <frame_char name="resourcesframe">
         <anchored position="insidetopleft">
-          <right offset="-5"/>
+          <right />
           <bottom />
         </anchored>
       </frame_char>
 			
 			<label_frametop>
-				<anchored to="resourcesframe" />
-				<static textres="char_label_resources" />
+				<anchored to="resourcesframe">
+          <top offset="20" />
+        </anchored>
+        <static textres="char_label_resources" />
 			</label_frametop>
 
       <list_charresource name="resourceslist">
 				<anchored to="resourcesframe">
 					<left offset="10" />
-					<top offset="35" />
+					<top offset="45" />
 					<right offset="-35" />
 					<bottom offset="-15" />
 				</anchored>
