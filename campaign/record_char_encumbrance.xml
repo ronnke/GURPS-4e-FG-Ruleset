@@ -7,9 +7,19 @@
 
 <root>
 	<windowclass name="charsheet_encumbrance">
+    <script>
+      function onInit()
+        self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
+      end
+      function onLockModeChanged(bReadOnly)
+        WindowManager.callSafeControlsSetLockMode(self, { "list_iadd", }, bReadOnly);
+      end
+    </script>
     <sheetdata>
-		
-<!-- Move and Encumbrance -->
+      <anchor_content_top />
+      <anchor_content_bottom />
+
+      <!-- Move and Encumbrance -->
 
       <frame_char name="moveencumbranceframe">
         <anchored position="insidetopleft">
@@ -18,17 +28,38 @@
         </anchored>
       </frame_char>
 
-      <label_charframetop name="moveencumbranceframe_label">
-        <anchored to="moveencumbranceframe" height="20">
+      <label_charframetop name="header">
+        <anchored to="contentanchor" height="20">
+          <top relation="relative" offset="2" postoffset="2" />
           <top offset="25" />
-          <left offset="20" />
-          <right offset="-20" />
+          <left offset="10" />
+          <right offset="-10" />
         </anchored>
         <static textres="char_label_encumbrance" />
       </label_charframetop>
 
+      <button_iadd name="list_iadd">
+        <anchored to="header" position="insidetopright" offset="5,0" />
+        <target>list</target>
+      </button_iadd>
+
+      <!-- Encumbrance Table -->
+      
+      <list_content_labeled_alternating name="list">
+        <anchored>
+          <left offset="160" />
+          <right offset="-15" />
+          <bottom offset="-10" />
+        </anchored>
+        <datasource>.encumbrance.encumbrancelist</datasource>
+        <class>char_encumbrance</class>
+        <sortby><control>name</control></sortby>
+        <newfocus>name</newfocus>
+      </list_content_labeled_alternating>
+      <scrollbar_list />
+
       <button_checkbox name="enc_4" source="encumbrance.enc_4">
-        <anchored to="moveencumbranceframe" position="insidetopright" offset="40,50" width="35" height="20" />
+        <anchored to="header" position="insidetopright" offset="40,50" width="35" height="20" />
         <readonly />
       </button_checkbox>
       <button_checkbox name="enc_3" source="encumbrance.enc_3">
@@ -61,7 +92,7 @@
       </button_checkbox>
 
       <label_columntop name="enc_xheavy_label">
-				<anchored to="moveencumbranceframe" position="insidetopright" offset="40,70" width="35" />
+				<anchored to="header" position="insidetopright" offset="40,70" width="35" />
 				<static textres="char_label_encumbrancexheavy" />
 			</label_columntop>
 			<label_columntop name="enc_heavy_label">
@@ -93,9 +124,9 @@
 				<static textres="char_label_encumbrancenone" />
 			</label_columntop>
 
-<!-- Weight -->
+			<!-- Weight -->
       <stringu_charfield name="enc_xhvy" source="encumbrance.enc4_weight">
-				<anchored to="moveencumbranceframe" position="insidetopright" offset="40,90" width="35" height="20" />
+				<anchored to="header" position="insidetopright" offset="40,90" width="35" height="20" />
 				<center />
 				<tabtarget prev="enc_hvy" next="enc_move_none" />
 			</stringu_charfield>
@@ -134,15 +165,15 @@
 			<stringcontrol>
 				<anchored to="enc_xhvy" width="60" height="20">
 					<top />
-					<left anchor="moveencumbranceframe" offset="-140" />
+					<left anchor="header" offset="-140" />
 				</anchored>
 				<static textres="char_label_weight" />
 				<left />
 			</stringcontrol>
 
-<!-- Move -->
+			<!-- Move -->
 			<stringu_charfield name="enc_move_xhvy" source="encumbrance.enc4_move" >
-				<anchored to="moveencumbranceframe" position="insidetopright" offset="40,110" width="35" height="20" />
+				<anchored to="header" position="insidetopright" offset="40,110" width="35" height="20" />
 				<center />
 				<tabtarget prev="enc_move_hvy" next="enc_dodge_none" />
       </stringu_charfield>
@@ -181,16 +212,16 @@
 			<stringcontrol>
 				<anchored to="enc_move_xhvy" width="60" height="20">
 					<top />
-					<left anchor="moveencumbranceframe" offset="-160" />
+					<left anchor="header" offset="-160" />
 				</anchored>
 				<static>Move</static>
 				<left />
 			</stringcontrol>
 
-<!-- Dodge -->
+			<!-- Dodge -->
 			<number_charfield name="enc_dodge_xhvy" source="encumbrance.enc4_dodge">
 				<rollable_dodge />
-				<anchored to="moveencumbranceframe" position="insidetopright" offset="45,130" width="25" height="20" />
+				<anchored to="header" position="insidetopright" offset="45,130" width="25" height="20" />
 				<center />
 				<tabtarget prev="enc_dodge_hvy" next="enc_none" />
 			</number_charfield>
@@ -233,45 +264,12 @@
 			<stringcontrol>
 				<anchored to="enc_dodge_xhvy" width="60" height="20">
 					<top />
-					<left anchor="moveencumbranceframe" offset="-180" />
+					<left anchor="header" offset="-180" />
 				</anchored>
 				<static textres="char_label_dodge" />
 				<left />
 			</stringcontrol>
 
-
-<!-- Encumbrance Table -->
-
-			<genericcontrol name="encumbrance_rightanchor">
-				<anchored to="moveencumbranceframe" width="0" height="0">
-					<top />
-					<right offset="15"/>
-				</anchored>
-				<invisible />
-			</genericcontrol>
-
-			<list_charencumbrance name="encumbrancelist">
-				<anchored to="moveencumbranceframe">
-          <top offset="165" />
-          <left offset="10" />
-					<right offset="-10" />
-					<bottom offset="-10" />
-				</anchored>
-			</list_charencumbrance>
-			<scrollbar_list>
-				<anchored to="encumbrancelist" />
-				<target>encumbrancelist</target>
-			</scrollbar_list>
-
-			<button_iedit name="encumbrancelist_iedit">
-				<anchored to="moveencumbranceframe" position="aboveright" offset="5,5" />
-				<target>encumbrancelist</target>
-			</button_iedit>
-			<button_iadd name="encumbrancelist_iadd">
-				<anchored to="encumbrancelist_iedit" position="lefthigh" offset="5,0" />
-				<target>encumbrancelist</target>
-			</button_iadd>
-			
 		</sheetdata>
 	</windowclass>
 

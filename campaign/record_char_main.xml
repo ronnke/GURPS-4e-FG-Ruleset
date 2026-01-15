@@ -4,7 +4,7 @@
 	attribution and copyright information. -->
 
 <root>
-	<windowclass name="charsheet_main">
+  <windowclass name="charsheet_main">
     <margins control="0,0,0,2" />
     <sheetdata>
       <anchor_content_top />
@@ -12,40 +12,39 @@
 
       <!-- Character Details -->
 
-			<frame_char name="detailframe">
+      <frame_char name="detailframe">
         <anchored position="insidetopleft" offset="0,-5" width="490" height="80" />
-			</frame_char>
-			<string_labeled name="race" source="traits.race">
-				<anchored to="detailframe" position="insidetopleft" offset="15,10" width="160" height="20" />
-				<labelres>char_label_race</labelres>
-			</string_labeled>
-			<string_labeled name="age" source="traits.age">
-				<anchored to="race" position="right" offset="5,0" width="50" />
-				<labelres>char_label_age</labelres>
-			</string_labeled>
-			<string_labeled name="height" source="traits.height">
-				<anchored to="age" position="right" offset="5,0" width="70" />
-				<labelres>char_label_height</labelres>
-			</string_labeled>
-			<string_labeled name="weight" source="traits.weight">
-				<anchored to="height" position="right" offset="5,0" width="70" />
-				<labelres>char_label_weight</labelres>
-			</string_labeled>
-			<string_labeled name="sizemodifier" source="traits.sizemodifier">
-				<anchored to="weight" position="right" offset="5,0" width="40" />
-				<labelres>char_label_sizemodifier</labelres>
-			</string_labeled>
-			<string_labeled name="reach" source="traits.reach">
-				<anchored to="sizemodifier" position="right" offset="5,0" width="40" />
-				<labelres>char_label_reach</labelres>
-			</string_labeled>
-			<string_labeled name="appearance" source="traits.appearance">
-				<anchored to="detailframe" position="insidetopleft" offset="15,40" width="460" height="20" />
-				<labelres>char_label_appearance</labelres>
-			</string_labeled>
+      </frame_char>
+      <string_labeled name="race" source="traits.race">
+        <anchored to="detailframe" position="insidetopleft" offset="15,10" width="160" height="20" />
+        <labelres>char_label_race</labelres>
+      </string_labeled>
+      <string_labeled name="age" source="traits.age">
+        <anchored to="race" position="right" offset="5,0" width="50" />
+        <labelres>char_label_age</labelres>
+      </string_labeled>
+      <string_labeled name="height" source="traits.height">
+        <anchored to="age" position="right" offset="5,0" width="70" />
+        <labelres>char_label_height</labelres>
+      </string_labeled>
+      <string_labeled name="weight" source="traits.weight">
+        <anchored to="height" position="right" offset="5,0" width="70" />
+        <labelres>char_label_weight</labelres>
+      </string_labeled>
+      <string_labeled name="sizemodifier" source="traits.sizemodifier">
+        <anchored to="weight" position="right" offset="5,0" width="40" />
+        <labelres>char_label_sizemodifier</labelres>
+      </string_labeled>
+      <string_labeled name="reach" source="traits.reach">
+        <anchored to="sizemodifier" position="right" offset="5,0" width="40" />
+        <labelres>char_label_reach</labelres>
+      </string_labeled>
+      <string_labeled name="appearance" source="traits.appearance">
+        <anchored to="detailframe" position="insidetopleft" offset="15,40" width="460" height="20" />
+        <labelres>char_label_appearance</labelres>
+      </string_labeled>
 
-
-			<!-- Attributes -->
+      <!-- Attributes -->
 
       <charsheet_sub_attributes name="attributes">
         <anchored position="insidetopleft" offset="0,75" width="180" height="220" />
@@ -61,7 +60,7 @@
 
       <charsheet_sub_secondarycharacteristics name="secondarycharacteristics">
         <anchored position="insidetopleft" offset="180,75" height="100">
-					<right />
+          <right />
         </anchored>
       </charsheet_sub_secondarycharacteristics>
 
@@ -74,7 +73,7 @@
         </anchored>
       </charsheet_sub_languages>
 
-			<!-- Cultural Familiarity-->
+      <!-- Cultural Familiarity-->
 
       <charsheet_sub_culturalfamiliarities name="culturalfamiliarities">
         <anchored position="insidetopleft" offset="0,395">
@@ -84,21 +83,21 @@
         </anchored>
       </charsheet_sub_culturalfamiliarities>
 
-<!-- Tabs-->
+      <!-- Tabs-->
 
-			<subwindow name="encumbrance">
+      <subwindow name="encumbrance">
         <anchored position="insidetopleft" offset="180,175" height="220">
           <right />
         </anchored>
-				<class>charsheet_encumbrance</class>
-			</subwindow>
+        <class>charsheet_encumbrance</class>
+      </subwindow>
 
-			<subwindow name="reactionmodifiers">
+      <subwindow name="reactionmodifiers">
         <anchored position="insidetopleft" offset="180,175" height="220">
           <right />
         </anchored>
         <class>charsheet_reactionmodifiers</class>
-			</subwindow>
+      </subwindow>
 
       <subwindow name="resources">
         <anchored position="insidetopleft" offset="180,175" height="220">
@@ -108,68 +107,70 @@
       </subwindow>
 
       <tabs_charmain>
-        <anchored to="encumbrance" />
+        <anchored position="insidetopleft">
+          <top offset="175" />
+          <left offset="190" />
+        </anchored>
         <tab>
           <tabres>tab_encumbrance</tabres>
-					<subwindow>encumbrance</subwindow>
-				</tab>
-				<tab>
+          <subwindow>encumbrance</subwindow>
+        </tab>
+        <tab>
           <tabres>tab_reactionmodifiers</tabres>
-					<subwindow>reactionmodifiers</subwindow>
-				</tab>
+          <subwindow>reactionmodifiers</subwindow>
+        </tab>
         <tab>
           <tabres>tab_resources</tabres>
           <subwindow>resources</subwindow>
         </tab>
         <activate>1</activate>
-			</tabs_charmain>
+      </tabs_charmain>
 
-
-		</sheetdata>
-	</windowclass>
-
-
-  
-  
-  
+    </sheetdata>
+  </windowclass>
 
 
 
 
 
 
-	<windowclass name="char_culturalfamiliarity">
-		<margins control="0,0,0,2" />
-		<sheetdata>
-			<genericcontrol name="rightanchor">
-				<anchored height="0" width="0">
-					<top />
-					<right />
-				</anchored>
-			</genericcontrol>
-			<button_idelete name="idelete">
-				<anchored>
-					<top offset="2" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
-				</anchored>
-			</button_idelete>
 
-			<number_charpointfield name="points">
-				<anchored width="20" height="20">
-					<top offset="2" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
-				</anchored>
-				<tabtarget prev="written" next="name" />
-			</number_charpointfield>
-			<string_textlistitem name="name">
-				<anchored height="20">
-					<top offset="2" />
-					<left offset="5" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
-				</anchored>
-				<tabtarget next="spoken" />
-			</string_textlistitem>
-		</sheetdata>
-	</windowclass>
-	
+
+
+
+
+  <windowclass name="char_culturalfamiliarity">
+    <margins control="0,0,0,2" />
+    <sheetdata>
+      <genericcontrol name="rightanchor">
+        <anchored height="0" width="0">
+          <top />
+          <right />
+        </anchored>
+      </genericcontrol>
+      <button_idelete name="idelete">
+        <anchored>
+          <top offset="2" />
+          <right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+        </anchored>
+      </button_idelete>
+
+      <number_charpointfield name="points">
+        <anchored width="20" height="20">
+          <top offset="2" />
+          <right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+        </anchored>
+        <tabtarget prev="written" next="name" />
+      </number_charpointfield>
+      <string_textlistitem name="name">
+        <anchored height="20">
+          <top offset="2" />
+          <left offset="5" />
+          <right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+        </anchored>
+        <tabtarget next="spoken" />
+      </string_textlistitem>
+    </sheetdata>
+  </windowclass>
+
 </root>

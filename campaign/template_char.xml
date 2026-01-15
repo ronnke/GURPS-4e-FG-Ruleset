@@ -339,15 +339,6 @@
 	</template>
 
 
-	<template name="list_charencumbrance">
-		<list_text>
-			<datasource>.encumbrance.encumbrancelist</datasource>
-			<class>char_encumbrance</class>
-			<sortby><control>name</control></sortby>
-			<newfocus>name</newfocus>
-		</list_text>
-	</template>
-
 	<template name="list_charreactionmodifier">
 		<list_text>
 			<datasource>.traits.reactionmodifierlist</datasource>
