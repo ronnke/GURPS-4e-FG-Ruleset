@@ -338,27 +338,6 @@
 		</buttoncontrol>
 	</template>
 
-
-	<template name="list_charreactionmodifier">
-		<list_text>
-			<datasource>.traits.reactionmodifierlist</datasource>
-			<class>char_reactionmodifier</class>
-			<sortby><control>name</control></sortby>
-			<newfocus>name</newfocus>
-		</list_text>
-	</template>
-
-  <template name="list_charresource">
-    <list_text>
-      <datasource>.traits.resourcelist</datasource>
-      <class>char_resource</class>
-      <sortby>
-        <control>name</control>
-      </sortby>
-      <newfocus>name</newfocus>
-    </list_text>
-  </template>
-
 	<template name="list_charskill">
 		<list_text>
 			<datasource>.abilities.skilllist</datasource>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="charsheet_sub_resources">
+    <script>
+      function onInit()
+        self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
+      end
+      function onLockModeChanged(bReadOnly)
+        WindowManager.callSafeControlsSetLockMode(self, { "list_iadd", }, bReadOnly);
+      end
+    </script>
+    <sheetdata>
+      <anchor_content_top />
+      <anchor_content_bottom />
+
+      <!-- Move and Encumbrance -->
+
+      <frame_char name="frame">
+        <anchored position="insidetopleft">
+          <right />
+          <bottom />
+        </anchored>
+      </frame_char>
+
+      <label_charframetop name="header">
+        <anchored to="contentanchor" height="20">
+          <top relation="relative" offset="2" postoffset="2" />
+          <top offset="25" />
+          <left offset="10" />
+          <right offset="-10" />
+        </anchored>
+        <static textres="char_label_resources" />
+      </label_charframetop>
+
+      <button_iadd name="list_iadd">
+        <anchored to="header" position="insidetopright" offset="5,0" />
+        <target>list</target>
+      </button_iadd>
+
+      <!-- Resources -->
+
+      <list_content_alternating name="list">
+        <anchored>
+          <top offset="10" />
+          <left offset="15" />
+          <right offset="-15" />
+          <bottom offset="-10" />
+        </anchored>
+        <datasource>.traits.resourcelist</datasource>
+        <class>char_resource</class>
+        <sortby><control>name</control></sortby>
+        <newfocus>name</newfocus>
+      </list_content_alternating>
+      <scrollbar_list />
+
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="char_resource">
+    <margins control="0,0,0,2" />
+    <script>
+      function onInit()
+        self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
+      end
+      function onLockModeChanged(bReadOnly)
+        WindowManager.callSafeControlsSetLockMode(self, { "name", "idelete" }, bReadOnly);
+      end
+    </script>
+		<sheetdata>
+      <anchor_listitem_left_sm />
+      <anchor_listitem_right_sm />
+
+      <button_listitem_idelete_left name="idelete" />
+      <linkc_listitem_left name="shortcut">
+        <class>resource</class>
+      </linkc_listitem_left>
+      
+      <number_listitem_right name="resource_level">
+        <script>
+          function onValueChanged()
+						local nodeResource = DB.getChild(getDatabaseNode(), "..");
+						setColor(CharManager.getResourceColor(nodeResource));
+          end
+        </script>
+        <anchored width="25" />
+        <frame mergerule="replace" name="fielddark" offset="5,5,5,5" hidereadonly="true" />
+        <nodrag />
+      </number_listitem_right>
+
+      <string_listitem_center name="name">
+        <delaykeyupdate />
+      </string_listitem_center>
+      
+		</sheetdata>
+	</windowclass>
+
+</root>

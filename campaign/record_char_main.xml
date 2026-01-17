@@ -89,21 +89,21 @@
         <anchored position="insidetopleft" offset="180,175" height="220">
           <right />
         </anchored>
-        <class>charsheet_encumbrance</class>
+        <class>charsheet_sub_encumbrance</class>
       </subwindow>
 
       <subwindow name="reactionmodifiers">
         <anchored position="insidetopleft" offset="180,175" height="220">
           <right />
         </anchored>
-        <class>charsheet_reactionmodifiers</class>
+        <class>charsheet_sub_reactionmodifiers</class>
       </subwindow>
 
       <subwindow name="resources">
         <anchored position="insidetopleft" offset="180,175" height="220">
           <right />
         </anchored>
-        <class>charsheet_resources</class>
+        <class>charsheet_sub_resources</class>
       </subwindow>
 
       <tabs_charmain>
@@ -128,49 +128,4 @@
 
     </sheetdata>
   </windowclass>
-
-
-
-
-
-
-
-
-
-
-
-  <windowclass name="char_culturalfamiliarity">
-    <margins control="0,0,0,2" />
-    <sheetdata>
-      <genericcontrol name="rightanchor">
-        <anchored height="0" width="0">
-          <top />
-          <right />
-        </anchored>
-      </genericcontrol>
-      <button_idelete name="idelete">
-        <anchored>
-          <top offset="2" />
-          <right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
-        </anchored>
-      </button_idelete>
-
-      <number_charpointfield name="points">
-        <anchored width="20" height="20">
-          <top offset="2" />
-          <right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
-        </anchored>
-        <tabtarget prev="written" next="name" />
-      </number_charpointfield>
-      <string_textlistitem name="name">
-        <anchored height="20">
-          <top offset="2" />
-          <left offset="5" />
-          <right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
-        </anchored>
-        <tabtarget next="spoken" />
-      </string_textlistitem>
-    </sheetdata>
-  </windowclass>
-
 </root>

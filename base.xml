@@ -53,9 +53,9 @@
   <includefile source="campaign/record_char_sub_secondarycharacteristics.xml" />
   <includefile source="campaign/record_char_sub_languages.xml" />
   <includefile source="campaign/record_char_sub_culturalfamiliarities.xml" />
-  <includefile source="campaign/record_char_encumbrance.xml" />
-  <includefile source="campaign/record_char_reactionmodifiers.xml" />
-  <includefile source="campaign/record_char_resources.xml" />
+  <includefile source="campaign/record_char_sub_encumbrance.xml" />
+  <includefile source="campaign/record_char_sub_reactionmodifiers.xml" />
+  <includefile source="campaign/record_char_sub_resources.xml" />
 
   <includefile source="campaign/record_char_skills.xml" />
 	<includefile source="campaign/record_char_spells.xml" />

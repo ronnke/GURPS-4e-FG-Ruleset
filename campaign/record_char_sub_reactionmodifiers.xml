@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="charsheet_sub_reactionmodifiers">
+    <script>
+      function onInit()
+        self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
+      end
+      function onLockModeChanged(bReadOnly)
+        WindowManager.callSafeControlsSetLockMode(self, { "reactionmodifiers", "list_iadd", }, bReadOnly);
+      end
+    </script>		
+    <sheetdata>
+      <anchor_content_top />
+      <anchor_content_bottom />
+
+      <!-- Reaction Modifiers-->
+
+      <frame_char name="frame">
+        <anchored position="insidetopleft">
+          <right />
+          <bottom />
+        </anchored>
+      </frame_char>
+
+      <label_charframetop name="header">
+        <anchored to="contentanchor" height="20">
+          <top relation="relative" offset="25" postoffset="2" />
+          <left offset="10" />
+          <right offset="-10" />
+        </anchored>
+        <static textres="char_label_reactionmodifiers" />
+      </label_charframetop>
+
+      <button_iadd name="list_iadd">
+        <anchored to="header" position="insidetopright" offset="5,0" />
+        <target>list</target>
+      </button_iadd>
+
+      <label_charframetop name="roll">
+        <anchored to="contentanchor" height="20" width="40">
+          <top relation="relative" offset="2" postoffset="2" />
+          <left offset="20" />
+        </anchored>
+        <static textres="char_label_roll" />
+      </label_charframetop>
+
+      <button_charroll>
+        <rollable_button_reaction />
+        <anchored to="roll" position="insidetopleft" offset="10,30" />
+        <tooltip textres="char_tooltip_reaction" />
+      </button_charroll>
+      
+			<basicstring name="reactionmodifiers" source="traits.reactionmodifiers">
+				<anchored height="60">
+					<top offset="50" />
+					<left offset="80" />
+					<right offset="-15"/>
+				</anchored>
+				<multilinespacing>15</multilinespacing>
+			</basicstring>
+
+      <list_content_alternating name="list">
+        <anchored>
+          <top offset="50" />
+          <left offset="15" />
+					<right offset="-15" />
+					<bottom offset="-10" />
+				</anchored>
+        <datasource>.traits.reactionmodifierlist</datasource>
+        <class>char_reactionmodifier</class>
+        <sortby><control>name</control></sortby>
+        <newfocus>name</newfocus>
+      </list_content_alternating>
+			<scrollbar_list/>
+
+      <anchor_list_content_label_left />
+      <anchor_list_content_label_right />
+      <spacer_list_content_idelete_label_left name="idelete_header" />
+
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="char_reactionmodifier">
+		<margins control="0,0,0,2" />
+		<script>
+      function onInit()
+        self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
+      end
+      function onLockModeChanged(bReadOnly)
+        WindowManager.callSafeControlsSetLockMode(self, { "name", "modifier", "idelete" }, bReadOnly);
+      end
+      
+			function actionDrag(draginfo)
+				if not name.isEmpty() then
+					draginfo.setType("number");
+					draginfo.setDescription(name.getValue());
+					draginfo.setStringData(name.getValue());
+					draginfo.setNumberData(modifier.getValue());
+				end
+				return true;
+			end
+			
+			function action()
+				ModifierStack.addSlot(name.getValue(), modifier.getValue());
+				return true;
+			end
+
+			function onDrop(x, y, draginfo)
+				return windowlist.onDrop(x, y, draginfo);
+			end			
+		</script>
+		<sheetdata>
+      <anchor_listitem_left_sm />
+      <anchor_listitem_right_sm />
+
+      <button_listitem_idelete_left name="idelete" />
+
+      <button_listitem_right name="modifier_button">
+		    <script>
+          function onDragStart(button, x, y, draginfo)
+						return window.actionDrag(draginfo);
+					end
+
+					function onButtonPress(x, y)
+						return window.action();
+					end
+		    </script>
+        <anchored width="20" height="20" />
+        <icon normal="button_action_modifier" pressed="button_action_modifier_down" />
+			</button_listitem_right>
+
+      <number_listitem_right name="modifier">
+        <anchored width="30" />
+        <frame mergerule="replace" name="fielddark" offset="5,5,5,5" hidereadonly="true" />
+        <displaysign />
+			</number_listitem_right>
+      
+      <string_listitem_center name="name">
+        <delaykeyupdate />
+      </string_listitem_center>
+		
+  </sheetdata>
+	</windowclass>
+	
+</root>

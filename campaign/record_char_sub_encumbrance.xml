@@ -6,7 +6,7 @@
 -->
 
 <root>
-	<windowclass name="charsheet_encumbrance">
+	<windowclass name="charsheet_sub_encumbrance">
     <script>
       function onInit()
         self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
@@ -21,7 +21,7 @@
 
       <!-- Move and Encumbrance -->
 
-      <frame_char name="moveencumbranceframe">
+      <frame_char name="frame">
         <anchored position="insidetopleft">
           <right />
           <bottom />
@@ -277,19 +277,11 @@
 	<windowclass name="char_encumbrance">
 		<margins control="0,0,0,2" />
 		<sheetdata>
-			<genericcontrol name="rightanchor">
-				<anchored height="0" width="0">
-					<top />
-					<right />
-				</anchored>
-			</genericcontrol>
-			<button_idelete name="idelete">
-				<anchored>
-					<top offset="2" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
-				</anchored>
-			</button_idelete>
+      <anchor_listitem_left_sm />
+      <anchor_listitem_right_sm />
 
+      <button_listitem_idelete_left name="idelete" />
+      
 			<stringu_charfield name="xheavy">
 				<anchored width="35" height="20">
 					<top offset="2" />

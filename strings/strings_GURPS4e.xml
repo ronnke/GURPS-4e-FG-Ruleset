@@ -104,7 +104,7 @@
 	<!-- Character - General -->
 	<string name="char_label_points">Pts</string>
 
-	<string name="char_label_basicattributes">BASIC ATTRIBUTES</string>
+  <string name="char_label_basicattributes">BASIC ATTRIBUTES</string>
 
 	<string name="char_label_charactername">Character Name</string>
 	<string name="char_label_sizemodifier">SM</string>
@@ -117,6 +117,7 @@
 	<string name="char_label_swing">Swing</string>
 	<string name="char_label_basicspeed">Basic Speed</string>
 	<string name="char_label_basicmove">Basic Move</string>
+  <string name="char_label_init">INIT</string>
   <string name="char_tooltip_swing">Roll Swing</string>
   <string name="char_tooltip_thrust">Roll Thrust</string>
   <string name="char_tooltip_initiative">Roll Initiative</string>
@@ -130,6 +131,7 @@
   <string name="char_label_encumbrancelevel">Encumbrance Level</string>
 
   <string name="char_label_reactionmodifiers">REACTION MODIFIERS</string>
+  <string name="char_label_roll">ROLL</string>
   <string name="char_tooltip_reaction">Roll Reaction</string>
 
   <string name="char_label_resources">RESOURCES</string>
