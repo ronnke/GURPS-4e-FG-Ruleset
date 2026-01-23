@@ -13,7 +13,7 @@
           <bottom />
           <right />
         </anchored>
-				<class>charsheet_skills</class>
+				<class>charsheet_sub_ability_skills</class>
 			</subwindow>
 
 			<subwindow name="spells">
@@ -21,7 +21,7 @@
           <bottom />
           <right />
         </anchored>
-        <class>charsheet_spells</class>
+        <class>charsheet_sub_ability_spells</class>
 			</subwindow>
 
 			<subwindow name="powers">
@@ -29,7 +29,7 @@
           <bottom />
           <right />
         </anchored>
-        <class>charsheet_powers</class>
+        <class>charsheet_sub_ability_powers</class>
 			</subwindow>
 
 			<subwindow name="other">
@@ -37,10 +37,11 @@
           <bottom />
           <right />
         </anchored>
-        <class>charsheet_other</class>
+        <class>charsheet_sub_ability_other</class>
 			</subwindow>
 
-			<tabs_charabilities>
+      <tabs_char_h>
+        <anchored position="insidetopleft" />
 				<tab>
           <tabres>tab_skills</tabres>
 					<subwindow>skills</subwindow>
@@ -58,7 +59,7 @@
 					<subwindow>other</subwindow>
 				</tab>
 				<activate>1</activate>
-			</tabs_charabilities>
+			</tabs_char_h>
 		
 		</sheetdata>
 	</windowclass>

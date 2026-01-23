@@ -18,6 +18,7 @@ function onTabletopInit()
 	RecordShareManager.setWindowClassCallback("trait_perk", handleTraitShare);
 	RecordShareManager.setWindowClassCallback("trait_disadvantage", handleTraitShare);
 	RecordShareManager.setWindowClassCallback("trait_quirk", handleTraitShare);
+	RecordShareManager.setWindowClassCallback("trait_feature", handleTraitShare);
 
 	RecordShareManager.setWindowClassCallback("charnote", handleNoteShare);
 end

@@ -36,7 +36,7 @@
 		</genericcontrol>
 	</template>
 	
-	<template name="tabs_charmain">
+	<template name="tabs_char_h">
 		<buttongroup_tabs_h name="tabs">
       <anchored width="92" height="18">
         <top />
@@ -45,25 +45,15 @@
 		</buttongroup_tabs_h>
 	</template>
 
-	<template name="tabs_charabilities">
+	<template name="tabs_char_v">
 		<buttongroup_tabs name="tabs">
 			<anchored width="18" height="92">
-				<top offset="50" />
-        <right offset="-10"/>
+				<top offset="10" />
+        <right />
       </anchored>
 		</buttongroup_tabs>
 	</template>
 
-	<template name="tabs_charcombat">
-		<buttongroup_tabs name="tabs">
-			<anchored width="18" height="92">
-				<top offset="140" />
-        <right offset="-10"/>
-      </anchored>
-		</buttongroup_tabs>
-	</template>
-
-	
 	<template name="label_attribute">
 		<label_fieldtop>
 			<anchored offset="0,-6" height="15"/>
@@ -268,10 +258,19 @@
   </template>
 
   <template name="number_charpointfield">
-		<number_charfield>
-			<frame merge="replace" name="textline" />
-			<color>#808080</color>
-		</number_charfield>
+    <simplenumber>
+      <anchored width="40" height="20" />
+      <frame mergerule="replace" name="fielddark" offset="5,5,5,5" hidereadonly="true"/>
+      <stateframe>
+        <keyedit name="fieldfocus" offset="5,5,5,5" />
+        <hover name="fieldfocus" offset="5,5,5,5" hidereadonly="true" />
+        <drophilight name="fieldfocus" offset="5,5,5,5" hidereadonly="true" />
+      </stateframe>
+      <color>#808080</color>
+      <center />
+      <nodrag />
+      <nodrop />
+    </simplenumber>    
 	</template>
 
 	<template name="number_charpointtotals">
@@ -336,42 +335,6 @@
 				end
 			</script>
 		</buttoncontrol>
-	</template>
-
-	<template name="list_charskill">
-		<list_text>
-			<datasource>.abilities.skilllist</datasource>
-			<class>char_skill</class>
-			<sortby><control>name</control></sortby>
-			<newfocus>name</newfocus>
-		</list_text>
-	</template>
-
-	<template name="list_charspell">
-		<list_text>
-			<datasource>.abilities.spelllist</datasource>
-			<class>char_spell</class>
-			<sortby><control>name</control></sortby>
-			<newfocus>name</newfocus>
-		</list_text>
-	</template>
-
-	<template name="list_charpower">
-		<list_text>
-			<datasource>.abilities.powerlist</datasource>
-			<class>char_power</class>
-			<sortby><control>name</control></sortby>
-			<newfocus>name</newfocus>
-		</list_text>
-	</template>
-
-	<template name="list_charother">
-		<list_text>
-			<datasource>.abilities.otherlist</datasource>
-			<class>char_other</class>
-			<sortby><control>name</control></sortby>
-			<newfocus>name</newfocus>
-		</list_text>
 	</template>
 
 	<template name="list_charnote">

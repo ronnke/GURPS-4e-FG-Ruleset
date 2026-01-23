@@ -88,7 +88,7 @@
 						setColor(CharManager.getResourceColor(nodeResource));
           end
         </script>
-        <anchored width="25" />
+        <anchored width="40" />
         <frame mergerule="replace" name="fielddark" offset="5,5,5,5" hidereadonly="true" />
         <nodrag />
       </number_listitem_right>

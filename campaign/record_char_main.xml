@@ -106,7 +106,7 @@
         <class>charsheet_sub_resources</class>
       </subwindow>
 
-      <tabs_charmain>
+      <tabs_char_h>
         <anchored position="insidetopleft">
           <top offset="175" />
           <left offset="190" />
@@ -124,7 +124,7 @@
           <subwindow>resources</subwindow>
         </tab>
         <activate>1</activate>
-      </tabs_charmain>
+      </tabs_char_h>
 
     </sheetdata>
   </windowclass>

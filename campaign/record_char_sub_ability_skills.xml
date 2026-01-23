@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="charsheet_sub_ability_skills">
+    <script>
+      function onInit()
+        self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
+      end
+      function onLockModeChanged(bReadOnly)
+        WindowManager.callSafeControlsSetLockMode(self, { "list_iadd", }, bReadOnly);
+      end
+      function onDrop(x, y, draginfo)
+				if draginfo.isType("shortcut") and LibraryDataGURPS4e.isSkill(draginfo.getDatabaseNode()) then
+					return CharManager.addAbility(getDatabaseNode(), draginfo.getDatabaseNode());
+				end
+      end
+    </script>
+    <sheetdata>
+      <anchor_content_top />
+      <anchor_content_bottom />
+      
+      <frame_char name="frame">
+        <anchored position="insidetopleft">
+          <right />
+          <bottom />
+        </anchored>
+      </frame_char>
+
+			<number_attribute name="strength" source="attributes.strength">
+				<rollable_attribute />
+				<stat>ST</stat>
+				<anchored position="insidetopleft" >
+					<top offset="35" />
+					<left anchor="center" offset="-170"/>
+				</anchored>
+				<tabtarget next="dexterity" />
+				<readonly />
+			</number_attribute>
+			<label_attribute>
+				<anchored to="strength" />
+				<static>ST</static>
+			</label_attribute>
+
+			<number_attribute name="dexterity" source="attributes.dexterity">
+				<rollable_attribute />
+				<stat>DX</stat>
+        <anchored position="insidetopleft" >
+          <top offset="35" />
+          <left anchor="center" offset="-110"/>
+				</anchored>
+				<tabtarget prev="strength" next="intelligence" />
+				<readonly />
+			</number_attribute>
+			<label_attribute>
+				<anchored to="dexterity" />
+				<static>DX</static>
+			</label_attribute>
+
+			<number_attribute name="intelligence" source="attributes.intelligence">
+				<rollable_attribute />
+				<stat>IQ</stat>
+        <anchored position="insidetopleft" >
+          <top offset="35" />
+          <left anchor="center" offset="-50"/>
+				</anchored>
+				<tabtarget prev="dexterity" next="health" />
+				<readonly />
+			</number_attribute>
+			<label_attribute>
+				<anchored to="intelligence" />
+				<static>IQ</static>
+			</label_attribute>
+
+			<number_attribute name="health"	source="attributes.health">
+				<rollable_attribute />
+				<stat>HT</stat>
+        <anchored position="insidetopleft" >
+          <top offset="35" />
+          <left anchor="center" offset="10"/>
+				</anchored>
+				<tabtarget prev="intelligence" next="will" />
+				<readonly />
+			</number_attribute>
+			<label_attribute>
+				<anchored to="health" />
+				<static>HT</static>
+			</label_attribute>
+
+			<number_attribute name="will" source="attributes.will">
+				<rollable_attribute />
+				<stat>WILL</stat>
+        <anchored position="insidetopleft" >
+          <top offset="35" />
+          <left anchor="center" offset="70"/>
+				</anchored>
+				<tabtarget prev="intelligence" next="perception" />
+				<readonly />
+			</number_attribute>
+			<label_attribute>
+				<anchored to="will" />
+				<static>WILL</static>
+			</label_attribute>
+
+			<number_attribute name="perception" source="attributes.perception">
+				<rollable_attribute />
+				<stat>PER</stat>
+        <anchored position="insidetopleft" >
+          <top offset="35" />
+          <left anchor="center" offset="130"/>
+				</anchored>
+				<tabtarget prev="will" />
+				<readonly />
+			</number_attribute>
+			<label_attribute>
+				<anchored to="perception" />
+				<static>PER</static>
+			</label_attribute>
+
+      <label_charframetop name="header">
+        <anchored to="contentanchor" height="20">
+          <top relation="relative" offset="70" postoffset="2" />
+          <left offset="10" />
+          <right offset="-10" />
+        </anchored>
+        <static textres="char_label_skills" />
+      </label_charframetop>
+
+      <button_iadd name="list_iadd">
+        <anchored to="header" position="insidetopright" offset="5,0" />
+        <target>list</target>
+      </button_iadd>
+
+      <list_content_labeled_alternating name="list">
+        <anchored>
+          <left offset="15" />
+          <right offset="-15" />
+          <bottom offset="-10" />
+        </anchored>
+        <datasource>.abilities.skilllist</datasource>
+        <class>char_skill</class>
+        <sortby><control>name</control></sortby>
+        <newfocus>name</newfocus>
+      </list_content_labeled_alternating>
+      <scrollbar_list />
+
+      <anchor_list_content_label_left />
+      <anchor_list_content_label_right />
+      <spacer_list_content_idelete_label_left name="idelete_header" />
+      <spacer_list_content_button_label_left name="spacer_shortcut" />
+
+      <label_list_content_number_right name="label_points">
+        <anchored width="25" />
+        <static textres="char_label_points" />
+      </label_list_content_number_right>
+
+      <label_list_content_number_right name="label_relative_level">
+        <anchored width="40" />
+        <static textres="char_label_relativelevel" />
+      </label_list_content_number_right>
+
+      <label_list_content_number_right name="label_type">
+        <anchored width="40" />
+        <static textres="char_label_type" />
+      </label_list_content_number_right>
+
+      <spacer_list_content_button_label_right name="spacer_roll" />
+
+      <label_list_content_number_right name="label_level">
+        <anchored width="25" />
+        <static textres="char_label_level" />
+      </label_list_content_number_right>
+
+      <spacer_list_content_button_label_right name="spacer_modifier" />
+
+      <label_list_content_noframe name="label_name">
+        <static textres="char_label_name" />
+      </label_list_content_noframe>
+
+    </sheetdata>
+	</windowclass>
+
+	<windowclass name="char_skill">
+		<margins control="0,0,0,2" />
+		<script>
+      function onInit()
+	      setModifiersVisible();
+        self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
+      end
+      function onLockModeChanged(bReadOnly)
+        WindowManager.callSafeControlsSetLockMode(self, { "name", "points", "idelete" }, bReadOnly);
+      end
+      function setModifiersVisible()
+				local v = (activatemodifiers.getValue() == 1);
+      end
+    </script>
+		<sheetdata>
+      <anchor_listitem_left_sm />
+      <anchor_listitem_right_sm />
+
+      <button_listitem_idelete_left name="idelete" />
+
+      <linkc_listitem_left name="shortcut">
+        <class>ability_skill</class>
+      </linkc_listitem_left>
+
+      <number_listitem_right name="points">
+        <anchored width="25" />
+        <frame mergerule="replace" name="fielddark" offset="5,5,5,5" hidereadonly="true" />
+        <color>#808080</color>
+        <nodrag />
+      </number_listitem_right>
+
+      <string_listitem_right_noframe_static name="relativelevel">
+        <anchored width="40" />
+        <center />
+        <nodrag />
+      </string_listitem_right_noframe_static>
+
+      <string_listitem_right_noframe_static name="type">
+        <anchored width="40" />
+        <center />
+        <nodrag />
+      </string_listitem_right_noframe_static>
+
+      <button_listitem_right name="roll_button">
+        <rollable_button_skill />
+        <icon normal="button_roll" pressed="button_roll_down" />
+        <tooltip textres="char_tooltip_skill" />
+      </button_listitem_right>
+
+      <number_listitem_right_noframe_static name="level">
+        <anchored width="25" />
+        <nodrag />
+      </number_listitem_right_noframe_static>
+
+      <button_listitem_right name="activatemodifiers">
+        <script>
+          function onValueChanged()
+          	window.setModifiersVisible();
+          end
+        </script>
+        <state icon="modifiers" tooltipres="char_tooltip_skillmodifiers" />
+        <state icon="modifiers_down" />
+      </button_listitem_right>
+
+      <string_listitem_center name="name">
+        <delaykeyupdate />
+      </string_listitem_center>
+			
+			
+			<!-- SKILL MODIFIERS SECTION --><!-- 			
+			<icon_detailsection name="modifiersicon">
+				<icon>modifiers_down</icon>
+			</icon_detailsection>
+
+			<label_columntop name="modifiers_label">
+				<anchored to="modifiersicon">
+					<top />
+					<left anchor="right" offset="10" />
+					<right parent="bottomanchor" anchor="left" offset="-10" />
+				</anchored>
+				<static textres="char_label_modifier" />
+			</label_columntop>
+
+			<list_charmodifier name="modifierslist">
+				<anchored to="modifiers_label">
+					<top anchor="bottom" relation="relative" />
+					<left parent="modifiersicon" anchor="right" offset="10" />
+					<right parent="bottomanchor" anchor="left" offset="-10" />
+				</anchored>
+				<class>basic_modifier</class>
+				<noscroll />
+			</list_charmodifier>
+ 
+  			<button_iedit name="modifierslist_iedit">
+				<anchored to="modifierslist" position="belowright" offset="5,2" />
+				<target>modifierslist</target>
+			</button_iedit>
+			<button_iadd name="modifierslist_iadd">
+				<anchored to="modifierslist_iedit" position="lefthigh" offset="5,0" />
+				<target>modifierslist</target>
+				<invisible />
+			</button_iadd>
+
+			<frame_detailsub name="frame_modifiers">
+				<anchored to="bottomanchor">
+					<top anchor="bottom" relation="relative" offset="5" />
+					<right parent="modifierslist" anchor="right" offset="10" />
+					<left parent="modifierslist" anchor="left" offset="-10" />
+					<bottom parent="modifierslist_iedit" />
+				</anchored>
+			</frame_detailsub>-->
+			
+		</sheetdata>
+	</windowclass>
+</root>

@@ -18,9 +18,28 @@
       <scrollbar_content />
     </sheetdata>
   </windowclass>
-
   
   <windowclass name="charsheet_traits_contents">
+    <script>
+      function onInit()
+        self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
+      end
+      function onLockModeChanged(bReadOnly)
+	      updateVisibility(bReadOnly);
+      end      
+      function updateVisibility(bReadOnly)
+	      local node = getDatabaseNode();
+	      if not node then
+		      return;
+	      end
+
+	      advantages.setVisible(not bReadOnly or CharManager.hasAdvantages(node));
+	      perks.setVisible(not bReadOnly or CharManager.hasPerks(node));
+	      disadvantages.setVisible(not bReadOnly or CharManager.hasDisadvantages(node));
+	      quirks.setVisible(not bReadOnly or CharManager.hasQuirks(node));
+        features.setVisible(not bReadOnly or CharManager.hasFeatures(node));
+      end
+    </script>
     <sheetdata>
       <anchor_content_top />
 
@@ -42,7 +61,6 @@
     </sheetdata>
   </windowclass>
 
-  
   <windowclass name="charsheet_traits_list">
     <margins control="0,0,0,2" />
     <script>
@@ -203,7 +221,6 @@
       <string_listitem_center name="name">
         <delaykeyupdate />
       </string_listitem_center>
-
     
   </sheetdata>
   </windowclass>
@@ -218,7 +235,6 @@
       <number_listitem_right name="points">
         <min>0</min>
       </number_listitem_right>
-
     
   </sheetdata>
   </windowclass>
@@ -237,6 +253,14 @@
     </sheetdata>
   </windowclass>
 
-  <windowclass name="char_trait_feature"  copy="charsheet_trait_item" />
+  <windowclass name="char_trait_feature"  copy="charsheet_trait_item">
+    <sheetdata>
+
+      <linkc_listitem_left name="shortcut">
+        <class>trait_feature</class>
+      </linkc_listitem_left>
+
+    </sheetdata>
+  </windowclass>
 
 </root>

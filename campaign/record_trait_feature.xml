@@ -6,12 +6,12 @@
 -->
 
 <root>
-  <windowclass name="trait_advantage" copy="record_window" />
-  <windowclass name="trait_advantage_header" copy="record_header" />
+  <windowclass name="trait_feature" copy="record_window" />
+  <windowclass name="trait_feature_header" copy="record_header" />
 
-  <windowclass name="trait_advantage_main">
+  <windowclass name="trait_feature_main">
     <margins control="0,0,0,2" />
-    <script file="campaign/scripts/trait_advantage_main.lua" />
+    <script file="campaign/scripts/trait_feature_main.lua" />
     <sheetdata>
       <anchor_column name="columnanchor" />
 

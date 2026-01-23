@@ -57,10 +57,10 @@
   <includefile source="campaign/record_char_sub_reactionmodifiers.xml" />
   <includefile source="campaign/record_char_sub_resources.xml" />
 
-  <includefile source="campaign/record_char_skills.xml" />
-	<includefile source="campaign/record_char_spells.xml" />
-	<includefile source="campaign/record_char_powers.xml" />
-	<includefile source="campaign/record_char_other.xml" />
+  <includefile source="campaign/record_char_sub_ability_skills.xml" />
+	<includefile source="campaign/record_char_sub_ability_spells.xml" />
+	<includefile source="campaign/record_char_sub_ability_powers.xml" />
+	<includefile source="campaign/record_char_sub_ability_other.xml" />
 
 	<includefile source="campaign/record_char_meleecombat.xml" />
 	<includefile source="campaign/record_char_rangedcombat.xml" />
@@ -91,6 +91,7 @@
   <includefile source="campaign/record_trait_disadvantage.xml" />
   <includefile source="campaign/record_trait_perk.xml" />
   <includefile source="campaign/record_trait_quirk.xml" />
+  <includefile source="campaign/record_trait_feature.xml" />
 
   <!-- Desktop -->
 	<includefile source="desktop/desktop_classes.xml" />

@@ -10,14 +10,22 @@ end
 function onTabletopInit()
 	if Session.IsHost then
 --		DB.addHandler(DB.getPath("charsheet.*.traits.adslist.*.*"), "onUpdate", self.onAdvantageUpdated);
+--		DB.addHandler(DB.getPath("charsheet.*.traits.perkslist.*.*"), "onUpdate", self.onPerkUpdated);
 --		DB.addHandler(DB.getPath("charsheet.*.traits.disadslist.*.*"), "onUpdate", self.onDisadvantageUpdated);
+--		DB.addHandler(DB.getPath("charsheet.*.traits.quirkslist.*.*"), "onUpdate", self.onQuirkUpdated);
 	end
 end
 
 function onAdvantageUpdated(nodeField)
 end
 
+function onPerkUpdated(nodeField)
+end
+
 function onDisadvantageUpdated(nodeField)
+end
+
+function onQuirkUpdated(nodeField)
 end
 
 function addTrait(nodeChar, nodeTrait)
@@ -29,8 +37,9 @@ function addTrait(nodeChar, nodeTrait)
 	local bDisadvantage = LibraryDataGURPS4e.isDisadvantage(nodeTrait);
 	local bPerk = LibraryDataGURPS4e.isPerk(nodeTrait);
 	local bQuirk = LibraryDataGURPS4e.isQuirk(nodeTrait);
+	local bFeature = LibraryDataGURPS4e.isFeature(nodeTrait);
 
-	if not (bAdvantage or bDisadvantage or bPerk or bQuirk) then
+	if not (bAdvantage or bDisadvantage or bPerk or bQuirk or bFeature) then
 		return false;
 	end
 
@@ -56,37 +65,35 @@ function addTrait(nodeChar, nodeTrait)
 		return true;
 	end
 
-	if (bAdvantage or bPerk) and ActorManager.isPC(nodeChar) then
-		local nodeAdvantageList = DB.getChild(nodeChar, "traits.adslist");
-		if not nodeAdvantageList then
-			nodeAdvantageList = DB.createChild(nodeChar, "traits.adslist");
+	if ActorManager.isPC(nodeChar) then
+		local traitList = "";
+		if bAdvantage then
+			traitList = "traits.adslist";
+		elseif bPerk then
+			traitList = "traits.perkslist";
+		elseif bDisadvantage then
+			traitList = "traits.disadslist";
+		elseif bQuirk then
+			traitList = "traits.quirkslist";
+		elseif bFeature then
+			traitList = "traits.featureslist";
+		else
+			return false;
 		end
 
-		local nodeAdvantage = DB.createChild(nodeAdvantageList);
-		DB.setValue(nodeAdvantage, "type", "string", DB.getValue(nodeTrait,"type",""));  
-		DB.setValue(nodeAdvantage, "subtype", "string", DB.getValue(nodeTrait,"subtype",""));  
-		DB.setValue(nodeAdvantage, "name", "string", DB.getValue(nodeTrait,"name",""));  
-		DB.setValue(nodeAdvantage, "points", "number", DB.getValue(nodeTrait,"points",0));
-		DB.setValue(nodeAdvantage, "page", "string", DB.getValue(nodeTrait, "page", ""));
-		DB.setValue(nodeAdvantage, "text", "formattedtext", DB.getValue(nodeTrait,"text",""));
-
-		return true;
-	end
-
-	if (bDisadvantage or bQuirk) and ActorManager.isPC(nodeChar) then
-		local nodeDisadvantageList = DB.getChild(nodeChar, "traits.disadslist")
-		if not nodeDisadvantageList then
-			nodeDisadvantageList = DB.createChild(nodeChar, "traits.disadslist");
+		local nodeTraitList = DB.getChild(nodeChar, traitList);
+		if not nodeTraitList then
+			nodeTraitList = DB.createChild(nodeChar, traitList);
 		end
 
-		local nodeDisadvantage = DB.createChild(nodeDisadvantageList);
-		DB.setValue(nodeDisadvantage, "type", "string", DB.getValue(nodeTrait,"type",""));  
-		DB.setValue(nodeDisadvantage, "subtype", "string", DB.getValue(nodeTrait,"subtype",""));  
-		DB.setValue(nodeDisadvantage, "name", "string", DB.getValue(nodeTrait,"name",""));  
-		DB.setValue(nodeDisadvantage, "points", "number", DB.getValue(nodeTrait,"points",0));
-		DB.setValue(nodeDisadvantage, "page", "string", DB.getValue(nodeTrait, "page", ""));
-		DB.setValue(nodeDisadvantage, "text", "formattedtext", DB.getValue(nodeTrait,"text",""));
-		
+		local nodeNewTrait = DB.createChild(nodeTraitList);
+		DB.setValue(nodeNewTrait, "type", "string", DB.getValue(nodeTrait,"type",""));  
+		DB.setValue(nodeNewTrait, "subtype", "string", DB.getValue(nodeTrait,"subtype",""));  
+		DB.setValue(nodeNewTrait, "name", "string", DB.getValue(nodeTrait,"name",""));  
+		DB.setValue(nodeNewTrait, "points", "number", DB.getValue(nodeTrait,"points",0));
+		DB.setValue(nodeNewTrait, "page", "string", DB.getValue(nodeTrait, "page", ""));
+		DB.setValue(nodeNewTrait, "text", "formattedtext", DB.getValue(nodeTrait,"text",""));
+
 		return true;
 	end
 

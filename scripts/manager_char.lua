@@ -40,6 +40,26 @@ function onTabletopInit()
 	end
 end
 
+function hasAdvantages(nodeChar)
+	return DB.getChildCount(nodeChar, "traits.adslist") > 0
+end
+
+function hasPerks(nodeChar)
+	return DB.getChildCount(nodeChar, "traits.perkslist") > 0
+end
+
+function hasDisadvantages(nodeChar)
+	return DB.getChildCount(nodeChar, "traits.disadslist") > 0
+end
+
+function hasQuirks(nodeChar)
+	return DB.getChildCount(nodeChar, "traits.quirkslist") > 0
+end
+
+function hasFeatures(nodeChar)
+	return DB.getChildCount(nodeChar, "traits.featureslist") > 0
+end
+
 function onCharItemAdd(nodeItem)
 	CharCombatManager.addItem(nodeItem);
 end

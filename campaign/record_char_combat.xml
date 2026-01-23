@@ -182,7 +182,10 @@
         <class>charsheet_defenses</class>
 			</subwindow>
 
-			<tabs_charcombat>
+      <tabs_char_h>
+        <anchored position="insidetopleft">
+          <top offset="100" />
+        </anchored>
 				<tab>
           <tabres>tab_meleecombat</tabres>
 					<subwindow>meleecombat</subwindow>
@@ -196,7 +199,7 @@
 					<subwindow>defenses</subwindow>
 				</tab>
 				<activate>1</activate>
-			</tabs_charcombat>
+			</tabs_char_h>
 		</sheetdata>
 	</windowclass>
 </root>

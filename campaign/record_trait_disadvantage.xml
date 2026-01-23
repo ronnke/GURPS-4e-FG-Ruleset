@@ -6,12 +6,7 @@
 -->
 
 <root>
-  <windowclass name="trait_disadvantage" copy="record_window">
-    <windowmenu>
-      <showlock />
-      <right>chat_output</right>
-    </windowmenu>
-  </windowclass>
+  <windowclass name="trait_disadvantage" copy="record_window" />
   <windowclass name="trait_disadvantage_header" copy="record_header" />
 
   <windowclass name="trait_disadvantage_main">

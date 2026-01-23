@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="charsheet_sub_ability_powers">
+    <script>
+      function onInit()
+        self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
+      end
+      function onLockModeChanged(bReadOnly)
+        WindowManager.callSafeControlsSetLockMode(self, { "list_iadd", }, bReadOnly);
+      end
+      function onDrop(x, y, draginfo)
+				if draginfo.isType("shortcut") and LibraryDataGURPS4e.isPower(draginfo.getDatabaseNode()) then
+					return CharManager.addAbility(getDatabaseNode(), draginfo.getDatabaseNode());
+				end
+      end
+    </script>
+		<sheetdata>
+      <anchor_content_top />
+      <anchor_content_bottom />
+
+      <frame_char name="frame">
+        <anchored position="insidetopleft">
+          <right />
+          <bottom />
+        </anchored>
+      </frame_char>
+
+      <label_charframetop name="header">
+        <anchored to="contentanchor" height="20">
+          <top relation="relative" offset="25" postoffset="2" />
+          <left offset="10" />
+          <right offset="-10" />
+        </anchored>
+        <static textres="char_label_powers" />
+      </label_charframetop>
+
+      <button_iadd name="list_iadd">
+        <anchored to="header" position="insidetopright" offset="5,0" />
+        <target>list</target>
+      </button_iadd>
+
+      <list_content_labeled_alternating name="list">
+        <anchored>
+          <left offset="15" />
+          <right offset="-15" />
+          <bottom offset="-10" />
+        </anchored>
+        <datasource>.abilities.powerlist</datasource>
+        <class>char_power</class>
+        <sortby><control>name</control></sortby>
+        <newfocus>name</newfocus>
+      </list_content_labeled_alternating>
+      <scrollbar_list />
+
+      <anchor_list_content_label_left />
+      <anchor_list_content_label_right />
+      <spacer_list_content_idelete_label_left name="idelete_header" />
+      <spacer_list_content_button_label_left name="spacer_shortcut" />
+
+      <label_list_content_number_right name="label_points">
+        <anchored width="25" />
+        <static textres="char_label_points" />
+      </label_list_content_number_right>
+
+      <spacer_list_content_button_label_right name="spacer_roll" />
+
+      <label_list_content_number_right name="label_level">
+        <anchored width="25" />
+        <static textres="char_label_level" />
+      </label_list_content_number_right>
+
+      <spacer_list_content_button_label_right name="spacer_modifier" />
+
+      <label_list_content_noframe name="label_name">
+        <static textres="char_label_name" />
+      </label_list_content_noframe>
+
+    </sheetdata>
+	</windowclass>
+
+	<windowclass name="char_power">
+		<margins control="0,0,0,2" />
+		<script>
+      function onInit()
+				setModifiersVisible();
+        self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
+      end
+      function onLockModeChanged(bReadOnly)
+        WindowManager.callSafeControlsSetLockMode(self, { "name", "points", "idelete" }, bReadOnly);
+      end
+      function setModifiersVisible()
+				local v = (activatemodifiers.getValue() == 1);
+
+--				modifiersicon.setVisible(v);
+--				modifiers_label.setVisible(v);
+--				modifierslist.setVisible(v);
+--				modifierslist_iedit.setVisible(v);
+--				modifierslist_iadd.setVisible(v)
+--				frame_modifiers.setVisible(v);
+      end
+    </script>
+		<sheetdata>
+      <anchor_listitem_left_sm />
+      <anchor_listitem_right_sm />
+
+      <button_listitem_idelete_left name="idelete" />
+
+      <linkc_listitem_left name="shortcut">
+        <class>ability_power</class>
+      </linkc_listitem_left>
+
+      <number_listitem_right name="points">
+        <anchored width="25" />
+        <frame mergerule="replace" name="fielddark" offset="5,5,5,5" hidereadonly="true" />
+        <color>#808080</color>
+        <nodrag />
+      </number_listitem_right>
+
+      <button_listitem_right name="roll_button">
+        <rollable_button_other />
+        <icon normal="button_roll" pressed="button_roll_down" />
+        <tooltip textres="char_tooltip_power" />
+      </button_listitem_right>
+
+      <number_listitem_right_noframe_static name="level">
+        <anchored width="25" />
+        <nodrag />
+      </number_listitem_right_noframe_static>
+
+      <button_listitem_right name="activatemodifiers">
+        <script>
+          function onValueChanged()
+            window.setModifiersVisible();
+          end
+        </script>
+        <state icon="modifiers" tooltipres="char_tooltip_skillmodifiers" />
+        <state icon="modifiers_down" />
+      </button_listitem_right>
+			
+      <string_listitem_center name="name">
+        <delaykeyupdate />
+      </string_listitem_center>
+
+      <!-- POWER MODIFIERS SECTION --> 			
+			<icon_detailsection name="modifiersicon">
+				<icon>modifiers_down</icon>
+			</icon_detailsection>
+
+			<label_columntop name="modifiers_label">
+				<anchored to="modifiersicon">
+					<top />
+					<left anchor="right" offset="10" />
+					<right parent="bottomanchor" anchor="left" offset="-10" />
+				</anchored>
+				<static textres="char_label_modifier" />
+			</label_columntop>
+
+			<list_charmodifier name="modifierslist">
+				<anchored to="modifiers_label">
+					<top anchor="bottom" relation="relative" />
+					<left parent="modifiersicon" anchor="right" offset="10" />
+					<right parent="bottomanchor" anchor="left" offset="-10" />
+				</anchored>
+				<class>basic_modifier</class>
+				<noscroll />
+			</list_charmodifier>
+ 
+  			<button_iedit name="modifierslist_iedit">
+				<anchored to="modifierslist" position="belowright" offset="5,2" />
+				<target>modifierslist</target>
+			</button_iedit>
+			<button_iadd name="modifierslist_iadd">
+				<anchored to="modifierslist_iedit" position="lefthigh" offset="5,0" />
+				<target>modifierslist</target>
+				<invisible />
+			</button_iadd>
+
+			<frame_detailsub name="frame_modifiers">
+				<anchored to="bottomanchor">
+					<top anchor="bottom" relation="relative" offset="5" />
+					<right parent="modifierslist" anchor="right" offset="10" />
+					<left parent="modifierslist" anchor="left" offset="-10" />
+					<bottom parent="modifierslist_iedit" />
+				</anchored>
+			</frame_detailsub>
+			
+		</sheetdata>
+	</windowclass>
+</root>

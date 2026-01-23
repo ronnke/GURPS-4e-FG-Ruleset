@@ -328,6 +328,26 @@ function isQuirk(vRecord)
   return false;
 end
 
+function isFeature(vRecord)
+  local nodeItem;
+  if type(vRecord) == "string" then
+    nodeItem = DB.findNode(vRecord);
+  elseif type(vRecord) == "databasenode" then
+    nodeItem = vRecord;
+  end
+  if not nodeItem then
+    return false, "", "";
+  end
+  
+  local sTypeLower = StringManager.trim(DB.getValue(nodeItem, "type", "")):lower();
+
+  if sTypeLower == "feature" then    
+    return true;
+  end
+  
+  return false;
+end
+
 aRecordOverrides = {
 -- Core Overrides
 	["charsheet"] = {
@@ -392,8 +412,8 @@ aRecordOverrides = {
 	},
 	["trait"] = {
 		aDataMap = { "trait", "reference.traits", "reference.trait", "reference.traitdata" }, 
-	    aGMListButtons = { "button_trait_advantage", "button_trait_disadvantage", "button_trait_perk", "button_trait_quirk" };
-	    aPlayerListButtons = { "button_trait_advantage", "button_trait_disadvantage", "button_trait_perk", "button_trait_quirk" };
+	    aGMListButtons = { "button_trait_advantage", "button_trait_disadvantage", "button_trait_perk", "button_trait_quirk", "button_trait_feature" };
+	    aPlayerListButtons = { "button_trait_advantage", "button_trait_disadvantage", "button_trait_perk", "button_trait_quirk", "button_trait_feature" };
         sSidebarCategory = "create",
 		tOptions = {
 			bExport = true,
@@ -402,6 +422,30 @@ aRecordOverrides = {
 		    ["Type"] = { sField = "type" },
 		    ["Sub Type"] = { sField = "subtype" },
 	    },
+		aCustom = {
+			tWindowMenu = { ["right"] = { "chat_output" } },
+		},
+	},
+    ["trait_advantage"] = {
+        tOptions = {
+            bNoShare = true,
+        },
+		aCustom = {
+			tWindowMenu = { ["right"] = { "chat_output" } },
+		},
+	}, 
+    ["trait_disadvantage"] = {
+        tOptions = {
+            bNoShare = true,
+        },
+		aCustom = {
+			tWindowMenu = { ["right"] = { "chat_output" } },
+		},
+	},
+    ["trait_feature"] = {
+        tOptions = {
+            bNoShare = true,
+        },
 		aCustom = {
 			tWindowMenu = { ["right"] = { "chat_output" } },
 		},
@@ -553,6 +597,20 @@ aListViews = {
             },
             aFilters = { 
                 { sDBField = "type", vFilterValue = "Quirk" }, 
+            },
+            aGroups = { 
+                { sDBField = "subtype" } 
+            },
+            aGroupValueOrder = {},
+        },
+        ["feature"] = {
+            aColumns = {
+                { sName = "name", sType = "string", sHeadingRes = "trait_grouped_label_name", nWidth=160 },
+                { sName = "points", sType = "number", sHeadingRes = "trait_grouped_label_points", nWidth=80, bCentered=true },
+                { sName = "page", sType = "string", sHeadingRes = "trait_grouped_label_page", nWidth=60, bCentered=true },
+            },
+            aFilters = { 
+                { sDBField = "type", vFilterValue = "Feature" }, 
             },
             aGroups = { 
                 { sDBField = "subtype" } 

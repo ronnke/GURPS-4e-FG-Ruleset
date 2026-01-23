@@ -92,6 +92,7 @@ aTraitTypeData = {
 	"Perk",
 	"Disadvantage",
 	"Quirk",
+	"Feature",
 };
 
 -- Item drop down list data

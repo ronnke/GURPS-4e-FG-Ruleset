@@ -88,6 +88,14 @@
     </button_masterindex_option_view>
   </template>
 
+  <template name="button_trait_feature">
+    <button_masterindex_option_view>
+      <recordtype>trait</recordtype>
+      <recordview>feature</recordview>
+      <recordpath>reference.feature</recordpath>
+    </button_masterindex_option_view>
+  </template>
+  
   <template name="button_item_bytype">
     <button_masterindex_option_view>
       <recordtype>item</recordtype>

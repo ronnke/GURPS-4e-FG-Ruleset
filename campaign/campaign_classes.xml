@@ -7,9 +7,69 @@
 
 <root>
 
+  	<windowclass name="charsheet_modifiers">
+    <script>
+      function onInit()
+        self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
+      end
+      function onLockModeChanged(bReadOnly)
+        WindowManager.callSafeControlsSetLockMode(self, { "list_iadd", }, bReadOnly);
+      end
+    </script>		
+		<sheetdata>
+      <anchor_content_top />
+      <anchor_content_bottom />
+
+      <frame_char name="frame">
+        <anchored position="insidetopleft">
+          <right />
+          <bottom />
+        </anchored>
+      </frame_char>
+
+      <icon_detailsection name="modifiersicon">
+        <icon>modifiers_down</icon>
+      </icon_detailsection>
+      
+      <label_charframetop name="header">
+        <anchored to="contentanchor" height="20">
+          <top relation="relative" offset="25" postoffset="2" />
+          <left offset="10" />
+          <right offset="-10" />
+        </anchored>
+        <static textres="char_label_modifiers" />
+      </label_charframetop>
+
+      <button_iadd name="list_iadd">
+        <anchored to="header" position="insidetopright" offset="5,0" />
+        <target>list</target>
+      </button_iadd>
+
+      <list_content_labeled_alternating name="list">
+        <anchored>
+          <left offset="15" />
+          <right offset="-15" />
+          <bottom offset="-10" />
+        </anchored>
+        <datasource>.modifierlist</datasource>
+        <class>basic_modifier</class>
+        <sortby><control>name</control></sortby>
+        <newfocus>name</newfocus>
+      </list_content_labeled_alternating>
+      <scrollbar_list />
+
+    </sheetdata>
+	</windowclass>
+
 	<windowclass name="basic_modifier">
 		<margins control="0,0,0,2" />
 		<script>
+      function onInit()
+        self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
+      end
+      function onLockModeChanged(bReadOnly)
+        WindowManager.callSafeControlsSetLockMode(self, { "name", "modifier", "idelete" }, bReadOnly);
+      end
 			function actionDrag(draginfo)
 				if not name.isEmpty() then
 					draginfo.setType("number");
@@ -19,74 +79,43 @@
 				end
 				return true;
 			end
-			
 			function action()
 				ModifierStack.addSlot(name.getValue(), modifier.getValue());
 				return true;
 			end
-
 			function onDrop(x, y, draginfo)
 				return windowlist.onDrop(x, y, draginfo);
-			end
+			end			
 		</script>
 		<sheetdata>
-			<genericcontrol name="rightanchor">
-				<anchored height="0" width="0">
-					<top />
-					<right />
-				</anchored>
-			</genericcontrol>
-			<button_idelete name="idelete">
-				<anchored>
-					<top offset="2" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
-				</anchored>
-				<invisible merge="delete" />
-			</button_idelete>
+      <anchor_listitem_left_sm />
+      <anchor_listitem_right_sm />
 
-			<button_modifier>
-				<anchored>
-					<top offset="2" />
-					<left offset="5" />
-				</anchored>
-				<script>
-					function onDragStart(button, x, y, draginfo)
+      <button_listitem_idelete_left name="idelete" />
+
+      <button_listitem_right name="modifier_button">
+		    <script>
+          function onDragStart(button, x, y, draginfo)
 						return window.actionDrag(draginfo);
 					end
 
 					function onButtonPress(x, y)
 						return window.action();
 					end
-				</script>
-			</button_modifier>
+		    </script>
+        <anchored width="20" height="20" />
+        <icon normal="button_action_modifier" pressed="button_action_modifier_down" />
+			</button_listitem_right>
 
-			<number_charmodfield name="modifier">
-				<anchored to="rightanchor" width="30" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<script>
-					function onDragStart(button, x, y, draginfo)
-						return actionDrag(draginfo, window.name.getValue());
-					end
-
-					function onDoubleClick(x, y)
-						return action(window.name.getValue());
-					end
-				</script>
-				<tabtarget prev="name" />
-			</number_charmodfield>
-			<string_textlistitem name="name">
-				<anchored height="20">
-					<top offset="2" />
-					<left offset="30" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<nodrag />
-				<tabtarget next="modifier" />
-			</string_textlistitem>
-			
-		</sheetdata>
+      <number_listitem_right name="modifier">
+        <anchored width="30" />
+        <frame mergerule="replace" name="fielddark" offset="5,5,5,5" hidereadonly="true" />
+        <displaysign />
+			</number_listitem_right>
+      
+      <string_listitem_center name="name" />
+		
+	  </sheetdata>
 	</windowclass>
 	
 </root>

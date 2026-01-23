@@ -175,7 +175,8 @@
 
 	<string name="char_label_weapon">Weapon</string>
 	<string name="char_label_st">ST</string>
-	<string name="char_label_weight">Weight</string>
+  <string name="char_label_weight">Weight</string>
+  <string name="char_label_move">Move</string>
 	<string name="char_label_cost">Cost</string>
 	<string name="char_label_ammo">Ammo</string>
 	<string name="char_label_tl">TL</string>
@@ -468,6 +469,7 @@
   <string name="library_recordview_label_trait_disadvantage">Disadvantages</string>
   <string name="library_recordview_label_trait_perk">Perks</string>
   <string name="library_recordview_label_trait_quirk">Quirks</string>
+  <string name="library_recordview_label_trait_feature">Features</string>
 
   <string name="trait_grouped_label_name">Name</string>
   <string name="trait_grouped_label_points">Points</string>
