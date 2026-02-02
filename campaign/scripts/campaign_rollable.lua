@@ -38,6 +38,7 @@ function isRollable()
      rollable_dodge or
      rollable_weaponparry or
      rollable_damage or 
+     rollable_halfdamage or 
      rollable_reaction or 
      rollable_thrust or 
      rollable_swing or 
@@ -63,6 +64,7 @@ function isRollableButton()
      rollable_button_dodge or
      rollable_button_weaponparry or
      rollable_button_damage or
+     rollable_button_halfdamage or
      rollable_button_reaction or
      rollable_button_thrust or 
      rollable_button_swing or 
@@ -144,12 +146,17 @@ function action(draginfo)
       sWeapon = DB.getValue(node.getChild("..."), "name", "");
       sMode = DB.getValue(node, "name", "");
       sTargetDesc = DB.getValue(node, "name", "");
-      nTarget = getValue();
+      nTarget = string.match(DB.getValue(node, "parry", "0"), "%d+") or "0";
       ActionDefense.performWeaponParryRoll(draginfo, rActor, sWeapon, sMode, sTargetDesc, nTarget);
     elseif rollable_damage or rollable_button_damage then
       sWeapon = DB.getValue(node.getChild("..."), "name", "");
       sMode = DB.getValue(node, "name", "");
-      sDamage = getValue();
+      sDamage = DB.getValue(node, "damage", "");
+      ActionDamage.performRoll(draginfo, rActor, sWeapon, sMode, sDamage);
+    elseif rollable_damage or rollable_button_halfdamage then
+      sWeapon = DB.getValue(node.getChild("..."), "name", "");
+      sMode = DB.getValue(node, "name", "");
+      sDamage = DB.getValue(node, "damage", "");
       ActionDamage.performRoll(draginfo, rActor, sWeapon, sMode, sDamage);
     elseif rollable_thrust or rollable_button_thrust then
       sDamage = DB.getValue(node.getChild("attributes"), "thrust", "");
@@ -166,7 +173,7 @@ function action(draginfo)
     end  
 end
 
-function onButtonPress(x, y)
+function onButtonPress()
   if isRollableButton() then
     action();
   end
@@ -174,7 +181,7 @@ function onButtonPress(x, y)
   return true;
 end
 
-function onDoubleClick(x, y)
+function onDoubleClick()
   if isRollable() then
     action();
   end

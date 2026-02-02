@@ -60,6 +60,34 @@ function hasFeatures(nodeChar)
 	return DB.getChildCount(nodeChar, "traits.featureslist") > 0
 end
 
+function hasSkills(nodeChar)
+	return DB.getChildCount(nodeChar, "abilities.skilllist") > 0
+end
+
+function hasSpells(nodeChar)
+	return DB.getChildCount(nodeChar, "abilities.spelllist") > 0
+end
+
+function hasPowers(nodeChar)
+	return DB.getChildCount(nodeChar, "abilities.powerlist") > 0
+end
+
+function hasOther(nodeChar)
+	return DB.getChildCount(nodeChar, "abilities.otherlist") > 0
+end
+
+function hasMeleeWeapons(nodeChar)
+	return DB.getChildCount(nodeChar, "combat.meleecombatlist") > 0
+end
+
+function hasRangedWeapons(nodeChar)
+	return DB.getChildCount(nodeChar, "combat.rangedcombatlist") > 0
+end
+
+function hasDefenses(nodeChar)
+	return DB.getChildCount(nodeChar, "combat.defenseslist") > 0
+end
+
 function onCharItemAdd(nodeItem)
 	CharCombatManager.addItem(nodeItem);
 end

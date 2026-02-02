@@ -26,9 +26,9 @@ function onRoll(rSource, rTarget, rRoll)
     local rMessage = ActionsManagerGURPS4e.createActionMessage(rSource, rRoll);
     local nTotal = ActionsManagerGURPS4e.total(rRoll);
 
-    local nTarget = tonumber((string.match(rRoll.nTarget, "%d+") or "0"));
-    local sExtra = (string.match(rRoll.nTarget, "[uUfF]") or "");
-  
+    local nTarget = tonumber(string.match(rRoll.nTarget, "%d+") or "0");
+    local sExtra = string.match(rRoll.nTarget, "[uUfF]") or "";
+
     rMessage.text = string.format("%s\n%s%s%s %s(%d%s)\n%s",
         (string.format("%s%s",(rTarget and string.format("%s, ",rTarget.sName) or ""), rMessage.text)),
         (rRoll.sWeapon or ""), 

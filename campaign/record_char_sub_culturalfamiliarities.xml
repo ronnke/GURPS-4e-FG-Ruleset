@@ -19,7 +19,6 @@
   <!-- Cultural Familiarities -->
 
   <windowclass name="charsheet_culturalfamiliarities_list">
-    <margins control="0,0,0,2" />
     <script>
       function onInit()
         self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
@@ -77,11 +76,13 @@
 
       <label_list_content_number_right name="label_points">
         <anchored width="25" />
-        <static textres="char_label_languages_points" />
+        <center />
+        <static textres="char_label_culturalfamiliarities_points" />
       </label_list_content_number_right>
 
       <label_list_content_noframe name="label_name">
-        <static textres="char_traits_label_name" />
+        <center />
+        <static textres="char_label_culturalfamiliarities_name" />
       </label_list_content_noframe>
 
     </sheetdata>
@@ -107,12 +108,14 @@
         <anchored width="25" />
         <frame mergerule="replace" name="fielddark" offset="5,5,5,5" hidereadonly="true" />
         <color>#808080</color>
-        <nodrag />
+        <tabtarget prev="name" />
       </number_listitem_right>
 
-      <string_listitem_center name="name" />
+      <string_listitem_center name="name">
+        <tabtarget next="points" />
+      </string_listitem_center>
 
-    </sheetdata>
+      </sheetdata>
   </windowclass>
 	
 </root>

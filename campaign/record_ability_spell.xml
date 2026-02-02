@@ -74,7 +74,7 @@
       <string_columnh name="duration" />
 
       <label_column name="costmaintain_label">
-        <static textres="char_label_costmaintain" />
+        <static textres="ability_spellcostmaintain_label" />
       </label_column>
       <string_columnh name="costmaintain" />
 

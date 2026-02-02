@@ -44,18 +44,33 @@
       <anchor_content_top />
 
       <sub_content_top name="advantages">
+        <anchored>
+          <top position="relative" postoffset="10" />
+        </anchored>
         <class>charsheet_traits_advantages</class>
       </sub_content_top>
       <sub_content_top name="perks">
+        <anchored>
+          <top position="relative" postoffset="10" />
+        </anchored>
         <class>charsheet_traits_perks</class>
       </sub_content_top>
       <sub_content_top name="disadvantages">
+        <anchored>
+          <top position="relative" postoffset="10" />
+        </anchored>
         <class>charsheet_traits_disadvantages</class>
       </sub_content_top>
       <sub_content_top name="quirks">
+        <anchored>
+          <top position="relative" postoffset="10" />
+        </anchored>
         <class>charsheet_traits_quirks</class>
       </sub_content_top>
       <sub_content_top name="features">
+        <anchored>
+          <top position="relative" postoffset="10" />
+        </anchored>
         <class>charsheet_traits_features</class>
       </sub_content_top>
     </sheetdata>
@@ -102,11 +117,13 @@
 
       <label_list_content_number_right name="label_points">
         <anchored width="40" />
-        <static textres="char_traits_label_points" />
+        <center />
+        <static textres="char_label_traits_points" />
       </label_list_content_number_right>
       
       <label_list_content_noframe name="label_name">
-        <static textres="char_traits_label_name" />
+        <center />
+        <static textres="char_label_traits_name" />
       </label_list_content_noframe>
 
     </sheetdata>
@@ -115,7 +132,7 @@
   <windowclass name="charsheet_traits_advantages" copy="charsheet_traits_list">
     <sheetdata>
       <label_charframetop name="header">
-        <static textres="char_traits_label_advantages" />
+        <static textres="char_label_traits_advantages" />
         <icons>char_traits_advantages</icons>
       </label_charframetop>
 
@@ -132,7 +149,7 @@
   <windowclass name="charsheet_traits_perks" copy="charsheet_traits_list">
     <sheetdata>
       <label_charframetop name="header">
-        <static textres="char_traits_label_perks" />
+        <static textres="char_label_traits_perks" />
         <icons>char_traits_perks</icons>
       </label_charframetop>
 
@@ -149,7 +166,7 @@
   <windowclass name="charsheet_traits_disadvantages" copy="charsheet_traits_list">
     <sheetdata>
       <label_charframetop name="header">
-        <static textres="char_traits_label_disadvantages" />
+        <static textres="char_label_traits_disadvantages" />
         <icons>char_traits_disadvantages</icons>
       </label_charframetop>
 
@@ -165,7 +182,7 @@
   <windowclass name="charsheet_traits_quirks" copy="charsheet_traits_list">
     <sheetdata>
       <label_charframetop name="header">
-        <static textres="char_traits_label_quirks" />
+        <static textres="char_label_traits_quirks" />
         <icons>char_traits_quirks</icons>
       </label_charframetop>
 
@@ -181,7 +198,7 @@
   <windowclass name="charsheet_traits_features" copy="charsheet_traits_list">
     <sheetdata>
       <label_charframetop name="header">
-        <static textres="char_traits_label_features" />
+        <static textres="char_label_traits_features" />
         <icons>char_traits_features</icons>
       </label_charframetop>
       

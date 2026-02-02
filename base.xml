@@ -62,9 +62,17 @@
 	<includefile source="campaign/record_char_sub_ability_powers.xml" />
 	<includefile source="campaign/record_char_sub_ability_other.xml" />
 
-	<includefile source="campaign/record_char_meleecombat.xml" />
+  <includefile source="campaign/record_char_sub_injuryandfatigue.xml" />
+  <includefile source="campaign/record_char_sub_defenses.xml" />
+  <includefile source="campaign/record_char_sub_combat.xml" />
+
+  <includefile source="campaign/record_char_meleecombat.xml" />
 	<includefile source="campaign/record_char_rangedcombat.xml" />
 	<includefile source="campaign/record_char_defenses.xml" />
+
+  <includefile source="campaign/record_char_sub_notes.xml" />
+  <includefile source="campaign/record_char_sub_summary.xml" />
+  <includefile source="campaign/record_char_sub_description.xml" />
 
   <includefile source="campaign/record_resource.xml" />
   <includefile source="campaign/record_charnote.xml" />

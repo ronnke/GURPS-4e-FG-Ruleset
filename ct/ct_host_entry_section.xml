@@ -1209,7 +1209,7 @@
 						return window.actionDrag(draginfo);
           end
 
-          function onButtonPress(x, y)
+          function onButtonPress()
 						return window.action();
           end
         </script>
@@ -1225,7 +1225,7 @@
 						return actionDrag(draginfo, window.name.getValue());
           end
 
-          function onDoubleClick(x, y)
+          function onDoubleClick()
 						return action(window.name.getValue());
           end
         </script>

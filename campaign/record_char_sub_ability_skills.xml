@@ -12,12 +12,12 @@
         self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
       end
       function onLockModeChanged(bReadOnly)
-        WindowManager.callSafeControlsSetLockMode(self, { "list_iadd", }, bReadOnly);
+        WindowManager.callSafeControlsSetLockMode(self, { "list_iadd" }, bReadOnly);
       end
       function onDrop(x, y, draginfo)
-				if draginfo.isType("shortcut") and LibraryDataGURPS4e.isSkill(draginfo.getDatabaseNode()) then
-					return CharManager.addAbility(getDatabaseNode(), draginfo.getDatabaseNode());
-				end
+        if draginfo.isType("shortcut") and LibraryDataGURPS4e.isSkill(draginfo.getDatabaseNode()) then
+          return CharManager.addAbility(getDatabaseNode(), draginfo.getDatabaseNode());
+        end
       end
     </script>
     <sheetdata>
@@ -127,7 +127,8 @@
           <left offset="10" />
           <right offset="-10" />
         </anchored>
-        <static textres="char_label_skills" />
+        <static textres="char_label_abilities_skills" />
+        <icons>char_abilities_skills</icons>
       </label_charframetop>
 
       <button_iadd name="list_iadd">
@@ -155,50 +156,52 @@
 
       <label_list_content_number_right name="label_points">
         <anchored width="25" />
-        <static textres="char_label_points" />
+        <center />
+        <static textres="char_label_abilities_points" />
       </label_list_content_number_right>
 
       <label_list_content_number_right name="label_relative_level">
-        <anchored width="40" />
-        <static textres="char_label_relativelevel" />
+        <anchored width="50" />
+        <center />
+        <static textres="char_label_abilities_relativelevel" />
       </label_list_content_number_right>
 
       <label_list_content_number_right name="label_type">
         <anchored width="40" />
-        <static textres="char_label_type" />
+        <center />
+        <static textres="char_label_abilities_type" />
       </label_list_content_number_right>
 
       <spacer_list_content_button_label_right name="spacer_roll" />
 
       <label_list_content_number_right name="label_level">
         <anchored width="25" />
-        <static textres="char_label_level" />
+        <center />
+        <static textres="char_label_abilities_level" />
       </label_list_content_number_right>
 
       <spacer_list_content_button_label_right name="spacer_modifier" />
 
       <label_list_content_noframe name="label_name">
-        <static textres="char_label_name" />
+        <center />
+        <static textres="char_label_abilities_name" />
       </label_list_content_noframe>
 
     </sheetdata>
 	</windowclass>
 
 	<windowclass name="char_skill">
-		<margins control="0,0,0,2" />
-		<script>
+    <margins control="0,0,0,2" />
+    <script>
       function onInit()
-	      setModifiersVisible();
         self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
       end
       function onLockModeChanged(bReadOnly)
         WindowManager.callSafeControlsSetLockMode(self, { "name", "points", "idelete" }, bReadOnly);
       end
-      function setModifiersVisible()
-				local v = (activatemodifiers.getValue() == 1);
-      end
     </script>
 		<sheetdata>
+      <anchor_content_top />
       <anchor_listitem_left_sm />
       <anchor_listitem_right_sm />
 
@@ -206,96 +209,62 @@
 
       <linkc_listitem_left name="shortcut">
         <class>ability_skill</class>
+        <tabtarget prev="points" />
       </linkc_listitem_left>
 
       <number_listitem_right name="points">
         <anchored width="25" />
         <frame mergerule="replace" name="fielddark" offset="5,5,5,5" hidereadonly="true" />
         <color>#808080</color>
-        <nodrag />
+        <tabtarget next="shortcut" prev="relativelevel" />
       </number_listitem_right>
 
       <string_listitem_right_noframe_static name="relativelevel">
-        <anchored width="40" />
+        <anchored width="50" />
         <center />
-        <nodrag />
+        <tabtarget next="points" prev="type" />
       </string_listitem_right_noframe_static>
 
       <string_listitem_right_noframe_static name="type">
         <anchored width="40" />
         <center />
-        <nodrag />
+        <tabtarget next="relativelevel" prev="button_roll" />
       </string_listitem_right_noframe_static>
 
-      <button_listitem_right name="roll_button">
+      <button_listitem_rollable_right name="button_roll">
         <rollable_button_skill />
-        <icon normal="button_roll" pressed="button_roll_down" />
         <tooltip textres="char_tooltip_skill" />
-      </button_listitem_right>
+        <tabtarget next="type" prev="level" />
+      </button_listitem_rollable_right>
 
       <number_listitem_right_noframe_static name="level">
         <anchored width="25" />
-        <nodrag />
+        <tabtarget next="button_roll" prev="imodifier" />
       </number_listitem_right_noframe_static>
 
-      <button_listitem_right name="activatemodifiers">
-        <script>
-          function onValueChanged()
-          	window.setModifiersVisible();
-          end
-        </script>
-        <state icon="modifiers" tooltipres="char_tooltip_skillmodifiers" />
-        <state icon="modifiers_down" />
-      </button_listitem_right>
+      <button_listitem_isection_right name="imodifier">
+        <state icon="modifiers" tooltipres="char_tooltip_modifiers" merge="resetandadd" />
+        <state icon="modifiers_down" merge="add" />
+        <target>modifiers</target>
+        <tabtarget next="level" prev="name" />
+      </button_listitem_isection_right>
 
       <string_listitem_center name="name">
         <delaykeyupdate />
+        <tabtarget next="imodifier" />
       </string_listitem_center>
-			
-			
-			<!-- SKILL MODIFIERS SECTION --><!-- 			
-			<icon_detailsection name="modifiersicon">
-				<icon>modifiers_down</icon>
-			</icon_detailsection>
 
-			<label_columntop name="modifiers_label">
-				<anchored to="modifiersicon">
-					<top />
-					<left anchor="right" offset="10" />
-					<right parent="bottomanchor" anchor="left" offset="-10" />
-				</anchored>
-				<static textres="char_label_modifier" />
-			</label_columntop>
+      <spacer_content_top name="spacer_section">
+        <anchored height="20" />
+      </spacer_content_top>
 
-			<list_charmodifier name="modifierslist">
-				<anchored to="modifiers_label">
-					<top anchor="bottom" relation="relative" />
-					<left parent="modifiersicon" anchor="right" offset="10" />
-					<right parent="bottomanchor" anchor="left" offset="-10" />
-				</anchored>
-				<class>basic_modifier</class>
-				<noscroll />
-			</list_charmodifier>
- 
-  			<button_iedit name="modifierslist_iedit">
-				<anchored to="modifierslist" position="belowright" offset="5,2" />
-				<target>modifierslist</target>
-			</button_iedit>
-			<button_iadd name="modifierslist_iadd">
-				<anchored to="modifierslist_iedit" position="lefthigh" offset="5,0" />
-				<target>modifierslist</target>
-				<invisible />
-			</button_iadd>
+      <!--Modifiers Section-->
+      <sub_content_section_top name="modifiers">
+        <class>char_section_modifiers</class>
+      </sub_content_section_top>
 
-			<frame_detailsub name="frame_modifiers">
-				<anchored to="bottomanchor">
-					<top anchor="bottom" relation="relative" offset="5" />
-					<right parent="modifierslist" anchor="right" offset="10" />
-					<left parent="modifierslist" anchor="left" offset="-10" />
-					<bottom parent="modifierslist_iedit" />
-				</anchored>
-			</frame_detailsub>-->
-			
-		</sheetdata>
+      <spacer_content_top name="spacer_bottom" />
+
+    </sheetdata>
 	</windowclass>
 </root>

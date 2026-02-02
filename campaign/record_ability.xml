@@ -124,7 +124,7 @@
 			<string_columnh name="spellduration" />
 
 			<label_column name="spellcost_label">
-				<static textres="ability_spellcost_label" />
+				<static textres="ability_spellcostmaintain_label" />
 			</label_column>
 			<string_columnh name="spellcost" />
 

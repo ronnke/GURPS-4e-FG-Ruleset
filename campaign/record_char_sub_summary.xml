@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+  <template name="charsheet_sub_summary">
+    <subwindow name="content">
+      <anchored position="insidetopleft" offset="0,0,0,0" />
+      <frame name="groupbox" offset="0,0,0,0" />
+      <class>charsheet_summary</class>
+      <activate />
+      <noscroll />
+    </subwindow>
+  </template>
+
+  <!-- Summary -->
+  <windowclass name="charsheet_summary">
+    <script>
+      function onInit()
+        self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
+      end
+      function onLockModeChanged(bReadOnly)
+        WindowManager.callSafeControlsSetLockMode(self, { "unspent_points", }, bReadOnly);
+      end
+    </script>
+    <sheetdata>
+      <anchor_content_top />
+      <anchor_content_bottom />
+
+      <label_charframetop name="header">
+        <anchored to="contentanchor" height="20">
+          <top relation="relative" offset="2" postoffset="2" />
+          <left offset="10" />
+          <right offset="-10" />
+        </anchored>
+        <static textres="char_label_summary" />
+      </label_charframetop>
+
+      <number_charpointtotals name="total_attributes_points" source="pointtotals.attributes">
+        <anchored to="contentanchor" width="50" height="20">
+          <top relation="relative" offset="2" postoffset="2" />
+          <left anchor="right" offset="-65" />
+        </anchored>
+      </number_charpointtotals>
+
+      <label_charsheet>
+        <anchored to="total_attributes_points" position="insidetopleft" offset="-85,4" />
+        <static textres="char_pointtotal_attributes" />
+      </label_charsheet>
+
+      <number_charpointtotals name="total_ads_points" source="pointtotals.ads">
+        <anchored to="total_attributes_points" position="belowleft" offset="0,0" width="50" height="20" />
+      </number_charpointtotals>
+
+      <label_charsheet>
+        <anchored to="total_ads_points" position="insidetopleft" offset="-85,4" />
+        <static textres="char_pointtotal_ads" />
+      </label_charsheet>
+
+      <string_charpointtotals name="total_disads_points" source="pointtotals.disadsummary">
+        <anchored to="total_ads_points" position="belowleft" offset="0,0" width="50" height="20" />
+      </string_charpointtotals>
+
+      <label_charsheet>
+        <anchored to="total_disads_points" position="insidetopleft" offset="-85,4" />
+        <static textres="char_pointtotal_disads" />
+      </label_charsheet>
+
+      <number_charpointtotals name="total_quirks_points" source="pointtotals.quirks">
+        <anchored to="total_disads_points" position="belowleft" offset="0,0" width="50" height="20" />
+      </number_charpointtotals>
+
+      <label_charsheet>
+        <anchored to="total_quirks_points" position="insidetopleft" offset="-85,4" />
+        <static textres="char_pointtotal_quirks" />
+      </label_charsheet>
+
+      <number_charpointtotals name="total_skills_points" source="pointtotals.skills">
+        <anchored to="total_quirks_points" position="belowleft" offset="0,0" width="50" height="20" />
+      </number_charpointtotals>
+
+      <label_charsheet>
+        <anchored to="total_skills_points" position="insidetopleft" offset="-85,4" />
+        <static textres="char_pointtotal_skills" />
+      </label_charsheet>
+
+      <number_charpointtotals name="total_spells_points" source="pointtotals.spells">
+        <anchored to="total_skills_points" position="belowleft" offset="0,0" width="50" height="20" />
+      </number_charpointtotals>
+
+      <label_charsheet>
+        <anchored to="total_spells_points" position="insidetopleft" offset="-85,4" />
+        <static textres="char_pointtotal_spells" />
+      </label_charsheet>
+
+      <number_charpointtotals name="total_powers_points" source="pointtotals.powers">
+        <anchored to="total_spells_points" position="belowleft" offset="0,0" width="50" height="20" />
+      </number_charpointtotals>
+
+      <label_charsheet>
+        <anchored to="total_powers_points" position="insidetopleft" offset="-85,4" />
+        <static textres="char_pointtotal_powers" />
+      </label_charsheet>
+
+      <number_charpointtotals name="total_others_points" source="pointtotals.others">
+        <anchored to="total_powers_points" position="belowleft" offset="0,0" width="50" height="20" />
+      </number_charpointtotals>
+
+      <label_charsheet>
+        <anchored to="total_others_points" position="insidetopleft" offset="-85,4" />
+        <static textres="char_pointtotal_other" />
+      </label_charsheet>
+
+      <number_charpointtotals name="total_points" source="pointtotals.totalpoints">
+        <anchored to="total_others_points" position="belowleft" offset="0,0" width="50" height="20" />
+      </number_charpointtotals>
+
+      <label_charsheet>
+        <anchored to="total_points" position="insidetopleft" offset="-85,4" />
+        <static textres="char_pointtotal_total" />
+      </label_charsheet>
+
+      <number_charfield name="unspent_points" source="pointtotals.unspentpoints">
+        <anchored to="total_points" position="belowleft" offset="12,0" width="25" height="20" />
+        <frame mergerule="replace" name="fielddark" offset="5,5,5,5" hidereadonly="true" />
+      </number_charfield>
+
+      <label_charsheet>
+        <anchored to="unspent_points" position="insidetopleft" offset="-97,4" />
+        <static textres="char_pointtotal_unspent" />
+      </label_charsheet>
+
+
+    </sheetdata>
+  </windowclass>
+
+</root>

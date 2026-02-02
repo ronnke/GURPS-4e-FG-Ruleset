@@ -48,12 +48,14 @@
 
       <charsheet_sub_attributes name="attributes">
         <anchored position="insidetopleft" offset="0,75" width="180" height="220" />
+        <tabtarget next="currentattributes" prev="appearance" />
       </charsheet_sub_attributes>
 
       <!-- Current Attributes -->
 
       <charsheet_sub_currentattributes name="currentattributes">
         <anchored position="insidetopleft" offset="0,295" width="180" height="100" />
+        <tabtarget next="secondarycharacteristics" prev="attributes" />
       </charsheet_sub_currentattributes>
 
       <!-- Secondary Characteristics -->
@@ -62,6 +64,7 @@
         <anchored position="insidetopleft" offset="180,75" height="100">
           <right />
         </anchored>
+        <tabtarget next="encumbrance" prev="currentattributes" />
       </charsheet_sub_secondarycharacteristics>
 
       <!-- Languages -->
@@ -71,6 +74,7 @@
           <right anchor="center" offset="60"/>
           <bottom />
         </anchored>
+        <tabtarget next="culturalfamiliarities" prev="resources" />
       </charsheet_sub_languages>
 
       <!-- Cultural Familiarity-->
@@ -81,6 +85,7 @@
           <right />
           <bottom />
         </anchored>
+        <tabtarget prev="languages" />
       </charsheet_sub_culturalfamiliarities>
 
       <!-- Tabs-->
@@ -90,6 +95,7 @@
           <right />
         </anchored>
         <class>charsheet_sub_encumbrance</class>
+        <tabtarget next="reactionmodifiers" prev="secondarycharacteristics" />
       </subwindow>
 
       <subwindow name="reactionmodifiers">
@@ -97,6 +103,7 @@
           <right />
         </anchored>
         <class>charsheet_sub_reactionmodifiers</class>
+        <tabtarget next="resources" prev="encumbrance" />
       </subwindow>
 
       <subwindow name="resources">
@@ -104,6 +111,7 @@
           <right />
         </anchored>
         <class>charsheet_sub_resources</class>
+        <tabtarget next="languages" prev="reactionmodifiers" />
       </subwindow>
 
       <tabs_char_h>

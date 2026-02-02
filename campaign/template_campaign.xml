@@ -161,4 +161,300 @@
       <recordpath>reference.spacecraft</recordpath>
     </button_masterindex_option_view>
   </template>
+
+  <template name="sub_content_section_top">
+    <sub_content_framed_groupbox_top>
+    </sub_content_framed_groupbox_top>
+  </template>
+
+  <template name="sub_content_section_noframe_top">
+    <sub_content_top>
+    </sub_content_top>
+  </template>
+
+  <template name="icon_subsection">
+    <genericcontrol name="icon_subsection">
+      <anchored position="insidetopleft" offset="0,5" width="20" height="20" />
+    </genericcontrol>
+  </template>
+
+  <!--Anchors and spacers for listitems-->
+  <template name="anchor_list_content_label_left_sm">
+    <anchor_list_content_label_left>
+      <anchored height="15" />
+    </anchor_list_content_label_left>
+  </template>
+  <template name="anchor_list_content_label_right_sm">
+    <anchor_list_content_label_right>
+      <anchored height="15" />
+    </anchor_list_content_label_right>
+  </template>
+  <template name="anchor_listitem_left_vlg">
+    <genericcontrol name="leftanchor">
+      <anchored position="insidetopleft" offset="0,20" width="0" height="0" />
+      <disabled />
+    </genericcontrol>
+  </template>
+  <template name="anchor_listitem_right_vlg">
+    <genericcontrol name="rightanchor">
+      <anchored position="insidetopright" offset="0,20" width="0" height="0" />
+      <disabled />
+    </genericcontrol>
+  </template>
+
+  <!--Labels and listitems small-->
+  <template name="label_listitem_number_left_sm">
+    <label_list_content_number_left>
+      <anchored height="15" />
+      <font>sheetlabelsmall</font>
+      <underline merge="delete" />
+    </label_list_content_number_left>
+  </template>
+  <template name="label_listitem_number_narrow_left_sm">
+    <label_listitem_number_left_sm>
+      <anchored>
+        <left relation="relative" offset="0" postoffset="0" />
+      </anchored>
+    </label_listitem_number_left_sm>
+  </template>
+
+  <template name="label_listitem_number_right_sm">
+    <label_list_content_number_right>
+      <anchored height="15" />
+      <font>sheetlabelsmall</font>
+      <underline merge="delete" />
+    </label_list_content_number_right>
+  </template>
+  <template name="label_listitem_number_narrow_right_sm">
+    <label_listitem_number_right_sm>
+      <anchored>
+        <right relation="relative" offset="0" postoffset="0" />
+      </anchored>
+    </label_listitem_number_right_sm>
+  </template>
+
+  <template name="label_listitem_string_left_sm">
+    <label_list_content_string_left>
+      <anchored height="15" />
+      <font>sheetlabelsmall</font>
+      <underline merge="delete" />
+    </label_list_content_string_left>
+  </template>
+  <template name="label_listitem_string_narrow_left_sm">
+    <label_listitem_string_left_sm>
+      <anchored>
+        <left relation="relative" offset="10" postoffset="10" />
+      </anchored>
+    </label_listitem_string_left_sm>
+  </template>
+
+  <template name="label_listitem_string_right_sm">
+    <label_list_content_string_right>
+      <anchored height="15" />
+      <font>sheetlabelsmall</font>
+      <underline merge="delete" />
+    </label_list_content_string_right>
+  </template>
+  <template name="label_listitem_string_narrow_right_sm">
+    <label_listitem_string_right_sm>
+      <anchored>
+        <right relation="relative" offset="-10" postoffset="-10" />
+      </anchored>
+    </label_listitem_string_right_sm>
+  </template>
+
+  <template name="label_listitem_string_noframe_sm">
+    <label_list_content_noframe>
+      <anchored height="15" />
+      <font>sheetlabelsmall</font>
+      <underline merge="delete" />
+    </label_list_content_noframe>
+  </template>
+  <template name="label_listitem_string_narrow_noframe_sm">
+    <label_listitem_string_noframe_sm>
+      <anchored to="labelleftanchor" height="20">
+        <top />
+        <left relation="current" offset="0" />
+        <right parent="labelrightanchor" relation="current" offset="0" />
+      </anchored>
+    </label_listitem_string_noframe_sm>
+  </template>
+
+  <!--Listitems narrow (left)-->
+  <template name="string_listitem_narrow_left">
+    <string_listitem_left>
+      <anchored>
+        <left relation="relative" offset="10" postoffset="10" />
+      </anchored>
+      <font>sheettext</font>
+      <nodrag />
+    </string_listitem_left>
+  </template>
+  <template name="number_listitem_narrow_left">
+    <number_listitem_left>
+      <anchored>
+        <left relation="relative" offset="0" postoffset="0" />
+      </anchored>
+      <frame mergerule="replace" name="fielddark" offset="5,5,5,5" hidereadonly="true" />
+      <font>sheettext</font>
+      <nodrag />
+    </number_listitem_left>
+  </template>
+  <template name="rollable_s_listitem_narrow_left">
+    <string_listitem_narrow_left>
+      <nodrag merge="delete" />
+    </string_listitem_narrow_left>
+  </template>
+  <template name="rollable_n_listitem_narrow_left">
+    <number_listitem_narrow_left>
+      <nodrag merge="delete" />
+    </number_listitem_narrow_left>
+  </template>
+  <template name="mod_listitem_narrow_left">
+    <number_listitem_narrow_left>
+      <nodrag merge="delete" />
+      <displaysign />
+    </number_listitem_narrow_left>
+  </template>
+
+  <!--Listitems narrow (right)-->
+  <template name="string_listitem_narrow_right">
+    <string_listitem_right>
+      <anchored>
+        <right relation="relative" offset="-10" postoffset="-10" />
+      </anchored>
+      <font>sheettext</font>
+      <nodrag />
+    </string_listitem_right>
+  </template>
+  <template name="number_listitem_narrow_right">
+    <number_listitem_right>
+      <anchored>
+        <right anchor="left" relation="relative" offset="0" postoffset="0" />
+      </anchored>
+      <frame mergerule="replace" name="fielddark" offset="5,5,5,5" hidereadonly="true" />
+      <font>sheettext</font>
+      <nodrag />
+    </number_listitem_right>
+  </template>
+  <template name="rollable_s_listitem_narrow_right">
+    <string_listitem_narrow_right>
+      <nodrag merge="delete" />
+    </string_listitem_narrow_right>
+  </template>
+  <template name="rollable_n_listitem_narrow_right">
+    <number_listitem_narrow_right>
+      <nodrag merge="delete" />
+    </number_listitem_narrow_right>
+  </template>
+  <template name="mod_listitem_narrow_right">
+    <number_listitem_narrow_right>
+      <nodrag merge="delete" />
+      <displaysign />
+    </number_listitem_narrow_right>
+  </template>
+
+  <!--Listitems narrow (center)-->
+  <template name="string_listitem_narrow_center">
+    <string_listitem_center>
+      <anchored>
+        <left parent="leftanchor" relation="current" offset="5" />
+        <right relation="current" offset="-5" />
+      </anchored>
+    </string_listitem_center>
+  </template>
+
+  <template name="button_listitem_isection_right">
+    <button_listitem_right name="isection">
+      <script>
+        function onInit()
+          if target[1] and window[target[1]] then
+            window[target[1]].setVisible(getValue() == 1);
+          end
+        end
+        function onValueChanged()
+          if target[1] and window[target[1]] then
+            window[target[1]].setVisible(getValue() == 1);
+          end
+        end
+      </script>
+    </button_listitem_right>
+  </template>  
+  <template name="button_listitem_isection_left">
+    <button_listitem_left name="isection">
+      <script>
+        function onInit()
+          if target[1] and window[target[1]] then
+            window[target[1]].setVisible(getValue() == 1);
+          end
+        end
+        function onValueChanged()
+          if target[1] and window[target[1]] then
+            window[target[1]].setVisible(getValue() == 1);
+          end
+        end
+      </script>
+    </button_listitem_left>
+  </template>
+
+  <template name="button_listitem_rollable_right">
+    <button_listitem_roll_right name="button_roll">
+      <script file="campaign/scripts/campaign_rollable.lua" />
+      <icon normal="button_roll" pressed="button_roll_down" />
+    </button_listitem_roll_right>
+  </template>
+  <template name="button_listitem_rollable_left">
+    <button_listitem_roll_left name="button_roll">
+      <script file="campaign/scripts/campaign_rollable.lua" />
+      <icon normal="button_roll" pressed="button_roll_down" />
+    </button_listitem_roll_left>
+  </template>
+
+  <template name="button_listitem_mod_right">
+    <button_listitem_roll_right name="button_mod">
+      <script>
+        function onDragStart(button, x, y, draginfo)
+          if targetvalue[1] and window[targetvalue[1]] then
+              draginfo.setType("number");
+              draginfo.setDescription(targetname[1]);
+              draginfo.setStringData(targetname[1]);
+              draginfo.setNumberData(window[targetvalue[1]].getValue());
+          end
+          return true;
+        end
+
+        function onButtonPress()
+          if targetvalue[1] and window[targetvalue[1]] then
+            ModifierStack.addSlot(targetname[1], window[targetvalue[1]].getValue());
+          end
+          return true;
+        end
+      </script>
+      <icon normal="button_roll" pressed="button_roll_down" />
+    </button_listitem_roll_right>
+  </template>
+  <template name="button_listitem_mod_left">
+    <button_listitem_roll_left name="button_mod">
+      <script>
+        function onDragStart(button, x, y, draginfo)
+          if targetvalue[1] and window[targetvalue[1]] then
+              draginfo.setType("number");
+              draginfo.setDescription(targetname[1]);
+              draginfo.setStringData(targetname[1]);
+              draginfo.setNumberData(window[targetvalue[1]].getValue());
+          end
+          return true;
+        end
+
+        function onButtonPress()
+          if targetvalue[1] and window[targetvalue[1]] then
+            ModifierStack.addSlot(targetname[1], window[targetvalue[1]].getValue());
+          end
+          return true;
+        end
+      </script>
+      <icon normal="button_roll" pressed="button_roll_down" />
+    </button_listitem_roll_left>
+  </template>
+  
 </root>

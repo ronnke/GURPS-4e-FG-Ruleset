@@ -19,7 +19,6 @@
   <!-- Languages -->
 
   <windowclass name="charsheet_languages_list">
-    <margins control="0,0,0,2" />
     <script>
       function onInit()
         self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
@@ -65,21 +64,25 @@
 
       <label_list_content_number_right name="label_points">
         <anchored width="25" offset="5" />
+        <center />
         <static textres="char_label_languages_points" />
       </label_list_content_number_right>
 
       <label_list_content_string_right name="label_written">
         <anchored width="55" offset="5" />
+        <center />
         <static textres="char_label_languages_written" />
       </label_list_content_string_right>
 
       <label_list_content_string_right name="label_spoken">
         <anchored width="55" />
+        <center />
         <static textres="char_label_languages_spoken" />
       </label_list_content_string_right>
 
       <label_list_content_noframe name="label_name">
-        <static textres="char_traits_label_name" />
+        <center />
+        <static textres="char_label_languages_name" />
       </label_list_content_noframe>
 
     </sheetdata>
@@ -105,24 +108,26 @@
         <anchored width="25" />
         <frame mergerule="replace" name="fielddark" offset="5,5,5,5" hidereadonly="true" />
         <color>#808080</color>
-        <nodrag />
+        <tabtarget prev="written" />
       </number_listitem_right>
 
       <string_listitem_right name="written">
         <anchored width="55" offset="-5" />
         <center />
-        <nodrag />
+        <tabtarget next="points" prev="spoken" />
       </string_listitem_right>
 
       <string_listitem_right name="spoken">
         <anchored width="55" offset="-5" />
         <center />
-        <nodrag />
+        <tabtarget next="written" prev="name" />
       </string_listitem_right>
 
-      <string_listitem_center name="name" />
+      <string_listitem_center name="name">
+        <tabtarget next="spoken" />
+      </string_listitem_center>
 
-    </sheetdata>
+      </sheetdata>
   </windowclass>
 
 </root>

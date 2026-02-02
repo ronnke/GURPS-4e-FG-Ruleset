@@ -428,7 +428,9 @@ aRecordOverrides = {
 	},
     ["trait_advantage"] = {
         tOptions = {
+            bNoDuplicate = true,
             bNoShare = true,
+            bHidden = true,
         },
 		aCustom = {
 			tWindowMenu = { ["right"] = { "chat_output" } },
@@ -436,7 +438,9 @@ aRecordOverrides = {
 	}, 
     ["trait_disadvantage"] = {
         tOptions = {
+            bNoDuplicate = true,
             bNoShare = true,
+            bHidden = true,
         },
 		aCustom = {
 			tWindowMenu = { ["right"] = { "chat_output" } },
@@ -444,7 +448,9 @@ aRecordOverrides = {
 	},
     ["trait_feature"] = {
         tOptions = {
+            bNoDuplicate = true,
             bNoShare = true,
+            bHidden = true,
         },
 		aCustom = {
 			tWindowMenu = { ["right"] = { "chat_output" } },
@@ -500,8 +506,8 @@ aListViews = {
                 { sName = "name", sType = "string", sHeadingRes = "ability_grouped_label_name", nWidth=140 },
                 { sName = "spellclass", sType = "string", sHeadingRes = "ability_grouped_label_class", nWidth=100 },
                 { sName = "spellduration", sType = "string", sHeadingRes = "ability_grouped_label_duration", nWidth=60, bCentered=true },
-                { sName = "spellcost", sType = "string", sHeadingRes = "ability_grouped_label_cost", nWidth=80, bCentered=true },
-                { sName = "spelltimetocast", sType = "string", sHeadingRes = "ability_grouped_label_timetocast", nWidth=70, bCentered=true },
+                { sName = "spellcost", sType = "string", sHeadingRes = "ability_grouped_label_costmaintain", nWidth=90, bCentered=true },
+                { sName = "spelltimetocast", sType = "string", sHeadingRes = "ability_grouped_label_timetocast", nWidth=80, bCentered=true },
                 { sName = "spellprerequisite", sType = "string", sHeadingRes = "ability_grouped_label_prerequisite", nWidth=120 },
                 { sName = "page", sType = "string", sHeadingRes = "ability_grouped_label_page", nWidth=60, bCentered=true },
             },

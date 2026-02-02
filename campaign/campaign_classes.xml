@@ -7,63 +7,47 @@
 
 <root>
 
-  	<windowclass name="charsheet_modifiers">
-    <script>
-      function onInit()
+  <windowclass name="char_section_modifiers">
+		<script>
+			function onInit()
         self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
       end
       function onLockModeChanged(bReadOnly)
-        WindowManager.callSafeControlsSetLockMode(self, { "list_iadd", }, bReadOnly);
+        WindowManager.callSafeControlsSetLockMode(self, { "list_iadd" }, bReadOnly);
       end
-    </script>		
-		<sheetdata>
+			function onDrop(x, y, draginfo)
+--				return list.onDrop(x, y, draginfo);
+			end			
+		</script>
+    <sheetdata>
       <anchor_content_top />
-      <anchor_content_bottom />
 
-      <frame_char name="frame">
-        <anchored position="insidetopleft">
-          <right />
-          <bottom />
+      <header_content_framed_headersimple name="header">
+        <anchored>
+          <left offset="-5" />
+          <right offset="5" />
         </anchored>
-      </frame_char>
-
-      <icon_detailsection name="modifiersicon">
-        <icon>modifiers_down</icon>
-      </icon_detailsection>
-      
-      <label_charframetop name="header">
-        <anchored to="contentanchor" height="20">
-          <top relation="relative" offset="25" postoffset="2" />
-          <left offset="10" />
-          <right offset="-10" />
-        </anchored>
-        <static textres="char_label_modifiers" />
-      </label_charframetop>
+        <static textres="char_label_modifier" />
+      </header_content_framed_headersimple>
 
       <button_iadd name="list_iadd">
         <anchored to="header" position="insidetopright" offset="5,0" />
         <target>list</target>
       </button_iadd>
 
-      <list_content_labeled_alternating name="list">
-        <anchored>
-          <left offset="15" />
-          <right offset="-15" />
-          <bottom offset="-10" />
-        </anchored>
+      <list_content_noscroll_alternating_top name="list">
         <datasource>.modifierlist</datasource>
         <class>basic_modifier</class>
         <sortby><control>name</control></sortby>
         <newfocus>name</newfocus>
-      </list_content_labeled_alternating>
-      <scrollbar_list />
+      </list_content_noscroll_alternating_top>
 
     </sheetdata>
 	</windowclass>
 
 	<windowclass name="basic_modifier">
-		<margins control="0,0,0,2" />
-		<script>
+    <margins control="0,0,0,2" />
+    <script>
       function onInit()
         self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
       end
@@ -83,9 +67,6 @@
 				ModifierStack.addSlot(name.getValue(), modifier.getValue());
 				return true;
 			end
-			function onDrop(x, y, draginfo)
-				return windowlist.onDrop(x, y, draginfo);
-			end			
 		</script>
 		<sheetdata>
       <anchor_listitem_left_sm />
@@ -93,27 +74,31 @@
 
       <button_listitem_idelete_left name="idelete" />
 
-      <button_listitem_right name="modifier_button">
+      <button_listitem_right name="button_modifier">
 		    <script>
           function onDragStart(button, x, y, draginfo)
 						return window.actionDrag(draginfo);
 					end
 
-					function onButtonPress(x, y)
+					function onButtonPress()
 						return window.action();
 					end
 		    </script>
         <anchored width="20" height="20" />
         <icon normal="button_action_modifier" pressed="button_action_modifier_down" />
-			</button_listitem_right>
+        <tabtarget prev="modifier" />
+      </button_listitem_right>
 
       <number_listitem_right name="modifier">
         <anchored width="30" />
         <frame mergerule="replace" name="fielddark" offset="5,5,5,5" hidereadonly="true" />
         <displaysign />
-			</number_listitem_right>
-      
-      <string_listitem_center name="name" />
+        <tabtarget next="button_modifier" prev="name" />
+      </number_listitem_right>
+
+      <string_listitem_center name="name" >
+        <tabtarget next="modifier" />
+      </string_listitem_center>
 		
 	  </sheetdata>
 	</windowclass>

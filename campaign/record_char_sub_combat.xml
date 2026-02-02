@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+  <template name="charsheet_sub_combat">
+    <subwindow name="content">
+      <anchored>
+        <top offset="240" />
+        <left offset="10" />
+        <right offset="-10" />
+        <bottom offset="-10" />
+      </anchored>
+      <frame name="groupbox" offset="10,10,10,10" />
+      <class>charsheet_combat_contents</class>
+      <activate />
+    </subwindow>
+  </template>
+
+  <!--<windowclass name="charsheet_traits">
+    <script file="campaign/scripts/char_traits.lua" />
+    <sheetdata>
+      <anchor_content_top />
+      <anchor_content_bottom />
+
+      <sub_content_framed_groupbox name="content">
+        <class>charsheet_traits_contents</class>
+      </sub_content_framed_groupbox>
+      <scrollbar_content />
+    </sheetdata>
+  </windowclass>-->
+  
+  <windowclass name="charsheet_combat_contents">
+    <script>
+      function onInit()
+        self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
+      end
+      function onLockModeChanged(bReadOnly)
+	      updateVisibility(bReadOnly);
+      end      
+      function updateVisibility(bReadOnly)
+	      local node = getDatabaseNode();
+	      if not node then
+		      return;
+	      end
+
+	      meleecombat.setVisible(not bReadOnly or CharManager.hasMeleeWeapons(node));
+	      rangedcombat.setVisible(not bReadOnly or CharManager.hasRangedWeapons(node));
+	      defenses.setVisible(not bReadOnly or CharManager.hasDefenses(node));
+      end
+    </script>
+    <sheetdata>
+      <anchor_content_top />
+      <scrollbar />
+
+      <sub_content_top name="meleecombat">
+        <anchored>
+          <top position="relative" postoffset="10" />
+        </anchored>
+        <class>charsheet_meleecombat</class>
+      </sub_content_top>
+      <sub_content_top name="rangedcombat">
+        <anchored>
+          <top position="relative" postoffset="10" />
+        </anchored>
+        <class>charsheet_rangedcombat</class>
+      </sub_content_top>
+      <sub_content_top name="defenses">
+        <anchored>
+          <top position="relative" postoffset="10" />
+        </anchored>
+        <class>charsheet_defenses</class>
+      </sub_content_top>
+    </sheetdata>
+  </windowclass>
+  
+</root>

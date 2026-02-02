@@ -168,7 +168,7 @@
   </template>
 
   <template name="list_ct_section_modifiers">
-    <windowlist name="rangedmodeslist">
+    <windowlist name="modslist">
       <datasource>.modifierlist</datasource>
       <sortby><control>name</control></sortby>
       <class>ct_modifier</class>

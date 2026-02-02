@@ -6,7 +6,60 @@
 -->
 
 <root>
-	<windowclass name="charsheet_sub_ability_spells">
+
+  <template name="string_spelldetail_right">
+    <simplestring>
+      <frame mergerule="replace" name="fielddark" offset="10,5,10,5" hidereadonly="true" />
+      <stateframe>
+        <keyedit name="fieldfocus" offset="10,5,10,5" />
+        <hover name="fieldfocus" offset="10,5,10,5" hidereadonly="true" />
+        <drophilight name="fieldfocus" offset="10,5,10,5" hidereadonly="true" />
+      </stateframe>
+      <nodrag />
+      <center />
+      <delaykeyupdate />
+      <noscroll />
+    </simplestring>
+  </template>
+
+    <template name="string_spelldetail_left">
+    <simplestring>
+      <frame mergerule="replace" name="fielddark" offset="10,5,10,5" hidereadonly="true" />
+      <stateframe>
+        <keyedit name="fieldfocus" offset="10,5,10,5" />
+        <hover name="fieldfocus" offset="10,5,10,5" hidereadonly="true" />
+        <drophilight name="fieldfocus" offset="10,5,10,5" hidereadonly="true" />
+      </stateframe>
+      <nodrag />
+      <center />
+      <delaykeyupdate />
+    </simplestring>
+  </template>
+
+  <template name="string_spelldetail_center">
+    <simplestring>
+      <frame mergerule="replace" name="fielddark" offset="10,5,10,5" hidereadonly="true" />
+      <stateframe>
+        <keyedit name="fieldfocus" offset="10,5,10,5" />
+        <hover name="fieldfocus" offset="10,5,10,5" hidereadonly="true" />
+        <drophilight name="fieldfocus" offset="10,5,10,5" hidereadonly="true" />
+      </stateframe>
+      <multilinespacing>20</multilinespacing>
+      <nodrag />
+      <center />
+      <delaykeyupdate />
+    </simplestring>
+  </template>
+
+  <template name="label_fieldtop_bold_underline">
+    <label_fieldtop name="label">
+      <font>sheetlabel</font>
+      <underline />
+    </label_fieldtop>
+  </template>
+
+
+  <windowclass name="charsheet_sub_ability_spells">
     <script>
       function onInit()
         self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
@@ -37,7 +90,8 @@
           <left offset="10" />
           <right offset="-10" />
         </anchored>
-        <static textres="char_label_spells" />
+        <static textres="char_label_abilities_spells" />
+        <icons>char_abilities_spells</icons>
       </label_charframetop>
 
       <button_iadd name="list_iadd">
@@ -61,309 +115,180 @@
       <anchor_list_content_label_left />
       <anchor_list_content_label_right />
       <spacer_list_content_idelete_label_left name="idelete_header" />
+      <spacer_list_content_button_label_left name="spacer_shortcut" />
 
       <label_list_content_number_right name="label_points">
-        <anchored width="20" offset="5" />
-        <static textres="char_label_points" />
+        <anchored width="25" />
+        <center />
+        <static textres="char_label_abilities_points" />
       </label_list_content_number_right>
 
       <label_list_content_number_right name="label_type">
-        <anchored width="40" offset="5" />
-        <static textres="char_label_type" />
+        <anchored width="40" />
+        <center />
+        <static textres="char_label_abilities_type" />
       </label_list_content_number_right>
 
       <label_list_content_number_right name="label_class">
-        <anchored width="50" offset="5" />
-        <static textres="char_label_class" />
+        <anchored width="75" />
+        <center />
+        <static textres="char_label_abilities_class" />
       </label_list_content_number_right>
+
+      <spacer_list_content_button_label_right name="spacer_roll" />
 
       <label_list_content_number_right name="label_level">
-        <anchored width="20" offset="5" />
-        <static textres="char_label_level" />
+        <anchored width="25" />
+        <center />
+        <static textres="char_label_abilities_level" />
       </label_list_content_number_right>
 
-      <spacer_list_content_idelete_label_left name="imodifier_header" />
-      <spacer_list_content_idelete_label_left name="idetail_header" />
+      <spacer_list_content_button_label_right name="imodifier_header" />
+      <spacer_list_content_button_label_right name="idetail_header" />
       
       <label_list_content_noframe name="label_name">
-        <static textres="char_label_name" />
+        <center />
+        <static textres="char_label_abilities_name" />
       </label_list_content_noframe>
 
 		</sheetdata>
 	</windowclass>
 
 	<windowclass name="char_spell">
-		<margins control="0,0,0,2" />
 		<script>
 			function onInit()
-				toggleDetail();
-				setModifiersVisible();
         self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
       end
       function onLockModeChanged(bReadOnly)
         WindowManager.callSafeControlsSetLockMode(self, { "name", "points", "idelete" }, bReadOnly);
       end
-			
-			function toggleDetail()
-				local v = (activatedetail.getValue() == 1);
-				
---				spelldetail.setVisible(v);
---				time_label.setVisible(v);
---				time.setVisible(v);
---				duration_label.setVisible(v);
---				duration.setVisible(v);
---				costmaintain_label.setVisible(v);
---				costmaintain.setVisible(v);
---				resist_label.setVisible(v);
---				resist.setVisible(v);
---				college_label.setVisible(v);
---				college.setVisible(v);
---				page_label.setVisible(v);
---				page.setVisible(v);
-			end
-			
-			function setModifiersVisible()
-				local v = (activatemodifiers.getValue() == 1);
-				
---				modifiersicon.setVisible(v);
---				modifiers_label.setVisible(v);
---				modifierslist.setVisible(v);
---				modifierslist_iedit.setVisible(v);
---				modifierslist_iadd.setVisible(v)
---				frame_modifiers.setVisible(v);
-			end
 		</script>
 		<sheetdata>
-		
-			<button_charroll>
-				<rollable_button_spell />
-				<anchored>
-					<top offset="2" />
-					<left offset="5" />
-				</anchored>
+      <anchor_content_top />
+      <anchor_listitem_left_sm />
+      <anchor_listitem_right_sm />
+
+      <button_listitem_idelete_left name="idelete" />
+
+      <linkc_listitem_left name="shortcut">
+        <class>ability_spell</class>
+        <tabtarget prev="points" />
+      </linkc_listitem_left>
+
+      <number_listitem_right name="points">
+        <anchored width="25" />
+        <frame mergerule="replace" name="fielddark" offset="5,5,5,5" hidereadonly="true" />
+        <color>#808080</color>
+        <tabtarget next="shortcut" prev="relativelevel" />
+      </number_listitem_right>
+
+      <string_listitem_right_noframe_static name="type">
+        <anchored width="40" />
+        <center />
+        <tabtarget next="relativelevel" prev="button_roll" />
+      </string_listitem_right_noframe_static>
+
+      <string_listitem_right_noframe_static name="class">
+        <anchored width="75" />
+        <center />
+        <tabtarget next="points" prev="type" />
+      </string_listitem_right_noframe_static>
+
+      <button_listitem_rollable_right name="button_roll">
+        <rollable_button_spell />
         <tooltip textres="char_tooltip_spell" />
-      </button_charroll>
-		
-			<genericcontrol name="rightanchor">
-				<anchored height="0" width="0">
-					<top />
-					<right />
-				</anchored>
-				<invisible />
-			</genericcontrol>
-			<genericcontrol name="bottomanchor">
-				<anchored height="0" width="0">
-					<top offset="20" />
-					<right />
-				</anchored>
-				<invisible />
-			</genericcontrol>
-			<button_idelete name="idelete">
-				<anchored to="rightanchor">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-5" />
-				</anchored>
-			</button_idelete>
-			
-			<number_charpointfield name="points">
-				<anchored to="rightanchor" width="20" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<tabtarget prev="type" next="time" />
-        <min>0</min>
-      </number_charpointfield>
-			<stringfield name="type">
-				<anchored to="rightanchor" width="35" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<center/>
-				<font>sheettext</font>
-				<readonly/>
-				<tabtarget prev="class" next="points" />
-			</stringfield>
-			<stringfield name="class">
-				<anchored to="rightanchor" width="50" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<center/>
-				<font>sheettext</font>
-				<readonly/>
-				<tabtarget prev="level" next="type" />
-			</stringfield>
-			<number_charlevelfield name="level">
-				<rollable_spell />
-				<anchored to="rightanchor" width="20" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<readonly/>
-				<tabtarget prev="name" next="class" />
-			</number_charlevelfield>
-			<buttoncontrol name="activatemodifiers">
-				<anchored to="rightanchor" width="20" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<state icon="modifiers" tooltipres="char_tooltip_skillmodifiers" />
-				<state icon="modifiers_down" />
-				<script>
-					function onValueChanged()
-						window.setModifiersVisible();
-					end
-				</script>
-			</buttoncontrol>
-			<button_toggledetail name="activatedetail">
-				<anchored to="rightanchor">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-5" />
-				</anchored>
-			</button_toggledetail>
-			<linkcontrol name="shortcut">
-				<anchored to="rightanchor" width="20" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-5" />
-				</anchored>
-				<class>ability_spell</class>
-				<readonly />
-			</linkcontrol>
-			<string_textlistitem name="name">
-				<anchored height="20">
-					<top offset="2" />
-					<left offset="30" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
-				</anchored>
-				<nodrag />
-				<tabtarget next="level" />
-			</string_textlistitem>
+        <tabtarget next="type" prev="level" />
+      </button_listitem_rollable_right>
 
-			<!-- DETAIL SECTION --> 			
-			<string_charfield name="page">
-				<anchored to="bottomanchor" width="40" height="20">
-					<top offset="25" />
-					<right anchor="left" relation="relative" offset="-15" />
-				</anchored>
-				<tabtarget prev="college" />
-			</string_charfield>
-			<label_fieldtop name="page_label">
-				<anchored to="page" />
-				<static textres="char_label_page" />
-			</label_fieldtop>
+      <number_listitem_right_noframe_static name="level">
+        <anchored width="25" />
+        <tabtarget next="button_roll" prev="imodifier" />
+      </number_listitem_right_noframe_static>
 
-			<string_charfield name="college">
-				<anchored to="bottomanchor" width="90" height="20">
-					<top offset="25" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<tabtarget prev="resist" next="page" />
-			</string_charfield>
-			<label_fieldtop name="college_label">
-				<anchored to="college" />
-				<static textres="char_label_college" />
-			</label_fieldtop>
+      <button_listitem_isection_right name="imodifier">
+        <state icon="modifiers" tooltipres="char_tooltip_modifiers" merge="resetandadd" />
+        <state icon="modifiers_down" merge="add" />
+        <target>modifiers</target>
+        <tabtarget next="level" prev="name" />
+      </button_listitem_isection_right>
 
-			<string_charfield name="resist">
-				<anchored to="bottomanchor" width="60" height="20">
-					<top offset="25" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<tabtarget prev="costmaintain" next="college" />
-			</string_charfield>
-			<label_fieldtop name="resist_label">
-				<anchored to="resist" />
-				<static textres="char_label_resist" />
-			</label_fieldtop>
+      <button_listitem_isection_right name="idetails">
+        <state icon="details" tooltipres="char_tooltip_details" merge="resetandadd" />
+        <state icon="details_down" merge="add" />
+        <target>details</target>
+        <tabtarget next="level" prev="name" />
+      </button_listitem_isection_right>
 
-			<string_charfield name="costmaintain">
-				<anchored to="bottomanchor" width="80" height="20">
-					<top offset="25" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<tabtarget prev="duration" next="resist" />
-			</string_charfield>
-			<label_fieldtop name="costmaintain_label">
-				<anchored to="costmaintain" />
-				<static textres="char_label_costmaintain" />
-			</label_fieldtop>
+      <string_listitem_center name="name">
+        <delaykeyupdate />
+        <tabtarget next="imodifier" />
+      </string_listitem_center>
 
-			<string_charfield name="duration">
-				<anchored to="bottomanchor" width="50" height="20">
-					<top offset="25" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<tabtarget prev="time" next="costmaintain" />
-			</string_charfield>
-			<label_fieldtop name="duration_label">
-				<anchored to="duration" />
-				<static textres="char_label_duration" />
-			</label_fieldtop>
+      <spacer_content_top name="spacer_section">
+        <anchored height="20" />
+      </spacer_content_top>
 
-			<string_charfield name="time">
-				<anchored to="bottomanchor" width="40" height="20">
-					<top offset="25" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<tabtarget prev="points" next="duration" />
-			</string_charfield>
-			<label_fieldtop name="time_label">
-				<anchored to="time" />
-				<static textres="char_label_time" />
-			</label_fieldtop>
+      <!--Spell Detail Section-->
+      <sub_content_section_top name="details">
+        <class>char_section_spelldetails</class>
+      </sub_content_section_top>
 
-			<frame_chardetail name="spelldetail">
-				<anchored>
-					<top parent ="bottomanchor" anchor="bottom" relation="relative" offset="5"/>
-					<bottom parent ="bottomanchor" anchor="bottom" relation="relative" offset="60"/>
-					<left />
-					<right />
-				</anchored>
-			</frame_chardetail>
+      <!--Modifiers Section-->
+      <sub_content_section_top name="modifiers">
+        <class>char_section_modifiers</class>
+      </sub_content_section_top>
 
-
-			<!-- SPELL MODIFIERS SECTION --> 			
-			<icon_detailsection name="modifiersicon">
-				<icon>modifiers_down</icon>
-			</icon_detailsection>
-
-			<label_columntop name="modifiers_label">
-				<anchored to="modifiersicon">
-					<top />
-					<left anchor="right" offset="10" />
-					<right parent="bottomanchor" anchor="left" offset="-10" />
-				</anchored>
-				<static textres="char_label_modifier" />
-			</label_columntop>
-
-			<list_charmodifier name="modifierslist">
-				<anchored to="modifiers_label">
-					<top anchor="bottom" relation="relative" />
-					<left parent="modifiersicon" anchor="right" offset="10" />
-					<right parent="bottomanchor" anchor="left" offset="-10" />
-				</anchored>
-				<class>basic_modifier</class>
-				<noscroll />
-			</list_charmodifier>
- 
-  			<button_iedit name="modifierslist_iedit">
-				<anchored to="modifierslist" position="belowright" offset="5,2" />
-				<target>modifierslist</target>
-			</button_iedit>
-			<button_iadd name="modifierslist_iadd">
-				<anchored to="modifierslist_iedit" position="lefthigh" offset="5,0" />
-				<target>modifierslist</target>
-				<invisible />
-			</button_iadd>
-
-			<frame_detailsub name="frame_modifiers">
-				<anchored to="bottomanchor">
-					<top anchor="bottom" relation="relative" offset="5" />
-					<right parent="modifierslist" anchor="right" offset="10" />
-					<left parent="modifierslist" anchor="left" offset="-10" />
-					<bottom parent="modifierslist_iedit" />
-				</anchored>
-			</frame_detailsub>
-		</sheetdata>
+      <spacer_content_top name="spacer_bottom" />
+        
+    </sheetdata>
 	</windowclass>
+
+
+  <windowclass name="char_section_spelldetails">
+    <margins control="0,0,0,2" />
+    <script>
+			function onInit()
+        self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
+      end
+      function onLockModeChanged(bReadOnly)
+        WindowManager.callSafeControlsSetLockMode(self, { "page", "college", "resist", "costmaintain", "duration", "time" }, bReadOnly);
+      end
+		</script>
+    <sheetdata>
+      <anchor_content_top />
+
+      <!-- Spell Details Labels -->
+      <label_content_column name="time_label">
+        <static textres="ability_spelltimetocast_label" />
+      </label_content_column>
+      <string_content_columnh name="time" />
+
+      <label_content_column name="duration_label">
+        <static textres="ability_spellduration_label" />
+      </label_content_column>
+      <string_content_columnh name="duration" />
+
+      <label_content_column name="costmaintain_label">
+        <static textres="ability_spellcostmaintain_label" />
+      </label_content_column>
+      <string_content_columnh name="costmaintain" />
+
+      <label_content_column name="resist_label">
+        <static textres="ability_spellresist_label" />
+      </label_content_column>
+      <string_content_columnh name="resist" />
+
+      <label_content_column name="college_label">
+        <static textres="ability_spellcollege_label" />
+      </label_content_column>
+      <string_content_columnh name="college" />
+
+      <label_content_column name="page_label">
+        <static textres="ability_page_label" /> 
+      </label_content_column>
+      <string_content_columnh name="page" />
+
+    </sheetdata>
+  </windowclass>
+  
 </root>

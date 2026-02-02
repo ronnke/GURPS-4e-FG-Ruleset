@@ -5,8 +5,19 @@
   attribution and copyright information.
 -->
 
+
 <root>
-	<windowclass name="charsheet_sub_resources">
+  <template name="charsheet_sub_notes">
+    <subwindow name="content">
+      <anchored position="insidetopleft" offset="0,0,0,0" />
+      <frame name="groupbox" offset="0,0,0,0" />
+      <class>charsheet_notes_list</class>
+      <activate />
+    </subwindow>
+  </template>
+
+  <!-- Notes -->
+  <windowclass name="charsheet_notes_list">
     <script>
       function onInit()
         self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
@@ -19,22 +30,13 @@
       <anchor_content_top />
       <anchor_content_bottom />
 
-      <!-- Move and Encumbrance -->
-
-      <frame_char name="frame">
-        <anchored position="insidetopleft">
-          <right />
-          <bottom />
-        </anchored>
-      </frame_char>
-
       <label_charframetop name="header">
         <anchored to="contentanchor" height="20">
-          <top relation="relative" offset="25" postoffset="2" />
+          <top relation="relative" offset="2" postoffset="2" />
           <left offset="10" />
           <right offset="-10" />
         </anchored>
-        <static textres="char_label_resources" />
+        <static textres="char_label_notes" />
       </label_charframetop>
 
       <button_iadd name="list_iadd">
@@ -42,29 +44,24 @@
         <target>list</target>
       </button_iadd>
 
-      <!-- Resources -->
       <list_content_alternating name="list">
         <anchored>
-          <top offset="5" />
           <left offset="15" />
           <right offset="-15" />
           <bottom offset="-10" />
         </anchored>
-        <datasource>.traits.resourcelist</datasource>
-        <class>char_resource</class>
+        <datasource>.notelist</datasource>
+        <class>char_note</class>
         <sortby><control>name</control></sortby>
         <newfocus>name</newfocus>
       </list_content_alternating>
       <scrollbar_list />
-
-      <anchor_list_content_label_left />
-      <anchor_list_content_label_right />
-      <spacer_list_content_idelete_label_left name="idelete_header" />
-
+        
     </sheetdata>
-	</windowclass>
-	
-	<windowclass name="char_resource">
+  </windowclass>
+
+  <!-- Note entry -->
+  <windowclass name="char_note">
     <margins control="0,0,0,2" />
     <script>
       function onInit()
@@ -74,33 +71,23 @@
         WindowManager.callSafeControlsSetLockMode(self, { "name", "idelete" }, bReadOnly);
       end
     </script>
-		<sheetdata>
+    <sheetdata>
       <anchor_listitem_left_sm />
       <anchor_listitem_right_sm />
 
       <button_listitem_idelete_left name="idelete" />
+
       <linkc_listitem_left name="shortcut">
-        <class>resource</class>
-      </linkc_listitem_left>
-      
-      <number_listitem_right name="resource_level">
-        <script>
-          function onValueChanged()
-						local nodeResource = DB.getChild(getDatabaseNode(), "..");
-						setColor(CharManager.getResourceColor(nodeResource));
-          end
-        </script>
-        <anchored width="40" />
-        <frame mergerule="replace" name="fielddark" offset="5,5,5,5" hidereadonly="true" />
+        <class>charnote</class>
         <tabtarget prev="name" />
-      </number_listitem_right>
+      </linkc_listitem_left>
 
       <string_listitem_center name="name">
         <delaykeyupdate />
-        <tabtarget next="resource_level" />
+        <tabtarget next="shortcut" />
       </string_listitem_center>
-      
-		</sheetdata>
-	</windowclass>
+
+      </sheetdata>
+  </windowclass>
 
 </root>

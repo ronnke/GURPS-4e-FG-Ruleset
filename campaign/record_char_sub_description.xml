@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+  <template name="charsheet_sub_description">
+    <subwindow name="content">
+      <anchored position="insidetopleft" offset="0,0,0,0" />
+      <frame name="groupbox" offset="0,0,0,0" />
+      <class>charsheet_description</class>
+      <activate />
+      <noscroll />
+    </subwindow>
+  </template>
+
+  <!-- Description -->
+  <windowclass name="charsheet_description">
+    <script>
+      function onInit()
+        self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
+      end
+      function onLockModeChanged(bReadOnly)
+        WindowManager.callSafeControlsSetLockMode(self, { "description", }, bReadOnly);
+      end
+    </script>
+    <sheetdata>
+      <anchor_content_top />
+      <anchor_content_bottom />
+
+      <label_charframetop name="header">
+        <anchored to="contentanchor" height="20">
+          <top relation="relative" offset="2" postoffset="2" />
+          <left offset="10" />
+          <right offset="-10" />
+        </anchored>
+        <static textres="char_label_description" />
+      </label_charframetop>
+
+      <string_content_top name="description">
+        <anchored>
+          <top relation="relative" offset="5" />
+          <left offset="20" />
+          <right offset="-20" />
+          <bottom parent="bottomanchor" relation="current" offset="-15" />
+        </anchored>
+      </string_content_top>
+      <scrollbar>
+        <anchored to="description" offset="0,-5,0,-5" />
+        <target>description</target>
+      </scrollbar>
+
+    </sheetdata>
+  </windowclass>
+
+</root>

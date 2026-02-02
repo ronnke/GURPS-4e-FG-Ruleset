@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+
+<root>
+  <template name="charsheet_sub_injuryandfatigue">
+    <subwindow>
+      <anchored position="insidetopleft" width="220" height="105" />
+      <frame name="groupbox" offset="0,0,0,0" />
+      <class>char_injuryandfatigue</class>
+      <activate />
+    </subwindow>
+  </template>
+
+  <windowclass name="char_injuryandfatigue">
+    <script>
+			function onHealthChanged()
+       	local _, _, sColor = ActorManagerGURPS4e.getInjuryStatus(getDatabaseNode());
+        hpstatus.setColor(sColor);
+			end
+			function onFatigueChanged()
+	      local _, _, sColor = ActorManagerGURPS4e.getFatigueStatus(getDatabaseNode());
+        fpstatus.setColor(sColor);
+			end
+		</script>
+    <sheetdata>
+
+      <label_charframetop name="header">
+        <anchored height="20">
+          <top offset="2" />
+          <left offset="10" />
+          <right offset="-10" />
+        </anchored>
+        <static textres="char_label_combat_injuryandfatigue" />
+      </label_charframetop>
+
+      <number_combat_attribute name="hps" source="attributes.hps">
+        <anchored to="header" position="insidetopleft" offset="10,40" />
+        <tabtarget next="injury" />
+        <readonly />
+      </number_combat_attribute>
+      <label_attribute>
+        <anchored to="hps" />
+        <static>HP</static>
+      </label_attribute>
+
+      <number_dropadd name="injury" source="attributes.injury">
+        <anchored to="hps" position="right" offset="10,0" width="25">
+          <top offset="5" />
+        </anchored>
+        <tabtarget prev="hps" next="fps" />
+        <hideonvalue value="0" />
+        <min value="0" />
+        <script>
+          function onValueChanged()
+            window.onHealthChanged();
+          end
+        </script>
+      </number_dropadd>
+
+      <simplestring name="hpstatus" source="attributes.hpstatus">
+        <anchored to="injury" position="above" offset="10,0,-10,0" height="20" />
+        <font>sheetlabel</font>
+        <color>#C11B17</color>
+        <center />
+        <readonly />
+      </simplestring>
+
+      <number_combat_attribute name="fps" source="attributes.fps">
+        <anchored to="header" position="insidetopleft" offset="115,40" />
+        <tabtarget prev="injury" next="fatigue" />
+        <readonly />
+      </number_combat_attribute>
+      <label_attribute>
+        <anchored to="fps" />
+        <static>FP</static>
+      </label_attribute>
+
+      <number_dropadd name="fatigue" source="attributes.fatigue">
+        <anchored to="fps" position="right" offset="10,0" width="25">
+          <top offset="5" />
+        </anchored>
+        <tabtarget prev="fps" next="dodge" />
+        <hideonvalue value="0" />
+        <min value="0" />
+        <script>
+          function onValueChanged()
+            window.onFatigueChanged();
+          end
+        </script>
+      </number_dropadd>
+
+      <simplestring name="fpstatus" source="attributes.fpstatus">
+        <anchored to="fatigue" position="above" offset="10,0,-10,0" height="20" />
+        <font>sheetlabel</font>
+        <color>#C11B17</color>
+        <center />
+        <readonly />
+      </simplestring>
+
+      <button_checkbox name="halfmovedodge" source="attributes.halfmovedodge">
+        <anchored to="header" position="insidetopleft" offset="30,75" width="20" height="20" />
+      </button_checkbox>
+      <label name="halfmovedodge_label">
+        <anchored to="halfmovedodge" position="right" offset="2" />
+        <static textres="char_label_halfmovedodge" />
+      </label>
+
+    </sheetdata>
+	</windowclass>
+	
+</root>

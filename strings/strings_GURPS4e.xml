@@ -102,14 +102,11 @@
   <!-- Party Sheet -->
 
 	<!-- Character - General -->
-	<string name="char_label_points">Pts</string>
-
   <string name="char_label_basicattributes">BASIC ATTRIBUTES</string>
 
-	<string name="char_label_charactername">Character Name</string>
 	<string name="char_label_sizemodifier">SM</string>
-	<string name="char_label_reach">Reach</string>
-	<string name="char_label_name">Name</string>
+	<string name="char_label_reach">REACH</string>
+	<string name="char_label_name">NAME</string>
 	
 	<string name="char_label_secondarycharacteristics">SECONDARY CHARACTERISTICS</string>
 	<string name="char_label_basiclift">Basic Lift</string>
@@ -123,12 +120,11 @@
   <string name="char_tooltip_initiative">Roll Initiative</string>
 
   <string name="char_label_encumbrance">ENCUMBRANCE</string>
-	<string name="char_label_encumbrancenone">None</string>
-	<string name="char_label_encumbrancelight">Light</string>
-	<string name="char_label_encumbrancemedium">Med</string>
-	<string name="char_label_encumbranceheavy">Hvy</string>
-	<string name="char_label_encumbrancexheavy">X-Hvy</string>
-  <string name="char_label_encumbrancelevel">Encumbrance Level</string>
+	<string name="char_label_encumbrance_none">None</string>
+	<string name="char_label_encumbrance_light">Light</string>
+	<string name="char_label_encumbrance_medium">Med</string>
+	<string name="char_label_encumbrance_heavy">Hvy</string>
+	<string name="char_label_encumbrance_xheavy">X-Hvy</string>
 
   <string name="char_label_reactionmodifiers">REACTION MODIFIERS</string>
   <string name="char_label_roll">ROLL</string>
@@ -137,91 +133,102 @@
   <string name="char_label_resources">RESOURCES</string>
 
   <string name="char_label_currentattributes">CURRENT ATTRIBUTES</string>
-  <string name="char_label_injuryandfatigure">INJURY &amp; FATIGUE</string>
   <string name="char_label_halfmovedodge">Half Move &amp; Dodge</string>
   
   <string name="char_label_languages">LANGUAGES</string>
-	<string name="char_label_languages_spoken">SPOKEN</string>
+  <string name="char_label_languages_name">NAME</string>
+  <string name="char_label_languages_spoken">SPOKEN</string>
 	<string name="char_label_languages_written">WRITTEN</string>
   <string name="char_label_languages_points">PTS</string>
 
   <string name="char_label_culturalfamiliarities">CULTURAL FAMILIARITIES</string>
+  <string name="char_label_culturalfamiliarities_name">NAME</string>
+  <string name="char_label_culturalfamiliarities_points">PTS</string>
+
+  <!--Character - Common-->
+  <string name="char_label_level">LVL</string>
+  <string name="char_label_points">PTS</string>
 
   <!--Character - Traits-->
-  <string name="char_label_adsperks">ADVANTAGES &amp; PERKS</string>
-	<string name="char_label_disadsquirks">DISADVANTAGES &amp; QUIRKS</string>
+  <string name="char_label_traits_advantages">ADVANTAGES</string>
+  <string name="char_label_traits_perks">PERKS</string>
+  <string name="char_label_traits_disadvantages">DISADVANTAGES</string>
+  <string name="char_label_traits_quirks">QUIRKS</string>
+  <string name="char_label_traits_features">FEATURES</string>
 
-  <string name="char_traits_label_advantages">ADVANTAGES</string>
-  <string name="char_traits_label_perks">PERKS</string>
-  <string name="char_traits_label_disadvantages">DISADVANTAGES</string>
-  <string name="char_traits_label_quirks">QUIRKS</string>
-  <string name="char_traits_label_features">FEATURES</string>
+  <string name="char_label_traits_name">NAME</string>
+  <string name="char_label_traits_points">PTS</string>
 
-  <string name="char_traits_label_name">NAME</string>
-  <string name="char_traits_label_points">PTS</string>
-  <string name="char_traits_label_written">WRITTEN</string>
-  <string name="char_traits_label_spoken">SPOKEN</string>
+  <string name="char_label_abilities_skills">SKILLS</string>
+  <string name="char_label_abilities_spells">SPELLS</string>
+  <string name="char_label_abilities_powers">POWERS</string>
+  <string name="char_label_abilities_other">OTHER ABILITIES</string>
 
-  <!--Character - Combat-->
-  <string name="char_label_defenses">DEFENSES</string>
-	<string name="char_label_meleecombat">MELEE COMBAT</string>
-	<string name="char_label_rangedcombat">RANGED COMBAT</string>
+  <string name="char_label_abilities_name">NAME</string>
+  <string name="char_label_abilities_points">PTS</string>
+  <string name="char_label_abilities_level">LVL</string>
+  <string name="char_label_abilities_type">TYPE</string>
+  <string name="char_label_abilities_relativelevel">REL LVL</string>
+  <string name="char_label_abilities_class">CLASS</string>
+  <string name="char_label_abilities_college">COLLEGE</string>
+  <string name="char_label_abilities_costmaintain">COST/MAINTAIN</string>
+  <string name="char_label_abilities_time">TIME</string>
+  <string name="char_label_abilities_duration">DURATION</string>
+  <string name="char_label_abilities_resist">RESIST</string>
+  <string name="char_label_abilities_page">PAGE</string>
 
-	<string name="char_label_dodge">Dodge</string>
-	<string name="char_label_parry">Parry</string>
-	<string name="char_label_block">Block</string>
-	<string name="char_label_db">DB</string>
-	<string name="char_label_dr">DR</string>
-
-	<string name="char_label_weapon">Weapon</string>
-	<string name="char_label_st">ST</string>
-  <string name="char_label_weight">Weight</string>
-  <string name="char_label_move">Move</string>
-	<string name="char_label_cost">Cost</string>
-	<string name="char_label_ammo">Ammo</string>
-	<string name="char_label_tl">TL</string>
-	<string name="char_label_lc">LC</string>
-	<string name="char_label_acc">Acc</string>
-	<string name="char_label_range">Range</string>
-	<string name="char_label_rof">RoF</string>
-	<string name="char_label_rcl">Rcl</string>
-	<string name="char_label_shots">Shots</string>
-	<string name="char_label_bulk">Bulk</string>
-	<string name="char_label_reach">Reach</string>
-	<string name="char_label_damage">Damage</string>
-	<string name="char_label_mod">Mod</string>
-	<string name="char_label_mode">Mode</string>
-	<string name="char_label_modifier">Modifier</string>
-	<string name="char_label_armorshield">Armor/Shield</string>
-	<string name="char_label_location">Location</string>
-
-	<string name="char_tooltip_modes">Modes</string>
-	<string name="char_tooltip_modifiers">Modifiers</string>
-
-	<string name="char_label_skills">SKILLS</string>
-	<string name="char_label_spells">SPELLS</string>
-	<string name="char_label_powers">POWERS</string>
-	<string name="char_label_other">OTHER ABILITIES</string>
   <string name="char_tooltip_skill">Roll Skill</string>
   <string name="char_tooltip_spell">Roll Spell</string>
   <string name="char_tooltip_power">Roll Power</string>
   <string name="char_tooltip_other">Roll Other</string>
 
-  <string name="char_label_level">Lvl</string>
-	<string name="char_label_type">Type</string>
-	<string name="char_label_relativelevel">Rel Lvl</string>
+  <!--Character - Combat-->
+  <string name="char_label_combat_injuryandfatigue">INJURY &amp; FATIGUE</string>
+  <string name="char_label_combat_defenses">DEFENSES</string>
+	<string name="char_label_combat_melee">MELEE COMBAT</string>
+	<string name="char_label_combat_ranged">RANGED COMBAT</string>
 
-	<string name="char_label_class">Class</string>
-	<string name="char_label_college">College</string>
-	<string name="char_label_costmaintain">Cost/Maintain</string>
-	<string name="char_label_time">Time</string>
-	<string name="char_label_duration">Duration</string>
-	<string name="char_label_resist">Resist</string>
-	<string name="char_label_page">Page</string>
+	<string name="char_label_dodge">DODGE</string>
+	<string name="char_label_parry">PARRY</string>
+	<string name="char_label_block">BLOCK</string>
+	<string name="char_label_db">DB</string>
+	<string name="char_label_dr">DR</string>
 
-	<string name="char_label_notes">Notes</string>
-	<string name="char_label_summary">Points Summary</string>
-	<string name="char_pointtotal_attributes">Attributes</string>
+	<string name="char_label_weapon">WEAPON</string>
+	<string name="char_label_st">ST</string>
+  <string name="char_label_weight">WEIGHT</string>
+  <string name="char_label_move">MOVE</string>
+	<string name="char_label_cost">COST</string>
+	<string name="char_label_ammo">AMMO</string>
+	<string name="char_label_tl">TL</string>
+	<string name="char_label_lc">LC</string>
+	<string name="char_label_acc">ACC</string>
+	<string name="char_label_range">RANGE</string>
+	<string name="char_label_rof">ROF</string>
+	<string name="char_label_rcl">RCL</string>
+	<string name="char_label_shots">SHOTS</string>
+	<string name="char_label_bulk">BULK</string>
+	<string name="char_label_reach">REACH</string>
+	<string name="char_label_damage">DAMAGE</string>
+	<string name="char_label_mod">MOD</string>
+	<string name="char_label_mode">MODE</string>
+	<string name="char_label_modifier">MODIFIERS</string>
+	<string name="char_label_armorshield">ARMOR/SHIELD</string>
+	<string name="char_label_location">LOCATION</string>
+
+	<string name="char_tooltip_modes">Modes</string>
+  <string name="char_tooltip_details">Details</string>
+  <string name="char_tooltip_modifiers">Modifiers</string>
+  <string name="char_tooltip_roll_attack">Attack</string>
+  <string name="char_tooltip_roll_parry">Parry</string>
+  <string name="char_tooltip_roll_damage">Damage</string>
+  <string name="char_tooltip_roll_halfdamage">Half Damage</string>
+  <string name="char_tooltip_apply_acc">Acc</string>
+  
+  <string name="char_label_notes">NOTES</string>
+	<string name="char_label_summary">POINTS SUMMARY</string>
+  <string name="char_label_description">DESCRIPTION</string>
+  <string name="char_pointtotal_attributes">Attributes</string>
 	<string name="char_pointtotal_ads">Advantages</string>
 	<string name="char_pointtotal_disads">Disadvantages</string>
 	<string name="char_pointtotal_quirks">Quirks</string>
@@ -231,7 +238,6 @@
 	<string name="char_pointtotal_other">Other</string>
 	<string name="char_pointtotal_total">Total</string>
 	<string name="char_pointtotal_unspent">Unspent</string>
-	<string name="char_label_description">Description</string>
 
   <string name="char_label_inventory">INVENTORY</string>
   <string name="char_label_money">CURRENCY</string>
@@ -251,6 +257,7 @@
 	<string name="npc_label_melee">MELEE COMBAT</string>
 	<string name="npc_label_ranged">RANGED COMBAT</string>
 	<string name="npc_label_abilities">ABILITIES</string>
+  
   <string name="npc_tooltip_swing">Roll Swing</string>
   <string name="npc_tooltip_thrust">Roll Thrust</string>
   <string name="npc_tooltip_ability">Roll Ability</string>
@@ -296,7 +303,6 @@
 	<string name="item_label_shots">Shots</string>
 	<string name="item_label_bulk">Bulk Penalty</string>
 	<string name="item_label_rcl">Recoil Modifier</string>
-
 
   <string name="library_recordview_label_item_bytype">By Type</string>
   <string name="library_recordview_label_item_defense">Defenses</string>
@@ -422,25 +428,25 @@
   <string name="ability_default_label">Defaults</string>
   <string name="ability_prerequisite_label">Prerequisites</string>
 
-  <string name="ability_skilltype_label">Skill Type</string>
-  <string name="ability_skilldefault_label">Skill Default</string>
+  <string name="ability_skilltype_label">Type</string>
+  <string name="ability_skilldefault_label">Defaults</string>
   <string name="ability_skillprerequisite_label">Prerequisites</string>
-  
+
   <string name="ability_spellcollege_label">College</string>
   <string name="ability_spellclass_label">Class</string>
   <string name="ability_spelltype_label">Type</string>
   <string name="ability_spellresist_label">Resist</string>
   <string name="ability_spellduration_label">Duration</string>
-  <string name="ability_spellcost_label">Cost</string>
-  <string name="ability_spelltimetocast_label">Time to cast</string>
+  <string name="ability_spellcostmaintain_label">Cost/Maintain</string>
+  <string name="ability_spelltimetocast_label">Time to Cast</string>
   <string name="ability_spellprerequisite_label">Prerequisites</string>
 
   <string name="ability_powerskill_label">Power Skill</string>
-  <string name="ability_powerdefault_label">Skill Default</string>
+  <string name="ability_powerdefault_label">Defaults</string>
 
   <string name="ability_otherpoints_label">Points</string>
   <string name="ability_otherlevel_label">Base Level</string>
-  <string name="ability_otherdefault_label">Default</string>
+  <string name="ability_otherdefault_label">Defaults</string>
 
   <string name="library_recordview_label_ability_skill">Skills</string>
   <string name="library_recordview_label_ability_spell">Spells</string>
@@ -453,8 +459,8 @@
   <string name="ability_grouped_label_page">Page</string>
   <string name="ability_grouped_label_class">Class</string>
   <string name="ability_grouped_label_duration">Duration</string>
-  <string name="ability_grouped_label_cost">Cost</string>
-  <string name="ability_grouped_label_timetocast">Time to cast</string>
+  <string name="ability_grouped_label_costmaintain">Cost/Maintain</string>
+  <string name="ability_grouped_label_timetocast">Time to Cast</string>
   <string name="ability_grouped_label_prerequisite">Prerequisites</string>
   <string name="ability_grouped_label_level">Level</string>
   <string name="ability_grouped_label_points">Points</string>

@@ -7,199 +7,26 @@
 
 <root>
 	<windowclass name="charsheet_combat">
-		<script>
-			function onHealthChanged()
-				local rActor = ActorManager.resolveActor(getDatabaseNode());
-				ActionDamage.updateDamage(rActor);
-			end
-			function onFatigueChanged()
-				local rActor = ActorManager.resolveActor(getDatabaseNode());
-				ActionFatigue.updateFatigue(rActor);
-			end
-		</script>
 		<sheetdata>
-		
-			<!-- CURRENT STATS -->
-			
-			<frame_char name="currentattributesframe">
-        <anchored position="insidetopleft" offset="0,0" width="210" height="100" />
-			</frame_char>
-			<label_frametop>
-				<anchored to="currentattributesframe" />
-				<static textres="char_label_injuryandfatigure" />
-			</label_frametop>
 
-			<number_combat_attribute name="hps" source="attributes.hps">
-				<anchored to="currentattributesframe" position="insidetopleft" offset="25,40" />
-        <tabtarget next="injury" />
-        <readonly />
-      </number_combat_attribute>
-			<label_attribute>
-				<anchored to="hps" />
-				<static>HP</static>
-			</label_attribute>
+      <charsheet_sub_injuryandfatigue name="injuryandfatigue">
+        <anchored position="insidetopleft" offset="0,0" />
+        <tabtarget next="defenses" />
+      </charsheet_sub_injuryandfatigue>
 
-      <number_dropadd name="injury" source="attributes.injury">
-        <anchored to="hps" width="25" height="25">
-          <bottom />
-          <left anchor="right" offset="7" />
+      <charsheet_sub_defenses name="defenses">
+        <anchored to="injuryandfatigue" position="right" />
+        <tabtarget next="combat" prev="injuryandfatigue" />
+      </charsheet_sub_defenses>
+
+      <charsheet_sub_combat name="combat">
+        <anchored position="over">
+          <top offset="110" />
         </anchored>
-        <tabtarget prev="hps" next="fps" />
-        <hideonvalue value="0" />
-        <min value="0" />
-				<script>
-					function onValueChanged()
-						window.onHealthChanged();
-					end
-				</script>
-      </number_dropadd>
+        <tabtarget prev="defenses" />
+      </charsheet_sub_combat>
 
-      <simplestring name="hpstatus" source="attributes.hpstatus">
-        <anchored to="injury" width="40" height="20">
-          <top offset="-20" />
-          <left anchor="left" />
-        </anchored>
-        <color>#C11B17</color>
-        <readonly />
-      </simplestring>
-
-      <number_combat_attribute name="fps" source="attributes.fps">
-				<anchored to="currentattributesframe" position="insidetopleft" offset="115,40" />
-        <tabtarget prev="injury" next="fatigue" />
-        <readonly />
-      </number_combat_attribute>
-			<label_attribute>
-				<anchored to="fps" />
-				<static>FP</static>
-			</label_attribute>
-
-      <number_dropadd name="fatigue" source="attributes.fatigue">
-				<script>
-					function onValueChanged()
-						window.onFatigueChanged();
-					end
-				</script>
-        <anchored to="fps" width="25" height="25">
-          <bottom />
-          <left anchor="right" offset="7" />
-        </anchored>
-        <tabtarget prev="fps" next="dodge" />
-        <hideonvalue value="0" />
-        <min value="0" />
-      </number_dropadd>
-
-      <simplestring name="fpstatus" source="attributes.fpstatus">
-        <anchored to="fatigue" width="40" height="20">
-          <top offset="-20" />
-          <left anchor="left" />
-        </anchored>
-        <color>#C11B17</color>
-        <readonly />
-      </simplestring>
-
-      <button_checkbox name="halfmovedodge" source="attributes.halfmovedodge">
-        <anchored to="currentattributesframe" position="insidetopleft" offset="30,72" width="20" height="20" />
-      </button_checkbox>
-      <label name="halfmovedodge_label">
-        <anchored to="currentattributesframe" position="insidetopleft" offset="50,72" />
-        <static textres="char_label_halfmovedodge" />
-      </label>
-
-      <!-- DEFENSES -->
-			<frame_char name="defensesframe">
-        <anchored position="insidetopleft" offset="210,0" width="270" height="100" />
-			</frame_char>
-			<label_frametop>
-				<anchored to="defensesframe" />
-				<static textres="char_label_defenses" />
-			</label_frametop>
-
-			<number_attribute name="dodge" source="combat.dodge">
-				<rollable_dodge />
-				<anchored to="defensesframe" position="insidetopleft" offset="25,40" />
-        <tabtarget prev="fatigue" next="parry" />
-        <default>0</default>
-        <readonly />
-      </number_attribute>
-			<label_attribute>
-				<anchored to="dodge" />
-				<static textres="char_label_dodge" />
-			</label_attribute>
-
-			<number_attribute name="parry" source="combat.parry">
-				<rollable_parry />
-				<anchored to="defensesframe" position="insidetopleft" offset="85,40" />
-        <tabtarget prev="dodge" next="block" />
-        <default>0</default>
-      </number_attribute>
-			<label_attribute>
-				<anchored to="parry" />
-				<static textres="char_label_parry" />
-			</label_attribute>
-
-			<number_attribute name="block" source="combat.block">
-				<rollable_block />
-				<anchored to="defensesframe" position="insidetopleft" offset="145,40" />
-        <tabtarget prev="parry" next="dr" />
-        <default>0</default>
-      </number_attribute>
-			<label_attribute>
-				<anchored to="block" />
-				<static textres="char_label_block" />
-			</label_attribute>
-
-			<string_attribute name="dr" source="combat.dr">
-				<anchored to="defensesframe" position="insidetopleft" offset="205,40" />
-        <tabtarget prev="block" />
-      </string_attribute>
-			<label_attribute>
-				<anchored to="dr" />
-				<static textres="char_label_dr" />
-			</label_attribute>
-
-
-			<subwindow name="meleecombat">
-        <anchored position="insidetopleft" offset="0,100">
-          <bottom />
-          <right />
-        </anchored>
-				<class>charsheet_meleecombat</class>
-			</subwindow>
-
-			<subwindow name="rangedcombat">
-        <anchored position="insidetopleft" offset="0,100">
-          <bottom />
-          <right />
-        </anchored>
-        <class>charsheet_rangedcombat</class>
-			</subwindow>
-
-			<subwindow name="defenses">
-        <anchored position="insidetopleft" offset="0,100">
-          <bottom />
-          <right />
-        </anchored>
-        <class>charsheet_defenses</class>
-			</subwindow>
-
-      <tabs_char_h>
-        <anchored position="insidetopleft">
-          <top offset="100" />
-        </anchored>
-				<tab>
-          <tabres>tab_meleecombat</tabres>
-					<subwindow>meleecombat</subwindow>
-				</tab>
-				<tab>
-          <tabres>tab_rangedcombat</tabres>
-					<subwindow>rangedcombat</subwindow>
-				</tab>
-				<tab>
-          <tabres>tab_defenses</tabres>
-					<subwindow>defenses</subwindow>
-				</tab>
-				<activate>1</activate>
-			</tabs_char_h>
-		</sheetdata>
+    </sheetdata>
 	</windowclass>
+  
 </root>

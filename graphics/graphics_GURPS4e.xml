@@ -18,7 +18,13 @@
 	<icon name="desktopdecal_dfrpg" file="graphics/decals/desktopdecal_dfrpg.png"/>
 
 	<!-- Buttons -->
-	<icon name="details" file="graphics/buttons/button_details.png" />
+  <icon name="button_action_parry" file="graphics/buttons/button_section_shield.png" />
+  <icon name="button_action_parry_down" file="graphics/buttons/button_section_shield_down.png" />
+
+  <icon name="button_action_halfdamage" file="graphics/buttons/button_action_halfd.png" />
+  <icon name="button_action_halfdamage_down" file="graphics/buttons/button_action_halfd_down.png" />
+
+  <icon name="details" file="graphics/buttons/button_details.png" />
 	<icon name="details_down" file="graphics/buttons/button_details_down.png" />
 
 	<icon name="button_skip" file="graphics/buttons/button_skip.png" />
@@ -71,8 +77,16 @@
   <icon name="char_traits_perks" file="graphics/icons/char_left_frame.png" />
   <icon name="char_traits_quirks" file="graphics/icons/char_left_frame.png" />
   <icon name="char_traits_features" file="graphics/icons/char_left_frame.png" />
+  <icon name="char_abilities_skills" file="graphics/icons/char_left_frame.png" />
+  <icon name="char_abilities_spells" file="graphics/icons/char_left_frame.png" />
+  <icon name="char_abilities_powers" file="graphics/icons/char_left_frame.png" />
+  <icon name="char_abilities_other" file="graphics/icons/char_left_frame.png" />
 
-	<!-- Modifier stack -->
+  <icon name="char_combat_melee" file="graphics/icons/char_left_frame.png" />
+  <icon name="char_combat_ranged" file="graphics/icons/char_left_frame.png" />
+  <icon name="char_combat_defense" file="graphics/icons/char_left_frame.png" />
+
+  <!-- Modifier stack -->
 	<icon name="modcollector" file="graphics/icons/modcollector.png" />
 	<icon name="modcollector_counter" file="graphics/icons/modcollector_counter.png" />
 	

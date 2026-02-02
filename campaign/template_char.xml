@@ -56,7 +56,10 @@
 
 	<template name="label_attribute">
 		<label_fieldtop>
-			<anchored offset="0,-6" height="15"/>
+      <anchored offset="0,-6" height="15">
+        <left offset="-2"/>
+        <right offset="2"/>
+      </anchored>
 			<frame name="attributelabel" />
       <color>#000000</color>
 		</label_fieldtop>
@@ -76,8 +79,14 @@
 		</stringcontrol>
 	</template>
 
+  <template name="label_subsectiontop">
+    <stringcontrol>
+      <font>sheetlabel</font>
+      <center />
+    </stringcontrol>
+  </template>
 
-	<template name="number_charmodfield">
+  <template name="number_charmodfield">
 		<basicnumber>
 			<script>
 				function onInit()
@@ -292,87 +301,7 @@
 		</button_roll>
 	</template>
 	
-	<template name="button_toggledetail">
-		<buttoncontrol>
-			<anchored width="20" height="20" />
-			<state icon="details" />
-			<state icon="details_down" />
-			<script>
-				function onValueChanged()
-					if window.toggleDetail then
-						window.toggleDetail();
-					end
-				end
-			</script>
-		</buttoncontrol>
-	</template>
-
-	<template name="button_toggleweaponmodes">
-		<buttoncontrol>
-			<anchored width="20" height="20" />
-			<state icon="weapon_modes" />
-			<state icon="weapon_modes_down" />
-			<script>
-				function onValueChanged()
-					if window.toggleWeaponModes then
-						window.toggleWeaponModes();
-					end
-				end
-			</script>
-		</buttoncontrol>
-	</template>
-
-	<template name="button_toggleweaponmodifiers">
-		<buttoncontrol>
-			<anchored width="20" height="20" />
-			<state icon="weapon_modifiers" />
-			<state icon="weapon_modifiers_down" />
-			<script>
-				function onValueChanged()
-					if window.toggleWeaponModifiers then
-						window.toggleWeaponModifiers();
-					end
-				end
-			</script>
-		</buttoncontrol>
-	</template>
-
-	<template name="list_charnote">
-		<list_text>
-			<datasource>.notelist</datasource>
-			<class>char_note</class>
-			<sortby><control>name</control></sortby>
-			<newfocus>name</newfocus>
-		</list_text>
-	</template>
-
-	<template name="list_chardefenses">
-		<list_text>
-			<datasource>.combat.defenseslist</datasource>
-			<class>char_defenses</class>
-			<sortby><control>name</control></sortby>
-			<newfocus>name</newfocus>
-		</list_text>
-	</template>
-
-	<template name="list_charmeleecombat">
-		<list_text>
-			<datasource>.combat.meleecombatlist</datasource>
-			<class>char_meleecombat</class>
-			<sortby><control>name</control></sortby>
-			<newfocus>name</newfocus>
-    </list_text>
-	</template>
-
-	<template name="list_charrangedcombat">
-		<list_text>
-			<datasource>.combat.rangedcombatlist</datasource>
-			<class>char_rangedcombat</class>
-			<sortby><control>name</control></sortby>
-			<newfocus>name</newfocus>
-		</list_text>
-	</template>
-
+  
 	<template name="list_npcmeleecombat">
 		<list_text>
 			<datasource>.combat.meleecombatlist</datasource>
