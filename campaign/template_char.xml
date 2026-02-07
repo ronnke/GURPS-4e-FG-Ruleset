@@ -324,17 +324,6 @@
 		</list_text>
 	</template>
 
-	<template name="list_npcabilities">
-		<list_text>
-			<datasource>.abilities.abilitieslist</datasource>
-			<sortby><control>name</control></sortby>
-			<newfocus>name</newfocus>
-			<allowcreate />
-			<allowdelete />
-			<noscroll />
-		</list_text>
-	</template>
-
 	<template name="list_charmodifier">
 		<list_text>
 			<datasource>.modifierlist</datasource>

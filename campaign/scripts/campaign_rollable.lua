@@ -152,12 +152,12 @@ function action(draginfo)
       sWeapon = DB.getValue(node.getChild("..."), "name", "");
       sMode = DB.getValue(node, "name", "");
       sDamage = DB.getValue(node, "damage", "");
-      ActionDamage.performRoll(draginfo, rActor, sWeapon, sMode, sDamage);
-    elseif rollable_damage or rollable_button_halfdamage then
+      ActionDamage.performRoll(draginfo, rActor, sWeapon, sMode, sDamage, false);
+    elseif rollable_halfdamage or rollable_button_halfdamage then
       sWeapon = DB.getValue(node.getChild("..."), "name", "");
       sMode = DB.getValue(node, "name", "");
       sDamage = DB.getValue(node, "damage", "");
-      ActionDamage.performRoll(draginfo, rActor, sWeapon, sMode, sDamage);
+      ActionDamage.performRoll(draginfo, rActor, sWeapon, sMode, sDamage, true);
     elseif rollable_thrust or rollable_button_thrust then
       sDamage = DB.getValue(node.getChild("attributes"), "thrust", "");
       ActionDamage.performThrustRoll(draginfo, rActor, sDamage);

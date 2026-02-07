@@ -17,6 +17,7 @@
   <string name="tab_encumbrance">Move/Enc</string>
   <string name="tab_reactionmodifiers">Reaction</string>
   <string name="tab_resources">Resources</string>
+  <string name="tab_misc">Misc</string>
 
   <string name="tab_skills">Skills</string>
   <string name="tab_spells">Spells</string>
@@ -125,12 +126,14 @@
 	<string name="char_label_encumbrance_medium">Med</string>
 	<string name="char_label_encumbrance_heavy">Hvy</string>
 	<string name="char_label_encumbrance_xheavy">X-Hvy</string>
+  <string name="char_label_encumbrancelevel">Encumbrance Level</string>
 
   <string name="char_label_reactionmodifiers">REACTION MODIFIERS</string>
   <string name="char_label_roll">ROLL</string>
   <string name="char_tooltip_reaction">Roll Reaction</string>
 
   <string name="char_label_resources">RESOURCES</string>
+  <string name="char_label_miscellaneous">MISCELLANEOUS</string>
 
   <string name="char_label_currentattributes">CURRENT ATTRIBUTES</string>
   <string name="char_label_halfmovedodge">Half Move &amp; Dodge</string>
@@ -224,7 +227,9 @@
   <string name="char_tooltip_roll_damage">Damage</string>
   <string name="char_tooltip_roll_halfdamage">Half Damage</string>
   <string name="char_tooltip_apply_acc">Acc</string>
-  
+  <string name="char_tooltip_apply_bulk">Bulk</string>
+  <string name="char_tooltip_apply_db">DB</string>
+
   <string name="char_label_notes">NOTES</string>
 	<string name="char_label_summary">POINTS SUMMARY</string>
   <string name="char_label_description">DESCRIPTION</string>
@@ -243,7 +248,12 @@
   <string name="char_label_money">CURRENCY</string>
 
   <!-- NPCs -->
-	<string name="npc_label_type">Type</string>
+  <string name="npc_label_traits">TRAITS</string>
+  <string name="npc_label_abilities">ABILITIES</string>
+  <string name="npc_label_melee">MELEE COMBAT</string>
+  <string name="npc_label_ranged">RANGED COMBAT</string>
+
+  <string name="npc_label_type">Type</string>
 	<string name="npc_label_pts">Points</string>
 	<string name="npc_label_basicspeed">Basic Speed</string>
 	<string name="npc_label_move">Move</string>
@@ -253,10 +263,6 @@
 	<string name="npc_label_swing">Swing</string>
 	<string name="npc_label_thrust">Thrust</string>
 	<string name="npc_label_reaction">Reaction +/-</string>
-	<string name="npc_label_traits">TRAITS</string>
-	<string name="npc_label_melee">MELEE COMBAT</string>
-	<string name="npc_label_ranged">RANGED COMBAT</string>
-	<string name="npc_label_abilities">ABILITIES</string>
   
   <string name="npc_tooltip_swing">Roll Swing</string>
   <string name="npc_tooltip_thrust">Roll Thrust</string>

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+  <windowclass name="common_content_defenses">
+    <margins control="10,15,10,7" />
+		<script>
+      function onInit()
+        self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
+      end
+      function onLockModeChanged(bReadOnly)
+        WindowManager.callSafeControlsSetLockMode(self, { "parry", "block", "dr" }, bReadOnly);
+      end
+    </script>
+    <sheetdata>
+
+      <number_attribute name="dodge" source="combat.dodge">
+        <rollable_dodge />
+        <anchored position="insidetopleft" />
+        <tabtarget prev="fatigue" next="parry" />
+        <default>0</default>
+        <readonly />
+      </number_attribute>
+      <label_attribute>
+        <anchored to="dodge" />
+        <static textres="char_label_dodge" />
+      </label_attribute>
+
+      <number_attribute name="parry" source="combat.parry">
+        <rollable_parry />
+        <anchored to="dodge" position="right" offset="15,0" />
+        <tabtarget prev="dodge" next="block" />
+        <default>0</default>
+      </number_attribute>
+      <label_attribute>
+        <anchored to="parry" />
+        <static textres="char_label_parry" />
+      </label_attribute>
+
+      <number_attribute name="block" source="combat.block">
+        <rollable_block />
+        <anchored to="parry" position="right" offset="15,0" />
+        <tabtarget prev="parry" next="dr" />
+        <default>0</default>
+      </number_attribute>
+      <label_attribute>
+        <anchored to="block" />
+        <static textres="char_label_block" />
+      </label_attribute>
+
+      <string_attribute name="dr" source="combat.dr">
+        <anchored to="block" position="right" offset="15,0" width="65" />
+        <tabtarget prev="block" />
+      </string_attribute>
+      <label_attribute>
+        <anchored to="dr" />
+        <static textres="char_label_dr" />
+      </label_attribute>
+
+    </sheetdata>
+	</windowclass>
+	
+	<windowclass name="common_list_defense">
+		<script>
+      function onInit()
+        self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
+      end
+      function onLockModeChanged(bReadOnly)
+        WindowManager.callSafeControlsSetLockMode(self, { "list_iadd", }, bReadOnly);
+      end
+      function onDrop(x, y, draginfo)
+        if not draginfo.isType("shortcut") then
+          return;
+        end
+
+        local _, sRecord = draginfo.getShortcutData();
+        if LibraryDataGURPS4e.isDefense(sRecord) then
+          return ItemManager.handleAnyDrop(getDatabaseNode(), draginfo);
+        end
+      end      
+    </script>
+		<sheetdata>
+      <anchor_content_top />
+      <anchor_content_bottom />
+
+      <label_charframetop name="header">
+        <anchored to="contentanchor" height="20">
+          <top relation="relative" offset="2" postoffset="2" />
+          <left offset="10" />
+          <right offset="-10" />
+        </anchored>
+        <static textres="char_label_combat_defenses" />
+        <icons>char_combat_defense</icons>
+      </label_charframetop>
+
+      <button_iadd name="list_iadd">
+        <anchored to="header" position="insidetopright" offset="5,0" />
+        <target>list</target>
+      </button_iadd>
+
+      <list_content_labeled_alternating_top name="list">
+        <anchored>
+          <left offset="5" />
+          <right offset="-5" />
+        </anchored>
+        <datasource>.combat.defenseslist</datasource>
+        <class>common_listitem_defense</class>
+        <sortby><control>name</control></sortby>
+        <newfocus>name</newfocus>
+      </list_content_labeled_alternating_top>
+
+      <anchor_list_content_label_left />
+      <anchor_list_content_label_right />
+      <spacer_list_content_idelete_label_left name="idelete_header" />
+      <spacer_list_content_link_label_left name="spacer_shortcut" />
+
+      <label_list_content_string_right name="label_dr">
+        <anchored width="50" />
+        <center />
+        <static textres="char_label_dr" />
+      </label_list_content_string_right>
+
+      <label_list_content_number_right name="label_db">
+        <anchored width="30" />
+        <static textres="char_label_db" />
+      </label_list_content_number_right>
+
+      <label_list_content_string_right name="label_location">
+        <anchored width="150" />
+        <center />
+        <static textres="char_label_location" />
+      </label_list_content_string_right>
+
+      <label_list_content_noframe name="label_armorshield">
+        <center />
+        <static textres="char_label_armorshield" />
+      </label_list_content_noframe>
+		
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="common_listitem_defense">
+		<margins control="0,0,0,2" />
+    <script>
+      function onInit()
+        self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
+        self.onDBChanged();
+      end
+      function onLockModeChanged(bReadOnly)
+        WindowManager.callSafeControlsSetLockMode(self, { "name", "locations", "db", "dr", "idelete" }, bReadOnly);
+        WindowManager.callSafeControlsSetVisible(self, { "db" }, not bReadOnly);
+        WindowManager.callSafeControlsSetVisible(self, { "button_db" }, bReadOnly);
+      end
+      function onDBChanged()
+        local value = tonumber(db.getValue()) or 0;
+        button_db.setTooltipText("DB: " .. value);
+      end
+    </script>
+    <sheetdata>
+      <anchor_listitem_left_sm />
+      <anchor_listitem_right_sm />
+
+      <button_listitem_idelete_left name="idelete" />
+
+      <link_listitem_left name="shortcut">
+        <tabtarget prev="dr" />
+      </link_listitem_left>
+
+      <string_listitem_right name="dr">
+        <anchored width="50" />
+        <center />
+        <tabtarget next="shortcut" prev="db" />
+      </string_listitem_right>
+
+      <number_listitem_right name="db">
+        <frame mergerule="replace" name="fielddark" offset="5,5,5,5" hidereadonly="true" />
+        <anchored width="30" />
+        <displaysign />
+        <tabtarget next="dr" prev="button_db" />
+        <script>
+          function onValueChanged()
+            window.onDBChanged();
+          end
+        </script>
+      </number_listitem_right>
+
+      <button_listitem_mod_right name="button_db">
+        <anchored>
+          <right position="relative" offset="-10" postoffset="-10" />
+        </anchored>
+        <icon normal="button_action_modifier" pressed="button_action_modifier_down" />
+        <tooltip textres="char_tooltip_apply_db" />
+        <targetname>DB</targetname>
+        <targetvalue>db</targetvalue>
+        <tabtarget next="db" prev="locations" />
+      </button_listitem_mod_right>
+
+      <string_listitem_right name="locations">
+        <anchored width="150" />
+        <center />
+        <tabtarget next="db" prev="name" />
+      </string_listitem_right>
+
+      <string_listitem_narrow_center name="name">
+        <delaykeyupdate />
+        <tabtarget next="locations" />
+      </string_listitem_narrow_center>
+
+    </sheetdata>
+  </windowclass>
+
+</root>

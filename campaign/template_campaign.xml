@@ -213,7 +213,7 @@
   <template name="label_listitem_number_narrow_left_sm">
     <label_listitem_number_left_sm>
       <anchored>
-        <left relation="relative" offset="0" postoffset="0" />
+        <left relation="relative" offset="5" postoffset="5" />
       </anchored>
     </label_listitem_number_left_sm>
   </template>
@@ -228,7 +228,7 @@
   <template name="label_listitem_number_narrow_right_sm">
     <label_listitem_number_right_sm>
       <anchored>
-        <right relation="relative" offset="0" postoffset="0" />
+        <right relation="relative" offset="-5" postoffset="-5" />
       </anchored>
     </label_listitem_number_right_sm>
   </template>
@@ -286,17 +286,17 @@
       <anchored>
         <left relation="relative" offset="10" postoffset="10" />
       </anchored>
-      <font>sheettext</font>
+      <!--<font>sheettext</font>-->
       <nodrag />
     </string_listitem_left>
   </template>
   <template name="number_listitem_narrow_left">
     <number_listitem_left>
       <anchored>
-        <left relation="relative" offset="0" postoffset="0" />
+        <left relation="relative" offset="5" postoffset="5" />
       </anchored>
       <frame mergerule="replace" name="fielddark" offset="5,5,5,5" hidereadonly="true" />
-      <font>sheettext</font>
+      <!--<font>sheettext</font>-->
       <nodrag />
     </number_listitem_left>
   </template>
@@ -323,17 +323,17 @@
       <anchored>
         <right relation="relative" offset="-10" postoffset="-10" />
       </anchored>
-      <font>sheettext</font>
+      <!--<font>sheettext</font>-->
       <nodrag />
     </string_listitem_right>
   </template>
   <template name="number_listitem_narrow_right">
     <number_listitem_right>
       <anchored>
-        <right anchor="left" relation="relative" offset="0" postoffset="0" />
+        <right relation="relative" offset="-5" postoffset="-5" />
       </anchored>
       <frame mergerule="replace" name="fielddark" offset="5,5,5,5" hidereadonly="true" />
-      <font>sheettext</font>
+      <!--<font>sheettext</font>-->
       <nodrag />
     </number_listitem_right>
   </template>

@@ -5,75 +5,40 @@
   attribution and copyright information.
 -->
 
-
 <root>
   <template name="charsheet_sub_defenses">
     <subwindow>
       <anchored position="insidetopleft" width="270" height="105" />
-      <frame name="groupbox" offset="0,0,0,0" />
-      <class>char_content_defenses</class>
+      <class>char_header_defenses</class>
       <activate />
     </subwindow>
   </template>
 
-  <windowclass name="char_content_defenses">
+  <windowclass name="char_header_defenses">
     <sheetdata>
       <anchor_content_top />
-      <anchor_content_bottom />
+
+      <frame_char name="frame">
+        <anchored position="over" />
+      </frame_char>
 
       <label_charframetop name="header">
-        <anchored height="20">
-          <top offset="2" />
+        <anchored to="contentanchor" height="20">
+          <top relation="relative" offset="2" postoffset="7" />
           <left offset="10" />
           <right offset="-10" />
         </anchored>
         <static textres="char_label_combat_defenses" />
       </label_charframetop>
-
-      <number_attribute name="dodge" source="combat.dodge">
-        <rollable_dodge />
-        <anchored to="header" position="insidetopleft" offset="10,40" />
-        <tabtarget prev="fatigue" next="parry" />
-        <default>0</default>
-        <readonly />
-      </number_attribute>
-      <label_attribute>
-        <anchored to="dodge" />
-        <static textres="char_label_dodge" />
-      </label_attribute>
-
-      <number_attribute name="parry" source="combat.parry">
-        <rollable_parry />
-        <anchored to="dodge" position="right" offset="15,0" />
-        <tabtarget prev="dodge" next="block" />
-        <default>0</default>
-      </number_attribute>
-      <label_attribute>
-        <anchored to="parry" />
-        <static textres="char_label_parry" />
-      </label_attribute>
-
-      <number_attribute name="block" source="combat.block">
-        <rollable_block />
-        <anchored to="parry" position="right" offset="15,0" />
-        <tabtarget prev="parry" next="dr" />
-        <default>0</default>
-      </number_attribute>
-      <label_attribute>
-        <anchored to="block" />
-        <static textres="char_label_block" />
-      </label_attribute>
-
-      <string_attribute name="dr" source="combat.dr">
-        <anchored to="block" position="right" offset="15,0" width="65" />
-        <tabtarget prev="block" />
-      </string_attribute>
-      <label_attribute>
-        <anchored to="dr" />
-        <static textres="char_label_dr" />
-      </label_attribute>
-
+      
+      <sub_content_top name="defenses">
+        <anchored>
+          <left anchor="center" offset="-125" />
+          <right anchor="center" offset="125" />
+        </anchored>
+        <class>common_content_defenses</class>
+      </sub_content_top>
     </sheetdata>
-	</windowclass>
+  </windowclass>
 	
 </root>

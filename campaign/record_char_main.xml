@@ -111,7 +111,15 @@
           <right />
         </anchored>
         <class>charsheet_sub_resources</class>
-        <tabtarget next="languages" prev="reactionmodifiers" />
+        <tabtarget next="misc" prev="reactionmodifiers" />
+      </subwindow>
+
+      <subwindow name="misc">
+        <anchored position="insidetopleft" offset="180,175" height="220">
+          <right />
+        </anchored>
+        <class>charsheet_sub_misc</class>
+        <tabtarget next="languages" prev="resources" />
       </subwindow>
 
       <tabs_char_h>
@@ -130,6 +138,10 @@
         <tab>
           <tabres>tab_resources</tabres>
           <subwindow>resources</subwindow>
+        </tab>
+        <tab>
+          <tabres>tab_misc</tabres>
+          <subwindow>misc</subwindow>
         </tab>
         <activate>1</activate>
       </tabs_char_h>

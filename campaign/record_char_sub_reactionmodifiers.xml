@@ -25,10 +25,7 @@
       <!-- Reaction Modifiers-->
 
       <frame_char name="frame">
-        <anchored position="insidetopleft">
-          <right />
-          <bottom />
-        </anchored>
+        <anchored position="over" />
       </frame_char>
 
       <label_charframetop name="header">

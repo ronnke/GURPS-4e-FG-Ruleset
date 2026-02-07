@@ -79,8 +79,10 @@
 				<right />
 				<sizelimits><minimum height="24" /></sizelimits>
 			</anchored>
-      <class>ct_melee</class>
+      <class>ct_listitem_meleeweapon</class>
       <sortby><control>name</control></sortby>
+      <child merge="resetandadd"></child>
+      <child merge="add"><backcolor>1A40301E</backcolor></child>
       <hideonempty />
     </list_ct_section_labeled>
   </template>
@@ -93,89 +95,14 @@
 				<right />
 				<sizelimits><minimum height="24" /></sizelimits>
 			</anchored>
-      <class>ct_ranged</class>
+      <class>ct_listitem_rangedweapon</class>
       <sortby><control>name</control></sortby>
+      <child merge="resetandadd"></child>
+      <child merge="add"><backcolor>1A40301E</backcolor></child>
       <hideonempty />
     </list_ct_section_labeled>
   </template>
 
-  <!-- Section - Modes -->
-  <template name="button_ct_section_meleemodes">
-    <button_ct_section>
-      <tooltip textres="ct_tooltip_modes" />
-      <state icon="button_section_modes" merge="add" />
-      <state icon="button_section_modes_down" merge="add" />
-      <target>meleemodes</target>
-    </button_ct_section>
-  </template>
-
-  <template name="button_ct_section_rangedmodes">
-    <button_ct_section>
-      <tooltip textres="ct_tooltip_modes" />
-      <state icon="button_section_modes" merge="add" />
-      <state icon="button_section_modes_down" merge="add" />
-      <target>rangedmodes</target>
-    </button_ct_section>
-  </template>
-  
-  <template name="button_ct_section_modifiers">
-    <button_ct_section>
-      <tooltip textres="ct_tooltip_modifiers" />
-      <state icon="button_section_modifiers" merge="add" />
-      <state icon="button_section_modifiers_down" merge="add" />
-      <target>modifiers</target>
-    </button_ct_section>
-  </template>
-
-  <template name="sub_ct_section_meleemodes">
-		<subwindow>
-			<anchored position="insidetopleft" />
-		  <class>ct_section_meleemodes</class>
-		</subwindow>
-  </template>
-  
-  <template name="sub_ct_section_rangedmodes">
-		<subwindow>
-			<anchored position="insidetopleft" />
-		  <class>ct_section_rangedmodes</class>
-		</subwindow>
-  </template>
-
-  <template name="list_ct_section_meleemodes">
-    <windowlist name="meleemodeslist">
-      <datasource>.meleemodelist</datasource>
-      <sortby><control>name</control></sortby>
-      <class>ct_meleemode</class>
-      <hideonempty />
-    </windowlist>
-  </template>
-
-  <template name="list_ct_section_rangedmodes">
-    <windowlist name="rangedmodeslist">
-      <datasource>.rangedmodelist</datasource>
-      <sortby><control>name</control></sortby>
-      <class>ct_rangedmode</class>
-      <hideonempty />
-    </windowlist>
-  </template>
-  
-  <!-- Section - Modifiers -->
-  <template name="sub_ct_section_modifiers">
-	  <subwindow>
-			<anchored position="insidetopleft" />
-		  <class>ct_section_modifiers</class>
-	  </subwindow>
-  </template>
-
-  <template name="list_ct_section_modifiers">
-    <windowlist name="modslist">
-      <datasource>.modifierlist</datasource>
-      <sortby><control>name</control></sortby>
-      <class>ct_modifier</class>
-      <hideonempty />
-    </windowlist>
-  </template>
-  
   <!-- Section - Damage -->
 	<template name="sub_ct_section_damage">
 		<windowlist name="damage">

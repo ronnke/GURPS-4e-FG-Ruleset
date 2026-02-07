@@ -10,28 +10,30 @@ end
 
 function modRoll(rSource, rTarget, rRoll)
     local sOptAUTORANGE = OptionsManager.getOption("AUTORANGE");
-    if sOptAUTORANGE and sOptAUTORANGE == "on" then
-        local getRangeModifier = function(rSource, rTarget)
-            local nodeCTSource = ActorManager.getCTNode(rSource);
-            local modeCTTarget = ActorManager.getCTNode(rTarget);
-        
-            if nodeCTSource and modeCTTarget then
-		        local tokenSource = CombatManager.getTokenFromCT(nodeCTSource);
-		        local tokenTarget = CombatManager.getTokenFromCT(modeCTTarget);
-    	        nDistance, bAjacent = TokenManagerGURPS4e.getDistance(tokenSource, tokenTarget);
-            
-                if nDistance > 0 then
-                    return ManagerGURPS4e.calcRangeMod(nDistance);
-                end
-            end
-	        return 0;
-        end
+    if sOptAUTORANGE ~= "on" then
+        return;
+    end
 
-        if rSource and rTarget then
-            local nRangeModifier = getRangeModifier(rSource, rTarget);
-            rRoll.nMod = rRoll.nMod + nRangeModifier;
-            rRoll.sDesc = string.format("%s(%+d)", rRoll.sDesc, nRangeModifier);
+    local function getRangeModifier(rSource, rTarget)
+        local nodeCTSource = ActorManager.getCTNode(rSource);
+        local nodeCTTarget = ActorManager.getCTNode(rTarget);
+
+        if nodeCTSource and nodeCTTarget then
+            local tokenSource = CombatManager.getTokenFromCT(nodeCTSource);
+            local tokenTarget = CombatManager.getTokenFromCT(nodeCTTarget);
+            local nDistance = TokenManagerGURPS4e.getDistance(tokenSource, tokenTarget);
+
+            if nDistance and nDistance > 0 then
+                return ManagerGURPS4e.calcRangeMod(nDistance);
+            end
         end
+        return 0;
+    end
+
+    if rSource and rTarget then
+        local nRangeModifier = getRangeModifier(rSource, rTarget);
+        rRoll.nMod = (rRoll.nMod or 0) + nRangeModifier;
+        rRoll.sDesc = string.format("%s(%+d)", rRoll.sDesc or "", nRangeModifier);
     end
 end
 

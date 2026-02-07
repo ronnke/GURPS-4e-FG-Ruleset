@@ -37,10 +37,15 @@
 
   <!-- Campaign Records -->
   <includefile source="campaign/template_campaign.xml" />
-	<includefile source="campaign/template_char.xml" />
 	<includefile source="campaign/campaign_classes.xml" />
-	
-	<includefile source="campaign/record_char.xml" />
+  <includefile source="campaign/template_char.xml" />
+
+  <includefile source="campaign/record_common_defenses.xml" />
+  <includefile source="campaign/record_common_meleecombat.xml" />
+  <includefile source="campaign/record_common_rangedcombat.xml" />
+  <includefile source="campaign/record_common_injuryandfatigue.xml" />
+
+  <includefile source="campaign/record_char.xml" />
 	<includefile source="campaign/record_char_main.xml" />
   <includefile source="campaign/record_char_traits.xml" />
 	<includefile source="campaign/record_char_abilities.xml" />
@@ -56,6 +61,7 @@
   <includefile source="campaign/record_char_sub_encumbrance.xml" />
   <includefile source="campaign/record_char_sub_reactionmodifiers.xml" />
   <includefile source="campaign/record_char_sub_resources.xml" />
+  <includefile source="campaign/record_char_sub_misc.xml" />
 
   <includefile source="campaign/record_char_sub_ability_skills.xml" />
 	<includefile source="campaign/record_char_sub_ability_spells.xml" />
@@ -64,11 +70,6 @@
 
   <includefile source="campaign/record_char_sub_injuryandfatigue.xml" />
   <includefile source="campaign/record_char_sub_defenses.xml" />
-  <includefile source="campaign/record_char_sub_combat.xml" />
-
-  <includefile source="campaign/record_char_meleecombat.xml" />
-	<includefile source="campaign/record_char_rangedcombat.xml" />
-	<includefile source="campaign/record_char_defenses.xml" />
 
   <includefile source="campaign/record_char_sub_notes.xml" />
   <includefile source="campaign/record_char_sub_summary.xml" />
@@ -77,7 +78,7 @@
   <includefile source="campaign/record_resource.xml" />
   <includefile source="campaign/record_charnote.xml" />
 
-	<includefile source="campaign/record_npc.xml" />
+  <includefile source="campaign/record_npc.xml" />
 	<includefile source="campaign/record_npc_main.xml" />
 	<includefile source="campaign/record_npc_combat.xml" />
 	<includefile source="campaign/record_npc_abilities.xml" />

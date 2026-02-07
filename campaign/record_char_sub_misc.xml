@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="charsheet_sub_misc">
+    <script>
+      function onInit()
+        self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
+      end
+      function onLockModeChanged(bReadOnly)
+        WindowManager.callSafeControlsSetLockMode(self, { "tech_level", "tl_points" }, bReadOnly);
+      end
+    </script>
+    <sheetdata>
+      <anchor_content_top />
+
+      <frame_char name="frame">
+        <anchored position="over" />
+      </frame_char>
+
+      <label_charframetop name="header">
+        <anchored to="contentanchor" height="20">
+          <top relation="relative" offset="25" postoffset="2" />
+          <left offset="10" />
+          <right offset="-10" />
+        </anchored>
+        <static textres="char_label_miscellaneous" />
+      </label_charframetop>
+
+      <label name="tl_label">
+        <anchored to="contentanchor" width="70" height="20">
+          <top relation="relative" offset="2" postoffset="2" />
+          <left offset="15" />
+        </anchored>
+        <static>Tech Level:</static>
+      </label>
+      <basicstring name="tech_level" source="traits.tl">
+        <anchored to="tl_label" position="right" offset="5,0" width="25" />
+        <center />
+      </basicstring>
+      <label name="points_label">
+        <anchored to="tech_level" position="right" offset="20,0" width="25" />
+        <static>Pts:</static>
+      </label>
+      <basicnumber name="tl_points"  source="traits.tl_points">
+        <anchored to="points_label" position="right" offset="5,0" width="20" />
+        <frame mergerule="replace" name="fielddark" offset="7,5,7,5" hidereadonly="true" />
+        <color>#808080</color>
+      </basicnumber>
+      
+    </sheetdata>
+	</windowclass>
+	
+</root>

@@ -18,8 +18,8 @@
 	<icon name="desktopdecal_dfrpg" file="graphics/decals/desktopdecal_dfrpg.png"/>
 
 	<!-- Buttons -->
-  <icon name="button_action_parry" file="graphics/buttons/button_section_shield.png" />
-  <icon name="button_action_parry_down" file="graphics/buttons/button_section_shield_down.png" />
+  <icon name="button_action_parry" file="graphics/buttons/button_action_parry.png" />
+  <icon name="button_action_parry_down" file="graphics/buttons/button_action_parry_down.png" />
 
   <icon name="button_action_halfdamage" file="graphics/buttons/button_action_halfd.png" />
   <icon name="button_action_halfdamage_down" file="graphics/buttons/button_action_halfd_down.png" />
@@ -77,6 +77,7 @@
   <icon name="char_traits_perks" file="graphics/icons/char_left_frame.png" />
   <icon name="char_traits_quirks" file="graphics/icons/char_left_frame.png" />
   <icon name="char_traits_features" file="graphics/icons/char_left_frame.png" />
+  <icon name="char_abilities" file="graphics/icons/char_left_frame.png" />
   <icon name="char_abilities_skills" file="graphics/icons/char_left_frame.png" />
   <icon name="char_abilities_spells" file="graphics/icons/char_left_frame.png" />
   <icon name="char_abilities_powers" file="graphics/icons/char_left_frame.png" />

@@ -7,7 +7,7 @@
 
 <root>
 
-  <windowclass name="char_section_modifiers">
+  <windowclass name="common_list_modifier">
 		<script>
 			function onInit()
         self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
@@ -37,7 +37,7 @@
 
       <list_content_noscroll_alternating_top name="list">
         <datasource>.modifierlist</datasource>
-        <class>basic_modifier</class>
+        <class>common_listitem_modifier</class>
         <sortby><control>name</control></sortby>
         <newfocus>name</newfocus>
       </list_content_noscroll_alternating_top>
@@ -45,7 +45,7 @@
     </sheetdata>
 	</windowclass>
 
-	<windowclass name="basic_modifier">
+	<windowclass name="common_listitem_modifier">
     <margins control="0,0,0,2" />
     <script>
       function onInit()

@@ -76,6 +76,10 @@ function hasOther(nodeChar)
 	return DB.getChildCount(nodeChar, "abilities.otherlist") > 0
 end
 
+function hasAbilities(nodeChar)
+	return DB.getChildCount(nodeChar, "abilities.abilitieslist") > 0
+end
+
 function hasMeleeWeapons(nodeChar)
 	return DB.getChildCount(nodeChar, "combat.meleecombatlist") > 0
 end

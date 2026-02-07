@@ -138,7 +138,7 @@ aDamageTypeData = {
 	"pi++",
 	"rad",
 	"sur",
-	"tox"
+	"tox",
 };
 
 -- Hit Locations 
@@ -153,7 +153,7 @@ aHitLocationData = {
 	"Hand",
 	"Foot",
 	"Neck",
-	"Vitals"
+	"Vitals",
 };
 
 -- Injury Tolerance 
@@ -161,7 +161,18 @@ aInjuryToleranceData = {
 	"None",
 	"Unliving",
 	"Homogenous",
-	"Diffuse"
+	"Diffuse",
+};
+
+-- Armor Hardened 
+aHardenedData = {
+	"None",
+	"1",
+	"2",
+	"3",
+	"4",
+	"5",
+	"6",
 };
 
 -- Values for creature type comparison

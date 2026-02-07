@@ -6,17 +6,198 @@
 -->
 
 <root>
-  <windowclass name="charsheet_inventory" merge="join">
+
+  <windowclass name="charsheet_inventory">
+    <script>
+      function onInit()
+        self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
+      end
+      function onLockModeChanged(bReadOnly)
+        WindowManager.callSafeControlsSetLockMode(self, { "currency_iadd", }, bReadOnly);
+      end
+      function onDrop(x, y, draginfo)
+        return ItemManager.handleAnyDrop(getDatabaseNode(), draginfo);
+      end
+    </script>
     <sheetdata>
+      <anchor_content_top />
+      <anchor_content_bottom />
+
+      <sub_content_framed_groupbox name="content">
+        <anchored position="over">
+          <top />
+          <bottom offset="-170" />
+        </anchored>
+        <class>charsheet_inventory_contents</class>
+      </sub_content_framed_groupbox>
+      <scrollbar_content />
+
+      <!--Encumberance Frame-->
+      <frame_char name="encumbranceframe">
+        <anchored position="insidebottomleft" offset="0,0" width="240" height="160" />
+      </frame_char>
+
+      <number_static name="encumbranceload" source="encumbrance.load">
+        <anchored to="encumbranceframe" position="insidetopleft" offset="150,30" width="70" height="20" />
+        <nodrag />
+      </number_static>
+      <label name="encumbrance_label">
+        <anchored to="encumbranceframe" position="insidetopleft" offset="15,30" />
+        <static textres="char_label_totalweight" />
+      </label>
+
+      <string_static name="encumbrancelevel" source="encumbrance.level">
+        <anchored to="encumbranceframe" position="insidetopleft" offset="150,60" width="70" height="20" />
+        <center />
+      </string_static>
+      <label name="encumbrancelevel_label">
+        <anchored to="encumbranceframe" position="insidetopleft" offset="15,60" />
+        <static textres="char_label_encumbrancelevel" />
+      </label>
+
+      <!--Currency Frame-->
+      <frame_char name="coinframe">
+        <anchored position="insidebottomright" offset="0,0" height="160">
+          <left offset="240" />
+        </anchored>
+      </frame_char>
+
+      <label_charframetop name="coinheader">
+        <anchored to="coinframe" height="20">
+          <top offset="7" />
+          <left offset="10" />
+          <right offset="-10" />
+        </anchored>
+        <static textres="char_label_money" />
+      </label_charframetop>
+
+      <sub_charcurrency name="sub_currency" />
+      <scrollbar_sub_charcurrency name="scrollbar_currency" />
+      <button_iadd_sub_charcurrency name="currency_iadd">
+        <anchored to="coinheader" position="insidetopright" offset="5,0" />
+      </button_iadd_sub_charcurrency>
+
+      <!--<button_iadd_sub_charcurrency name="currency_iadd" merge="delete" />
+      <button_iadd_sub_charcurrency name="currency_iadd">
+        <anchored to="coinframe" position="insidetopright" offset="40,10" />
+      </button_iadd_sub_charcurrency>-->
+
+
+    </sheetdata>
+  </windowclass>
+
+  <windowclass name="charsheet_inventory_contents">
+    <margins control="0,0,0,2" />
+    <sheetdata>
+      <anchor_content_top />
+
+      <sub_content_top name="items">
+        <class>charsheet_inventory_items</class>
+      </sub_content_top>
+    </sheetdata>
+  </windowclass>
+
+	<windowclass name="charsheet_inventory_items">
+		<margins control="0,0,0,2" />
+		<script>
+			function onInit()
+				self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
+			end
+			function onLockModeChanged(bReadOnly)
+				WindowManager.callSafeControlsSetLockMode(self, { "list_iadd", "idelete_header", }, bReadOnly);
+			end
+		</script>
+		<sheetdata>
+			<anchor_content_top />
+
+			<label_charframetop name="header">
+				<anchored to="contentanchor" height="20">
+					<top relation="relative" offset="2" postoffset="2" />
+					<left offset="10" />
+					<right offset="-10" />
+				</anchored>
+				<icons>char_inventory</icons>
+				<static textres="char_label_inventory" />
+			</label_charframetop>
+
+      <button_iadd name="list_iadd">
+				<anchored to="header" position="insidetopright" offset="5,0" />
+				<target>list</target>
+				<recordtype>item</recordtype>
+			</button_iadd>
+
+			<list_content_labeled_alternating_top name="list">
+				<datasource>.inventorylist</datasource>
+				<class>char_invitem</class>
+				<allowdelete />
+				<script file="campaign/scripts/char_invlist.lua" />
+			</list_content_labeled_alternating_top>
+
+			<anchor_list_content_label_left />
+			<anchor_list_content_label_right />
+			<spacer_list_content_idelete_label_left name="idelete_header" />
+			<spacer_list_content_link_label_left name="spacer_link" />
+			<label_list_content_number_left name="label_count">
+				<anchored width="20" />
+				<static>#</static>
+			</label_list_content_number_left>
+			<spacer_list_content_button_label_right name="label_carried">
+				<icon>char_inv_carried_header</icon>
+				<tooltip textres="char_tooltip_itemcarried" />
+			</spacer_list_content_button_label_right>
+			<label_list_content_number_right name="label_weight">
+				<anchored width="30" />
+				<static textres="char_label_itemweight" />
+				<tooltip textres="char_tooltip_itemweight" />
+			</label_list_content_number_right>
+			<label_list_content_string_noframe_right name="label_location">
+				<static textres="char_label_itemlocation" />
+			</label_list_content_string_noframe_right>
+			<label_list_content_noframe name="label_name">
+				<static textres="char_label_itemname" />
+			</label_list_content_noframe>
+		</sheetdata>
+	</windowclass>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!--<windowclass name="charsheet_inventory" merge="join">
+    <sheetdata>
+      <anchor_content_top />
+
       <frame_char name="inventoryframe">
         <bounds>0,0,-5,-205</bounds>
       </frame_char>
 
-      <label_frametop name="inventory_label">
-        <anchored to="inventoryframe" />
+      <label_charframetop name="header">
+        <anchored to="contentanchor" height="20">
+          <top relation="relative" offset="2" postoffset="2" />
+          <left offset="10" />
+          <right offset="-10" />
+        </anchored>
+        <icons>char_inventory</icons>
         <static textres="char_label_inventory" />
-      </label_frametop>
+      </label_charframetop>
 
+      <button_iadd name="list_iadd">
+        <anchored to="header" position="insidetopright" offset="5,0" />
+        <target>inventorylist</target>
+        <recordtype>item</recordtype>
+      </button_iadd>
+      
       <label name="count_label">
         <anchored to="inventoryframe" position="insidetopleft" offset="20,30" width="20" />
         <center />
@@ -43,17 +224,6 @@
         <anchored to="inventorylist" />
         <target>inventorylist</target>
       </scrollbar>
-
-      <button_iadd name="inventorylist_iadd" merge="delete" />
-      <button_iadd name="inventorylist_iadd">
-        <anchored to="inventoryframe" position="insidetopright" offset="40,10" />
-        <target>inventorylist</target>
-      </button_iadd>
-      <button_iedit name="inventorylist_iedit" merge="delete" />
-      <button_iedit name="inventorylist_iedit">
-        <anchored to="inventoryframe" position="insidetopright" offset="15,10" />
-        <target>inventorylist</target>
-      </button_iedit>
 
       <frame_char name="encumbranceframe">
         <bounds>0,-205,240,-1</bounds>
@@ -87,15 +257,11 @@
       <button_iadd_sub_charcurrency name="currency_iadd">
         <anchored to="coinframe" position="insidetopright" offset="40,10" />
       </button_iadd_sub_charcurrency>
-      <button_iedit_sub_charcurrency name="currency_iedit" merge="delete" />
-      <button_iedit_sub_charcurrency name="currency_iedit">
-          <anchored to="coinframe" position="insidetopright" offset="15,10" />
-      </button_iedit_sub_charcurrency>
       </sheetdata>
-  </windowclass>
+  </windowclass>-->
 
-  <windowclass name="char_invitem" merge="join">
+  <!--<windowclass name="char_invitem" merge="join">
     <script file="campaign/scripts/char_invitem.lua" />
-  </windowclass>
+  </windowclass>-->
   
 </root>

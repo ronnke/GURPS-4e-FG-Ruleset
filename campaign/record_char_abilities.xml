@@ -10,32 +10,32 @@
     <sheetdata>
 			<subwindow name="skills">
         <anchored position="insidetopleft" offset="0,0">
-          <bottom />
           <right />
+          <bottom />
         </anchored>
 				<class>charsheet_sub_ability_skills</class>
 			</subwindow>
 
 			<subwindow name="spells">
         <anchored position="insidetopleft" offset="0,0">
-          <bottom />
           <right />
+          <bottom />
         </anchored>
         <class>charsheet_sub_ability_spells</class>
 			</subwindow>
 
 			<subwindow name="powers">
         <anchored position="insidetopleft" offset="0,0">
-          <bottom />
           <right />
+          <bottom />
         </anchored>
         <class>charsheet_sub_ability_powers</class>
 			</subwindow>
 
 			<subwindow name="other">
         <anchored position="insidetopleft" offset="0,0">
-          <bottom />
           <right />
+          <bottom />
         </anchored>
         <class>charsheet_sub_ability_other</class>
 			</subwindow>

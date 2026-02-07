@@ -44,7 +44,7 @@
 				self.onIDChanged();
 			end
 			function onIDChanged()
-				super.onLockChanged();
+  			super.onIDChanged();
 				if not Session.IsHost then
 					local bID = LibraryData.getIDState("npc", getDatabaseNode(), true);
 					tabs.setVisibility(bID);

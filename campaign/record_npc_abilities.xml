@@ -7,187 +7,173 @@
 
 <root>
 	
-	<windowclass name="npc_abilities">
-		<script file="campaign/scripts/npc_abilities.lua" />
-		<sheetdata>
-      <anchor_column name="columnanchor" />
+  <windowclass name="npc_abilities">
+    <script>
+      function onDrop(x, y, draginfo)
+        if draginfo.isType("shortcut") then
+          local sClass, sRecord = draginfo.getShortcutData();
+          if LibraryDataGURPS4e.isMeleeWeapon(sRecord) or LibraryDataGURPS4e.isRangedWeapon(sRecord) or LibraryDataGURPS4e.isDefense(sRecord) then
+            return ItemManager.handleAnyDrop(getDatabaseNode(), draginfo);
+          end
+        end
+      end
+    </script>
+    <sheetdata>
+      <anchor_content_top />
+      <anchor_content_bottom />
 
-      <header_column name="header_abilities">
-        <static textres="npc_label_abilities" />
-        <color>#808080</color>
-      </header_column>
-			<button_iedit name="abilities_iedit">
-				<anchored to="header_abilities" position="righthigh" offset="-20,0" />
-				<target>abilities</target>
-			</button_iedit>
-			<button_iadd name="abilities_iadd">
-				<anchored to="abilities_iedit" position="lefthigh" offset="5,0" />
-				<target>abilities</target>
-			</button_iadd>
-			<list_npcabilities name="abilities">
-				<anchored>
-					<top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
-					<left />
-					<right />
-				</anchored>
-				<class>npc_ability</class>
-			</list_npcabilities>
+      <sub_content name="abilities">
+        <class>npc_content_abilities</class>
+      </sub_content>
 
-		</sheetdata>
-	</windowclass>
+    </sheetdata>
+  </windowclass>
+  
+    <windowclass name="npc_content_abilities">
+    <script>
+      function onInit()
+        self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
+      end
+      function onLockModeChanged(bReadOnly)
+        updateVisibility(bReadOnly);
+      end
+      function updateVisibility(bReadOnly)
+        local node = getDatabaseNode();
+        if not node then
+          return;
+        end
 
+        abilities.setVisible(not bReadOnly or CharManager.hasAbilities(node));
+     end
+    </script>
+    <sheetdata>
+      <anchor_content_top />
+      <anchor_content_bottom />
 
-	<windowclass name="npc_ability">
-		<margins control="0,0,0,2" />
+      <sub_content name="abilities">
+        <class>npc_list_abilities</class>
+      </sub_content>
+      
+    </sheetdata>
+  </windowclass>
+
+	<windowclass name="npc_list_abilities">
 		<script>
 			function onInit()
-				setModifiersVisible();
-			end
-			
-			function update(bReadOnly)
-				local vModifiers = (activatemodifiers.getValue() == 1) and not bReadOnly;
-
-				if bReadOnly then
-					if modifierslist_iadd then
-						modifierslist_iadd.setVisible(false);
-					end
-					if modifierslist_iedit then
-						modifierslist_iedit.setValue(0);
-						modifierslist_iedit.setVisible(false);
-					end
-				else
-					if modifierslist_iadd then
-						modifierslist_iadd.setVisible(vModifiers);
-					end
-					if modifierslist_iedit then
-						modifierslist_iedit.setVisible(vModifiers);
-					end
-				end
-				for _,w in ipairs(modifierslist.getWindows()) do
-					w.name.setReadOnly(bReadOnly);
-					w.modifier.setReadOnly(bReadOnly);
-				end
-			end
-
-			function setModifiersVisible()
-				local v = (activatemodifiers.getValue() == 1);
-				
-				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode().getChild("...."));
-
-				modifiersicon.setVisible(v);
-				modifiers_label.setVisible(v);
-				modifierslist.setVisible(v);
-				modifierslist_iedit.setVisible(v and not bReadOnly)
-				modifierslist_iadd.setVisible(v and not bReadOnly)
-				frame_modifiers.setVisible(v);
-
-			end
+        self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
+      end
+      function onLockModeChanged(bReadOnly)
+        WindowManager.callSafeControlsSetLockMode(self, { "list_iadd" }, bReadOnly);
+      end
 		</script>
+    <sheetdata>
+      <anchor_content_top />
+      <anchor_content_bottom />
+
+      <label_charframetop name="header">
+        <anchored to="contentanchor" height="20">
+          <top relation="relative" offset="2" postoffset="2" />
+          <left offset="10" />
+          <right offset="-10" />
+        </anchored>
+        <static textres="npc_label_abilities" />
+        <icons>char_abilities</icons>
+      </label_charframetop>
+
+      <button_iadd name="list_iadd">
+        <anchored to="header" position="insidetopright" offset="5,0" />
+        <target>list</target>
+      </button_iadd>
+
+      <list_content_labeled_alternating name="list">
+        <anchored>
+          <left offset="10" />
+          <right offset="-10" />
+          <bottom offset="-10" />
+        </anchored>
+        <datasource>.abilities.abilitieslist</datasource>
+        <class>npc_listitem_ability</class>
+        <sortby><control>name</control></sortby>
+        <newfocus>name</newfocus>
+      </list_content_labeled_alternating>
+      <scrollbar_list>
+        <anchored offset="-10,0" />
+      </scrollbar_list>
+      
+      <anchor_list_content_label_left />
+      <anchor_list_content_label_right />
+      <spacer_list_content_idelete_label_left name="idelete_header" />
+
+      <label_list_content_number_right name="label_level">
+        <anchored width="25" />
+        <center />
+        <static textres="char_label_abilities_level" />
+      </label_list_content_number_right>
+
+      <spacer_list_content_button_label_right name="spacer_modifier" />
+      <spacer_list_content_button_label_right name="spacer_roll" />
+
+      <label_list_content_noframe name="label_name">
+        <center />
+        <static textres="char_label_abilities_name" />
+      </label_list_content_noframe>
+
+    </sheetdata>
+	</windowclass>
+
+	<windowclass name="npc_listitem_ability">
+		<margins control="0,0,0,2" />
+		<script>
+      function onInit()
+        self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
+      end
+      function onLockModeChanged(bReadOnly)
+        WindowManager.callSafeControlsSetLockMode(self, { "name", "level", "idelete" }, bReadOnly);
+      end
+    </script>
 		<sheetdata>
-		
-			<genericcontrol name="rightanchor">
-				<anchored height="0" width="0">
-					<top />
-					<right />
-				</anchored>
-			</genericcontrol>
-			<genericcontrol name="bottomanchor">
-				<anchored height="0" width="0">
-					<top offset="20" />
-					<right />
-				</anchored>
-				<invisible />
-			</genericcontrol>
-			<button_idelete name="idelete">
-				<anchored to="rightanchor" >
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-5" />
-				</anchored>
-			</button_idelete>
-			
-			<number_charlevelfield name="level">
-				<rollable_ability />
-				<anchored to="rightanchor" width="20" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<tabtarget next="points" prev="name" />
-			</number_charlevelfield>
-			<buttoncontrol name="activatemodifiers">
-				<anchored to="rightanchor" width="20" height="20">
-					<top offset="2" />
-					<right anchor="left" relation="relative" offset="-10" />
-				</anchored>
-				<state icon="modifiers" tooltipres="char_tooltip_skillmodifiers" />
-				<state icon="modifiers_down" />
-				<script>
-					function onValueChanged()
-						window.setModifiersVisible();
-					end
-				</script>
-			</buttoncontrol>
-			<string_textlistitem name="name">
-				<anchored height="20">
-					<top offset="2" />
-					<left offset="30" />
-					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
-				</anchored>
-				<nodrag />
-				<tabtarget next="level" />
-			</string_textlistitem>
-			<button_charroll>
-				<rollable_button_ability />
-				<anchored>
-					<top offset="2" />
-					<left offset="5" />
-				</anchored>
+      <anchor_content_top />
+      <anchor_listitem_left_sm />
+      <anchor_listitem_right_sm />
+
+      <button_listitem_idelete_left name="idelete" />
+
+      <number_listitem_right name="level">
+        <anchored width="25" />
+        <frame mergerule="replace" name="fielddark" offset="5,5,5,5" hidereadonly="true" />
+        <center />
+        <tabtarget prev="imodifier" />
+      </number_listitem_right>
+
+      <button_listitem_isection_right name="imodifier">
+        <state icon="modifiers" tooltipres="char_tooltip_modifiers" merge="resetandadd" />
+        <state icon="modifiers_down" merge="add" />
+        <target>modifiers</target>
+        <tabtarget next="level" prev="button_roll" />
+      </button_listitem_isection_right>
+
+      <button_listitem_rollable_right name="button_roll">
+        <rollable_button_ability />
         <tooltip textres="npc_tooltip_ability" />
-      </button_charroll>
+        <tabtarget next="imodifier" prev="name" />
+      </button_listitem_rollable_right>
 
+      <string_listitem_narrow_center name="name">
+        <delaykeyupdate />
+        <tabtarget next="button_roll" />
+      </string_listitem_narrow_center>
 
-			<!-- OTHER MODIFIERS SECTION --> 			
-			<icon_detailsection name="modifiersicon">
-				<icon>modifiers_down</icon>
-			</icon_detailsection>
+      <spacer_content_top name="spacer_section">
+        <anchored height="20" />
+      </spacer_content_top>
 
-			<label_columntop name="modifiers_label">
-				<anchored to="modifiersicon">
-					<top />
-					<left anchor="right" offset="10" />
-					<right parent="bottomanchor" anchor="left" offset="-10" />
-				</anchored>
-				<static textres="char_label_modifier" />
-			</label_columntop>
+      <!--Modifiers Section-->
+      <sub_content_section_top name="modifiers">
+        <class>common_list_modifier</class>
+      </sub_content_section_top>
 
-			<list_charmodifier name="modifierslist">
-				<anchored to="modifiers_label">
-					<top anchor="bottom" relation="relative" />
-					<left parent="modifiersicon" anchor="right" offset="10" />
-					<right parent="bottomanchor" anchor="left" offset="-10" />
-				</anchored>
-				<class>basic_modifier</class>
-				<noscroll />
-			</list_charmodifier>
- 
-  			<button_iedit name="modifierslist_iedit">
-				<anchored to="modifierslist" position="belowright" offset="5,2" />
-				<target>modifierslist</target>
-			</button_iedit>
-			<button_iadd name="modifierslist_iadd">
-				<anchored to="modifierslist_iedit" position="lefthigh" offset="5,0" />
-				<target>modifierslist</target>
-				<invisible />
-			</button_iadd>
-
-			<frame_detailsub name="frame_modifiers">
-				<anchored to="bottomanchor">
-					<top anchor="bottom" relation="relative" offset="5" />
-					<right parent="modifierslist" anchor="right" offset="10" />
-					<left parent="modifierslist" anchor="left" offset="-10" />
-					<bottom parent="modifierslist_iedit" />
-				</anchored>
-			</frame_detailsub>
-			
+      <spacer_content_top name="spacer_bottom" />
+		
 		</sheetdata>
 	</windowclass>
 	

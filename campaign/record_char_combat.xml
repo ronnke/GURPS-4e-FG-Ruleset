@@ -7,7 +7,26 @@
 
 <root>
 	<windowclass name="charsheet_combat">
+    <script>
+      function onDrop(x, y, draginfo)
+        if not draginfo.isType("shortcut") then
+          return;
+        end
+
+        local _, sRecord = draginfo.getShortcutData();
+        local bIsWeaponOrDefense =
+          LibraryDataGURPS4e.isMeleeWeapon(sRecord) or
+          LibraryDataGURPS4e.isRangedWeapon(sRecord) or
+          LibraryDataGURPS4e.isDefense(sRecord);
+
+        if bIsWeaponOrDefense then
+          return ItemManager.handleAnyDrop(getDatabaseNode(), draginfo);
+        end
+      end      
+    </script>
 		<sheetdata>
+      <anchor_content_top />
+      <anchor_content_bottom />
 
       <charsheet_sub_injuryandfatigue name="injuryandfatigue">
         <anchored position="insidetopleft" offset="0,0" />
@@ -19,14 +38,176 @@
         <tabtarget next="combat" prev="injuryandfatigue" />
       </charsheet_sub_defenses>
 
-      <charsheet_sub_combat name="combat">
-        <anchored position="over">
-          <top offset="110" />
+      <sub_content_framed_groupbox name="combat">
+        <anchored>
+          <top offset="115" />
         </anchored>
-        <tabtarget prev="defenses" />
-      </charsheet_sub_combat>
+        <class>charsheet_combat_contents</class>
+      </sub_content_framed_groupbox>
+      <scrollbar>
+        <anchored to="combat" />
+        <target>combat</target>
+      </scrollbar>
 
     </sheetdata>
 	</windowclass>
-  
+
+  <windowclass name="charsheet_combat_contents">
+    <script>
+      function onInit()
+        self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
+      end
+      function onLockModeChanged(bReadOnly)
+	      updateVisibility(bReadOnly);
+      end      
+      function updateVisibility(bReadOnly)
+	      local node = getDatabaseNode();
+	      if not node then
+		      return;
+	      end
+
+        local bShowAll = not bReadOnly;
+        meleecombat.setVisible(bShowAll or CharManager.hasMeleeWeapons(node));
+        rangedcombat.setVisible(bShowAll or CharManager.hasRangedWeapons(node));
+        defenses.setVisible(bShowAll or CharManager.hasDefenses(node));
+      end
+    </script>
+    <sheetdata>
+      <anchor_content_top />
+
+      <sub_content_top name="meleecombat">
+        <anchored>
+          <top position="relative" postoffset="10" />
+        </anchored>
+        <class>char_list_meleeweapon</class>
+      </sub_content_top>
+      <sub_content_top name="rangedcombat">
+        <anchored>
+          <top position="relative" postoffset="10" />
+        </anchored>
+        <class>char_list_rangedweapon</class>
+      </sub_content_top>
+      <sub_content_top name="defenses">
+        <anchored>
+          <top position="relative" postoffset="10" />
+        </anchored>
+        <class>char_list_defense</class>
+      </sub_content_top>
+    </sheetdata>
+  </windowclass>
+
+  <windowclass name="char_list_meleeweapon" copy="common_list_meleeweapon">
+    <sheetdata>
+
+      <list_content_labeled_alternating_top name="list">
+        <datasource>.combat.meleecombatlist</datasource>
+        <class>char_listitem_meleeweapon</class>
+        <sortby>
+          <control>name</control>
+        </sortby>
+        <newfocus>name</newfocus>
+      </list_content_labeled_alternating_top>
+
+    </sheetdata>
+  </windowclass>
+
+  <windowclass name="char_listitem_meleeweapon" copy="common_listitem_meleeweapon">
+    <sheetdata>
+
+      <!--Modes Section-->
+      <sub_content_section_top name="modes">
+        <class>npc_list_meleeweaponmode</class>
+      </sub_content_section_top>
+
+    </sheetdata>
+  </windowclass>
+
+  <windowclass name="char_list_meleeweaponmode" copy="common_list_meleeweaponmode">
+    <sheetdata>
+
+      <list_content_labeled_alternating_top name="list">
+        <datasource>.meleemodelist</datasource>
+        <class>char_listitem_meleeweaponmode</class>
+        <sortby>
+          <control>name</control>
+        </sortby>
+        <newfocus>name</newfocus>
+      </list_content_labeled_alternating_top>
+
+    </sheetdata>
+  </windowclass>
+
+  <windowclass name="char_listitem_meleeweaponmode" copy="common_listitem_meleeweaponmode" />
+
+  <windowclass name="char_list_rangedweapon" copy="common_list_rangedweapon">
+    <sheetdata>
+
+      <list_content_labeled_alternating_top name="list">
+        <datasource>.combat.rangedcombatlist</datasource>
+        <class>char_listitem_rangedweapon</class>
+        <sortby>
+          <control>name</control>
+        </sortby>
+        <newfocus>name</newfocus>
+      </list_content_labeled_alternating_top>
+
+    </sheetdata>
+  </windowclass>
+
+  <windowclass name="char_listitem_rangedweapon" copy="common_listitem_rangedweapon">
+    <sheetdata>
+
+      <!--Modes Section-->
+      <sub_content_section_top name="modes">
+        <class>char_list_rangedweaponmode</class>
+      </sub_content_section_top>
+
+    </sheetdata>
+  </windowclass>
+
+  <windowclass name="char_list_rangedweaponmode" copy="common_list_rangedweaponmode">
+    <sheetdata>
+
+      <list_content_noscroll_alternating_top name="list">
+        <datasource>.rangedmodelist</datasource>
+        <class>char_listitem_rangedweaponmode</class>
+        <sortby>
+          <control>name</control>
+        </sortby>
+        <newfocus>name</newfocus>
+      </list_content_noscroll_alternating_top>
+
+    </sheetdata>
+  </windowclass>
+
+  <windowclass name="char_listitem_rangedweaponmode" copy="common_listitem_rangedweaponmode">
+    <sheetdata>
+
+      <!--Details Section-->
+      <sub_content_top name="details">
+        <class>char_rangedweaponmode_detail</class>
+      </sub_content_top>
+
+    </sheetdata>
+  </windowclass>
+
+  <windowclass name="char_rangedweaponmode_detail" copy="common_rangedweaponmode_detail" />
+
+  <windowclass name="char_list_defense" copy="common_list_defense">
+    <sheetdata>
+
+      <list_content_labeled_alternating_top name="list">
+        <datasource>.combat.defenseslist</datasource>
+        <class>char_listitem_defense</class>
+        <sortby>
+          <control>name</control>
+        </sortby>
+        <newfocus>name</newfocus>
+      </list_content_labeled_alternating_top>
+
+    </sheetdata>
+  </windowclass>
+
+  <windowclass name="char_listitem_defense" copy="common_listitem_defense" />
+
 </root>

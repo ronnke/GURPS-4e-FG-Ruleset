@@ -25,10 +25,7 @@
       <anchor_content_bottom />
       
       <frame_char name="frame">
-        <anchored position="insidetopleft">
-          <right />
-          <bottom />
-        </anchored>
+        <anchored position="over" />
       </frame_char>
 
 			<number_attribute name="strength" source="attributes.strength">
@@ -172,8 +169,6 @@
         <static textres="char_label_abilities_type" />
       </label_list_content_number_right>
 
-      <spacer_list_content_button_label_right name="spacer_roll" />
-
       <label_list_content_number_right name="label_level">
         <anchored width="25" />
         <center />
@@ -181,6 +176,7 @@
       </label_list_content_number_right>
 
       <spacer_list_content_button_label_right name="spacer_modifier" />
+      <spacer_list_content_button_label_right name="spacer_roll" />
 
       <label_list_content_noframe name="label_name">
         <center />
@@ -209,14 +205,13 @@
 
       <linkc_listitem_left name="shortcut">
         <class>ability_skill</class>
-        <tabtarget prev="points" />
       </linkc_listitem_left>
 
       <number_listitem_right name="points">
         <anchored width="25" />
         <frame mergerule="replace" name="fielddark" offset="5,5,5,5" hidereadonly="true" />
         <color>#808080</color>
-        <tabtarget next="shortcut" prev="relativelevel" />
+        <tabtarget prev="relativelevel" />
       </number_listitem_right>
 
       <string_listitem_right_noframe_static name="relativelevel">
@@ -228,14 +223,8 @@
       <string_listitem_right_noframe_static name="type">
         <anchored width="40" />
         <center />
-        <tabtarget next="relativelevel" prev="button_roll" />
+        <tabtarget next="relativelevel" prev="level" />
       </string_listitem_right_noframe_static>
-
-      <button_listitem_rollable_right name="button_roll">
-        <rollable_button_skill />
-        <tooltip textres="char_tooltip_skill" />
-        <tabtarget next="type" prev="level" />
-      </button_listitem_rollable_right>
 
       <number_listitem_right_noframe_static name="level">
         <anchored width="25" />
@@ -246,12 +235,18 @@
         <state icon="modifiers" tooltipres="char_tooltip_modifiers" merge="resetandadd" />
         <state icon="modifiers_down" merge="add" />
         <target>modifiers</target>
-        <tabtarget next="level" prev="name" />
+        <tabtarget next="level" prev="button_roll" />
       </button_listitem_isection_right>
+
+      <button_listitem_rollable_right name="button_roll">
+        <rollable_button_skill />
+        <tooltip textres="char_tooltip_skill" />
+        <tabtarget next="imodifier" prev="name" />
+      </button_listitem_rollable_right>
 
       <string_listitem_center name="name">
         <delaykeyupdate />
-        <tabtarget next="imodifier" />
+        <tabtarget next="button_roll" />
       </string_listitem_center>
 
       <spacer_content_top name="spacer_section">
@@ -260,7 +255,7 @@
 
       <!--Modifiers Section-->
       <sub_content_section_top name="modifiers">
-        <class>char_section_modifiers</class>
+        <class>common_list_modifier</class>
       </sub_content_section_top>
 
       <spacer_content_top name="spacer_bottom" />

@@ -8,9 +8,8 @@
 
 <root>
   <template name="charsheet_sub_culturalfamiliarities">
-    <subwindow name="content">
+    <subwindow>
       <anchored position="insidetopleft" offset="0,0,0,0" />
-      <frame name="groupbox" offset="0,0,0,0" />
       <class>charsheet_culturalfamiliarities_list</class>
       <activate />
     </subwindow>
@@ -31,17 +30,9 @@
       <anchor_content_top />
       <anchor_content_bottom />
 
-      <!--<stringcontrol>
-        <anchored to="culturalfamiliarityframe" position="insidetopleft" offset="15,10" width="70" height="20" />
-        <static>Tech Level:</static>
-      </stringcontrol>
-      <stringu_charfield name="tech_level" source="traits.tl">
-        <anchored to="culturalfamiliarityframe" position="insidetopleft" offset="80,10" width="25" height="20" />
-        <center />
-      </stringu_charfield>
-      <number_charpointfield name="tl_points"  source="traits.tl_points">
-        <anchored to="tech_level" position="right" offset="5" width="20" />
-      </number_charpointfield>-->
+      <frame_char name="frame">
+        <anchored position="over" />
+      </frame_char>
 
       <label_charframetop name="header">
         <anchored to="contentanchor" height="20">

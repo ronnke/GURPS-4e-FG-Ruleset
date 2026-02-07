@@ -6,5 +6,5 @@
 function handleDrop(sTarget, draginfo)
   
   -- For future development
-  
+
 end

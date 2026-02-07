@@ -189,20 +189,23 @@ function updateDamage(rActor)
     end
 end
 
-function performRoll(draginfo, rActor, sWeapon, sMode, sDamage)
-    local sResult, tResult = ActionDamage.parseDamageString(sDamage)
-    
+function performRoll(draginfo, rActor, sWeapon, sMode, sDamage, bHalfDamage)
+    local sResult, tResult = ActionDamage.parseDamageString(sDamage);
+
+    local sDesc = bHalfDamage and "[HALF DAMAGE]" or "[DAMAGE]";
+    local sExpr = bHalfDamage and ("(" .. tResult.sDamage .. ")/2") or tResult.sDamage;
+
     local rRoll = {
         sType = "damage",
-        sDesc = "[DAMAGE]",
-        aDice = { expr = ManagerGURPS4e.normalizeGURPSDice(tResult.sDamage) },
+        sDesc = sDesc,
+        aDice = { expr = ManagerGURPS4e.normalizeGURPSDice(sExpr) },
         nMod = 0,
 
         sWeapon = sWeapon,
         sMode = sMode,
         sDamage = sResult,
     };
-    
+
     ActionsManagerGURPS4e.performAction(draginfo, rActor, rRoll);
 end
 
@@ -217,7 +220,7 @@ end
 -- Helper functions
 function decodeDamageRoll(s)
     if type(s) ~= "string" then
-        return nil, nil, nil
+        return nil, nil, nil;
     end
 
     local line = s:match("^(.-):%s*%[%s*[%+%-]?%d+%s*%]%s*$") or s;
@@ -225,10 +228,19 @@ function decodeDamageRoll(s)
     local core, damage = line:match("^(.-):%s*(.-)%s*$");
     if not core or not damage then return nil, nil, nil end
 
-    local name, afterDamage = core:match("^(.-)%s*,%s*%[DAMAGE%]%s*(.*)$");
+    local function matchDamageTag(text, prefix)
+        return text:match(prefix .. "%[HALF%s+DAMAGE[%]%}]%s*(.*)$")
+            or text:match(prefix .. "%[DAMAGE[%]%}]%s*(.*)$");
+    end
+
+    local name, afterDamage = core:match("^(.-)%s*,%s*(.*)$");
+    if afterDamage then
+        afterDamage = matchDamageTag(afterDamage, "^");
+    end
+
     if not afterDamage then
         name = "";
-        afterDamage = core:match("^%[DAMAGE%]%s*(.*)$");
+        afterDamage = matchDamageTag(core, "^");
         if not afterDamage then return nil, nil, nil end
     end
 

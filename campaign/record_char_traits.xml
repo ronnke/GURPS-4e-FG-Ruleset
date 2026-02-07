@@ -33,11 +33,12 @@
 		      return;
 	      end
 
-	      advantages.setVisible(not bReadOnly or CharManager.hasAdvantages(node));
-	      perks.setVisible(not bReadOnly or CharManager.hasPerks(node));
-	      disadvantages.setVisible(not bReadOnly or CharManager.hasDisadvantages(node));
-	      quirks.setVisible(not bReadOnly or CharManager.hasQuirks(node));
-        features.setVisible(not bReadOnly or CharManager.hasFeatures(node));
+        local bShowAll = not bReadOnly;
+	      advantages.setVisible(bShowAll or CharManager.hasAdvantages(node));
+	      perks.setVisible(bShowAll or CharManager.hasPerks(node));
+	      disadvantages.setVisible(bShowAll or CharManager.hasDisadvantages(node));
+	      quirks.setVisible(bShowAll or CharManager.hasQuirks(node));
+        features.setVisible(bShowAll or CharManager.hasFeatures(node));
       end
     </script>
     <sheetdata>

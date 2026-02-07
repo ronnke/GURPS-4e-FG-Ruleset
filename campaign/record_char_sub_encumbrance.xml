@@ -47,10 +47,7 @@
       <!-- Move and Encumbrance -->
 
       <frame_char name="frame">
-        <anchored position="insidetopleft">
-          <right />
-          <bottom />
-        </anchored>
+        <anchored position="over" />
       </frame_char>
 
       <label_charframetop name="header">
@@ -183,9 +180,9 @@
           <left parent="contentanchor" offset="15" />
           <right anchor="left" relation="relative" offset="-15" />
         </anchored>
+        <font>sheetlabel</font>
         <static textres="char_label_weight" />
       </stringcontrol>
-
 
 			<!-- Move -->
       <string_enc_right name="enc_move_xhvy" source="encumbrance.enc4_move" >
@@ -229,6 +226,7 @@
           <left parent="contentanchor" offset="15" />
           <right anchor="left" relation="relative" offset="-15" />
         </anchored>
+        <font>sheetlabel</font>
         <static textres="char_label_move" />
 			</stringcontrol>
 
@@ -283,7 +281,8 @@
           <top />
           <left parent="contentanchor" offset="15" />
         </anchored>
-				<static textres="char_label_dodge" />
+        <font>sheetlabel</font>
+        <static textres="char_label_dodge" />
 			</stringcontrol>
 
       <!-- Encumbrance List -->

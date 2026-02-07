@@ -15,10 +15,9 @@
       <frame name="toolbar_30" />
       <state icon="tool_mapscale_30" color="55FFFFFF" tooltipres="image_tooltip_rangemodifier" />
       <state icon="tool_mapscale_30" color="CCFFFFFF" tooltipres="image_tooltip_rangemodifier" />
-      <invisible />
       <script>
         function onButtonPress()
-          window.onRangeModifierButtonPressed();
+          window.updateDisplay();
         end
       </script>
     </buttonfield>
@@ -38,7 +37,7 @@
       <invisible />
       <script>
         function onValueChanged()
-          window.onScaleUnitsValueChanged();
+          window.updateDisplay();
         end
       </script>
     </button_stringcycler>
@@ -51,7 +50,25 @@
 	</template>
   
   <windowclass name="imagewindow_toolbar" merge="join">
-    <script file="campaign/scripts/image_toolbar.lua" />
+    <script>
+      function updateDisplay()
+	      if super and super.updateDisplay then
+		      super.updateDisplay();
+	      end
+
+	      if Session.IsHost then
+		      local cImage = WindowManager.callOuterWindowFunction(self, "getImage");
+		      local bRangeModifierOn = (rangemodifer.getValue() ~= 0);
+			    
+		      scaleunits.setVisible(bRangeModifierOn);
+          rangescale_h1.setVisible(bRangeModifierOn);
+
+		      if bRangeModifierOn then
+			      cImage.setDistanceSuffix(scaleunits.getStringValue());
+		      end
+	      end
+      end
+    </script>
     <sheetdata>
       <image_tool_scaleunits name="scaleunits" />
       <toolbar_separator_right name="rangescale_h2" />

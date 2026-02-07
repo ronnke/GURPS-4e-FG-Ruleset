@@ -10,7 +10,6 @@
   <template name="charsheet_sub_secondarycharacteristics">
     <subwindow>
       <anchored position="insidetopleft" offset="0,0,0,0" />
-      <frame name="groupbox" offset="0,0,0,0" />
       <class>char_secondarycharacteristics</class>
       <activate />
     </subwindow>
@@ -46,6 +45,10 @@
 		</script>    
     <sheetdata>
       <anchor_content_top />
+
+      <frame_char name="frame">
+        <anchored position="over" />
+      </frame_char>
 
       <label_charframetop name="header">
         <anchored to="contentanchor" height="20">

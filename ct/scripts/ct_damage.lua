@@ -28,6 +28,7 @@ function updateInjury()
 	local nDivisor = DB.getValue(node, "armordivisor", 1);
 
 	local sHitLocation = hitlocation.getValue();
+	local sHardened = hardened.getValue();
 	local sInjuryTolerance = injurytolerance.getValue();
 
 	if not nDamage or nDamage < 1 then
@@ -171,6 +172,30 @@ function updateInjury()
 		end
 	end
 
+	local tDivisor = { 0.5, 1, 2, 3, 5, 10, 100, 0 };
+	local nDivisorIndex = 2; -- default to 1 if not found
+
+	for i = 1, #tDivisor do
+		if tDivisor[i] == nDivisor then
+			nDivisorIndex = i;
+			break;
+		end
+	end
+
+	local nHardened = tonumber(sHardened) or 0;
+	local nAdjustedIndex = nDivisorIndex;
+
+	if nDivisor ~= 0.5 then
+		nAdjustedIndex = nDivisorIndex - nHardened;
+		if nHardened > 0 then
+			nAdjustedIndex = math.max(2, nAdjustedIndex); -- clamp to >= 1 divisor only when hardened
+		else
+			nAdjustedIndex = math.max(1, nAdjustedIndex);
+		end
+	end
+
+	nDivisor = tDivisor[nAdjustedIndex];
+
 	if nDivisor ~= 0 then
 		nDR = math.floor((nDR + nDRModifier) / nDivisor);
 	else
@@ -223,6 +248,8 @@ function updateInjury()
 	if nDivisor then
 		if nDivisor == 0 then
 			armordivisortext.setValue("(∞)");
+		elseif nDivisor == 0.5 then
+			armordivisortext.setValue("(½)");
 		elseif nDivisor == 1 then
 			armordivisortext.setValue("(none)");
 		else

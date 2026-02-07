@@ -10,7 +10,6 @@
   <template name="charsheet_sub_currentattributes">
     <subwindow>
       <anchored position="insidetopleft" offset="0,0,0,0" />
-      <frame name="groupbox" offset="0,0,0,0" />
       <class>char_currentattributes</class>
       <activate />
     </subwindow>
@@ -21,6 +20,10 @@
   <windowclass name="char_currentattributes">
     <sheetdata>
       <anchor_content_top />
+
+      <frame_char name="frame">
+        <anchored position="over" />
+      </frame_char>
 
       <label_charframetop name="header">
         <anchored to="contentanchor" height="20">
