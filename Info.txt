@@ -4,15 +4,15 @@ This unofficial GURPS Ruleset for Fantasy Grounds is developed with the permissi
 
 [B]GURPS 4E Core Ruleset - FG Unity [COLOR="#FF0000"](FG Unity only)[/COLOR][/B]
 FG Forge shop [I](FG Unity users only)[/I]: [URL="https://forge.fantasygrounds.com/shop/items/454/view"]FG Forge Shop[/URL]
-[I](Updated: 30th Dec 2025)[/I]
+[I](Updated: 8th Feb 2026)[/I]
 
-[B]GURPS 4E Core Ruleset - FG Classic [COLOR="#FF0000"](FG Classic only. The ruleset for FG Classic is no longer being updated[/COLOR])[/B]
+[B]GURPS 4E Core Ruleset - FG Classic [COLOR="#FF0000"](FG Classic only. The ruleset for FG Classic is no longer being updated)[/COLOR][/B]
 Download latest release from here: [URL="https://bit.ly/GURPS4ECore"]https://bit.ly/GURPS4ECore[/URL] 
 [I](Updated: 14th Mar 2022)[/I]
 
 * Here is a video demonstrating some of the features of the GURPS ruleset (it will be updated some day): [URL="https://youtu.be/pSm-9Trzd5w"]https://youtu.be/pSm-9Trzd5w[/URL]
 
-[B]GURPS Core Theme for Unity[/B]
+[B]GURPS Core Theme for Unity [COLOR="#FF0000"](No longer being updated)[/COLOR][/B]
 Download the latest release of the GURPS Core theme from here: [URL="https://bit.ly/GURPSCoreUTheme"]https://bit.ly/GURPSCoreUTheme[/URL]
 [I](Updated: 18th Aug 2024)[/I]
 [I](Courtesy of Gigermann)[/I]
@@ -45,6 +45,15 @@ Click the following link to have your input on future ruleset development/improv
 
 [SIZE=4][B]Version Information[/B][/SIZE]
 
+[LIST]
+[*][B]GURPS 4e Ruleset v3.18.0[/B] - 8th Feb 2026 (FG Unity Only)
+- Changed: Redesigned character sheet.
+- Changed: Redesigned combat section of NPC sheet.
+- Added: Hardened option to Damage application helper.
+- Added: Half Damage button for range weapons.
+- Fixed: Bug with the Range Modifier toggle button in the map toolbar.
+- Other minor fixes and improvements.
+[/LIST]
 [LIST]
 [*][B]GURPS 4e Ruleset v3.17.0[/B] - 30th Dec 2025 (FG Unity Only)
 - Added: Preset Conditions to Effects window.
