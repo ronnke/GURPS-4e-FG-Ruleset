@@ -4,53 +4,18 @@
 --
 
 function onInit()
-	update();
-end
-function VisDataCleared()
-	update();
-end
-function InvisDataAdded()
-	update();
+	self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
 end
 
-function update()
-	local nodeRecord = getDatabaseNode();
-	local bReadOnly = WindowManager.getReadOnlyState(nodeRecord);
-	local bID = LibraryData.getIDState("npc", nodeRecord);
+function onLockModeChanged(bReadOnly)
+	WindowManager.callSafeControlsSetLockMode(self, { "pts", "type" }, bReadOnly);
+	divider1.setVisible(WindowManager.getAnyControlVisible(self, { "type", "pts" }));
 
-	local bSection1 = false;
-	if Session.IsHost then
-		if WindowManager.callSafeControlUpdate(self, "nonid_name", bReadOnly) then bSection1 = true; end;
-	else
-		WindowManager.callSafeControlUpdate(self, "nonid_name", bReadOnly, true);
-	end
-	divider1.setVisible(bSection1);
-
-	local bSection2 = false;
-	if WindowManager.callSafeControlUpdate(self, "type", bReadOnly) then bSection2 = true; end;
-	if WindowManager.callSafeControlUpdate(self, "pts", bReadOnly) then bSection2 = true; end;
-	divider2.setVisible(bSection2);
-
-	WindowManager.callSafeControlUpdate(self, "strength", bReadOnly);
-	WindowManager.callSafeControlUpdate(self, "dexterity", bReadOnly);
-	WindowManager.callSafeControlUpdate(self, "intelligence", bReadOnly);
-	WindowManager.callSafeControlUpdate(self, "health", bReadOnly);
-	WindowManager.callSafeControlUpdate(self, "hitpoints", bReadOnly);
-	WindowManager.callSafeControlUpdate(self, "will", bReadOnly);
-	WindowManager.callSafeControlUpdate(self, "perception", bReadOnly);
-	WindowManager.callSafeControlUpdate(self, "fatiguepoints", bReadOnly);
+	WindowManager.callSafeControlsSetLockMode(self, { "strength", "dexterity", "intelligence", "health", "hitpoints", "will", "perception", "fatiguepoints" }, bReadOnly);
+	WindowManager.callSafeControlsSetLockMode(self, { "basicspeed", "move", "sizemodifier", "reach", "swing", "thrust", "reactionmodifiers" }, bReadOnly);
   
-	WindowManager.callSafeControlUpdate(self, "basicspeed", bReadOnly);
-	WindowManager.callSafeControlUpdate(self, "move", bReadOnly);
-	WindowManager.callSafeControlUpdate(self, "sizemodifier", bReadOnly);
-	WindowManager.callSafeControlUpdate(self, "reach", bReadOnly);
-	WindowManager.callSafeControlUpdate(self, "swing", bReadOnly);
-	WindowManager.callSafeControlUpdate(self, "thrust", bReadOnly);
-
-	WindowManager.callSafeControlUpdate(self, "reactionmodifiers", bReadOnly);
-
-	traits_label.setVisible(not bReadOnly or not traits.isEmpty())
-	WindowManager.callSafeControlUpdate(self, "traits", bReadOnly);
+	WindowManager.callSafeControlsSetLockMode(self, {"traits"}, bReadOnly);
+	traits_label.setVisible(WindowManager.getAnyControlVisible(self, { "traits" }))
 end
 
 function onDrop(x, y, draginfo)

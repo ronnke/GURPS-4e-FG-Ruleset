@@ -354,8 +354,8 @@ function calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, defau
 
 	local defaultsInfo = parseAbilityDefaults(nodeChar, defaultsLine);
 
-	type = typeInfo.basis .. "/" .. typeInfo.difficulty;
-	name = nameInfo.name;
+	local type = typeInfo.basis .. "/" .. typeInfo.difficulty;
+	local name = nameInfo.name;
 	local basis = DEFAULT_BASIS_NAME;
 	local level = level_adj;
 	local relativelevel = "";
@@ -452,7 +452,7 @@ function calculateAbilityInfo(nodeChar, abilityType, totalCP, abilityName, defau
 	result.basis = basis;
 	result.level = level;
 	result.relativelevel = relativelevel;
-	
+
 	return result;
 end
 
@@ -580,16 +580,22 @@ function addAbility(nodeChar, nodeAbility)
 		return false;
 	end
 
+	local function ensureList(node, path)
+		local list = DB.getChild(node, path);
+		if not list then
+			list = DB.createChild(node, path);
+		end
+		return list;
+	end
+	
 	local abilityName = DB.getValue(nodeAbility, "name", "");
 	local defaultsLine = DB.getValue(nodeAbility, "defaults", "");
-	if ActorManager.isRecordType(nodeChar, "npc") then
-		local nodeAbilitiesList = DB.getChild(nodeChar, "abilities.abilitieslist")
-		if not nodeAbilitiesList then
-			nodeAbilitiesList = DB.createChild(nodeChar, "abilities.abilitieslist");
-		end
 
+	if ActorManager.isRecordType(nodeChar, "npc") then
+		local nodeAbilitiesList = ensureList(nodeChar, "abilities.abilitieslist");
 		local nodeNPCAbility = DB.createChild(nodeAbilitiesList);
-		DB.setValue(nodeNPCAbility, "name", "string", abilityName);  
+
+		DB.setValue(nodeNPCAbility, "name", "string", abilityName);
 		DB.setValue(nodeNPCAbility, "level", "number", DB.getValue(nodeAbility, "otherlevel", 0));
 
 		local typeNodeTarget;
@@ -603,27 +609,29 @@ function addAbility(nodeChar, nodeAbility)
 			return true;
 		end
 
-		local abilityInfo = CharAbilityManager.calculateAbilityInfo(nodeChar, DB.getValue(nodeAbility, typeNodeTarget, ""), DEFAULT_NEW_ABILITY_POINTS, abilityName, defaultsLine, 0);
+		local abilityInfo = CharAbilityManager.calculateAbilityInfo(
+			nodeChar,
+			DB.getValue(nodeAbility, typeNodeTarget, ""),
+			DEFAULT_NEW_ABILITY_POINTS,
+			abilityName,
+			defaultsLine,
+			0
+		);
 		if abilityInfo then
 			DB.setValue(nodeNPCAbility, "level", "number", abilityInfo.level);
 		end
-
 		return true;
 	end
 
 	if bSkill and ActorManager.isPC(nodeChar) then
-		local nodeSkillsList = DB.getChild(nodeChar, "abilities.skilllist");
-		if not nodeSkillsList then
-			nodeSkillsList = DB.createChild(nodeChar, "abilities.skilllist");
-		end
-
+		local nodeSkillsList = ensureList(nodeChar, "abilities.skilllist");
 		local nodeSkill = DB.createChild(nodeSkillsList);
+
 		DB.setValue(nodeSkill, "name", "string", abilityName);
 		DB.setValue(nodeSkill, "prereqs", "string", DB.getValue(nodeAbility, "skillprerequisite", ""));
 		DB.setValue(nodeSkill, "page", "string", DB.getValue(nodeAbility, "page", ""));
 		DB.setValue(nodeSkill, "text", "formattedtext", DB.getValue(nodeAbility, "text", ""));
 
-		--Will trigger reconcile
 		DB.setValue(nodeSkill, "type", "string", ManagerGURPS4e.getSkillType(DB.getValue(nodeAbility, "skilltype", "")));
 		DB.setValue(nodeSkill, "points", "number", DEFAULT_NEW_ABILITY_POINTS);
 		DB.setValue(nodeSkill, "defaults", "string", DB.getValue(nodeAbility, "skilldefault", ""));
@@ -634,12 +642,9 @@ function addAbility(nodeChar, nodeAbility)
 	end
 
 	if bSpell and ActorManager.isPC(nodeChar) then
-		local nodeSpellsList = DB.getChild(nodeChar, "abilities.spelllist");
-		if not nodeSpellsList then
-			nodeSpellsList = DB.createChild(nodeChar, "abilities.spelllist");
-		end
-	  
+		local nodeSpellsList = ensureList(nodeChar, "abilities.spelllist");
 		local nodeSpell = DB.createChild(nodeSpellsList);
+
 		DB.setValue(nodeSpell, "name", "string", abilityName);
 		DB.setValue(nodeSpell, "class", "string", DB.getValue(nodeAbility, "spellclass", ""));
 		DB.setValue(nodeSpell, "time", "string", DB.getValue(nodeAbility, "spelltimetocast", ""));
@@ -651,7 +656,6 @@ function addAbility(nodeChar, nodeAbility)
 		DB.setValue(nodeSpell, "page", "string", DB.getValue(nodeAbility, "page", ""));
 		DB.setValue(nodeSpell, "text", "formattedtext", DB.getValue(nodeAbility, "text", ""));
 
-		--Will trigger reconcile
 		DB.setValue(nodeSpell, "type", "string", ManagerGURPS4e.getSkillType(DB.getValue(nodeAbility, "spelltype", "")));
 		DB.setValue(nodeSpell, "points", "number", DEFAULT_NEW_ABILITY_POINTS);
 		DB.setValue(nodeSpell, "level_adj", "number", 0);
@@ -661,17 +665,13 @@ function addAbility(nodeChar, nodeAbility)
 	end
 
 	if bPower and ActorManager.isPC(nodeChar) then
-		local nodePowersList = DB.getChild(nodeChar, "abilities.powerlist");
-		if not nodePowersList then
-			nodePowersList = DB.createChild(nodeChar, "abilities.powerlist");
-		end
-
+		local nodePowersList = ensureList(nodeChar, "abilities.powerlist");
 		local nodePower = DB.createChild(nodePowersList);
+
 		DB.setValue(nodePower, "name", "string", abilityName);  
 		DB.setValue(nodePower, "page", "string", DB.getValue(nodeAbility, "page", ""));
 		DB.setValue(nodePower, "text", "formattedtext", DB.getValue(nodeAbility, "text", ""));
 
-		--Will trigger reconcile
 		DB.setValue(nodePower, "type", "string", ManagerGURPS4e.getSkillType(DB.getValue(nodeAbility, "powerskill", "")));
 		DB.setValue(nodePower, "points", "number", DEFAULT_NEW_ABILITY_POINTS);
 		DB.setValue(nodePower, "defaults", "string", DB.getValue(nodeAbility, "powerdefault", ""));
@@ -682,19 +682,15 @@ function addAbility(nodeChar, nodeAbility)
 	end
 
 	if bOther and ActorManager.isPC(nodeChar) then
-		local nodeOtherList = DB.getChild(nodeChar, "abilities.otherlist");
-		if not nodeOthersList then
-			nodeOthersList = DB.createChild(nodeChar, "abilities.otherlist");
-		end
-
+		local nodeOtherList = ensureList(nodeChar, "abilities.otherlist");
 		local nodeOther = DB.createChild(nodeOtherList);
+
 		DB.setValue(nodeOther, "name", "string", abilityName);  
 		DB.setValue(nodeOther, "points", "number", DB.getValue(nodeAbility, "otherpoints", 0));
 		DB.setValue(nodeOther, "level", "number", DB.getValue(nodeAbility, "otherlevel", 0));
 		DB.setValue(nodeOther, "page", "string", DB.getValue(nodeAbility, "page", ""));
 		DB.setValue(nodeOther, "text", "formattedtext", DB.getValue(nodeAbility, "text", ""));
-		
-		--Will trigger reconcile
+
 		DB.setValue(nodeOther, "otherlevel", "number", DB.getValue(nodeAbility, "otherlevel", 0));
 		DB.setValue(nodeOther, "defaults", "string", DB.getValue(nodeAbility, "otherdefault", ""));
 

@@ -9,34 +9,28 @@
 	
 	<windowclass name="npc_main">
 		<margins control="0,0,0,2" />
-		<script file="campaign/scripts/npc_main.lua" />
-		<sheetdata>
-			<anchor_column name="columnanchor" />
+    <script file="campaign/scripts/npc_main.lua" />
+    <sheetdata>
+      <anchor_content_top />
+      <anchor_content_bottom />
 
-			<label_column name="nonid_name_label">
-				<static textres="npc_label_unidentified" />
-			</label_column>
-			<string_columnh name="nonid_name" />
+      <label_content_column name="pts_label">
+        <static textres="npc_label_pts" />
+      </label_content_column>
+      <number_content_columnh name="pts" />
 
-			<line_column name="divider1" />
-
-			<label_column name="type_label">
+      <label_content_column name="type_label">
 				<static textres="npc_label_type" />
-			</label_column>
-			<string_columnh name="type" />
+			</label_content_column>
+			<string_content_columnh name="type" />
 
-			<label_column name="pts_label">
-				<static textres="npc_label_pts" />
-			</label_column>
-			<number_columnh name="pts" />
+      <line_content_top name="divider1" />
 
-			<line_column name="divider2" />
-
-			<number_attribute name="strength" source="attributes.strength">
+      <number_attribute name="strength" source="attributes.strength">
 				<rollable_attribute />
 				<stat>ST</stat>
 				<anchored>
-					<top parent="columnanchor" anchor="bottom" relation="relative" offset="15" />
+					<top parent="contentanchor" anchor="bottom" relation="relative" offset="15" />
 					<left anchor="center" offset="-210" />
 				</anchored>
 				<tabtarget prev="pts" next="dexterity" />
@@ -142,7 +136,7 @@
 
 			<string_labeled name="basicspeed" source="attributes.basicspeed">
 				<anchored width="70" height="20">
-					<top parent="columnanchor" anchor="bottom" relation="relative" offset="10" />
+					<top parent="contentanchor" anchor="bottom" relation="relative" offset="10" />
 					<left />
 				</anchored>
 				<labelres>npc_label_basicspeed</labelres>
@@ -209,7 +203,7 @@
 				<center />
 				<color>#808080</color>
 			</label_charsheet>
-			<basicstring name="traits" source="traits.description">
+			<string_content_top name="traits" source="traits.description">
 				<anchored>
 					<top parent="reactionmodifiers" anchor="bottom" relation="relative" />
 					<left offset="5" />
@@ -218,7 +212,7 @@
         <tabtarget prev="reactionmodifiers" />
         <multilinespacing>15</multilinespacing>
         <empty textres="ft_empty" hidereadonly="true" />
-      </basicstring>
+      </string_content_top>
 		</sheetdata>
 	</windowclass>
 	

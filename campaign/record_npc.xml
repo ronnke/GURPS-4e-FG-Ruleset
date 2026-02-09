@@ -37,12 +37,6 @@
       <embed />
     </tab>
 		<script>
-			function onInit()
-	      if super and super.onInit then
-		      super.onInit();
-	      end
-				self.onIDChanged();
-			end
 			function onIDChanged()
   			super.onIDChanged();
 				if not Session.IsHost then

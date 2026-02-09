@@ -8,16 +8,6 @@
 <root>
 	
   <windowclass name="npc_abilities">
-    <script>
-      function onDrop(x, y, draginfo)
-        if draginfo.isType("shortcut") then
-          local sClass, sRecord = draginfo.getShortcutData();
-          if LibraryDataGURPS4e.isMeleeWeapon(sRecord) or LibraryDataGURPS4e.isRangedWeapon(sRecord) or LibraryDataGURPS4e.isDefense(sRecord) then
-            return ItemManager.handleAnyDrop(getDatabaseNode(), draginfo);
-          end
-        end
-      end
-    </script>
     <sheetdata>
       <anchor_content_top />
       <anchor_content_bottom />
@@ -30,22 +20,6 @@
   </windowclass>
   
     <windowclass name="npc_content_abilities">
-    <script>
-      function onInit()
-        self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
-      end
-      function onLockModeChanged(bReadOnly)
-        updateVisibility(bReadOnly);
-      end
-      function updateVisibility(bReadOnly)
-        local node = getDatabaseNode();
-        if not node then
-          return;
-        end
-
-        abilities.setVisible(not bReadOnly or CharManager.hasAbilities(node));
-     end
-    </script>
     <sheetdata>
       <anchor_content_top />
       <anchor_content_bottom />
@@ -64,6 +38,28 @@
       end
       function onLockModeChanged(bReadOnly)
         WindowManager.callSafeControlsSetLockMode(self, { "list_iadd" }, bReadOnly);
+      end
+      function onDrop(x, y, draginfo)
+        if WindowManager.getWindowReadOnlyState(self) then
+          return true;
+        end
+
+        if not draginfo.isType("shortcut") then
+          return false;
+        end
+
+        local _, sRecord = draginfo.getShortcutData();
+        local bIsAbility =
+          LibraryDataGURPS4e.isSkill(sRecord) or
+          LibraryDataGURPS4e.isSpell(sRecord) or
+          LibraryDataGURPS4e.isPower(sRecord) or
+          LibraryDataGURPS4e.isOther(sRecord);
+
+        if bIsAbility then
+          return CharManager.addAbility(getDatabaseNode(), draginfo.getDatabaseNode());
+        end
+
+        return false;
       end
 		</script>
     <sheetdata>

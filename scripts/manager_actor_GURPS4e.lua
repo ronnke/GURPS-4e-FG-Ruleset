@@ -251,12 +251,7 @@ end
 -- Given an actor and the name of an attribute or ability, this will return a table with
 -- current information about that stat.
 function getStat(rActor, sName)
-	local nodeActor;
-	if ActorManager.isPC(rActor) then
-		nodeActor = ActorManager.getCreatureNode(rActor);
-	else
-		nodeActor = ActorManager.getCTNode(rActor);
-	end
+	local nodeActor = ActorManager.getCreatureNode(rActor);
 	if not nodeActor then
 		return;
 	end

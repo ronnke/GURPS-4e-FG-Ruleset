@@ -92,20 +92,20 @@ function hasDefenses(nodeChar)
 	return DB.getChildCount(nodeChar, "combat.defenseslist") > 0
 end
 
-function onCharItemAdd(nodeItem)
-	CharCombatManager.addItem(nodeItem);
-end
-
-function onCharItemDelete(nodeItem)
-	CharCombatManager.removeItem(nodeItem);
+function addTrait(nodeChar, nodeTrait)
+	CharTraitManager.addTrait(nodeChar, nodeTrait);
 end
 
 function addAbility(nodeChar, nodeAbility)
 	CharAbilityManager.addAbility(nodeChar, nodeAbility);
 end
 
-function addTrait(nodeChar, nodeTrait)
-	CharTraitManager.addTrait(nodeChar, nodeTrait);
+function onCharItemAdd(nodeItem)
+	CharCombatManager.addItem(nodeItem);
+end
+
+function onCharItemDelete(nodeItem)
+	CharCombatManager.removeItem(nodeItem);
 end
 
 function onStrengthChanged(nodeField)
