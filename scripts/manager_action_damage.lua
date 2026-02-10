@@ -90,16 +90,15 @@ function onRoll(rSource, rTarget, rRoll)
             rRoll.sDamage or "",
             rRoll.nMod ~= 0 and string.format(" : [%+d]", rRoll.nMod) or ""
         );
+        rMessage.nTotal = rRoll.nTotal;
 
 	    if rRoll.nTotal <= 0 and StringManagerGURPS4e.containsAny({ "cr" }, rRoll.sDamageType) then
 		    rMessage.text = rMessage.text .. "\n[NO DAMAGE]";
-            rRoll.nTotal = 0;
+            rMessage.nTotal = 0;
 	    elseif rRoll.nTotal < 1 then
 		    rMessage.text = rMessage.text .. "\n[MINIMUM 1 DAMAGE]";
-            rRoll.nTotal = 1;
+            rMessage.nTotal = 1;
 	    end
-
-        rMessage.nTotal = rRoll.nTotal;
 
         -- Send the chat message
 		Comm.deliverChatMessage(rMessage);
@@ -137,6 +136,12 @@ function applyDamage(rSource, rTarget, rRoll)
 	end
 
     local nTotal = rRoll.nTotal or 0;
+	if nTotal <= 0 and StringManagerGURPS4e.containsAny({ "cr" }, rRoll.sDamageType) then
+        nTotal = 0;
+	elseif nTotal < 1 then
+        nTotal = 1;
+	end
+
     if nTotal <= 0 then
         return;
     end

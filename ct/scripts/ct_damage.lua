@@ -38,7 +38,6 @@ function updateInjury()
 	local nMaxDamage = 0.0;
 	local nDamageMultiplier = 1.0;
 	local nDRModifier = 0;
-	local sMessageText = "";
 
 	if sInjuryTolerance == "Unliving" then
 		if StringManagerGURPS4e.containsAny({ "cut" }, sDamageType) then
@@ -223,6 +222,30 @@ function updateInjury()
 	end
 
 	-- Output message
+	local sMessageText = buildInjuryMessage(sHitLocation, sDamageType, nInjury, nHP);
+
+	if nDivisor then
+		if nDivisor == 0 then
+			armordivisortext.setValue("(∞)");
+		elseif nDivisor == 0.5 then
+			armordivisortext.setValue("(½)");
+		elseif nDivisor == 1 then
+			armordivisortext.setValue("(none)");
+		else
+			armordivisortext.setValue(string.format("(%s)", nDivisor));
+		end
+	end
+
+	damagetype.setValue(sDamageType);
+	messagetext.setValue(sMessageText);
+
+	DB.setValue(node, "injury", "number", nInjury);
+	DB.setValue(node, "message", "string", sMessageText);
+end
+
+function buildInjuryMessage(sHitLocation, sDamageType, nInjury, nHP)
+	local sMessageText = "";
+
 	if sHitLocation == "Skull" then
 		sMessageText = sMessageText .. "Skull DR +2; ";
 	end
@@ -231,7 +254,6 @@ function updateInjury()
 		sMessageText = sMessageText .. "+1 Incendiary damage; ";
 	end
 
-	-- Major Wound, Crippled and Knockdown
 	if sHitLocation == "Arm" or sHitLocation == "Leg" then
 		if nInjury >= (math.floor(nHP / 2) + 1) then
 			sMessageText = sMessageText .. string.format("Major Wound; Crippled (%s); Knockdown; ", sHitLocation);
@@ -260,24 +282,7 @@ function updateInjury()
 		end
 	end
 
-	damagetype.setValue(sDamageType);
-
-	if nDivisor then
-		if nDivisor == 0 then
-			armordivisortext.setValue("(∞)");
-		elseif nDivisor == 0.5 then
-			armordivisortext.setValue("(½)");
-		elseif nDivisor == 1 then
-			armordivisortext.setValue("(none)");
-		else
-			armordivisortext.setValue(string.format("(%s)", nDivisor));
-		end
-	end
-
-	messagetext.setValue(sMessageText);
-
-	DB.setValue(node, "injury", "number", nInjury);
-	DB.setValue(node, "message", "string", sMessageText);
+	return sMessageText;
 end
 
 function applyDamage()
@@ -286,11 +291,11 @@ function applyDamage()
 		return;
 	end
 
+	local rSourceNode = DB.getValue(node, "sourcenode", "");
+	local rTargetNode = DB.getValue(node, "targetnode", "");
 	local nInjury = DB.getValue(node, "injury", 0);
 	local sDamageType = DB.getValue(node, "damagetype", "");
 	local sMessage = DB.getValue(node, "message", "");
-	local rSourceNode = DB.getValue(node, "sourcenode", "");
-	local rTargetNode = DB.getValue(node, "targetnode", "");
 	local sSecret = DB.getValue(node, "secret", "false");
 
     local msgOOB = {};
