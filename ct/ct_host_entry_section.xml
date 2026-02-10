@@ -989,6 +989,11 @@
       </label>
       <number_ct name="injury">
         <anchored to="label_injury" position="right" offset="10" width="40" height="20" />
+        <script>
+          function onValueChanged()
+            window.updateInjuryMessage();
+          end
+        </script>
         <description textres="ct_label_injury" />
         <default>0</default>
         <min>0</min>

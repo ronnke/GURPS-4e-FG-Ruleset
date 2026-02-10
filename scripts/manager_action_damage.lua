@@ -41,9 +41,8 @@ function handleApplyInjury(msgOOB)
         local sType = StringManagerGURPS4e.containsAny({ "fat" }, msgOOB.sDamageType) and "FP" or "HP";
         local nInjury = tonumber(msgOOB.nInjury) or 0;
         local sMessage = msgOOB.sMessage or "";
-        local bSecret = msgOOB.sSecret == "true";
 
-        ActionDamage.applyInjury(rSource, rTarget, sType, nInjury, sMessage, bSecret);
+        ActionDamage.applyInjury(rSource, rTarget, sType, nInjury, sMessage);
     end
 end
 
@@ -156,10 +155,9 @@ function applyDamage(rSource, rTarget, rRoll)
 	DB.setValue(nodeDamage, "armordivisor", "number", tonumber(rRoll.nDivisor) or 1);
 	DB.setValue(nodeDamage, "damagetype", "string", rRoll.sDamageType or "");
 	DB.setValue(nodeDamage, "dr", "number", nDR);
-	DB.setValue(nodeDamage, "secret", "string", rRoll.bTower and "true" or "false");
 end
 
-function applyInjury(rSource, rTarget, sType, nInjury, sMessage, bSecret)
+function applyInjury(rSource, rTarget, sType, nInjury, sMessage)
     if not rSource and not rTarget then
         return;
     end

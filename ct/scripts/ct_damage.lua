@@ -221,9 +221,6 @@ function updateInjury()
 		nInjury = nMaxDamage;
 	end
 
-	-- Output message
-	local sMessageText = buildInjuryMessage(sHitLocation, sDamageType, nInjury, nHP);
-
 	if nDivisor then
 		if nDivisor == 0 then
 			armordivisortext.setValue("(∞)");
@@ -236,10 +233,27 @@ function updateInjury()
 		end
 	end
 
-	damagetype.setValue(sDamageType);
+	DB.setValue(node, "injury", "number", nInjury);
+end
+
+function updateInjuryMessage()
+	local node = getDatabaseNode();
+	if not node then
+		return;
+	end
+
+	local rActor = ActorManager.resolveActor(DB.getChild(node, "..."));
+	local nodeCT = ActorManager.getCTNode(rActor);
+
+	local nHP = DB.getValue(nodeCT, "attributes.hitpoints", 0);
+	local sDamageType = DB.getValue(node, "damagetype", "");
+	local nInjury = DB.getValue(node, "injury", 0);
+	local sHitLocation = hitlocation.getValue();
+
+	-- Output message
+	local sMessageText = buildInjuryMessage(sHitLocation, sDamageType, nInjury, nHP);
 	messagetext.setValue(sMessageText);
 
-	DB.setValue(node, "injury", "number", nInjury);
 	DB.setValue(node, "message", "string", sMessageText);
 end
 
@@ -296,7 +310,6 @@ function applyDamage()
 	local nInjury = DB.getValue(node, "injury", 0);
 	local sDamageType = DB.getValue(node, "damagetype", "");
 	local sMessage = DB.getValue(node, "message", "");
-	local sSecret = DB.getValue(node, "secret", "false");
 
     local msgOOB = {};
     msgOOB.type = ActionDamage.OOB_MSGTYPE_APPLYINJ;
@@ -305,7 +318,6 @@ function applyDamage()
 	msgOOB.nInjury = nInjury;
 	msgOOB.sDamageType = sDamageType;
 	msgOOB.sMessage = sMessage;
-	msgOOB.sSecret = sSecret;
 
     -- Send the OOB message
     Comm.deliverOOBMessage(msgOOB);
