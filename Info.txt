@@ -51,7 +51,7 @@ Click the following link to have your input on future ruleset development/improv
 [/LIST]
 [LIST]
 [*][B]GURPS 4e Ruleset v3.18.1[/B] - 9th Feb 2026 (FG Unity Only)
-- Fixed: Bug with draging abilities to NPC sheet.
+- Fixed: Bug with dragging abilities to NPC sheet.
 - Changed: Damage application message.
 [/LIST]
 [LIST]
