@@ -231,16 +231,33 @@ function updateInjury()
 		sMessageText = sMessageText .. "+1 Incendiary damage; ";
 	end
 
+	-- Major Wound, Crippled and Knockdown
 	if sHitLocation == "Arm" or sHitLocation == "Leg" then
 		if nInjury >= (math.floor(nHP / 2) + 1) then
-			sMessageText = sMessageText .. string.format("Major Wound; Crippled (%s); ", sHitLocation);
+			sMessageText = sMessageText .. string.format("Major Wound; Crippled (%s); Knockdown; ", sHitLocation);
 		end
 	elseif sHitLocation == "Hand" or sHitLocation == "Foot" then
 		if nInjury >= (math.floor(nHP / 3) + 1) then
-			sMessageText = sMessageText .. string.format("Major Wound; Crippled (%s); ", sHitLocation);
+			sMessageText = sMessageText .. string.format("Major Wound; Crippled (%s); Knockdown; ", sHitLocation);
 		end
 	elseif nInjury >= (math.floor(nHP / 2) + 1) then
-		sMessageText = sMessageText .. "Major Wound; ";
+		if sHitLocation == "Skull" then
+			sMessageText = sMessageText .. "Major Wound; -10 Knockdown; ";
+		elseif sHitLocation == "Eye" then
+			sMessageText = sMessageText .. "Major Wound; -10 Knockdown; Eye blinded; ";
+		elseif sHitLocation == "Face" or sHitLocation == "Vitals" then
+			sMessageText = sMessageText .. "Major Wound; -5 Knockdown; ";
+		elseif sHitLocation == "Groin" then
+			sMessageText = sMessageText .. "Major Wound; -5 Knockdown (Males only); ";
+		else
+			sMessageText = sMessageText .. "Major Wound; Knockdown; ";
+		end
+	elseif sHitLocation == "Skull" or sHitLocation == "Face" or sHitLocation == "Eye" or sHitLocation == "Vitals" then
+		if nInjury >= (math.floor(nHP / 10) + 1) and sHitLocation == "Eye" then
+			sMessageText = sMessageText .. "Knockdown; Eye blinded; ";	
+		elseif nInjury > 0 then
+			sMessageText = sMessageText .. "Knockdown; ";
+		end
 	end
 
 	damagetype.setValue(sDamageType);
@@ -260,6 +277,7 @@ function updateInjury()
 	messagetext.setValue(sMessageText);
 
 	DB.setValue(node, "injury", "number", nInjury);
+	DB.setValue(node, "message", "string", sMessageText);
 end
 
 function applyDamage()
@@ -270,16 +288,24 @@ function applyDamage()
 
 	local nInjury = DB.getValue(node, "injury", 0);
 	local sDamageType = DB.getValue(node, "damagetype", "");
+	local sMessage = DB.getValue(node, "message", "");
+	local rSourceNode = DB.getValue(node, "sourcenode", "");
+	local rTargetNode = DB.getValue(node, "targetnode", "");
+	local sSecret = DB.getValue(node, "secret", "false");
 
-	local rActor = ActorManager.resolveActor(DB.getChild(node, "..."));
+    local msgOOB = {};
+    msgOOB.type = ActionDamage.OOB_MSGTYPE_APPLYINJ;
+    msgOOB.sSourceNode = rSourceNode;
+    msgOOB.sTargetNode = rTargetNode;
+	msgOOB.nInjury = nInjury;
+	msgOOB.sDamageType = sDamageType;
+	msgOOB.sMessage = sMessage;
+	msgOOB.sSecret = sSecret;
 
-	if StringManagerGURPS4e.containsAny({ "fat" }, sDamageType) then
-		ActionDamage.applyInjury(rActor, 0, nInjury);
-	else
-		ActionDamage.applyInjury(rActor, nInjury, 0);
-	end
+    -- Send the OOB message
+    Comm.deliverOOBMessage(msgOOB);
 
-	removeEntry()
+	removeEntry();
 end
 
 function removeEntry()

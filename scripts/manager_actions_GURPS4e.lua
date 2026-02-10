@@ -50,3 +50,31 @@ function createActionMessage(rSource, rRoll)
 	rMessage.diemodifier = GameSystem.actions[rRoll.sType] and not GameSystem.actions[rRoll.sType].bAddMod and 0 or rMessage.diemodifier
 	return rMessage;
 end
+
+function messageDamageResult(rSource, rTarget, rMessageGM, rMessagePlayer)
+	local bTargetFriendly = rTarget and ActorManager.isFaction(rTarget, "friend");
+	local nodeCT = ActorManager.getCTNode(rTarget);
+	local bIsTargetHidden = nodeCT and CombatManager.isCTHidden(nodeCT);
+
+	local bShowGMToPlayers = bTargetFriendly and not bIsTargetHidden;
+
+	-- GM always sees GM message
+	if bShowGMToPlayers then
+		rMessageGM.secret = false;
+		Comm.deliverChatMessage(rMessageGM);
+		return; -- already shown to everyone
+	end
+
+	rMessageGM.secret = true;
+	Comm.deliverChatMessage(rMessageGM, "");
+
+	-- Players see player message only when GM message is secret/hidden
+	if Session.IsHost then
+		local tUsers = User.getActiveUsers();
+		if #tUsers > 0 then
+			Comm.deliverChatMessage(rMessagePlayer, tUsers);
+		end
+	else
+		Comm.addChatMessage(rMessagePlayer);
+	end
+end

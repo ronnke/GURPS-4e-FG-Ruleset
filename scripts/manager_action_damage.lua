@@ -5,9 +5,11 @@
 
 
 OOB_MSGTYPE_APPLYDMG = "applydmg";
+OOB_MSGTYPE_APPLYINJ = "applyinj";
 
 function onInit()
 	OOBManager.registerOOBMsgHandler(ActionDamage.OOB_MSGTYPE_APPLYDMG, ActionDamage.handleApplyDamage);
+	OOBManager.registerOOBMsgHandler(ActionDamage.OOB_MSGTYPE_APPLYINJ, ActionDamage.handleApplyInjury);
 
 --	ActionsManager.registerModHandler("damage", ActionDamage.modRoll); -- If Enabled Rolling does not work due to dice expression formulas being used
 	ActionsManager.registerPostRollHandler("damage", ActionDamage.onPostRoll);
@@ -21,9 +23,28 @@ function handleApplyDamage(msgOOB)
         return;
 	end
 
-	local rRoll = UtilityManager.decodeRollFromOOB(msgOOB);
+    if Session.IsHost then
+	    local rRoll = UtilityManager.decodeRollFromOOB(msgOOB);
 
-    ActionDamage.applyDamage(rSource, rTarget, rRoll);
+        ActionDamage.applyDamage(rSource, rTarget, rRoll);
+    end
+end
+
+function handleApplyInjury(msgOOB)
+	local rSource = ActorManager.resolveActor(msgOOB.sSourceNode);
+	local rTarget = ActorManager.resolveActor(msgOOB.sTargetNode);
+	if not rTarget then
+        return;
+	end
+
+    if Session.IsHost then
+        local sType = StringManagerGURPS4e.containsAny({ "fat" }, msgOOB.sDamageType) and "FP" or "HP";
+        local nInjury = tonumber(msgOOB.nInjury) or 0;
+        local sMessage = msgOOB.sMessage or "";
+        local bSecret = msgOOB.sSecret == "true";
+
+        ActionDamage.applyInjury(rSource, rTarget, sType, nInjury, sMessage, bSecret);
+    end
 end
 
 -- If Enabled Rolling does not work due to dice expression formulas being used
@@ -69,6 +90,15 @@ function onRoll(rSource, rTarget, rRoll)
             rRoll.sDamage or "",
             rRoll.nMod ~= 0 and string.format(" : [%+d]", rRoll.nMod) or ""
         );
+
+	    if rRoll.nTotal <= 0 and StringManagerGURPS4e.containsAny({ "cr" }, rRoll.sDamageType) then
+		    rMessage.text = rMessage.text .. "\n[NO DAMAGE]";
+            rRoll.nTotal = 0;
+	    elseif rRoll.nTotal < 1 then
+		    rMessage.text = rMessage.text .. "\n[MINIMUM 1 DAMAGE]";
+            rRoll.nTotal = 1;
+	    end
+
         rMessage.nTotal = rRoll.nTotal;
 
         -- Send the chat message
@@ -94,70 +124,86 @@ function onRoll(rSource, rTarget, rRoll)
         msgOOB.type = ActionDamage.OOB_MSGTYPE_APPLYDMG;
         msgOOB.sSourceNode = ActorManager.getCreatureNodeName(rSource);
         msgOOB.sTargetNode = ActorManager.getCreatureNodeName(rTarget);
-
+        
         -- Send the OOB message
-        Comm.deliverOOBMessage(msgOOB, "");
+        Comm.deliverOOBMessage(msgOOB);
     end
-
 end
 
 function applyDamage(rSource, rTarget, rRoll)
-	nodeCT = ActorManager.getCTNode(rTarget)
+	local nodeCT = ActorManager.getCTNode(rTarget);
 	if not nodeCT then
-		return
+		return;
 	end
 
-    -- Ensure minimum damage rules are respected
-    local nTotal = tonumber(rRoll.nTotal) or 0;
-    if nTotal <= 0 and StringManagerGURPS4e.containsAny({ "cr" }, rRoll.sDamageType) then
-        nTotal = 0;
-    elseif nTotal < 1 then
-        nTotal = 1;
+    local nTotal = rRoll.nTotal or 0;
+    if nTotal <= 0 then
+        return;
     end
 
-    local sDR = string.match(DB.getValue(nodeCT, "combat.dr", "0"), "%-?%d+%.?%d*")
+	local sDR = string.match(DB.getValue(nodeCT, "combat.dr", "0"), "%-?%d+%.?%d*");
+	local nDR = tonumber(sDR) or 0;
 
-    nodeDamage = DB.createChild(DB.createChild(nodeCT, "damage"))
-    DB.setValue(nodeDamage, "damage", "number", nTotal);
-    DB.setValue(nodeDamage, "armordivisor", "number", tonumber(rRoll.nDivisor) or 1);
-    DB.setValue(nodeDamage, "damagetype", "string", rRoll.sDamageType);
-    DB.setValue(nodeDamage, "dr", "number", tonumber(sDR) or 0);
+	local nodeDamage = DB.createChild(DB.createChild(nodeCT, "damage"));
+    DB.setValue(nodeDamage, "sourcenode", "string", ActorManager.getCreatureNodeName(rSource));
+    DB.setValue(nodeDamage, "targetnode", "string", ActorManager.getCreatureNodeName(rTarget));
+	DB.setValue(nodeDamage, "damage", "number", nTotal);
+	DB.setValue(nodeDamage, "armordivisor", "number", tonumber(rRoll.nDivisor) or 1);
+	DB.setValue(nodeDamage, "damagetype", "string", rRoll.sDamageType or "");
+	DB.setValue(nodeDamage, "dr", "number", nDR);
+	DB.setValue(nodeDamage, "secret", "string", rRoll.bTower and "true" or "false");
 end
 
-function applyInjury(rActor, nHPInjury, nFPInjury)
-	local nodeTarget;
-	if ActorManager.isPC(rActor) then
-		nodeTarget = ActorManager.getCreatureNode(rActor);
+function applyInjury(rSource, rTarget, sType, nInjury, sMessage, bSecret)
+    if not rSource and not rTarget then
+        return;
+    end
+
+    local nodeTarget;
+	if ActorManager.isPC(rTarget) then
+		nodeTarget = ActorManager.getCreatureNode(rTarget);
 	else
-		nodeTarget = ActorManager.getCTNode(rActor);
+		nodeTarget = ActorManager.getCTNode(rTarget);
 	end
 	if not nodeTarget then
 		return;
 	end
 
     local nHP, nFP;
-	if ActorManager.isPC(rActor) then
-        nHP = DB.getValue(nodeTarget, "attributes.injury", 0) + nHPInjury;
-        nFP = DB.getValue(nodeTarget, "attributes.fatigue", 0) + nFPInjury;
+	if ActorManager.isPC(rTarget) then
+        nHP = DB.getValue(nodeTarget, "attributes.injury", 0) + (sType == "HP" and nInjury or 0);
+        nFP = DB.getValue(nodeTarget, "attributes.fatigue", 0) + (sType == "FP" and nInjury or 0);
         DB.setValue(nodeTarget, "attributes.injury", "number", (nHP < 0 and 0 or nHP));
         DB.setValue(nodeTarget, "attributes.fatigue", "number", (nFP < 0 and 0 or nFP));
-	elseif ActorManager.isRecordType(rActor, "npc") then
-        nHP = DB.getValue(nodeTarget, "injury", 0) + nHPInjury;
-        nFP = DB.getValue(nodeTarget, "fatigue", 0) + nFPInjury;
+	elseif ActorManager.isRecordType(rTarget, "npc") then
+        nHP = DB.getValue(nodeTarget, "injury", 0) + (sType == "HP" and nInjury or 0);
+        nFP = DB.getValue(nodeTarget, "fatigue", 0) + (sType == "FP" and nInjury or 0);
         DB.setValue(nodeTarget, "injury", "number", (nHP < 0 and 0 or nHP));
         DB.setValue(nodeTarget, "fatigue", "number", (nFP < 0 and 0 or nFP));
-	elseif ActorManager.isRecordType(rActor, "vehicle") then
+	elseif ActorManager.isRecordType(rTarget, "vehicle") then
         -- TODO: Vehicle Damage
 	else
 		return;
     end
 
+    local rMessageGM = { font = "sheetlabel", icon = "action_damage" };
+    local rMessagePlayer = { font = "sheetlabel", icon = "action_damage" };
 
-    local rMessage = ChatManager.createBaseMessage(nil, nil);
-    rMessage.sender = nil; -- No sender for target-only messages
-	rMessage.text = string.format("[INJURY] Applied to: %s", ActorManager.resolveDisplayName(rActor));
-    
-    Comm.deliverChatMessage(rMessage);
+    if sType == "HP" then
+	    rMessageGM.text = string.format("[INJURY] %d HP applied to: %s", nInjury, ActorManager.resolveDisplayName(rTarget));
+        if sMessage and sMessage ~= "" then
+            rMessageGM.text = rMessageGM.text .. string.format("\n( %s)",sMessage);
+        end
+    elseif sType == "FP" then
+	    rMessageGM.text = string.format("[INJURY] %d FP applied to: %s", nInjury, ActorManager.resolveDisplayName(rTarget));
+        if sMessage and sMessage ~= "" then
+            rMessageGM.text = rMessageGM.text .. string.format("\n( %s)",sMessage);
+        end
+    end
+
+    rMessagePlayer.text = string.format("[INJURY] applied to: %s", ActorManager.resolveDisplayName(rTarget));
+
+    ActionsManagerGURPS4e.messageDamageResult(rSource, rTarget, rMessageGM, rMessagePlayer);
 end
 
 function updateDamage(rActor)
