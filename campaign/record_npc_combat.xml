@@ -18,7 +18,7 @@
           <left anchor="center" offset="-125" />
           <right anchor="center" offset="125" />
         </anchored>
-        <class>common_content_defenses</class>
+        <class>npc_content_defenses</class>
       </sub_content_top>
 
       <sub_content name="combat">
@@ -71,6 +71,17 @@
       </sub_content_top>
       
     </sheetdata>
+  </windowclass>
+
+  <windowclass name="npc_content_defenses" copy="common_content_defenses">
+		<script>
+      function onInit()
+        self.onLockModeChanged(WindowManager.getWindowReadOnlyState(self));
+      end
+      function onLockModeChanged(bReadOnly)
+        WindowManager.callSafeControlsSetLockMode(self, { "dodge", "parry", "block", "dr" }, bReadOnly);
+      end
+    </script>
   </windowclass>
 
   <windowclass name="npc_list_meleeweapon" copy="common_list_meleeweapon">
