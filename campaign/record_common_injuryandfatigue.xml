@@ -10,15 +10,17 @@
     <windowclass name="common_content_injuryandfatigue">
     <margins control="10,15,10,7" />
     <script>
-			function onHealthChanged()
-       	local _, _, sColor = ActorManagerGURPS4e.getInjuryStatus(getDatabaseNode());
+      function onHealthChanged()
+        local rActor = ActorManager.resolveActor(getDatabaseNode())
+        local _, _, sColor = ActorManagerGURPS4e.getInjuryStatus(rActor);
         hpstatus.setColor(sColor);
-			end
-			function onFatigueChanged()
-	      local _, _, sColor = ActorManagerGURPS4e.getFatigueStatus(getDatabaseNode());
+      end
+      function onFatigueChanged()
+	      local rActor = ActorManager.resolveActor(getDatabaseNode())
+	      local _, _, sColor = ActorManagerGURPS4e.getFatigueStatus(rActor);
         fpstatus.setColor(sColor);
-			end
-		</script>
+      end
+    </script>
     <sheetdata>
 
       <number_combat_attribute name="hps" source="attributes.hps">

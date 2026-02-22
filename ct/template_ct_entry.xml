@@ -168,11 +168,6 @@
         <top />
         <right anchor="left" relation="relative" offset="-10" />
       </anchored>
-      <script>
-        function update()
-          window.windowlist.applySort();
-        end
-      </script>
     </number_ct_static>
   </template>
   <template name="number_clientct_hps">
@@ -181,11 +176,6 @@
         <top />
         <right anchor="left" offset="-10" />
       </anchored>
-      <script>
-				function onValueChanged()
-					window.onHealthChanged();
-        end
-      </script>
       <hideonvalue merge="delete" />
     </number_ct_static>
   </template>
@@ -195,11 +185,6 @@
         <top />
         <right anchor="left" offset="-10" />
       </anchored>
-      <script>
-				function onValueChanged()
-					window.onFatigueChanged();
-        end
-      </script>
       <hideonvalue merge="delete" />
     </number_ct_static>
   </template>
