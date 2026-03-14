@@ -21,6 +21,13 @@ function containsAny(a, s)
   return false
 end
 
+function splitDamageTypes(damageString)
+    local types = {}
+    for t in string.gmatch(damageString, "%S+") do
+        table.insert(types, t)
+    end
+    return types
+end
 
 function convertStringToDice(s)
 	-- SETUP

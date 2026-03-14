@@ -13,16 +13,39 @@ end
 
 function updateInjury()
 	local node = getDatabaseNode();
-	if not node then
-		return;
-	end
+	if not node then return end
 
 	local rActor = ActorManager.resolveActor(DB.getChild(node, "..."));
-	local nodeCT = ActorManager.getCTNode(rActor);
+	local nodeCT = rActor and ActorManager.getCTNode(rActor);
+	if not nodeCT then return end
+
+	local function setArmorDivisorText(nDivisor)
+		if nDivisor == 0 then
+			armordivisortext.setValue("(∞)");
+		elseif nDivisor == 0.5 then
+			armordivisortext.setValue("(0.5)");
+		elseif nDivisor == 0.2 then
+			armordivisortext.setValue("(0.2)");
+		elseif nDivisor == 1 then
+			armordivisortext.setValue("(none)");
+		else
+			armordivisortext.setValue(string.format("(%s)", nDivisor));
+		end
+	end
+
+	local function getLocationMaxDamage(sHitLocation, nHP)
+		if sHitLocation == "Arm" or sHitLocation == "Leg" then
+			return math.floor(nHP / 2) + 1;
+		elseif sHitLocation == "Hand" or sHitLocation == "Foot" then
+			return math.floor(nHP / 3) + 1;
+		end
+		return 0;
+	end
 
 	local nHP = DB.getValue(nodeCT, "attributes.hitpoints", 0);
+	local nST = DB.getValue(nodeCT, "attributes.strength", 0);
 
-	local nDamage = DB.getValue(node, "damage", 0);
+	local nDamage = math.max(0, tonumber(DB.getValue(node, "damage", 0)) or 0);
 	local sDamageType = DB.getValue(node, "damagetype", "");
 	local nDR = DB.getValue(node, "dr", 0);
 	local nDivisor = DB.getValue(node, "armordivisor", 1);
@@ -31,189 +54,71 @@ function updateInjury()
 	local sHardened = hardened.getValue();
 	local sInjuryTolerance = injurytolerance.getValue();
 
-	if not nDamage or nDamage < 1 then
-		nDamage = 0;
+	local bDiffuse = sInjuryTolerance == "Diffuse";
+	local bHomogeneous = sInjuryTolerance == "Homogeneous";
+
+	local nDamageMultiplier = 1;
+	local nMaxDamage = getLocationMaxDamage(sHitLocation, nHP);
+	local nDRModifier = (sHitLocation == "Skull" and not bDiffuse and not bHomogeneous) and 2 or 0;
+	local nKnockback = 0;
+
+	local bInc = false;
+	local bExplosion = false;
+	local bCr = false;
+	local bCut = false;
+	local bNoKnockback = false;
+	local bDoubleKnockback = false;
+
+	local tOptions = {};
+	if bDiffuse then
+		tOptions = { noBrain = true, noVitals = true, noBlood = true };
+	elseif bHomogeneous then
+		tOptions = { noBrain = true, noVitals = true };
 	end
 
-	local nMaxDamage = 0.0;
-	local nDamageMultiplier = 1.0;
-	local nDRModifier = 0;
+	local tDamageTypes = StringManagerGURPS4e.splitDamageTypes(sDamageType);
 
-	if sInjuryTolerance == "Unliving" then
-		if StringManagerGURPS4e.containsAny({ "cut" }, sDamageType) then
-			nDamageMultiplier = 1 + 1/2;
-		elseif StringManagerGURPS4e.containsAny({ "imp" }, sDamageType) then
-			nDamageMultiplier = 1;
-		elseif StringManagerGURPS4e.containsAny({ "pi++" }, sDamageType) then
-			nDamageMultiplier = 1;
-		elseif StringManagerGURPS4e.containsAny({ "pi+" }, sDamageType) then
-			nDamageMultiplier = 1/2;
-		elseif StringManagerGURPS4e.containsAny({ "pi-" }, sDamageType) then
-			nDamageMultiplier = 1/5;
-		elseif StringManagerGURPS4e.containsAny({ "pi" }, sDamageType) then
-			nDamageMultiplier = 1/3;
-		else
-			nDamageMultiplier = 1;
-		end	
-	elseif sInjuryTolerance == "Homogenous" then
-		if StringManagerGURPS4e.containsAny({ "cut" }, sDamageType) then
-			nDamageMultiplier = 1 + 1/2;
-		elseif StringManagerGURPS4e.containsAny({ "imp" }, sDamageType) then
-			nDamageMultiplier = 1/2;
-		elseif StringManagerGURPS4e.containsAny({ "pi++" }, sDamageType) then
-			nDamageMultiplier = 1/2;
-		elseif StringManagerGURPS4e.containsAny({ "pi+" }, sDamageType) then
-			nDamageMultiplier = 1/3;
-		elseif StringManagerGURPS4e.containsAny({ "pi" }, sDamageType) then
-			nDamageMultiplier = 1/5;
-		elseif StringManagerGURPS4e.containsAny({ "pi-" }, sDamageType) then
-			nDamageMultiplier = 1/10;
-		else
-			nDamageMultiplier = 1;
-		end	
-	elseif sInjuryTolerance == "Diffuse" then
+	for _, dt in ipairs(tDamageTypes) do
+		if dt == "inc" then bInc = true end
+		if dt == "ex" or dt == "exp" then bExplosion = true end
+		if dt == "cr" then bCr = true end
+		if dt == "cut" then bCut = true end
+		if dt == "nkb" then bNoKnockback = true end
+		if dt == "dkb" then bDoubleKnockback = true end
 
-		if StringManagerGURPS4e.containsAny({ "ex", "exp" }, sDamageType) then
-			if StringManagerGURPS4e.containsAny({ "imp" }, sDamageType) then
-				nDamageMultiplier = 2;
-			elseif StringManagerGURPS4e.containsAny({ "pi++" }, sDamageType) then
-				nDamageMultiplier = 2;
-			elseif StringManagerGURPS4e.containsAny({ "pi+" }, sDamageType) then
-				nDamageMultiplier = 1 + 1/2;
-			elseif StringManagerGURPS4e.containsAny({ "cut" }, sDamageType) then
-				nDamageMultiplier = 1 + 1/2;
-			elseif StringManagerGURPS4e.containsAny({ "pi" }, sDamageType) then
-				nDamageMultiplier = 1;
-			elseif StringManagerGURPS4e.containsAny({ "pi-" }, sDamageType) then
-				nDamageMultiplier = 1/2;
-			else
-				nDamageMultiplier = 1;
-			end	
-		else
-			if StringManagerGURPS4e.containsAny({ "imp" }, sDamageType) then
-				nDamageMultiplier = 2;
-				nMaxDamage = 1;
-			elseif StringManagerGURPS4e.containsAny({ "pi++" }, sDamageType) then
-				nDamageMultiplier = 2;
-				nMaxDamage = 1;
-			elseif StringManagerGURPS4e.containsAny({ "pi+" }, sDamageType) then
-				nDamageMultiplier = 1 + 1/2;
-				nMaxDamage = 1;
-			elseif StringManagerGURPS4e.containsAny({ "cut" }, sDamageType) then
-				nDamageMultiplier = 1 + 1/2;
-				nMaxDamage = 2;
-			elseif StringManagerGURPS4e.containsAny({ "pi" }, sDamageType) then
-				nDamageMultiplier = 1;
-				nMaxDamage = 1;
-			elseif StringManagerGURPS4e.containsAny({ "pi-" }, sDamageType) then
-				nDamageMultiplier = 1/2;
-				nMaxDamage = 1;
-			else
-				nDamageMultiplier = 1;
-				nMaxDamage = 2;
-			end	
-		end
-	else -- No Injury Tolerance
-
-		if StringManagerGURPS4e.containsAny({ "imp" }, sDamageType) then
-			nDamageMultiplier = 2;
-		elseif StringManagerGURPS4e.containsAny({ "pi++" }, sDamageType) then
-			nDamageMultiplier = 2;
-		elseif StringManagerGURPS4e.containsAny({ "pi+" }, sDamageType) then
-			nDamageMultiplier = 1 + 1/2;
-		elseif StringManagerGURPS4e.containsAny({ "cut" }, sDamageType) then
-			nDamageMultiplier = 1 + 1/2;
-		elseif StringManagerGURPS4e.containsAny({ "pi" }, sDamageType) then
-			nDamageMultiplier = 1;
-		elseif StringManagerGURPS4e.containsAny({ "pi-" }, sDamageType) then
-			nDamageMultiplier = 1/2;
-		else
-			nDamageMultiplier = 1;
-		end	
-
-		if sHitLocation == "Vitals" then
-			if StringManagerGURPS4e.containsAny({ "imp", "pi-", "pi", "pi+", "pi++" }, sDamageType) then
-				nDamageMultiplier = 3;
-			elseif StringManagerGURPS4e.containsAny({ "burn" }, sDamageType) then
-				nDamageMultiplier = 2;
-			end
-		elseif sHitLocation == "Skull" then
-			if StringManagerGURPS4e.containsAny({ "tox" }, sDamageType) then
-				nDamageMultiplier = 1;
-			else
-				nDRModifier = 2;
-				nDamageMultiplier = 4;
-			end
-		elseif sHitLocation == "Eye" then
-			if StringManagerGURPS4e.containsAny({ "imp", "pi-", "pi", "pi+", "pi++", "burn" }, sDamageType) then
-				nDamageMultiplier = 4;
-			end
-		elseif sHitLocation == "Face" then
-			if StringManagerGURPS4e.containsAny({ "cor" }, sDamageType) then
-				nDamageMultiplier = 1 + 1/2;
-			end
-		elseif sHitLocation == "Neck" then
-			if StringManagerGURPS4e.containsAny({ "cut" }, sDamageType) then
-				nDamageMultiplier = 2;
-			elseif StringManagerGURPS4e.containsAny({ "cr", "cor" }, sDamageType) then
-				nDamageMultiplier = 1 + 1/2;
-			end
-		elseif sHitLocation == "Arm" or sHitLocation == "Leg" then
-			if StringManagerGURPS4e.containsAny({ "imp", "pi+", "pi++" }, sDamageType) then
-				nDamageMultiplier = 1;
-			end
-			nMaxDamage = math.floor(nHP / 2) + 1;
-		elseif sHitLocation == "Hand" or sHitLocation == "Foot" then
-			if StringManagerGURPS4e.containsAny({ "imp", "pi+", "pi++" }, sDamageType) then
-				nDamageMultiplier = 1;
-			end
-			nMaxDamage = math.floor(nHP / 3) + 1;
+		local nDM = ActionDamage.getWoundModifier(dt, sHitLocation, sInjuryTolerance, tOptions);
+		if nDM > nDamageMultiplier then
+			nDamageMultiplier = nDM;
 		end
 	end
 
-	local tDivisor = { 0.5, 1, 2, 3, 5, 10, 100, 0 };
-	local nDivisorIndex = 2; -- default to 1 if not found
-
-	for i = 1, #tDivisor do
-		if tDivisor[i] == nDivisor then
-			nDivisorIndex = i;
-			break;
-		end
-	end
-
-	local nHardened = tonumber(sHardened) or 0;
-	local nAdjustedIndex = nDivisorIndex;
-
-	if nDivisor ~= 0.5 then
-		nAdjustedIndex = nDivisorIndex - nHardened;
-		if nHardened > 0 then
-			nAdjustedIndex = math.max(2, nAdjustedIndex); -- clamp to >= 1 divisor only when hardened
+	if bDiffuse then
+		if bExplosion then
+			nMaxDamage = 0;
 		else
-			nAdjustedIndex = math.max(1, nAdjustedIndex);
+			nMaxDamage = 1;
+			for _, dt in ipairs(tDamageTypes) do
+				local nMax = (dt == "imp" or dt == "pi-" or dt == "pi" or dt == "pi+" or dt == "pi++") and 1 or 2;
+				if nMax > nMaxDamage then
+					nMaxDamage = nMax;
+				end
+			end
 		end
 	end
 
-	nDivisor = tDivisor[nAdjustedIndex];
+	nDivisor = ActionDamage.applyHardened(nDivisor, sHardened);
 
-	if nDivisor ~= 0 then
-		nDR = math.floor((nDR + nDRModifier) / nDivisor);
-	else
+	if nDivisor == 0 then
 		nDR = 0;
+	else
+		nDR = math.floor((nDR + nDRModifier) / nDivisor);
 	end
 
-	local nInjury = nDamage - nDR;
-	if nInjury < 0 then
-		nInjury = 0;
-	end
-
+	local nInjury = math.max(0, nDamage - nDR);
 	nInjury = nInjury * nDamageMultiplier;
-	if nInjury > 0 and nInjury <= 1 then
-		nInjury = 1;
-	else 
-		nInjury = math.floor(nInjury);
-	end
+	nInjury = (nInjury > 0 and nInjury <= 1) and 1 or math.floor(nInjury);
 
-	if nInjury > 0 and StringManagerGURPS4e.containsAny({ "inc" }, sDamageType) then
+	if nInjury > 0 and bInc then
 		nInjury = nInjury + 1;
 	end
 
@@ -221,19 +126,18 @@ function updateInjury()
 		nInjury = nMaxDamage;
 	end
 
-	if nDivisor then
-		if nDivisor == 0 then
-			armordivisortext.setValue("(∞)");
-		elseif nDivisor == 0.5 then
-			armordivisortext.setValue("(½)");
-		elseif nDivisor == 1 then
-			armordivisortext.setValue("(none)");
-		else
-			armordivisortext.setValue(string.format("(%s)", nDivisor));
-		end
+	if not bNoKnockback and ((bCr and nDamage > 0) or (bCut and nInjury == 0)) then
+		local nKBST = math.max(3, (nST > 0 and nST or nHP));
+		local nKBDamage = bDoubleKnockback and (nDamage * 2) or nDamage;
+		nKnockback = math.floor(nKBDamage / (nKBST - 2));
 	end
 
+	setArmorDivisorText(nDivisor);
+
+	DB.setValue(node, "knockback", "number", nKnockback);
 	DB.setValue(node, "injury", "number", nInjury);
+
+	updateInjuryMessage();
 end
 
 function updateInjuryMessage()
@@ -243,60 +147,108 @@ function updateInjuryMessage()
 	end
 
 	local rActor = ActorManager.resolveActor(DB.getChild(node, "..."));
-	local nodeCT = ActorManager.getCTNode(rActor);
+	local nodeCT = rActor and ActorManager.getCTNode(rActor);
+	if not nodeCT then
+		return;
+	end
 
 	local nHP = DB.getValue(nodeCT, "attributes.hitpoints", 0);
 	local sDamageType = DB.getValue(node, "damagetype", "");
 	local nInjury = DB.getValue(node, "injury", 0);
+	local nKnockback = DB.getValue(node, "knockback", 0);
+	local sInjuryTolerance = injurytolerance.getValue();
 	local sHitLocation = hitlocation.getValue();
 
-	-- Output message
-	local sMessageText = buildInjuryMessage(sHitLocation, sDamageType, nInjury, nHP);
-	messagetext.setValue(sMessageText);
+	local bDiffuse = sInjuryTolerance == "Diffuse";
+	local bHomogeneous = sInjuryTolerance == "Homogeneous";
+	local isImpPiBurn = StringManagerGURPS4e.containsAny({ "imp", "pi-", "pi", "pi+", "pi++", "burn" }, sDamageType);
 
+	if bDiffuse or bHomogeneous then
+		if sHitLocation == "Skull" then
+			sHitLocation = "Face";
+		elseif sHitLocation == "Vitals" or sHitLocation == "Groin" then
+			sHitLocation = "Torso";
+		elseif bDiffuse and (sHitLocation == "Arm" or sHitLocation == "Leg" or sHitLocation == "Hand" or sHitLocation == "Foot") then
+			sHitLocation = "Torso";
+		elseif sHitLocation == "Eye" then
+			sHitLocation = "Eye Only";
+		end
+	elseif sHitLocation == "Vitals" and not isImpPiBurn then
+		sHitLocation = "Torso";
+	elseif sHitLocation == "Eye" and not isImpPiBurn then
+		sHitLocation = "Eye Only";
+	end
+
+	local sMessageText = buildInjuryMessage(sHitLocation, sDamageType, nInjury, nHP, nKnockback);
+	messagetext.setValue(sMessageText);
 	DB.setValue(node, "message", "string", sMessageText);
 end
 
-function buildInjuryMessage(sHitLocation, sDamageType, nInjury, nHP)
-	local sMessageText = "";
+function buildInjuryMessage(sHitLocation, sDamageType, nInjury, nHP, nKnockback)
+	local tMessage = {};
+	local tLimb = { Arm = true, Leg = true };
+	local tExtremity = { Hand = true, Foot = true };
+	local tSpecial = { Skull = true, Face = true, Eye = true, ["Eye Only"] = true, Vitals = true };
+
+	local function add(s)
+		tMessage[#tMessage + 1] = s;
+	end
+
+	local nMajorWound = math.floor(nHP / 2) + 1;
+	local nExtremityCripple = math.floor(nHP / 3) + 1;
+	local nEyeBlinding = math.floor(nHP / 10) + 1;
 
 	if sHitLocation == "Skull" then
-		sMessageText = sMessageText .. "Skull DR +2; ";
+		add("Skull DR +2");
 	end
 
 	if nInjury > 0 and StringManagerGURPS4e.containsAny({ "inc" }, sDamageType) then
-		sMessageText = sMessageText .. "+1 Incendiary damage; ";
+		add("+1 Incendiary damage");
 	end
 
-	if sHitLocation == "Arm" or sHitLocation == "Leg" then
-		if nInjury >= (math.floor(nHP / 2) + 1) then
-			sMessageText = sMessageText .. string.format("Major Wound; Crippled (%s); Knockdown; ", sHitLocation);
-		end
-	elseif sHitLocation == "Hand" or sHitLocation == "Foot" then
-		if nInjury >= (math.floor(nHP / 3) + 1) then
-			sMessageText = sMessageText .. string.format("Major Wound; Crippled (%s); Knockdown; ", sHitLocation);
-		end
-	elseif nInjury >= (math.floor(nHP / 2) + 1) then
+	if tLimb[sHitLocation] and nInjury >= nMajorWound then
+		add("Major Wound");
+		add(string.format("Crippled (%s)", sHitLocation));
+		add("Knockdown");
+
+	elseif tExtremity[sHitLocation] and nInjury >= nExtremityCripple then
+		add("Major Wound");
+		add(string.format("Crippled (%s)", sHitLocation));
+		add("Knockdown");
+
+	elseif nInjury >= nMajorWound then
+		add("Major Wound");
+
 		if sHitLocation == "Skull" then
-			sMessageText = sMessageText .. "Major Wound; -10 Knockdown; ";
+			add("-10 Knockdown");
 		elseif sHitLocation == "Eye" then
-			sMessageText = sMessageText .. "Major Wound; -10 Knockdown; Eye blinded; ";
+			add("-10 Knockdown");
+			add("Eye blinded");
 		elseif sHitLocation == "Face" or sHitLocation == "Vitals" then
-			sMessageText = sMessageText .. "Major Wound; -5 Knockdown; ";
+			add("-5 Knockdown");
+		elseif sHitLocation == "Eye Only" then
+			add("-5 Knockdown");
+			add("Eye blinded");
 		elseif sHitLocation == "Groin" then
-			sMessageText = sMessageText .. "Major Wound; -5 Knockdown (Males only); ";
+			add("-5 Knockdown (Males only)");
 		else
-			sMessageText = sMessageText .. "Major Wound; Knockdown; ";
+			add("Knockdown");
 		end
-	elseif sHitLocation == "Skull" or sHitLocation == "Face" or sHitLocation == "Eye" or sHitLocation == "Vitals" then
-		if nInjury >= (math.floor(nHP / 10) + 1) and sHitLocation == "Eye" then
-			sMessageText = sMessageText .. "Knockdown; Eye blinded; ";	
+
+	elseif tSpecial[sHitLocation] then
+		if (sHitLocation == "Eye" or sHitLocation == "Eye Only") and nInjury >= nEyeBlinding then
+			add("Knockdown");
+			add("Eye blinded");
 		elseif nInjury > 0 then
-			sMessageText = sMessageText .. "Knockdown; ";
+			add("Knockdown");
 		end
 	end
 
-	return sMessageText;
+	if nKnockback > 0 then
+		add(string.format("Knockback %s yards", nKnockback));
+	end
+
+	return #tMessage > 0 and (table.concat(tMessage, "; ") .. "; ") or "";
 end
 
 function applyDamage()

@@ -131,4 +131,7 @@
   <icon name="cond_GURPS4e_unready" file="graphics/token/gurps-cond-unready.png" />
   <icon name="cond_GURPS4e_reloading" file="graphics/token/gurps-cond-reloading.png" />
 
+  <icon name="effect_GURPS4e_aim" file="graphics/token/gurps-cond-aim.png" />
+  <icon name="effect_GURPS4e_generic" file="graphics/token/token_cond_generic.png" />
+
 </root>
