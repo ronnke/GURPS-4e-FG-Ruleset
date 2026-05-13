@@ -14,4 +14,6 @@
 - Add a way to populate the encumbrance fields based on the current strength of the character.
 - Fix holding control to roll in the box. Its not hiding the roll properly.
 - Add a tooltip description to indicate how SEC and SEC+ in the effects works
+- Check the doubling of the ApplyDamage when using non legacy CoreRPG
+- Fix the modifiers not applying correctly. nMod is being applied to roll when Gamesystem.Actions.bAddMod is false
 - Fix dropping items into combat tab dodgy.

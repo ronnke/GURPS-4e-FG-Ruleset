@@ -1,4 +1,4 @@
--- 
+﻿-- 
 -- Please see the license.html file included with this distribution for 
 -- attribution and copyright information.
 --
@@ -21,10 +21,10 @@
 function total(rRoll)
 	local nTotal = rRoll and rRoll.nTotal or 0;
 	
-	if GameSystem.actions[rRoll.sType] and GameSystem.actions[rRoll.sType].bAddMod then
-		nTotal = nTotal + rRoll.nMod;
+	if GameSystem.actions[rRoll.sType] and not GameSystem.actions[rRoll.sType].bAddMod then
+		nTotal = nTotal - rRoll.nMod;
 	end
-
+	
 	return nTotal;
 end
 
