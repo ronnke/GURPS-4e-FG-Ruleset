@@ -12,7 +12,6 @@
         <top />
         <right anchor="left" relation="relative" />
       </anchored>
-      <frame name="toolbar_30" />
       <state icon="tool_mapscale_30" color="55FFFFFF" tooltipres="image_tooltip_rangemodifier" />
       <state icon="tool_mapscale_30" color="CCFFFFFF" tooltipres="image_tooltip_rangemodifier" />
       <script>

@@ -14,3 +14,4 @@
 - Add a way to populate the encumbrance fields based on the current strength of the character.
 - Fix holding control to roll in the box. Its not hiding the roll properly.
 - Add a tooltip description to indicate how SEC and SEC+ in the effects works
+- Fix dropping items into combat tab dodgy.
