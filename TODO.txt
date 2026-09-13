@@ -17,3 +17,7 @@
 - Check the doubling of the ApplyDamage when using non legacy CoreRPG
 - Fix the modifiers not applying correctly. nMod is being applied to roll when Gamesystem.Actions.bAddMod is false
 - Fix dropping items into combat tab dodgy.
+- Add a Recaculate Points button to the character sheet.
+- Add PC/NPC autocalculate Thr Sw if the value is not set.
+- Add "roll default" button from the skill/abilities panel
+- Add "add to character" button to the skill/abilities panel
