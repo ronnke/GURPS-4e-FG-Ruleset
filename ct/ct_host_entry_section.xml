@@ -881,6 +881,7 @@
       </label>
       <simplestring name="damagetype">
         <anchored to="label_type" position="right" offset="5" width="70" height="20" />
+        <readonly/>
       </simplestring>
 
       <label name="label_hitlocation">
@@ -954,6 +955,7 @@
       </label>
       <simplestring name="armordivisortext">
         <anchored to="label_armordivisor" position="right" offset="5" width="40" height="20" />
+        <readonly/>
       </simplestring>
 
 
