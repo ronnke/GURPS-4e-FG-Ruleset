@@ -141,6 +141,7 @@ aDamageTypeData = {
 	"rad",
 	"sur",
 	"tox",
+	"con",
 };
 
 -- Hit Locations 
@@ -207,6 +208,7 @@ aWoundsData = {
 
     ["pi-"] = {
         Skull = { ["None"] = 4, ["Unliving"] = 4, ["Homogeneous"] = 0.1 },
+        Eye = { ["None"] = 4, ["Unliving"] = 4, ["Homogeneous"] = 0.1 },
         Vitals = { ["None"] = 3, ["Unliving"] = 3, ["Homogeneous"] = 0.1 },
         Other = { ["None"] = 0.5, ["Unliving"] = 0.2, ["Homogeneous"] = 0.1 },
     },
@@ -220,6 +222,7 @@ aWoundsData = {
 
     ["pi+"] = {
         Skull = { ["None"] = 4, ["Unliving"] = 4, ["Homogeneous"] = (1 / 3) },
+        Eye = { ["None"] = 4, ["Unliving"] = 4, ["Homogeneous"] = (1 / 3) },
         Vitals = { ["None"] = 3, ["Unliving"] = 3, ["Homogeneous"] = (1 / 3) },
         Arm = { ["None"] = 1, ["Unliving"] = 0.5, ["Homogeneous"] = (1 / 3) },
         Leg = { ["None"] = 1, ["Unliving"] = 0.5, ["Homogeneous"] = (1 / 3) },
@@ -230,6 +233,7 @@ aWoundsData = {
 
     ["pi++"] = {
         Skull = { ["None"] = 4, ["Unliving"] = 4, ["Homogeneous"] = 0.5 },
+        Eye = { ["None"] = 4, ["Unliving"] = 4, ["Homogeneous"] = 0.5 },
         Vitals = { ["None"] = 3, ["Unliving"] = 3, ["Homogeneous"] = 0.5 },
         Arm = { ["None"] = 1, ["Unliving"] = 1, ["Homogeneous"] = 0.5 },
         Leg = { ["None"] = 1, ["Unliving"] = 1, ["Homogeneous"] = 0.5 },
@@ -239,10 +243,6 @@ aWoundsData = {
     },
 
     ["tox"] = {
-        All = { ["None"] = 1, ["Unliving"] = 1, ["Homogeneous"] = 1 },
-    },
-
-    ["fat"] = {
         All = { ["None"] = 1, ["Unliving"] = 1, ["Homogeneous"] = 1 },
     },
 }

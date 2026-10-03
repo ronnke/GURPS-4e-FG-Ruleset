@@ -57,7 +57,7 @@ function updateInjury()
 	local bDiffuse = sInjuryTolerance == "Diffuse";
 	local bHomogeneous = sInjuryTolerance == "Homogeneous";
 
-	local nDamageMultiplier = 1;
+	local nDamageMultiplier = nil;
 	local nMaxDamage = getLocationMaxDamage(sHitLocation, nHP);
 	local nDRModifier = (sHitLocation == "Skull" and not bDiffuse and not bHomogeneous) and 2 or 0;
 	local nKnockback = 0;
@@ -86,11 +86,14 @@ function updateInjury()
 		if dt == "nkb" then bNoKnockback = true end
 		if dt == "dkb" then bDoubleKnockback = true end
 
-		local nDM = ActionDamage.getWoundModifier(dt, sHitLocation, sInjuryTolerance, tOptions);
-		if nDM > nDamageMultiplier then
-			nDamageMultiplier = nDM;
+		if DataCommon.aWoundsData[dt] then
+			local nDM = ActionDamage.getWoundModifier(dt, sHitLocation, sInjuryTolerance, tOptions);
+			if not nDamageMultiplier or nDM > nDamageMultiplier then
+				nDamageMultiplier = nDM;
+			end
 		end
 	end
+	nDamageMultiplier = nDamageMultiplier or 1;
 
 	if bDiffuse then
 		if bExplosion then
@@ -118,8 +121,11 @@ function updateInjury()
 	nInjury = nInjury * nDamageMultiplier;
 	nInjury = (nInjury > 0 and nInjury <= 1) and 1 or math.floor(nInjury);
 
-	if nInjury > 0 and bInc then
-		nInjury = nInjury + 1;
+	if bInc then
+		local nIncMultiplier = ActionDamage.getWoundModifier("burn", sHitLocation, sInjuryTolerance, tOptions);
+		local nIncInjury = math.max(0, 1 - nDR) * nIncMultiplier;
+		nIncInjury = (nIncInjury > 0 and nIncInjury <= 1) and 1 or math.floor(nIncInjury);
+		nInjury = nInjury + nIncInjury;
 	end
 
 	if nMaxDamage ~= 0 and nInjury >= nMaxDamage then
@@ -224,7 +230,16 @@ function buildInjuryMessage(sHitLocation, sDamageType, nInjury, nHP, nKnockback)
 		elseif sHitLocation == "Eye" then
 			add("-10 Knockdown");
 			add("Eye blinded");
-		elseif sHitLocation == "Face" or sHitLocation == "Vitals" then
+		elseif sHitLocation == "Face" then
+			add("-5 Knockdown");
+			if StringManagerGURPS4e.containsAny({ "cor" }, sDamageType) then
+				if nInjury > nHP then
+					add("Both eyes blinded");
+				else
+					add("One eye blinded");
+				end
+			end
+		elseif sHitLocation == "Vitals" then
 			add("-5 Knockdown");
 		elseif sHitLocation == "Eye Only" then
 			add("-5 Knockdown");
@@ -262,7 +277,7 @@ function applyDamage()
 	local nInjury = DB.getValue(node, "injury", 0);
 	local sDamageType = DB.getValue(node, "damagetype", "");
 	local sMessage = DB.getValue(node, "message", "");
-
+	
     local msgOOB = {};
     msgOOB.type = ActionDamage.OOB_MSGTYPE_APPLYINJ;
     msgOOB.sSourceNode = rSourceNode;

@@ -38,11 +38,29 @@ function handleApplyInjury(msgOOB)
 	end
 
     if Session.IsHost then
-        local sType = StringManagerGURPS4e.containsAny({ "fat" }, msgOOB.sDamageType) and "FP" or "HP";
         local nInjury = tonumber(msgOOB.nInjury) or 0;
         local sMessage = msgOOB.sMessage or "";
 
-        ActionDamage.applyInjury(rSource, rTarget, sType, nInjury, sMessage);
+        local bApplyHP = false;
+        for _, dt in ipairs(StringManagerGURPS4e.splitDamageTypes(msgOOB.sDamageType)) do
+            if dt ~= "fat" and dt ~= "con" then
+                bApplyHP = true
+                break
+            end
+        end
+
+        local bApplyFP = StringManagerGURPS4e.containsAny({ "fat" }, msgOOB.sDamageType)
+        local bApplyCON = StringManagerGURPS4e.containsAny({ "con" }, msgOOB.sDamageType)
+
+        if bApplyHP then 
+            ActionDamage.applyInjury(rSource, rTarget, "HP", nInjury, sMessage);
+        end
+        if bApplyFP then 
+            ActionDamage.applyInjury(rSource, rTarget, "FP", nInjury, sMessage);
+        end
+        if bApplyCON then 
+            ActionDamage.applyInjury(rSource, rTarget, "CON", nInjury, "");
+        end
     end
 end
 
@@ -173,38 +191,38 @@ function applyInjury(rSource, rTarget, sType, nInjury, sMessage)
 	end
 
     local nHP, nFP;
-	if ActorManager.isPC(rTarget) then
+    if ActorManager.isPC(rTarget) then
         nHP = DB.getValue(nodeTarget, "attributes.injury", 0) + (sType == "HP" and nInjury or 0);
         nFP = DB.getValue(nodeTarget, "attributes.fatigue", 0) + (sType == "FP" and nInjury or 0);
         DB.setValue(nodeTarget, "attributes.injury", "number", (nHP < 0 and 0 or nHP));
         DB.setValue(nodeTarget, "attributes.fatigue", "number", (nFP < 0 and 0 or nFP));
-	elseif ActorManager.isRecordType(rTarget, "npc") then
+    elseif ActorManager.isRecordType(rTarget, "npc") then
         nHP = DB.getValue(nodeTarget, "injury", 0) + (sType == "HP" and nInjury or 0);
         nFP = DB.getValue(nodeTarget, "fatigue", 0) + (sType == "FP" and nInjury or 0);
         DB.setValue(nodeTarget, "injury", "number", (nHP < 0 and 0 or nHP));
         DB.setValue(nodeTarget, "fatigue", "number", (nFP < 0 and 0 or nFP));
-	elseif ActorManager.isRecordType(rTarget, "vehicle") then
+    elseif ActorManager.isRecordType(rTarget, "vehicle") then
         -- TODO: Vehicle Damage
-	else
-		return;
+    else
+        return;
     end
 
     local rMessageGM = { font = "sheetlabel", icon = "action_damage" };
     local rMessagePlayer = { font = "sheetlabel", icon = "action_damage" };
 
-    if sType == "HP" then
-	    rMessageGM.text = string.format("[INJURY] %d HP applied to: %s", nInjury, ActorManager.resolveDisplayName(rTarget));
+    if sType == "HP" or sType == "FP" then
+	    rMessageGM.text = string.format("[INJURY] %d %s applied to: %s", nInjury, sType, ActorManager.resolveDisplayName(rTarget));
+        rMessagePlayer.text = string.format("[INJURY] applied to: %s", ActorManager.resolveDisplayName(rTarget));
         if sMessage and sMessage ~= "" then
             rMessageGM.text = rMessageGM.text .. string.format("\n( %s)",sMessage);
         end
-    elseif sType == "FP" then
-	    rMessageGM.text = string.format("[INJURY] %d FP applied to: %s", nInjury, ActorManager.resolveDisplayName(rTarget));
+    elseif sType == "CON" then
+	    rMessageGM.text = string.format("[CONTROL POINTS] %d CP acquired on: %s", nInjury, ActorManager.resolveDisplayName(rTarget));
+        rMessagePlayer.text = string.format("[CONTROL POINTS] acquired on: %s", ActorManager.resolveDisplayName(rTarget));
         if sMessage and sMessage ~= "" then
             rMessageGM.text = rMessageGM.text .. string.format("\n( %s)",sMessage);
         end
     end
-
-    rMessagePlayer.text = string.format("[INJURY] applied to: %s", ActorManager.resolveDisplayName(rTarget));
 
     ActionsManagerGURPS4e.messageDamageResult(rSource, rTarget, rMessageGM, rMessagePlayer);
 end
@@ -575,7 +593,9 @@ function getWoundModifier( sDamageType, sHitLocation, sInjuryTolerance, options 
     local noVitals = options.noVitals == true
 
     if noBrain and sHitLocation == "Skull" then
-        hitLocation = "Other"
+        sHitLocation = "Other"
+    elseif noBrain and sHitLocation == "Eye" then
+        sHitLocation = "Face";
     end
 
     if noHead and (sHitLocation == "Skull" or sHitLocation == "Face") then
