@@ -21,3 +21,4 @@
 - Add PC/NPC autocalculate Thr Sw if the value is not set.
 - Add "roll default" button from the skill/abilities panel
 - Add "add to character" button to the skill/abilities panel
+- Add Resource tracking to the NPC sheet.
